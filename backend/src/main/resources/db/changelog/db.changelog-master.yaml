@@ -1,0 +1,21 @@
+databaseChangeLog:
+  # ====================================================================================================================
+  # 0.1.0 database structure
+  - include:
+      file: /db/changelog/0.1.0/structure/table-bitcoin_transaction_outputs.xml
+  - include:
+      file: /db/changelog/0.1.0/structure/table-users.xml
+  - include:
+      file: /db/changelog/0.1.0/structure/table-universe_updates.xml
+  - include:
+      file: /db/changelog/0.1.0/structure/table-assets.xml
+
+  # ====================================================================================================================
+  # 0.1.0 database data
+  - include:
+      file: /db/changelog/0.1.0/data/data-users.xml
+
+  # ====================================================================================================================
+  # 0.1.0 database specific
+  - include:
+      file: /db/changelog/0.1.0/specific/postgresql.xml

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- =========================================================================================================== -->
+    <!-- Project information -->
+    <groupId>org.royllo.explorer</groupId>
+    <artifactId>explorer</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>Taro Explorer</name>
+    <description>Taro explorer allows you to search for Taro assets declared on the Bitcoin blockchain</description>
+    <packaging>pom</packaging>
+    <url>https://github.com/royllo/explorer</url>
+    <licenses>
+        <license>
+            <name>GNU General Public License v3.0</name>
+            <url>https://github.com/royllo/taue/blob/development/LICENSE</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <!-- =========================================================================================================== -->
+
+    <!-- =========================================================================================================== -->
+    <!-- Developers -->
+    <developers>
+        <developer>
+            <id>straumat</id>
+            <email>stephane.traumat@gmail.com</email>
+            <name>Stéphane Traumat</name>
+            <url>https://github.com/straumat</url>
+        </developer>
+    </developers>
+    <!-- =========================================================================================================== -->
+
+    <!-- =========================================================================================================== -->
+    <!-- Source Code Management -->
+    <scm>
+        <url>https://github.com/royllo/explorer</url>
+        <connection>scm:git:git://github.com/explorer/taue.git</connection>
+        <developerConnection>scm:git:git@github.com:royllo/explorer.git</developerConnection>
+    </scm>
+    <!-- =========================================================================================================== -->
+
+    <!-- =========================================================================================================== -->
+    <!-- Issues -->
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/royllo/explorer/issues</url>
+    </issueManagement>
+    <!-- =========================================================================================================== -->
+
+    <!-- =========================================================================================================== -->
+    <!-- Project configuration -->
+    <properties>
+        <!-- ======================================================================================================= -->
+        <!-- Java build configuration -->
+        <java.version>17</java.version>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- ======================================================================================================= -->
+        <!-- Project libraries -->
+        <spring.version>2.7.4</spring.version>
+        <reactor-core.version>3.4.23</reactor-core.version>
+        <reactor-netty.version>1.0.23</reactor-netty.version>
+
+        <graphql-dgs-platform-dependencies.version>5.2.1</graphql-dgs-platform-dependencies.version>
+
+        <liquibase.version>4.16.1</liquibase.version>
+        <jdbc.driver.hsqldb.version>2.7.0</jdbc.driver.hsqldb.version>
+        <jdbc.driver.postgresql.version>42.5.0</jdbc.driver.postgresql.version>
+
+        <lombok.version>1.18.24</lombok.version>
+        <lombok.mapstruct.version>0.2.0</lombok.mapstruct.version>
+        <mapstruct.version>1.5.2.Final</mapstruct.version>
+
+        <!-- ======================================================================================================= -->
+        <!-- Test libraries -->
+        <testcontainers.version>1.17.3</testcontainers.version>
+        <mockito-core.version>4.8.0</mockito-core.version>
+
+        <!-- ======================================================================================================= -->
+        <!-- Maven plugins -->
+        <maven.gitflow.version>1.18.0</maven.gitflow.version>
+        <maven.checkstyle.plugin.version>3.2.0</maven.checkstyle.plugin.version>
+        <maven.puppycrawl.checkstyle.version>10.3.3</maven.puppycrawl.checkstyle.version>
+        <maven.compiler.plugin.version>3.10.1</maven.compiler.plugin.version>
+        <maven.spring-boot.version>2.7.4</maven.spring-boot.version>
+    </properties>
+    <!-- =========================================================================================================== -->
+
+    <!-- =========================================================================================================== -->
+    <!-- Modules -->
+    <modules>
+        <module>backend</module>
+    </modules>
+    <!-- =========================================================================================================== -->
+
+    <!-- =========================================================================================================== -->
+    <!-- Build configuration -->
+    <build>
+        <!-- Plugins -->
+        <plugins>
+            <!-- Release plugin -->
+            <plugin>
+                <groupId>com.amashchenko.maven.plugin</groupId>
+                <artifactId>gitflow-maven-plugin</artifactId>
+                <version>${maven.gitflow.version}</version>
+                <configuration>
+                    <gitFlowConfig>
+                        <developmentBranch>development</developmentBranch>
+                    </gitFlowConfig>
+                    <commitMessages>
+                        <featureStartMessage>Update versions for feature branch</featureStartMessage>
+                        <featureFinishMessage>Update versions for development branch</featureFinishMessage>
+                        <hotfixStartMessage>Update versions for hotfix</hotfixStartMessage>
+                        <hotfixFinishMessage>Update for next development version</hotfixFinishMessage>
+                        <releaseStartMessage>Update versions for release</releaseStartMessage>
+                        <releaseFinishMessage>Update for next development version</releaseFinishMessage>
+                        <tagHotfixMessage>Tag hotfix</tagHotfixMessage>
+                        <tagReleaseMessage>Tag release</tagReleaseMessage>
+                    </commitMessages>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <!-- =========================================================================================================== -->
+
+    <!-- =========================================================================================================== -->
+    <!-- Spring boot -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.4</version>
+        <relativePath/>
+    </parent>
+    <!-- =========================================================================================================== -->
+
+</project>

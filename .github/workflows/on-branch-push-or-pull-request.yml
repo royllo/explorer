@@ -1,0 +1,27 @@
+name: Push on branch - Build & test
+
+on: [ push, pull_request ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ================================================================================================================
+      - name: Retrieve the sources
+        uses: actions/checkout@v3
+
+      # ================================================================================================================
+      - name: JDK 17 Setup
+        uses: actions/setup-java@v3.4.0
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # ================================================================================================================
+      - name: Run core & issues tests
+        run: mvn clean test
+
+      # ================================================================================================================
+      - name: Run integration tests
+        run: mvn clean test -P integration

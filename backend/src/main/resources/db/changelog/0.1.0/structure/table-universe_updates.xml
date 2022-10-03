@@ -1,0 +1,67 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="0.1.0-universe_updates">
+
+        <createTable tableName="UNIVERSE_UPDATES"
+                     remarks="Universe update requests">
+
+            <!-- Unique identifier -->
+            <column name="ID" type="BIGINT"
+                    remarks="Unique identifier">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_UNIVERSE_UPDATES"/>
+            </column>
+
+            <!-- Table fields -->
+            <column name="FK_CREATOR_USER_ID" type="BIGINT"
+                    remarks="The user who created this universe update"/>
+
+            <column name="STATUS" type="VARCHAR(255)"
+                    remarks="Update request status"/>
+
+            <column name="TXID" type="VARCHAR(255)"
+                    remarks="Transaction id"/>
+            <column name="VOUT" type="INTEGER"
+                    remarks="Output index (starts at 0)"/>
+
+            <column name="FAILURE_STATUS" type="VARCHAR(255)"
+                    remarks="Indicates in which status the error occurred"/>
+            <column name="FAILURE_MESSAGE" type="VARCHAR(255)"
+                    remarks="Message explaining why the request failed"/>
+
+            <!-- Technical fields -->
+            <column name="CREATED_ON" type="TIMESTAMP WITH TIME ZONE"
+                    remarks="Data created on"/>
+            <column name="UPDATED_ON" type="TIMESTAMP WITH TIME ZONE"
+                    remarks="Data updated on"/>
+
+        </createTable>
+
+        <!-- Auto increment on the unique identifier -->
+        <addAutoIncrement tableName="UNIVERSE_UPDATES"
+                          columnName="ID"
+                          columnDataType="BIGINT"
+                          incrementBy="1"
+                          startWith="1"/>
+
+        <!-- Update creator -->
+        <addForeignKeyConstraint constraintName="FK_CREATOR_USER_ID_TO_USERS_USER_ID"
+                                 baseTableName="UNIVERSE_UPDATES"
+                                 baseColumnNames="FK_CREATOR_USER_ID"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedTableName="USERS"
+                                 referencedColumnNames="ID"
+                                 validate="true"/>
+
+        <!-- Index on STATUS -->
+        <createIndex indexName="IDX_UNIVERSE_UPDATES_STATUS"
+                     tableName="UNIVERSE_UPDATES">
+            <column name="STATUS"/>
+        </createIndex>
+
+    </changeSet>
+</databaseChangeLog>
