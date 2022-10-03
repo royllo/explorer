@@ -68,7 +68,7 @@
         <reactor-core.version>3.4.23</reactor-core.version>
         <reactor-netty.version>1.0.23</reactor-netty.version>
 
-        <graphql-dgs-platform-dependencies.version>5.2.1</graphql-dgs-platform-dependencies.version>
+        <graphql-dgs-platform-dependencies.version>5.2.4</graphql-dgs-platform-dependencies.version>
 
         <liquibase.version>4.16.1</liquibase.version>
         <jdbc.driver.hsqldb.version>2.7.0</jdbc.driver.hsqldb.version>
