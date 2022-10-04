@@ -1,0 +1,7 @@
+"User - Application user"
+type User {
+    "User ID"
+    id: ID
+    "Username"
+    username: String
+}
