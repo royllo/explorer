@@ -1,6 +1,6 @@
-"User - Application user"
+"Application user"
 type User {
-    "User ID"
+    "User ID in database"
     id: ID
     "Username"
     username: String

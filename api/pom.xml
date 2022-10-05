@@ -88,6 +88,10 @@
             <artifactId>graphql-dgs-subscriptions-websockets-autoconfigure</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.netflix.graphql.dgs</groupId>
+            <artifactId>graphql-dgs-extended-scalars</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-joda</artifactId>
         </dependency>
@@ -221,11 +225,13 @@
                 </executions>
                 <configuration>
                     <typeMapping>
-                        <BigInteger>java.math.BigInteger</BigInteger>
                         <Date>java.time.ZonedDateTime</Date>
+                        <BigInteger>java.math.BigInteger</BigInteger>
+                        <BigDecimal>java.math.BigDecimal</BigDecimal>
                     </typeMapping>
                     <schemaPaths>
                         <param>src/main/resources/schema/query.graphqls</param>
+                        <param>src/main/resources/schema/transactionOutput.graphqls</param>
                         <param>src/main/resources/schema/user.graphqls</param>
                     </schemaPaths>
                     <packageName>org.royllo.explorer.api.client.generated</packageName>

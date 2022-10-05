@@ -39,6 +39,8 @@ public class UserDataFetcherTest {
         assertNotNull(user);
         assertEquals("1", user.getId());
         assertEquals("straumat", user.getUsername());
+
+        // TODO test error found if user not found
     }
 
 }

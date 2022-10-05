@@ -1,7 +1,17 @@
 type Query {
 
     # ==================================================================================================================
+    # Bitcoin information API
+    "Get a bitcoin transaction output by it's txId and vOut"
+    transactionOutput(txId: String!, vout: Int!): TransactionOutput
+
+    # ==================================================================================================================
     # User API
-    "Get user by username."
+    "Get user by username"
     user(username: String!): User
+
 }
+
+scalar DateTime
+scalar BigInteger
+scalar BigDecimal
