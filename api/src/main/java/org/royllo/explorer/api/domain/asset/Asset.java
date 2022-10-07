@@ -41,13 +41,13 @@ public class Asset extends BaseDomain {
     /** The first outpoint of the transaction that created the asset (txid:vout). */
     @NotNull(message = "Bitcoin transaction output is required")
     @ManyToOne(fetch = EAGER)
-    @JoinColumn(name = "FK_BITCOIN_TRANSACTION_OUTPUT_ID", updatable = false)
+    @JoinColumn(name = "FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT", updatable = false)
     private BitcoinTransactionOutput genesisPoint;
 
     /** Asset creator. */
     @NotNull(message = "Asset creator is required")
     @ManyToOne(fetch = EAGER)
-    @JoinColumn(name = "FK_USER_ID", nullable = false)
+    @JoinColumn(name = "FK_USER_CREATOR", nullable = false)
     private User creator;
 
     /** The name of the asset. */

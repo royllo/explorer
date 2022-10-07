@@ -14,9 +14,9 @@
             </column>
 
             <!-- Table fields -->
-            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ID" type="BIGINT"
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" type="BIGINT"
                     remarks="The first outpoint of the transaction that created the asset (txid:vout)"/>
-            <column name="FK_USER_ID" type="BIGINT"
+            <column name="FK_USER_CREATOR" type="BIGINT"
                     remarks="Asset creator"/>
             <column name="NAME" type="VARCHAR(255)"
                     remarks="The name of the asset"/>
@@ -46,6 +46,30 @@
         <addUniqueConstraint columnNames="ASSET_ID"
                              constraintName="ASSETS_UNIQUE_ASSET_ID"
                              tableName="ASSETS"/>
+
+        <!-- Foreign key FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT > BITCOIN_TRANSACTION_OUTPUT.ID -->
+        <addForeignKeyConstraint constraintName="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT_BITCOIN_TRANSACTION_OUTPUTS_ID"
+                                 baseColumnNames="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT"
+                                 baseTableName="ASSETS"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedTableName="BITCOIN_TRANSACTION_OUTPUTS"
+                                 referencedColumnNames="ID"
+                                 validate="true"/>
+
+        <!-- Foreign key FK_USER_CREATOR > USERS.ID -->
+        <addForeignKeyConstraint constraintName="FK_USER_CREATOR_USERS_ID"
+                                 baseColumnNames="FK_USER_CREATOR"
+                                 baseTableName="ASSETS"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedTableName="USERS"
+                                 referencedColumnNames="ID"
+                                 validate="true"/>
 
     </changeSet>
 </databaseChangeLog>

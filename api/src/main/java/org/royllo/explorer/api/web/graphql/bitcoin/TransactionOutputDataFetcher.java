@@ -26,7 +26,7 @@ public class TransactionOutputDataFetcher {
      */
     @DgsQuery
     public final BitcoinTransactionOutputDTO bitcoinTransactionOutput(final @InputArgument String txId,
-                                                               final @InputArgument int vout) {
+                                                                      final @InputArgument int vout) {
         return bitcoinService.getBitcoinTransactionOutput(txId, vout).orElse(null);
     }
 
