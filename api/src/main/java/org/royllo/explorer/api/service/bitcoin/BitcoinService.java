@@ -1,6 +1,6 @@
 package org.royllo.explorer.api.service.bitcoin;
 
-import org.royllo.explorer.api.dto.bitcoin.TransactionOutputDTO;
+import org.royllo.explorer.api.dto.bitcoin.BitcoinTransactionOutputDTO;
 
 import java.util.Optional;
 
@@ -16,6 +16,6 @@ public interface BitcoinService {
      * @param vOut output index (starts at 0)
      * @return transaction details
      */
-    Optional<TransactionOutputDTO> getBitcoinTransactionOutput(String txId, int vOut);
+    Optional<BitcoinTransactionOutputDTO> getBitcoinTransactionOutput(String txId, int vOut);
 
 }

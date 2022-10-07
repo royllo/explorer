@@ -1,6 +1,6 @@
 package org.royllo.explorer.api.repository.bitcoin;
 
-import org.royllo.explorer.api.domain.bitcoin.TransactionOutput;
+import org.royllo.explorer.api.domain.bitcoin.BitcoinTransactionOutput;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +11,7 @@ import java.util.Optional;
  * Bitcoin transaction output repository.
  */
 @Repository
-public interface TransactionOutputRepository extends JpaRepository<TransactionOutput, Long> {
+public interface BitcoinTransactionOutputRepository extends JpaRepository<BitcoinTransactionOutput, Long> {
 
     /**
      * Find a transaction out by its txid and index.
@@ -20,7 +20,7 @@ public interface TransactionOutputRepository extends JpaRepository<TransactionOu
      * @param vout output index (starts at 0)
      * @return Bitcoin transaction output
      */
-    Optional<TransactionOutput> findByTxIdAndVout(String txId, int vout);
+    Optional<BitcoinTransactionOutput> findByTxIdAndVout(String txId, int vout);
 
     /**
      * Find transaction outputs for the corresponding txid.
@@ -28,6 +28,6 @@ public interface TransactionOutputRepository extends JpaRepository<TransactionOu
      * @param txId transaction id
      * @return Bitcoin transaction output
      */
-    List<TransactionOutput> findByTxId(String txId);
+    List<BitcoinTransactionOutput> findByTxId(String txId);
 
 }

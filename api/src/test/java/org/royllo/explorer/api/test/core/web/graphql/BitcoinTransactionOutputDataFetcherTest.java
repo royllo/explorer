@@ -6,9 +6,9 @@ import com.netflix.graphql.dgs.client.codegen.GraphQLQueryRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.api.client.generated.DgsConstants;
-import org.royllo.explorer.api.client.generated.client.TransactionOutputGraphQLQuery;
-import org.royllo.explorer.api.client.generated.client.TransactionOutputProjectionRoot;
-import org.royllo.explorer.api.client.generated.types.TransactionOutput;
+import org.royllo.explorer.api.client.generated.client.BitcoinTransactionOutputGraphQLQuery;
+import org.royllo.explorer.api.client.generated.client.BitcoinTransactionOutputProjectionRoot;
+import org.royllo.explorer.api.client.generated.types.BitcoinTransactionOutput;
 import org.royllo.explorer.api.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,18 +20,18 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest
-@DisplayName("UserDataFetcher tests")
-public class TransactionOutputDataFetcherTest extends BaseTest {
+@DisplayName("BitcoinTransactionOutput tests")
+public class BitcoinTransactionOutputDataFetcherTest extends BaseTest {
 
     @Autowired
     DgsQueryExecutor dgsQueryExecutor;
 
     @Test
-    @DisplayName("Get transaction output by txId and vOut")
-    public void getTransactionOutputByTxIdAndVout() {
+    @DisplayName("Get bitcoin transaction output by txId and vOut")
+    public void getBitcoinTransactionOutputByTxIdAndVout() {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                TransactionOutputGraphQLQuery.newRequest().txId(BITCOIN_TRANSACTION_1_TXID).vout(0).build(),
-                new TransactionOutputProjectionRoot()
+                BitcoinTransactionOutputGraphQLQuery.newRequest().txId(BITCOIN_TRANSACTION_1_TXID).vout(0).build(),
+                new BitcoinTransactionOutputProjectionRoot()
                         .id()
                         .blockHeight()
                         .txId()
@@ -43,9 +43,9 @@ public class TransactionOutputDataFetcherTest extends BaseTest {
                         .value()
                 );
 
-        TransactionOutput transactionOutput = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+        BitcoinTransactionOutput transactionOutput = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 graphQLQueryRequest.serialize(),
-                "data." + DgsConstants.QUERY.TransactionOutput,
+                "data." + DgsConstants.QUERY.BitcoinTransactionOutput,
                 new TypeRef<>() {
                 });
 

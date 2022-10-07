@@ -1,11 +1,11 @@
 package org.royllo.explorer.api.service.bitcoin;
 
 import lombok.RequiredArgsConstructor;
-import org.royllo.explorer.api.domain.bitcoin.TransactionOutput;
-import org.royllo.explorer.api.dto.bitcoin.TransactionOutputDTO;
+import org.royllo.explorer.api.domain.bitcoin.BitcoinTransactionOutput;
+import org.royllo.explorer.api.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.api.provider.mempool.GetTransactionResponse;
 import org.royllo.explorer.api.provider.mempool.MempoolTransactionService;
-import org.royllo.explorer.api.repository.bitcoin.TransactionOutputRepository;
+import org.royllo.explorer.api.repository.bitcoin.BitcoinTransactionOutputRepository;
 import org.royllo.explorer.api.util.base.BaseService;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -22,24 +22,24 @@ import java.util.Optional;
 public class BitcoinServiceImplementation extends BaseService implements BitcoinService {
 
     /** Bitcoin transaction output repository. */
-    private final TransactionOutputRepository transactionOutputRepository;
+    private final BitcoinTransactionOutputRepository bitcoinTransactionOutputRepository;
 
     /** Mempool transaction service. */
     private final MempoolTransactionService mempoolTransactionService;
 
     @Override
-    public Optional<TransactionOutputDTO> getBitcoinTransactionOutput(final String txId, final int vOut) {
+    public Optional<BitcoinTransactionOutputDTO> getBitcoinTransactionOutput(final String txId, final int vOut) {
 
         // =============================================================================================================
         // We check if we have the transaction in our database.
         // We retrieve the transaction outputs of the corresponding txId.
-        List<TransactionOutput> transactionOutputs = transactionOutputRepository.findByTxId(txId);
-        if (!transactionOutputs.isEmpty()) {
+        List<BitcoinTransactionOutput> bitcoinTransactionOutputs = bitcoinTransactionOutputRepository.findByTxId(txId);
+        if (!bitcoinTransactionOutputs.isEmpty()) {
             // The txid is in our database so now, we search for the output asked (vOut):
             // - If found, we return it.
             // - If NOT found, the output don't exist and will never exist, so we return null.
             logger.debug("The transaction {} is already in our database", txId);
-            final Optional<TransactionOutputDTO> output = transactionOutputs.stream()
+            final Optional<BitcoinTransactionOutputDTO> output = bitcoinTransactionOutputs.stream()
                     .filter(bto -> bto.getVout() == vOut)
                     .map(BITCOIN_MAPPER::mapToBitcoinTransactionOutputDTO)
                     .findFirst();
@@ -74,8 +74,8 @@ public class BitcoinServiceImplementation extends BaseService implements Bitcoin
                 // Now, we save it in database and return it.
                 logger.debug("The transaction and it's output {}/{} is in the blockchain, we save it", txId, vOut);
                 GetTransactionResponse.VOut output = (GetTransactionResponse.VOut) transaction.getVout().toArray()[vOut];
-                final TransactionOutput bto = BITCOIN_MAPPER.mapToBitcoinTransactionOutput(
-                    TransactionOutputDTO.builder()
+                final BitcoinTransactionOutput bto = BITCOIN_MAPPER.mapToBitcoinTransactionOutput(
+                    BitcoinTransactionOutputDTO.builder()
                         .blockHeight(transaction.getStatus().getBlockHeight())
                         .txId(txId)
                         .vout(vOut)
@@ -85,7 +85,7 @@ public class BitcoinServiceImplementation extends BaseService implements Bitcoin
                         .scriptPubKeyAddress(output.getScriptPubKeyAddress())
                         .value(output.getValue())
                         .build());
-                return Optional.of(BITCOIN_MAPPER.mapToBitcoinTransactionOutputDTO(transactionOutputRepository.save(bto)));
+                return Optional.of(BITCOIN_MAPPER.mapToBitcoinTransactionOutputDTO(bitcoinTransactionOutputRepository.save(bto)));
             }
         }
     }

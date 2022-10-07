@@ -2,7 +2,7 @@ package org.royllo.explorer.api.test.core.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.royllo.explorer.api.dto.bitcoin.TransactionOutputDTO;
+import org.royllo.explorer.api.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.api.service.bitcoin.BitcoinService;
 import org.royllo.explorer.api.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class BitcoinServiceTest extends BaseTest {
     @Test
     @DisplayName("getBitcoinTransactionOutput()")
     public void getBitcoinTransactionOutputTest() {
-        Optional<TransactionOutputDTO> bto;
+        Optional<BitcoinTransactionOutputDTO> bto;
 
         // =============================================================================================================
         // Getting a transaction output already in our database.

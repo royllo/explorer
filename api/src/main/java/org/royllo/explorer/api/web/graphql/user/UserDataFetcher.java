@@ -24,7 +24,7 @@ public class UserDataFetcher {
      * @return user if found or null
      */
     @DgsQuery
-    public final UserDTO user(final @InputArgument String username) {
+    public final UserDTO userByUsername(final @InputArgument String username) {
         return userService.getUserByUsername(username).orElse(null);
     }
 

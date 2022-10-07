@@ -25,7 +25,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "BITCOIN_TRANSACTION_OUTPUTS")
-public class TransactionOutput extends BaseDomain {
+public class BitcoinTransactionOutput extends BaseDomain {
 
     /** Unique identifier. */
     @Id

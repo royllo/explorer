@@ -1,5 +1,5 @@
 "Bitcoin transaction output"
-type TransactionOutput {
+type BitcoinTransactionOutput {
     "Bitcoin transaction output ID in database"
     id: ID
     "Block height"

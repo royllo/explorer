@@ -4,7 +4,7 @@ import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
 import lombok.RequiredArgsConstructor;
-import org.royllo.explorer.api.dto.bitcoin.TransactionOutputDTO;
+import org.royllo.explorer.api.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.api.service.bitcoin.BitcoinService;
 
 /**
@@ -25,8 +25,8 @@ public class TransactionOutputDataFetcher {
      * @return transaction output
      */
     @DgsQuery
-    public final TransactionOutputDTO transactionOutput(final @InputArgument String txId,
-                                                        final @InputArgument int vout) {
+    public final BitcoinTransactionOutputDTO bitcoinTransactionOutput(final @InputArgument String txId,
+                                                               final @InputArgument int vout) {
         return bitcoinService.getBitcoinTransactionOutput(txId, vout).orElse(null);
     }
 

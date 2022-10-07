@@ -3,7 +3,7 @@ type Asset {
     "Asset ID in database"
     id: ID
     "The first outpoint of the transaction that created the asset (txid:vout)"
-    genesisPoint: TransactionOutput
+    genesisPoint: BitcoinTransactionOutput
     "The asset creator"
     creator: User
     "The name of the asset"

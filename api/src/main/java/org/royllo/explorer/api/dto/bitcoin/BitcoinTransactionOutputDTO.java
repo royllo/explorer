@@ -15,7 +15,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @AllArgsConstructor(access = PRIVATE)
 @SuppressWarnings("checkstyle:VisibilityModifier")
-public class TransactionOutputDTO {
+public class BitcoinTransactionOutputDTO {
 
     /** Unique identifier. */
     Long id;
