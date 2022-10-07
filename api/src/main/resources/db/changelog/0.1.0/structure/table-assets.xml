@@ -5,7 +5,7 @@
     <changeSet author="straumat" id="0.1.0-table-assets">
 
         <createTable tableName="ASSETS"
-                     remarks="Assets">
+                     remarks="Taro assets">
 
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"
@@ -14,8 +14,16 @@
             </column>
 
             <!-- Table fields -->
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ID" type="BIGINT"
+                    remarks="The first outpoint of the transaction that created the asset (txid:vout)"/>
+            <column name="NAME" type="VARCHAR(255)"
+                    remarks="The name of the asset"/>
+            <column name="META" type="VARCHAR(255)"
+                    remarks="The hashed metadata of the asset"/>
             <column name="ASSET_ID" type="VARCHAR(255)"
-                    remarks="Asset id"/>
+                    remarks="The asset ID that uniquely identifies the asset"/>
+            <column name="OUTPUT_INDEX" type="INTEGER"
+                    remarks="The index of the output that carries the unique Taro commitment in the genesis transaction"/>
 
             <!-- Technical fields -->
             <column name="CREATED_ON" type="TIMESTAMP WITH TIME ZONE"
@@ -36,12 +44,6 @@
         <addUniqueConstraint columnNames="ASSET_ID"
                              constraintName="ASSETS_UNIQUE_ASSET_ID"
                              tableName="ASSETS"/>
-
-        <!-- Index on ASSET_ID -->
-        <createIndex indexName="IDX_ASSETS_ASSET_ID"
-                     tableName="ASSETS">
-            <column name="ASSET_ID"/>
-        </createIndex>
 
     </changeSet>
 </databaseChangeLog>

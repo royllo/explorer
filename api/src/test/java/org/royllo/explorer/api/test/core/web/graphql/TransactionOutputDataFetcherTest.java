@@ -8,10 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.royllo.explorer.api.client.generated.DgsConstants;
 import org.royllo.explorer.api.client.generated.client.TransactionOutputGraphQLQuery;
 import org.royllo.explorer.api.client.generated.client.TransactionOutputProjectionRoot;
-import org.royllo.explorer.api.client.generated.client.UserGraphQLQuery;
-import org.royllo.explorer.api.client.generated.client.UserProjectionRoot;
 import org.royllo.explorer.api.client.generated.types.TransactionOutput;
-import org.royllo.explorer.api.client.generated.types.User;
 import org.royllo.explorer.api.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,10 +16,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @DisplayName("UserDataFetcher tests")

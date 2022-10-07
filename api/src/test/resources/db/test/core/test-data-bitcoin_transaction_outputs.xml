@@ -9,6 +9,7 @@
         curl -sSL "https://mempool.space/api/tx/2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea"
         -->
         <insert tableName="BITCOIN_TRANSACTION_OUTPUTS">
+            <column name="ID" value="1"/>
             <column name="BLOCK_HEIGHT" value="720"/>
             <column name="TXID" value="2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea"/>
             <column name="VOUT" value="0"/>
@@ -24,6 +25,7 @@
         curl -sSL "https://mempool.space/api/tx/46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946"
         -->
         <insert tableName="BITCOIN_TRANSACTION_OUTPUTS">
+            <column name="ID" value="2"/>
             <column name="BLOCK_HEIGHT" value="766"/>
             <column name="TXID" value="46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946"/>
             <column name="VOUT" value="0"/>
@@ -39,6 +41,7 @@
         curl -sSL "https://mempool.space/api/tx/46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946"
         -->
         <insert tableName="BITCOIN_TRANSACTION_OUTPUTS">
+            <column name="ID" value="3"/>
             <column name="BLOCK_HEIGHT" value="766"/>
             <column name="TXID" value="46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946"/>
             <column name="VOUT" value="1"/>
@@ -47,6 +50,21 @@
             <column name="SCRIPTPUBKEY_TYPE" value="v0_p2wsh"/>
             <column name="SCRIPTPUBKEY_ADDRESS" value="bc1qwqdg6squsna38e46795at95yu9atm8azzmyvckulcc7kytlcckxswvvzej"/>
             <column name="VALUE" value="47765975"/>
+        </insert>
+
+        <!--
+            Transaction on testnet corresponding to asset n°1
+        -->
+        <insert tableName="BITCOIN_TRANSACTION_OUTPUTS">
+            <column name="ID" value="4"/>
+            <column name="BLOCK_HEIGHT" value="2348688"/>
+            <column name="TXID" value="d8a8016095b9fcd1f63c57342d375026ecbc72c885a54b676c6e62b216e15365"/>
+            <column name="VOUT" value="1"/>
+            <column name="SCRIPTPUBKEY" value="00147fafce6a7ea1541dc33f99ab673dc525ed3a27b3"/>
+            <column name="SCRIPTPUBKEY_ASM" value="OP_0 OP_PUSHBYTES_20 7fafce6a7ea1541dc33f99ab673dc525ed3a27b3"/>
+            <column name="SCRIPTPUBKEY_TYPE" value="V0_P2WPKH"/>
+            <column name="SCRIPTPUBKEY_ADDRESS" value="tb1q07huu6n7592pmselnx4kw0w9yhkn5fan74dze9"/>
+            <column name="VALUE" value="1699422"/>
         </insert>
 
     </changeSet>

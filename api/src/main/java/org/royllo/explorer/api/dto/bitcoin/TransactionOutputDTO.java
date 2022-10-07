@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import static lombok.AccessLevel.PRIVATE;
 
 /**
- * Information about a Bitcoin transaction output.
+ * Bitcoin transaction output.
  */
 @Value
 @Builder

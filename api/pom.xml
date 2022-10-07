@@ -230,9 +230,10 @@
                         <BigDecimal>java.math.BigDecimal</BigDecimal>
                     </typeMapping>
                     <schemaPaths>
-                        <param>src/main/resources/schema/query.graphqls</param>
                         <param>src/main/resources/schema/transactionOutput.graphqls</param>
                         <param>src/main/resources/schema/user.graphqls</param>
+                        <param>src/main/resources/schema/asset.graphqls</param>
+                        <param>src/main/resources/schema/query.graphqls</param>
                     </schemaPaths>
                     <packageName>org.royllo.explorer.api.client.generated</packageName>
                     <generateClient>true</generateClient>

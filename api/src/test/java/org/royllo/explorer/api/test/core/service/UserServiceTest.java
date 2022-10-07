@@ -2,8 +2,8 @@ package org.royllo.explorer.api.test.core.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.royllo.explorer.api.service.user.UserService;
 import org.royllo.explorer.api.dto.user.UserDTO;
+import org.royllo.explorer.api.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -16,9 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.api.util.enums.UserRole.ADMINISTRATOR;
 import static org.royllo.explorer.api.util.enums.UserRole.USER;
 
-/**
- * {@link UserService} tests.
- */
 @SpringBootTest
 @DisplayName("UserService tests")
 public class UserServiceTest {

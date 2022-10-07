@@ -1,4 +1,4 @@
 /**
- * User GraphQL API.
+ * User related GraphQL API.
  */
 package org.royllo.explorer.api.web.graphql.user;

@@ -2,6 +2,11 @@ type Query {
 
     # ==================================================================================================================
     # Bitcoin information API
+    "Get an asset by it's id in database"
+    asset(id: ID!): Asset
+
+    # ==================================================================================================================
+    # Bitcoin information API
     "Get a bitcoin transaction output by it's txId and vOut"
     transactionOutput(txId: String!, vout: Int!): TransactionOutput
 

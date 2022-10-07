@@ -6,11 +6,13 @@
 
         <!-- Anonymous user -->
         <insert tableName="USERS">
+            <column name="ID" value="1"/>
             <column name="USERNAME" value="straumat"/>
             <column name="ROLE" value="ADMINISTRATOR"/>
             <column name="CREATED_ON"/>
             <column name="UPDATED_ON"/>
         </insert>
 
+        <sql dbms="h2">alter sequence data_event_id_seq restart with 2</sql>
     </changeSet>
 </databaseChangeLog>

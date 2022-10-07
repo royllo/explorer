@@ -1,4 +1,4 @@
 /**
- * Bitcoin Data Transfer Objects.
+ * Bitcoin related Data Transfer Objects.
  */
 package org.royllo.explorer.api.dto.bitcoin;

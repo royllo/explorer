@@ -9,4 +9,4 @@ databaseChangeLog:
   - include:
       file: /db/test/core/test-data-users.xml
   - include:
-      file: /db/test/core/test-data-universe_updates-status-new.xml
+      file: /db/test/core/test-data-assets.xml
