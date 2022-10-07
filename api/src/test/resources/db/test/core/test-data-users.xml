@@ -13,6 +13,5 @@
             <column name="UPDATED_ON"/>
         </insert>
 
-        <sql dbms="h2">alter sequence data_event_id_seq restart with 2</sql>
     </changeSet>
 </databaseChangeLog>

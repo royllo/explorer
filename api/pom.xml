@@ -121,7 +121,7 @@
         <dependency>
             <groupId>com.netflix.graphql.dgs.codegen</groupId>
             <artifactId>graphql-dgs-codegen-core</artifactId>
-            <version>5.1.17</version>
+            <version>5.3.1</version>
         </dependency>
         <dependency>
             <groupId>com.netflix.graphql.dgs.codegen</groupId>
@@ -131,7 +131,7 @@
         <dependency>
             <groupId>com.netflix.graphql.dgs</groupId>
             <artifactId>graphql-dgs-mocking</artifactId>
-            <version>4.9.25</version>
+            <version>5.2.1</version>
         </dependency>
         <dependency>
             <groupId>com.apollographql.federation</groupId>
