@@ -25,6 +25,7 @@ public class AssetDataFetcher {
      */
     @DgsQuery
     public final AssetDTO asset(final @InputArgument long id) {
+        System.out.println("---> " + assetService.getAsset(id));
         return assetService.getAsset(id).orElse(null);
     }
 

@@ -4,10 +4,11 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet author="straumat" id="test-data-assets">
 
-        <!-- Asset n°1 (transaction is already in the database -->
+        <!-- Asset n°1 (bitcoin transaction output is already in the database) -->
         <insert tableName="ASSETS">
             <column name="ID" value="1"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ID" value="1"/>
+            <column name="FK_USER_ID" value="0"/>
             <column name="NAME" value="starbackrcoin"/>
             <column name="META" value="737461726261636b72206d6f6e6579"/>
             <column name="ASSET_ID" value="b34b05956d828a7f7a0df598771c9f6df0378680c432480837852bcb94a8f21e"/>

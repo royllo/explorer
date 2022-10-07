@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.royllo.explorer.api.domain.bitcoin.TransactionOutput;
+import org.royllo.explorer.api.domain.user.User;
 import org.royllo.explorer.api.util.base.BaseDomain;
 
 import javax.persistence.Column;
@@ -42,6 +43,12 @@ public class Asset extends BaseDomain {
     @ManyToOne(fetch = EAGER)
     @JoinColumn(name = "FK_BITCOIN_TRANSACTION_OUTPUT_ID", updatable = false)
     private TransactionOutput genesisPoint;
+
+    /** Asset creator. */
+    @NotNull(message = "Asset creator is required")
+    @ManyToOne(fetch = EAGER)
+    @JoinColumn(name = "FK_USER_ID", nullable = false)
+    private User creator;
 
     /** The name of the asset. */
     @NotBlank(message = "Asset name is required")

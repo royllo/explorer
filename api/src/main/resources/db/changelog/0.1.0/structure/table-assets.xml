@@ -16,6 +16,8 @@
             <!-- Table fields -->
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ID" type="BIGINT"
                     remarks="The first outpoint of the transaction that created the asset (txid:vout)"/>
+            <column name="FK_USER_ID" type="BIGINT"
+                    remarks="Asset creator"/>
             <column name="NAME" type="VARCHAR(255)"
                     remarks="The name of the asset"/>
             <column name="META" type="VARCHAR(255)"

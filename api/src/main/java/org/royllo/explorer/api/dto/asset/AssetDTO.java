@@ -3,7 +3,8 @@ package org.royllo.explorer.api.dto.asset;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
-import org.royllo.explorer.api.domain.bitcoin.TransactionOutput;
+import org.royllo.explorer.api.dto.bitcoin.TransactionOutputDTO;
+import org.royllo.explorer.api.dto.user.UserDTO;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -20,7 +21,10 @@ public class AssetDTO {
     Long id;
 
     /** The first outpoint of the transaction that created the asset (txid:vout). */
-    TransactionOutput genesisPoint;
+    TransactionOutputDTO genesisPoint;
+
+    /** The asset creator. */
+    UserDTO creator;
 
     /** The name of the asset. */
     String name;

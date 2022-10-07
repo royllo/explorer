@@ -10,13 +10,14 @@ import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 /**
  * Asset related mapper.
  */
-@Mapper(nullValuePropertyMappingStrategy = IGNORE, uses = {BitcoinMapper.class})
+@Mapper(nullValuePropertyMappingStrategy = IGNORE, uses = {BitcoinMapper.class, UserMapper.class})
 public interface AssetMapper {
 
     @Mapping(target = "createdOn", ignore = true)
     @Mapping(target = "updatedOn", ignore = true)
     Asset mapToAsset(AssetDTO source);
 
+    @Mapping(target = "genesisPoint", source = "genesisPoint")
     AssetDTO mapToAssetDTO(Asset source);
 
 }

@@ -4,6 +4,8 @@ type Asset {
     id: ID
     "The first outpoint of the transaction that created the asset (txid:vout)"
     genesisPoint: TransactionOutput
+    "The asset creator"
+    creator: User
     "The name of the asset"
     name: String
     "The hashed metadata of the asset"
