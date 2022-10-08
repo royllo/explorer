@@ -4,12 +4,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.api.dto.asset.AssetDTO;
 import org.royllo.explorer.api.service.asset.AssetService;
+import org.royllo.explorer.api.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -20,10 +24,49 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles("mempoolTransactionServiceMock")
 @DisplayName("AssetService tests")
-public class AssetServiceTest {
+public class AssetServiceTest extends BaseTest {
 
     @Autowired
     private AssetService assetService;
+
+    @Test
+    @DisplayName("queryAssets()")
+    public void queryAssets() {
+        // Test on two coins in database : "royllostar" and "starbackrcoin"
+
+        // Searching for an asset that doesn't exist.
+        List<AssetDTO> results = assetService.queryAssets("NON-EXISTING");
+        assertEquals(0, results.size());
+
+        // Searching for an asset with its asset id.
+        results = assetService.queryAssets(TARO_ASSET_ID_NUMBER_01);
+        assertEquals(1, results.size());
+        assertEquals(1, results.get(0).getId());
+
+        // Searching for an asset with its partial name - only 1 result.
+        results = assetService.queryAssets("back");
+        assertEquals(1, results.size());
+        assertEquals(1, results.get(0).getId());
+
+        // Searching for an asset with its partial name uppercase - only 1 result.
+        results = assetService.queryAssets("BACK");
+        assertEquals(1, results.size());
+        assertEquals(1, results.get(0).getId());
+
+        // Searching for an asset with its partial name uppercase - only 1 result.
+        results = assetService.queryAssets("ROYLLO");
+        assertEquals(1, results.size());
+        assertEquals(2, results.get(0).getId());
+
+        // Searching for an asset with its partial name corresponding to two assets.
+        results = assetService.queryAssets("star");
+        assertEquals(2, results.size());
+        Set<Long> ids = results.stream()
+                .map(AssetDTO::getId)
+                .collect(Collectors.toSet());
+        assertTrue(ids.contains(1L));
+        assertTrue(ids.contains(2L));
+    }
 
     @Test
     @DisplayName("getAsset()")

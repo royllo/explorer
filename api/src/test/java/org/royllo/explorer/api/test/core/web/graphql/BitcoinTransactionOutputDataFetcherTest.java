@@ -27,7 +27,7 @@ public class BitcoinTransactionOutputDataFetcherTest extends BaseTest {
     DgsQueryExecutor dgsQueryExecutor;
 
     @Test
-    @DisplayName("Get bitcoin transaction output by txId and vOut")
+    @DisplayName("getBitcoinTransactionOutputByTxIdAndVout()")
     public void getBitcoinTransactionOutputByTxIdAndVout() {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 BitcoinTransactionOutputGraphQLQuery.newRequest().txId(BITCOIN_TRANSACTION_1_TXID).vout(0).build(),

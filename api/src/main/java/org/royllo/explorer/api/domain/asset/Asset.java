@@ -52,22 +52,22 @@ public class Asset extends BaseDomain {
 
     /** The name of the asset. */
     @NotBlank(message = "Asset name is required")
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "NAME", updatable = false)
     private String name;
 
     /** The hashed metadata of the asset. */
     @NotBlank(message = "Hashed metadata is required")
-    @Column(name = "META", nullable = false)
+    @Column(name = "META", updatable = false)
     private String meta;
 
     /** The asset ID that uniquely identifies the asset. */
     @NotBlank(message = "Asset ID is required")
-    @Column(name = "ASSET_ID", nullable = false)
+    @Column(name = "ASSET_ID", updatable = false)
     private String assetId;
 
     /** The index of the output that carries the unique Taro commitment in the genesis transaction. */
     @NotBlank(message = "Output index is required")
-    @Column(name = "OUTPUT_INDEX", nullable = false)
+    @Column(name = "OUTPUT_INDEX", updatable = false)
     private int outputIndex;
 
 }

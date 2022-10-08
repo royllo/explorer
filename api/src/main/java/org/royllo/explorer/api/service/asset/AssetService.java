@@ -2,6 +2,7 @@ package org.royllo.explorer.api.service.asset;
 
 import org.royllo.explorer.api.dto.asset.AssetDTO;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -10,7 +11,18 @@ import java.util.Optional;
 public interface AssetService {
 
     /**
+     * Query for assets.
+     * - Search if the value is an assetId, if true, returns only this one.
+     * - Search if the value is contained in assets name.
+     *
+     * @param value the value to search for
+     * @return list of assets corresponding to the search
+     */
+    List<AssetDTO> queryAssets(String value);
+
+    /**
      * Get an asset.
+     *
      * @param id id
      * @return asset
      */
@@ -18,6 +30,7 @@ public interface AssetService {
 
     /**
      * Get an asset by asset id.
+     *
      * @param assetId asset id
      * @return asset
      */

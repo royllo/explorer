@@ -1,9 +1,15 @@
 type Query {
 
     # ==================================================================================================================
-    # Bitcoin information API
+    # Asset information API
+    "Query for assets - Search for exact assetId or part of name"
+    queryAssets(value: String!): [Asset]
+
     "Get an asset by it's id in database"
     asset(id: ID!): Asset
+
+    "Get an asset by it's taro asset id"
+    assetByAssetId(assetId: ID!): Asset
 
     # ==================================================================================================================
     # Bitcoin information API

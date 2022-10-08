@@ -24,7 +24,7 @@ public class UserDataFetcherTest {
     DgsQueryExecutor dgsQueryExecutor;
 
     @Test
-    @DisplayName("Get user by username")
+    @DisplayName("getUserByUsername()")
     public void getUserByUsername() {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 UserByUsernameGraphQLQuery.newRequest().username("straumat").build(),
