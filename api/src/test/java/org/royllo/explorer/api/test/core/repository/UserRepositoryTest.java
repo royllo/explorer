@@ -15,9 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.api.util.constants.UserConstants.ANONYMOUS_USER_UID;
 import static org.royllo.explorer.api.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
 
-/**
- * {@link UserRepository} tests.
- */
 @SpringBootTest
 @DisplayName("UserRepository tests")
 public class UserRepositoryTest {

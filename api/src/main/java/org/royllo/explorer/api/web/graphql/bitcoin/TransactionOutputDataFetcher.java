@@ -3,6 +3,7 @@ package org.royllo.explorer.api.web.graphql.bitcoin;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
+import com.netflix.graphql.dgs.exceptions.DgsEntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.api.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.api.service.bitcoin.BitcoinService;
@@ -27,7 +28,7 @@ public class TransactionOutputDataFetcher {
     @DgsQuery
     public final BitcoinTransactionOutputDTO bitcoinTransactionOutput(final @InputArgument String txId,
                                                                       final @InputArgument int vout) {
-        return bitcoinService.getBitcoinTransactionOutput(txId, vout).orElse(null);
+        return bitcoinService.getBitcoinTransactionOutput(txId, vout).orElseThrow(DgsEntityNotFoundException::new);
     }
 
 }

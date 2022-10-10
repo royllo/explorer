@@ -81,8 +81,6 @@ public class AssetDataFetcherTest extends BaseTest {
         assertEquals("737461726261636b72206d6f6e6579", asset.getMeta() );
         assertEquals("b34b05956d828a7f7a0df598771c9f6df0378680c432480837852bcb94a8f21e", asset.getAssetId());
         assertEquals(0, asset.getOutputIndex());
-
-        // TODO test error found if user not found
     }
 
     @Test
@@ -114,8 +112,6 @@ public class AssetDataFetcherTest extends BaseTest {
         assertEquals("737461726261636b72206d6f6e6579", asset.getMeta() );
         assertEquals("b34b05956d828a7f7a0df598771c9f6df0378680c432480837852bcb94a8f21e", asset.getAssetId());
         assertEquals(0, asset.getOutputIndex());
-
-        // TODO test error found if user not found
     }
 
 }

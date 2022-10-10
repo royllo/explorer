@@ -3,6 +3,7 @@ package org.royllo.explorer.api.web.graphql.asset;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
+import com.netflix.graphql.dgs.exceptions.DgsEntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.api.dto.asset.AssetDTO;
 import org.royllo.explorer.api.service.asset.AssetService;
@@ -40,7 +41,7 @@ public class AssetDataFetcher {
      */
     @DgsQuery
     public final AssetDTO asset(final @InputArgument long id) {
-        return assetService.getAsset(id).orElse(null);
+        return assetService.getAsset(id).orElseThrow(DgsEntityNotFoundException::new);
     }
 
     /**
@@ -51,7 +52,7 @@ public class AssetDataFetcher {
      */
     @DgsQuery
     public final AssetDTO assetByAssetId(final @InputArgument String assetId) {
-        return assetService.getAssetByAssetId(assetId).orElse(null);
+        return assetService.getAssetByAssetId(assetId).orElseThrow(DgsEntityNotFoundException::new);
     }
 
 }

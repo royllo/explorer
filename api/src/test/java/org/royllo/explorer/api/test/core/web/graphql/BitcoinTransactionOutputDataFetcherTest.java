@@ -58,8 +58,6 @@ public class BitcoinTransactionOutputDataFetcherTest extends BaseTest {
         assertEquals("p2pk", transactionOutput.getScriptPubKeyType());
         assertNull(transactionOutput.getScriptPubKeyAddress());
         assertEquals(0, new BigDecimal("5000000000").compareTo(transactionOutput.getValue()));
-
-        // TODO test error found if transaction output not found
     }
 
 }
