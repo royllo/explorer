@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -19,6 +20,7 @@ import java.time.ZonedDateTime;
 @Getter
 @Setter
 @ToString
+@SuperBuilder
 @RequiredArgsConstructor
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)

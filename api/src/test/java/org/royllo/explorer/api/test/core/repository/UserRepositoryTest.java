@@ -12,7 +12,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.royllo.explorer.api.util.constants.UserConstants.ANONYMOUS_USER_UID;
+import static org.royllo.explorer.api.util.constants.UserConstants.ANONYMOUS_USER_ID;
 import static org.royllo.explorer.api.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
 
 @SpringBootTest
@@ -26,7 +26,7 @@ public class UserRepositoryTest {
     @DisplayName("Find anonymous user")
     public void findAnonymousUser() {
         // Finding the user by its uid.
-        final Optional<User> anonymousUserByUid = userRepository.findById(ANONYMOUS_USER_UID);
+        final Optional<User> anonymousUserByUid = userRepository.findById(ANONYMOUS_USER_ID);
         assertTrue(anonymousUserByUid.isPresent());
         assertEquals(0, anonymousUserByUid.get().getId().longValue());
         assertEquals("anonymous", anonymousUserByUid.get().getUsername());

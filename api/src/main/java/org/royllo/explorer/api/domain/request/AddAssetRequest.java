@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -17,6 +18,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @ToString
+@SuperBuilder
 @RequiredArgsConstructor
 @Entity
 @Table(name = "REQUESTS_ADD_ASSET")

@@ -11,8 +11,8 @@ public final class UserConstants {
     private UserConstants() {
     }
 
-    /** Anonymous user UID. */
-    public static final Long ANONYMOUS_USER_UID = 0L;
+    /** Anonymous user ID in database. */
+    public static final Long ANONYMOUS_USER_ID = 0L;
 
     /** Anonymous user username. */
     public static final String ANONYMOUS_USER_USERNAME = "anonymous";

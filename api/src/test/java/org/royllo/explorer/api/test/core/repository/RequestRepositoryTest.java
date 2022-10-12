@@ -19,7 +19,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.royllo.explorer.api.util.constants.UserConstants.ANONYMOUS_USER_UID;
+import static org.royllo.explorer.api.util.constants.UserConstants.ANONYMOUS_USER_ID;
+import static org.royllo.explorer.api.util.enums.RequestStatus.ERROR;
 import static org.royllo.explorer.api.util.enums.RequestStatus.NEW;
 import static org.royllo.explorer.api.util.enums.RequestStatus.SUCCESS;
 
@@ -37,9 +38,9 @@ public class RequestRepositoryTest extends BaseTest {
     private RequestRepository requestRepository;
 
     @Test
-    @DisplayName("Creating requests")
+    @DisplayName("Create requests")
     public void createRequests() {
-        Optional<User> user = userRepository.findById(ANONYMOUS_USER_UID);
+        Optional<User> user = userRepository.findById(ANONYMOUS_USER_ID);
         assertTrue(user.isPresent());
 
         // =============================================================================================================
@@ -50,6 +51,7 @@ public class RequestRepositoryTest extends BaseTest {
         request1.setGenesisBootstrapInformation("Genesis1");
         request1.setProof("Proof1");
         long request1ID = requestRepository.save(request1).getId();
+        logger.info("Request 1 ID is " + request1ID);
 
         // See what's in database with JPA.
         Optional<Request> request1FromJPA = requestRepository.findById(request1ID);
@@ -77,6 +79,7 @@ public class RequestRepositoryTest extends BaseTest {
         request2.setTaroAssetId("TaroAssetId1");
         request2.setMeta("Meta1");
         long request2ID = requestRepository.save(request2).getId();
+        logger.info("Request 2 ID is " + request2ID);
 
         // See what's in database with JPA.
         Optional<Request> request2FromJPA = requestRepository.findById(request2ID);
@@ -90,12 +93,39 @@ public class RequestRepositoryTest extends BaseTest {
         assertEquals("Meta1", addAssetMeatRequest2FromJPA.getMeta());
 
         // See what's in database with JDBC.
-//        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-//        Long request1IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUESTS", Long.class);
-//        assertEquals(request1ID, request1IDFromJDBC);
-//        Long addAssetRequest1IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUESTS_ADD_ASSET", Long.class);
-//        assertEquals(request1ID, addAssetRequest1IDFromJDBC);
+        jdbcTemplate = new JdbcTemplate(dataSource);
+        Long request2IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUESTS", Long.class);
+        assertEquals(request2ID, request2IDFromJDBC);
+        Long addAssetRequest2IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUESTS_ADD_ASSET_META_DATA", Long.class);
+        assertEquals(request2ID, addAssetRequest2IDFromJDBC);
 
+        // =============================================================================================================
+        // Creating request 3 (ADD_ASSET).
+        AddAssetRequest request3 = new AddAssetRequest();
+        request3.setCreator(user.get());
+        request3.setStatus(ERROR);
+        request3.setGenesisBootstrapInformation("Genesis2");
+        request3.setProof("Proof2");
+        long request3ID = requestRepository.save(request3).getId();
+        logger.info("Request 3 ID is " + request3ID);
+
+        // See what's in database with JPA.
+        Optional<Request> request3FromJPA = requestRepository.findById(request3ID);
+        assertTrue(request3FromJPA.isPresent());
+        AddAssetRequest addAssetRequest2FromJPA = (AddAssetRequest) request3FromJPA.get();
+        assertEquals(request3ID, addAssetRequest2FromJPA.getId());
+        assertEquals("anonymous", addAssetRequest2FromJPA.getCreator().getUsername());
+        assertEquals(ERROR, addAssetRequest2FromJPA.getStatus());
+        assertNull(addAssetRequest2FromJPA.getErrorMessage());
+        assertEquals("Genesis2", addAssetRequest2FromJPA.getGenesisBootstrapInformation());
+        assertEquals("Proof2", addAssetRequest2FromJPA.getProof());
+
+        // See what's in database with JDBC.
+        jdbcTemplate = new JdbcTemplate(dataSource);
+        Long request3IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUESTS", Long.class);
+        assertEquals(request3ID, request3IDFromJDBC);
+        Long addAssetRequest3IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUESTS_ADD_ASSET", Long.class);
+        assertEquals(request3ID, addAssetRequest3IDFromJDBC);
     }
 
 }

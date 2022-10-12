@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static org.royllo.explorer.api.util.constants.UserConstants.ANONYMOUS_USER_UID;
+import static org.royllo.explorer.api.util.constants.UserConstants.ANONYMOUS_USER_ID;
 
 /**
  * User service implementation.
@@ -23,7 +23,7 @@ public class UserServiceImplementation extends BaseService implements UserServic
 
     @Override
     public final UserDTO getAnonymousUser() {
-        final Optional<User> anonymousUser = userRepository.findById(ANONYMOUS_USER_UID);
+        final Optional<User> anonymousUser = userRepository.findById(ANONYMOUS_USER_ID);
         if (anonymousUser.isPresent()) {
             return USER_MAPPER.mapToUserDTO(anonymousUser.get());
         } else {

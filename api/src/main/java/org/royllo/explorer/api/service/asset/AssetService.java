@@ -23,7 +23,7 @@ public interface AssetService {
     /**
      * Get an asset.
      *
-     * @param id id
+     * @param id id in database
      * @return asset
      */
     Optional<AssetDTO> getAsset(long id);

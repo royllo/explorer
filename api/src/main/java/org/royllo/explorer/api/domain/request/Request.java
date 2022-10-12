@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 import org.royllo.explorer.api.domain.user.User;
 import org.royllo.explorer.api.util.base.BaseDomain;
 import org.royllo.explorer.api.util.enums.RequestStatus;
@@ -31,6 +32,7 @@ import static javax.persistence.InheritanceType.JOINED;
 @Getter
 @Setter
 @ToString
+@SuperBuilder
 @RequiredArgsConstructor
 @Entity
 @Table(name = "REQUESTS")
