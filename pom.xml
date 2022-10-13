@@ -85,7 +85,7 @@
 
         <!-- ======================================================================================================= -->
         <!-- Maven plugins -->
-        <maven.gitflow.version>1.18.0</maven.gitflow.version>
+        <maven.gitflow.version>1.19.0</maven.gitflow.version>
         <maven.checkstyle.plugin.version>3.2.0</maven.checkstyle.plugin.version>
         <maven.graphqlcodegen.plugin.version>1.24</maven.graphqlcodegen.plugin.version>
         <maven.puppycrawl.checkstyle.version>10.3.4</maven.puppycrawl.checkstyle.version>
