@@ -80,7 +80,7 @@
 
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
-        <testcontainers.version>1.17.4</testcontainers.version>
+        <testcontainers.version>1.17.5</testcontainers.version>
         <mockito-core.version>4.8.0</mockito-core.version>
 
         <!-- ======================================================================================================= -->
