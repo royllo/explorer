@@ -30,7 +30,7 @@ public class AssetDTO {
     String name;
 
     /** The hashed metadata of the asset. */
-    String meta;
+    String metaData;
 
     /** The asset ID that uniquely identifies the asset. */
     String assetId;

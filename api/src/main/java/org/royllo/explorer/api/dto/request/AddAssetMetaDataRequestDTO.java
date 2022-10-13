@@ -1,6 +1,7 @@
 package org.royllo.explorer.api.dto.request;
 
 import lombok.Getter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 /**
@@ -8,13 +9,14 @@ import lombok.experimental.SuperBuilder;
  */
 @Getter
 @SuperBuilder
+@ToString
 @SuppressWarnings("checkstyle:VisibilityModifier")
-public class AddAssetMetaRequestDTO extends RequestDTO {
+public class AddAssetMetaDataRequestDTO extends RequestDTO {
 
     /** Taro asset id. */
-    String taroAssetId;
+    String assetId;
 
     /** Metadata corresponding to the meta hash stored in the genesis information. */
-    String meta;
+    String metaData;
 
 }

@@ -57,8 +57,8 @@ public class Asset extends BaseDomain {
 
     /** The hashed metadata of the asset. */
     @NotBlank(message = "Hashed metadata is required")
-    @Column(name = "META", updatable = false)
-    private String meta;
+    @Column(name = "META_DATA", updatable = false)
+    private String metaData;
 
     /** The asset ID that uniquely identifies the asset. */
     @NotBlank(message = "Asset ID is required")

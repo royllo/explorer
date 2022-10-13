@@ -1,6 +1,7 @@
 package org.royllo.explorer.api.dto.request;
 
 import lombok.Getter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.royllo.explorer.api.dto.user.UserDTO;
 import org.royllo.explorer.api.util.enums.RequestStatus;
@@ -10,6 +11,7 @@ import org.royllo.explorer.api.util.enums.RequestStatus;
  */
 @Getter
 @SuperBuilder
+@ToString
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public class RequestDTO {
 

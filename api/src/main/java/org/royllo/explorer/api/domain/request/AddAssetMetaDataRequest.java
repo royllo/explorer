@@ -23,16 +23,16 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name = "REQUESTS_ADD_ASSET_META_DATA")
 @DiscriminatorValue("ADD_ASSET_META_DATA")
-public class AddAssetMetaRequest extends Request {
+public class AddAssetMetaDataRequest extends Request {
 
     /** Taro asset id. */
     @NotBlank(message = "Taro asset id is required")
-    @Column(name = "TARO_ASSET_ID", updatable = false)
-    private String taroAssetId;
+    @Column(name = "ASSET_ID", updatable = false)
+    private String assetId;
 
     /** Metadata corresponding to the meta hash stored in the genesis information. */
     @NotBlank(message = "Meta is required")
-    @Column(name = "META", updatable = false)
-    private String meta;
+    @Column(name = "META_DATA", updatable = false)
+    private String metaData;
 
 }

@@ -9,7 +9,7 @@ type Asset {
     "The name of the asset"
     name: String
     "The hashed metadata of the asset"
-    meta: String
+    metaData: String
     "The asset ID that uniquely identifies the asset"
     assetId: String
     "The index of the output that carries the unique Taro commitment in the genesis transaction"

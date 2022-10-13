@@ -1,6 +1,7 @@
 package org.royllo.explorer.api.dto.request;
 
 import lombok.Getter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 /**
@@ -8,6 +9,7 @@ import lombok.experimental.SuperBuilder;
  */
 @Getter
 @SuperBuilder
+@ToString
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public class AddAssetRequestDTO extends RequestDTO {
 

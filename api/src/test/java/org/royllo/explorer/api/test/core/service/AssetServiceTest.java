@@ -39,7 +39,7 @@ public class AssetServiceTest extends BaseTest {
         assertEquals(0, results.size());
 
         // Searching for an asset with its asset id.
-        results = assetService.queryAssets(TARO_ASSET_ID_NUMBER_01);
+        results = assetService.queryAssets(ASSET_ID_NUMBER_01);
         assertEquals(1, results.size());
         assertEquals(1, results.get(0).getId());
 
@@ -82,7 +82,7 @@ public class AssetServiceTest extends BaseTest {
         assertEquals(asset.get().getGenesisPoint().getTxId(), "2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea");
         assertEquals(asset.get().getGenesisPoint().getVout(), 0);
         assertEquals(asset.get().getName(), "starbackrcoin");
-        assertEquals(asset.get().getMeta(), "737461726261636b72206d6f6e6579");
+        assertEquals(asset.get().getMetaData(), "737461726261636b72206d6f6e6579");
         assertEquals(asset.get().getAssetId(), "b34b05956d828a7f7a0df598771c9f6df0378680c432480837852bcb94a8f21e");
         assertEquals(asset.get().getOutputIndex(), 0);
     }
@@ -101,7 +101,7 @@ public class AssetServiceTest extends BaseTest {
         assertEquals("2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea", asset.get().getGenesisPoint().getTxId());
         assertEquals(0, asset.get().getGenesisPoint().getVout());
         assertEquals("starbackrcoin", asset.get().getName());
-        assertEquals("737461726261636b72206d6f6e6579", asset.get().getMeta());
+        assertEquals("737461726261636b72206d6f6e6579", asset.get().getMetaData());
         assertEquals("b34b05956d828a7f7a0df598771c9f6df0378680c432480837852bcb94a8f21e", asset.get().getAssetId());
         assertEquals(0, asset.get().getOutputIndex());
     }

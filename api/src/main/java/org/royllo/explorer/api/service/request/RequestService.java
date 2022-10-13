@@ -1,15 +1,23 @@
 package org.royllo.explorer.api.service.request;
 
-import org.royllo.explorer.api.dto.request.AddAssetMetaRequestDTO;
+import org.royllo.explorer.api.dto.request.AddAssetMetaDataRequestDTO;
 import org.royllo.explorer.api.dto.request.AddAssetRequestDTO;
 import org.royllo.explorer.api.dto.request.RequestDTO;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * Request service.
  */
 public interface RequestService {
+
+    /**
+     * Returns the list of opened requests.
+     *
+     * @return opened requests
+     */
+    List<RequestDTO> getOpenedRequests();
 
     /**
      * Get a request.
@@ -30,13 +38,13 @@ public interface RequestService {
                                 String proof);
 
     /**
-     * Add and asset meta.
+     * Add an asset meta.
      *
      * @param taroAssetId Taro asset id
-     * @param meta        Metadata corresponding to the meta hash stored in the genesis information
+     * @param metaData        Metadata corresponding to the meta hash stored in the genesis information
      * @return id of the request created
      */
-    AddAssetMetaRequestDTO addAssetMeta(String taroAssetId,
-                                        String meta);
+    AddAssetMetaDataRequestDTO addAssetMetaData(String taroAssetId,
+                                                String metaData);
 
 }

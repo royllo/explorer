@@ -7,14 +7,14 @@ import java.util.List;
  */
 public enum RequestStatus {
 
-    /** New request: a new request has been added. */
-    NEW,
+    /** An opened request that must be treated. */
+    OPENED,
 
     /** The request has been treated with success. */
     SUCCESS,
 
-    /** An error occurred and the process stopped. */
-    ERROR;
+    /** An error occurred, it's a failure. */
+    FAILURE;
 
     /**
      * Returns the list of status that are finals - Updates with these status cannot be changed.
@@ -22,7 +22,7 @@ public enum RequestStatus {
      * @return list of final status
      */
     public static List<RequestStatus> finalStatus() {
-        return List.of(SUCCESS, ERROR);
+        return List.of(SUCCESS, FAILURE);
     }
 
 }

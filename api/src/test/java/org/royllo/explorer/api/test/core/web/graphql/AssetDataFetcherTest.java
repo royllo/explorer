@@ -38,7 +38,7 @@ public class AssetDataFetcherTest extends BaseTest {
                         .creator().id().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
-                        .meta()
+                        .metaData()
                         .assetId()
                         .outputIndex());
 
@@ -61,7 +61,7 @@ public class AssetDataFetcherTest extends BaseTest {
                         .creator().id().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
-                        .meta()
+                        .metaData()
                         .assetId()
                         .outputIndex());
 
@@ -78,7 +78,7 @@ public class AssetDataFetcherTest extends BaseTest {
         assertEquals("1", asset.getCreator().getId());
         assertEquals("straumat", asset.getCreator().getUsername());
         assertEquals("starbackrcoin", asset.getName());
-        assertEquals("737461726261636b72206d6f6e6579", asset.getMeta() );
+        assertEquals("737461726261636b72206d6f6e6579", asset.getMetaData() );
         assertEquals("b34b05956d828a7f7a0df598771c9f6df0378680c432480837852bcb94a8f21e", asset.getAssetId());
         assertEquals(0, asset.getOutputIndex());
     }
@@ -87,12 +87,12 @@ public class AssetDataFetcherTest extends BaseTest {
     @DisplayName("assetByAssetId()")
     public void assetByAssetId() {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                AssetByAssetIdGraphQLQuery.newRequest().assetId(TARO_ASSET_ID_NUMBER_01).build(),
+                AssetByAssetIdGraphQLQuery.newRequest().assetId(ASSET_ID_NUMBER_01).build(),
                 new AssetByAssetIdProjectionRoot().id()
                         .creator().id().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
-                        .meta()
+                        .metaData()
                         .assetId()
                         .outputIndex());
 
@@ -109,7 +109,7 @@ public class AssetDataFetcherTest extends BaseTest {
         assertEquals("1", asset.getCreator().getId());
         assertEquals("straumat", asset.getCreator().getUsername());
         assertEquals("starbackrcoin", asset.getName());
-        assertEquals("737461726261636b72206d6f6e6579", asset.getMeta() );
+        assertEquals("737461726261636b72206d6f6e6579", asset.getMetaData() );
         assertEquals("b34b05956d828a7f7a0df598771c9f6df0378680c432480837852bcb94a8f21e", asset.getAssetId());
         assertEquals(0, asset.getOutputIndex());
     }
