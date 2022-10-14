@@ -3,6 +3,8 @@ package org.royllo.explorer.api.graphql.request;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.DgsTypeResolver;
+import com.netflix.graphql.dgs.InputArgument;
+import com.netflix.graphql.dgs.exceptions.DgsEntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
 import org.royllo.explorer.core.dto.request.AddAssetRequestDTO;
@@ -46,6 +48,17 @@ public class RequestDataFetcher {
     @DgsQuery
     public final List<RequestDTO> openedRequests() {
         return requestService.getOpenedRequests();
+    }
+
+    /**
+     * Get a request by its id in database.
+     *
+     * @param id request id
+     * @return request
+     */
+    @DgsQuery
+    public final RequestDTO request(final @InputArgument long id) {
+        return requestService.getRequest(id).orElseThrow(DgsEntityNotFoundException::new);
     }
 
 }

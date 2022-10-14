@@ -12,6 +12,13 @@ type Query {
     assetByAssetId(assetId: ID!): Asset
 
     # ==================================================================================================================
+    # Requests API
+    "Returns the list of opened requests"
+    openedRequests: [Request]
+    "Get a request by it's id in database"
+    request(id: ID!): Request
+
+    # ==================================================================================================================
     # Bitcoin information API
     "Get a bitcoin transaction output by it's txId and vOut"
     bitcoinTransactionOutput(txId: String!, vout: Int!): BitcoinTransactionOutput
@@ -20,10 +27,6 @@ type Query {
     # User API
     "Get user by username"
     userByUsername(username: String!): User
-
-    # ==================================================================================================================
-    # Opened requests API
-    openedRequests: [Request]
 
 }
 

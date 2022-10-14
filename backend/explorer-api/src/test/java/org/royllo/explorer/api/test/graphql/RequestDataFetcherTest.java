@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.royllo.explorer.api.graphql.generated.DgsConstants;
 import org.royllo.explorer.api.graphql.generated.client.OpenedRequestsGraphQLQuery;
 import org.royllo.explorer.api.graphql.generated.client.OpenedRequestsProjectionRoot;
+import org.royllo.explorer.api.graphql.generated.client.RequestGraphQLQuery;
+import org.royllo.explorer.api.graphql.generated.client.RequestProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.types.AddAssetMetaDataRequest;
 import org.royllo.explorer.api.graphql.generated.types.AddAssetRequest;
 import org.royllo.explorer.api.graphql.generated.types.Request;
@@ -77,6 +79,35 @@ public class RequestDataFetcherTest {
         assertNull(request3.getErrorMessage());
         assertEquals("GI4", request3.getGenesisBootstrapInformation());
         assertEquals("P4", request3.getProof());
+    }
+
+    @Test
+    @DisplayName("request()")
+    public void request() {
+        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
+                RequestGraphQLQuery.newRequest().id("4").build(),
+                new RequestProjectionRoot()
+                        .id()
+                        .creator().id().username().parent()
+                        .status().getParent()
+                        .errorMessage()
+                        .onAddAssetRequest().genesisBootstrapInformation().proof().getParent()
+                        .onAddAssetMetaDataRequest().assetId().metaData());
+
+        Request request = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+                graphQLQueryRequest.serialize(),
+                "data." + DgsConstants.QUERY.Request,
+                new TypeRef<>() {
+                });
+
+        AddAssetRequest addAssetRequest = (AddAssetRequest) request;
+        assertEquals("4", addAssetRequest.getId());
+        assertEquals(UserConstants.ANONYMOUS_USER_ID.toString(), addAssetRequest.getCreator().getId());
+        assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, addAssetRequest.getCreator().getUsername());
+        assertEquals(RequestStatus.OPENED.toString(), addAssetRequest.getStatus().toString());
+        assertNull(addAssetRequest.getErrorMessage());
+        assertEquals("GI4", addAssetRequest.getGenesisBootstrapInformation());
+        assertEquals("P4", addAssetRequest.getProof());
     }
 
 }
