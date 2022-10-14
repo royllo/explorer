@@ -17,8 +17,6 @@ public interface AssetMapper {
     @Mapping(target = "updatedOn", ignore = true)
     Asset mapToAsset(AssetDTO source);
 
-    // TODO Suppress this ?
-    @Mapping(target = "genesisPoint", source = "genesisPoint")
     AssetDTO mapToAssetDTO(Asset source);
 
 }

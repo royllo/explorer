@@ -16,7 +16,7 @@
     <licenses>
         <license>
             <name>GNU General Public License v3.0</name>
-            <url>https://github.com/royllo/taue/blob/development/LICENSE</url>
+            <url>https://github.com/royllo/explorer/blob/development/LICENSE</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -38,7 +38,7 @@
     <!-- Source Code Management -->
     <scm>
         <url>https://github.com/royllo/explorer</url>
-        <connection>scm:git:git://github.com/explorer/taue.git</connection>
+        <connection>scm:git:git://github.com/royllo/explorer.git</connection>
         <developerConnection>scm:git:git@github.com:royllo/explorer.git</developerConnection>
     </scm>
     <!-- =========================================================================================================== -->
@@ -97,8 +97,8 @@
     <!-- =========================================================================================================== -->
     <!-- Modules -->
     <modules>
-        <module>backend/core</module>
-        <module>backend/api</module>
+        <module>backend/explorer-core</module>
+        <module>backend/explorer-api</module>
     </modules>
     <!-- =========================================================================================================== -->
 
