@@ -21,6 +21,10 @@ type Query {
     "Get user by username"
     userByUsername(username: String!): User
 
+    # ==================================================================================================================
+    # Opened requests API
+    openedRequests: [Request]
+
 }
 
 scalar DateTime

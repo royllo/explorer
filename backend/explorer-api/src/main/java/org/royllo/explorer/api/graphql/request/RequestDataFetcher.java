@@ -1,0 +1,51 @@
+package org.royllo.explorer.api.graphql.request;
+
+import com.netflix.graphql.dgs.DgsComponent;
+import com.netflix.graphql.dgs.DgsQuery;
+import com.netflix.graphql.dgs.DgsTypeResolver;
+import lombok.RequiredArgsConstructor;
+import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
+import org.royllo.explorer.core.dto.request.AddAssetRequestDTO;
+import org.royllo.explorer.core.dto.request.RequestDTO;
+import org.royllo.explorer.core.service.request.RequestService;
+
+import java.util.List;
+
+/**
+ * Request data fetcher.
+ */
+@DgsComponent
+@RequiredArgsConstructor
+public class RequestDataFetcher {
+
+    /** Request service. */
+    private final RequestService requestService;
+
+    /**
+     * DGS type resolver.
+     *
+     * @param requestDTO request dto
+     * @return type
+     */
+    @DgsTypeResolver(name = "Request")
+    public String resolveRequest(final RequestDTO requestDTO) {
+        if (requestDTO instanceof AddAssetRequestDTO) {
+            return "AddAssetRequest";
+        } else if (requestDTO instanceof AddAssetMetaDataRequestDTO) {
+            return "AddAssetMetaDataRequest";
+        } else {
+            throw new RuntimeException("Invalid type: " + requestDTO.getClass().getName() + " found in resolveRequest");
+        }
+    }
+
+    /**
+     * Get opened requests.
+     *
+     * @return requests with OPENED status
+     */
+    @DgsQuery
+    public final List<RequestDTO> openedRequests() {
+        return requestService.getOpenedRequests();
+    }
+
+}

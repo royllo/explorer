@@ -1,13 +1,13 @@
 "Bitcoin transaction output"
 type BitcoinTransactionOutput {
     "Bitcoin transaction output ID in database"
-    id: ID
+    id: ID!
     "Block height"
     blockHeight: Int
     "Transaction id"
-    txId: String
+    txId: String!
     "Output index (starts at 0)"
-    vout: Int
+    vout: Int!
     "ScriptPubKey is the script which controls how bitcoin can be spent"
     scriptPubKey: String
     "ScriptPubKey asm is the symbolic representation of the Bitcoin's Script language op-codes"

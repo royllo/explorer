@@ -1,6 +1,5 @@
 package org.royllo.explorer.core.test.core.service;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
@@ -42,7 +41,7 @@ public class RequestServiceTest {
         assertEquals(1, request1.getId());
         assertEquals(UserConstants.ANONYMOUS_USER_ID, request1.getCreator().getId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request1.getCreator().getUsername());
-        Assertions.assertEquals(RequestStatus.OPENED, request1.getStatus());
+        assertEquals(RequestStatus.OPENED, request1.getStatus());
         assertNull(request1.getErrorMessage());
         assertEquals("GI1", request1.getGenesisBootstrapInformation());
         assertEquals("P1", request1.getProof());
@@ -52,7 +51,7 @@ public class RequestServiceTest {
         assertEquals(3, request2.getId());
         assertEquals(UserConstants.ANONYMOUS_USER_ID, request2.getCreator().getId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request2.getCreator().getUsername());
-        Assertions.assertEquals(RequestStatus.OPENED, request2.getStatus());
+        assertEquals(RequestStatus.OPENED, request2.getStatus());
         assertNull(request2.getErrorMessage());
         assertEquals("AI2", request2.getAssetId());
         assertEquals("MD2", request2.getMetaData());
@@ -62,7 +61,7 @@ public class RequestServiceTest {
         assertEquals(4, request3.getId());
         assertEquals(UserConstants.ANONYMOUS_USER_ID, request3.getCreator().getId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request3.getCreator().getUsername());
-        Assertions.assertEquals(RequestStatus.OPENED, request3.getStatus());
+        assertEquals(RequestStatus.OPENED, request3.getStatus());
         assertNull(request3.getErrorMessage());
         assertEquals("GI4", request3.getGenesisBootstrapInformation());
         assertEquals("P4", request3.getProof());
@@ -87,7 +86,7 @@ public class RequestServiceTest {
         assertEquals(request1Id, request1Casted.getId());
         assertEquals(UserConstants.ANONYMOUS_USER_ID, request1Casted.getCreator().getId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request1Casted.getCreator().getUsername());
-        Assertions.assertEquals(RequestStatus.OPENED, request1Casted.getStatus());
+        assertEquals(RequestStatus.OPENED, request1Casted.getStatus());
         assertNull(request1Casted.getErrorMessage());
         assertEquals("genesis1", request1Casted.getGenesisBootstrapInformation());
         assertEquals("proof1", request1Casted.getProof());
@@ -108,7 +107,7 @@ public class RequestServiceTest {
         assertEquals(request2Id, request2Casted.getId());
         assertEquals(UserConstants.ANONYMOUS_USER_ID, request2Casted.getCreator().getId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request2Casted.getCreator().getUsername());
-        Assertions.assertEquals(RequestStatus.OPENED, request2Casted.getStatus());
+        assertEquals(RequestStatus.OPENED, request2Casted.getStatus());
         assertNull(request2Casted.getErrorMessage());
         assertEquals("taroAssetId1", request2Casted.getAssetId());
         assertEquals("meta1", request2Casted.getMetaData());
@@ -129,7 +128,7 @@ public class RequestServiceTest {
         assertEquals(request3Id, request3Casted.getId());
         assertEquals(UserConstants.ANONYMOUS_USER_ID, request3Casted.getCreator().getId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request3Casted.getCreator().getUsername());
-        Assertions.assertEquals(RequestStatus.OPENED, request3Casted.getStatus());
+        assertEquals(RequestStatus.OPENED, request3Casted.getStatus());
         assertNull(request3Casted.getErrorMessage());
         assertEquals("genesis2", request3Casted.getGenesisBootstrapInformation());
         assertEquals("proof2", request3Casted.getProof());

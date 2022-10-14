@@ -1,7 +1,7 @@
 "Application user"
 type User {
     "User ID in database"
-    id: ID
+    id: ID!
     "Username"
-    username: String
+    username: String!
 }

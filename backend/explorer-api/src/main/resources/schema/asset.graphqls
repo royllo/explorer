@@ -1,11 +1,11 @@
 "Taro asset"
 type Asset {
     "Asset ID in database"
-    id: ID
+    id: ID!
     "The first outpoint of the transaction that created the asset (txid:vout)"
-    genesisPoint: BitcoinTransactionOutput
+    genesisPoint: BitcoinTransactionOutput!
     "The asset creator"
-    creator: User
+    creator: User!
     "The name of the asset"
     name: String
     "The hashed metadata of the asset"
