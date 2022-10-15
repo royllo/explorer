@@ -47,7 +47,7 @@ jobs:
 
       # ================================================================================================================
       - name: Build docker image
-        run: mvn spring-boot:build-image -f backend/api/pom.xml
+        run: mvn spring-boot:build-image -f backend/explorer-api/pom.xml
 
       # ================================================================================================================
       - name: Push the docker images to Docker hub

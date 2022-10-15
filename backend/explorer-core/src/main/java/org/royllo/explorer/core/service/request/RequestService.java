@@ -28,7 +28,7 @@ public interface RequestService {
     Optional<RequestDTO> getRequest(long id);
 
     /**
-     * Add a request for asset.
+     * Add a request to add an asset.
      *
      * @param genesisBootstrapInformation The full genesis information encoded in a portable manner, so it can be easily copied and pasted for address creation.
      * @param proof                       Proof that validates the asset information
@@ -38,7 +38,7 @@ public interface RequestService {
                                 String proof);
 
     /**
-     * Add a request for an asset meta.
+     * Add a request to add an asset meta data.
      *
      * @param taroAssetId Taro asset id
      * @param metaData    Metadata corresponding to the meta hash stored in the genesis information

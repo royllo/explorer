@@ -1,6 +1,7 @@
 package org.royllo.explorer.api.graphql.request;
 
 import com.netflix.graphql.dgs.DgsComponent;
+import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.DgsTypeResolver;
 import com.netflix.graphql.dgs.InputArgument;
@@ -59,6 +60,17 @@ public class RequestDataFetcher {
     @DgsQuery
     public final RequestDTO request(final @InputArgument long id) {
         return requestService.getRequest(id).orElseThrow(DgsEntityNotFoundException::new);
+    }
+
+    /**
+     * Add a request to add an asset.
+     *
+     * @param input add asset request inputs
+     * @return request created
+     */
+    @DgsMutation
+    public final RequestDTO addAssetRequest(final @InputArgument AddAssetRequestInputs input) {
+        return requestService.addAsset(input.getGenesisBootstrapInformation(), input.getProof());
     }
 
 }

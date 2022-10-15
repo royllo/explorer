@@ -192,6 +192,8 @@
                         <param>src/main/resources/schema/request-addAssetMetaData.graphqls</param>
                         <!-- GraphQL queries -->
                         <param>src/main/resources/schema/query.graphqls</param>
+                        <!-- GraphQL mutations -->
+                        <param>src/main/resources/schema/mutation.graphqls</param>
                     </schemaPaths>
                     <packageName>org.royllo.explorer.api.graphql.generated</packageName>
                     <generateClient>true</generateClient>
