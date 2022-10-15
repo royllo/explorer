@@ -6,12 +6,15 @@ import com.netflix.graphql.dgs.client.codegen.GraphQLQueryRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.api.graphql.generated.DgsConstants;
+import org.royllo.explorer.api.graphql.generated.client.AddAssetRequestGraphQLQuery;
+import org.royllo.explorer.api.graphql.generated.client.AddAssetRequestProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.client.OpenedRequestsGraphQLQuery;
 import org.royllo.explorer.api.graphql.generated.client.OpenedRequestsProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.client.RequestGraphQLQuery;
 import org.royllo.explorer.api.graphql.generated.client.RequestProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.types.AddAssetMetaDataRequest;
 import org.royllo.explorer.api.graphql.generated.types.AddAssetRequest;
+import org.royllo.explorer.api.graphql.generated.types.AddAssetRequestInputs;
 import org.royllo.explorer.api.graphql.generated.types.Request;
 import org.royllo.explorer.core.util.constants.UserConstants;
 import org.royllo.explorer.core.util.enums.RequestStatus;
@@ -108,6 +111,39 @@ public class RequestDataFetcherTest {
         assertNull(addAssetRequest.getErrorMessage());
         assertEquals("GI4", addAssetRequest.getGenesisBootstrapInformation());
         assertEquals("P4", addAssetRequest.getProof());
+    }
+
+    @Test
+    @DisplayName("addAssetRequest()")
+    public void addAssetRequest() {
+        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
+                AddAssetRequestGraphQLQuery.newRequest()
+                        .input(AddAssetRequestInputs.newBuilder()
+                                .genesisBootstrapInformation("genesisBootstrapInformation01")
+                                .proof("proof01")
+                                .build())
+                        .build(),
+                new AddAssetRequestProjectionRoot()
+                        .id()
+                        .creator().id().username().parent()
+                        .status().getParent()
+                        .errorMessage()
+                        .genesisBootstrapInformation()
+                        .proof());
+
+        AddAssetRequest requestCreated = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+                graphQLQueryRequest.serialize(),
+                "data." + DgsConstants.MUTATION.AddAssetRequest,
+                new TypeRef<>() {
+                });
+
+        assertEquals("5", requestCreated.getId());
+        assertEquals(UserConstants.ANONYMOUS_USER_ID.toString(), requestCreated.getCreator().getId());
+        assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, requestCreated.getCreator().getUsername());
+        assertEquals(RequestStatus.OPENED.toString(), requestCreated.getStatus().toString());
+        assertNull(requestCreated.getErrorMessage());
+        assertEquals("genesisBootstrapInformation01", requestCreated.getGenesisBootstrapInformation());
+        assertEquals("proof01", requestCreated.getProof());
     }
 
 }
