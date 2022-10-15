@@ -4,6 +4,8 @@ type Mutation {
     # Requests API
     "Add a request to add an asset"
     addAssetRequest(input: AddAssetRequestInputs!): AddAssetRequest
+    "Add a request to add an asset meta data"
+    addAssetMetaDataRequest(input: addAssetMetaDataRequestInputs!): AddAssetMetaDataRequest
 
 }
 
@@ -13,4 +15,12 @@ input AddAssetRequestInputs {
     genesisBootstrapInformation: String!
     "Proof that validates the asset information"
     proof: String!
+}
+
+"Add asset request meta data inputs"
+input addAssetMetaDataRequestInputs {
+    "Taro asset id"
+    assetId: String!
+    "Metadata corresponding to the meta hash stored in the genesis information"
+    metaData: String!
 }

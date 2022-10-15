@@ -69,8 +69,19 @@ public class RequestDataFetcher {
      * @return request created
      */
     @DgsMutation
-    public final RequestDTO addAssetRequest(final @InputArgument AddAssetRequestInputs input) {
+    public final AddAssetRequestDTO addAssetRequest(final @InputArgument AddAssetRequestInputs input) {
         return requestService.addAsset(input.getGenesisBootstrapInformation(), input.getProof());
+    }
+
+    /**
+     * Add a request to add an asset meta data.
+     *
+     * @param input add asset meta data request inputs
+     * @return request created
+     */
+    @DgsMutation
+    public final AddAssetMetaDataRequestDTO addAssetMetaDataRequest(final @InputArgument AddAssetMetaDataRequestInputs input) {
+        return requestService.addAssetMetaData(input.getAssetId(), input.getMetaData());
     }
 
 }
