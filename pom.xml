@@ -98,6 +98,7 @@
     <!-- Modules -->
     <modules>
         <module>backend/explorer-core</module>
+        <module>backend/explorer-batch</module>
         <module>backend/explorer-api</module>
     </modules>
     <!-- =========================================================================================================== -->

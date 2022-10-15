@@ -1,0 +1,21 @@
+"A request to update royllo data made by a user"
+interface Request {
+    "Request ID in database"
+    id: ID!
+    "Request creator"
+    creator: User!
+    "Request status"
+    status: RequestStatus!
+    "Error message - Not empty if status is equals to ERROR"
+    errorMessage: String
+}
+
+"Request status"
+enum RequestStatus {
+    "An opened request that must be treated"
+    OPENED
+    "The request has been treated with success"
+    SUCCESS
+    "An error occurred, it's a failure"
+    FAILURE
+}

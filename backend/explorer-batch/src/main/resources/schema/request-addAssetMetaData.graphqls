@@ -1,0 +1,15 @@
+"A request to add asset meta data to an asset already in Royllo database"
+type AddAssetMetaDataRequest implements Request {
+    "Request ID in database"
+    id: ID!
+    "Request creator"
+    creator: User!
+    "Request status"
+    status: RequestStatus!
+    "Error message - Not empty if status is equals to ERROR"
+    errorMessage: String
+    "Taro asset id"
+    assetId: String!
+    "Metadata corresponding to the meta hash stored in the genesis information"
+    metaData: String!
+}

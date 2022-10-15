@@ -1,0 +1,26 @@
+type Mutation {
+
+    # ==================================================================================================================
+    # Requests API
+    "Add a request to add an asset"
+    addAssetRequest(input: AddAssetRequestInputs!): AddAssetRequest
+    "Add a request to add an asset meta data"
+    addAssetMetaDataRequest(input: addAssetMetaDataRequestInputs!): AddAssetMetaDataRequest
+
+}
+
+"Add asset request inputs"
+input AddAssetRequestInputs {
+    "The full genesis information encoded in a portable manner, so it can be easily copied and pasted for address creation"
+    genesisBootstrapInformation: String!
+    "Proof that validates the asset information"
+    proof: String!
+}
+
+"Add asset request meta data inputs"
+input addAssetMetaDataRequestInputs {
+    "Taro asset id"
+    assetId: String!
+    "Metadata corresponding to the meta hash stored in the genesis information"
+    metaData: String!
+}
