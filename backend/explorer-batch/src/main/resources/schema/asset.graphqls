@@ -1,0 +1,17 @@
+"Taro asset"
+type Asset {
+    "Asset ID in database"
+    id: ID!
+    "The first outpoint of the transaction that created the asset (txid:vout)"
+    genesisPoint: BitcoinTransactionOutput!
+    "The asset creator"
+    creator: User!
+    "The name of the asset"
+    name: String
+    "The hashed metadata of the asset"
+    metaData: String
+    "The asset ID that uniquely identifies the asset"
+    assetId: String
+    "The index of the output that carries the unique Taro commitment in the genesis transaction"
+    outputIndex: Int
+}

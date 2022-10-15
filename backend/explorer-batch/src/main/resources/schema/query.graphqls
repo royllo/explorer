@@ -1,0 +1,35 @@
+type Query {
+
+    # ==================================================================================================================
+    # Asset information API
+    "Query for assets - Search for exact assetId or part of name"
+    queryAssets(value: String!): [Asset]
+
+    "Get an asset by it's id in database"
+    asset(id: ID!): Asset
+
+    "Get an asset by it's taro asset id"
+    assetByAssetId(assetId: ID!): Asset
+
+    # ==================================================================================================================
+    # Requests API
+    "Returns the list of opened requests"
+    openedRequests: [Request]
+    "Get a request by it's id in database"
+    request(id: ID!): Request
+
+    # ==================================================================================================================
+    # Bitcoin information API
+    "Get a bitcoin transaction output by it's txId and vOut"
+    bitcoinTransactionOutput(txId: String!, vout: Int!): BitcoinTransactionOutput
+
+    # ==================================================================================================================
+    # User API
+    "Get user by username"
+    userByUsername(username: String!): User
+
+}
+
+scalar DateTime
+scalar BigInteger
+scalar BigDecimal
