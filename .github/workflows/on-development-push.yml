@@ -27,16 +27,12 @@ jobs:
         run: echo "::set-output name=version::$(mvn help:evaluate -D expression=project.version -q -D forceStdout)"
 
       # ================================================================================================================
-      - name: Run all tests
+      - name: Run core and issues tests
         run: mvn clean test
 
       # ================================================================================================================
       - name: Run integration tests
         run: mvn clean test -P integration
-
-      # ================================================================================================================
-      - name: Install jars
-        run: mvn clean install -Dmaven.test.skip
 
       # ================================================================================================================
       - name: Docker Hub login
@@ -46,8 +42,10 @@ jobs:
           password: ${{ secrets.EXPLORER_DOCKER_HUB_PASSWORD }}
 
       # ================================================================================================================
-      - name: Build docker image
-        run: mvn spring-boot:build-image -f backend/explorer-api/pom.xml
+      - name: Build docker images
+        run: |
+          mvn clean install -Dmaven.test.skip
+          mvn spring-boot:build-image -f backend/explorer-api/pom.xml
 
       # ================================================================================================================
       - name: Push the docker images to Docker hub
