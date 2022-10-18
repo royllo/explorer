@@ -4,13 +4,16 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
+import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.service.asset.AssetService;
+import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 import org.royllo.explorer.core.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
@@ -26,6 +30,9 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 @ActiveProfiles("mempoolTransactionServiceMock")
 @DisplayName("AssetService tests")
 public class AssetServiceTest extends BaseTest {
+
+    @Autowired
+    private BitcoinService bitcoinService;
 
     @Autowired
     private AssetService assetService;
@@ -67,6 +74,88 @@ public class AssetServiceTest extends BaseTest {
                 .collect(Collectors.toSet());
         assertTrue(ids.contains(1L));
         assertTrue(ids.contains(2L));
+    }
+
+    @Test
+    @DisplayName("addAsset()")
+    public void addAsset() {
+        // =============================================================================================================
+        // First test - Trying to save an existing asset.
+        try {
+            assetService.addAsset(AssetDTO.builder()
+                    .id(1L)
+                    .build());
+        } catch (AssertionError e) {
+            assertEquals("Asset already exists", e.getMessage());
+        }
+
+        // =============================================================================================================
+        // Second test - Bitcoin transaction is null.
+        try {
+            assetService.addAsset(AssetDTO.builder()
+                    .build());
+        } catch (AssertionError e) {
+            assertEquals("Bitcoin transaction is required", e.getMessage());
+        }
+
+        // =============================================================================================================
+        // Third test - AssetId is already in the database.
+        final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(BITCOIN_TRANSACTION_1_TXID, 0);
+        assertTrue(bto.isPresent());
+
+        try {
+            assetService.addAsset(AssetDTO.builder()
+                    .genesisPoint(bto.get())
+                    .assetId("b34b05956d828a7f7a0df598771c9f6df0378680c432480837852bcb94a8f21e")
+                    .build());
+        } catch (AssertionError e) {
+            assertTrue(e.getMessage().endsWith("already registered"));
+        }
+
+        // =============================================================================================================
+        // Now adding a real asset - WE DIT NOT SEARCH FOR THE TRANSACTION OUTPUT IN DATABASE.
+        final AssetDTO asset1 = assetService.addAsset(AssetDTO.builder()
+                .genesisPoint(BitcoinTransactionOutputDTO.builder()
+                        .txId(BITCOIN_TRANSACTION_3_TXID)
+                        .vout(0)
+                        .build())
+                .name("testCoin")
+                .metaData("my meta data")
+                .assetId("my asset id")
+                .outputIndex(8)
+                .build());
+
+        // Testing asset value.
+        assertNotNull(asset1.getId());
+        assertNotNull(asset1.getGenesisPoint());
+        assertNotNull(asset1.getGenesisPoint().getId());
+        assertEquals(BITCOIN_TRANSACTION_3_TXID, asset1.getGenesisPoint().getTxId());
+        assertEquals(0, asset1.getGenesisPoint().getVout());
+        assertEquals("76a9140aa7e954ae2c972225309f0992e3ecd698a90f5f88ac", asset1.getGenesisPoint().getScriptPubKey());
+        assertEquals("OP_DUP OP_HASH160 OP_PUSHBYTES_20 0aa7e954ae2c972225309f0992e3ecd698a90f5f OP_EQUALVERIFY OP_CHECKSIG", asset1.getGenesisPoint().getScriptPubKeyAsm());
+        assertEquals("p2pkh", asset1.getGenesisPoint().getScriptPubKeyType());
+        assertEquals("1yLucPwZwVuNxMFTXyyX5qTk3YFNpAGEz", asset1.getGenesisPoint().getScriptPubKeyAddress());
+        assertEquals(0, new BigDecimal("2036308").compareTo(asset1.getGenesisPoint().getValue()));
+        assertEquals(0, asset1.getCreator().getId());
+        assertEquals("anonymous", asset1.getCreator().getUsername());
+        assertEquals("testCoin", asset1.getName());
+        assertEquals("my meta data", asset1.getMetaData());
+        assertEquals("my asset id", asset1.getAssetId());
+        assertEquals(8, asset1.getOutputIndex());
+
+        // =============================================================================================================
+        // Now adding a real asset with an existing transaction output.
+        final AssetDTO asset2 = assetService.addAsset(AssetDTO.builder()
+                .genesisPoint(bto.get())
+                .name("testCoin2")
+                .metaData("metaData2")
+                .assetId("assetId2")
+                .outputIndex(9)
+                .build());
+
+        // Testing asset value.
+        assertNotNull(asset2.getId());
+        assertEquals(1, asset2.getGenesisPoint().getId());
     }
 
     @Test

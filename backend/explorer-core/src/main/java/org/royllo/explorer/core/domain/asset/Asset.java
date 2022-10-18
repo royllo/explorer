@@ -66,7 +66,7 @@ public class Asset extends BaseDomain {
     private String assetId;
 
     /** The index of the output that carries the unique Taro commitment in the genesis transaction. */
-    @NotBlank(message = "Output index is required")
+    @NotNull(message = "Output index is required")
     @Column(name = "OUTPUT_INDEX", updatable = false)
     private int outputIndex;
 
