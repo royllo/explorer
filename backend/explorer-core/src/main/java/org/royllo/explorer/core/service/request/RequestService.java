@@ -30,11 +30,19 @@ public interface RequestService {
     /**
      * Add a request to add an asset.
      *
-     * @param genesisBootstrapInformation The full genesis information encoded in a portable manner, so it can be easily copied and pasted for address creation.
-     * @param proof                       Proof that validates the asset information
+     * @param genesisPoint The first outpoint of the transaction that created the asset (txid:vout)
+     * @param name         The name of the asset
+     * @param metaData     The hashed metadata of the asset
+     * @param assetId      The asset ID that uniquely identifies the asset
+     * @param outputIndex  The index of the output that carries the unique Taro commitment in the genesis transaction
+     * @param proof        Proof that validates the asset information
      * @return id of the request created
      */
-    AddAssetRequestDTO addAsset(String genesisBootstrapInformation,
+    AddAssetRequestDTO addAsset(String genesisPoint,
+                                String name,
+                                String metaData,
+                                String assetId,
+                                int outputIndex,
                                 String proof);
 
     /**

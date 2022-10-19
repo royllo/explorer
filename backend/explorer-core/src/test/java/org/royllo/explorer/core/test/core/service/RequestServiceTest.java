@@ -42,8 +42,11 @@ public class RequestServiceTest {
         assertEquals(UserConstants.ANONYMOUS_USER_ID, request1.getCreator().getId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request1.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED, request1.getStatus());
-        assertNull(request1.getErrorMessage());
-        assertEquals("GI1", request1.getGenesisBootstrapInformation());
+        assertEquals("GP1", request1.getGenesisPoint());
+        assertEquals("NAME1", request1.getName());
+        assertEquals("ME1", request1.getMetaData());
+        assertEquals("AI1", request1.getAssetId());
+        assertEquals(1, request1.getOutputIndex());
         assertEquals("P1", request1.getProof());
 
         // Request 2.
@@ -63,7 +66,11 @@ public class RequestServiceTest {
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request3.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED, request3.getStatus());
         assertNull(request3.getErrorMessage());
-        assertEquals("GI4", request3.getGenesisBootstrapInformation());
+        assertEquals("GP4", request3.getGenesisPoint());
+        assertEquals("NAME4", request3.getName());
+        assertEquals("ME4", request3.getMetaData());
+        assertEquals("AI4", request3.getAssetId());
+        assertEquals(4, request3.getOutputIndex());
         assertEquals("P4", request3.getProof());
     }
 
@@ -72,7 +79,13 @@ public class RequestServiceTest {
     public void addRequests() {
         // =============================================================================================================
         // Request 1 (addAsset).
-        RequestDTO request1DTO = requestService.addAsset("genesis1", "proof1");
+        RequestDTO request1DTO = requestService.addAsset("genesis1",
+                "name1",
+                "metaData1",
+                "assetId1",
+                1,
+                "proof1"
+        );
         assertNotNull(request1DTO);
         long request1Id = request1DTO.getId();
 
@@ -88,7 +101,11 @@ public class RequestServiceTest {
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request1Casted.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED, request1Casted.getStatus());
         assertNull(request1Casted.getErrorMessage());
-        assertEquals("genesis1", request1Casted.getGenesisBootstrapInformation());
+        assertEquals("genesis1", request1Casted.getGenesisPoint());
+        assertEquals("name1", request1Casted.getName());
+        assertEquals("metaData1", request1Casted.getMetaData());
+        assertEquals("assetId1", request1Casted.getAssetId());
+        assertEquals(1, request1Casted.getOutputIndex());
         assertEquals("proof1", request1Casted.getProof());
 
         // =============================================================================================================
@@ -114,7 +131,13 @@ public class RequestServiceTest {
 
         // =============================================================================================================
         // Request 3 (addAsset).
-        RequestDTO request3DTO = requestService.addAsset("genesis2", "proof2");
+        RequestDTO request3DTO = requestService.addAsset("genesis2",
+                "name2",
+                "metaData2",
+                "assetId2",
+                2,
+                "proof2"
+        );
         assertNotNull(request3DTO);
         long request3Id = request3DTO.getId();
 
@@ -130,7 +153,11 @@ public class RequestServiceTest {
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request3Casted.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED, request3Casted.getStatus());
         assertNull(request3Casted.getErrorMessage());
-        assertEquals("genesis2", request3Casted.getGenesisBootstrapInformation());
+        assertEquals("genesis2", request3Casted.getGenesisPoint());
+        assertEquals("name2", request3Casted.getName());
+        assertEquals("metaData2", request3Casted.getMetaData());
+        assertEquals("assetId2", request3Casted.getAssetId());
+        assertEquals(2, request3Casted.getOutputIndex());
         assertEquals("proof2", request3Casted.getProof());
     }
 

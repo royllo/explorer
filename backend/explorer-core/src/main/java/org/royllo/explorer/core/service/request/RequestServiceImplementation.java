@@ -59,13 +59,21 @@ public class RequestServiceImplementation extends BaseService implements Request
     }
 
     @Override
-    public AddAssetRequestDTO addAsset(final String genesisBootstrapInformation,
+    public AddAssetRequestDTO addAsset(final String genesisPoint,
+                                       final String name,
+                                       final String metaData,
+                                       final String assetId,
+                                       final int outputIndex,
                                        final String proof) {
         // Creating the request.
         AddAssetRequest request = AddAssetRequest.builder()
                 .creator(anonymousUser)
                 .status(RequestStatus.OPENED)
-                .genesisBootstrapInformation(genesisBootstrapInformation)
+                .genesisPoint(genesisPoint)
+                .name(name)
+                .metaData(metaData)
+                .assetId(assetId)
+                .outputIndex(outputIndex)
                 .proof(proof)
                 .build();
         logger.debug("addAsset - New request {}", request);
