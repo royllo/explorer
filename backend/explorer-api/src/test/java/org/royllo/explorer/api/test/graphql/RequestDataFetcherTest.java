@@ -137,7 +137,7 @@ public class RequestDataFetcherTest {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 AddAssetRequestGraphQLQuery.newRequest()
                         .input(AddAssetRequestInputs.newBuilder()
-                                .genesisPoint("1")
+                                .genesisPoint("4ce18f49ba153a51bcda9bb80d7f978e3de6e81b5fc326f00465464530c052f4:0")
                                 .name("2")
                                 .metaData("3")
                                 .assetId("4")
@@ -164,7 +164,7 @@ public class RequestDataFetcherTest {
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, requestCreated.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED.toString(), requestCreated.getStatus().toString());
         assertNull(requestCreated.getErrorMessage());
-        assertEquals("1", requestCreated.getGenesisPoint());
+        assertEquals("4ce18f49ba153a51bcda9bb80d7f978e3de6e81b5fc326f00465464530c052f4:0", requestCreated.getGenesisPoint());
         assertEquals("2", requestCreated.getName());
         assertEquals("3", requestCreated.getMetaData());
         assertEquals("4", requestCreated.getAssetId());

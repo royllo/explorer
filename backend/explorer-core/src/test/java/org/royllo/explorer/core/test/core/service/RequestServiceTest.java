@@ -12,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -78,8 +81,23 @@ public class RequestServiceTest {
     @DisplayName("Add requests")
     public void addRequests() {
         // =============================================================================================================
+        // Testing data validation.
+        try {
+            requestService.addAsset(null,
+                    null,
+                    null,
+                    null,
+                    -1,
+                    null
+            );
+        } catch (ConstraintViolationException e) {
+            final Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
+            assertEquals(6, constraintViolations.size());
+        }
+
+        // =============================================================================================================
         // Request 1 (addAsset).
-        RequestDTO request1DTO = requestService.addAsset("genesis1",
+        RequestDTO request1DTO = requestService.addAsset("f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16:0",
                 "name1",
                 "metaData1",
                 "assetId1",
@@ -101,7 +119,7 @@ public class RequestServiceTest {
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request1Casted.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED, request1Casted.getStatus());
         assertNull(request1Casted.getErrorMessage());
-        assertEquals("genesis1", request1Casted.getGenesisPoint());
+        assertEquals("f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16:0", request1Casted.getGenesisPoint());
         assertEquals("name1", request1Casted.getName());
         assertEquals("metaData1", request1Casted.getMetaData());
         assertEquals("assetId1", request1Casted.getAssetId());
@@ -131,7 +149,7 @@ public class RequestServiceTest {
 
         // =============================================================================================================
         // Request 3 (addAsset).
-        RequestDTO request3DTO = requestService.addAsset("genesis2",
+        RequestDTO request3DTO = requestService.addAsset("22284fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16:0",
                 "name2",
                 "metaData2",
                 "assetId2",
@@ -153,7 +171,7 @@ public class RequestServiceTest {
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request3Casted.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED, request3Casted.getStatus());
         assertNull(request3Casted.getErrorMessage());
-        assertEquals("genesis2", request3Casted.getGenesisPoint());
+        assertEquals("22284fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16:0", request3Casted.getGenesisPoint());
         assertEquals("name2", request3Casted.getName());
         assertEquals("metaData2", request3Casted.getMetaData());
         assertEquals("assetId2", request3Casted.getAssetId());

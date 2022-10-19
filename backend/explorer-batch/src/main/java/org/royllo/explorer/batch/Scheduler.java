@@ -14,13 +14,13 @@ import javax.annotation.PreDestroy;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Schedule configuration.
+ * Scheduler.
  */
-@Profile("!schedule-disabled")
+@Profile("!scheduler-disabled")
 @Configuration
 @EnableScheduling
 @RequiredArgsConstructor
-public class ScheduleConfiguration extends BaseConfiguration {
+public class Scheduler extends BaseConfiguration {
 
     /** Scheduler pool size. */
     private static final int SCHEDULER_POOL_SIZE = 3;
@@ -47,7 +47,7 @@ public class ScheduleConfiguration extends BaseConfiguration {
         ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
         scheduler.setWaitForTasksToCompleteOnShutdown(true);
         scheduler.setAwaitTerminationMillis(TERMINATION_DELAY_IN_MILLISECONDS);
-        scheduler.setThreadNamePrefix("request-processeor-");
+        scheduler.setThreadNamePrefix("royllo-request-processor-");
         scheduler.setPoolSize(SCHEDULER_POOL_SIZE);
         scheduler.setErrorHandler(throwable -> {
             try {
@@ -76,7 +76,7 @@ public class ScheduleConfiguration extends BaseConfiguration {
      */
     @PreDestroy
     public void shutdown() {
-        logger.info("Closing gracefully explorer batch");
+        logger.info("Closing gracefully Royllo explorer batch...");
         enabled.set(false);
     }
 

@@ -5,13 +5,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.royllo.explorer.core.util.validator.TransactionOutput;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
 /**
  * A request to add asset to royllo explorer.
@@ -27,7 +28,7 @@ import javax.validation.constraints.NotNull;
 public class AddAssetRequest extends Request {
 
     /** The first outpoint of the transaction that created the asset (txid:vout). */
-    @NotBlank(message = "Transaction output that created the asset")
+    @TransactionOutput(message = "Genesis point is not a valid txid:vout")
     @Column(name = "GENESIS_POINT", updatable = false)
     private String genesisPoint;
 
@@ -47,7 +48,7 @@ public class AddAssetRequest extends Request {
     private String assetId;
 
     /** The index of the output that carries the unique Taro commitment in the genesis transaction. */
-    @NotNull(message = "Output index is required")
+    @PositiveOrZero(message = "Valid output index is required")
     @Column(name = "OUTPUT_INDEX", updatable = false)
     private int outputIndex;
 
