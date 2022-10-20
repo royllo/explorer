@@ -31,4 +31,22 @@ public class AddAssetRequestDTO extends RequestDTO {
     /** Proof that validates the asset information. */
     String proof;
 
+    /**
+     * Returns transaction id.
+     *
+     * @return transaction id
+     */
+    public String getTxId() {
+        return genesisPoint.substring(0, genesisPoint.indexOf(":"));
+    }
+
+    /**
+     * Returns transaction vout.
+     *
+     * @return transaction vout
+     */
+    public int getVout() {
+        return Integer.parseInt(genesisPoint.substring(genesisPoint.indexOf(":") + 1));
+    }
+
 }
