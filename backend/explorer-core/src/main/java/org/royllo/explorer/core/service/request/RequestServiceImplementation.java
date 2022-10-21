@@ -11,12 +11,13 @@ import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.repository.user.UserRepository;
 import org.royllo.explorer.core.util.base.BaseService;
 import org.royllo.explorer.core.util.constants.UserConstants;
-import org.royllo.explorer.core.util.enums.RequestStatus;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
+
+import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 
 /**
  * Request service implementation.
@@ -47,7 +48,7 @@ public class RequestServiceImplementation extends BaseService implements Request
 
     @Override
     public List<RequestDTO> getOpenedRequests() {
-        return requestRepository.findByStatusOrderById(RequestStatus.OPENED)
+        return requestRepository.findByStatusOrderById(OPENED)
                 .stream()
                 .map(REQUEST_MAPPER::mapToRequestDTO)
                 .toList();
@@ -59,17 +60,27 @@ public class RequestServiceImplementation extends BaseService implements Request
     }
 
     @Override
-    public AddAssetRequestDTO addAsset(final String genesisBootstrapInformation,
+    public AddAssetRequestDTO addAsset(final String genesisPoint,
+                                       final String name,
+                                       final String metaData,
+                                       final String assetId,
+                                       final int outputIndex,
                                        final String proof) {
+        // =============================================================================================================
         // Creating the request.
         AddAssetRequest request = AddAssetRequest.builder()
                 .creator(anonymousUser)
-                .status(RequestStatus.OPENED)
-                .genesisBootstrapInformation(genesisBootstrapInformation)
+                .status(OPENED)
+                .genesisPoint(genesisPoint)
+                .name(name)
+                .metaData(metaData)
+                .assetId(assetId)
+                .outputIndex(outputIndex)
                 .proof(proof)
                 .build();
         logger.debug("addAsset - New request {}", request);
 
+        // =============================================================================================================
         // Saving the request.
         AddAssetRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetRequestDTO(requestRepository.save(request));
         logger.debug("addAsset - Request {} saved", savedRequest);
@@ -79,10 +90,12 @@ public class RequestServiceImplementation extends BaseService implements Request
     @Override
     public AddAssetMetaDataRequestDTO addAssetMetaData(final String taroAssetId,
                                                        final String metaData) {
+        // TODO add data validation
+
         // Creating the request.
         AddAssetMetaDataRequest request = AddAssetMetaDataRequest.builder()
                 .creator(anonymousUser)
-                .status(RequestStatus.OPENED)
+                .status(OPENED)
                 .assetId(taroAssetId)
                 .metaData(metaData)
                 .build();

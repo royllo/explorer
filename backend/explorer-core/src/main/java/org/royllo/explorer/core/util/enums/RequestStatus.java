@@ -17,6 +17,15 @@ public enum RequestStatus {
     FAILURE;
 
     /**
+     * REturn true if it's a final status - Meaning there is nothing more to do with this request.
+     *
+     * @return true if a final status
+     */
+    public boolean isFinalStatus() {
+        return finalStatus().contains(this);
+    }
+
+    /**
      * Returns the list of status that are finals - Updates with these status cannot be changed.
      *
      * @return list of final status

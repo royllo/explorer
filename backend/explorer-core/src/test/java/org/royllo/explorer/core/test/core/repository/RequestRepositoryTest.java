@@ -47,7 +47,11 @@ public class RequestRepositoryTest extends BaseTest {
         AddAssetRequest request1 = new AddAssetRequest();
         request1.setCreator(user.get());
         request1.setStatus(RequestStatus.OPENED);
-        request1.setGenesisBootstrapInformation("Genesis1");
+        request1.setGenesisPoint("22284fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16:1");
+        request1.setName("name01");
+        request1.setMetaData("metaData01");
+        request1.setAssetId("assetId01");
+        request1.setOutputIndex(1);
         request1.setProof("Proof1");
         long request1ID = requestRepository.save(request1).getId();
         logger.info("Request 1 ID is " + request1ID);
@@ -60,7 +64,11 @@ public class RequestRepositoryTest extends BaseTest {
         Assertions.assertEquals("anonymous", addAssetRequest1FromJPA.getCreator().getUsername());
         Assertions.assertEquals(RequestStatus.OPENED, addAssetRequest1FromJPA.getStatus());
         assertNull(addAssetRequest1FromJPA.getErrorMessage());
-        assertEquals("Genesis1", addAssetRequest1FromJPA.getGenesisBootstrapInformation());
+        assertEquals("22284fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16:1", addAssetRequest1FromJPA.getGenesisPoint());
+        assertEquals("name01", addAssetRequest1FromJPA.getName());
+        assertEquals("metaData01", addAssetRequest1FromJPA.getMetaData());
+        assertEquals("assetId01", addAssetRequest1FromJPA.getAssetId());
+        assertEquals(1, addAssetRequest1FromJPA.getOutputIndex());
         assertEquals("Proof1", addAssetRequest1FromJPA.getProof());
 
         // See what's in database with JDBC.
@@ -103,7 +111,11 @@ public class RequestRepositoryTest extends BaseTest {
         AddAssetRequest request3 = new AddAssetRequest();
         request3.setCreator(user.get());
         request3.setStatus(RequestStatus.FAILURE);
-        request3.setGenesisBootstrapInformation("Genesis2");
+        request3.setGenesisPoint("22284fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16:2");
+        request3.setName("name02");
+        request3.setMetaData("metaData02");
+        request3.setAssetId("assetId02");
+        request3.setOutputIndex(2);
         request3.setProof("Proof2");
         long request3ID = requestRepository.save(request3).getId();
         logger.info("Request 3 ID is " + request3ID);
@@ -116,7 +128,11 @@ public class RequestRepositoryTest extends BaseTest {
         Assertions.assertEquals("anonymous", addAssetRequest2FromJPA.getCreator().getUsername());
         Assertions.assertEquals(RequestStatus.FAILURE, addAssetRequest2FromJPA.getStatus());
         assertNull(addAssetRequest2FromJPA.getErrorMessage());
-        assertEquals("Genesis2", addAssetRequest2FromJPA.getGenesisBootstrapInformation());
+        assertEquals("22284fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16:2", addAssetRequest2FromJPA.getGenesisPoint());
+        assertEquals("name02", addAssetRequest2FromJPA.getName());
+        assertEquals("metaData02", addAssetRequest2FromJPA.getMetaData());
+        assertEquals("assetId02", addAssetRequest2FromJPA.getAssetId());
+        assertEquals(2, addAssetRequest2FromJPA.getOutputIndex());
         assertEquals("Proof2", addAssetRequest2FromJPA.getProof());
 
         // See what's in database with JDBC.

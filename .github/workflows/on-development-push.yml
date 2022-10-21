@@ -35,6 +35,13 @@ jobs:
         run: mvn clean test -P integration
 
       # ================================================================================================================
+      - name: Build docker images
+        run: |
+          mvn clean install -Dmaven.test.skip
+          mvn spring-boot:build-image -f backend/explorer-api/pom.xml
+          mvn spring-boot:build-image -f backend/explorer-batch/pom.xml
+
+      # ================================================================================================================
       - name: Docker Hub login
         uses: docker/login-action@v2.1.0
         with:
@@ -42,14 +49,11 @@ jobs:
           password: ${{ secrets.EXPLORER_DOCKER_HUB_PASSWORD }}
 
       # ================================================================================================================
-      - name: Build docker images
-        run: |
-          mvn clean install -Dmaven.test.skip
-          mvn spring-boot:build-image -f backend/explorer-api/pom.xml
-
-      # ================================================================================================================
       - name: Push the docker images to Docker hub
         run: |
           docker tag royllo/explorer-api:latest royllo/explorer-api:${{ steps.release.outputs.version }}
+          docker tag royllo/explorer-batch:latest royllo/explorer-batch:${{ steps.release.outputs.version }}
           docker push royllo/explorer-api:latest
+          docker push royllo/explorer-batch:latest
           docker push royllo/explorer-api:${{ steps.release.outputs.version }}
+          docker push royllo/explorer-batch:${{ steps.release.outputs.version }}

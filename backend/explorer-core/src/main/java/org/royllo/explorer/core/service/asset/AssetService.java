@@ -21,6 +21,14 @@ public interface AssetService {
     List<AssetDTO> queryAssets(String value);
 
     /**
+     * Add an asset.
+     *
+     * @param newAsset asset to createL
+     * @return asset created
+     */
+    AssetDTO addAsset(AssetDTO newAsset);
+
+    /**
      * Get an asset.
      *
      * @param id id in database

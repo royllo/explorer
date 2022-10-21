@@ -20,6 +20,8 @@
                     remarks="Request type"/>
             <column name="STATUS" type="VARCHAR(255)"
                     remarks="Request status"/>
+            <column name="FK_ASSET" type="BIGINT"
+                    remarks="The asset created/updated by this request"/>
             <column name="ERROR_MESSAGE" type="VARCHAR(255)"
                     remarks="Error message - Not empty if status is equals to ERROR"/>
 
@@ -47,6 +49,18 @@
                                  onDelete="NO ACTION"
                                  onUpdate="NO ACTION"
                                  referencedTableName="USERS"
+                                 referencedColumnNames="ID"
+                                 validate="true"/>
+
+        <!-- Foreign key FK_ASSET > ASSETS.ID -->
+        <addForeignKeyConstraint constraintName="FK_REQUESTS_ASSET"
+                                 baseColumnNames="FK_ASSET"
+                                 baseTableName="REQUESTS"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedTableName="ASSETS"
                                  referencedColumnNames="ID"
                                  validate="true"/>
 

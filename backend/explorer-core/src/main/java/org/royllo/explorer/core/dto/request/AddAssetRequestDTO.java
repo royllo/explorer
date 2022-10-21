@@ -13,10 +13,40 @@ import lombok.experimental.SuperBuilder;
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public class AddAssetRequestDTO extends RequestDTO {
 
-    /** The full genesis information encoded in a portable manner, so it can be easily copied and pasted for address creation. */
-    String genesisBootstrapInformation;
+    /** The first outpoint of the transaction that created the asset (txid:vout). */
+    String genesisPoint;
+
+    /** The name of the asset. */
+    String name;
+
+    /** The hashed metadata of the asset. */
+    String metaData;
+
+    /** The asset ID that uniquely identifies the asset. */
+    String assetId;
+
+    /** The index of the output that carries the unique Taro commitment in the genesis transaction. */
+    int outputIndex;
 
     /** Proof that validates the asset information. */
     String proof;
+
+    /**
+     * Returns transaction id.
+     *
+     * @return transaction id
+     */
+    public String getTxId() {
+        return genesisPoint.substring(0, genesisPoint.indexOf(":"));
+    }
+
+    /**
+     * Returns transaction vout.
+     *
+     * @return transaction vout
+     */
+    public int getVout() {
+        return Integer.parseInt(genesisPoint.substring(genesisPoint.indexOf(":") + 1));
+    }
 
 }

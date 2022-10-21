@@ -70,7 +70,12 @@ public class RequestDataFetcher {
      */
     @DgsMutation
     public final AddAssetRequestDTO addAssetRequest(final @InputArgument AddAssetRequestInputs input) {
-        return requestService.addAsset(input.getGenesisBootstrapInformation(), input.getProof());
+        return requestService.addAsset(input.getGenesisPoint(),
+                input.getName(),
+                input.getMetaData(),
+                input.getAssetId(),
+                input.getOutputIndex(),
+                input.getProof());
     }
 
     /**
