@@ -3,20 +3,17 @@ package org.royllo.explorer.core.service.request;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.request.AddAssetMetaDataRequest;
 import org.royllo.explorer.core.domain.request.AddAssetRequest;
-import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
 import org.royllo.explorer.core.dto.request.AddAssetRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.repository.request.RequestRepository;
-import org.royllo.explorer.core.repository.user.UserRepository;
 import org.royllo.explorer.core.util.base.BaseService;
-import org.royllo.explorer.core.util.constants.UserConstants;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
 
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 
 /**
@@ -27,24 +24,8 @@ import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 @SuppressWarnings("checkstyle:DesignForExtension")
 public class RequestServiceImplementation extends BaseService implements RequestService {
 
-    /** Anonymous user. */
-    private User anonymousUser;
-
-    /** User repository. */
-    private final UserRepository userRepository;
-
     /** Request repository. */
     private final RequestRepository requestRepository;
-
-    /**
-     * Initialize request service implementation :
-     * - Get and cache anonymous user.
-     */
-    @PostConstruct
-    void initialize() {
-        // We retrieve and cache the anonymous user as, for the moment, we don't manage users.
-        userRepository.findById(UserConstants.ANONYMOUS_USER_ID).ifPresent(user -> anonymousUser = user);
-    }
 
     @Override
     public List<RequestDTO> getOpenedRequests() {
@@ -69,7 +50,7 @@ public class RequestServiceImplementation extends BaseService implements Request
         // =============================================================================================================
         // Creating the request.
         AddAssetRequest request = AddAssetRequest.builder()
-                .creator(anonymousUser)
+                .creator(USER_MAPPER.mapToUser(ANONYMOUS_USER))
                 .status(OPENED)
                 .genesisPoint(genesisPoint)
                 .name(name)
@@ -94,7 +75,7 @@ public class RequestServiceImplementation extends BaseService implements Request
 
         // Creating the request.
         AddAssetMetaDataRequest request = AddAssetMetaDataRequest.builder()
-                .creator(anonymousUser)
+                .creator(USER_MAPPER.mapToUser(ANONYMOUS_USER))
                 .status(OPENED)
                 .assetId(taroAssetId)
                 .metaData(metaData)

@@ -2,19 +2,17 @@ package org.royllo.explorer.core.service.asset;
 
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.asset.Asset;
-import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
-import org.royllo.explorer.core.repository.user.UserRepository;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 import org.royllo.explorer.core.util.base.BaseService;
-import org.royllo.explorer.core.util.constants.UserConstants;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
+
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
 
 /**
  * Asset service implementation.
@@ -24,27 +22,11 @@ import java.util.Optional;
 @SuppressWarnings("checkstyle:DesignForExtension")
 public class AssetServiceImplementation extends BaseService implements AssetService {
 
-    /** Anonymous user. */
-    private User anonymousUser;
-
-    /** User repository. */
-    private final UserRepository userRepository;
-
     /** Assert repository. */
     private final AssetRepository assetRepository;
 
     /** Bitcoin service. */
     private final BitcoinService bitcoinService;
-
-    /**
-     * Initialize request service implementation :
-     * - Get and cache anonymous user.
-     */
-    @PostConstruct
-    void initialize() {
-        // We retrieve and cache the anonymous user as, for the moment, we don't manage users.
-        userRepository.findById(UserConstants.ANONYMOUS_USER_ID).ifPresent(user -> anonymousUser = user);
-    }
 
     @Override
     public List<AssetDTO> queryAssets(final String value) {
@@ -73,7 +55,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         // We save the value.
         final Asset assetToCreate = ASSET_MAPPER.mapToAsset(newAsset);
         // Setting the creator.
-        assetToCreate.setCreator(anonymousUser);
+        assetToCreate.setCreator(USER_MAPPER.mapToUser(ANONYMOUS_USER));
         // Setting the bitcoin transaction output ID if not already set.
         if (newAsset.getGenesisPoint().getId() == null) {
             final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(newAsset.getGenesisPoint().getTxId(), newAsset.getGenesisPoint().getVout());
