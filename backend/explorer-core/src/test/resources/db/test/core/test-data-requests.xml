@@ -26,7 +26,7 @@
             <column name="ID" value="2"/>
             <column name="TYPE" value="ADD_ASSET"/>
             <column name="FK_USER_CREATOR" value="0"/>
-            <column name="STATUS" value="CLOSED"/>
+            <column name="STATUS" value="FAILURE"/>
         </insert>
         <insert tableName="REQUESTS_ADD_ASSET">
             <column name="ID" value="2"/>
