@@ -8,7 +8,7 @@
     <!-- Project information -->
     <artifactId>explorer-core</artifactId>
     <packaging>jar</packaging>
-    <name>Royllo Explorer core</name>
+    <name>[Backend] Royllo Explorer core</name>
     <description>Contains domain, repository, dto, services, util</description>
     <!-- =========================================================================================================== -->
 

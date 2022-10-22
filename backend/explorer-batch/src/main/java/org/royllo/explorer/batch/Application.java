@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
- * Application.
+ * Batch application.
  */
 @SpringBootApplication(scanBasePackages = {"org.royllo.explorer"})
 @EnableConfigurationProperties({MempoolParameters.class, MempoolParameters.Api.class})

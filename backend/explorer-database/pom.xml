@@ -7,7 +7,7 @@
     <!-- =========================================================================================================== -->
     <artifactId>explorer-database</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>explorer-database</name>
+    <name>[Backend] Royllo Explorer database</name>
     <description>Contains Liquibase scripts</description>
     <!-- =========================================================================================================== -->
 
