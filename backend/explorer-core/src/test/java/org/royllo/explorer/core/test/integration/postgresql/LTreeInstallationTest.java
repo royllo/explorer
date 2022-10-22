@@ -1,5 +1,6 @@
 package org.royllo.explorer.core.test.integration.postgresql;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,9 @@ public class LTreeInstallationTest {
 
     @Test
     @DisplayName("LTree found in pg_extension")
+    @Ignore
     public void ltreeFoundInPGExtension() throws SQLException {
+        // TODO Move to database
         final ResultSet results = dataSource.getConnection()
                 .createStatement()
                 .executeQuery("""
