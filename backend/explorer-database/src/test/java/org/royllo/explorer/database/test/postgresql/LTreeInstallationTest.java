@@ -1,6 +1,5 @@
-package org.royllo.explorer.core.test.integration.postgresql;
+package org.royllo.explorer.database.test.postgresql;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Testcontainers
-@SpringBootTest(properties = {"spring.datasource.url=jdbc:tc:postgresql:14:///explorer"})
+@SpringBootTest(properties = {"spring.datasource.url=jdbc:tc:postgresql:14:///explorer",
+        "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver"})
 @DisplayName("Postgresql LTree installation")
 public class LTreeInstallationTest {
 
@@ -22,9 +22,7 @@ public class LTreeInstallationTest {
 
     @Test
     @DisplayName("LTree found in pg_extension")
-    @Ignore
     public void ltreeFoundInPGExtension() throws SQLException {
-        // TODO Move to database
         final ResultSet results = dataSource.getConnection()
                 .createStatement()
                 .executeQuery("""
