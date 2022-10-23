@@ -6,7 +6,6 @@
 
     <!-- =========================================================================================================== -->
     <artifactId>explorer-database</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>[Backend] Royllo Explorer database</name>
     <description>Contains Liquibase scripts</description>
     <!-- =========================================================================================================== -->
@@ -97,7 +96,7 @@
                     <excludes>**/mapper/**/*</excludes>
                     <excludes>**/generated/**</excludes>
                     <consoleOutput>true</consoleOutput>
-                    <configLocation>../../checkstyle.xml</configLocation>
+                    <configLocation>${project.parent.basedir}/checkstyle.xml</configLocation>
                     <failOnViolation>true</failOnViolation>
                     <violationSeverity>warning</violationSeverity>
                 </configuration>

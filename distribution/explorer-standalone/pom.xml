@@ -6,45 +6,26 @@
 
     <!-- =========================================================================================================== -->
     <!-- Project information -->
-    <artifactId>explorer-api</artifactId>
-    <packaging>war</packaging>
-    <name>[Backend] Royllo Explorer API</name>
-    <description>Includes core - Contains a GraphQL layer calling core services</description>
-    <!-- =========================================================================================================== -->
-
-    <!-- =========================================================================================================== -->
-    <!-- Properties -->
-    <properties>
-        <start-class>org.royllo.explorer.api.Application</start-class>
-    </properties>
+    <artifactId>explorer-standalone</artifactId>
+    <name>[Distribution] Royllo Explorer standalone (docker)</name>
+    <description>Royllo Explorer Standalone (docker release)</description>
     <!-- =========================================================================================================== -->
 
     <!-- =========================================================================================================== -->
     <!-- Dependencies -->
     <dependencies>
-        <!-- Royllo dependencies -->
-        <dependency>
-            <groupId>org.royllo.explorer</groupId>
-            <artifactId>explorer-core</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-
-        <!-- Web dependencies -->
+        <!-- Spring dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
+            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
-
-        <!-- Util dependencies -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -66,42 +47,48 @@
             <artifactId>jackson-datatype-joda</artifactId>
         </dependency>
 
+        <!-- Util dependencies -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+
+        <!-- Database dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>${jdbc.driver.hsqldb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${jdbc.driver.postgresql.version}</version>
+        </dependency>
+
         <!-- Test dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>${mockito-core.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.netflix.graphql.dgs.codegen</groupId>
-            <artifactId>graphql-dgs-codegen-core</artifactId>
-            <version>5.4.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.netflix.graphql.dgs.codegen</groupId>
-            <artifactId>graphql-dgs-codegen-client-core</artifactId>
-            <version>5.1.17</version>
-        </dependency>
-        <dependency>
-            <groupId>com.netflix.graphql.dgs</groupId>
-            <artifactId>graphql-dgs-mocking</artifactId>
-            <version>5.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.apollographql.federation</groupId>
-            <artifactId>federation-graphql-java-support</artifactId>
-        </dependency>
-        <!-- We set explorer-database as test dependency, so api project won't run liquidbase -->
-        <dependency>
-            <groupId>org.royllo.explorer</groupId>
-            <artifactId>explorer-database</artifactId>
-            <version>${project.parent.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -115,12 +102,19 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers-bom</artifactId>
+                <version>${testcontainers.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <!-- =========================================================================================================== -->
 
     <!-- =========================================================================================================== -->
-    <!-- Build configuration -->
+    <!-- Build -->
     <build>
         <plugins>
             <plugin>
@@ -130,15 +124,61 @@
                 <!-- Docker image configuration -->
                 <configuration>
                     <image>
-                        <name>royllo/explorer-api:latest</name>
+                        <name>royllo/explorer-standalone:latest</name>
                     </image>
-                    <mainClass>org.royllo.explorer.api.Application</mainClass>
+                    <mainClass>org.royllo.explorer.Application</mainClass>
                 </configuration>
                 <executions>
                     <execution>
                         <goals>
                             <goal>repackage</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.parent.basedir}/backend/explorer-database/src/main/java</source>
+                                <source>${project.parent.basedir}/backend/explorer-core/src/main/java</source>
+                                <source>${project.parent.basedir}/backend/explorer-batch/src/main/java</source>
+                                <source>${project.parent.basedir}/backend/explorer-api/src/main/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${project.parent.basedir}/backend/explorer-api/src/main/resources/</directory>
+                                    <targetPath>.</targetPath>
+                                    <excludes>
+                                        <exclude>application.properties</exclude>
+                                    </excludes>
+                                </resource>
+                                <resource>
+                                    <directory>${project.parent.basedir}/backend/explorer-database/src/main/resources/</directory>
+                                    <targetPath>.</targetPath>
+                                    <excludes>
+                                        <exclude>application.properties</exclude>
+                                    </excludes>
+                                </resource>
+                            </resources>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -166,62 +206,10 @@
                     <excludes>**/mapper/**/*</excludes>
                     <excludes>**/generated/**</excludes>
                     <consoleOutput>true</consoleOutput>
-                    <configLocation>${project.parent.basedir}/checkstyle.xml</configLocation>
+                    <configLocation>../../checkstyle.xml</configLocation>
                     <failOnViolation>true</failOnViolation>
                     <violationSeverity>warning</violationSeverity>
                 </configuration>
-            </plugin>
-            <!-- DGS Code Generation plugin generates code -->
-            <plugin>
-                <groupId>io.github.deweyjose</groupId>
-                <artifactId>graphqlcodegen-maven-plugin</artifactId>
-                <version>${maven.graphqlcodegen.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <typeMapping>
-                        <Date>java.time.ZonedDateTime</Date>
-                        <BigInteger>java.math.BigInteger</BigInteger>
-                        <BigDecimal>java.math.BigDecimal</BigDecimal>
-                    </typeMapping>
-                    <schemaPaths>
-                        <!-- GraphQL types -->
-                        <param>src/main/resources/schema/bitcoinTransactionOutput.graphqls</param>
-                        <param>src/main/resources/schema/user.graphqls</param>
-                        <param>src/main/resources/schema/asset.graphqls</param>
-                        <param>src/main/resources/schema/request.graphqls</param>
-                        <param>src/main/resources/schema/request-addAsset.graphqls</param>
-                        <param>src/main/resources/schema/request-addAssetMetaData.graphqls</param>
-                        <!-- GraphQL queries -->
-                        <param>src/main/resources/schema/query.graphqls</param>
-                        <!-- GraphQL mutations -->
-                        <param>src/main/resources/schema/mutation.graphqls</param>
-                    </schemaPaths>
-                    <packageName>org.royllo.explorer.api.graphql.generated</packageName>
-                    <generateClient>true</generateClient>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>${project.build.directory}/generated-sources</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <!-- Compilation (with mapstruct & spring boot processor) -->
             <plugin>
@@ -256,40 +244,8 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
-            <!-- Surefire -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>**/integration/**</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
-    <!-- =========================================================================================================== -->
-
-    <!-- =========================================================================================================== -->
-    <!-- Profiles -->
-    <profiles>
-        <profile>
-            <id>integration</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <excludes>
-                                <exclude>**/core/**</exclude>
-                                <exclude>**/issues/**</exclude>
-                            </excludes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
     <!-- =========================================================================================================== -->
 
     <!-- =========================================================================================================== -->

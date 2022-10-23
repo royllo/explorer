@@ -101,6 +101,7 @@
         <module>backend/explorer-core</module>
         <module>backend/explorer-batch</module>
         <module>backend/explorer-api</module>
+        <module>distribution/explorer-standalone</module>
     </modules>
     <!-- =========================================================================================================== -->
 
