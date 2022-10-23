@@ -71,7 +71,7 @@
         <graphql-dgs-platform-dependencies.version>5.3.0</graphql-dgs-platform-dependencies.version>
 
         <liquibase.version>4.17.0</liquibase.version>
-        <jdbc.driver.hsqldb.version>2.7.0</jdbc.driver.hsqldb.version>
+        <jdbc.driver.hsqldb.version>2.7.1</jdbc.driver.hsqldb.version>
         <jdbc.driver.postgresql.version>42.5.0</jdbc.driver.postgresql.version>
 
         <lombok.version>1.18.24</lombok.version>
