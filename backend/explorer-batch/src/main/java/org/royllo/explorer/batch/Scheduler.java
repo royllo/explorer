@@ -66,7 +66,6 @@ public class Scheduler extends BaseConfiguration {
     public void processRequests() {
         if (enabled.get()) {
             logger.info("Processing requests...");
-            //accountFlux.update();
         }
     }
 

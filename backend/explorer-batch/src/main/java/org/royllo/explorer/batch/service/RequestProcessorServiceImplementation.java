@@ -51,11 +51,15 @@ public class RequestProcessorServiceImplementation extends BaseProcessor impleme
      * @return process result
      */
     private RequestDTO processAddAssetRequest(final AddAssetRequestDTO addAssetRequestDTO) {
+        logger.info("processAddAssetRequest {} - Processing request {}", addAssetRequestDTO.getId(), addAssetRequestDTO);
+
         // =============================================================================================================
         // We check if the transaction can be found in the blockchain or in our database.
         final Optional<BitcoinTransactionOutput> transactionOutput = bitcoinTransactionOutputRepository.findByTxIdAndVout(addAssetRequestDTO.getTxId(), addAssetRequestDTO.getVout());
         if (transactionOutput.isEmpty()) {
             // Transaction not found in database.
+            logger.info("processAddAssetRequest {} - Error - Transaction not found: {}", addAssetRequestDTO.getId(),
+                    addAssetRequestDTO.getGenesisPoint());
             addAssetRequestDTO.failed("Transaction not found (" + addAssetRequestDTO.getGenesisPoint() + ")");
             requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(addAssetRequestDTO));
             return addAssetRequestDTO;
@@ -64,6 +68,8 @@ public class RequestProcessorServiceImplementation extends BaseProcessor impleme
         // =============================================================================================================
         // We check the provided proof.
         if (!"VALID_PROOF".equals(addAssetRequestDTO.getProof())) {
+            logger.info("processAddAssetRequest {} - Error - Invalid proof: {}", addAssetRequestDTO.getId(),
+                    addAssetRequestDTO.getProof());
             addAssetRequestDTO.failed("Invalid proof");
             requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(addAssetRequestDTO));
             return addAssetRequestDTO;
@@ -71,7 +77,7 @@ public class RequestProcessorServiceImplementation extends BaseProcessor impleme
 
         // =============================================================================================================
         // Everything is ok, we now create the asset, update the request and return it.
-        final AssetDTO assetCreated = assetService.addAsset(
+        final AssetDTO assetDTOCreated = assetService.addAsset(
                 AssetDTO.builder()
                         .genesisPoint(BITCOIN_MAPPER.mapToBitcoinTransactionOutputDTO(transactionOutput.get()))
                         .creator(ANONYMOUS_USER)
@@ -81,9 +87,12 @@ public class RequestProcessorServiceImplementation extends BaseProcessor impleme
                         .outputIndex(addAssetRequestDTO.getOutputIndex())
                         .build()
         );
-        addAssetRequestDTO.setAsset(assetCreated);
+        addAssetRequestDTO.setAsset(assetDTOCreated);
         addAssetRequestDTO.succeed();
         requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(addAssetRequestDTO));
+        logger.info("processAddAssetRequest {} - Success - Request {} has updated asset {}", addAssetRequestDTO.getId(),
+                addAssetRequestDTO,
+                assetDTOCreated);
         return addAssetRequestDTO;
     }
 

@@ -3,6 +3,7 @@ package org.royllo.explorer.core.service.request;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.request.AddAssetMetaDataRequest;
 import org.royllo.explorer.core.domain.request.AddAssetRequest;
+import org.royllo.explorer.core.domain.request.Request;
 import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
 import org.royllo.explorer.core.dto.request.AddAssetRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
@@ -29,15 +31,33 @@ public class RequestServiceImplementation extends BaseService implements Request
 
     @Override
     public List<RequestDTO> getOpenedRequests() {
-        return requestRepository.findByStatusOrderById(OPENED)
+        final List<RequestDTO> results = requestRepository.findByStatusOrderById(OPENED)
                 .stream()
                 .map(REQUEST_MAPPER::mapToRequestDTO)
                 .toList();
+        if (results.isEmpty()) {
+            logger.info("getOpenedRequests - There is no results");
+        } else {
+            logger.info("getOpenedRequests - {} results with requests ids: {}",
+                    results.size(),
+                    results.stream()
+                            .map(RequestDTO::getId)
+                            .map(Object::toString)
+                            .collect(Collectors.joining(", ")));
+        }
+        return results;
     }
 
     @Override
     public Optional<RequestDTO> getRequest(final long id) {
-        return requestRepository.findById(id).map(REQUEST_MAPPER::mapToRequestDTO);
+        final Optional<Request> request = requestRepository.findById(id);
+        if (request.isEmpty()) {
+            logger.info("getRequest - Request with id {} not found", id);
+            return Optional.empty();
+        } else {
+            logger.info("getRequest - Request with id {} found: {}", id, request.get());
+            return request.map(REQUEST_MAPPER::mapToRequestDTO);
+        }
     }
 
     @Override
@@ -59,7 +79,7 @@ public class RequestServiceImplementation extends BaseService implements Request
                 .outputIndex(outputIndex)
                 .proof(proof)
                 .build();
-        logger.debug("addAsset - New request {}", request);
+        logger.debug("addAsset - New request to add {}", request);
 
         // =============================================================================================================
         // Saving the request.
