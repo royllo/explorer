@@ -122,7 +122,7 @@
                     <excludes>**/mapper/**/*</excludes>
                     <excludes>**/generated/**</excludes>
                     <consoleOutput>true</consoleOutput>
-                    <configLocation>../../checkstyle.xml</configLocation>
+                    <configLocation>${project.parent.basedir}/checkstyle.xml</configLocation>
                     <failOnViolation>true</failOnViolation>
                     <violationSeverity>warning</violationSeverity>
                 </configuration>
