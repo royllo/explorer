@@ -8,7 +8,7 @@
     <!-- Project information -->
     <artifactId>explorer-api</artifactId>
     <packaging>war</packaging>
-    <name>Royllo Explorer API</name>
+    <name>[Backend] Royllo Explorer API</name>
     <description>Includes core - Contains a GraphQL layer calling core services</description>
     <!-- =========================================================================================================== -->
 
@@ -96,6 +96,13 @@
         <dependency>
             <groupId>com.apollographql.federation</groupId>
             <artifactId>federation-graphql-java-support</artifactId>
+        </dependency>
+        <!-- We set explorer-database as test dependency, so api project won't run liquidbase -->
+        <dependency>
+            <groupId>org.royllo.explorer</groupId>
+            <artifactId>explorer-database</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

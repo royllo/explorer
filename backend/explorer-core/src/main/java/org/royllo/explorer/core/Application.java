@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 /**
- * Application.
+ * Core application.
  */
 @SpringBootApplication
 @EnableConfigurationProperties({MempoolParameters.class, MempoolParameters.Api.class})

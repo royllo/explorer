@@ -1,4 +1,4 @@
-package org.royllo.explorer.core.test.integration.postgresql;
+package org.royllo.explorer.database.test.postgresql;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -12,7 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Testcontainers
-@SpringBootTest(properties = {"spring.datasource.url=jdbc:tc:postgresql:14:///explorer"})
+@SpringBootTest(properties = {"spring.datasource.url=jdbc:tc:postgresql:14:///explorer",
+        "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver"})
 @DisplayName("Postgresql LTree installation")
 public class LTreeInstallationTest {
 

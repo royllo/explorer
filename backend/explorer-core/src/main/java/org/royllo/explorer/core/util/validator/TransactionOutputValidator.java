@@ -1,9 +1,9 @@
 package org.royllo.explorer.core.util.validator;
 
-import org.apache.commons.lang3.StringUtils;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+
+import java.util.regex.Pattern;
 
 import static org.royllo.explorer.core.util.constants.BitcoinConstants.SIZE;
 
@@ -20,7 +20,7 @@ public class TransactionOutputValidator implements ConstraintValidator<Transacti
                 && value.contains(":")                                                          // Transaction output has a ':' to separate tx id and vout.
                 && value.substring(0, value.indexOf(":")).length() == SIZE                      // Transaction id size is 64 characters.
                 && value.substring(value.indexOf(":") + 1).length() > 0               // Transaction vout is mandatory.
-                && StringUtils.isNumeric(value.substring(value.indexOf(":") + 1))     // Transaction vout must be a number
+                && Pattern.matches("[0-9]+[\\.]?[0-9]*", (value.substring(value.indexOf(":") + 1)))     // Transaction vout must be a number
                 && Integer.parseInt(value.substring(value.indexOf(":") + 1)) >= 0;    // Transaction vout must be superior to zero.
     }
 

@@ -5,87 +5,74 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- =========================================================================================================== -->
-    <!-- Project information -->
-    <artifactId>explorer-batch</artifactId>
-    <packaging>war</packaging>
-    <name>[Backend] Royllo Explorer batch</name>
-    <description>Includes core - Contains batch classes calling core services</description>
-    <!-- =========================================================================================================== -->
-
-    <!-- =========================================================================================================== -->
-    <!-- Properties -->
-    <properties>
-        <start-class>org.royllo.explorer.batch.Application</start-class>
-    </properties>
+    <artifactId>explorer-database</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>[Backend] Royllo Explorer database</name>
+    <description>Contains Liquibase scripts</description>
     <!-- =========================================================================================================== -->
 
     <!-- =========================================================================================================== -->
     <!-- Dependencies -->
     <dependencies>
-        <!-- Royllo dependencies -->
-        <dependency>
-            <groupId>org.royllo.explorer</groupId>
-            <artifactId>explorer-core</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-
-        <!-- Web dependencies -->
+        <!-- Spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <!-- Util dependencies -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>${jdbc.driver.hsqldb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${jdbc.driver.postgresql.version}</version>
         </dependency>
 
-        <!-- Test dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>${mockito-core.version}</version>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers-bom</artifactId>
+                <version>${testcontainers.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <!-- =========================================================================================================== -->
 
     <!-- =========================================================================================================== -->
-    <!-- Build configuration -->
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${maven.spring-boot.version}</version>
-                <!-- Docker image configuration -->
-                <configuration>
-                    <image>
-                        <name>royllo/explorer-batch:latest</name>
-                    </image>
-                    <mainClass>org.royllo.explorer.batch.Application</mainClass>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <!-- Checkstyle verification -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -160,28 +147,6 @@
             </plugin>
         </plugins>
     </build>
-    <!-- =========================================================================================================== -->
-
-    <!-- =========================================================================================================== -->
-    <!-- Profiles -->
-    <profiles>
-        <profile>
-            <id>integration</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <excludes>
-                                <exclude>**/core/**</exclude>
-                                <exclude>**/issues/**</exclude>
-                            </excludes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
     <!-- =========================================================================================================== -->
 
     <!-- =========================================================================================================== -->

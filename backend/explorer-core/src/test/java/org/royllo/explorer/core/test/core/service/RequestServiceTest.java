@@ -1,7 +1,10 @@
 package org.royllo.explorer.core.test.core.service;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
 import org.royllo.explorer.core.dto.request.AddAssetRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
@@ -9,8 +12,8 @@ import org.royllo.explorer.core.service.request.RequestService;
 import org.royllo.explorer.core.util.constants.UserConstants;
 import org.royllo.explorer.core.util.enums.RequestStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -22,10 +25,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("RequestService tests")
 public class RequestServiceTest {
 
@@ -33,8 +36,10 @@ public class RequestServiceTest {
     private RequestService requestService;
 
     @Test
+    @Order(1)
     @DisplayName("getOpenedRequests()")
     public void getOpenedRequests() {
+        requestService.getOpenedRequests().forEach(requestDTO -> System.out.println("==>" + requestDTO));
         List<RequestDTO> openedRequests = requestService.getOpenedRequests();
         // 4 requests - request n°2 is closed
         assertEquals(3, openedRequests.size());
@@ -78,6 +83,7 @@ public class RequestServiceTest {
     }
 
     @Test
+    @Order(2)
     @DisplayName("Add requests")
     public void addRequests() {
         // =============================================================================================================

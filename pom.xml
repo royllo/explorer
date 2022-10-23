@@ -90,13 +90,14 @@
         <maven.graphqlcodegen.plugin.version>1.24</maven.graphqlcodegen.plugin.version>
         <maven.puppycrawl.checkstyle.version>10.3.4</maven.puppycrawl.checkstyle.version>
         <maven.compiler.plugin.version>3.10.1</maven.compiler.plugin.version>
-        <maven.spring-boot.version>2.7.4</maven.spring-boot.version>
+        <maven.spring-boot.version>2.7.5</maven.spring-boot.version>
     </properties>
     <!-- =========================================================================================================== -->
 
     <!-- =========================================================================================================== -->
     <!-- Modules -->
     <modules>
+        <module>backend/explorer-database</module>
         <module>backend/explorer-core</module>
         <module>backend/explorer-batch</module>
         <module>backend/explorer-api</module>
@@ -138,7 +139,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.4</version>
+        <version>2.7.5</version>
         <relativePath/>
     </parent>
     <!-- =========================================================================================================== -->

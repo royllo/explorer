@@ -1,7 +1,6 @@
 package org.royllo.explorer.core.provider.mempool;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.royllo.explorer.core.util.base.BaseMempoolService;
 import org.royllo.explorer.core.util.parameters.MempoolParameters;
 import org.springframework.stereotype.Service;
@@ -30,7 +29,7 @@ public class MempoolTransactionServiceImplementation extends BaseMempoolService 
                 .retryWhen(defaultRetryConfiguration)
                 .doOnError(throwable -> logger.error("Error calling mempool for transaction {}: {}",
                         txid,
-                        ExceptionUtils.getRootCause(throwable).getMessage()))
+                        throwable.getMessage()))
                 .onErrorResume(throwable -> Mono.empty());
     }
 
