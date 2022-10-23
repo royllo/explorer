@@ -5,15 +5,18 @@ import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
 import com.netflix.graphql.dgs.exceptions.DgsEntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.royllo.explorer.api.util.base.BaseDataFetcher;
 import org.royllo.explorer.core.dto.user.UserDTO;
 import org.royllo.explorer.core.service.user.UserService;
+
+import java.util.Optional;
 
 /**
  * User data fetcher.
  */
 @DgsComponent
 @RequiredArgsConstructor
-public class UserDataFetcher {
+public class UserDataFetcher extends BaseDataFetcher {
 
     /** User service. */
     private final UserService userService;
@@ -26,7 +29,14 @@ public class UserDataFetcher {
      */
     @DgsQuery
     public final UserDTO userByUsername(final @InputArgument String username) {
-        return userService.getUserByUsername(username).orElseThrow(DgsEntityNotFoundException::new);
+        final Optional<UserDTO> user = userService.getUserByUsername(username);
+        if (user.isEmpty()) {
+            logger.info("userByUsername - User with username {} not found", username);
+            throw new DgsEntityNotFoundException();
+        } else {
+            logger.info("userByUsername - User with username '{}' found: {}", username, user.get());
+            return user.get();
+        }
     }
 
 }

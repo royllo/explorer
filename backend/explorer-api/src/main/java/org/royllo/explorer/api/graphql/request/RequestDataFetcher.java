@@ -7,19 +7,22 @@ import com.netflix.graphql.dgs.DgsTypeResolver;
 import com.netflix.graphql.dgs.InputArgument;
 import com.netflix.graphql.dgs.exceptions.DgsEntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.royllo.explorer.api.util.base.BaseDataFetcher;
 import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
 import org.royllo.explorer.core.dto.request.AddAssetRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.service.request.RequestService;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Request data fetcher.
  */
 @DgsComponent
 @RequiredArgsConstructor
-public class RequestDataFetcher {
+public class RequestDataFetcher extends BaseDataFetcher {
 
     /** Request service. */
     private final RequestService requestService;
@@ -32,6 +35,7 @@ public class RequestDataFetcher {
      */
     @DgsTypeResolver(name = "Request")
     public String resolveRequest(final RequestDTO requestDTO) {
+        // TODO Simplify when pattern Matching for switch will be available.
         if (requestDTO instanceof AddAssetRequestDTO) {
             return "AddAssetRequest";
         } else if (requestDTO instanceof AddAssetMetaDataRequestDTO) {
@@ -48,7 +52,18 @@ public class RequestDataFetcher {
      */
     @DgsQuery
     public final List<RequestDTO> openedRequests() {
-        return requestService.getOpenedRequests();
+        final List<RequestDTO> results = requestService.getOpenedRequests();
+        if (results.isEmpty()) {
+            logger.info("openedRequests - There is no results");
+        } else {
+            logger.info("openedRequests - {} results with requests ids: {}",
+                    results.size(),
+                    results.stream()
+                            .map(RequestDTO::getId)
+                            .map(Object::toString)
+                            .collect(Collectors.joining(", ")));
+        }
+        return results;
     }
 
     /**
@@ -59,7 +74,14 @@ public class RequestDataFetcher {
      */
     @DgsQuery
     public final RequestDTO request(final @InputArgument long id) {
-        return requestService.getRequest(id).orElseThrow(DgsEntityNotFoundException::new);
+        final Optional<RequestDTO> request = requestService.getRequest(id);
+        if (request.isEmpty()) {
+            logger.info("request - Request with id {} not found", id);
+            throw new DgsEntityNotFoundException();
+        } else {
+            logger.info("request - Request with id {} found: {}", id, request.get());
+            return request.get();
+        }
     }
 
     /**
@@ -70,12 +92,15 @@ public class RequestDataFetcher {
      */
     @DgsMutation
     public final AddAssetRequestDTO addAssetRequest(final @InputArgument AddAssetRequestInputs input) {
-        return requestService.addAsset(input.getGenesisPoint(),
+        logger.info("addAssetRequest - With values {}", input);
+        final AddAssetRequestDTO addAssetRequest = requestService.addAsset(input.getGenesisPoint(),
                 input.getName(),
                 input.getMetaData(),
                 input.getAssetId(),
                 input.getOutputIndex(),
                 input.getProof());
+        logger.info("addAssetRequest - Successfully created {} with the values {} ", addAssetRequest, input);
+        return addAssetRequest;
     }
 
     /**
@@ -86,7 +111,10 @@ public class RequestDataFetcher {
      */
     @DgsMutation
     public final AddAssetMetaDataRequestDTO addAssetMetaDataRequest(final @InputArgument AddAssetMetaDataRequestInputs input) {
-        return requestService.addAssetMetaData(input.getAssetId(), input.getMetaData());
+        logger.info("addAssetMetaDataRequest - With values {}", input);
+        final AddAssetMetaDataRequestDTO addAssetMetaDataRequest = requestService.addAssetMetaData(input.getAssetId(), input.getMetaData());
+        logger.info("addAssetMetaDataRequest - Successfully created {} with the values {} ", addAssetMetaDataRequest, input);
+        return addAssetMetaDataRequest;
     }
 
 }
