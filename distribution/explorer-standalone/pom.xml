@@ -36,15 +36,7 @@
         </dependency>
         <dependency>
             <groupId>com.netflix.graphql.dgs</groupId>
-            <artifactId>graphql-dgs-subscriptions-websockets-autoconfigure</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.netflix.graphql.dgs</groupId>
             <artifactId>graphql-dgs-extended-scalars</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-joda</artifactId>
         </dependency>
 
         <!-- Util dependencies -->
