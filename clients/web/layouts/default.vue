@@ -1,23 +1,29 @@
 <template>
+  <!-- ============================================================================================================= -->
+  <!-- Default layout.                                                                                               -->
+  <!-- ============================================================================================================= -->
+
+  <!--
+      CSS explanation:
+        - flex: The Flexbox module aims at providing a more efficient way to lay out, align and distribute space among
+        items in a container, even when their size is unknown and/or dynamic.
+        - flex-col to position flex items vertically.
+        - h-screen to make an element span the entire height of the viewport (Usefull to create a footer).
+        - justify-between to justify items along the container’s main axis such that there is an equal amount of space
+        between each item.
+  -->
+
   <div class="flex flex-col h-screen justify-between">
 
     <!-- Our header -->
     <defaultHeader/>
 
-    <!--
-        ================================================================================================================
-        Using a container: a component used for fixing an element's width.
-        md:container is a responsive variant allowing you to make something behave like a container at only a certain
-        breakpoint and up.
-        Tailwind’s container does not center itself automatically, to do it, we use the mx-auto.
-        ================================================================================================================
-    -->
-    <main class="md:container md:mx-auto">
-      <slot/>
-    </main>
+    <!-- Content -->
+    <slot/>
 
     <!-- Our header -->
     <defaultFooter/>
 
   </div>
+
 </template>
