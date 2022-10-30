@@ -4,14 +4,20 @@ export default defineNuxtConfig({
     // Modules installed.
     modules: ['@nuxtjs/tailwindcss'],
 
-    // HTML head configuration.
-    head: {
-        // Favicons.
-        link: [
-            {rel: 'icon', type: 'image/x-icon', href: '/favicon.png'},
-            {rel: 'icon', size: '16x16', type: 'image/x-icon', href: '/favicon-16x16.png'},
-            {rel: 'icon', size: '32x32', type: 'image/x-icon', href: '/favicon-32*32.png'},
-            {rel: 'apple-touch-icon', href: '/apple-touch-icon.png'}
-        ]
+    // Application configuration.
+    app: {
+        // HTML head configuration.
+        head: {
+            // Title.
+            title: 'Royllo - Taro asset explorer',
+            // Favicons.
+            link: [
+                {rel: 'icon', type: 'image/x-icon', href: '/favicon.png'},
+                {rel: 'icon', type: 'image/x-icon', href: '/favicon-16x16.png'},
+                {rel: 'icon', type: 'image/x-icon', href: '/favicon-32*32.png'},
+                {rel: 'apple-touch-icon', href: '/apple-touch-icon.png'}
+            ]
+        }
     }
+
 })
