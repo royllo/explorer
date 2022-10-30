@@ -15,7 +15,7 @@
           - w-full to set an element to a percentage based width.
           - sr-only to hide an element visually without hiding it from screen readers:
   -->
-  <div class="flex flex-col h-screen">
+  <div class="flex flex-col h-screen mt-11">
 
     <!-- Logo (The mx-auto should also go to the image as tailwind make the image a block element) -->
     <a href="/">

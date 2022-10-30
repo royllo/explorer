@@ -22,7 +22,8 @@ const currentYear = new Date().getFullYear();
           - text-{size} to control the font size of an element using.
           - m{t|r|b|l}-{size} to control the margin on one side of an element.
   -->
-  <footer class="p-4 bg-gray-100 rounded-b-lg shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
+  <footer
+      class="p-4 bg-gray-100 rounded-b-lg shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
 
     <!-- Left part : Royllo copyright and link -->
     <span class="text-sm text-gray-500 sm:text-center">
@@ -37,9 +38,6 @@ const currentYear = new Date().getFullYear();
 
     <!-- Right part : Links to know more about Royllo -->
     <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 sm:mt-0">
-      <li>
-        <a href="#" class="mr-4 hover:underline md:mr-6">About</a>
-      </li>
       <li>
         <a href="https://github.com/royllo/explorer" class="mr-4 hover:underline md:mr-6" target="github">Github</a>
       </li>
