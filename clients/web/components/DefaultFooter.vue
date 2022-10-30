@@ -5,7 +5,7 @@ const currentYear = new Date().getFullYear();
 
 <template>
   <!-- ============================================================================================================= -->
-  <!-- Our footer allows the user to know more about Royllo (website, modal page about, twitter, github & email )    -->
+  <!-- Our footer allows the user to know more about Royllo (website, modal page about, twitter, github & email)     -->
   <!-- ============================================================================================================= -->
   <!--
         CSS explanation:
@@ -38,7 +38,7 @@ const currentYear = new Date().getFullYear();
     <!-- Right part : Links to know more about Royllo -->
     <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 sm:mt-0">
       <li>
-        <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
+        <a href="#" class="mr-4 hover:underline md:mr-6">About</a>
       </li>
       <li>
         <a href="https://github.com/royllo/explorer" class="mr-4 hover:underline md:mr-6" target="github">Github</a>

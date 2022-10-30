@@ -16,13 +16,13 @@
   <div class="flex flex-col h-screen justify-between">
 
     <!-- Our header -->
-    <defaultHeader/>
+    <DefaultHeader/>
 
     <!-- Content -->
     <slot/>
 
-    <!-- Our header -->
-    <defaultFooter/>
+    <!-- Our footer -->
+    <DefaultFooter/>
 
   </div>
 
