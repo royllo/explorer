@@ -113,3 +113,4 @@ Supprimerait loose-touch.iml
 # aws
 output-*
 /.idea/
+/clients/web/.vite/
