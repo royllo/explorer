@@ -44,7 +44,6 @@
     </ul>
 
   </footer>
-
 </template>
 
 <script setup>

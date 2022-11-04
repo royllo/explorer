@@ -2,9 +2,9 @@
 export default defineNuxtConfig({
 
     // Modules installed.
-    modules: ['@nuxtjs/tailwindcss'],
+    modules: ['@nuxtjs/tailwindcss', '@nuxtjs/apollo'],
 
-    // Application configuration.
+    // HTML configuration.
     app: {
         // HTML head configuration.
         head: {
@@ -18,6 +18,15 @@ export default defineNuxtConfig({
                 {rel: 'apple-touch-icon', type: 'image/png', href: '/apple-touch-icon.png'}
             ]
         }
-    }
+    },
+
+    // GraphQL client configuration.
+    apollo: {
+        clients: {
+            default: {
+                httpEndpoint: 'http://localhost:8080/graphql',
+            }
+        },
+    },
 
 })

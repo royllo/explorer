@@ -27,5 +27,4 @@
     <SearchAssetForm/>
 
   </div>
-
 </template>
