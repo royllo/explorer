@@ -55,9 +55,12 @@ jobs:
           docker tag royllo/explorer-api:latest royllo/explorer-api:${{ steps.release.outputs.version }}
           docker tag royllo/explorer-batch:latest royllo/explorer-batch:${{ steps.release.outputs.version }}
           docker tag royllo/explorer-standalone:latest royllo/explorer-standalone:${{ steps.release.outputs.version }}
+          docker tag royllo/explorer-standalone-with-test-data:latest royllo/explorer-standalone-with-test-data:${{ steps.release.outputs.version }}
           docker push royllo/explorer-api:latest
           docker push royllo/explorer-batch:latest
           docker push royllo/explorer-standalone:latest
+          docker push royllo/explorer-standalone-with-test-data:latest
           docker push royllo/explorer-api:${{ steps.release.outputs.version }}
           docker push royllo/explorer-batch:${{ steps.release.outputs.version }}
           docker push royllo/explorer-standalone:${{ steps.release.outputs.version }}
+          docker push royllo/explorer-standalone-with-test-data:${{ steps.release.outputs.version }}

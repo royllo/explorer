@@ -40,19 +40,6 @@ const query = gql`
            username
        }
    }`;
-const variables = { username: 'anonymous' };
-const { data } = await useAsyncQuery(query, variables);
-
-
-// const query = gql`
-//   query userByUsername($username: String!) {
-//       userByUsername(username: $username) {
-//           id
-//           username
-//       }
-//   }`;
-// const variables = { username: q};
-//
-// const { data } = await useAsyncQuery(query, variables);
-// console.log("ici " + data.value);
+const variables = {username: 'anonymous'};
+const {data} = await useAsyncQuery(query, variables);
 </script>
