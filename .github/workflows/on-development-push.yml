@@ -24,7 +24,11 @@ jobs:
       # ================================================================================================================
       - name: Get release number
         id: release
-        run: echo "$(mvn help:evaluate -D expression=project.version -q -D forceStdout)" >> $GITHUB_OUTPUT
+        run: echo "::set-output name=version::$(mvn help:evaluate -D expression=project.version -q -D forceStdout)"
+
+      # ================================================================================================================
+      - name: Debug
+        run: mvn clean compile
 
       # ================================================================================================================
       - name: Run core and issues tests
