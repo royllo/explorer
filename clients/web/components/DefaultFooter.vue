@@ -17,7 +17,7 @@
           - text-{size} to control the font size of an element using.
           - m{t|r|b|l}-{size} to control the margin on one side of an element.
   -->
-  <footer class="p-4 bg-gray-100 rounded-b-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800">
+  <footer class="p-4 bg-gray-100 rounded-b-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800 mt-11">
 
     <!-- Left part : Royllo copyright and link -->
     <span class="text-sm text-gray-500 sm:text-center">

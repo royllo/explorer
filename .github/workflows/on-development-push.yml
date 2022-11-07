@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v3
 
       # ================================================================================================================
-      - name: JDK 17 Setup
+      - name: JDK Setup
         uses: actions/setup-java@v3.6.0
         with:
           distribution: 'temurin'
@@ -28,7 +28,7 @@ jobs:
 
       # ================================================================================================================
       - name: Run core and issues tests
-        run: mvn clean test
+        run: mvn clean test install
 
       # ================================================================================================================
       - name: Run integration tests
@@ -37,10 +37,18 @@ jobs:
       # ================================================================================================================
       - name: Build docker images
         run: |
-          mvn clean install -Dmaven.test.skip
           mvn spring-boot:build-image -f backend/explorer-api/pom.xml
           mvn spring-boot:build-image -f backend/explorer-batch/pom.xml
           mvn spring-boot:build-image -f distribution/explorer-standalone/pom.xml
+          mvn spring-boot:build-image -f distribution/explorer-standalone-with-test-data/pom.xml
+
+      # ================================================================================================================
+      - name: Tagging docker images
+        run: |
+          docker tag royllo/explorer-api:latest royllo/explorer-api:${{ steps.release.outputs.version }}
+          docker tag royllo/explorer-batch:latest royllo/explorer-batch:${{ steps.release.outputs.version }}
+          docker tag royllo/explorer-standalone:latest royllo/explorer-standalone:${{ steps.release.outputs.version }}
+          docker tag royllo/explorer-standalone-with-test-data:latest royllo/explorer-standalone-with-test-data:${{ steps.release.outputs.version }}
 
       # ================================================================================================================
       - name: Docker Hub login
@@ -52,15 +60,11 @@ jobs:
       # ================================================================================================================
       - name: Push the docker images to Docker hub
         run: |
-          docker tag royllo/explorer-api:latest royllo/explorer-api:${{ steps.release.outputs.version }}
-          docker tag royllo/explorer-batch:latest royllo/explorer-batch:${{ steps.release.outputs.version }}
-          docker tag royllo/explorer-standalone:latest royllo/explorer-standalone:${{ steps.release.outputs.version }}
-          docker tag royllo/explorer-standalone-with-test-data:latest royllo/explorer-standalone-with-test-data:${{ steps.release.outputs.version }}
           docker push royllo/explorer-api:latest
-          docker push royllo/explorer-batch:latest
-          docker push royllo/explorer-standalone:latest
-          docker push royllo/explorer-standalone-with-test-data:latest
           docker push royllo/explorer-api:${{ steps.release.outputs.version }}
+          docker push royllo/explorer-batch:latest
           docker push royllo/explorer-batch:${{ steps.release.outputs.version }}
+          docker push royllo/explorer-standalone:latest
           docker push royllo/explorer-standalone:${{ steps.release.outputs.version }}
+          docker push royllo/explorer-standalone-with-test-data:latest
           docker push royllo/explorer-standalone-with-test-data:${{ steps.release.outputs.version }}
