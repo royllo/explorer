@@ -120,7 +120,7 @@
                 </executions>
                 <configuration>
                     <excludes>**/mapper/**/*</excludes>
-                    <excludes>**/generated/**</excludes>
+                    <excludes>**/generated-sources/**</excludes>
                     <consoleOutput>true</consoleOutput>
                     <configLocation>${project.parent.basedir}/checkstyle.xml</configLocation>
                     <failOnViolation>true</failOnViolation>
