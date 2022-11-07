@@ -2,9 +2,9 @@
 export default defineNuxtConfig({
 
     // Modules installed.
-    modules: ['@nuxtjs/tailwindcss'],
+    modules: ['@nuxtjs/tailwindcss', '@nuxtjs/apollo'],
 
-    // Application configuration.
+    // HTML configuration.
     app: {
         // HTML head configuration.
         head: {
@@ -12,12 +12,21 @@ export default defineNuxtConfig({
             title: 'Royllo - Taro asset explorer',
             // Favicons.
             link: [
-                {rel: 'icon', type: 'image/x-icon', href: '/favicon.png'},
-                {rel: 'icon', type: 'image/x-icon', href: '/favicon-16x16.png'},
-                {rel: 'icon', type: 'image/x-icon', href: '/favicon-32*32.png'},
-                {rel: 'apple-touch-icon', href: '/apple-touch-icon.png'}
+                {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
+                {rel: 'icon', type: 'image/png', href: '/favicon-16x16.png'},
+                {rel: 'icon', type: 'image/png', href: '/favicon-32x32.png'},
+                {rel: 'apple-touch-icon', type: 'image/png', href: '/apple-touch-icon.png'}
             ]
         }
-    }
+    },
+
+    // GraphQL client configuration.
+    apollo: {
+        clients: {
+            default: {
+                httpEndpoint: 'http://localhost:8080/graphql',
+            }
+        },
+    },
 
 })

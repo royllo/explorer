@@ -1,8 +1,3 @@
-<script setup>
-// Current year used to write the copyright year.
-const currentYear = new Date().getFullYear();
-</script>
-
 <template>
   <!-- ============================================================================================================= -->
   <!-- Our footer allows the user to know more about Royllo (website, modal page about, twitter, github & email)     -->
@@ -22,8 +17,7 @@ const currentYear = new Date().getFullYear();
           - text-{size} to control the font size of an element using.
           - m{t|r|b|l}-{size} to control the margin on one side of an element.
   -->
-  <footer
-      class="p-4 bg-gray-100 rounded-b-lg shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
+  <footer class="p-4 bg-gray-100 rounded-b-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800 mt-11">
 
     <!-- Left part : Royllo copyright and link -->
     <span class="text-sm text-gray-500 sm:text-center">
@@ -50,5 +44,9 @@ const currentYear = new Date().getFullYear();
     </ul>
 
   </footer>
-
 </template>
+
+<script setup>
+// Current year used to write the copyright year.
+const currentYear = new Date().getFullYear();
+</script>

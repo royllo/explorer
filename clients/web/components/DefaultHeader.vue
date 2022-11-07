@@ -14,14 +14,12 @@
           - bg-{color} to set the background color.
           - .rounded-sm, .rounded, or .rounded-lg to apply different border radius sizes to an element.
   -->
-
   <header class="flex items-center justify-between px-4 py-4 bg-white">
 
     <!-- Left logo with link -->
     <a href="/">
       <img src="/royllo_logo_horizontal_with_title.png"
-           alt="Royllo Logo"
-      />
+           alt="Royllo Logo"/>
     </a>
 
     <!-- Add asset button -->
@@ -30,5 +28,4 @@
     </button>
 
   </header>
-
 </template>

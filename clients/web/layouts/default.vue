@@ -2,7 +2,6 @@
   <!-- ============================================================================================================= -->
   <!-- Default layout.                                                                                               -->
   <!-- ============================================================================================================= -->
-
   <!--
       CSS explanation:
         - flex: The Flexbox module aims at providing a more efficient way to lay out, align and distribute space among
