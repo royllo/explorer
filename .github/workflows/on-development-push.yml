@@ -27,12 +27,8 @@ jobs:
         run: echo "::set-output name=version::$(mvn help:evaluate -D expression=project.version -q -D forceStdout)"
 
       # ================================================================================================================
-      - name: Debug
-        run: mvn clean compile
-
-      # ================================================================================================================
       - name: Run core and issues tests
-        run: mvn clean test install
+        run: mvn clean test
 
       # ================================================================================================================
       - name: Run integration tests
@@ -41,6 +37,7 @@ jobs:
       # ================================================================================================================
       - name: Build docker images
         run: |
+          mvn clean install -Dmaven.test.skip
           mvn spring-boot:build-image -f backend/explorer-api/pom.xml
           mvn spring-boot:build-image -f backend/explorer-batch/pom.xml
           mvn spring-boot:build-image -f distribution/explorer-standalone/pom.xml
