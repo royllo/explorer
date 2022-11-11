@@ -27,10 +27,6 @@ jobs:
         run: echo "::set-output name=version::$(mvn help:evaluate -D expression=project.version -q -D forceStdout)"
 
       # ================================================================================================================
-      - name: Debug
-        run: mvn clean compile
-
-      # ================================================================================================================
       - name: Run core and issues tests
         run: mvn clean test
 
@@ -48,7 +44,7 @@ jobs:
           mvn spring-boot:build-image -f distribution/explorer-standalone-with-test-data/pom.xml
 
       # ================================================================================================================
-      - name: Tagging docker images
+      - name: Tag docker images
         run: |
           docker tag royllo/explorer-api:latest royllo/explorer-api:${{ steps.release.outputs.version }}
           docker tag royllo/explorer-batch:latest royllo/explorer-batch:${{ steps.release.outputs.version }}
