@@ -8,8 +8,8 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxtjs/apollo": "^5.0.0-alpha.3",
+    "@nuxtjs/apollo": "^5.0.0-alpha.4",
     "@nuxtjs/tailwindcss": "^6.1.1",
-    "nuxt": "3.0.0-rc.12"
+    "nuxt": "3.0.0-rc.13"
   }
 }
