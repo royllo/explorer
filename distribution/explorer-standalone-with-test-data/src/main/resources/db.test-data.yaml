@@ -8,3 +8,5 @@ databaseChangeLog:
       file: test-data-bitcoin_transaction_outputs.xml
   - include:
       file: test-data-assets.xml
+  - include:
+      file: test-data-requests.xml

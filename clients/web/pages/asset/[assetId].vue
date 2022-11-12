@@ -3,8 +3,11 @@
   <!-- Asset view (displayed on asset page).                                                                  -->
   <!-- ============================================================================================================= -->
 
+  <!-- If asset is not found -->
+  <div class="flex justify-center" v-if="data == null">Asset not found !</div>
+
   <!-- Asset description -->
-  <div class="flex justify-center px-2">
+  <div class="flex justify-center px-2" v-if="data != null">
     <div class="block p-6 rounded-lg shadow-lg bg-white w-2/3">
       <h5 class="text-gray-900 text-xl leading-tight font-medium mb-2">{{ data?.assetByAssetId?.name }}</h5>
       <hr>
