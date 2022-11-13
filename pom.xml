@@ -65,7 +65,7 @@
         <!-- ======================================================================================================= -->
         <!-- Project libraries -->
         <spring.version>2.7.4</spring.version>
-        <reactor-core.version>3.4.24</reactor-core.version>
+        <reactor-core.version>3.5.0</reactor-core.version>
         <reactor-netty.version>1.1.0</reactor-netty.version>
 
         <graphql-dgs-platform-dependencies.version>5.3.0</graphql-dgs-platform-dependencies.version>
