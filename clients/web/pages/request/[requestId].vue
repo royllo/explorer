@@ -50,7 +50,7 @@ const requestId = computed(() => {
 });
 
 // =====================================================================================================================
-// Executing the graphQL query that retrieves an asset.
+// Executing the graphQL query that retrieves a request.
 const query = gql`
     query request($id: ID!) {
       request(id: $id) {

@@ -49,27 +49,27 @@ const assetId = computed(() => {
 // =====================================================================================================================
 // Executing the graphQL query that retrieves an asset.
 const query = gql`
-query assetByAssetId($assetId: ID!) {
-  assetByAssetId(assetId: $assetId) {
-    assetId,
-    genesisPoint {
-      blockHeight,
-      txId,
-      vout,
-      scriptPubKey,
-      scriptPubKeyAsm,
-      scriptPubKeyType,
-      scriptPubKeyAddress,
-      value
-    }
-    creator {
-      id,
-      username
-    }
-    name,
-    metaData,
-    outputIndex
-  }
+    query assetByAssetId($assetId: ID!) {
+      assetByAssetId(assetId: $assetId) {
+        assetId,
+        genesisPoint {
+          blockHeight,
+          txId,
+          vout,
+          scriptPubKey,
+          scriptPubKeyAsm,
+          scriptPubKeyType,
+          scriptPubKeyAddress,
+          value
+        }
+        creator {
+          id,
+          username
+        }
+        name,
+        metaData,
+        outputIndex
+      }
 }`;
 const variables = {assetId: assetId.value};
 const {data} = await useAsyncQuery(query, variables);

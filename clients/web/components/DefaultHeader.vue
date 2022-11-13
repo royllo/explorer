@@ -23,9 +23,10 @@
     </NuxtLink>
 
     <!-- Add asset button -->
-    <button class="px-4 py-2 font-bold text-white rounded bg-blue-500 hover:bg-blue-700">
-      Add your asset
-    </button>
+    <NuxtLink to="/request/add"
+              class="px-4 py-2 font-bold text-white rounded bg-blue-500 hover:bg-blue-700">
+      Add an asset
+    </NuxtLink>
 
   </header>
 </template>
