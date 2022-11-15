@@ -26,6 +26,7 @@
 </template>
 
 <script setup>
+
 const props = defineProps({
   // TODO fix types
   // The asset ID that uniquely identifies the asset.

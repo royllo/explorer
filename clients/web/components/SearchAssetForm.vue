@@ -17,6 +17,7 @@
                 clip-rule="evenodd"></path>
         </svg>
       </div>
+
       <input type="search"
              id="q"
              name="q"
@@ -39,6 +40,7 @@
     </button>
 
   </form>
+
 </template>
 
 <script setup>

@@ -2,21 +2,7 @@
   <!-- ============================================================================================================= -->
   <!-- Our footer allows the user to know more about Royllo (website, modal page about, twitter, github & email)     -->
   <!-- ============================================================================================================= -->
-  <!--
-        CSS explanation:
-          - flex: The Flexbox module aims at providing a more efficient way to lay out, align and distribute space among
-          items in a container, even when their size is unknown and/or dynamic.
-          - flex-wrap to allow flex items to wrap.
-          - items-center to align items along the center of the container’s cross axis (useless when we have only one).
-          - justify-between to justify items along the container’s main axis such that there is an equal amount of space
-          between each item.
-          - px-{size} to add horizontal padding.
-          - py-{size} to add vertical padding.
-          - bg-{color} to set the background color.
-          - .rounded-sm, .rounded, or .rounded-lg to apply different border radius sizes to an element.
-          - text-{size} to control the font size of an element using.
-          - m{t|r|b|l}-{size} to control the margin on one side of an element.
-  -->
+
   <footer class="p-4 bg-gray-100 rounded-b-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800 mt-11">
 
     <!-- Left part : Royllo copyright and link -->
@@ -44,6 +30,7 @@
     </ul>
 
   </footer>
+
 </template>
 
 <script setup>

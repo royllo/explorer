@@ -5,9 +5,9 @@
     <!-- ============================================================================================================= -->
     <!-- Add request form -->
     <div
-        class="block px-2 py-2 w-full max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+        class="block px-2 py-2 w-full max-w-3xl bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
       <form class="space-y-6" action="#">
-        <h5 class="text-xl font-medium text-gray-900 dark:text-white">Declare an asset</h5>
+        <h5 class="text-xl font-medium text-gray-900 dark:text-white">Register an asset</h5>
 
         <!-- Genesis point -->
         <div>
@@ -67,7 +67,6 @@
         </button>
       </form>
     </div>
-    <!-- ============================================================================================================= -->
 
     &nbsp;&nbsp;&nbsp;
 
@@ -94,9 +93,9 @@
         </ul>
       </div>
     </div>
-    <!-- ============================================================================================================= -->
 
   </div>
+
 </template>
 
 <script lang="ts" setup>
