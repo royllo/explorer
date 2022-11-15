@@ -26,7 +26,7 @@
              autofocus
              required
              onFocus="this.select();"
-             onClick="this.select();" >
+             onClick="this.select();">
     </div>
 
     <button type="submit"
@@ -42,6 +42,7 @@
 </template>
 
 <script setup>
+
 const props = defineProps({
   // The value searched by the user or set throw the "q" parameter string.
   searchedValue: {
@@ -49,4 +50,5 @@ const props = defineProps({
     required: false,
   }
 });
+
 </script>

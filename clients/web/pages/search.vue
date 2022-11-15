@@ -59,7 +59,7 @@ query queryAssets($value: String!) {
       name,
     }
 }`;
-const variables = {value: q.value};
+const variables = {value: q.value?.toString().trim()};
 const {data} = await useAsyncQuery(query, variables);
 
 </script>

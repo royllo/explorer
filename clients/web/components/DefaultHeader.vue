@@ -24,7 +24,8 @@
 
     <!-- Add asset button -->
     <NuxtLink to="/request/add"
-              class="px-4 py-2 font-bold text-white rounded bg-blue-500 hover:bg-blue-700">
+              class="px-4 py-2 font-bold text-white rounded bg-blue-500 hover:bg-blue-700"
+              external>
       Add an asset
     </NuxtLink>
 

@@ -74,4 +74,14 @@ const query = gql`
 const variables = {assetId: assetId.value};
 const {data} = await useAsyncQuery(query, variables);
 
+// =====================================================================================================================
+// Change page title.
+const pageTitle = computed(() => {
+  return `Taro - ${ data?.value?.assetByAssetId?.name } - ${ data?.value?.assetByAssetId?.assetId }`
+});
+
+useHead({
+  title: pageTitle,
+});
+
 </script>

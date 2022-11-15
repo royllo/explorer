@@ -47,6 +47,8 @@
 </template>
 
 <script setup>
+
 // Current year used to write the copyright year.
 const currentYear = new Date().getFullYear();
+
 </script>
