@@ -99,16 +99,10 @@
 </template>
 
 <script lang="ts" setup>
+import openedRequests from '~/queries/openedRequests.gql'
 
 // =====================================================================================================================
-// Executing the graphQL query that retrieves an asset.
-const query = gql`
-    query openedRequests {
-      openedRequests {
-        id
-  }
-}`;
-const variables = {};
-const {data} = await useAsyncQuery(query, variables);
+// Executing the graphQL query that retrieves opened requests.
+const {data} = await useAsyncQuery(openedRequests, {});
 
 </script>

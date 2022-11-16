@@ -1,0 +1,5 @@
+query openedRequests {
+    openedRequests {
+        id
+    }
+}

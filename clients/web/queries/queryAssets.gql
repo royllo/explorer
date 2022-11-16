@@ -1,0 +1,13 @@
+query queryAssets($value: String!) {
+    queryAssets(value: $value) {
+        assetId,
+        genesisPoint {
+            txId,
+            vout
+        }
+        creator {
+            username
+        }
+        name,
+    }
+}

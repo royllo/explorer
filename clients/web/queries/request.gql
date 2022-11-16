@@ -1,0 +1,19 @@
+query request($id: ID!) {
+    request(id: $id) {
+        id,
+        creator {
+            id,
+            username
+        },
+        status,
+        errorMessage,
+        ... on AddAssetRequest {
+            genesisPoint,
+            name,
+            metaData,
+            assetId,
+            outputIndex,
+            proof
+        }
+    }
+}

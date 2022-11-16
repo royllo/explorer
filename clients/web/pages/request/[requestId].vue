@@ -42,6 +42,7 @@
 </template>
 
 <script lang="ts" setup>
+import request from '~/queries/request.gql'
 
 // =====================================================================================================================
 // "requestId" is the value of the request id - Comes from URL parameter.
@@ -51,29 +52,7 @@ const requestId = computed(() => {
 
 // =====================================================================================================================
 // Executing the graphQL query that retrieves a request.
-const query = gql`
-    query request($id: ID!) {
-      request(id: $id) {
-        id,
-        creator {
-             id,
-            username
-        },
-        status,
-        errorMessage,
-
-      ... on AddAssetRequest {
-          genesisPoint,
-              name,
-              metaData,
-              assetId,
-              outputIndex,
-              proof
-        }
-
-      }
-  }`;
 const variables = {id: requestId.value};
-const {data} = await useAsyncQuery(query, variables);
+const {data} = await useAsyncQuery(request, variables);
 
 </script>

@@ -1,6 +1,6 @@
 <template>
   <!-- ============================================================================================================= -->
-  <!-- Asset view (displayed on asset page).                                                                  -->
+  <!-- Asset view (displayed on asset page).                                                                         -->
   <!-- ============================================================================================================= -->
 
   <!-- If asset is not found -->
@@ -39,6 +39,7 @@
 </template>
 
 <script lang="ts" setup>
+import assetByAssetId from '~/queries/assetByAssetId.gql'
 
 // =====================================================================================================================
 // "assetId" is the value of the asset id - Comes from URL parameter.
@@ -48,36 +49,13 @@ const assetId = computed(() => {
 
 // =====================================================================================================================
 // Executing the graphQL query that retrieves an asset.
-const query = gql`
-    query assetByAssetId($assetId: ID!) {
-      assetByAssetId(assetId: $assetId) {
-        assetId,
-        genesisPoint {
-          blockHeight,
-          txId,
-          vout,
-          scriptPubKey,
-          scriptPubKeyAsm,
-          scriptPubKeyType,
-          scriptPubKeyAddress,
-          value
-        }
-        creator {
-          id,
-          username
-        }
-        name,
-        metaData,
-        outputIndex
-      }
-}`;
 const variables = {assetId: assetId.value};
-const {data} = await useAsyncQuery(query, variables);
+const {data} = await useAsyncQuery(assetByAssetId, variables);
 
 // =====================================================================================================================
 // Change page title.
 const pageTitle = computed(() => {
-  return `Taro - ${ data?.value?.assetByAssetId?.name } - ${ data?.value?.assetByAssetId?.assetId }`
+  return `Taro - ${data?.value?.assetByAssetId?.name} - ${data?.value?.assetByAssetId?.assetId}`
 });
 
 useHead({

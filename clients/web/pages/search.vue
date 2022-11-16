@@ -38,6 +38,7 @@
 </template>
 
 <script lang="ts" setup>
+import queryAssets from '~/queries/queryAssets.gql'
 
 // =====================================================================================================================
 // "q" is the value searched by the user - Usually filled in the form but can come from url parameter q.
@@ -47,21 +48,8 @@ const q = computed(() => {
 
 // =====================================================================================================================
 // Executing the graphQL query that search for assets from some characters.
-const query = gql`
-query queryAssets($value: String!) {
-    queryAssets(value: $value) {
-      assetId,
-      genesisPoint {
-        txId,
-        vout
-      }
-      creator {
-        username
-      }
-      name,
-    }
-}`;
+//const query = gql``;
 const variables = {value: q.value?.toString().trim()};
-const {data} = await useAsyncQuery(query, variables);
+const {data} = await useAsyncQuery(queryAssets, variables);
 
 </script>
