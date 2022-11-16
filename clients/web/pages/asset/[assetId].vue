@@ -3,8 +3,8 @@
   <!-- Asset view (displayed on asset page).                                                                         -->
   <!-- ============================================================================================================= -->
 
-  <!-- If asset is not found -->
-  <div class="flex justify-center" v-if="data == null">Asset not found !</div>
+  <!-- Error calling the graphQL API -->
+  <p v-if="error" class="flex justify-center">An error occured: {{ error }}</p>
 
   <!-- Asset description -->
   <div class="flex justify-center px-2" v-if="data != null">
@@ -50,7 +50,7 @@ const assetId = computed(() => {
 // =====================================================================================================================
 // Executing the graphQL query that retrieves an asset.
 const variables = {assetId: assetId.value};
-const {data} = await useAsyncQuery(assetByAssetId, variables);
+const {data, error} = await useAsyncQuery(assetByAssetId, variables);
 
 // =====================================================================================================================
 // Change page title.

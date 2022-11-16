@@ -15,8 +15,11 @@
     <!-- Search results -->
     <div class="mt-11">
 
-      <!-- No value for the "q" query string parameter -->
+      <!-- No value for the "q" parameter -->
       <p v-if="!q">Your search must, at least, contains a character!</p>
+
+      <!-- Error calling the graphQL API -->
+      <p v-if="error">An error occurred: {{ error }}</p>
 
       <!-- No asset found -->
       <p v-if="data?.queryAssets?.length === 0">No asset found.</p>
@@ -50,6 +53,6 @@ const q = computed(() => {
 // Executing the graphQL query that search for assets from some characters.
 //const query = gql``;
 const variables = {value: q.value?.toString().trim()};
-const {data} = await useAsyncQuery(queryAssets, variables);
+const {data, error} = await useAsyncQuery(queryAssets, variables);
 
 </script>

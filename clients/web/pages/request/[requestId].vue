@@ -6,6 +6,9 @@
   <!-- If request id is null -->
   <div class="flex justify-center" v-if="isNaN(requestId)">Request id must be a number</div>
 
+  <!-- Error calling the graphQL API -->
+  <p v-if="error" class="flex justify-center">An error occured: {{ error }}</p>
+
   <!-- Request description -->
   <div class="flex justify-center px-2" v-if="data != null">
     <div class="block p-6 rounded-lg shadow-lg bg-white w-2/3">
@@ -53,6 +56,6 @@ const requestId = computed(() => {
 // =====================================================================================================================
 // Executing the graphQL query that retrieves a request.
 const variables = {id: requestId.value};
-const {data} = await useAsyncQuery(request, variables);
+const {data, error} = await useAsyncQuery(request, variables);
 
 </script>

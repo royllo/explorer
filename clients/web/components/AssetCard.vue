@@ -28,7 +28,6 @@
 <script setup>
 
 const props = defineProps({
-  // TODO fix types
   // The asset ID that uniquely identifies the asset.
   assetId: {
     type: String,
@@ -36,12 +35,12 @@ const props = defineProps({
   },
   // The first outpoint of the transaction that created the asset (txid:vout).
   genesisPoint: {
-    type: String,
+    type: Object,
     required: true,
   },
   // The asset creator.
   creator: {
-    type: String,
+    type: Object,
     required: true,
   },
   // The name of the asset

@@ -78,6 +78,8 @@
       </div>
       <div class="flow-root">
         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+          <!-- Error calling the graphQL API -->
+          <p v-if="error" class="flex justify-center">An error occured: {{ error }}</p>
           <li class="py-3 sm:py-4" v-for="request in data?.openedRequests" :key="request.id">
             <div class="flex items-center space-x-4">
               <div class="flex-1 min-w-0">
@@ -103,6 +105,6 @@ import openedRequests from '~/queries/openedRequests.gql'
 
 // =====================================================================================================================
 // Executing the graphQL query that retrieves opened requests.
-const {data} = await useAsyncQuery(openedRequests, {});
+const {data, error} = await useAsyncQuery(openedRequests, {});
 
 </script>
