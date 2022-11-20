@@ -82,7 +82,7 @@
 
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
-        <testcontainers.version>1.17.5</testcontainers.version>
+        <testcontainers.version>1.17.6</testcontainers.version>
         <mockito-core.version>4.8.1</mockito-core.version>
 
         <!-- ======================================================================================================= -->
