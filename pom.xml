@@ -83,7 +83,7 @@
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
         <testcontainers.version>1.17.6</testcontainers.version>
-        <mockito-core.version>4.8.1</mockito-core.version>
+        <mockito-core.version>4.9.0</mockito-core.version>
 
         <!-- ======================================================================================================= -->
         <!-- Maven plugins -->
