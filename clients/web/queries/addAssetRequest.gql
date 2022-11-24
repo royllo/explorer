@@ -1,0 +1,10 @@
+mutation addAssetRequest($input: AddAssetRequestInputs!) {
+    addAssetRequest(input: $input) {
+        genesisPoint,
+        name,
+        metaData,
+        assetId,
+        outputIndex,
+        proof
+    }
+}

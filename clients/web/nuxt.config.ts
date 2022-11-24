@@ -25,6 +25,12 @@ export default defineNuxtConfig({
         clients: {
             default: {
                 httpEndpoint: 'http://localhost:8080/graphql',
+                httpLinkOptions: {
+                    fetchOptions: {
+                        mode: 'no-cors' //Cors Needed for external Cross origins, need to allow headers from server
+                    },
+                    credentials: "omit"
+                }
             }
         },
     },

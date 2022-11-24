@@ -12,6 +12,6 @@ public final class BitcoinConstants {
     }
 
     /** A TXID is always 32 bytes (64 characters) and hexadecimal.. */
-    public static final int SIZE = 64;
+    public static final int TXID_SIZE = 64;
 
 }

@@ -1,0 +1,14 @@
+input AddAssetRequestInputs {
+    "The first outpoint of the transaction that created the asset (txid:vout)"
+    genesisPoint: String!
+    "The name of the asset"
+    name: String!
+    "The hashed metadata of the asset"
+    metaData: String!
+    "The asset ID that uniquely identifies the asset"
+    assetId: String!
+    "The index of the output that carries the unique Taro commitment in the genesis transaction"
+    outputIndex: Int!
+    "Proof that validates the asset information"
+    proof: String!
+}
