@@ -26,7 +26,8 @@
 
       <!-- At least one asset was found, we create a list of it -->
       <div class="flex flex-wrap flex-row">
-        <AssetCard v-for="asset in data?.queryAssets" :key="asset.assetId"
+        <AssetCard v-for="asset in data?.queryAssets"
+                   :key="asset.assetId"
                    :assetId=asset.assetId
                    :genesisPoint=asset.genesisPoint
                    :creator=asset.creator

@@ -19,6 +19,12 @@ pnpm install --shamefully-hoist
 
 ## Development Server
 
+How to start the API : 
+
+```bash
+docker run -p 8080:8080 royllo/explorer-standalone-with-test-data:latest
+```
+
 Start the development server on http://localhost:3000
 
 ```bash

@@ -16,9 +16,7 @@
                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                placeholder=""
                autofocus
-               required
-               onFocus="this.select();"
-               onClick="this.select();">
+               required>
       </div>
 
       <!-- Name -->
@@ -79,60 +77,33 @@ import AddAssetRequestInputs from '~/queries/AddAssetRequestInputs.gql';
 
 // =====================================================================================================================
 // Form content.
-const props = defineProps({
-  // The first outpoint of the transaction that created the asset (txid:vout).
-  genesisPoint: {
-    type: String,
-    required: true,
-    default: ''
-  },
-  // The name of the asset.
-  name: {
-    type: String,
-    required: true,
-  },
-  // The hashed metadata of the asset
-  metaData: {
-    type: String,
-    required: true,
-  },
-  // The asset ID that uniquely identifies the asset.
-  assetId: {
-    type: String,
-    required: true,
-  },
-  // The index of the output that carries the unique Taro commitment in the genesis transaction.
-  outputIndex: {
-    type: Number,
-    required: true,
-  },
-  // Proof that validates the asset information.
-  proof: {
-    type: String,
-    required: true,
-  },
-});
+const genesisPoint = ref('');
+const name = ref('');
+const metaData = ref('');
+const assetId = ref('');
+const outputIndex = ref('');
+const proof = ref('');
 
 // =====================================================================================================================
 // Function used to save the request.
 function createRequest() {
-  console.log("===> " + props.proof);
 
-  // Building the object with parameters.
+  // Building the mutation parameters with form data.
   const variables: { input: AddAssetRequestInputs } = {
     input: {
-      genesisPoint: this.genesisPoint,
-      name: props.name,
-      metaData: props.metaData,
-      assetId: props.assetId,
-      outputIndex: props.outputIndex,
-      proof: props.proof,
+      genesisPoint: genesisPoint,
+      name: name,
+      metaData: metaData,
+      assetId: assetId,
+      outputIndex: outputIndex,
+      proof: proof,
     }
   };
 
   // Calling the methods.
   const {mutate: addAssetRequestMutation, error} = useMutation(addAssetRequest, {variables: variables});
-  addAssetRequestMutation(variables);
+  addAssetRequestMutation();
+  console.log("Error+" + error.value);
 }
 
 </script>
