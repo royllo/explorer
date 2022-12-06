@@ -37,13 +37,13 @@ jobs:
       # ================================================================================================================
       - name: Build docker images
         run: |
+          mvn clean install -Dmaven.test.skip
           mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-api/pom.xml
           mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-batch/pom.xml
 
       # ================================================================================================================
       - name: Tag docker images
         run: |
-          mvn clean install -Dmaven.test.skip
           docker tag royllo/explorer-api:latest royllo/explorer-api:${{ steps.release.outputs.version }}
           docker tag royllo/explorer-batch:latest royllo/explorer-batch:${{ steps.release.outputs.version }}
 
