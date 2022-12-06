@@ -37,19 +37,14 @@ jobs:
       # ================================================================================================================
       - name: Build docker images
         run: |
-          mvn clean install -Dmaven.test.skip
           mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-api/pom.xml
           mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-batch/pom.xml
-          mvn spring-boot:build-image -Dmaven.test.skip -f distribution/explorer-standalone/pom.xml
-          mvn spring-boot:build-image -Dmaven.test.skip -f distribution/explorer-standalone-with-test-data/pom.xml
 
       # ================================================================================================================
       - name: Tag docker images
         run: |
           docker tag royllo/explorer-api:latest royllo/explorer-api:${{ steps.release.outputs.version }}
           docker tag royllo/explorer-batch:latest royllo/explorer-batch:${{ steps.release.outputs.version }}
-          docker tag royllo/explorer-standalone:latest royllo/explorer-standalone:${{ steps.release.outputs.version }}
-          docker tag royllo/explorer-standalone-with-test-data:latest royllo/explorer-standalone-with-test-data:${{ steps.release.outputs.version }}
 
       # ================================================================================================================
       - name: Docker Hub login
@@ -65,7 +60,3 @@ jobs:
           docker push royllo/explorer-api:${{ steps.release.outputs.version }}
           docker push royllo/explorer-batch:latest
           docker push royllo/explorer-batch:${{ steps.release.outputs.version }}
-          docker push royllo/explorer-standalone:latest
-          docker push royllo/explorer-standalone:${{ steps.release.outputs.version }}
-          docker push royllo/explorer-standalone-with-test-data:latest
-          docker push royllo/explorer-standalone-with-test-data:${{ steps.release.outputs.version }}

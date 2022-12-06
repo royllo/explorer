@@ -103,8 +103,6 @@
         <module>backend/explorer-core</module>
         <module>backend/explorer-batch</module>
         <module>backend/explorer-api</module>
-        <module>distribution/explorer-standalone</module>
-        <module>distribution/explorer-standalone-with-test-data</module>
     </modules>
     <!-- =========================================================================================================== -->
 
