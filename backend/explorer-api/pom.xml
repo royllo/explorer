@@ -97,6 +97,12 @@
             <artifactId>graphql-dgs-mocking</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- Temporary fix for error: "nested exception is java.lang.NoSuchMethodError" -->
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-java</artifactId>
+            <version>19.2</version>
+        </dependency>
         <!-- We set explorer-database as test dependency, so api project won't run liquidbase -->
         <dependency>
             <groupId>org.royllo.explorer</groupId>
