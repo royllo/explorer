@@ -43,6 +43,7 @@ jobs:
       # ================================================================================================================
       - name: Tag docker images
         run: |
+          mvn clean install -Dmaven.test.skip
           docker tag royllo/explorer-api:latest royllo/explorer-api:${{ steps.release.outputs.version }}
           docker tag royllo/explorer-batch:latest royllo/explorer-batch:${{ steps.release.outputs.version }}
 

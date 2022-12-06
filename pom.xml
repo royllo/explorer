@@ -92,7 +92,6 @@
         <maven.graphqlcodegen.plugin.version>1.27</maven.graphqlcodegen.plugin.version>
         <maven.puppycrawl.checkstyle.version>10.5.0</maven.puppycrawl.checkstyle.version>
         <maven.compiler.plugin.version>3.10.1</maven.compiler.plugin.version>
-        <maven.spring-boot.version>2.7.5</maven.spring-boot.version>
     </properties>
     <!-- =========================================================================================================== -->
 
