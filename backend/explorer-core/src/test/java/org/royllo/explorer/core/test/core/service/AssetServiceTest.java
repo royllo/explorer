@@ -10,19 +10,16 @@ import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 import org.royllo.explorer.core.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
@@ -43,37 +40,71 @@ public class AssetServiceTest extends BaseTest {
         // Test on two coins in database : "royllostar" and "starbackrcoin"
 
         // Searching for an asset that doesn't exist.
-        List<AssetDTO> results = assetService.queryAssets("NON-EXISTING");
-        assertEquals(0, results.size());
+        Page<AssetDTO> results = assetService.queryAssets("NON-EXISTING", 0, 5);
+        assertEquals(0, results.getTotalElements());
+        assertEquals(0, results.getTotalPages());
 
         // Searching for an asset with its asset id.
-        results = assetService.queryAssets(ASSET_ID_NUMBER_01);
-        assertEquals(1, results.size());
-        assertEquals(1, results.get(0).getId());
+        results = assetService.queryAssets(ASSET_ID_NUMBER_01,0, 5);
+        assertEquals(1, results.getTotalElements());
+        assertEquals(1, results.getTotalPages());
+        assertEquals(1, results.getContent().get(0).getId());
 
         // Searching for an asset with its partial name - only 1 result.
-        results = assetService.queryAssets("back");
-        assertEquals(1, results.size());
-        assertEquals(1, results.get(0).getId());
+        results = assetService.queryAssets("back",0, 5);
+        assertEquals(1, results.getTotalElements());
+        assertEquals(1, results.getTotalPages());
+        assertEquals(1, results.getContent().get(0).getId());
 
         // Searching for an asset with its partial name uppercase - only 1 result.
-        results = assetService.queryAssets("BACK");
-        assertEquals(1, results.size());
-        assertEquals(1, results.get(0).getId());
+        results = assetService.queryAssets("BACK",0, 5);
+        assertEquals(1, results.getTotalElements());
+        assertEquals(1, results.getTotalPages());
+        assertEquals(1, results.getContent().get(0).getId());
 
         // Searching for an asset with its partial name uppercase - only 1 result.
-        results = assetService.queryAssets("ROYLLO");
-        assertEquals(1, results.size());
-        assertEquals(2, results.get(0).getId());
+        results = assetService.queryAssets("ROYLLO",0, 5);
+        assertEquals(1, results.getTotalElements());
+        assertEquals(1, results.getTotalPages());
+        assertEquals(2, results.getContent().get(0).getId());
 
         // Searching for an asset with its partial name corresponding to two assets.
-        results = assetService.queryAssets("star");
-        assertEquals(2, results.size());
+        results = assetService.queryAssets("star",0, 5);
+        assertEquals(2, results.getTotalElements());
+        assertEquals(1, results.getTotalPages());
         Set<Long> ids = results.stream()
                 .map(AssetDTO::getId)
                 .collect(Collectors.toSet());
         assertTrue(ids.contains(1L));
         assertTrue(ids.contains(2L));
+
+        // We have 9 assets to tests pagination.
+
+        // Searching for the 9 assets with a page size of 4.
+        results = assetService.queryAssets("TestPaginationCoin",0, 4);
+        assertEquals(9, results.getTotalElements());
+        assertEquals(3, results.getTotalPages());
+
+        // Searching for the 9 assets with a page size of 5 - Page 0.
+        results = assetService.queryAssets("TestPaginationCoin",0, 5);
+        assertEquals(5, results.getNumberOfElements());
+        assertEquals(9, results.getTotalElements());
+        assertEquals(2, results.getTotalPages());
+        assertEquals(1009, results.getContent().get(0).getId());
+        assertEquals(1001, results.getContent().get(1).getId());
+        assertEquals(1002, results.getContent().get(2).getId());
+        assertEquals(1003, results.getContent().get(3).getId());
+        assertEquals(1004, results.getContent().get(4).getId());
+
+        // Searching for the 9 assets with a page size of 5 - Page 1.
+        results = assetService.queryAssets("TestPaginationCoin",1, 5);
+        assertEquals(4, results.getNumberOfElements());
+        assertEquals(9, results.getTotalElements());
+        assertEquals(2, results.getTotalPages());
+        assertEquals(1005, results.getContent().get(0).getId());
+        assertEquals(1006, results.getContent().get(1).getId());
+        assertEquals(1007, results.getContent().get(2).getId());
+        assertEquals(1008, results.getContent().get(3).getId());
     }
 
     @Test

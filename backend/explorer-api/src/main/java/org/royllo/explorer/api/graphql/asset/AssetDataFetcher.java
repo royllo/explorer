@@ -8,11 +8,13 @@ import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.api.util.base.BaseDataFetcher;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.service.asset.AssetService;
+import org.springframework.data.domain.Page;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static org.royllo.explorer.api.configuration.APIConfiguration.DEFAULT_PAGE_SIZE;
 
 /**
  * Asset data fetcher.
@@ -21,7 +23,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AssetDataFetcher extends BaseDataFetcher {
 
-    /** Asset service. */
+    /**
+     * Asset service.
+     */
     private final AssetService assetService;
 
     /**
@@ -29,17 +33,19 @@ public class AssetDataFetcher extends BaseDataFetcher {
      * - Search if the value is an assetId, if true, returns only this one.
      * - Search if the value is contained in assets name.
      *
-     * @param value the value to search for
+     * @param value      the value to search for
+     * @param pageNumber the page number you want
      * @return list of assets corresponding to the search
      */
     @DgsQuery
-    public final List<AssetDTO> queryAssets(final @InputArgument String value) {
-        final List<AssetDTO> results = assetService.queryAssets(value);
+    public final Page<AssetDTO> queryAssets(final @InputArgument String value,
+                                            final @InputArgument int pageNumber) {
+        final Page<AssetDTO> results = assetService.queryAssets(value, pageNumber, DEFAULT_PAGE_SIZE);
         if (results.isEmpty()) {
             logger.info("queryAssets - For '{}', there is no results", value);
         } else {
             logger.info("queryAssets - For '{}', {} result(s) with assets id(s): {}", value,
-                    results.size(),
+                    results.getTotalElements(),
                     results.stream()
                             .map(AssetDTO::getId)
                             .map(Objects::toString)

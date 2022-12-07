@@ -15,3 +15,13 @@ type Asset {
     "The index of the output that carries the unique Taro commitment in the genesis transaction"
     outputIndex: Int
 }
+
+"Taro asset page - Container used to return search asset results"
+type AssetPage {
+    "Assets returned for a specific page number"
+    content: [Asset]
+    "Total number of elements returned for the search"
+    totalElements: Int!
+    "Total number of pages returned for the search"
+    totalPages: Int!
+}

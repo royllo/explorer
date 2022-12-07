@@ -1,10 +1,11 @@
 package org.royllo.explorer.core.repository.asset;
 
 import org.royllo.explorer.core.domain.asset.Asset;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -24,9 +25,10 @@ public interface AssetRepository extends JpaRepository<Asset, Long> {
     /**
      * Find an asset with a partial name.
      *
-     * @param name partial name
+     * @param name     partial name
+     * @param pageable page configuration
      * @return assets containing the parameter
      */
-    List<Asset> findByNameContainsIgnoreCase(String name);
+    Page<Asset> findByNameContainsIgnoreCaseOrderByName(String name, Pageable pageable);
 
 }

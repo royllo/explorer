@@ -7,10 +7,11 @@ import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 import org.royllo.explorer.core.util.base.BaseService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,28 +26,32 @@ import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_US
 @SuppressWarnings("checkstyle:DesignForExtension")
 public class AssetServiceImplementation extends BaseService implements AssetService {
 
-    /** Assert repository. */
+    /**
+     * Assert repository.
+     */
     private final AssetRepository assetRepository;
 
-    /** Bitcoin service. */
+    /**
+     * Bitcoin service.
+     */
     private final BitcoinService bitcoinService;
 
     @Override
-    public List<AssetDTO> queryAssets(final String value) {
-        List<AssetDTO> results = new LinkedList<>();
+    public Page<AssetDTO> queryAssets(final String value,
+                                      final int pageNumber,
+                                      final int pageSize) {
+        Page<AssetDTO> results;
 
         final Optional<Asset> firstSearch = assetRepository.findByAssetId(value);
         if (firstSearch.isPresent()) {
             // We found an asset with the corresponding assetId, we return it.
-            results = firstSearch.stream()
+            results = new PageImpl<>(firstSearch.stream()
                     .map(ASSET_MAPPER::mapToAssetDTO)
-                    .toList();
+                    .toList());
         } else {
             // We search all assets where "value" is in the name.
-            results = assetRepository.findByNameContainsIgnoreCase(value)
-                    .stream()
-                    .map(ASSET_MAPPER::mapToAssetDTO)
-                    .toList();
+            results = assetRepository.findByNameContainsIgnoreCaseOrderByName(value, PageRequest.of(pageNumber, pageSize))
+                    .map(ASSET_MAPPER::mapToAssetDTO);
         }
 
         // Creating logs.
@@ -54,7 +59,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
             logger.info("queryAssets - For '{}', there is no results", value);
         } else {
             logger.info("queryAssets - For '{}', {} result(s) with assets id(s): {}", value,
-                    results.size(),
+                    results.getTotalElements(),
                     results.stream()
                             .map(AssetDTO::getId)
                             .map(Objects::toString)
