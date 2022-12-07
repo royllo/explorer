@@ -95,9 +95,9 @@
         <dependency>
             <groupId>com.netflix.graphql.dgs</groupId>
             <artifactId>graphql-dgs-mocking</artifactId>
-            <scope>test</scope>
+            <!-- TODO Remove temporary fix : Scope should be set to test -->
         </dependency>
-        <!-- Temporary fix for error: "nested exception is java.lang.NoSuchMethodError" -->
+        <!-- TODO Remove temporary fix for error : "nested exception is java.lang.NoSuchMethodError" -->
         <dependency>
             <groupId>com.graphql-java</groupId>
             <artifactId>graphql-java</artifactId>
