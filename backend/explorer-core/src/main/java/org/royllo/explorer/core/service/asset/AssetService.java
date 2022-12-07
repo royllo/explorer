@@ -1,8 +1,8 @@
 package org.royllo.explorer.core.service.asset;
 
 import org.royllo.explorer.core.dto.asset.AssetDTO;
+import org.springframework.data.domain.Page;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -15,10 +15,12 @@ public interface AssetService {
      * - Search if the value is an assetId, if true, returns only this one.
      * - Search if the value is contained in assets name.
      *
-     * @param value the value to search for
+     * @param value      the value to search for
+     * @param pageNumber the page number we want to retrieve
+     * @param pageSize   the page size
      * @return list of assets corresponding to the search
      */
-    List<AssetDTO> queryAssets(String value);
+    Page<AssetDTO> queryAssets(String value, int pageNumber, int pageSize);
 
     /**
      * Add an asset.

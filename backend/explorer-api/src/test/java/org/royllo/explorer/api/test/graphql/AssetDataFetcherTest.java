@@ -13,6 +13,7 @@ import org.royllo.explorer.api.graphql.generated.client.AssetProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.client.QueryAssetsGraphQLQuery;
 import org.royllo.explorer.api.graphql.generated.client.QueryAssetsProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.types.Asset;
+import org.royllo.explorer.api.graphql.generated.types.AssetPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.royllo.explorer.api.test.BaseTest;
@@ -32,24 +33,62 @@ public class AssetDataFetcherTest extends BaseTest {
     @Test
     @DisplayName("queryAssets()")
     public void queryAssets() {
+        // Looking at page 1.
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                QueryAssetsGraphQLQuery.newRequest().value("royllo").build(),
-                new QueryAssetsProjectionRoot().id()
+                QueryAssetsGraphQLQuery.newRequest().value("TestPaginationCoin").pageNumber(0).build(),
+                new QueryAssetsProjectionRoot().content()
+                        .id()
                         .creator().id().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
                         .metaData()
                         .assetId()
-                        .outputIndex());
+                        .outputIndex()
+                        .parent()
+                        .totalElements()
+                        .totalPages());
 
-        List<Asset> assets = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+        AssetPage assetPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 graphQLQueryRequest.serialize(),
-                "data." + DgsConstants.QUERY.QueryAssets + "[*]",
+                "data." + DgsConstants.QUERY.QueryAssets,
                 new TypeRef<>() {
                 });
 
-        assertEquals(1, assets.size());
-        assertEquals("2", assets.get(0).getId());
+        assertEquals(9, assetPage.getTotalElements());
+        assertEquals(2, assetPage.getTotalPages());
+        assertEquals("1009", assetPage.getContent().get(0).getId());
+        assertEquals("1001", assetPage.getContent().get(1).getId());
+        assertEquals("1002", assetPage.getContent().get(2).getId());
+        assertEquals("1003", assetPage.getContent().get(3).getId());
+        assertEquals("1004", assetPage.getContent().get(4).getId());
+
+        // Looking at page 2
+        graphQLQueryRequest = new GraphQLQueryRequest(
+                QueryAssetsGraphQLQuery.newRequest().value("TestPaginationCoin").pageNumber(1).build(),
+                new QueryAssetsProjectionRoot().content()
+                        .id()
+                        .creator().id().username().parent()
+                        .genesisPoint().txId().vout().parent()
+                        .name()
+                        .metaData()
+                        .assetId()
+                        .outputIndex()
+                        .parent()
+                        .totalElements()
+                        .totalPages());
+
+        assetPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+                graphQLQueryRequest.serialize(),
+                "data." + DgsConstants.QUERY.QueryAssets,
+                new TypeRef<>() {
+                });
+
+        assertEquals(9, assetPage.getTotalElements());
+        assertEquals(2, assetPage.getTotalPages());
+        assertEquals("1005", assetPage.getContent().get(0).getId());
+        assertEquals("1006", assetPage.getContent().get(1).getId());
+        assertEquals("1007", assetPage.getContent().get(2).getId());
+        assertEquals("1008", assetPage.getContent().get(3).getId());
     }
 
     @Test

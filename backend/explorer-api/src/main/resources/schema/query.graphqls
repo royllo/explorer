@@ -3,7 +3,7 @@ type Query {
     # ==================================================================================================================
     # Assets API
     "Query for assets - Search for exact assetId or part of name"
-    queryAssets(value: String!): [Asset]
+    queryAssets(value: String!, pageNumber: Int): AssetPage
 
     "Get an asset by it's id in database"
     asset(id: ID!): Asset
@@ -19,14 +19,14 @@ type Query {
     request(id: ID!): Request
 
     # ==================================================================================================================
-    # Bitcoin information API
-    "Get a bitcoin transaction output by it's txId and vOut"
-    bitcoinTransactionOutput(txId: String!, vout: Int!): BitcoinTransactionOutput
-
-    # ==================================================================================================================
     # User API
     "Get user by username"
     userByUsername(username: String!): User
+
+    # ==================================================================================================================
+    # Bitcoin information API
+    "Get a bitcoin transaction output by it's txId and vOut"
+    bitcoinTransactionOutput(txId: String!, vout: Int!): BitcoinTransactionOutput
 
 }
 
