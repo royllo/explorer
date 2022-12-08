@@ -55,6 +55,8 @@ jobs:
                 -d '{ "query": "{ userByUsername(username: \"anonymous\") { id, username }}" }' \
                 http://localhost:8080/graphql | jq '.data.userByUsername.id')
           echo "userByUsernameResult={userByUsernameResult}" >> $GITHUB_OUTPUT
+          echo "userByUsernameResult={userByUsernameResult}"
+          echo "userByUsernameResult=${userByUsernameResult}"
 
       - name: Check if userByUsername returns the right value
         if: ${{ steps.userByUsername.outputs.userByUsernameResult != '\"0\"' }}
