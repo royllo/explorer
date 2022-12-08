@@ -28,11 +28,11 @@ jobs:
 
       # ================================================================================================================
       - name: Run core and issues tests
-        run: mvn clean test -Dmaven.test.skip
+        run: mvn clean test
 
       # ================================================================================================================
       - name: Run integration tests
-        run: mvn clean test -P integration -Dmaven.test.skip
+        run: mvn clean test -P integration
 
       # ================================================================================================================
       - name: Build and tag docker images

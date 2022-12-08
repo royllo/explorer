@@ -2,8 +2,9 @@ name: Push on branch - Build & test
 
 on:
   push:
-    branches-ignore:
-      - development
+    branches: [!development]
+  pull_request:
+    branches: [!development]
 
 jobs:
   build:
@@ -30,7 +31,7 @@ jobs:
         run: mvn clean test -P integration
 
       # ================================================================================================================
-      - name: Build and tag docker images
+      - name: Build docker images
         run: |
           mvn clean install -Dmaven.test.skip
           mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-api/pom.xml
