@@ -58,4 +58,6 @@ jobs:
 
       - name: Check if userByUsername returns the right value
         if: ${{ steps.userByUsername.outputs.userByUsernameResult != '0' }}
-        run: exit 1
+        run: |
+          echo $userByUsernameResult
+          exit 1
