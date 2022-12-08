@@ -2,9 +2,11 @@ name: Push on branch - Build & test
 
 on:
   push:
-    branches: [!development]
+    branches-ignore:
+      - development
   pull_request:
-    branches: [!development]
+    branches-ignore:
+      - development
 
 jobs:
   build:
