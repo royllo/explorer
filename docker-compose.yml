@@ -82,8 +82,8 @@ services:
 #  watchtower:
 #    image: containrrr/watchtower:latest
 #    depends_on:
-#      - aldan-database-server
-#      - aldan-api-server
+#      - royllo-explorer-batch-server
+#      - royllo-explorer-api-server
 #    environment:
 #      - TZ=Europe/Paris
 #    volumes:

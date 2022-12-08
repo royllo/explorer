@@ -25,3 +25,32 @@ jobs:
       # ================================================================================================================
       - name: Run integration tests
         run: mvn clean test -P integration
+
+      # ================================================================================================================
+      - name: Build and tag docker images
+        run: |
+          mvn clean install -Dmaven.test.skip
+          mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-api/pom.xml
+          mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-batch/pom.xml
+          docker tag royllo/explorer-api:latest royllo/explorer-api:${{ steps.release.outputs.version }}
+          docker tag royllo/explorer-batch:latest royllo/explorer-batch:${{ steps.release.outputs.version }}
+
+      # ================================================================================================================
+      - name: Run the docker-compose with images
+        run: |
+          docker pull library/postgres:14-alpine
+          docker-compose up &
+          sleep 60        
+
+      # ================================================================================================================
+      - name: Testing docker images with a curl call to userByUsername method
+        id: userByUsername
+        run: |
+          userByUsernameResult=$(curl  -H "Content-Type: application/json" \
+                -d '{ "query": "{ userByUsername(username: \"anonymous\") { id, username }}" }' \
+                http://localhost:8080/graphql | jq '.data.userByUsername.id')
+          echo "userByUsernameResult={userByUsernameResult}" >> $GITHUB_OUTPUT
+
+      - name: Check if userByUsername returns the right value
+        if: ${{ steps.userByUsername.outputs.userByUsernameResult != "0" }}
+        run: exit 1

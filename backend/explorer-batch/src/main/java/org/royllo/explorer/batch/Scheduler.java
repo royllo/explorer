@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class Scheduler extends BaseConfiguration {
 
     /** Scheduler pool size. */
-    private static final int SCHEDULER_POOL_SIZE = 3;
+    private static final int SCHEDULER_POOL_SIZE = 1;
 
     /** Start delay in milliseconds (1 000 ms = 1 second). */
     private static final int START_DELAY_IN_MILLISECONDS = 1_000;
