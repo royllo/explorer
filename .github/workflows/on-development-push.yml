@@ -22,12 +22,7 @@ jobs:
           java-version: '17'
 
       # ================================================================================================================
-      - name: Get release number
-        id: release
-        run: echo "::set-output name=version::$(mvn help:evaluate -D expression=project.version -q -D forceStdout)"
-
-      # ================================================================================================================
-      - name: Run core and issues tests
+      - name: Run core & issues tests
         run: mvn clean test -Dmaven.test.skip
 
       # ================================================================================================================
@@ -40,16 +35,12 @@ jobs:
           mvn clean install -Dmaven.test.skip
           mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-api/pom.xml
           mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-batch/pom.xml
-          docker tag royllo/explorer-api:latest royllo/explorer-api:${{ steps.release.outputs.version }}
-          docker tag royllo/explorer-batch:latest royllo/explorer-batch:${{ steps.release.outputs.version }}
-
       # ================================================================================================================
       - name: Run the docker-compose with our images
         run: |
           docker pull library/postgres:14-alpine
           docker-compose up &
-          sleep 60        
-
+          sleep 60
       # ================================================================================================================
       - name: Testing docker images with a curl call to the userByUsername method
         id: userByUsername
@@ -59,27 +50,17 @@ jobs:
                 http://localhost:8080/graphql | jq '.data.userByUsername.id')
           curl  -H "Content-Type: application/json" \
                 -d '{ "query": "{ userByUsername(username: \"anonymous\") { id, username }}" }' \
-                http://localhost:8080/graphql -v
-          echo "userByUsername call result is ${userByUsernameResult}"
+                http://localhost:8080/graphql | jq '.data.userByUsername.id'
+          echo "userByUsername result is ${userByUsernameResult}"
           echo "userByUsernameResult=${userByUsernameResult}" >> $GITHUB_OUTPUT
-
-      - name: Check if userByUsername returns the correct value
+      - name: Check if userByUsername returns the right value
         if: ${{ steps.userByUsername.outputs.userByUsernameResult != '"0"' }}
         run: |
-          echo "Error - userByUsername id result is ${{ steps.userByUsername.outputs.userByUsernameResult }}"
+          echo "test 1"
+          echo "userByUsername id result is ${{ steps.userByUsername.outputs.userByUsernameResult }}"
+          echo ${{ steps.userByUsername.outputs.userByUsernameResult }}
+          echo ${{ steps.userByUsername.outputs.userByUsernameResult != '0' }}
+          echo ${{ steps.userByUsername.outputs.userByUsernameResult != '\"0\"' }}
+          echo ${{ steps.userByUsername.outputs.userByUsernameResult != '"0"' }}
+          echo "test 2"
           exit 1
-
-      # ================================================================================================================
-      - name: Docker Hub login
-        uses: docker/login-action@v2.1.0
-        with:
-          username: ${{ secrets.EXPLORER_DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.EXPLORER_DOCKER_HUB_PASSWORD }}
-
-      # ================================================================================================================
-      - name: Push the docker images to Docker hub
-        run: |
-          docker push royllo/explorer-api:latest
-          docker push royllo/explorer-api:${{ steps.release.outputs.version }}
-          docker push royllo/explorer-batch:latest
-          docker push royllo/explorer-batch:${{ steps.release.outputs.version }}
