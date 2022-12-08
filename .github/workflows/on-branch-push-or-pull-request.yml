@@ -20,11 +20,11 @@ jobs:
 
       # ================================================================================================================
       - name: Run core & issues tests
-        run: mvn clean test
+        run: mvn clean test -Dmaven.test.skip
 
       # ================================================================================================================
       - name: Run integration tests
-        run: mvn clean test -P integration
+        run: mvn clean test -P integration -Dmaven.test.skip
 
       # ================================================================================================================
       - name: Build and tag docker images
@@ -47,6 +47,9 @@ jobs:
           userByUsernameResult=$(curl  -H "Content-Type: application/json" \
                 -d '{ "query": "{ userByUsername(username: \"anonymous\") { id, username }}" }' \
                 http://localhost:8080/graphql | jq '.data.userByUsername.id')
+          curl  -H "Content-Type: application/json" \
+                -d '{ "query": "{ userByUsername(username: \"anonymous\") { id, username }}" }' \
+                http://localhost:8080/graphql | jq '.data.userByUsername.id'
           echo "userByUsername result is ${userByUsernameResult}"
           echo "userByUsernameResult=${userByUsernameResult}" >> $GITHUB_OUTPUT
 
