@@ -21,11 +21,11 @@ jobs:
 
       # ================================================================================================================
       - name: Run core & issues tests
-        run: mvn clean test
+        run: mvn clean test -Dmaven.test.skip
 
       # ================================================================================================================
       - name: Run integration tests
-        run: mvn clean test -P integration
+        run: mvn clean test -P integration -Dmaven.test.skip
 
       # ================================================================================================================
       - name: Build and tag docker images
@@ -56,5 +56,7 @@ jobs:
           echo "test 1"
           echo ${{ steps.userByUsername.outputs.userByUsernameResult }}
           echo ${{ steps.userByUsername.outputs.userByUsernameResult != '0' }}
+          echo ${{ steps.userByUsername.outputs.userByUsernameResult != '\"0\"' }}
+          echo ${{ steps.userByUsername.outputs.userByUsernameResult != '"0"' }}
           echo "test 2"
           exit 1
