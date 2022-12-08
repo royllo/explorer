@@ -57,11 +57,13 @@ jobs:
           userByUsernameResult=$(curl  -H "Content-Type: application/json" \
                 -d '{ "query": "{ userByUsername(username: \"anonymous\") { id, username }}" }' \
                 http://localhost:8080/graphql | jq '.data.userByUsername.id')
+          echo "userByUsername call result is ${userByUsernameResult}"
           echo "userByUsernameResult=${userByUsernameResult}" >> $GITHUB_OUTPUT
 
-      - name: Check if userByUsername returns the right value
+      - name: Check if userByUsername returns the correct value
         if: ${{ steps.userByUsername.outputs.userByUsernameResult != '"0"' }}
         run: |
+          echo "Error - userByUsername id result is ${{ steps.userByUsername.outputs.userByUsernameResult }}"
           exit 1
 
       # ================================================================================================================

@@ -20,11 +20,11 @@ jobs:
 
       # ================================================================================================================
       - name: Run core & issues tests
-        run: mvn clean test -Dmaven.test.skip
+        run: mvn clean test
 
       # ================================================================================================================
       - name: Run integration tests
-        run: mvn clean test -P integration -Dmaven.test.skip
+        run: mvn clean test -P integration
 
       # ================================================================================================================
       - name: Build and tag docker images
@@ -47,20 +47,11 @@ jobs:
           userByUsernameResult=$(curl  -H "Content-Type: application/json" \
                 -d '{ "query": "{ userByUsername(username: \"anonymous\") { id, username }}" }' \
                 http://localhost:8080/graphql | jq '.data.userByUsername.id')
-          curl  -H "Content-Type: application/json" \
-                -d '{ "query": "{ userByUsername(username: \"anonymous\") { id, username }}" }' \
-                http://localhost:8080/graphql | jq '.data.userByUsername.id'
-          echo "userByUsername result is ${userByUsernameResult}"
+          echo "userByUsername call result is ${userByUsernameResult}"
           echo "userByUsernameResult=${userByUsernameResult}" >> $GITHUB_OUTPUT
 
-      - name: Check if userByUsername returns the right value
+      - name: Check if userByUsername returns the correct value
         if: ${{ steps.userByUsername.outputs.userByUsernameResult != '"0"' }}
         run: |
-          echo "test 1"
-          echo "userByUsername id result is ${{ steps.userByUsername.outputs.userByUsernameResult }}"
-          echo ${{ steps.userByUsername.outputs.userByUsernameResult }}
-          echo ${{ steps.userByUsername.outputs.userByUsernameResult != '0' }}
-          echo ${{ steps.userByUsername.outputs.userByUsernameResult != '\"0\"' }}
-          echo ${{ steps.userByUsername.outputs.userByUsernameResult != '"0"' }}
-          echo "test 2"
+          echo "Error - userByUsername id result is ${{ steps.userByUsername.outputs.userByUsernameResult }}"
           exit 1
