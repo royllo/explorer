@@ -21,11 +21,11 @@ jobs:
 
       # ================================================================================================================
       - name: Run core & issues tests
-        run: mvn clean test -Dmaven.test.skip
+        run: mvn clean test
 
       # ================================================================================================================
       - name: Run integration tests
-        run: mvn clean test -P integration -Dmaven.test.skip
+        run: mvn clean test -P integration
 
       # ================================================================================================================
       - name: Build and tag docker images
@@ -35,14 +35,14 @@ jobs:
           mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-batch/pom.xml
 
       # ================================================================================================================
-      - name: Run the docker-compose with images
+      - name: Run the docker-compose with our images
         run: |
           docker pull library/postgres:14-alpine
           docker-compose up &
           sleep 60        
 
       # ================================================================================================================
-      - name: Testing docker images with a curl call to userByUsername method
+      - name: Testing docker images with a curl call to the userByUsername method
         id: userByUsername
         run: |
           userByUsernameResult=$(curl  -H "Content-Type: application/json" \
@@ -53,10 +53,4 @@ jobs:
       - name: Check if userByUsername returns the right value
         if: ${{ steps.userByUsername.outputs.userByUsernameResult != '"0"' }}
         run: |
-          echo "test 1"
-          echo ${{ steps.userByUsername.outputs.userByUsernameResult }}
-          echo ${{ steps.userByUsername.outputs.userByUsernameResult != '0' }}
-          echo ${{ steps.userByUsername.outputs.userByUsernameResult != '\"0\"' }}
-          echo ${{ steps.userByUsername.outputs.userByUsernameResult != '"0"' }}
-          echo "test 2"
           exit 1
