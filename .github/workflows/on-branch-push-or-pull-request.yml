@@ -1,6 +1,9 @@
 name: Push on branch - Build & test
 
-on: [ push, pull_request ]
+on:
+  push:
+    branches-ignore:
+      - development
 
 jobs:
   build:
