@@ -101,7 +101,7 @@
         <dependency>
             <groupId>com.graphql-java</groupId>
             <artifactId>graphql-java</artifactId>
-            <version>20.0</version>
+            <version>19.3</version>
         </dependency>
         <!-- We set explorer-database as test dependency, so api project won't run liquidbase -->
         <dependency>
