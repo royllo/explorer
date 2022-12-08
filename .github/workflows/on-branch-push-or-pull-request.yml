@@ -18,10 +18,6 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # ================================================================================================================
-      - name: Get release number
-        id: release
-        run: echo "::set-output name=version::$(mvn help:evaluate -D expression=project.version -q -D forceStdout)"
 
       # ================================================================================================================
       - name: Run core & issues tests
@@ -37,8 +33,6 @@ jobs:
           mvn clean install -Dmaven.test.skip
           mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-api/pom.xml
           mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-batch/pom.xml
-          docker tag royllo/explorer-api:latest royllo/explorer-api:${{ steps.release.outputs.version }}
-          docker tag royllo/explorer-batch:latest royllo/explorer-batch:${{ steps.release.outputs.version }}
 
       # ================================================================================================================
       - name: Run the docker-compose with images
@@ -57,7 +51,7 @@ jobs:
           echo "userByUsernameResult=${userByUsernameResult}" >> $GITHUB_OUTPUT
 
       - name: Check if userByUsername returns the right value
-        if: ${{ steps.userByUsername.outputs.userByUsernameResult != '0' }}
+        if: ${{ steps.userByUsername.outputs.userByUsernameResult != 0 }}
         run: |
           echo "test 1"
           echo ${{ steps.userByUsername.outputs.userByUsernameResult }}
