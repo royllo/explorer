@@ -56,9 +56,6 @@ jobs:
           userByUsernameResult=$(curl  -H "Content-Type: application/json" \
                 -d '{ "query": "{ userByUsername(username: \"anonymous\") { id, username }}" }' \
                 http://localhost:8080/graphql | jq '.data.userByUsername.id')
-          curl  -H "Content-Type: application/json" \
-                -d '{ "query": "{ userByUsername(username: \"anonymous\") { id, username }}" }' \
-                http://localhost:8080/graphql -v
           echo "userByUsername call result is ${userByUsernameResult}"
           echo "userByUsernameResult=${userByUsernameResult}" >> $GITHUB_OUTPUT
 

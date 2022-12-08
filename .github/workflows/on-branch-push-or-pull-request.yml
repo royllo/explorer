@@ -39,8 +39,7 @@ jobs:
       # ================================================================================================================
       - name: Run the docker-compose with our images
         run: |
-          docker pull library/postgres:14-alpine
-          docker-compose up &
+          docker-compose up >> docker.logs 2>&1 &
           sleep 60        
 
       # ================================================================================================================
@@ -57,4 +56,5 @@ jobs:
         if: ${{ steps.userByUsername.outputs.userByUsernameResult != '"0"' }}
         run: |
           echo "Error - userByUsername id result is ${{ steps.userByUsername.outputs.userByUsernameResult }}"
+          cat docker.logs
           exit 1
