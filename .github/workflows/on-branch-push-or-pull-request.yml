@@ -53,4 +53,11 @@ jobs:
       - name: Check if userByUsername returns the right value
         if: ${{ steps.userByUsername.outputs.userByUsernameResult != '"0"' }}
         run: |
+          echo "test 1"
+          echo "userByUsername id result is ${{ steps.userByUsername.outputs.userByUsernameResult }}"
+          echo ${{ steps.userByUsername.outputs.userByUsernameResult }}
+          echo ${{ steps.userByUsername.outputs.userByUsernameResult != '0' }}
+          echo ${{ steps.userByUsername.outputs.userByUsernameResult != '\"0\"' }}
+          echo ${{ steps.userByUsername.outputs.userByUsernameResult != '"0"' }}
+          echo "test 2"
           exit 1
