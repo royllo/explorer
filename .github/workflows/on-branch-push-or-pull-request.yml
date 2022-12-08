@@ -18,7 +18,6 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-
       # ================================================================================================================
       - name: Run core & issues tests
         run: mvn clean test
@@ -48,6 +47,7 @@ jobs:
           userByUsernameResult=$(curl  -H "Content-Type: application/json" \
                 -d '{ "query": "{ userByUsername(username: \"anonymous\") { id, username }}" }' \
                 http://localhost:8080/graphql | jq '.data.userByUsername.id')
+          echo "userByUsername result is ${userByUsernameResult}"
           echo "userByUsernameResult=${userByUsernameResult}" >> $GITHUB_OUTPUT
 
       - name: Check if userByUsername returns the right value
