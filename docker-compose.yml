@@ -72,11 +72,6 @@ services:
     labels:
       - com.centurylinklabs.watchtower.enable=true
 
-
-
-
-
-
   # ====================================================================================================================
   # Watchtower to update royllo images automatically.
 #  watchtower:
