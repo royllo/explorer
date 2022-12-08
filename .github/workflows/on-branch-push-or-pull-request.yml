@@ -61,5 +61,6 @@ jobs:
         run: |
           echo "test 1"
           echo ${{ steps.userByUsername.outputs.userByUsernameResult }}
+          echo ${{ steps.userByUsername.outputs.userByUsernameResult != '0' }}
           echo "test 2"
           exit 1
