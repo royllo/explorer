@@ -57,7 +57,7 @@ jobs:
           echo "userByUsernameResult=${userByUsernameResult}" >> $GITHUB_OUTPUT
 
       - name: Check if userByUsername returns the right value
-        if: ${{ steps.userByUsername.outputs.userByUsernameResult != '\"0\"' }}
+        if: ${{ steps.userByUsername.outputs.userByUsernameResult != '0' }}
         run: |
           echo ${{ steps.userByUsername.outputs.userByUsernameResult }}
           exit 1
