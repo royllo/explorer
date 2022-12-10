@@ -30,12 +30,28 @@ class RoylloExplorerUI extends ConsumerWidget {
     return MaterialApp(
       // Scaffold implements the basic Material Design visual layout structure.
       home: Scaffold(
-        // An app bar consists of a toolbar and potentially other widgets, such as a TabBar and a FlexibleSpaceBar.
-        appBar: AppBar(title: const Text('Royllo')),
-        // Content.
+
+        // =====================================================================
+        // An app bar consists of a toolbar and potentially other widgets.
+        appBar: AppBar(
+          leading: IconButton(
+            // TODO Add a link to come back to the homepage.
+            onPressed: () {},
+            icon: const Icon(Icons.home),
+          ),
+        ),
+        // =====================================================================
+
+        // =====================================================================
+        // The application.
         body: const Home(),
+        // =====================================================================
+
+        // =====================================================================
         // Bottom navigation bar.
         bottomNavigationBar: const Text('Copyright Royllo'),
+        // =====================================================================
+
       ),
       // Defines the configuration of the overall visual Theme for a MaterialApp or a widget subtree within the app.
       theme: ThemeData(

@@ -20,6 +20,7 @@ class Home extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        // Royllo icon.
         Image.asset('assets/images/royllo_logo_homepage.png'),
         // A widget that sizes its child to a fraction of the total available space.
         const FractionallySizedBox(
