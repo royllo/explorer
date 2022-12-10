@@ -1,6 +1,9 @@
 import 'package:explorer_ui/src/screens/home.dart';
+import 'package:explorer_ui/src/widgets/default_app_bar.dart';
+import 'package:explorer_ui/src/widgets/default_bottom_navigation_bart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 // This function tells Dart where the program starts, and it must be in the file that is considered the "entry point" for you program.
 void main() {
@@ -30,28 +33,17 @@ class RoylloExplorerUI extends ConsumerWidget {
     return MaterialApp(
       // Scaffold implements the basic Material Design visual layout structure.
       home: Scaffold(
-
         // =====================================================================
         // An app bar consists of a toolbar and potentially other widgets.
-        appBar: AppBar(
-          leading: IconButton(
-            // TODO Add a link to come back to the homepage.
-            onPressed: () {},
-            icon: const Icon(Icons.home),
-          ),
-        ),
-        // =====================================================================
+        appBar: defaultRoylloAppBar(),
 
         // =====================================================================
         // The application.
         body: const Home(),
-        // =====================================================================
 
         // =====================================================================
         // Bottom navigation bar.
-        bottomNavigationBar: const Text('Copyright Royllo'),
-        // =====================================================================
-
+        bottomNavigationBar: defaultRoylloBottomNavigationBar(),
       ),
       // Defines the configuration of the overall visual Theme for a MaterialApp or a widget subtree within the app.
       theme: ThemeData(
@@ -60,3 +52,13 @@ class RoylloExplorerUI extends ConsumerWidget {
     );
   }
 }
+
+// A declarative routing package for Flutter that uses the Router API to provide a convenient, url-based API for navigating between different screens.
+final _router = GoRouter(
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const Home(),
+    ),
+  ],
+);
