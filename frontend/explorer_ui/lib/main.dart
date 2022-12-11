@@ -1,6 +1,5 @@
+import 'package:explorer_ui/src/screens/about.dart';
 import 'package:explorer_ui/src/screens/home.dart';
-import 'package:explorer_ui/src/widgets/default_app_bar.dart';
-import 'package:explorer_ui/src/widgets/default_bottom_navigation_bart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -29,26 +28,8 @@ class RoylloExplorerUI extends ConsumerWidget {
   // The framework replaces the subtree below this widget with the widget returned by this method
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // MaterialApp is a widget that wraps a number of widgets that are commonly required for Material Design applications.
-    return MaterialApp(
-      // Scaffold implements the basic Material Design visual layout structure.
-      home: Scaffold(
-        // =====================================================================
-        // An app bar consists of a toolbar and potentially other widgets.
-        appBar: defaultRoylloAppBar(),
-
-        // =====================================================================
-        // The application.
-        body: const Home(),
-
-        // =====================================================================
-        // Bottom navigation bar.
-        bottomNavigationBar: defaultRoylloBottomNavigationBar(),
-      ),
-      // Defines the configuration of the overall visual Theme for a MaterialApp or a widget subtree within the app.
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+    return MaterialApp.router(
+      routerConfig: _router,
     );
   }
 }
@@ -56,9 +37,17 @@ class RoylloExplorerUI extends ConsumerWidget {
 // A declarative routing package for Flutter that uses the Router API to provide a convenient, url-based API for navigating between different screens.
 final _router = GoRouter(
   routes: [
+    // Home page.
     GoRoute(
-      path: '/',
-      builder: (context, state) => const Home(),
+      name: "home",
+      path: "/",
+      builder: (context, state) => const HomeScreen(),
+    ),
+    // About page.
+    GoRoute(
+      name: "about",
+      path: '/about',
+      builder: (context, state) => const AboutScreen(),
     ),
   ],
 );
