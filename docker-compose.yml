@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.7"
 
 # ======================================================================================================================
 # Default network.
@@ -14,12 +14,11 @@ volumes:
   royllo-explorer-database-backup-volume:
 
 # ======================================================================================================================
-# Services (images).
+# Services (Docker images).
 services:
 
   # ====================================================================================================================
-  # Database used to store data.
-  # https://hub.docker.com/_/postgres
+  # Database used to store data ( https://hub.docker.com/_/postgres ).
   royllo-explorer-database-server:
     image: library/postgres:14-alpine
     restart: always
@@ -72,7 +71,6 @@ services:
     labels:
       - com.centurylinklabs.watchtower.enable=true
 
-
   # ====================================================================================================================
   # Royllo explorer WWW server.
   royllo-explorer-www-server:
@@ -95,6 +93,7 @@ services:
 #    depends_on:
 #      - royllo-explorer-batch-server
 #      - royllo-explorer-api-server
+#      - royllo-explorer-www-server
 #    environment:
 #      - TZ=Europe/Paris
 #    volumes:

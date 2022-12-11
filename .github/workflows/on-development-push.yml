@@ -41,6 +41,7 @@ jobs:
           mvn clean install -Dmaven.test.skip
 
       # ================================================================================================================
+      # TODO Add test
       - name: Run frontend tests & build artifacts
         working-directory: frontend/explorer_ui
         run: |
