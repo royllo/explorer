@@ -44,11 +44,10 @@ jobs:
       - name: Run frontend tests & build artifacts
         working-directory: frontend/explorer_ui
         run: |
-          flutter test
           flutter build web
 
       # ================================================================================================================
-      - name: Build docker images
+      - name: Build and tag docker images
         run: |
           mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-batch/pom.xml
           mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-api/pom.xml
