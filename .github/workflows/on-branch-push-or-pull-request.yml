@@ -40,7 +40,7 @@ jobs:
 
       # ================================================================================================================
       - name: Run frontend tests & build artifacts
-        working-directory: front/explorer_ui
+        working-directory: frontend/explorer_ui
         run: |
           flutter test
           flutter build web
