@@ -22,26 +22,35 @@ jobs:
           java-version: '17'
 
       # ================================================================================================================
-      - name: Get release number
-        id: release
-        run: echo "::set-output name=version::$(mvn help:evaluate -D expression=project.version -q -D forceStdout)"
+      - name: Flutter setup
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.3.9'
+          channel: 'stable'
 
       # ================================================================================================================
-      - name: Run core and issues tests
-        run: mvn clean test
-
-      # ================================================================================================================
-      - name: Run integration tests
-        run: mvn clean test -P integration
-
-      # ================================================================================================================
-      - name: Build and tag docker images
+      - name: Run backend tests & build artifacts
         run: |
+          mvn clean test
+          mvn clean test -P integration
           mvn clean install -Dmaven.test.skip
-          mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-api/pom.xml
+
+      # ================================================================================================================
+      - name: Run frontend tests & build artifacts
+        working-directory: front/explorer_ui
+        run: |
+          flutter test
+          flutter build web
+
+      # ================================================================================================================
+      - name: Build docker images
+        run: |
           mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-batch/pom.xml
-          docker tag royllo/explorer-api:latest royllo/explorer-api:${{ steps.release.outputs.version }}
+          mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-api/pom.xml
+          docker build -t royllo/explorer-www:latest -f frontend/explorer_ui/Dockerfile frontend/explorer_ui/
           docker tag royllo/explorer-batch:latest royllo/explorer-batch:${{ steps.release.outputs.version }}
+          docker tag royllo/explorer-api:latest royllo/explorer-api:${{ steps.release.outputs.version }}
+          docker tag royllo/explorer-www:latest royllo/explorer-www:${{ steps.release.outputs.version }}
 
       # ================================================================================================================
       - name: Run the docker-compose with our images
@@ -55,7 +64,7 @@ jobs:
         run: |
           userByUsernameResult=$(curl  -H "Content-Type: application/json" \
                 -d '{ "query": "{ userByUsername(username: \"anonymous\") { id, username }}" }' \
-                http://localhost:8080/graphql | jq '.data.userByUsername.id')
+                http://localhost:9090/graphql | jq '.data.userByUsername.id')
           echo "userByUsername call result is ${userByUsernameResult}"
           echo "userByUsernameResult=${userByUsernameResult}" >> $GITHUB_OUTPUT
 
@@ -76,7 +85,9 @@ jobs:
       # ================================================================================================================
       - name: Push the docker images to Docker hub
         run: |
-          docker push royllo/explorer-api:latest
-          docker push royllo/explorer-api:${{ steps.release.outputs.version }}
           docker push royllo/explorer-batch:latest
           docker push royllo/explorer-batch:${{ steps.release.outputs.version }}
+          docker push royllo/explorer-api:latest
+          docker push royllo/explorer-api:${{ steps.release.outputs.version }}
+          docker push royllo/explorer-www:latest
+          docker push royllo/explorer-www:${{ steps.release.outputs.version }}

@@ -33,6 +33,7 @@ class AboutScreen extends ConsumerWidget {
               // Royllo icon.
               Image.asset('assets/images/logo_large_with_text.png'),
               // TODO Project description
+              const Text("About Royllo...")
             ],
           )),
 

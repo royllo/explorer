@@ -32,9 +32,11 @@ class SearchScreen extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           // A margin.
-          Container(margin: const EdgeInsets.all(20)),
-          // Search text field.
-          searchTextField(context, "")
+          Container(
+            margin: const EdgeInsets.all(20),
+            // Search text field.
+            child: searchTextField(context, ""),
+          ),
         ],
       )),
 

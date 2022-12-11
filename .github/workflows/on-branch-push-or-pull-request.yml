@@ -25,19 +25,32 @@ jobs:
           java-version: '17'
 
       # ================================================================================================================
-      - name: Run core & issues tests
-        run: mvn clean test
+      - name: Flutter setup
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.3.9'
+          channel: 'stable'
 
       # ================================================================================================================
-      - name: Run integration tests
-        run: mvn clean test -P integration
+      - name: Run backend tests & build artifacts
+        run: |
+          mvn clean test
+          mvn clean test -P integration
+          mvn clean install -Dmaven.test.skip
+
+      # ================================================================================================================
+      - name: Run frontend tests & build artifacts
+        working-directory: front/explorer_ui
+        run: |
+          flutter test
+          flutter build web
 
       # ================================================================================================================
       - name: Build docker images
         run: |
-          mvn clean install -Dmaven.test.skip
-          mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-api/pom.xml
           mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-batch/pom.xml
+          mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-api/pom.xml
+          docker build -t royllo/explorer-www:latest -f frontend/explorer_ui/Dockerfile frontend/explorer_ui/
 
       # ================================================================================================================
       - name: Run the docker-compose with our images
@@ -51,7 +64,7 @@ jobs:
         run: |
           userByUsernameResult=$(curl  -H "Content-Type: application/json" \
                 -d '{ "query": "{ userByUsername(username: \"anonymous\") { id, username }}" }' \
-                http://localhost:8080/graphql | jq '.data.userByUsername.id')
+                http://localhost:9090/graphql | jq '.data.userByUsername.id')
           echo "userByUsername call result is ${userByUsernameResult}"
           echo "userByUsernameResult=${userByUsernameResult}" >> $GITHUB_OUTPUT
 
