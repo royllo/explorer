@@ -29,7 +29,12 @@ jobs:
           channel: 'stable'
 
       # ================================================================================================================
-      - name: Run backend tests & build artifacts
+      - name: Get release number
+        id: release
+        run: echo "::set-output name=version::$(mvn help:evaluate -D expression=project.version -q -D forceStdout)"
+
+      # ================================================================================================================
+      - name: Run backend tests
         run: |
           mvn clean test
           mvn clean test -P integration
