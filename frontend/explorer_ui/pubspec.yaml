@@ -1,0 +1,52 @@
+name: explorer_ui
+description: Royllo explorer user interface
+
+# The following line prevents the package from being accidentally published to
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.5 <3.0.0'
+  flutter: ">=3.0.0"
+
+# Dependencies specify other packages that your package needs in order to work.
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Go_router to manage navigation.
+  go_router: ^5.2.4
+
+  # Riverpod dependencies (used for api calls).
+  flutter_riverpod: ^2.1.1
+  riverpod_annotation: ^1.0.6
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.5
+
+dev_dependencies:
+
+  # Riverpod dependencies.
+  build_runner:
+  riverpod_generator: ^1.0.6
+
+  flutter_test:
+    sdk: flutter
+
+  # The "flutter_lints" package below contains a set of recommended lints to encourage good coding practices.
+  flutter_lints: ^2.0.1
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # This section add assets to your application.
+  assets:
+      - assets/images/logo_homepage.png
+      - assets/images/logo_large_with_text.png
