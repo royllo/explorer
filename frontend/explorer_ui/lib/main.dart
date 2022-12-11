@@ -1,5 +1,6 @@
 import 'package:explorer_ui/src/screens/about.dart';
 import 'package:explorer_ui/src/screens/home.dart';
+import 'package:explorer_ui/src/screens/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -42,6 +43,12 @@ final _router = GoRouter(
       name: "home",
       path: "/",
       builder: (context, state) => const HomeScreen(),
+    ),
+    // Search page - Display results.
+    GoRoute(
+      name: "search",
+      path: '/search',
+      builder: (context, state) => const SearchScreen(),
     ),
     // About page.
     GoRoute(
