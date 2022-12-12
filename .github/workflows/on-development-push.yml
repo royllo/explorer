@@ -48,14 +48,11 @@ jobs:
           flutter build web
 
       # ================================================================================================================
-      - name: Build and tag docker images
+      - name: Build docker images
         run: |
           mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-batch/pom.xml
           mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-api/pom.xml
           docker build -t royllo/explorer-www:latest -f frontend/explorer_ui/Dockerfile frontend/explorer_ui/
-          docker tag royllo/explorer-batch:latest royllo/explorer-batch:${{ steps.release.outputs.version }}
-          docker tag royllo/explorer-api:latest royllo/explorer-api:${{ steps.release.outputs.version }}
-          docker tag royllo/explorer-www:latest royllo/explorer-www:${{ steps.release.outputs.version }}
 
       # ================================================================================================================
       - name: Run the docker-compose with our images
@@ -88,8 +85,11 @@ jobs:
           password: ${{ secrets.EXPLORER_DOCKER_HUB_PASSWORD }}
 
       # ================================================================================================================
-      - name: Push the docker images to Docker hub
+      - name: Tag and push the docker images to Docker hub
         run: |
+          docker tag royllo/explorer-batch:latest royllo/explorer-batch:${{ steps.release.outputs.version }}
+          docker tag royllo/explorer-api:latest royllo/explorer-api:${{ steps.release.outputs.version }}
+          docker tag royllo/explorer-www:latest royllo/explorer-www:${{ steps.release.outputs.version }}
           docker push royllo/explorer-batch:latest
           docker push royllo/explorer-batch:${{ steps.release.outputs.version }}
           docker push royllo/explorer-api:latest

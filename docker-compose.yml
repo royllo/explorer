@@ -20,7 +20,7 @@ services:
   # ====================================================================================================================
   # Database used to store data ( https://hub.docker.com/_/postgres ).
   royllo-explorer-database-server:
-    image: library/postgres:14-alpine
+    image: library/postgres:15-alpine
     restart: always
     networks:
       - royllo-explorer-network
@@ -87,6 +87,30 @@ services:
       - com.centurylinklabs.watchtower.enable=true
 
   # ====================================================================================================================
+  # Database backup ( https://hub.docker.com/r/prodrigestivill/postgres-backup-local ).
+#  royllo-explorer-database-server-backup:
+#    image: prodrigestivill/postgres-backup-local:15-alpine
+#    depends_on:
+#      - royllo-explorer-database-server
+#    restart: always
+#    networks:
+#      - royllo-explorer-network
+#    volumes:
+#      - royllo-explorer-database-backup-volume:/backups
+#    environment:
+#      - TZ=Europe/Paris
+#      - POSTGRES_HOST=royllo-explorer-database-server
+#      - POSTGRES_DB=royllo_explorer_database
+#      - POSTGRES_USER=royllo_explorer_username
+#      - POSTGRES_PASSWORD=Q5QnE5S%Y]qt7
+#      - POSTGRES_EXTRA_OPTS=--schema=public
+#      - SCHEDULE=@hourly
+#      - BACKUP_KEEP_DAYS=7
+#      - BACKUP_KEEP_WEEKS=1
+#      - BACKUP_KEEP_MONTHS=0
+#      - HEALTHCHECK_PORT=8080
+
+  # ====================================================================================================================
   # Watchtower to update royllo images automatically.
 #  watchtower:
 #    image: containrrr/watchtower:latest
@@ -98,4 +122,4 @@ services:
 #      - TZ=Europe/Paris
 #    volumes:
 #      - /var/run/docker.sock:/var/run/docker.sock
-#    command: --schedule "* * * * *" --label-enable
+#    command: --schedule "0 * * * *" --label-enable

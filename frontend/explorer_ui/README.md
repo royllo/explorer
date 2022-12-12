@@ -13,7 +13,13 @@ Added Riverpod by following this documentation : https://docs-v2.riverpod.dev/do
 A provider is an object that encapsulates a piece of state and allows listening to that state. They are a complete
 replacement for patterns like Singletons, Service Locators, Dependency Injection or InheritedWidgets.
 
+## go_router
 
+https://pub.dev/packages/go_router
+
+## Ferry graph
+
+https://ferrygraphql.com/
 
 ## Useful commandes
 

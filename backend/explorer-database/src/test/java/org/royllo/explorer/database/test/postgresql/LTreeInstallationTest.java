@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Testcontainers
-@SpringBootTest(properties = {"spring.datasource.url=jdbc:tc:postgresql:14:///explorer",
+@SpringBootTest(properties = {"spring.datasource.url=jdbc:tc:postgresql:15:///explorer",
         "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver"})
 @DisplayName("Postgresql LTree installation")
 public class LTreeInstallationTest {
