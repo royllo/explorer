@@ -1,4 +1,6 @@
+import 'package:explorer_ui/graphql/api/getUser.data.gql.dart';
 import 'package:explorer_ui/graphql/api/getUser.req.gql.dart';
+import 'package:explorer_ui/graphql/api/getUser.var.gql.dart';
 import 'package:ferry/ferry.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gql_http_link/gql_http_link.dart';
@@ -23,8 +25,9 @@ void main() {
       //..fetchPolicy = FetchPolicy.NetworkOnly
       ..vars.username = "anonymous");
 
-    final event = await client.request(request).first;
-    print("Error ${event.graphqlErrors}");
-    print("User id is ${event.data?.userByUsername?.id} / ${event.data?.userByUsername?.username}");
+    final OperationResponse<GuserByUsernameData, GuserByUsernameVars> event = await client.request(request).first;
+    // print("Error ${event.graphqlErrors}");
+    print(event.linkException);
+    print("User is ${event.data?.userByUsername?.id} / ${event.data?.userByUsername?.username}");
   });
 }
