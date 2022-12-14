@@ -2,6 +2,10 @@ import 'package:explorer_ui/src/configuration/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// Providers are declared globally and specify how to create a state.
+// This provider keep the searched value.
+final searchedValueProvider = StateProvider<String>((ref) => "");
+
 // This function tells Dart where the program starts, and it must be in the file that is considered the "entry point" for you program.
 void main() {
   // Our graphql

@@ -3,6 +3,7 @@ import 'package:explorer_ui/src/widgets/default_bottom_navigation_bart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../main.dart';
 import '../widgets/search_widget.dart';
 
 // Project homepage.
@@ -34,7 +35,9 @@ class HomeScreen extends ConsumerWidget {
             // Royllo icon.
             Image.asset('assets/images/logo_homepage.png'),
             // Our search field.
-            searchTextField(context, ""),
+            SearchTextField(),
+            Text(""),
+            Text("Valeur recherchée ${ref.watch(searchedValueProvider)}"),
           ],
         )),
 
