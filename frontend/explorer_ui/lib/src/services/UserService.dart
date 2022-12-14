@@ -1,8 +1,5 @@
 // User service.
-import 'dart:developer';
-
 import 'package:ferry/ferry.dart';
-import 'package:gql_http_link/gql_http_link.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../graphql/api/getUser.data.gql.dart';
@@ -18,12 +15,6 @@ Future<OperationResponse<GuserByUsernameData, GuserByUsernameVars>> getUser(GetU
   final request = GuserByUsernameReq((b) => b
     ..fetchPolicy = FetchPolicy.NetworkOnly
     ..vars.username = "anonymous");
-  //var client = await gqlClient();
-  final link = HttpLink("http://localhost:9090/graphql");
-  final client = Client(link: link);
-
-  print('ici');
-  final result = await client.request(request).first;
-  print(result.linkException);
-  return result;
+  var client = await gqlClient();
+  return await client.request(request).first;
 }

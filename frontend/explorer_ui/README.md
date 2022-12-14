@@ -3,7 +3,7 @@
 ## Command line
 
 - Run tests: ` flutter test`.
-- Run app: `flutter run -d chrome`.
+- Run app: `flutter run -d chrome --web-renderer html`.
 
 
 ## Generate flutter code from graphQL schema

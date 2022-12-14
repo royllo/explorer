@@ -43,7 +43,7 @@ jobs:
         working-directory: frontend/explorer_ui
         run: |
           flutter test
-          flutter build web
+          flutter build web --web-renderer html
 
       # ================================================================================================================
       - name: Build docker images

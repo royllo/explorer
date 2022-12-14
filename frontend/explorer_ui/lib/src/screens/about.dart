@@ -41,10 +41,10 @@ class AboutScreen extends ConsumerWidget {
           const Text("About Royllo."),
           result.when(
               loading: () => const CircularProgressIndicator(),
-              error: (err, stack) => Text('Error: $err'),
               data: (result) {
-                return Text('${result.linkException}-> ${result.data?.userByUsername?.id} / ${result.data?.userByUsername?.username}');
+                return Text('${result.data?.userByUsername?.id} / ${result.data?.userByUsername?.username}');
               },
+            error: (err, stack) => Text('An error occured: $err'),
           )
         ],
       )),
