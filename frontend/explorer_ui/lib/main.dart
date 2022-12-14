@@ -1,12 +1,11 @@
-import 'package:explorer_ui/src/screens/about.dart';
-import 'package:explorer_ui/src/screens/home.dart';
-import 'package:explorer_ui/src/screens/search.dart';
+import 'package:explorer_ui/src/configuration/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 // This function tells Dart where the program starts, and it must be in the file that is considered the "entry point" for you program.
 void main() {
+  // Our graphql
+
   runApp(
     // For widgets to be able to read providers, we need to wrap the entire application in a "ProviderScope" widget.
     // This is where the state of our providers will be stored.
@@ -30,31 +29,9 @@ class RoylloExplorerUI extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
-      routerConfig: _router,
+      routerConfig: roylloRouter,
     );
   }
 }
 
-// A declarative routing package for Flutter that uses the Router API to provide a convenient, url-based API for navigating between different screens.
-final _router = GoRouter(
-  routes: [
-    // Home page.
-    GoRoute(
-      name: "home",
-      path: "/",
-      builder: (context, state) => const HomeScreen(),
-    ),
-    // Search page - Display results.
-    GoRoute(
-      name: "search",
-      path: '/search',
-      builder: (context, state) => const SearchScreen(),
-    ),
-    // About page.
-    GoRoute(
-      name: "about",
-      path: '/about',
-      builder: (context, state) => const AboutScreen(),
-    ),
-  ],
-);
+

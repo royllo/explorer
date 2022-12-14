@@ -39,8 +39,11 @@ public class AssetDataFetcher extends BaseDataFetcher {
      */
     @DgsQuery
     public final Page<AssetDTO> queryAssets(final @InputArgument String value,
-                                            final @InputArgument int pageNumber) {
-        final Page<AssetDTO> results = assetService.queryAssets(value, pageNumber, DEFAULT_PAGE_SIZE);
+                                            final @InputArgument Integer pageNumber) {
+        final Page<AssetDTO> results = assetService.queryAssets(value,
+                Objects.requireNonNullElse(pageNumber, 0),
+                DEFAULT_PAGE_SIZE);
+        // Logs.
         if (results.isEmpty()) {
             logger.info("queryAssets - For '{}', there is no results", value);
         } else {

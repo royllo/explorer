@@ -92,6 +92,39 @@ public class AssetDataFetcherTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("queryAssets() without page number")
+    public void queryAssetsWithoutPageNumber() {
+        // Looking at page 1.
+        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
+                QueryAssetsGraphQLQuery.newRequest().value("TestPaginationCoin").build(),
+                new QueryAssetsProjectionRoot().content()
+                        .id()
+                        .creator().id().username().parent()
+                        .genesisPoint().txId().vout().parent()
+                        .name()
+                        .metaData()
+                        .assetId()
+                        .outputIndex()
+                        .parent()
+                        .totalElements()
+                        .totalPages());
+
+        AssetPage assetPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+                graphQLQueryRequest.serialize(),
+                "data." + DgsConstants.QUERY.QueryAssets,
+                new TypeRef<>() {
+                });
+
+        assertEquals(9, assetPage.getTotalElements());
+        assertEquals(2, assetPage.getTotalPages());
+        assertEquals("1009", assetPage.getContent().get(0).getId());
+        assertEquals("1001", assetPage.getContent().get(1).getId());
+        assertEquals("1002", assetPage.getContent().get(2).getId());
+        assertEquals("1003", assetPage.getContent().get(3).getId());
+        assertEquals("1004", assetPage.getContent().get(4).getId());
+    }
+
+    @Test
     @DisplayName("getAsset()")
     public void getAsset() {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
