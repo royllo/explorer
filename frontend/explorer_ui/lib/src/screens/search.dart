@@ -4,6 +4,8 @@ import 'package:explorer_ui/src/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../main.dart';
+
 // Search page - Displays results.
 // - Search field
 // - Results
@@ -35,8 +37,10 @@ class SearchScreen extends ConsumerWidget {
           Container(
             margin: const EdgeInsets.all(20),
             // Search text field.
-            child: SearchTextField(),
+            child: SearchField(),
           ),
+          Text("Valeur dans le champs : ${ref.watch(searchFieldValueProvider)}"),
+          Text("Valeur recherchée : ${ref.watch(searchedValueProvider)}"),
         ],
       )),
 

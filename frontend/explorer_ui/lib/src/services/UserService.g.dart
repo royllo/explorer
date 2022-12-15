@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String $getUserHash() => r'994b926fcc3cbac9dccca6e250b6907ae63ddcb8';
+String $getUserHash() => r'8446adb077800a2b21da3c17b9bd3ded1ffcd600';
 
 /// See also [getUser].
 final getUserProvider = AutoDisposeFutureProvider<

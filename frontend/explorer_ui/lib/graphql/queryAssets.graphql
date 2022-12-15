@@ -1,0 +1,7 @@
+query queryAssets($value: String!, $pageNumber: Int) {
+    queryAssets(value: $value, pageNumber: $pageNumber) {
+        content {
+            assetId
+        }
+    }
+}

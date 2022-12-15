@@ -44,7 +44,7 @@ class AboutScreen extends ConsumerWidget {
               data: (result) {
                 return Text('${result.data?.userByUsername?.id} / ${result.data?.userByUsername?.username}');
               },
-            error: (err, stack) => Text('An error occured: $err'),
+            error: (err, stack) => Text('An error occurred: $err'),
           )
         ],
       )),

@@ -10,6 +10,15 @@ import 'package:explorer_ui/graphql/api/getUser.req.gql.dart'
     show GuserByUsernameReq;
 import 'package:explorer_ui/graphql/api/getUser.var.gql.dart'
     show GuserByUsernameVars;
+import 'package:explorer_ui/graphql/api/queryAssets.data.gql.dart'
+    show
+        GqueryAssetsData,
+        GqueryAssetsData_queryAssets,
+        GqueryAssetsData_queryAssets_content;
+import 'package:explorer_ui/graphql/api/queryAssets.req.gql.dart'
+    show GqueryAssetsReq;
+import 'package:explorer_ui/graphql/api/queryAssets.var.gql.dart'
+    show GqueryAssetsVars;
 import 'package:explorer_ui/graphql/api/schema.schema.gql.dart'
     show
         GAddAssetRequestInputs,
@@ -40,6 +49,11 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GRequestStatus,
   G_FieldSet,
   GaddAssetMetaDataRequestInputs,
+  GqueryAssetsData,
+  GqueryAssetsData_queryAssets,
+  GqueryAssetsData_queryAssets_content,
+  GqueryAssetsReq,
+  GqueryAssetsVars,
   GuserByUsernameData,
   GuserByUsernameData_userByUsername,
   GuserByUsernameReq,

@@ -1,0 +1,31 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="test-data-assets">
+
+        <!-- TODO Change this file before final release -->
+        <!-- Asset n°1 (bitcoin transaction output is already in the database) -->
+        <insert tableName="ASSETS">
+            <column name="ID" value="1"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="1"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="NAME" value="starbackrcoin"/>
+            <column name="META_DATA" value="737461726261636b72206d6f6e6579"/>
+            <column name="ASSET_ID" value="b34b05956d828a7f7a0df598771c9f6df0378680c432480837852bcb94a8f21e"/>
+            <column name="OUTPUT_INDEX" value="0"/>
+        </insert>
+
+        <!-- Asset n°1 (bitcoin transaction output is already in the database) -->
+        <insert tableName="ASSETS">
+            <column name="ID" value="2"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="1"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="NAME" value="starbackrcoin2"/>
+            <column name="META_DATA" value="2-737461726261636b72206d6f6e6579"/>
+            <column name="ASSET_ID" value="2-b34b05956d828a7f7a0df598771c9f6df0378680c432480837852bcb94a8f21e"/>
+            <column name="OUTPUT_INDEX" value="0"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

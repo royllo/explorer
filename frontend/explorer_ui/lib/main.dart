@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Providers are declared globally and specify how to create a state.
-// This provider keep the searched value.
+
+// This provider keep the current value in the search field.
+final searchFieldValueProvider = StateProvider<String>((ref) => "");
+// This provider keeps the search send to the API.
 final searchedValueProvider = StateProvider<String>((ref) => "");
 
 // This function tells Dart where the program starts, and it must be in the file that is considered the "entry point" for you program.
 void main() {
-  // Our graphql
-
   runApp(
     // For widgets to be able to read providers, we need to wrap the entire application in a "ProviderScope" widget.
     // This is where the state of our providers will be stored.

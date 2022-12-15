@@ -1,4 +1,3 @@
-// User service.
 import 'package:ferry/ferry.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -11,7 +10,8 @@ import '../configuration/graphql.dart';
 part 'UserService.g.dart';
 
 @riverpod
-Future<OperationResponse<GuserByUsernameData, GuserByUsernameVars>> getUser(GetUserRef ref) async {
+Future<OperationResponse<GuserByUsernameData, GuserByUsernameVars>> getUser(
+    GetUserRef ref) async {
   final request = GuserByUsernameReq((b) => b
     ..fetchPolicy = FetchPolicy.NetworkOnly
     ..vars.username = "anonymous");

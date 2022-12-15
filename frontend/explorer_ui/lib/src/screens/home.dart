@@ -28,17 +28,17 @@ class HomeScreen extends ConsumerWidget {
         body: Center(
             // A widget that displays its children in a vertical array.
             child: Column(
-          // X and Y alignments.
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Royllo icon.
-            Image.asset('assets/images/logo_homepage.png'),
-            // Our search field.
-            SearchTextField(),
-            Text(""),
-            Text("Valeur recherchée ${ref.watch(searchedValueProvider)}"),
-          ],
+              // X and Y alignments.
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Royllo icon.
+                Image.asset('assets/images/logo_homepage.png'),
+                // Our search field.
+                SearchField(),
+                Text("Valeur dans le champs : ${ref.watch(searchFieldValueProvider)}"),
+                Text("Valeur recherchée : ${ref.watch(searchedValueProvider)}"),
+              ],
         )),
 
         // =====================================================================
