@@ -42,24 +42,29 @@ class SearchScreen extends ConsumerWidget {
             // Search text field.
             child: SearchField(),
           ),
-          Text(
-              "Valeur dans le champs : ${ref.watch(searchFieldValueProvider)}"),
-          Text("Valeur recherchée : ${ref.watch(searchedValueProvider)}"),
 
-          result.when(
-            loading: () => const CircularProgressIndicator(),
-            data: (result) {
-              var builder = result.data?.queryAssets?.content?.toBuilder();
-              return ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: builder?.length,
-                itemBuilder: (context, index) =>
-                    Text("- ${builder?[index]?.name}"),
-              );
-            },
-            error: (err, stack) => Text('An error occurred: $err'),
-          )
+          FractionallySizedBox(
+              widthFactor: 0.5,
+              child: result.when(
+                loading: () => const CircularProgressIndicator(),
+                data: (result) {
+                  var builder = result.data?.queryAssets?.content?.toBuilder();
+                  return ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: builder?.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        leading: const CircleAvatar(),
+                        title: Text("Coin ${builder?[index]?.name}"),
+                        subtitle: Text('Asset id: ${builder?[index]?.assetId}'),
+                        trailing: const Icon(Icons.help),
+                      );
+                    },
+                  );
+                },
+                error: (err, stack) => Text('An error occurred: $err'),
+              )),
         ],
       )),
 

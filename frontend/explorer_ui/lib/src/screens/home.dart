@@ -35,9 +35,7 @@ class HomeScreen extends ConsumerWidget {
                 // Royllo icon.
                 Image.asset('assets/images/logo_homepage.png'),
                 // Our search field.
-                SearchField(),
-                Text("Valeur dans le champs : ${ref.watch(searchFieldValueProvider)}"),
-                Text("Valeur recherchée : ${ref.watch(searchedValueProvider)}"),
+                const SearchField(),
               ],
         )),
 
