@@ -17,6 +17,11 @@ class _SearchFieldState extends ConsumerState<SearchField> {
   // Text editing controller.
   final _controller = TextEditingController();
 
+  // FocusNode can be used by a stateful widget to obtain the keyboard focus and to handle keyboard events.
+  // Define the focus node. To manage the lifecycle, create the FocusNode in
+  // the initState method, and clean it up in the dispose method.
+  late FocusNode _focusNode;
+
   @override
   void initState() {
     super.initState();
@@ -27,10 +32,13 @@ class _SearchFieldState extends ConsumerState<SearchField> {
       baseOffset: 0,
       extentOffset: _controller.text.length,
     );
+    _focusNode = FocusNode();
   }
 
   @override
   void dispose() {
+    // Clean up the focus node when the Form is disposed.
+    _focusNode.dispose();
     _controller.dispose();
     super.dispose();
   }
@@ -46,6 +54,7 @@ class _SearchFieldState extends ConsumerState<SearchField> {
         controller: _controller,
         // Focus on this field when it appears on a page.
         autofocus: true,
+        focusNode: _focusNode,
         // Set the radius.
         decoration: const InputDecoration(
           border: OutlineInputBorder(
@@ -62,11 +71,15 @@ class _SearchFieldState extends ConsumerState<SearchField> {
             .update((state) => value),
         onSubmitted: (value) {
           // We update the searched value.
-          ref.watch(searchedValueProvider.notifier)
-          .update((state) => value);
+          ref.watch(searchedValueProvider.notifier).update((state) => value);
           // We go the search page where results are displayed.
           context.go(
               Uri(path: '/search', queryParameters: {'q': value}).toString());
+          _focusNode.requestFocus();
+          _controller.selection = TextSelection(
+            baseOffset: 0,
+            extentOffset: _controller.text.length,
+          );
         },
       ),
     );

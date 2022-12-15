@@ -78,6 +78,7 @@ abstract class GqueryAssetsData_queryAssets_content
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String? get assetId;
+  String? get name;
   static Serializer<GqueryAssetsData_queryAssets_content> get serializer =>
       _$gqueryAssetsDataQueryAssetsContentSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(

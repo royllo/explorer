@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'UserService.dart';
+part of 'AssetService.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -29,15 +29,15 @@ class _SystemHash {
   }
 }
 
-String $getUserHash() => r'8446adb077800a2b21da3c17b9bd3ded1ffcd600';
+String $assetQueryHash() => r'24be3ac69d25949fe3f163c59d9aa873841076c4';
 
-/// See also [getUser].
-final getUserProvider = AutoDisposeFutureProvider<
-    OperationResponse<GuserByUsernameData, GuserByUsernameVars>>(
-  getUser,
-  name: r'getUserProvider',
+/// See also [assetQuery].
+final assetQueryProvider = AutoDisposeFutureProvider<
+    OperationResponse<GqueryAssetsData, GqueryAssetsVars>>(
+  assetQuery,
+  name: r'assetQueryProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : $getUserHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : $assetQueryHash,
 );
-typedef GetUserRef = AutoDisposeFutureProviderRef<
-    OperationResponse<GuserByUsernameData, GuserByUsernameVars>>;
+typedef AssetQueryRef = AutoDisposeFutureProviderRef<
+    OperationResponse<GqueryAssetsData, GqueryAssetsVars>>;

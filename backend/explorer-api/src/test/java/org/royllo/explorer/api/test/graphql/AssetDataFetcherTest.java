@@ -6,19 +6,12 @@ import com.netflix.graphql.dgs.client.codegen.GraphQLQueryRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.api.graphql.generated.DgsConstants;
-import org.royllo.explorer.api.graphql.generated.client.AssetByAssetIdGraphQLQuery;
-import org.royllo.explorer.api.graphql.generated.client.AssetByAssetIdProjectionRoot;
-import org.royllo.explorer.api.graphql.generated.client.AssetGraphQLQuery;
-import org.royllo.explorer.api.graphql.generated.client.AssetProjectionRoot;
-import org.royllo.explorer.api.graphql.generated.client.QueryAssetsGraphQLQuery;
-import org.royllo.explorer.api.graphql.generated.client.QueryAssetsProjectionRoot;
+import org.royllo.explorer.api.graphql.generated.client.*;
 import org.royllo.explorer.api.graphql.generated.types.Asset;
 import org.royllo.explorer.api.graphql.generated.types.AssetPage;
+import org.royllo.explorer.api.test.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.royllo.explorer.api.test.BaseTest;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

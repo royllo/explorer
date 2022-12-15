@@ -157,6 +157,13 @@ class _$GqueryAssetsData_queryAssets_contentSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.name;
+    if (value != null) {
+      result
+        ..add('name')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -178,6 +185,10 @@ class _$GqueryAssetsData_queryAssets_contentSerializer
           break;
         case 'assetId':
           result.assetId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
       }
@@ -421,6 +432,8 @@ class _$GqueryAssetsData_queryAssets_content
   final String G__typename;
   @override
   final String? assetId;
+  @override
+  final String? name;
 
   factory _$GqueryAssetsData_queryAssets_content(
           [void Function(GqueryAssetsData_queryAssets_contentBuilder)?
@@ -429,7 +442,7 @@ class _$GqueryAssetsData_queryAssets_content
           ._build();
 
   _$GqueryAssetsData_queryAssets_content._(
-      {required this.G__typename, this.assetId})
+      {required this.G__typename, this.assetId, this.name})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GqueryAssetsData_queryAssets_content', 'G__typename');
@@ -449,19 +462,22 @@ class _$GqueryAssetsData_queryAssets_content
     if (identical(other, this)) return true;
     return other is GqueryAssetsData_queryAssets_content &&
         G__typename == other.G__typename &&
-        assetId == other.assetId;
+        assetId == other.assetId &&
+        name == other.name;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, G__typename.hashCode), assetId.hashCode));
+    return $jf($jc(
+        $jc($jc(0, G__typename.hashCode), assetId.hashCode), name.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GqueryAssetsData_queryAssets_content')
           ..add('G__typename', G__typename)
-          ..add('assetId', assetId))
+          ..add('assetId', assetId)
+          ..add('name', name))
         .toString();
   }
 }
@@ -480,6 +496,10 @@ class GqueryAssetsData_queryAssets_contentBuilder
   String? get assetId => _$this._assetId;
   set assetId(String? assetId) => _$this._assetId = assetId;
 
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
+
   GqueryAssetsData_queryAssets_contentBuilder() {
     GqueryAssetsData_queryAssets_content._initializeBuilder(this);
   }
@@ -489,6 +509,7 @@ class GqueryAssetsData_queryAssets_contentBuilder
     if ($v != null) {
       _G__typename = $v.G__typename;
       _assetId = $v.assetId;
+      _name = $v.name;
       _$v = null;
     }
     return this;
@@ -514,7 +535,8 @@ class GqueryAssetsData_queryAssets_contentBuilder
         new _$GqueryAssetsData_queryAssets_content._(
             G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
                 r'GqueryAssetsData_queryAssets_content', 'G__typename'),
-            assetId: assetId);
+            assetId: assetId,
+            name: name);
     replace(_$result);
     return _$result;
   }

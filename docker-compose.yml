@@ -109,7 +109,7 @@ services:
 #      - HEALTHCHECK_PORT=8080
 
   # ====================================================================================================================
-  # Watchtower to update royllo images automatically.
+  # Watchtower to update royllo images automatically ( https://hub.docker.com/r/containrrr/watchtower ).
 #  watchtower:
 #    image: containrrr/watchtower:latest
 #    depends_on:

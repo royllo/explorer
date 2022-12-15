@@ -22,10 +22,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GqueryAssetsData_queryAssets_content.serializer)
       ..add(GqueryAssetsReq.serializer)
       ..add(GqueryAssetsVars.serializer)
-      ..add(GuserByUsernameData.serializer)
-      ..add(GuserByUsernameData_userByUsername.serializer)
-      ..add(GuserByUsernameReq.serializer)
-      ..add(GuserByUsernameVars.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType.nullable(GqueryAssetsData_queryAssets_content)

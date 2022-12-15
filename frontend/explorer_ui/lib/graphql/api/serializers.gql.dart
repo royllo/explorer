@@ -4,12 +4,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart' show StandardJsonPlugin;
-import 'package:explorer_ui/graphql/api/getUser.data.gql.dart'
-    show GuserByUsernameData, GuserByUsernameData_userByUsername;
-import 'package:explorer_ui/graphql/api/getUser.req.gql.dart'
-    show GuserByUsernameReq;
-import 'package:explorer_ui/graphql/api/getUser.var.gql.dart'
-    show GuserByUsernameVars;
 import 'package:explorer_ui/graphql/api/queryAssets.data.gql.dart'
     show
         GqueryAssetsData,
@@ -54,9 +48,5 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GqueryAssetsData_queryAssets_content,
   GqueryAssetsReq,
   GqueryAssetsVars,
-  GuserByUsernameData,
-  GuserByUsernameData_userByUsername,
-  GuserByUsernameReq,
-  GuserByUsernameVars,
 ])
 final Serializers serializers = _serializersBuilder.build();

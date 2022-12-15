@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../main.dart';
+import '../services/AssetService.dart';
 
 // Search page - Displays results.
 // - Search field
@@ -18,6 +19,8 @@ class SearchScreen extends ConsumerWidget {
   // The framework replaces the subtree below this widget with the widget returned by this method
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final result = ref.watch(assetQueryProvider);
+
     return Scaffold(
       // =====================================================================
       // An app bar consists of a toolbar and potentially other widgets.
@@ -39,8 +42,24 @@ class SearchScreen extends ConsumerWidget {
             // Search text field.
             child: SearchField(),
           ),
-          Text("Valeur dans le champs : ${ref.watch(searchFieldValueProvider)}"),
+          Text(
+              "Valeur dans le champs : ${ref.watch(searchFieldValueProvider)}"),
           Text("Valeur recherchée : ${ref.watch(searchedValueProvider)}"),
+
+          result.when(
+            loading: () => const CircularProgressIndicator(),
+            data: (result) {
+              var builder = result.data?.queryAssets?.content?.toBuilder();
+              return ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: builder?.length,
+                itemBuilder: (context, index) =>
+                    Text("- ${builder?[index]?.name}"),
+              );
+            },
+            error: (err, stack) => Text('An error occurred: $err'),
+          )
         ],
       )),
 
