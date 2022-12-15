@@ -1,5 +1,6 @@
 package org.royllo.explorer.database.test.postgresql;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,11 +16,13 @@ import java.sql.SQLException;
 @SpringBootTest(properties = {"spring.datasource.url=jdbc:tc:postgresql:15:///explorer",
         "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver"})
 @DisplayName("Postgresql LTree installation")
+@Ignore
 public class LTreeInstallationTest {
 
     @Autowired
     private DataSource dataSource;
 
+    // TODO Activate this test
     @Test
     @DisplayName("LTree found in pg_extension")
     public void ltreeFoundInPGExtension() throws SQLException {

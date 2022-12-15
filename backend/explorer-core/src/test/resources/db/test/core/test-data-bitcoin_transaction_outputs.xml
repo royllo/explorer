@@ -5,38 +5,6 @@
     <changeSet author="straumat" id="test-data-bitcoin_transaction_outputs">
 
         <!--
-        Block 720 / Transaction 2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea / Output 0
-        curl -sSL "https://mempool.space/api/tx/2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea"
-        -->
-        <insert tableName="BITCOIN_TRANSACTION_OUTPUTS">
-            <column name="ID" value="1"/>
-            <column name="BLOCK_HEIGHT" value="720"/>
-            <column name="TXID" value="2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea"/>
-            <column name="VOUT" value="0"/>
-            <column name="SCRIPTPUBKEY" value="410415ca91c387efac4ea86f0196b2a1d831f75a488f115055636f0022c51df508197ad4fc31f553d48052b05b0a3b6030a84a0441adae97734129bb8ea0ddfd4004ac"/>
-            <column name="SCRIPTPUBKEY_ASM" value="OP_PUSHBYTES_65 0415ca91c387efac4ea86f0196b2a1d831f75a488f115055636f0022c51df508197ad4fc31f553d48052b05b0a3b6030a84a0441adae97734129bb8ea0ddfd4004 OP_CHECKSIG"/>
-            <column name="SCRIPTPUBKEY_TYPE" value="p2pk"/>
-            <column name="SCRIPTPUBKEY_ADDRESS"/>
-            <column name="VALUE" value="5000000000"/>
-        </insert>
-
-        <!--
-        Block 766 / Transaction 46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946 / Output 0
-        curl -sSL "https://mempool.space/api/tx/46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946"
-        -->
-        <insert tableName="BITCOIN_TRANSACTION_OUTPUTS">
-            <column name="ID" value="2"/>
-            <column name="BLOCK_HEIGHT" value="766"/>
-            <column name="TXID" value="46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946"/>
-            <column name="VOUT" value="0"/>
-            <column name="SCRIPTPUBKEY" value="76a914607c727d45ba97358a3fa06be04a514cfb12f4dd88ac"/>
-            <column name="SCRIPTPUBKEY_ASM" value="OP_DUP OP_HASH160 OP_PUSHBYTES_20 607c727d45ba97358a3fa06be04a514cfb12f4dd OP_EQUALVERIFY OP_CHECKSIG"/>
-            <column name="SCRIPTPUBKEY_TYPE" value="p2pkh"/>
-            <column name="SCRIPTPUBKEY_ADDRESS" value="19oAxAJhAKmEFb2pcA9qiX8sV8hxKeXjzd"/>
-            <column name="VALUE" value="10000000"/>
-        </insert>
-
-        <!--
         Block 766 / Transaction 46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946 / Output 1
         curl -sSL "https://mempool.space/api/tx/46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946"
         -->
