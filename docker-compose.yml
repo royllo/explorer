@@ -32,6 +32,8 @@ services:
       - POSTGRES_DB=royllo_explorer_database
       - POSTGRES_USER=royllo_explorer_username
       - POSTGRES_PASSWORD=Q5QnE5S%Y]qt7
+    ports:
+      - "5432:5432"
 
   # ====================================================================================================================
   # Royllo explorer batch server.
@@ -105,11 +107,11 @@ services:
 #      - SCHEDULE=@hourly
 #      - BACKUP_KEEP_DAYS=7
 #      - BACKUP_KEEP_WEEKS=1
-#      - BACKUP_KEEP_MONTHS=0
+#      - BACKUP_KEEP_MONTHS=1
 #      - HEALTHCHECK_PORT=8080
 
   # ====================================================================================================================
-  # Watchtower to update royllo images automatically ( https://hub.docker.com/r/containrrr/watchtower ).
+  # Watchtower to update royllo images automatically.
 #  watchtower:
 #    image: containrrr/watchtower:latest
 #    depends_on:

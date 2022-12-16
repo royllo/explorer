@@ -40,7 +40,7 @@ class SearchScreen extends ConsumerWidget {
           Container(
             margin: const EdgeInsets.all(20),
             // Search text field.
-            child: SearchField(),
+            child: SearchForm(),
           ),
 
           FractionallySizedBox(

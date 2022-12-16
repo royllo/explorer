@@ -5,15 +5,18 @@ import 'package:go_router/go_router.dart';
 import '../../main.dart';
 
 // Search text field.
-class SearchField extends ConsumerStatefulWidget {
+class SearchForm extends ConsumerStatefulWidget {
   // Constructor.
-  const SearchField({super.key});
+  const SearchForm({super.key});
 
   @override
-  ConsumerState<SearchField> createState() => _SearchFieldState();
+  ConsumerState<SearchForm> createState() => _SearchFormState();
 }
 
-class _SearchFieldState extends ConsumerState<SearchField> {
+class _SearchFormState extends ConsumerState<SearchForm> {
+  // Create a global key that uniquely identifies the Form widget and allows validation of the form.
+  final _formKey = GlobalKey<FormState>();
+
   // Text editing controller.
   final _controller = TextEditingController();
 
@@ -47,41 +50,62 @@ class _SearchFieldState extends ConsumerState<SearchField> {
   Widget build(BuildContext context) {
     // A widget that sizes its child to a fraction of the total available space.
     return FractionallySizedBox(
-      widthFactor: 0.5,
-      // The search field
-      child: TextField(
-        // To programmatically control what is shown in the TextField, we use a TextEditingController.
-        controller: _controller,
-        // Focus on this field when it appears on a page.
-        autofocus: true,
-        focusNode: _focusNode,
-        // Set the radius.
-        decoration: const InputDecoration(
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-            Radius.circular(20),
-          )),
-          // Set a search icon as prefix.
-          prefixIcon: Icon(Icons.search),
-          // Hint text to help the user.
-          hintText: 'Type an asset id or an asset name',
-        ),
-        onChanged: (value) => ref
-            .watch(searchFieldValueProvider.notifier)
-            .update((state) => value),
-        onSubmitted: (value) {
-          // We update the searched value.
-          ref.watch(searchedValueProvider.notifier).update((state) => value);
-          // We go the search page where results are displayed.
-          context.go(
-              Uri(path: '/search', queryParameters: {'q': value}).toString());
-          _focusNode.requestFocus();
-          _controller.selection = TextSelection(
-            baseOffset: 0,
-            extentOffset: _controller.text.length,
-          );
-        },
-      ),
-    );
+        widthFactor: 0.5,
+        // The search field
+        child: Form(
+          // Build a Form widget using the _formKey created above.
+          key: _formKey,
+          child: TextFormField(
+            // To programmatically control what is shown in the TextField, we use a TextEditingController
+            controller: _controller,
+            // Focus on this field when it appears on a page.
+            autofocus: true,
+            focusNode: _focusNode,
+            // Decoration
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                Radius.circular(20),
+              )),
+              // Set a search icon as prefix.
+              prefixIcon: Icon(Icons.search),
+              // Hint text to help the user.
+              hintText: 'Type an asset id or an asset name',
+            ),
+            // =====================================================================
+            // You can't run a query without searching for, at least, a character
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "You can't do an empty search";
+              } else {
+                return null;
+              }
+            },
+            // =====================================================================
+            // If something is typed in the field, we keep track of it
+            onChanged: (value) => ref
+                .watch(searchFieldValueProvider.notifier)
+                .update((state) => value),
+            // =====================================================================
+            // If the user press "enter", we launch a search
+            onFieldSubmitted: (value) {
+              if (_formKey.currentState!.validate()) {
+                // We update the provider with what the user is searching for
+                ref
+                    .watch(searchRequestProvider.notifier)
+                    .update((state) => SearchRequest(value));
+                // We go the search page where results are displayed (if not already on it).
+                context.go(Uri(path: '/search', queryParameters: {'q': value})
+                    .toString());
+              }
+              // Valid or not, we set the focus
+              _focusNode.requestFocus();
+              _controller.selection = TextSelection(
+                baseOffset: 0,
+                extentOffset: _controller.text.length,
+              );
+            },
+          ),
+        ));
   }
 }

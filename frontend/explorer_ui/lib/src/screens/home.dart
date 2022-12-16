@@ -35,7 +35,7 @@ class HomeScreen extends ConsumerWidget {
                 // Royllo icon.
                 Image.asset('assets/images/logo_homepage.png'),
                 // Our search field.
-                const SearchField(),
+                const SearchForm(),
               ],
         )),
 

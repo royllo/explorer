@@ -7,7 +7,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // This provider keep the current value in the search field.
 final searchFieldValueProvider = StateProvider<String>((ref) => "");
 // This provider keeps the search send to the API.
-final searchedValueProvider = StateProvider<String>((ref) => "");
+final searchRequestProvider = StateProvider<SearchRequest>((ref) => SearchRequest(""));
+
+// This class defines what we search.
+class SearchRequest {
+  String query;
+  int pageNumber;
+
+  // Constructor (Page number is optional).
+  SearchRequest(this.query, {this.pageNumber = 0});
+}
 
 // This function tells Dart where the program starts, and it must be in the file that is considered the "entry point" for you program.
 void main() {
