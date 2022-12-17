@@ -18,7 +18,7 @@ final roylloRouter = GoRouter(
     GoRoute(
       name: "search",
       path: '/search',
-      builder: (context, state) => const SearchScreen(),
+      builder: (context, state) => SearchScreen(),
     ),
     // About page - Details who we are.
     GoRoute(

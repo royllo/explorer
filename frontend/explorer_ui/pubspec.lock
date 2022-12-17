@@ -29,6 +29,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.9.0"
+  auto_size_text:
+    dependency: transitive
+    description:
+      name: auto_size_text
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -408,6 +415,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.8.0"
+  number_paginator:
+    dependency: "direct main"
+    description:
+      name: number_paginator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.2"
   package_config:
     dependency: transitive
     description:
