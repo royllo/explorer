@@ -28,7 +28,7 @@ public class AssetDataFetcherTest extends BaseTest {
     public void queryAssets() {
         // Looking at page 1.
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                QueryAssetsGraphQLQuery.newRequest().value("TestPaginationCoin").pageNumber(0).build(),
+                QueryAssetsGraphQLQuery.newRequest().value("TestPaginationCoin").pageNumber(1).build(),
                 new QueryAssetsProjectionRoot().content()
                         .id()
                         .creator().id().username().parent()
@@ -57,7 +57,7 @@ public class AssetDataFetcherTest extends BaseTest {
 
         // Looking at page 2
         graphQLQueryRequest = new GraphQLQueryRequest(
-                QueryAssetsGraphQLQuery.newRequest().value("TestPaginationCoin").pageNumber(1).build(),
+                QueryAssetsGraphQLQuery.newRequest().value("TestPaginationCoin").pageNumber(2).build(),
                 new QueryAssetsProjectionRoot().content()
                         .id()
                         .creator().id().username().parent()

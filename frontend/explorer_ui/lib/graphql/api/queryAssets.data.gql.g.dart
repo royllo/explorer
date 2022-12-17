@@ -87,6 +87,9 @@ class _$GqueryAssetsData_queryAssetsSerializer
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
+      'totalPages',
+      serializers.serialize(object.totalPages,
+          specifiedType: const FullType(int)),
     ];
     Object? value;
     value = object.content;
@@ -122,6 +125,10 @@ class _$GqueryAssetsData_queryAssetsSerializer
               specifiedType: const FullType(BuiltList, const [
                 const FullType.nullable(GqueryAssetsData_queryAssets_content)
               ]))! as BuiltList<Object?>);
+          break;
+        case 'totalPages':
+          result.totalPages = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
           break;
       }
     }
@@ -315,15 +322,20 @@ class _$GqueryAssetsData_queryAssets extends GqueryAssetsData_queryAssets {
   final String G__typename;
   @override
   final BuiltList<GqueryAssetsData_queryAssets_content?>? content;
+  @override
+  final int totalPages;
 
   factory _$GqueryAssetsData_queryAssets(
           [void Function(GqueryAssetsData_queryAssetsBuilder)? updates]) =>
       (new GqueryAssetsData_queryAssetsBuilder()..update(updates))._build();
 
-  _$GqueryAssetsData_queryAssets._({required this.G__typename, this.content})
+  _$GqueryAssetsData_queryAssets._(
+      {required this.G__typename, this.content, required this.totalPages})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GqueryAssetsData_queryAssets', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        totalPages, r'GqueryAssetsData_queryAssets', 'totalPages');
   }
 
   @override
@@ -340,19 +352,22 @@ class _$GqueryAssetsData_queryAssets extends GqueryAssetsData_queryAssets {
     if (identical(other, this)) return true;
     return other is GqueryAssetsData_queryAssets &&
         G__typename == other.G__typename &&
-        content == other.content;
+        content == other.content &&
+        totalPages == other.totalPages;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, G__typename.hashCode), content.hashCode));
+    return $jf($jc($jc($jc(0, G__typename.hashCode), content.hashCode),
+        totalPages.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GqueryAssetsData_queryAssets')
           ..add('G__typename', G__typename)
-          ..add('content', content))
+          ..add('content', content)
+          ..add('totalPages', totalPages))
         .toString();
   }
 }
@@ -374,6 +389,10 @@ class GqueryAssetsData_queryAssetsBuilder
   set content(ListBuilder<GqueryAssetsData_queryAssets_content?>? content) =>
       _$this._content = content;
 
+  int? _totalPages;
+  int? get totalPages => _$this._totalPages;
+  set totalPages(int? totalPages) => _$this._totalPages = totalPages;
+
   GqueryAssetsData_queryAssetsBuilder() {
     GqueryAssetsData_queryAssets._initializeBuilder(this);
   }
@@ -383,6 +402,7 @@ class GqueryAssetsData_queryAssetsBuilder
     if ($v != null) {
       _G__typename = $v.G__typename;
       _content = $v.content?.toBuilder();
+      _totalPages = $v.totalPages;
       _$v = null;
     }
     return this;
@@ -409,7 +429,9 @@ class GqueryAssetsData_queryAssetsBuilder
           new _$GqueryAssetsData_queryAssets._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
                   G__typename, r'GqueryAssetsData_queryAssets', 'G__typename'),
-              content: _content?.build());
+              content: _content?.build(),
+              totalPages: BuiltValueNullFieldError.checkNotNull(
+                  totalPages, r'GqueryAssetsData_queryAssets', 'totalPages'));
     } catch (_) {
       late String _$failedField;
       try {

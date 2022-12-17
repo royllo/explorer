@@ -49,6 +49,7 @@ abstract class GqueryAssetsData_queryAssets
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   BuiltList<GqueryAssetsData_queryAssets_content?>? get content;
+  int get totalPages;
   static Serializer<GqueryAssetsData_queryAssets> get serializer =>
       _$gqueryAssetsDataQueryAssetsSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(

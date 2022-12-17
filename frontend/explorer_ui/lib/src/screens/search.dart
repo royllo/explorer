@@ -4,7 +4,6 @@ import 'package:explorer_ui/src/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../main.dart';
 import '../services/AssetService.dart';
 
 // Search page - Displays results.
@@ -36,13 +35,15 @@ class SearchScreen extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // A margin.
+          // ===================================================================
+          // Search box in a container to add a margin
           Container(
             margin: const EdgeInsets.all(20),
             // Search text field.
             child: SearchForm(),
           ),
-
+          // ===================================================================
+          // Results
           FractionallySizedBox(
               widthFactor: 0.5,
               child: result.when(
@@ -56,7 +57,7 @@ class SearchScreen extends ConsumerWidget {
                     itemBuilder: (context, index) {
                       return ListTile(
                         leading: const CircleAvatar(),
-                        title: Text("Coin ${builder?[index]?.name}"),
+                        title: Text("${builder?[index]?.name}"),
                         subtitle: Text('Asset id: ${builder?[index]?.assetId}'),
                         trailing: const Icon(Icons.help),
                       );
@@ -64,6 +65,20 @@ class SearchScreen extends ConsumerWidget {
                   );
                 },
                 error: (err, stack) => Text('An error occurred: $err'),
+              )),
+          // ===================================================================
+          // Page numbers
+          Container(
+              margin: const EdgeInsets.all(40),
+              // Search text field.
+              child: result.when(
+                loading: () => const Text(""),
+                data: (result) {
+                  // We display the number of pages
+                  // for (var i = re)
+
+                },
+                error: (error, stackTrace) => const Text(""),
               )),
         ],
       )),

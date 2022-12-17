@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String $assetQueryHash() => r'24be3ac69d25949fe3f163c59d9aa873841076c4';
+String $assetQueryHash() => r'72c2579071c44dd202d7578921a71c7da1750b83';
 
 /// See also [assetQuery].
 final assetQueryProvider = AutoDisposeFutureProvider<

@@ -41,7 +41,7 @@ public class AssetDataFetcher extends BaseDataFetcher {
     public final Page<AssetDTO> queryAssets(final @InputArgument String value,
                                             final @InputArgument Integer pageNumber) {
         final Page<AssetDTO> results = assetService.queryAssets(value,
-                Objects.requireNonNullElse(pageNumber, 0),
+                Objects.requireNonNullElse(pageNumber, 1),
                 DEFAULT_PAGE_SIZE);
         // Logs.
         if (results.isEmpty()) {

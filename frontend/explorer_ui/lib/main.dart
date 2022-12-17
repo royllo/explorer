@@ -15,7 +15,7 @@ class SearchRequest {
   int pageNumber;
 
   // Constructor (Page number is optional).
-  SearchRequest(this.query, {this.pageNumber = 0});
+  SearchRequest(this.query, {this.pageNumber = 1});
 }
 
 // This function tells Dart where the program starts, and it must be in the file that is considered the "entry point" for you program.

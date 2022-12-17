@@ -40,6 +40,8 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
     public Page<AssetDTO> queryAssets(final String value,
                                       final int pageNumber,
                                       final int pageSize) {
+        assert pageNumber >= 1 : "Page number starts at page 1";
+
         Page<AssetDTO> results;
 
         final Optional<Asset> firstSearch = assetRepository.findByAssetId(value);
@@ -50,7 +52,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
                     .toList());
         } else {
             // We search all assets where "value" is in the name.
-            results = assetRepository.findByNameContainsIgnoreCaseOrderByName(value, PageRequest.of(pageNumber, pageSize))
+            results = assetRepository.findByNameContainsIgnoreCaseOrderByName(value, PageRequest.of(pageNumber - 1, pageSize))
                     .map(ASSET_MAPPER::mapToAssetDTO);
         }
 

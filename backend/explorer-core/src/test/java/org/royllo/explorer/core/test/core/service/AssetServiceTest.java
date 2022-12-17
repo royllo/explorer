@@ -40,36 +40,36 @@ public class AssetServiceTest extends BaseTest {
         // Test on two coins in database : "royllostar" and "starbackrcoin"
 
         // Searching for an asset that doesn't exist.
-        Page<AssetDTO> results = assetService.queryAssets("NON-EXISTING", 0, 5);
+        Page<AssetDTO> results = assetService.queryAssets("NON-EXISTING", 1, 5);
         assertEquals(0, results.getTotalElements());
         assertEquals(0, results.getTotalPages());
 
         // Searching for an asset with its asset id.
-        results = assetService.queryAssets(ASSET_ID_NUMBER_01,0, 5);
+        results = assetService.queryAssets(ASSET_ID_NUMBER_01,1, 5);
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
         assertEquals(1, results.getContent().get(0).getId());
 
         // Searching for an asset with its partial name - only 1 result.
-        results = assetService.queryAssets("back",0, 5);
+        results = assetService.queryAssets("back",1, 5);
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
         assertEquals(1, results.getContent().get(0).getId());
 
         // Searching for an asset with its partial name uppercase - only 1 result.
-        results = assetService.queryAssets("BACK",0, 5);
+        results = assetService.queryAssets("BACK",1, 5);
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
         assertEquals(1, results.getContent().get(0).getId());
 
         // Searching for an asset with its partial name uppercase - only 1 result.
-        results = assetService.queryAssets("ROYLLO",0, 5);
+        results = assetService.queryAssets("ROYLLO",1, 5);
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
         assertEquals(2, results.getContent().get(0).getId());
 
         // Searching for an asset with its partial name corresponding to two assets.
-        results = assetService.queryAssets("star",0, 5);
+        results = assetService.queryAssets("star",1, 5);
         assertEquals(2, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
         Set<Long> ids = results.stream()
@@ -81,12 +81,12 @@ public class AssetServiceTest extends BaseTest {
         // We have 9 assets to tests pagination.
 
         // Searching for the 9 assets with a page size of 4.
-        results = assetService.queryAssets("TestPaginationCoin",0, 4);
+        results = assetService.queryAssets("TestPaginationCoin",1, 4);
         assertEquals(9, results.getTotalElements());
         assertEquals(3, results.getTotalPages());
 
         // Searching for the 9 assets with a page size of 5 - Page 0.
-        results = assetService.queryAssets("TestPaginationCoin",0, 5);
+        results = assetService.queryAssets("TestPaginationCoin",1, 5);
         assertEquals(5, results.getNumberOfElements());
         assertEquals(9, results.getTotalElements());
         assertEquals(2, results.getTotalPages());
@@ -97,7 +97,7 @@ public class AssetServiceTest extends BaseTest {
         assertEquals(1004, results.getContent().get(4).getId());
 
         // Searching for the 9 assets with a page size of 5 - Page 1.
-        results = assetService.queryAssets("TestPaginationCoin",1, 5);
+        results = assetService.queryAssets("TestPaginationCoin",2, 5);
         assertEquals(4, results.getNumberOfElements());
         assertEquals(9, results.getTotalElements());
         assertEquals(2, results.getTotalPages());

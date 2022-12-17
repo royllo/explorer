@@ -16,7 +16,7 @@ public interface AssetService {
      * - Search if the value is contained in assets name.
      *
      * @param value      the value to search for
-     * @param pageNumber the page number we want to retrieve
+     * @param pageNumber the page number we want to retrieve (First page is page 1)
      * @param pageSize   the page size
      * @return list of assets corresponding to the search
      */

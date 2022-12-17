@@ -3,6 +3,7 @@ query queryAssets($value: String!, $pageNumber: Int) {
         content {
             assetId,
             name
-        }
+        },
+        totalPages
     }
 }
