@@ -70,7 +70,7 @@ class _SearchFormState extends ConsumerState<SearchForm> {
               // Set a search icon as prefix.
               prefixIcon: Icon(Icons.search),
               // Hint text to help the user.
-              hintText: 'Type an asset id or an asset name',
+              hintText: 'Type an asset ID or an asset name',
             ),
             // =====================================================================
             // You can't run a query without searching for, at least, a character

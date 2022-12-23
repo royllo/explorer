@@ -1,6 +1,7 @@
 import 'package:explorer_ui/src/configuration/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 // Providers are declared globally and specify how to create a state.
 
@@ -20,6 +21,10 @@ class SearchRequest {
 
 // This function tells Dart where the program starts, and it must be in the file that is considered the "entry point" for you program.
 void main() {
+  // By default, with flutter, paths are read and written with an hash. With this method, paths are read and written without a hash.
+  usePathUrlStrategy();
+
+  //  runApp inflates the given widget and attach it to the screen.
   runApp(
     // For widgets to be able to read providers, we need to wrap the entire application in a "ProviderScope" widget.
     // This is where the state of our providers will be stored.
