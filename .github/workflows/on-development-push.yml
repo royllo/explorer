@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       # ================================================================================================================
@@ -67,7 +67,6 @@ jobs:
           userByUsernameResult=$(curl  -H "Content-Type: application/json" \
                 -d '{ "query": "{ userByUsername(username: \"anonymous\") { id, username }}" }' \
                 http://localhost:9090/graphql | jq '.data.userByUsername.id')
-          echo "userByUsername call result is ${userByUsernameResult}"
           echo "userByUsernameResult=${userByUsernameResult}" >> $GITHUB_OUTPUT
 
       - name: Check if userByUsername returns the correct value

@@ -18,7 +18,12 @@ final roylloRouter = GoRouter(
     GoRoute(
       name: "search",
       path: '/search',
-      builder: (context, state) => SearchScreen(),
+      builder: (context, state) {
+        var q = state.queryParams['q'];
+        var pageNumber = state.queryParams['page'];
+        // TODO : Add parameters to search screen
+        return SearchScreen();
+      },
     ),
     // About page - Details who we are.
     GoRoute(

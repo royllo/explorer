@@ -4,6 +4,7 @@ import 'package:explorer_ui/src/widgets/default_bottom_navigation_bart.dart';
 import 'package:explorer_ui/src/widgets/search_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:number_paginator/number_paginator.dart';
 
 import '../services/AssetService.dart';
@@ -11,13 +12,16 @@ import '../services/AssetService.dart';
 // Search page - Displays results.
 // - Search field
 // - Results
-// - Page
+// - Pagination
 class SearchScreen extends ConsumerWidget {
   // Constructor.
+  const SearchScreen({super.key});
+
   // The framework calls this method when this widget is inserted into the tree in a given BuildContext and when the dependencies of this widget change.
   // The framework replaces the subtree below this widget with the widget returned by this method
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // We watch change in search
     final result = ref.watch(assetQueryProvider);
 
     return Scaffold(
@@ -84,9 +88,13 @@ class SearchScreen extends ConsumerWidget {
                           initialPage: ref.watch(searchRequestProvider).pageNumber - 1,
                           numberPages: totalPages,
                           onPageChange: (int index) {
-                            ref
-                                .watch(searchRequestProvider.notifier)
-                                .update((state) => SearchRequest(state.query, pageNumber: index + 1));
+                            var q = ref.watch(searchRequestProvider).query;
+                            // We update the searched value
+                            // ref
+                            //     .watch(searchRequestProvider.notifier)
+                            //     .update((state) => SearchRequest(state.query, pageNumber: index + 1));
+                            // We change the url
+                            context.go(Uri(path: '/search', queryParameters: {'q': q, 'page': (index + 1).toString()}).toString());
                           },
                         );
                       } else {
