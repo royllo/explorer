@@ -1,5 +1,16 @@
 version: 2
+enable-beta-ecosystems: true
 updates:
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      time: "18:00"
+      timezone: "Europe/Paris"
+    target-branch: development
+
   - package-ecosystem: maven
     directory: "/"
     schedule:
@@ -9,7 +20,7 @@ updates:
       timezone: "Europe/Paris"
     target-branch: development
 
-  - package-ecosystem: github-actions
+  - package-ecosystem: pub
     directory: "/"
     schedule:
       interval: "weekly"
