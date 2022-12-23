@@ -31,7 +31,7 @@ jobs:
       # ================================================================================================================
       - name: Get release number
         id: release
-        run: echo "::set-output name=version::$(mvn help:evaluate -D expression=project.version -q -D forceStdout)"
+        run: echo "version=$(mvn help:evaluate -D expression=project.version -q -D forceStdout)" >> $GITHUB_OUTPUT
 
       # ================================================================================================================
       - name: Run backend tests
