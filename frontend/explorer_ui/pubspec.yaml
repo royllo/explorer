@@ -31,7 +31,7 @@ dependencies:
   cupertino_icons: ^1.0.5
 
   # UI utils
-  number_paginator: ^0.2.2
+  number_paginator: ^0.2.3
 
 dev_dependencies:
   flutter_test:
