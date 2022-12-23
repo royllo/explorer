@@ -21,7 +21,7 @@ updates:
     target-branch: development
 
   - package-ecosystem: pub
-    directory: "/"
+    directory: "/frontend/explorer_ui"
     schedule:
       interval: "weekly"
       day: "sunday"
