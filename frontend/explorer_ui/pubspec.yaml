@@ -39,7 +39,7 @@ dev_dependencies:
 
   # Riverpod dependencies.
   build_runner:
-  riverpod_generator: ^1.0.6
+  riverpod_generator: ^1.1.0
   ferry_generator: ^0.7.0
 
   # The "flutter_lints" package below contains a set of recommended lints to encourage good coding practices.
