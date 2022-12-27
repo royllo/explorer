@@ -26,7 +26,7 @@ final roylloRouter = GoRouter(
         String q = state.queryParams['q'] ?? '';
         int pageNumberInt = int.tryParse(state.queryParams['page'] ?? '1') ?? 1;
 
-        return SearchScreen(SearchRequest(q, pageNumber: pageNumberInt));
+        return SearchScreen();
       },
     ),
     // =========================================================================

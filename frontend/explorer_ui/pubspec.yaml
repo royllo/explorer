@@ -18,10 +18,10 @@ dependencies:
     sdk: flutter
 
   # Go_router to manage navigation.
-  go_router: ^5.2.4
+  go_router: ^6.0.0
 
   # Riverpod dependencies (used for api calls).
-  flutter_riverpod: ^2.1.1
+  flutter_riverpod: ^2.1.2
   riverpod_annotation: ^1.0.6
 
   # GraphQL integration
@@ -33,15 +33,15 @@ dependencies:
   cupertino_icons: ^1.0.5
 
   # UI utils
-  number_paginator: ^0.2.2
+  number_paginator: ^0.2.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   # Riverpod dependencies.
-  build_runner:
-  riverpod_generator: ^1.0.6
+  build_runner: ^2.3.3
+  riverpod_generator: ^1.1.1
   ferry_generator: ^0.7.0
 
   # The "flutter_lints" package below contains a set of recommended lints to encourage good coding practices.

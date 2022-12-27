@@ -14,11 +14,9 @@ import '../services/AssetService.dart';
 // - Results
 // - Pagination
 class SearchScreen extends ConsumerWidget {
-  // The search request we are fulfilling.
-  final SearchRequest searchRequest;
 
   // Constructor.
-  const SearchScreen(this.searchRequest, {super.key});
+  const SearchScreen({super.key});
 
   // The framework calls this method when this widget is inserted into the tree in a given BuildContext and when the dependencies of this widget change.
   // The framework replaces the subtree below this widget with the widget returned by this method
