@@ -18,7 +18,7 @@ dependencies:
     sdk: flutter
 
   # Go_router to manage navigation.
-  go_router: ^5.2.4
+  go_router: ^6.0.0
 
   # Riverpod dependencies (used for api calls).
   flutter_riverpod: ^2.1.1
