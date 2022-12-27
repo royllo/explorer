@@ -14,8 +14,11 @@ import '../services/AssetService.dart';
 // - Results
 // - Pagination
 class SearchScreen extends ConsumerWidget {
+  // The search request we are fulfilling.
+  final SearchRequest searchRequest;
+
   // Constructor.
-  const SearchScreen({super.key});
+  const SearchScreen(this.searchRequest, {super.key});
 
   // The framework calls this method when this widget is inserted into the tree in a given BuildContext and when the dependencies of this widget change.
   // The framework replaces the subtree below this widget with the widget returned by this method
@@ -85,23 +88,27 @@ class SearchScreen extends ConsumerWidget {
                       if (totalPages != null) {
                         // We display the pages
                         return NumberPaginator(
-                          initialPage: ref.watch(searchRequestProvider).pageNumber - 1,
+                          initialPage:
+                              ref.watch(searchRequestProvider).pageNumber - 1,
                           numberPages: totalPages,
                           onPageChange: (int index) {
                             var q = ref.watch(searchRequestProvider).query;
                             // We update the searched value
-                            // ref
-                            //     .watch(searchRequestProvider.notifier)
-                            //     .update((state) => SearchRequest(state.query, pageNumber: index + 1));
+                            ref
+                                 .watch(searchRequestProvider.notifier)
+                                 .update((state) => SearchRequest(state.query, pageNumber: index + 1));
                             // We change the url
-                            context.go(Uri(path: '/search', queryParameters: {'q': q, 'page': (index + 1).toString()}).toString());
+                            context.go(Uri(path: '/search', queryParameters: {
+                              'q': q,
+                              'page': (index + 1).toString()
+                            }).toString());
                           },
                         );
                       } else {
                         return const Text("");
                       }
                     },
-                    error: (error, stackTrace) => const Text(""),
+                    error: (error, stackTrace) => const Text("Error!"),
                   )
                 ],
               )),

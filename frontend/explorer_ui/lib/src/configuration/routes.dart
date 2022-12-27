@@ -1,3 +1,4 @@
+import 'package:explorer_ui/main.dart';
 import 'package:go_router/go_router.dart';
 
 import '../screens/about.dart';
@@ -8,24 +9,28 @@ import '../screens/search.dart';
 // a convenient, url-based API for navigating between different screens.
 final roylloRouter = GoRouter(
   routes: [
-    // Home page.
+    // =========================================================================
+    // Home page
     GoRoute(
       name: "home",
       path: "/",
       builder: (context, state) => const HomeScreen(),
     ),
-    // Search page - Display results.
+    // =========================================================================
+    // Search page - Display results
     GoRoute(
       name: "search",
       path: '/search',
       builder: (context, state) {
-        var q = state.queryParams['q'];
-        var pageNumber = state.queryParams['page'];
-        // TODO : Add parameters to search screen
-        return SearchScreen();
+        // On search page, we check the parameter to update the user query
+        String q = state.queryParams['q'] ?? '';
+        int pageNumberInt = int.tryParse(state.queryParams['page'] ?? '1') ?? 1;
+
+        return SearchScreen(SearchRequest(q, pageNumber: pageNumberInt));
       },
     ),
-    // About page - Details who we are.
+    // =========================================================================
+    // About page - Details who we are
     GoRoute(
       name: "about",
       path: '/about',

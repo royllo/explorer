@@ -16,7 +16,7 @@ Future<Client> gqlClient() async {
   return Client(link: HttpLink(_getGraphQLEndpoint()));
 }
 
-// returns the graphql endpoint.
+// Returns the graphql endpoint.
 String _getGraphQLEndpoint() {
   return const String.fromEnvironment('GRAPHQL_ENDPOINT',
       defaultValue: 'http://localhost:9090/graphql');
