@@ -1,4 +1,5 @@
 import 'package:explorer_ui/main.dart';
+import 'package:explorer_ui/src/screens/asset.dart';
 import 'package:go_router/go_router.dart';
 
 import '../screens/about.dart';
@@ -22,13 +23,29 @@ final roylloRouter = GoRouter(
       name: "search",
       path: '/search',
       builder: (context, state) {
+        // =====================================================================
+        // TODO Use those values to set the query
         // On search page, we check the parameter to update the user query
-        String q = state.queryParams['q'] ?? '';
-        int pageNumberInt = int.tryParse(state.queryParams['page'] ?? '1') ?? 1;
+        String query = state.queryParams['query'] ?? '';
+        int pageNumber = int.tryParse(state.queryParams['page'] ?? '1') ?? 1;
+        // =====================================================================
 
-        return SearchScreen();
+        return const SearchScreen();
       },
     ),
+    // =========================================================================
+    // Asset page - Display an asset
+    GoRoute(
+        name: "assets",
+        path: "/assets/:assetId",
+        builder: (context, state) {
+          // ===================================================================
+          // TODO Use this value to set the asset id
+          String assetId = state.params['assetId'] ?? '';
+          // ===================================================================
+
+          return const AssetScreen();
+        }),
     // =========================================================================
     // About page - Details who we are
     GoRoute(

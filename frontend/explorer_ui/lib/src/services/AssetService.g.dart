@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String $assetQueryHash() => r'72c2579071c44dd202d7578921a71c7da1750b83';
+String _$assetQueryHash() => r'72c2579071c44dd202d7578921a71c7da1750b83';
 
 /// See also [assetQuery].
 final assetQueryProvider = AutoDisposeFutureProvider<
@@ -37,7 +37,7 @@ final assetQueryProvider = AutoDisposeFutureProvider<
   assetQuery,
   name: r'assetQueryProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : $assetQueryHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$assetQueryHash,
 );
 typedef AssetQueryRef = AutoDisposeFutureProviderRef<
     OperationResponse<GqueryAssetsData, GqueryAssetsVars>>;

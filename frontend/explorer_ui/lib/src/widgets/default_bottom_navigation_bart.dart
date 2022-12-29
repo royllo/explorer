@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 Widget defaultRoylloBottomNavigationBar(BuildContext context) {
   // Return component.
   return BottomNavigationBar(items: <BottomNavigationBarItem>[
+    // =========================================================================
+    // Menu "Home"
     BottomNavigationBarItem(
       icon: IconButton(
         icon: const Icon(Icons.home),
@@ -12,6 +14,8 @@ Widget defaultRoylloBottomNavigationBar(BuildContext context) {
       ),
       label: 'Home',
     ),
+    // =========================================================================
+    // Menu "About"
     BottomNavigationBarItem(
       icon: IconButton(
         icon: const Icon(Icons.help),

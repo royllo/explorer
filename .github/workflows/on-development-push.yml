@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v3
 
       # ================================================================================================================
-      - name: JDK Setup
+      - name: Java Setup
         uses: actions/setup-java@v3.9.0
         with:
           distribution: 'temurin'
@@ -25,7 +25,7 @@ jobs:
       - name: Flutter setup
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.3.9'
+          flutter-version: '3.3.10'
           channel: 'stable'
 
       # ================================================================================================================

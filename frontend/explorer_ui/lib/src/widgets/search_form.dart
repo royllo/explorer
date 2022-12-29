@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../main.dart';
 
-// Search text field.
+// Search form.
 class SearchForm extends ConsumerStatefulWidget {
   // Constructor.
   const SearchForm({super.key});
@@ -80,6 +80,15 @@ class _SearchFormState extends ConsumerState<SearchForm> {
               } else {
                 return null;
               }
+            },
+            // =====================================================================
+            // If we enter the field, we elect the text
+            onTap: () {
+              _focusNode.requestFocus();
+              _controller.selection = TextSelection(
+                baseOffset: 0,
+                extentOffset: _controller.text.length,
+              );
             },
             // =====================================================================
             // If something is typed in the field, we keep track of it

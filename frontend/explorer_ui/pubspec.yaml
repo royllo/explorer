@@ -59,3 +59,4 @@ flutter:
   assets:
       - assets/images/logo_homepage.png
       - assets/images/logo_large_with_text.png
+      - assets/images/logo_large_without_text.png

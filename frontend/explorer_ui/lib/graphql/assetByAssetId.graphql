@@ -1,0 +1,22 @@
+query assetByAssetId($assetId: ID!) {
+    assetByAssetId(assetId: $assetId) {
+        assetId,
+        genesisPoint {
+            blockHeight,
+            txId,
+            vout,
+            scriptPubKey,
+            scriptPubKeyAsm,
+            scriptPubKeyType,
+            scriptPubKeyAddress,
+            value
+        }
+        creator {
+            id,
+            username
+        }
+        name,
+        metaData,
+        outputIndex
+    }
+}

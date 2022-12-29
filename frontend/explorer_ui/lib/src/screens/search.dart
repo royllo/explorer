@@ -22,7 +22,9 @@ class SearchScreen extends ConsumerWidget {
   // The framework replaces the subtree below this widget with the widget returned by this method
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // We watch change in search
+    ref.read(searchRequestProvider).query = "back";
+
+    // We watch change in search query
     final result = ref.watch(assetQueryProvider);
 
     return Scaffold(

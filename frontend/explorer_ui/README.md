@@ -11,7 +11,7 @@
 After starting the docker-compose, you can retrieve/update the schema
 with : `get-graphql-schema http://localhost:9090/graphql > lib/graphql/schema.graphql`
 
-Then, you can build with : `flutter pub run build_runner build --delete-conflicting-outputs`
+Then, you can build with : `flutter pub run build_runner build`
 
 ## Things I did during development
 

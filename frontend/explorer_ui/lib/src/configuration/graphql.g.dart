@@ -29,13 +29,14 @@ class _SystemHash {
   }
 }
 
-String $graphqlClientHash() => r'd0aaa8dd05af39147c7f45f3f9389bad8d6b97cb';
+String _$graphqlClientHash() => r'd0aaa8dd05af39147c7f45f3f9389bad8d6b97cb';
 
 /// See also [graphqlClient].
 final graphqlClientProvider = AutoDisposeFutureProvider<Client>(
   graphqlClient,
   name: r'graphqlClientProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : $graphqlClientHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$graphqlClientHash,
 );
 typedef GraphqlClientRef = AutoDisposeFutureProviderRef<Client>;
