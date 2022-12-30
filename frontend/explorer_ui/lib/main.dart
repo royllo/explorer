@@ -36,5 +36,3 @@ class RoylloExplorerUI extends ConsumerWidget {
     );
   }
 }
-
-
