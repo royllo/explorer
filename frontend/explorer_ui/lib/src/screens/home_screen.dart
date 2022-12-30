@@ -1,10 +1,8 @@
+import 'package:explorer_ui/src/widgets/asset_search_form.dart';
 import 'package:explorer_ui/src/widgets/default_app_bar.dart';
 import 'package:explorer_ui/src/widgets/default_bottom_navigation_bart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../main.dart';
-import '../widgets/search_form.dart';
 
 // Project homepage.
 // - Logo
@@ -35,7 +33,7 @@ class HomeScreen extends ConsumerWidget {
                 // Royllo icon.
                 Image.asset('assets/images/logo_homepage.png'),
                 // Our search field.
-                SearchForm(),
+                AssetSearchForm(),
               ],
         )),
 

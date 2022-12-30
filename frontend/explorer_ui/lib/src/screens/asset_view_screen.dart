@@ -6,8 +6,8 @@ import '../widgets/default_app_bar.dart';
 // Asset page - Displays an asset.
 // - Search field
 // - Asset information
-class AssetScreen extends StatelessWidget {
-  const AssetScreen({Key? key}) : super(key: key);
+class AssetViewScreen extends StatelessWidget {
+  const AssetViewScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

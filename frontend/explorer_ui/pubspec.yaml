@@ -21,8 +21,8 @@ dependencies:
   go_router: ^6.0.0
 
   # Riverpod dependencies (used for api calls).
-  flutter_riverpod: ^2.1.2
-  riverpod_annotation: ^1.0.6
+  flutter_riverpod: ^2.1.3
+  riverpod_annotation: ^1.1.1
 
   # GraphQL integration
   ferry: ^0.13.0
@@ -35,13 +35,20 @@ dependencies:
   # UI utils
   number_paginator: ^0.2.3
 
+# dev_dependencies are dependencies that are not available for code in the resulting application,
+# but only for tests, examples, tools, or to add executable tools like for code generation to your project.
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  # Riverpod dependencies.
+  # The build_runner package provides a concrete way of generating files using Dart code, outside of tools like pub.
+  # Unlike pub serve/build, files are always generated directly on disk, and rebuilds are incremental.
   build_runner: ^2.3.3
+
+  # Riverpod dependencies.
   riverpod_generator: ^1.1.1
+
+  # GraphQL dependencies.
   ferry_generator: ^0.7.0
 
   # The "flutter_lints" package below contains a set of recommended lints to encourage good coding practices.
@@ -57,6 +64,6 @@ flutter:
 
   # This section add assets to your application.
   assets:
-      - assets/images/logo_homepage.png
-      - assets/images/logo_large_with_text.png
-      - assets/images/logo_large_without_text.png
+    - assets/images/logo_homepage.png
+    - assets/images/logo_large_with_text.png
+    - assets/images/logo_large_without_text.png

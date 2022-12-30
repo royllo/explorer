@@ -3,18 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../main.dart';
+// This provider keep the current value in the search field.
+final assetSearchFieldValueProvider = StateProvider<String>((ref) => "");
 
-// Search form.
-class SearchForm extends ConsumerStatefulWidget {
+// Asset search form.
+class AssetSearchForm extends ConsumerStatefulWidget {
   // Constructor.
-  const SearchForm({super.key});
+  const AssetSearchForm({super.key});
 
   @override
-  ConsumerState<SearchForm> createState() => _SearchFormState();
+  ConsumerState<AssetSearchForm> createState() => _AssetSearchFormState();
 }
 
-class _SearchFormState extends ConsumerState<SearchForm> {
+class _AssetSearchFormState extends ConsumerState<AssetSearchForm> {
   // Create a global key that uniquely identifies the Form widget and allows validation of the form.
   final _formKey = GlobalKey<FormState>();
 
@@ -22,15 +23,14 @@ class _SearchFormState extends ConsumerState<SearchForm> {
   final _controller = TextEditingController();
 
   // FocusNode can be used by a stateful widget to obtain the keyboard focus and to handle keyboard events.
-  // Define the focus node. To manage the lifecycle, create the FocusNode in
-  // the initState method, and clean it up in the dispose method.
+  // Define the focus node. To manage the lifecycle, create the FocusNode in the initState method, and clean it up in the dispose method.
   late FocusNode _focusNode;
 
   @override
   void initState() {
     super.initState();
     // When the field is created, we retrieve the value from the provider.
-    _controller.text = ref.read(searchFieldValueProvider);
+    _controller.text = ref.read(assetSearchFieldValueProvider);
     // Select the text field content when it's created.
     _controller.selection = TextSelection(
       baseOffset: 0,
@@ -93,9 +93,7 @@ class _SearchFormState extends ConsumerState<SearchForm> {
             },
             // =====================================================================
             // If something is typed in the field, we keep track of it
-            onChanged: (value) => ref
-                .watch(searchFieldValueProvider.notifier)
-                .update((state) => value),
+            onChanged: (value) => ref.watch(assetSearchFieldValueProvider.notifier).update((state) => value),
             // =====================================================================
             // If the user press "enter", we launch a search
             onFieldSubmitted: (value) {
@@ -103,8 +101,7 @@ class _SearchFormState extends ConsumerState<SearchForm> {
                 // We update the provider with what the user is searching for
                 ref.watch(assetSearchQueryProvider.notifier).setQuery(value);
                 // We go the search page where results are displayed (if not already on it).
-                context.go(Uri(path: '/search', queryParameters: {'q': value})
-                    .toString());
+                context.go(Uri(path: '/search', queryParameters: {'q': value}).toString());
               }
               // Valid or not, we set the focus
               _focusNode.requestFocus();

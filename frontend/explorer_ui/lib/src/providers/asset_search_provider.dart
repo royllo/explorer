@@ -10,7 +10,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'asset_search_provider.g.dart';
 
 // asset_search_provider description
-// - Method 
+// - Method callQueryAssets waits for change in assetSearchQueryProvider and calls the GraphQL API
 // - Variable assetSearchQueryProvider allows the UI to interact with AssetSearchQuery thanks to AssetSearchQueryNotifier
 // - Class AssetSearchQueryNotifier is an observable class that stores a single immutable state and manipulation values
 // - Class AssetSearchQuery represents what the user is searching for and which page to display
@@ -26,8 +26,7 @@ Future<OperationResponse<GqueryAssetsData, GqueryAssetsVars>> callQueryAssets(Ca
     ..vars.value = searchQuery.query
     ..vars.pageNumber = searchQuery.page);
   var client = await gqlClient();
-  // TODO I think this await should be removed no ?
-  return await client.request(request).first;
+  return client.request(request).first;
 }
 
   /// We are using StateNotifierProvider to allows the UI to interact with the AssetSearchQueryNotifier

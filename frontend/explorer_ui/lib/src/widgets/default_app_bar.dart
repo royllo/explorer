@@ -1,3 +1,4 @@
+import 'package:explorer_ui/src/configuration/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -7,7 +8,7 @@ PreferredSizeWidget defaultRoylloAppBar(BuildContext context) {
   return AppBar(
     leading: IconButton(
       icon: const Icon(Icons.home),
-      onPressed: () => GoRouter.of(context).goNamed("home"),
+      onPressed: () => GoRouter.of(context).goNamed(homeRouteName),
     ),
   );
 }

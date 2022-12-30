@@ -1,3 +1,4 @@
+import 'package:explorer_ui/src/configuration/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -10,7 +11,7 @@ Widget defaultRoylloBottomNavigationBar(BuildContext context) {
     BottomNavigationBarItem(
       icon: IconButton(
         icon: const Icon(Icons.home),
-        onPressed: () => GoRouter.of(context).goNamed("home"),
+        onPressed: () => GoRouter.of(context).goNamed(homeRouteName),
       ),
       label: 'Home',
     ),
@@ -19,7 +20,7 @@ Widget defaultRoylloBottomNavigationBar(BuildContext context) {
     BottomNavigationBarItem(
       icon: IconButton(
         icon: const Icon(Icons.help),
-        onPressed: () => GoRouter.of(context).goNamed("about"),
+        onPressed: () => GoRouter.of(context).goNamed(aboutRouteName),
       ),
       label: 'About',
     ),

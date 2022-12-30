@@ -1,20 +1,20 @@
 import 'package:explorer_ui/src/providers/asset_search_provider.dart';
 import 'package:explorer_ui/src/widgets/default_app_bar.dart';
 import 'package:explorer_ui/src/widgets/default_bottom_navigation_bart.dart';
-import 'package:explorer_ui/src/widgets/search_form.dart';
+import 'package:explorer_ui/src/widgets/asset_search_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:number_paginator/number_paginator.dart';
 
-// Search page - Displays results.
+// Search asset page - Displays results.
 // - Search field
 // - Results
 // - Pagination
-class SearchScreen extends ConsumerWidget {
+class AssetSearchScreen extends ConsumerWidget {
 
   // Constructor.
-  const SearchScreen({super.key});
+  const AssetSearchScreen({super.key});
 
   // The framework calls this method when this widget is inserted into the tree in a given BuildContext and when the dependencies of this widget change.
   // The framework replaces the subtree below this widget with the widget returned by this method
@@ -45,7 +45,7 @@ class SearchScreen extends ConsumerWidget {
           Container(
             margin: const EdgeInsets.all(20),
             // Search text field.
-            child: SearchForm(),
+            child: AssetSearchForm(),
           ),
           // ===================================================================
           // Results

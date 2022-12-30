@@ -3,11 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
-// Providers are declared globally and specify how to create a state.
-
-// This provider keep the current value in the search field.
-final searchFieldValueProvider = StateProvider<String>((ref) => "");
-
 // This function tells Dart where the program starts, and it must be in the file that is considered the "entry point" for you program.
 void main() {
   // By default, with flutter, paths are read and written with an hash. With this method, paths are read and written without a hash.

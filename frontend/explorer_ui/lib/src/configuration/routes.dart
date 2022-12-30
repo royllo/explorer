@@ -1,25 +1,29 @@
-import 'package:explorer_ui/src/screens/asset.dart';
+import 'package:explorer_ui/src/screens/about_screen.dart';
+import 'package:explorer_ui/src/screens/asset_search_screen.dart';
+import 'package:explorer_ui/src/screens/asset_view_screen.dart';
+import 'package:explorer_ui/src/screens/home_screen.dart';
 import 'package:go_router/go_router.dart';
 
-import '../screens/about.dart';
-import '../screens/home.dart';
-import '../screens/search.dart';
+/// Pages declaration.
+const String homeRouteName = 'home';
+const String assetSearchRouteName = 'search';
+const String assetViewRouteName = 'assets';
+const String aboutRouteName = 'about';
 
-// A declarative routing package for Flutter that uses the Router API to provide
-// a convenient, url-based API for navigating between different screens.
+/// A declarative routing package for Flutter that uses the Router API to provide a convenient, url-based API for navigating between different screens.
 final roylloRouter = GoRouter(
   routes: [
     // =========================================================================
     // Home page
     GoRoute(
-      name: "home",
+      name: homeRouteName,
       path: "/",
       builder: (context, state) => const HomeScreen(),
     ),
     // =========================================================================
     // Search page - Display results
     GoRoute(
-      name: "search",
+      name: assetSearchRouteName,
       path: '/search',
       builder: (context, state) {
         // =====================================================================
@@ -29,13 +33,13 @@ final roylloRouter = GoRouter(
         int pageNumber = int.tryParse(state.queryParams['page'] ?? '1') ?? 1;
         // =====================================================================
 
-        return const SearchScreen();
+        return const AssetSearchScreen();
       },
     ),
     // =========================================================================
     // Asset page - Display an asset
     GoRoute(
-        name: "assets",
+        name: assetViewRouteName,
         path: "/assets/:assetId",
         builder: (context, state) {
           // ===================================================================
@@ -43,12 +47,12 @@ final roylloRouter = GoRouter(
           String assetId = state.params['assetId'] ?? '';
           // ===================================================================
 
-          return const AssetScreen();
+          return const AssetViewScreen();
         }),
     // =========================================================================
     // About page - Details who we are
     GoRoute(
-      name: "about",
+      name: aboutRouteName,
       path: '/about',
       builder: (context, state) => const AboutScreen(),
     ),
