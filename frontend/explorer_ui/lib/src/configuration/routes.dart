@@ -1,4 +1,3 @@
-import 'package:explorer_ui/main.dart';
 import 'package:explorer_ui/src/screens/asset.dart';
 import 'package:go_router/go_router.dart';
 

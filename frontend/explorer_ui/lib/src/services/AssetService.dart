@@ -13,18 +13,15 @@ import '../configuration/graphql.dart';
 part 'AssetService.g.dart';
 
 @riverpod
-Future<OperationResponse<GqueryAssetsData, GqueryAssetsVars>> assetQuery(
-    AssetQueryRef ref) async {
-
-  // We use `ref.watch` to listen to another provider, and we pass it the provider
-  // that we want to consume. Here: searchedValueProvider.
+Future<OperationResponse<GqueryAssetsData, GqueryAssetsVars>> assetQuery(AssetQueryRef ref) async {
+  // We use `ref.watch` to listen to another provider, and we pass it the provider that we want to consume.
   final searchRequest = ref.watch(searchRequestProvider);
 
   // We run the query with the parameters
   final request = GqueryAssetsReq((b) => b
-    ..fetchPolicy = FetchPolicy.NetworkOnly
     ..vars.value = searchRequest.query
     ..vars.pageNumber = searchRequest.pageNumber);
   var client = await gqlClient();
+  // TODO I think this await should be removed no ?
   return await client.request(request).first;
 }
