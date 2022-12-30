@@ -1,4 +1,4 @@
-import 'package:explorer_ui/src/providers/search_query_provider.dart';
+import 'package:explorer_ui/src/providers/asset_search_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -101,7 +101,7 @@ class _SearchFormState extends ConsumerState<SearchForm> {
             onFieldSubmitted: (value) {
               if (_formKey.currentState!.validate()) {
                 // We update the provider with what the user is searching for
-                ref.watch(searchQueryProvider.notifier).setQuery(value);
+                ref.watch(assetSearchQueryProvider.notifier).setQuery(value);
                 // We go the search page where results are displayed (if not already on it).
                 context.go(Uri(path: '/search', queryParameters: {'q': value})
                     .toString());

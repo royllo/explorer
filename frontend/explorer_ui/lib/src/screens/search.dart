@@ -1,4 +1,4 @@
-import 'package:explorer_ui/src/providers/search_query_provider.dart';
+import 'package:explorer_ui/src/providers/asset_search_provider.dart';
 import 'package:explorer_ui/src/widgets/default_app_bar.dart';
 import 'package:explorer_ui/src/widgets/default_bottom_navigation_bart.dart';
 import 'package:explorer_ui/src/widgets/search_form.dart';
@@ -23,7 +23,7 @@ class SearchScreen extends ConsumerWidget {
     // ref.read(searchRequestProvider).query = "back";
 
     // We watch change in search query
-    final result = ref.watch(assetQueryProvider);
+    final result = ref.watch(callQueryAssetsProvider);
 
     return Scaffold(
       // =====================================================================
@@ -86,12 +86,12 @@ class SearchScreen extends ConsumerWidget {
                       if (totalPages != null) {
                         // We display the pages
                         return NumberPaginator(
-                          initialPage: ref.watch(searchQueryProvider).page - 1,
+                          initialPage: ref.watch(assetSearchQueryProvider).page - 1,
                           numberPages: totalPages,
                           onPageChange: (int index) {
-                            var q = ref.watch(searchQueryProvider).query;
+                            var q = ref.watch(assetSearchQueryProvider).query;
                             // We update the searched value
-                            ref.watch(searchQueryProvider.notifier).setPage(index + 1);
+                            ref.watch(assetSearchQueryProvider.notifier).setPage(index + 1);
                             // We change the url
                             context.go(Uri(path: '/search', queryParameters: {
                               'q': q,

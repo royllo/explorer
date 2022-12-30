@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'search_query_provider.dart';
+part of 'asset_search_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -29,18 +29,18 @@ class _SystemHash {
   }
 }
 
-String _$assetQueryHash() => r'e0ebcc2fc99e2d26e385e795d9e623447bec6a17';
+String _$callQueryAssetsHash() => r'952d5aab871d21eff4367eb85f6b942f97d91604';
 
 /// FutureProvider is the equivalent of Provider but for asynchronous code.
 ///
-///
-/// Copied from [assetQuery].
-final assetQueryProvider = AutoDisposeFutureProvider<
+/// Copied from [callQueryAssets].
+final callQueryAssetsProvider = AutoDisposeFutureProvider<
     OperationResponse<GqueryAssetsData, GqueryAssetsVars>>(
-  assetQuery,
-  name: r'assetQueryProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$assetQueryHash,
+  callQueryAssets,
+  name: r'callQueryAssetsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$callQueryAssetsHash,
 );
-typedef AssetQueryRef = AutoDisposeFutureProviderRef<
+typedef CallQueryAssetsRef = AutoDisposeFutureProviderRef<
     OperationResponse<GqueryAssetsData, GqueryAssetsVars>>;
