@@ -1,4 +1,4 @@
-import 'package:explorer_ui/main.dart';
+import 'package:explorer_ui/src/providers/search_query_provider.dart';
 import 'package:explorer_ui/src/widgets/default_app_bar.dart';
 import 'package:explorer_ui/src/widgets/default_bottom_navigation_bart.dart';
 import 'package:explorer_ui/src/widgets/search_form.dart';
@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:number_paginator/number_paginator.dart';
-
-import '../services/AssetService.dart';
 
 // Search page - Displays results.
 // - Search field
@@ -22,7 +20,7 @@ class SearchScreen extends ConsumerWidget {
   // The framework replaces the subtree below this widget with the widget returned by this method
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(searchRequestProvider).query = "back";
+    // ref.read(searchRequestProvider).query = "back";
 
     // We watch change in search query
     final result = ref.watch(assetQueryProvider);
@@ -88,15 +86,12 @@ class SearchScreen extends ConsumerWidget {
                       if (totalPages != null) {
                         // We display the pages
                         return NumberPaginator(
-                          initialPage:
-                              ref.watch(searchRequestProvider).pageNumber - 1,
+                          initialPage: ref.watch(searchQueryProvider).page - 1,
                           numberPages: totalPages,
                           onPageChange: (int index) {
-                            var q = ref.watch(searchRequestProvider).query;
+                            var q = ref.watch(searchQueryProvider).query;
                             // We update the searched value
-                            ref
-                                 .watch(searchRequestProvider.notifier)
-                                 .update((state) => SearchRequest(state.query, pageNumber: index + 1));
+                            ref.watch(searchQueryProvider.notifier).setPage(index + 1);
                             // We change the url
                             context.go(Uri(path: '/search', queryParameters: {
                               'q': q,

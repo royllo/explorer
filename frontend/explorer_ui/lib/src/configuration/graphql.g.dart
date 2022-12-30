@@ -31,7 +31,9 @@ class _SystemHash {
 
 String _$graphqlClientHash() => r'd0aaa8dd05af39147c7f45f3f9389bad8d6b97cb';
 
-/// See also [graphqlClient].
+/// We create a provider, which will store the GraphQL connection
+///
+/// Copied from [graphqlClient].
 final graphqlClientProvider = AutoDisposeFutureProvider<Client>(
   graphqlClient,
   name: r'graphqlClientProvider',

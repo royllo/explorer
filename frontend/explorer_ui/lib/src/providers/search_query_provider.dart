@@ -1,5 +1,28 @@
-import 'package:flutter/cupertino.dart';
+import 'package:explorer_ui/src/configuration/graphql.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:explorer_ui/graphql/api/queryAssets.data.gql.dart';
+import 'package:explorer_ui/graphql/api/queryAssets.req.gql.dart';
+import 'package:explorer_ui/graphql/api/queryAssets.var.gql.dart';
+import 'package:ferry/ferry.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'search_query_provider.g.dart';
+
+@riverpod
+/// FutureProvider is the equivalent of Provider but for asynchronous code.
+Future<OperationResponse<GqueryAssetsData, GqueryAssetsVars>> assetQuery(AssetQueryRef ref) async {
+  // We use `ref.watch` to listen to another provider, and we pass it the provider that we want to consume.
+  final searchQuery = ref.watch(searchQueryProvider);
+
+  // We run the query with the parameters
+  final request = GqueryAssetsReq((b) => b
+    ..vars.value = searchQuery.query
+    ..vars.pageNumber = searchQuery.page);
+  var client = await gqlClient();
+  // TODO I think this await should be removed no ?
+  return await client.request(request).first;
+}
 
 /// We are using StateNotifierProvider to allow the UI to interact with SearchQuery
 final searchQueryProvider = StateNotifierProvider<SearchQueryNotifier, SearchQuery>((ref) {
