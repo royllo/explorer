@@ -12,15 +12,15 @@ public interface AssetService {
 
     /**
      * Query for assets.
-     * - Search if the value is an assetId, if true, returns only this one.
-     * - Search if the value is contained in assets name.
+     * - Search if query is an assetId, if true, returns only this one.
+     * - Search if query contains in assets name.
      *
-     * @param value      the value to search for
-     * @param pageNumber the page number we want to retrieve (First page is page 1)
-     * @param pageSize   the page size
+     * @param query    the query
+     * @param page     the page number we want to retrieve (First page is page 1)
+     * @param pageSize the page size
      * @return list of assets corresponding to the search
      */
-    Page<AssetDTO> queryAssets(String value, int pageNumber, int pageSize);
+    Page<AssetDTO> queryAssets(String query, int page, int pageSize);
 
     /**
      * Add an asset.

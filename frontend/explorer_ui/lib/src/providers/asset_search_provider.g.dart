@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String _$callQueryAssetsHash() => r'952d5aab871d21eff4367eb85f6b942f97d91604';
+String _$callQueryAssetsHash() => r'921190a250e9b695987f186944745647d1f35721';
 
 /// FutureProvider is the equivalent of Provider but for asynchronous code.
 ///

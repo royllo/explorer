@@ -15,8 +15,8 @@ abstract class GqueryAssetsVars
   factory GqueryAssetsVars([Function(GqueryAssetsVarsBuilder b) updates]) =
       _$GqueryAssetsVars;
 
-  String get value;
-  int? get pageNumber;
+  String get query;
+  int? get page;
   static Serializer<GqueryAssetsVars> get serializer =>
       _$gqueryAssetsVarsSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(

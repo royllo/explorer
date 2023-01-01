@@ -37,30 +37,30 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
     private final BitcoinService bitcoinService;
 
     @Override
-    public Page<AssetDTO> queryAssets(final String value,
-                                      final int pageNumber,
+    public Page<AssetDTO> queryAssets(final String query,
+                                      final int page,
                                       final int pageSize) {
-        assert pageNumber >= 1 : "Page number starts at page 1";
+        assert page >= 1 : "Page number starts at page 1";
 
         Page<AssetDTO> results;
 
-        final Optional<Asset> firstSearch = assetRepository.findByAssetId(value);
+        final Optional<Asset> firstSearch = assetRepository.findByAssetId(query);
         if (firstSearch.isPresent()) {
             // We found an asset with the corresponding assetId, we return it.
             results = new PageImpl<>(firstSearch.stream()
                     .map(ASSET_MAPPER::mapToAssetDTO)
                     .toList());
         } else {
-            // We search all assets where "value" is in the name.
-            results = assetRepository.findByNameContainsIgnoreCaseOrderByName(value, PageRequest.of(pageNumber - 1, pageSize))
+            // We search all assets where "query" is in the name.
+            results = assetRepository.findByNameContainsIgnoreCaseOrderByName(query, PageRequest.of(page - 1, pageSize))
                     .map(ASSET_MAPPER::mapToAssetDTO);
         }
 
         // Creating logs.
         if (results.isEmpty()) {
-            logger.info("queryAssets - For '{}', there is no results", value);
+            logger.info("queryAssets - For '{}', there is no results", query);
         } else {
-            logger.info("queryAssets - For '{}', {} result(s) with assets id(s): {}", value,
+            logger.info("queryAssets - For '{}', {} result(s) with assets id(s): {}", query,
                     results.getTotalElements(),
                     results.stream()
                             .map(AssetDTO::getId)

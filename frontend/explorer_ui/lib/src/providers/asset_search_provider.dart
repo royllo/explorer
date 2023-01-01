@@ -23,8 +23,8 @@ Future<OperationResponse<GqueryAssetsData, GqueryAssetsVars>> callQueryAssets(Ca
 
   // We run the query with the parameters
   final request = GqueryAssetsReq((b) => b
-    ..vars.value = searchQuery.query
-    ..vars.pageNumber = searchQuery.page);
+    ..vars.query = searchQuery.query
+    ..vars.page = searchQuery.page);
   var client = await gqlClient();
   return client.request(request).first;
 }

@@ -1,5 +1,5 @@
-query queryAssets($value: String!, $pageNumber: Int) {
-    queryAssets(value: $value, pageNumber: $pageNumber) {
+query queryAssets($query: String!, $page: Int) {
+    queryAssets(query: $query, page: $page) {
         content {
             assetId,
             name

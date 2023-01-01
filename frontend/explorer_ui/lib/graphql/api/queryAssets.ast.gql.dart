@@ -9,7 +9,7 @@ const queryAssets = _i1.OperationDefinitionNode(
   name: _i1.NameNode(value: 'queryAssets'),
   variableDefinitions: [
     _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'value')),
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'query')),
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
         isNonNull: true,
@@ -18,7 +18,7 @@ const queryAssets = _i1.OperationDefinitionNode(
       directives: [],
     ),
     _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'pageNumber')),
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'page')),
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'Int'),
         isNonNull: false,
@@ -34,12 +34,12 @@ const queryAssets = _i1.OperationDefinitionNode(
       alias: null,
       arguments: [
         _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'value'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'value')),
+          name: _i1.NameNode(value: 'query'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'query')),
         ),
         _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'pageNumber'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'pageNumber')),
+          name: _i1.NameNode(value: 'page'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'page')),
         ),
       ],
       directives: [],

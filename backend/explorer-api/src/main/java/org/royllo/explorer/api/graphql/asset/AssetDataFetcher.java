@@ -30,24 +30,24 @@ public class AssetDataFetcher extends BaseDataFetcher {
 
     /**
      * Query for assets.
-     * - Search if the value is an assetId, if true, returns only this one.
-     * - Search if the value is contained in assets name.
+     * - Search if query is an assetId, if true, returns only this one.
+     * - Search if query contains in assets name.
      *
-     * @param value      the value to search for
-     * @param pageNumber the page number you want
+     * @param query the query to search for
+     * @param page  the page number you want
      * @return list of assets corresponding to the search
      */
     @DgsQuery
-    public final Page<AssetDTO> queryAssets(final @InputArgument String value,
-                                            final @InputArgument Integer pageNumber) {
-        final Page<AssetDTO> results = assetService.queryAssets(value,
-                Objects.requireNonNullElse(pageNumber, 1),
+    public final Page<AssetDTO> queryAssets(final @InputArgument String query,
+                                            final @InputArgument Integer page) {
+        final Page<AssetDTO> results = assetService.queryAssets(query,
+                Objects.requireNonNullElse(page, 1),
                 DEFAULT_PAGE_SIZE);
         // Logs.
         if (results.isEmpty()) {
-            logger.info("queryAssets - For '{}', there is no results", value);
+            logger.info("queryAssets - For '{}', there is no results", query);
         } else {
-            logger.info("queryAssets - For '{}', {} result(s) with assets id(s): {}", value,
+            logger.info("queryAssets - For '{}', {} result(s) with assets id(s): {}", query,
                     results.getTotalElements(),
                     results.stream()
                             .map(AssetDTO::getId)

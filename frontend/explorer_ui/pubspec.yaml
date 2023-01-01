@@ -51,6 +51,9 @@ dev_dependencies:
   # GraphQL dependencies.
   ferry_generator: ^0.7.0
 
+  # Mockito
+  mockito: ^5.3.2
+
   # The "flutter_lints" package below contains a set of recommended lints to encourage good coding practices.
   flutter_lints: ^2.0.1
 

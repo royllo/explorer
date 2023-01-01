@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('About screen', (tester) async {
+  testWidgets('About screen tests', (tester) async {
     // We load the homepage
     await tester.pumpWidget(const ProviderScope(
       child: RoylloExplorerUI(),

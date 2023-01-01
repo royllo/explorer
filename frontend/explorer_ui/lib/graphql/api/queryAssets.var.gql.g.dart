@@ -20,15 +20,15 @@ class _$GqueryAssetsVarsSerializer
   Iterable<Object?> serialize(Serializers serializers, GqueryAssetsVars object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
-      'value',
-      serializers.serialize(object.value,
+      'query',
+      serializers.serialize(object.query,
           specifiedType: const FullType(String)),
     ];
     Object? value;
-    value = object.pageNumber;
+    value = object.page;
     if (value != null) {
       result
-        ..add('pageNumber')
+        ..add('page')
         ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
@@ -46,12 +46,12 @@ class _$GqueryAssetsVarsSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
-        case 'value':
-          result.value = serializers.deserialize(value,
+        case 'query':
+          result.query = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'pageNumber':
-          result.pageNumber = serializers.deserialize(value,
+        case 'page':
+          result.page = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
           break;
       }
@@ -63,16 +63,16 @@ class _$GqueryAssetsVarsSerializer
 
 class _$GqueryAssetsVars extends GqueryAssetsVars {
   @override
-  final String value;
+  final String query;
   @override
-  final int? pageNumber;
+  final int? page;
 
   factory _$GqueryAssetsVars(
           [void Function(GqueryAssetsVarsBuilder)? updates]) =>
       (new GqueryAssetsVarsBuilder()..update(updates))._build();
 
-  _$GqueryAssetsVars._({required this.value, this.pageNumber}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(value, r'GqueryAssetsVars', 'value');
+  _$GqueryAssetsVars._({required this.query, this.page}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(query, r'GqueryAssetsVars', 'query');
   }
 
   @override
@@ -87,20 +87,20 @@ class _$GqueryAssetsVars extends GqueryAssetsVars {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GqueryAssetsVars &&
-        value == other.value &&
-        pageNumber == other.pageNumber;
+        query == other.query &&
+        page == other.page;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, value.hashCode), pageNumber.hashCode));
+    return $jf($jc($jc(0, query.hashCode), page.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GqueryAssetsVars')
-          ..add('value', value)
-          ..add('pageNumber', pageNumber))
+          ..add('query', query)
+          ..add('page', page))
         .toString();
   }
 }
@@ -109,21 +109,21 @@ class GqueryAssetsVarsBuilder
     implements Builder<GqueryAssetsVars, GqueryAssetsVarsBuilder> {
   _$GqueryAssetsVars? _$v;
 
-  String? _value;
-  String? get value => _$this._value;
-  set value(String? value) => _$this._value = value;
+  String? _query;
+  String? get query => _$this._query;
+  set query(String? query) => _$this._query = query;
 
-  int? _pageNumber;
-  int? get pageNumber => _$this._pageNumber;
-  set pageNumber(int? pageNumber) => _$this._pageNumber = pageNumber;
+  int? _page;
+  int? get page => _$this._page;
+  set page(int? page) => _$this._page = page;
 
   GqueryAssetsVarsBuilder();
 
   GqueryAssetsVarsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _value = $v.value;
-      _pageNumber = $v.pageNumber;
+      _query = $v.query;
+      _page = $v.page;
       _$v = null;
     }
     return this;
@@ -146,9 +146,9 @@ class GqueryAssetsVarsBuilder
   _$GqueryAssetsVars _build() {
     final _$result = _$v ??
         new _$GqueryAssetsVars._(
-            value: BuiltValueNullFieldError.checkNotNull(
-                value, r'GqueryAssetsVars', 'value'),
-            pageNumber: pageNumber);
+            query: BuiltValueNullFieldError.checkNotNull(
+                query, r'GqueryAssetsVars', 'query'),
+            page: page);
     replace(_$result);
     return _$result;
   }

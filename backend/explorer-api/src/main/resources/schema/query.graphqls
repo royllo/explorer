@@ -3,7 +3,7 @@ type Query {
     # ==================================================================================================================
     # Assets API
     "Query for assets - Search for exact assetId or part of name"
-    queryAssets(value: String!, pageNumber: Int): AssetPage
+    queryAssets(query: String!, page: Int): AssetPage
 
     "Get an asset by it's id in database"
     asset(id: ID!): Asset
