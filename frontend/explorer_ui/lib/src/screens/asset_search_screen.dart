@@ -1,3 +1,4 @@
+import 'package:explorer_ui/src/configuration/routes.dart';
 import 'package:explorer_ui/src/providers/asset_search_provider.dart';
 import 'package:explorer_ui/src/widgets/default_app_bar.dart';
 import 'package:explorer_ui/src/widgets/default_bottom_navigation_bart.dart';
@@ -12,7 +13,6 @@ import 'package:number_paginator/number_paginator.dart';
 // - Results
 // - Pagination
 class AssetSearchScreen extends ConsumerWidget {
-
   // Constructor.
   const AssetSearchScreen({super.key});
 
@@ -58,8 +58,11 @@ class AssetSearchScreen extends ConsumerWidget {
                   result.when(
                     loading: () => const CircularProgressIndicator(),
                     data: (result) {
-                      var builder =
-                          result.data?.queryAssets?.content?.toBuilder();
+                      // If there is no result!
+                      if (result.data?.queryAssets?.totalPages == 0) {
+                        return Text("No result for '${ref.watch(assetSearchQueryProvider).query}'");
+                      }
+                      var builder = result.data?.queryAssets?.content?.toBuilder();
                       return ListView.builder(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
@@ -68,8 +71,7 @@ class AssetSearchScreen extends ConsumerWidget {
                           return ListTile(
                             leading: const CircleAvatar(),
                             title: Text("${builder?[index]?.name}"),
-                            subtitle:
-                                Text('Asset id: ${builder?[index]?.assetId}'),
+                            subtitle: Text('Asset id: ${builder?[index]?.assetId}'),
                             trailing: const Icon(Icons.help),
                           );
                         },
@@ -83,7 +85,8 @@ class AssetSearchScreen extends ConsumerWidget {
                     loading: () => const Text(""),
                     data: (result) {
                       var totalPages = result.data?.queryAssets?.totalPages;
-                      if (totalPages != null) {
+                      // We display pages only if there are pages to display
+                      if (totalPages != null && totalPages > 1) {
                         // We display the pages
                         return NumberPaginator(
                           initialPage: ref.watch(assetSearchQueryProvider).page - 1,
@@ -93,10 +96,9 @@ class AssetSearchScreen extends ConsumerWidget {
                             // We update the searched value
                             ref.watch(assetSearchQueryProvider.notifier).setPage(index + 1);
                             // We change the url
-                            context.go(Uri(path: '/search', queryParameters: {
-                              'q': q,
-                              'page': (index + 1).toString()
-                            }).toString());
+                            context.go(Uri(
+                                path: assetSearchRoutePath,
+                                queryParameters: {queryParameter: q, pageParameter: (index + 1).toString()}).toString());
                           },
                         );
                       } else {

@@ -9,27 +9,31 @@ const String queryParameter = 'query';
 const String pageParameter = 'page';
 const String assetIdParameter = 'assetId';
 
-/// Pages declaration
+/// Pages & path declarations
 const String homeRouteName = 'home';
+const String homeRoutePath = '/';
 const String assetSearchRouteName = 'search';
+const String assetSearchRoutePath = '/search';
 const String assetViewRouteName = 'assets';
+const String assetViewRoutePath = '/assets/:assetId';
 const String aboutRouteName = 'about';
+const String aboutRoutePath = '/about';
 
-/// A declarative routing package for Flutter that uses the Router API to provide a convenient, url-based API for navigating between different screens
+/// A routing package for Flutter that uses the Router API to provide a url-based API for navigating between different screens
 final roylloRouter = GoRouter(
   routes: [
     // =========================================================================
     // Home page
     GoRoute(
       name: homeRouteName,
-      path: "/",
+      path: homeRoutePath,
       builder: (context, state) => const HomeScreen(),
     ),
     // =========================================================================
     // Asset search page - Display results
     GoRoute(
-      name: assetSearchRouteName,
-      path: '/search',
+      name: assetSearchRoutePath,
+      path: assetSearchRoutePath,
       builder: (context, state) {
         // =====================================================================
         // TODO Use those values to set the query
@@ -45,7 +49,7 @@ final roylloRouter = GoRouter(
     // Asset view page - Display an asset
     GoRoute(
         name: assetViewRouteName,
-        path: "/assets/:assetId",
+        path: assetViewRoutePath,
         builder: (context, state) {
           // ===================================================================
           // TODO Use this value to set the asset id
@@ -58,7 +62,7 @@ final roylloRouter = GoRouter(
     // About page - Details who we are
     GoRoute(
       name: aboutRouteName,
-      path: '/about',
+      path: aboutRoutePath,
       builder: (context, state) => const AboutScreen(),
     ),
   ],

@@ -1,3 +1,4 @@
+import 'package:explorer_ui/src/configuration/routes.dart';
 import 'package:explorer_ui/src/providers/asset_search_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -101,7 +102,7 @@ class _AssetSearchFormState extends ConsumerState<AssetSearchForm> {
                 // We update the provider with what the user is searching for
                 ref.watch(assetSearchQueryProvider.notifier).setQuery(value);
                 // We go the search page where results are displayed (if not already on it).
-                context.go(Uri(path: '/search', queryParameters: {'q': value}).toString());
+                context.go(Uri(path: assetSearchRoutePath, queryParameters: {queryParameter: value}).toString());
               }
               // Valid or not, we set the focus
               _focusNode.requestFocus();
