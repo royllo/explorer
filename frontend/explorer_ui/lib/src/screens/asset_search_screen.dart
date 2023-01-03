@@ -1,4 +1,5 @@
 import 'package:explorer_ui/src/configuration/routes.dart';
+import 'package:explorer_ui/src/providers/asset_get_provider.dart';
 import 'package:explorer_ui/src/providers/asset_search_provider.dart';
 import 'package:explorer_ui/src/widgets/default_app_bar.dart';
 import 'package:explorer_ui/src/widgets/default_bottom_navigation_bart.dart';
@@ -60,7 +61,7 @@ class AssetSearchScreen extends ConsumerWidget {
                     data: (result) {
                       // If there is no result!
                       if (result.data?.queryAssets?.totalPages == 0) {
-                        return Text("No result for '${ref.watch(assetSearchQueryProvider).query}'");
+                        return Text("No result for '${ref.read(assetSearchQueryProvider)}'");
                       }
                       var builder = result.data?.queryAssets?.content?.toBuilder();
                       return ListView.builder(
@@ -72,7 +73,15 @@ class AssetSearchScreen extends ConsumerWidget {
                             leading: const CircleAvatar(),
                             title: Text("${builder?[index]?.name}"),
                             subtitle: Text('Asset id: ${builder?[index]?.assetId}'),
-                            trailing: const Icon(Icons.help),
+                            onTap: () {
+                              var assetId = builder?[index]?.assetId ?? "";
+                              ref.watch(assetByAssetIdQueryProvider.notifier).setAssetId(assetId);
+                              // We change the url
+                              context.go(Uri(
+                                  path: '/assets/${assetId}',
+                                  queryParameters: {}).toString()
+                              );
+                            },
                           );
                         },
                       );

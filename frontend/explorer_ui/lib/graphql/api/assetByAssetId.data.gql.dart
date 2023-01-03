@@ -4,7 +4,6 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:explorer_ui/graphql/api/schema.schema.gql.dart' as _i2;
 import 'package:explorer_ui/graphql/api/serializers.gql.dart' as _i1;
 
 part 'assetByAssetId.data.gql.g.dart';
@@ -90,7 +89,6 @@ abstract class GassetByAssetIdData_assetByAssetId_genesisPoint
   String? get scriptPubKeyAsm;
   String? get scriptPubKeyType;
   String? get scriptPubKeyAddress;
-  _i2.GBigDecimal? get value;
   static Serializer<GassetByAssetIdData_assetByAssetId_genesisPoint>
       get serializer =>
           _$gassetByAssetIdDataAssetByAssetIdGenesisPointSerializer;

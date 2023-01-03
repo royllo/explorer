@@ -8,8 +8,7 @@ query assetByAssetId($assetId: ID!) {
             scriptPubKey,
             scriptPubKeyAsm,
             scriptPubKeyType,
-            scriptPubKeyAddress,
-            value
+            scriptPubKeyAddress
         }
         creator {
             id,

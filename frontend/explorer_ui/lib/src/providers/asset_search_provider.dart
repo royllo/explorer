@@ -15,6 +15,7 @@ part 'asset_search_provider.g.dart';
 // - Class AssetSearchQueryNotifier is an observable class that stores a single immutable state and manipulation values
 // - Class AssetSearchQuery represents what the user is searching for and which page to display
 
+/// This method calls the query asset.
 /// FutureProvider is the equivalent of Provider but for asynchronous code.
 @riverpod
 Future<OperationResponse<GqueryAssetsData, GqueryAssetsVars>> callQueryAssets(CallQueryAssetsRef ref) async {
@@ -29,7 +30,7 @@ Future<OperationResponse<GqueryAssetsData, GqueryAssetsVars>> callQueryAssets(Ca
   return client.request(request).first;
 }
 
-  /// We are using StateNotifierProvider to allows the UI to interact with the AssetSearchQueryNotifier
+/// We are using StateNotifierProvider to allows the UI to interact with the AssetSearchQueryNotifier
 final assetSearchQueryProvider = StateNotifierProvider<AssetSearchQueryNotifier, AssetSearchQuery>((ref) {
   return AssetSearchQueryNotifier();
 });
@@ -62,8 +63,8 @@ class AssetSearchQueryNotifier extends StateNotifier<AssetSearchQuery> {
     }
   }
 
-  /// Returns the search query
-  AssetSearchQuery getSearchQuery() => state;
+  /// Returns the query
+  AssetSearchQuery getQuery() => state;
 }
 
 /// AssetSearchQuery represents what the user is searching for and which page to display

@@ -245,13 +245,6 @@ class _$GassetByAssetIdData_assetByAssetId_genesisPointSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.value;
-    if (value != null) {
-      result
-        ..add('value')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GBigDecimal)));
-    }
     return result;
   }
 
@@ -298,11 +291,6 @@ class _$GassetByAssetIdData_assetByAssetId_genesisPointSerializer
         case 'scriptPubKeyAddress':
           result.scriptPubKeyAddress = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
-          break;
-        case 'value':
-          result.value.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GBigDecimal))!
-              as _i2.GBigDecimal);
           break;
       }
     }
@@ -701,8 +689,6 @@ class _$GassetByAssetIdData_assetByAssetId_genesisPoint
   final String? scriptPubKeyType;
   @override
   final String? scriptPubKeyAddress;
-  @override
-  final _i2.GBigDecimal? value;
 
   factory _$GassetByAssetIdData_assetByAssetId_genesisPoint(
           [void Function(
@@ -720,8 +706,7 @@ class _$GassetByAssetIdData_assetByAssetId_genesisPoint
       this.scriptPubKey,
       this.scriptPubKeyAsm,
       this.scriptPubKeyType,
-      this.scriptPubKeyAddress,
-      this.value})
+      this.scriptPubKeyAddress})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
         r'GassetByAssetIdData_assetByAssetId_genesisPoint', 'G__typename');
@@ -753,8 +738,7 @@ class _$GassetByAssetIdData_assetByAssetId_genesisPoint
         scriptPubKey == other.scriptPubKey &&
         scriptPubKeyAsm == other.scriptPubKeyAsm &&
         scriptPubKeyType == other.scriptPubKeyType &&
-        scriptPubKeyAddress == other.scriptPubKeyAddress &&
-        value == other.value;
+        scriptPubKeyAddress == other.scriptPubKeyAddress;
   }
 
   @override
@@ -765,16 +749,14 @@ class _$GassetByAssetIdData_assetByAssetId_genesisPoint
                 $jc(
                     $jc(
                         $jc(
-                            $jc(
-                                $jc($jc(0, G__typename.hashCode),
-                                    blockHeight.hashCode),
-                                txId.hashCode),
-                            vout.hashCode),
-                        scriptPubKey.hashCode),
-                    scriptPubKeyAsm.hashCode),
-                scriptPubKeyType.hashCode),
-            scriptPubKeyAddress.hashCode),
-        value.hashCode));
+                            $jc($jc(0, G__typename.hashCode),
+                                blockHeight.hashCode),
+                            txId.hashCode),
+                        vout.hashCode),
+                    scriptPubKey.hashCode),
+                scriptPubKeyAsm.hashCode),
+            scriptPubKeyType.hashCode),
+        scriptPubKeyAddress.hashCode));
   }
 
   @override
@@ -788,8 +770,7 @@ class _$GassetByAssetIdData_assetByAssetId_genesisPoint
           ..add('scriptPubKey', scriptPubKey)
           ..add('scriptPubKeyAsm', scriptPubKeyAsm)
           ..add('scriptPubKeyType', scriptPubKeyType)
-          ..add('scriptPubKeyAddress', scriptPubKeyAddress)
-          ..add('value', value))
+          ..add('scriptPubKeyAddress', scriptPubKeyAddress))
         .toString();
   }
 }
@@ -835,11 +816,6 @@ class GassetByAssetIdData_assetByAssetId_genesisPointBuilder
   set scriptPubKeyAddress(String? scriptPubKeyAddress) =>
       _$this._scriptPubKeyAddress = scriptPubKeyAddress;
 
-  _i2.GBigDecimalBuilder? _value;
-  _i2.GBigDecimalBuilder get value =>
-      _$this._value ??= new _i2.GBigDecimalBuilder();
-  set value(_i2.GBigDecimalBuilder? value) => _$this._value = value;
-
   GassetByAssetIdData_assetByAssetId_genesisPointBuilder() {
     GassetByAssetIdData_assetByAssetId_genesisPoint._initializeBuilder(this);
   }
@@ -855,7 +831,6 @@ class GassetByAssetIdData_assetByAssetId_genesisPointBuilder
       _scriptPubKeyAsm = $v.scriptPubKeyAsm;
       _scriptPubKeyType = $v.scriptPubKeyType;
       _scriptPubKeyAddress = $v.scriptPubKeyAddress;
-      _value = $v.value?.toBuilder();
       _$v = null;
     }
     return this;
@@ -878,37 +853,21 @@ class GassetByAssetIdData_assetByAssetId_genesisPointBuilder
   GassetByAssetIdData_assetByAssetId_genesisPoint build() => _build();
 
   _$GassetByAssetIdData_assetByAssetId_genesisPoint _build() {
-    _$GassetByAssetIdData_assetByAssetId_genesisPoint _$result;
-    try {
-      _$result = _$v ??
-          new _$GassetByAssetIdData_assetByAssetId_genesisPoint._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename,
-                  r'GassetByAssetIdData_assetByAssetId_genesisPoint',
-                  'G__typename'),
-              blockHeight: blockHeight,
-              txId: BuiltValueNullFieldError.checkNotNull(txId,
-                  r'GassetByAssetIdData_assetByAssetId_genesisPoint', 'txId'),
-              vout: BuiltValueNullFieldError.checkNotNull(vout,
-                  r'GassetByAssetIdData_assetByAssetId_genesisPoint', 'vout'),
-              scriptPubKey: scriptPubKey,
-              scriptPubKeyAsm: scriptPubKeyAsm,
-              scriptPubKeyType: scriptPubKeyType,
-              scriptPubKeyAddress: scriptPubKeyAddress,
-              value: _value?.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'value';
-        _value?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GassetByAssetIdData_assetByAssetId_genesisPoint',
-            _$failedField,
-            e.toString());
-      }
-      rethrow;
-    }
+    final _$result = _$v ??
+        new _$GassetByAssetIdData_assetByAssetId_genesisPoint._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename,
+                r'GassetByAssetIdData_assetByAssetId_genesisPoint',
+                'G__typename'),
+            blockHeight: blockHeight,
+            txId: BuiltValueNullFieldError.checkNotNull(txId,
+                r'GassetByAssetIdData_assetByAssetId_genesisPoint', 'txId'),
+            vout: BuiltValueNullFieldError.checkNotNull(vout,
+                r'GassetByAssetIdData_assetByAssetId_genesisPoint', 'vout'),
+            scriptPubKey: scriptPubKey,
+            scriptPubKeyAsm: scriptPubKeyAsm,
+            scriptPubKeyType: scriptPubKeyType,
+            scriptPubKeyAddress: scriptPubKeyAddress);
     replace(_$result);
     return _$result;
   }

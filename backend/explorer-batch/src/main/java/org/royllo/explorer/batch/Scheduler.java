@@ -29,7 +29,7 @@ public class Scheduler extends BaseConfiguration {
     private static final int START_DELAY_IN_MILLISECONDS = 1_000;
 
     /** Delay between two calls to process requests (1 000 ms = 1 second). */
-    private static final int DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS = 1_000;
+    private static final int DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS = 100_000;
 
     /** Termination delay in milliseconds (10 000 ms = 10 seconds). */
     private static final int TERMINATION_DELAY_IN_MILLISECONDS = 10_000;
