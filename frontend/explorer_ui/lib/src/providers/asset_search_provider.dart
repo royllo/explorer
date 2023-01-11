@@ -84,7 +84,7 @@ class AssetSearchQuery {
       : this.query = "",
         this.page = firstPage;
 
-  /// Constructor (Page number is optional and first one is defined by "firstPage")
+  /// Constructor (Page number is optional and first one is defined by the "firstPage" const)
   const AssetSearchQuery(this.query, {this.page = firstPage}) : assert(page >= firstPage, "Page number starts at ${firstPage}");
 
   /// Returns true if there is not query to make

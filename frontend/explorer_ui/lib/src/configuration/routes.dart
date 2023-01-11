@@ -56,7 +56,7 @@ final roylloRouter = GoRouter(
           String assetId = state.params[assetIdParameter] ?? '';
           // ===================================================================
 
-          return const AssetViewScreen();
+          return AssetViewScreen(assetId: assetId);
         }),
     // =========================================================================
     // About page - Details who we are
