@@ -98,10 +98,11 @@
     <!-- =========================================================================================================== -->
     <!-- Modules -->
     <modules>
-        <module>backend/explorer-database</module>
-        <module>backend/explorer-core</module>
-        <module>backend/explorer-batch</module>
-        <module>backend/explorer-api</module>
+        <module>sources/explorer-database</module>
+        <module>sources/explorer-core</module>
+        <module>sources/explorer-batch</module>
+        <module>sources/explorer-api</module>
+        <module>sources/explorer-web</module>
     </modules>
     <!-- =========================================================================================================== -->
 

@@ -19,12 +19,3 @@ updates:
       time: "18:00"
       timezone: "Europe/Paris"
     target-branch: development
-
-  - package-ecosystem: pub
-    directory: "/frontend/explorer_ui"
-    schedule:
-      interval: "weekly"
-      day: "sunday"
-      time: "18:00"
-      timezone: "Europe/Paris"
-    target-branch: development

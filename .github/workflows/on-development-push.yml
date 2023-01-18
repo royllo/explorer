@@ -22,13 +22,6 @@ jobs:
           java-version: '17'
 
       # ================================================================================================================
-      - name: Flutter setup
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.3.10'
-          channel: 'stable'
-
-      # ================================================================================================================
       - name: Get release number
         id: release
         run: echo "version=$(mvn help:evaluate -D expression=project.version -q -D forceStdout)" >> $GITHUB_OUTPUT
@@ -41,18 +34,11 @@ jobs:
           mvn clean install -Dmaven.test.skip
 
       # ================================================================================================================
-      - name: Run frontend tests & build artifacts
-        working-directory: frontend/explorer_ui
-        run: |
-          flutter test
-          flutter build web --web-renderer html
-
-      # ================================================================================================================
       - name: Build docker images
         run: |
           mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-batch/pom.xml
           mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-api/pom.xml
-          docker build -t royllo/explorer-www:latest -f frontend/explorer_ui/Dockerfile frontend/explorer_ui/
+          mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-web/pom.xml
 
       # ================================================================================================================
       - name: Run the docker-compose with our images
@@ -88,10 +74,10 @@ jobs:
         run: |
           docker tag royllo/explorer-batch:latest royllo/explorer-batch:${{ steps.release.outputs.version }}
           docker tag royllo/explorer-api:latest royllo/explorer-api:${{ steps.release.outputs.version }}
-          docker tag royllo/explorer-www:latest royllo/explorer-www:${{ steps.release.outputs.version }}
+          docker tag royllo/explorer-web:latest royllo/explorer-web:${{ steps.release.outputs.version }}
           docker push royllo/explorer-batch:latest
           docker push royllo/explorer-batch:${{ steps.release.outputs.version }}
           docker push royllo/explorer-api:latest
           docker push royllo/explorer-api:${{ steps.release.outputs.version }}
-          docker push royllo/explorer-www:latest
-          docker push royllo/explorer-www:${{ steps.release.outputs.version }}
+          docker push royllo/explorer-web:latest
+          docker push royllo/explorer-web:${{ steps.release.outputs.version }}
