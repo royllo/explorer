@@ -18,9 +18,9 @@ class AssetViewScreen extends ConsumerWidget {
   // The framework replaces the subtree below this widget with the widget returned by this method
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print("=> ${assetId}");
     // Update asset it and wait for the result.
-    // ref.read(assetByAssetIdQueryProvider.notifier).setAssetId(assetId);
-    final result = ref.watch(callAssetByAssetIdProvider);
+    final result = ref.watch(callAssetByAssetIdProvider(AssetByAssetIdQuery(assetId)));
 
     return Scaffold(
       // =====================================================================

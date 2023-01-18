@@ -5,8 +5,9 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 
 // This function tells Dart where the program starts, and it must be in the file that is considered the "entry point" for you program.
 void main() {
+  // TODO When removing '#' in URL, I get strange 404 errors.
   // By default, with flutter, paths are read and written with an hash. With this method, paths are read and written without a hash.
-  usePathUrlStrategy();
+  //usePathUrlStrategy();
 
   //  runApp inflates the given widget and attach it to the screen.
   runApp(

@@ -1,8 +1,14 @@
+import 'dart:developer';
+
+import 'package:explorer_ui/src/providers/asset_search_provider.dart';
 import 'package:explorer_ui/src/screens/about_screen.dart';
 import 'package:explorer_ui/src/screens/asset_search_screen.dart';
 import 'package:explorer_ui/src/screens/asset_view_screen.dart';
 import 'package:explorer_ui/src/screens/home_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
+// TODO Create a page object to keep configuration
 
 /// Parameters
 const String queryParameter = 'query';
@@ -21,6 +27,7 @@ const String aboutRoutePath = '/about';
 
 /// A routing package for Flutter that uses the Router API to provide a url-based API for navigating between different screens
 final roylloRouter = GoRouter(
+  initialLocation: homeRoutePath,
   routes: [
     // =========================================================================
     // Home page

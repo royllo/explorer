@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:explorer_ui/src/configuration/routes.dart';
 import 'package:explorer_ui/src/providers/asset_get_provider.dart';
 import 'package:explorer_ui/src/providers/asset_search_provider.dart';
@@ -75,7 +77,7 @@ class AssetSearchScreen extends ConsumerWidget {
                             subtitle: Text('Asset id: ${builder?[index]?.assetId}'),
                             onTap: () {
                               var assetId = builder?[index]?.assetId ?? "";
-                              ref.watch(assetByAssetIdQueryProvider.notifier).setAssetId(assetId);
+                              // ref.watch(assetByAssetIdQueryProvider(AssetByAssetIdQuery(assetId)));
                               // We change the url
                               context.go(Uri(
                                   path: '/assets/${assetId}',

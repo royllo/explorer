@@ -13,9 +13,10 @@ part 'asset_get_provider.g.dart';
 /// This method calls the query asset.
 /// FutureProvider is the equivalent of Provider but for asynchronous code.
 @riverpod
-Future<OperationResponse<GassetByAssetIdData, GassetByAssetIdVars>> callAssetByAssetId(CallAssetByAssetIdRef ref) async {
+Future<OperationResponse<GassetByAssetIdData, GassetByAssetIdVars>> callAssetByAssetId(CallAssetByAssetIdRef ref, AssetByAssetIdQuery value) async {
   // We use `ref.watch` to listen to another provider, and we pass it the provider that we want to consume.
-  final assetByAssetIdQuery = ref.watch(assetByAssetIdQueryProvider);
+  final assetByAssetIdQuery = ref.watch(assetByAssetIdQueryProvider(value));
+  print("lllll");
 
   // We run the query with the parameters
   final request = GassetByAssetIdReq((b) => b
@@ -30,15 +31,17 @@ Future<OperationResponse<GassetByAssetIdData, GassetByAssetIdVars>> callAssetByA
 }
 
 /// We are using StateNotifierProvider to allows the UI to interact with the AssetByAssetIdQueryNotifier
-final assetByAssetIdQueryProvider = StateNotifierProvider<AssetByAssetIdQueryNotifier, AssetByAssetIdQuery>((ref) {
-  return AssetByAssetIdQueryNotifier();
+final assetByAssetIdQueryProvider = StateNotifierProvider.family<AssetByAssetIdQueryNotifier, AssetByAssetIdQuery, AssetByAssetIdQuery>((ref, assetByAssetIdQuery) {
+  return AssetByAssetIdQueryNotifier(assetByAssetIdQuery);
 });
 
 /// StateNotifier is an observable class that stores a single immutable state
 /// The StateNotifier class that will be passed to our StateNotifierProvider
 /// The public methods on this class will be what allow the UI to modify the state
 class AssetByAssetIdQueryNotifier extends StateNotifier<AssetByAssetIdQuery> {
-  AssetByAssetIdQueryNotifier() : super(AssetByAssetIdQuery.empty());
+  /// Constructors
+  AssetByAssetIdQueryNotifier.empty() : super(AssetByAssetIdQuery.empty());
+  AssetByAssetIdQueryNotifier(AssetByAssetIdQuery initialeValue) : super(initialeValue);
 
   /// Set asset id
   void setAssetId(String assetId) {

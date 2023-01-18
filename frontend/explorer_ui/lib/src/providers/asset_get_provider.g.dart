@@ -30,19 +30,83 @@ class _SystemHash {
 }
 
 String _$callAssetByAssetIdHash() =>
-    r'adb5e9ccebe08ff9f2ee953ea97a8e0c0191aada';
+    r'e753722679d329b8df9f2ae0a00143a683925441';
 
 /// This method calls the query asset.
 /// FutureProvider is the equivalent of Provider but for asynchronous code.
 ///
 /// Copied from [callAssetByAssetId].
-final callAssetByAssetIdProvider = AutoDisposeFutureProvider<
-    OperationResponse<GassetByAssetIdData, GassetByAssetIdVars>>(
-  callAssetByAssetId,
-  name: r'callAssetByAssetIdProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$callAssetByAssetIdHash,
-);
+class CallAssetByAssetIdProvider extends AutoDisposeFutureProvider<
+    OperationResponse<GassetByAssetIdData, GassetByAssetIdVars>> {
+  CallAssetByAssetIdProvider(
+    this.value,
+  ) : super(
+          (ref) => callAssetByAssetId(
+            ref,
+            value,
+          ),
+          from: callAssetByAssetIdProvider,
+          name: r'callAssetByAssetIdProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$callAssetByAssetIdHash,
+        );
+
+  final AssetByAssetIdQuery value;
+
+  @override
+  bool operator ==(Object other) {
+    return other is CallAssetByAssetIdProvider && other.value == value;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, value.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
 typedef CallAssetByAssetIdRef = AutoDisposeFutureProviderRef<
     OperationResponse<GassetByAssetIdData, GassetByAssetIdVars>>;
+
+/// This method calls the query asset.
+/// FutureProvider is the equivalent of Provider but for asynchronous code.
+///
+/// Copied from [callAssetByAssetId].
+final callAssetByAssetIdProvider = CallAssetByAssetIdFamily();
+
+class CallAssetByAssetIdFamily extends Family<
+    AsyncValue<OperationResponse<GassetByAssetIdData, GassetByAssetIdVars>>> {
+  CallAssetByAssetIdFamily();
+
+  CallAssetByAssetIdProvider call(
+    AssetByAssetIdQuery value,
+  ) {
+    return CallAssetByAssetIdProvider(
+      value,
+    );
+  }
+
+  @override
+  AutoDisposeFutureProvider<
+          OperationResponse<GassetByAssetIdData, GassetByAssetIdVars>>
+      getProviderOverride(
+    covariant CallAssetByAssetIdProvider provider,
+  ) {
+    return call(
+      provider.value,
+    );
+  }
+
+  @override
+  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+
+  @override
+  List<ProviderOrFamily>? get dependencies => null;
+
+  @override
+  String? get name => r'callAssetByAssetIdProvider';
+}
