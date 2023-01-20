@@ -1,4 +1,4 @@
-package org.royllo.explorer.web;
+package org.royllo.explorer.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +18,7 @@ public class HomeController {
      */
     @GetMapping("/")
     public String home(final Model model) {
+        System.out.printf("- 2 -");
         return "home";
     }
 
