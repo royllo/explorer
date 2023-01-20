@@ -1,12 +1,10 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace=="fragments/head::head"/>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/default_layout}">
 
-
-<body>
-
-Ici !
-<p th:text="#{home.welcome}"/>
-
-</body>
-</html>
+<!-- =============================================================================================================== -->
+<section layout:fragment="content">
+        Plus simple !
+        This is my content
+        <p th:text="#{home.welcome}"/>
+</section>
+<!-- =============================================================================================================== -->
