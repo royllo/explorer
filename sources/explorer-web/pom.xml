@@ -76,7 +76,7 @@
                 <!-- Docker image configuration -->
                 <configuration>
                     <image>
-                        <name>royllo/explorer-www:latest</name>
+                        <name>royllo/explorer-web:latest</name>
                     </image>
                     <mainClass>org.royllo.explorer.web.Application</mainClass>
                 </configuration>
