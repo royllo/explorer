@@ -1,5 +1,4 @@
 version: 2
-enable-beta-ecosystems: true
 updates:
 
   - package-ecosystem: github-actions
@@ -20,8 +19,8 @@ updates:
       timezone: "Europe/Paris"
     target-branch: development
 
-  - package-ecosystem: pub
-    directory: "/frontend/explorer_ui"
+  - package-ecosystem: npm
+    directory: "/sources/explorer-web"
     schedule:
       interval: "weekly"
       day: "sunday"

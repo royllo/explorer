@@ -72,17 +72,21 @@ services:
       - com.centurylinklabs.watchtower.enable=true
 
   # ====================================================================================================================
-  # Royllo explorer WWW server.
-  royllo-explorer-www-server:
-    image: royllo/explorer-www:latest
+  # Royllo explorer web server.
+  royllo-explorer-web-server:
+    image: royllo/explorer-web:latest
     depends_on:
-      - royllo-explorer-api-server
+      - royllo-explorer-batch-server
     networks:
       - royllo-explorer-network
     ports:
-      - "8080:80"
+      - "8080:8080"
     environment:
       - TZ=Europe/Paris
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://royllo-explorer-database-server/royllo_explorer_database
+      - SPRING_DATASOURCE_USERNAME=royllo_explorer_username
+      - SPRING_DATASOURCE_PASSWORD=Q5QnE5S%Y]qt7
     labels:
       - com.centurylinklabs.watchtower.enable=true
 

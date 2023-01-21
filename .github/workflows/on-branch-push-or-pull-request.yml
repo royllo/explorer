@@ -25,32 +25,18 @@ jobs:
           java-version: '17'
 
       # ================================================================================================================
-      - name: Flutter setup
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.3.10'
-          channel: 'stable'
-
-      # ================================================================================================================
       - name: Run backend tests & build artifacts
         run: |
           mvn clean test
           mvn clean test -P integration
-          mvn clean install -Dmaven.test.skip
-
-      # ================================================================================================================
-      - name: Run frontend tests & build artifacts
-        working-directory: frontend/explorer_ui
-        run: |
-          flutter test
-          flutter build web --web-renderer html
+          mvn clean install -P release -Dmaven.test.skip
 
       # ================================================================================================================
       - name: Build docker images
         run: |
-          mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-batch/pom.xml
-          mvn spring-boot:build-image -Dmaven.test.skip -f backend/explorer-api/pom.xml
-          docker build -t royllo/explorer-www:latest -f frontend/explorer_ui/Dockerfile frontend/explorer_ui/
+          mvn spring-boot:build-image -P release -Dmaven.test.skip -f sources/explorer-batch/pom.xml
+          mvn spring-boot:build-image -P release -Dmaven.test.skip -f sources/explorer-api/pom.xml
+          mvn spring-boot:build-image -P release -Dmaven.test.skip -f sources/explorer-web/pom.xml
 
       # ================================================================================================================
       - name: Run the docker-compose with our images

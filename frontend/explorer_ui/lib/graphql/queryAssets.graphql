@@ -1,9 +1,0 @@
-query queryAssets($query: String!, $page: Int) {
-    queryAssets(query: $query, page: $page) {
-        content {
-            assetId,
-            name
-        },
-        totalPages
-    }
-}

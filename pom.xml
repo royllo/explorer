@@ -80,6 +80,12 @@
         <lombok.mapstruct.version>0.2.0</lombok.mapstruct.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
 
+        <thymeleaf-layout-dialect.version>3.1.0</thymeleaf-layout-dialect.version>
+
+        <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
+        <frontend-maven-plugin.nodeVersion>v19.4.0</frontend-maven-plugin.nodeVersion>
+        <frontend-maven-plugin.npmVersion>9.3.0</frontend-maven-plugin.npmVersion>
+
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
         <testcontainers.version>1.17.6</testcontainers.version>
@@ -98,10 +104,11 @@
     <!-- =========================================================================================================== -->
     <!-- Modules -->
     <modules>
-        <module>backend/explorer-database</module>
-        <module>backend/explorer-core</module>
-        <module>backend/explorer-batch</module>
-        <module>backend/explorer-api</module>
+        <module>sources/explorer-database</module>
+        <module>sources/explorer-core</module>
+        <module>sources/explorer-batch</module>
+        <module>sources/explorer-api</module>
+        <module>sources/explorer-web</module>
     </modules>
     <!-- =========================================================================================================== -->
 
