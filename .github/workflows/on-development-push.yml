@@ -31,14 +31,14 @@ jobs:
         run: |
           mvn clean test
           mvn clean test -P integration
-          mvn clean install -Dmaven.test.skip
+          mvn clean install -P release -Dmaven.test.skip
 
       # ================================================================================================================
       - name: Build docker images
         run: |
-          mvn spring-boot:build-image -Dmaven.test.skip -f sources/explorer-batch/pom.xml
-          mvn spring-boot:build-image -Dmaven.test.skip -f sources/explorer-api/pom.xml
-          mvn spring-boot:build-image -Dmaven.test.skip -f sources/explorer-web/pom.xml
+          mvn spring-boot:build-image -P release -Dmaven.test.skip -f sources/explorer-batch/pom.xml
+          mvn spring-boot:build-image -P release -Dmaven.test.skip -f sources/explorer-api/pom.xml
+          mvn spring-boot:build-image -P release -Dmaven.test.skip -f sources/explorer-web/pom.xml
 
       # ================================================================================================================
       - name: Run the docker-compose with our images

@@ -18,7 +18,7 @@ public class HomeController {
      */
     @GetMapping("/")
     public String home(final Model model) {
-        System.out.printf("- 2 -");
+        System.out.printf("Mise a jour");
         return "home";
     }
 
