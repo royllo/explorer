@@ -6,10 +6,17 @@
 
     <!-- =========================================================================================================== -->
     <!-- Project information -->
-    <artifactId>explorer-core</artifactId>
+    <artifactId>explorer-web</artifactId>
     <packaging>jar</packaging>
-    <name>[Backend] Royllo Explorer core</name>
-    <description>Contains domain, repository, dto, services, util</description>
+    <name>Royllo Explorer web server</name>
+    <description>Includes core - Contains the web application</description>
+    <!-- ==========Backend] ================================================================================================= -->
+
+    <!-- =========================================================================================================== -->
+    <!-- Properties -->
+    <properties>
+        <start-class>org.royllo.explorer.web.Application</start-class>
+    </properties>
     <!-- =========================================================================================================== -->
 
     <!-- =========================================================================================================== -->
@@ -18,52 +25,23 @@
         <!-- Royllo dependencies -->
         <dependency>
             <groupId>org.royllo.explorer</groupId>
-            <artifactId>explorer-database</artifactId>
+            <artifactId>explorer-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
 
-        <!-- Spring -->
+        <!-- Web dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
-        </dependency>
-
-        <!-- Reactor -->
-        <dependency>
-            <groupId>io.projectreactor</groupId>
-            <artifactId>reactor-core</artifactId>
-            <version>${reactor-core.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.projectreactor.netty</groupId>
-            <artifactId>reactor-netty</artifactId>
-            <version>${reactor-netty.version}</version>
-        </dependency>
-
-        <!-- Database dependencies -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-            <version>${jdbc.driver.hsqldb.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${jdbc.driver.postgresql.version}</version>
-        </dependency>
-
-        <!-- Others -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-joda</artifactId>
+            <groupId>nz.net.ultraq.thymeleaf</groupId>
+            <artifactId>thymeleaf-layout-dialect</artifactId>
+            <version>${thymeleaf-layout-dialect.version}</version>
         </dependency>
 
         <!-- Util dependencies -->
@@ -74,9 +52,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${mapstruct.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <version>2.7.8</version>
+            <optional>true</optional>
         </dependency>
 
         <!-- Test dependencies -->
@@ -85,19 +64,43 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>${mockito-core.version}</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
     <!-- =========================================================================================================== -->
 
     <!-- =========================================================================================================== -->
     <!-- Build configuration -->
     <build>
+        <!-- As we copy our HTML, CSS & JS with NPM, we need to disable Maven from copying those files -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>**/*.html</exclude>
+                    <exclude>**/*.css</exclude>
+                    <exclude>**/*.js</exclude>
+                    <exclude>**/*.svg</exclude>
+                </excludes>
+            </resource>
+        </resources>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- Docker image configuration -->
+                <configuration>
+                    <image>
+                        <name>royllo/explorer-web:latest</name>
+                    </image>
+                    <mainClass>org.royllo.explorer.web.Application</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <!-- Checkstyle verification -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -119,8 +122,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <excludes>**/mapper/**/*</excludes>
-                    <excludes>**/generated-sources/**</excludes>
+                    <excludes>**/**generated**/**/*</excludes>
                     <consoleOutput>true</consoleOutput>
                     <configLocation>${project.parent.basedir}/checkstyle.xml</configLocation>
                     <failOnViolation>true</failOnViolation>
@@ -170,25 +172,73 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <!-- Plugin to manage the client generation (html, css, js). -->
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>${frontend-maven-plugin.version}</version>
+            </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.github.eirslett</groupId>
+                    <artifactId>frontend-maven-plugin</artifactId>
+                    <version>${frontend-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>install-frontend-tooling</id>
+                            <goals>
+                                <goal>install-node-and-npm</goal>
+                            </goals>
+                            <configuration>
+                                <nodeVersion>${frontend-maven-plugin.nodeVersion}</nodeVersion>
+                                <npmVersion>${frontend-maven-plugin.npmVersion}</npmVersion>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>run-npm-install</id>
+                            <goals>
+                                <goal>npm</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>run-npm-build</id>
+                            <goals>
+                                <goal>npm</goal>
+                            </goals>
+                            <configuration>
+                                <arguments>run build</arguments>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
     <!-- =========================================================================================================== -->
 
     <!-- =========================================================================================================== -->
-    <!-- Profiles -->
+    <!-- Profile used to run production -->
     <profiles>
         <profile>
-            <id>integration</id>
+            <id>release</id>
             <build>
                 <plugins>
                     <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <excludes>
-                                <exclude>**/core/**</exclude>
-                                <exclude>**/issues/**</exclude>
-                            </excludes>
-                        </configuration>
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>run-npm-build</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>run build:prod</arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
@@ -202,7 +252,7 @@
         <groupId>org.royllo.explorer</groupId>
         <artifactId>explorer</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
     <!-- =========================================================================================================== -->
 

@@ -9,7 +9,7 @@
     <groupId>org.royllo.explorer</groupId>
     <artifactId>explorer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Taro Explorer</name>
+    <name>Royllo, a Taro asset explorer</name>
     <description>Taro explorer allows you to search for Taro assets created on the Bitcoin blockchain</description>
     <packaging>pom</packaging>
     <url>https://github.com/royllo/explorer</url>
@@ -64,7 +64,7 @@
 
         <!-- ======================================================================================================= -->
         <!-- Project libraries -->
-        <spring.version>2.7.7</spring.version>
+        <spring.version>2.7.8</spring.version>
         <reactor-core.version>3.5.2</reactor-core.version>
         <reactor-netty.version>1.1.2</reactor-netty.version>
 
@@ -82,10 +82,6 @@
 
         <thymeleaf-layout-dialect.version>3.2.0</thymeleaf-layout-dialect.version>
 
-        <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
-        <frontend-maven-plugin.nodeVersion>v19.4.0</frontend-maven-plugin.nodeVersion>
-        <frontend-maven-plugin.npmVersion>9.3.0</frontend-maven-plugin.npmVersion>
-
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
         <testcontainers.version>1.17.6</testcontainers.version>
@@ -98,17 +94,21 @@
         <maven.graphqlcodegen.plugin.version>1.27</maven.graphqlcodegen.plugin.version>
         <maven.puppycrawl.checkstyle.version>10.6.0</maven.puppycrawl.checkstyle.version>
         <maven.compiler.plugin.version>3.10.1</maven.compiler.plugin.version>
+
+        <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
+        <frontend-maven-plugin.nodeVersion>v19.4.0</frontend-maven-plugin.nodeVersion>
+        <frontend-maven-plugin.npmVersion>9.3.0</frontend-maven-plugin.npmVersion>
     </properties>
     <!-- =========================================================================================================== -->
 
     <!-- =========================================================================================================== -->
     <!-- Modules -->
     <modules>
-        <module>sources/explorer-database</module>
-        <module>sources/explorer-core</module>
-        <module>sources/explorer-batch</module>
-        <module>sources/explorer-api</module>
-        <module>sources/explorer-web</module>
+        <module>backend/core/explorer-database</module>
+        <module>backend/core/explorer-core</module>
+        <module>backend/servers/explorer-batch</module>
+        <module>backend/servers/explorer-api</module>
+        <module>backend/servers/explorer-web</module>
     </modules>
     <!-- =========================================================================================================== -->
 

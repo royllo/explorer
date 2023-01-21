@@ -7,8 +7,8 @@
     <!-- =========================================================================================================== -->
     <!-- Project information -->
     <artifactId>explorer-batch</artifactId>
-    <packaging>war</packaging>
-    <name>[Backend] Royllo Explorer batch</name>
+    <packaging>jar</packaging>
+    <name>Royllo Explorer batch server</name>
     <description>Includes core - Contains batch classes calling core services</description>
     <!-- =========================================================================================================== -->
 
@@ -189,7 +189,7 @@
         <groupId>org.royllo.explorer</groupId>
         <artifactId>explorer</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
     <!-- =========================================================================================================== -->
 

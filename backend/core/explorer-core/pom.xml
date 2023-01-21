@@ -6,17 +6,10 @@
 
     <!-- =========================================================================================================== -->
     <!-- Project information -->
-    <artifactId>explorer-api</artifactId>
-    <packaging>war</packaging>
-    <name>[Backend] Royllo Explorer API</name>
-    <description>Includes core - Contains a GraphQL layer calling core services</description>
-    <!-- =========================================================================================================== -->
-
-    <!-- =========================================================================================================== -->
-    <!-- Properties -->
-    <properties>
-        <start-class>org.royllo.explorer.api.Application</start-class>
-    </properties>
+    <artifactId>explorer-core</artifactId>
+    <packaging>jar</packaging>
+    <name>Royllo Explorer core</name>
+    <description>Contains domain, repository, dto, services, util</description>
     <!-- =========================================================================================================== -->
 
     <!-- =========================================================================================================== -->
@@ -25,48 +18,49 @@
         <!-- Royllo dependencies -->
         <dependency>
             <groupId>org.royllo.explorer</groupId>
-            <artifactId>explorer-core</artifactId>
+            <artifactId>explorer-database</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
 
-        <!-- Web dependencies -->
+        <!-- Spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
+            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
 
-        <!-- DGS dependencies -->
+        <!-- Reactor -->
         <dependency>
-            <groupId>com.netflix.graphql.dgs</groupId>
-            <artifactId>graphql-dgs-spring-boot-starter</artifactId>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-core</artifactId>
+            <version>${reactor-core.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.netflix.graphql.dgs</groupId>
-            <artifactId>graphql-dgs-subscriptions-websockets-autoconfigure</artifactId>
+            <groupId>io.projectreactor.netty</groupId>
+            <artifactId>reactor-netty</artifactId>
+            <version>${reactor-netty.version}</version>
+        </dependency>
+
+        <!-- Database dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.netflix.graphql.dgs.codegen</groupId>
-            <artifactId>graphql-dgs-codegen-core</artifactId>
-            <version>${graphql-dgs-codegen-core.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.netflix.graphql.dgs.codegen</groupId>
-            <artifactId>graphql-dgs-codegen-client-core</artifactId>
-            <version>${graphql-dgs-codegen-client-core.version}</version>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>${jdbc.driver.hsqldb.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.netflix.graphql.dgs</groupId>
-            <artifactId>graphql-dgs-extended-scalars</artifactId>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${jdbc.driver.postgresql.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.apollographql.federation</groupId>
-            <artifactId>federation-graphql-java-support</artifactId>
-        </dependency>
+
+        <!-- Others -->
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-joda</artifactId>
@@ -78,6 +72,11 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
         </dependency>
 
         <!-- Test dependencies -->
@@ -92,66 +91,13 @@
             <version>${mockito-core.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.netflix.graphql.dgs</groupId>
-            <artifactId>graphql-dgs-mocking</artifactId>
-            <!-- TODO Remove temporary fix : Scope should be set to test -->
-        </dependency>
-        <!-- TODO Remove temporary fix for error : "nested exception is java.lang.NoSuchMethodError" -->
-        <dependency>
-            <groupId>com.graphql-java</groupId>
-            <artifactId>graphql-java</artifactId>
-            <version>19.3</version>
-        </dependency>
-        <!-- We set explorer-database as test dependency, so api project won't run liquidbase -->
-        <dependency>
-            <groupId>org.royllo.explorer</groupId>
-            <artifactId>explorer-database</artifactId>
-            <version>${project.parent.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>5.3.25</version>
-        </dependency>
     </dependencies>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.netflix.graphql.dgs</groupId>
-                <artifactId>graphql-dgs-platform-dependencies</artifactId>
-                <version>${graphql-dgs-platform-dependencies.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
     <!-- =========================================================================================================== -->
 
     <!-- =========================================================================================================== -->
     <!-- Build configuration -->
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <!-- Docker image configuration -->
-                <configuration>
-                    <image>
-                        <name>royllo/explorer-api:latest</name>
-                    </image>
-                    <mainClass>org.royllo.explorer.api.Application</mainClass>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <!-- Checkstyle verification -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -173,64 +119,13 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <excludes>**/**generated**/**/*</excludes>
+                    <excludes>**/mapper/**/*</excludes>
+                    <excludes>**/generated-sources/**</excludes>
                     <consoleOutput>true</consoleOutput>
                     <configLocation>${project.parent.basedir}/checkstyle.xml</configLocation>
                     <failOnViolation>true</failOnViolation>
                     <violationSeverity>warning</violationSeverity>
                 </configuration>
-            </plugin>
-            <!-- DGS Code Generation plugin generates code -->
-            <plugin>
-                <groupId>io.github.deweyjose</groupId>
-                <artifactId>graphqlcodegen-maven-plugin</artifactId>
-                <version>${maven.graphqlcodegen.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <typeMapping>
-                        <Date>java.time.ZonedDateTime</Date>
-                        <BigInteger>java.math.BigInteger</BigInteger>
-                        <BigDecimal>java.math.BigDecimal</BigDecimal>
-                    </typeMapping>
-                    <schemaPaths>
-                        <!-- GraphQL types -->
-                        <param>src/main/resources/schema/bitcoinTransactionOutput.graphqls</param>
-                        <param>src/main/resources/schema/user.graphqls</param>
-                        <param>src/main/resources/schema/asset.graphqls</param>
-                        <param>src/main/resources/schema/request.graphqls</param>
-                        <param>src/main/resources/schema/request-addAsset.graphqls</param>
-                        <param>src/main/resources/schema/request-addAssetMetaData.graphqls</param>
-                        <!-- GraphQL queries -->
-                        <param>src/main/resources/schema/query.graphqls</param>
-                        <!-- GraphQL mutations -->
-                        <param>src/main/resources/schema/mutation.graphqls</param>
-                    </schemaPaths>
-                    <packageName>org.royllo.explorer.api.graphql.generated</packageName>
-                    <generateClient>true</generateClient>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>${project.build.directory}/generated-sources</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <!-- Compilation (with mapstruct & spring boot processor) -->
             <plugin>
@@ -307,7 +202,7 @@
         <groupId>org.royllo.explorer</groupId>
         <artifactId>explorer</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
     <!-- =========================================================================================================== -->
 

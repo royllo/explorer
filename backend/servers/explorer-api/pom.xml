@@ -6,15 +6,16 @@
 
     <!-- =========================================================================================================== -->
     <!-- Project information -->
-    <artifactId>explorer-web</artifactId>
-    <name>[Backend] Royllo Explorer web application</name>
-    <description>Includes core - Contains the web application</description>
+    <artifactId>explorer-api</artifactId>
+    <packaging>jar</packaging>
+    <name>Royllo Explorer API server</name>
+    <description>Includes core - Contains a GraphQL layer calling core services</description>
     <!-- =========================================================================================================== -->
 
     <!-- =========================================================================================================== -->
     <!-- Properties -->
     <properties>
-        <start-class>org.royllo.explorer.web.Application</start-class>
+        <start-class>org.royllo.explorer.api.Application</start-class>
     </properties>
     <!-- =========================================================================================================== -->
 
@@ -35,12 +36,40 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- DGS dependencies -->
+        <dependency>
+            <groupId>com.netflix.graphql.dgs</groupId>
+            <artifactId>graphql-dgs-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>nz.net.ultraq.thymeleaf</groupId>
-            <artifactId>thymeleaf-layout-dialect</artifactId>
-            <version>${thymeleaf-layout-dialect.version}</version>
+            <groupId>com.netflix.graphql.dgs</groupId>
+            <artifactId>graphql-dgs-subscriptions-websockets-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.graphql.dgs.codegen</groupId>
+            <artifactId>graphql-dgs-codegen-core</artifactId>
+            <version>${graphql-dgs-codegen-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.graphql.dgs.codegen</groupId>
+            <artifactId>graphql-dgs-codegen-client-core</artifactId>
+            <version>${graphql-dgs-codegen-client-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.graphql.dgs</groupId>
+            <artifactId>graphql-dgs-extended-scalars</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.apollographql.federation</groupId>
+            <artifactId>federation-graphql-java-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-joda</artifactId>
         </dependency>
 
         <!-- Util dependencies -->
@@ -50,12 +79,6 @@
             <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <version>2.7.8</version>
-            <optional>true</optional>
-        </dependency>
 
         <!-- Test dependencies -->
         <dependency>
@@ -63,24 +86,53 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.graphql.dgs</groupId>
+            <artifactId>graphql-dgs-mocking</artifactId>
+            <!-- TODO Remove temporary fix : Scope should be set to test -->
+        </dependency>
+        <!-- TODO Remove temporary fix for error : "nested exception is java.lang.NoSuchMethodError" -->
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-java</artifactId>
+            <version>19.3</version>
+        </dependency>
+        <!-- We set explorer-database as test dependency, so api project won't run liquidbase -->
+        <dependency>
+            <groupId>org.royllo.explorer</groupId>
+            <artifactId>explorer-database</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>5.3.25</version>
+        </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.netflix.graphql.dgs</groupId>
+                <artifactId>graphql-dgs-platform-dependencies</artifactId>
+                <version>${graphql-dgs-platform-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <!-- =========================================================================================================== -->
 
     <!-- =========================================================================================================== -->
     <!-- Build configuration -->
     <build>
-        <!-- As we copy our HTML, CSS & JS with NPM, we need to disable Maven from copying those files -->
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>**/*.html</exclude>
-                    <exclude>**/*.css</exclude>
-                    <exclude>**/*.js</exclude>
-                    <exclude>**/*.svg</exclude>
-                </excludes>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -88,9 +140,9 @@
                 <!-- Docker image configuration -->
                 <configuration>
                     <image>
-                        <name>royllo/explorer-web:latest</name>
+                        <name>royllo/explorer-api:latest</name>
                     </image>
-                    <mainClass>org.royllo.explorer.web.Application</mainClass>
+                    <mainClass>org.royllo.explorer.api.Application</mainClass>
                 </configuration>
                 <executions>
                     <execution>
@@ -127,6 +179,58 @@
                     <failOnViolation>true</failOnViolation>
                     <violationSeverity>warning</violationSeverity>
                 </configuration>
+            </plugin>
+            <!-- DGS Code Generation plugin generates code -->
+            <plugin>
+                <groupId>io.github.deweyjose</groupId>
+                <artifactId>graphqlcodegen-maven-plugin</artifactId>
+                <version>${maven.graphqlcodegen.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <typeMapping>
+                        <Date>java.time.ZonedDateTime</Date>
+                        <BigInteger>java.math.BigInteger</BigInteger>
+                        <BigDecimal>java.math.BigDecimal</BigDecimal>
+                    </typeMapping>
+                    <schemaPaths>
+                        <!-- GraphQL types -->
+                        <param>src/main/resources/schema/bitcoinTransactionOutput.graphqls</param>
+                        <param>src/main/resources/schema/user.graphqls</param>
+                        <param>src/main/resources/schema/asset.graphqls</param>
+                        <param>src/main/resources/schema/request.graphqls</param>
+                        <param>src/main/resources/schema/request-addAsset.graphqls</param>
+                        <param>src/main/resources/schema/request-addAssetMetaData.graphqls</param>
+                        <!-- GraphQL queries -->
+                        <param>src/main/resources/schema/query.graphqls</param>
+                        <!-- GraphQL mutations -->
+                        <param>src/main/resources/schema/mutation.graphqls</param>
+                    </schemaPaths>
+                    <packageName>org.royllo.explorer.api.graphql.generated</packageName>
+                    <generateClient>true</generateClient>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <!-- Compilation (with mapstruct & spring boot processor) -->
             <plugin>
@@ -171,73 +275,25 @@
                     </excludes>
                 </configuration>
             </plugin>
-            <!-- Plugin to manage the client generation (html, css, js). -->
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>${frontend-maven-plugin.version}</version>
-            </plugin>
         </plugins>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>com.github.eirslett</groupId>
-                    <artifactId>frontend-maven-plugin</artifactId>
-                    <version>${frontend-maven-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>install-frontend-tooling</id>
-                            <goals>
-                                <goal>install-node-and-npm</goal>
-                            </goals>
-                            <configuration>
-                                <nodeVersion>${frontend-maven-plugin.nodeVersion}</nodeVersion>
-                                <npmVersion>${frontend-maven-plugin.npmVersion}</npmVersion>
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <id>run-npm-install</id>
-                            <goals>
-                                <goal>npm</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>run-npm-build</id>
-                            <goals>
-                                <goal>npm</goal>
-                            </goals>
-                            <configuration>
-                                <arguments>run build</arguments>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
     <!-- =========================================================================================================== -->
 
     <!-- =========================================================================================================== -->
-    <!-- Profile used to run production -->
+    <!-- Profiles -->
     <profiles>
         <profile>
-            <id>release</id>
+            <id>integration</id>
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>com.github.eirslett</groupId>
-                        <artifactId>frontend-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>run-npm-build</id>
-                                <goals>
-                                    <goal>npm</goal>
-                                </goals>
-                                <configuration>
-                                    <arguments>run build:prod</arguments>
-                                </configuration>
-                            </execution>
-                        </executions>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/core/**</exclude>
+                                <exclude>**/issues/**</exclude>
+                            </excludes>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
@@ -251,7 +307,7 @@
         <groupId>org.royllo.explorer</groupId>
         <artifactId>explorer</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
     <!-- =========================================================================================================== -->
 
