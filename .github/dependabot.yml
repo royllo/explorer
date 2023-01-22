@@ -20,7 +20,7 @@ updates:
     target-branch: development
 
   - package-ecosystem: npm
-    directory: "/sources/explorer-web"
+    directory: "/backend/servers/explorer-web"
     schedule:
       interval: "weekly"
       day: "sunday"
