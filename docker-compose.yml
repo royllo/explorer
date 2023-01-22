@@ -49,6 +49,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://royllo-explorer-database-server/royllo_explorer_database
       - SPRING_DATASOURCE_USERNAME=royllo_explorer_username
       - SPRING_DATASOURCE_PASSWORD=Q5QnE5S%Y]qt7
+      - SPRING_LIQUIBASE_ENABLED=true
     labels:
       - com.centurylinklabs.watchtower.enable=true
 
@@ -68,6 +69,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://royllo-explorer-database-server/royllo_explorer_database
       - SPRING_DATASOURCE_USERNAME=royllo_explorer_username
       - SPRING_DATASOURCE_PASSWORD=Q5QnE5S%Y]qt7
+      - SPRING_LIQUIBASE_ENABLED=false
     labels:
       - com.centurylinklabs.watchtower.enable=true
 
@@ -87,6 +89,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://royllo-explorer-database-server/royllo_explorer_database
       - SPRING_DATASOURCE_USERNAME=royllo_explorer_username
       - SPRING_DATASOURCE_PASSWORD=Q5QnE5S%Y]qt7
+      - SPRING_LIQUIBASE_ENABLED=false
     labels:
       - com.centurylinklabs.watchtower.enable=true
 
@@ -121,7 +124,7 @@ services:
 #    depends_on:
 #      - royllo-explorer-batch-server
 #      - royllo-explorer-api-server
-#      - royllo-explorer-www-server
+#      - royllo-explorer-web-server
 #    environment:
 #      - TZ=Europe/Paris
 #    volumes:
