@@ -1,4 +1,4 @@
-name: Push on develop - Build, test, package, create docker image & push it to docker hub
+name: Push on develop - Build, test, create docker images & push them to docker hub
 
 on:
   push:
