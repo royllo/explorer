@@ -2,6 +2,8 @@
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
+<!-- =============================================================================================================== -->
+<!-- Header -->
 <head>
     <!-- Configuration -->
     <meta charset="utf-8">
@@ -10,7 +12,7 @@
     <!-- Page description -->
     <title th:text="#{head.title}"></title>
     <meta name="description" th:content="#{head.description}">
-    <meta name="author" content="Royllo">
+    <meta name="author" th:content="#{head.author}">
 
     <!-- Open Graph -->
     <meta property="og:title" th:content="#{og.title}">
@@ -28,12 +30,70 @@
     <!-- CSS -->
     <link rel="stylesheet" th:href="@{/css/application.css}">
 </head>
+<!-- =============================================================================================================== -->
 
 <body>
 
+<!-- =============================================================================================================== -->
+<!-- Header -->
+<header class="flex items-center justify-between px-4 py-4 bg-white">
+
+    <!-- Left logo with link -->
+    <a th:href="@{/}">
+        <img th:src="@{/images/logo/royllo_logo_horizontal_with_title.png}"
+             alt="Royllo Logo"/>
+    </a>
+
+    <!-- Register asset button -->
+    <a href="test"
+       class="px-4 py-2 font-bold text-white rounded bg-blue-500 hover:bg-blue-700">Register an asset</a>
+
+</header>
+<!-- =============================================================================================================== -->
+
+<!-- =============================================================================================================== -->
+<!-- Content -->
 <section layout:fragment="content">
     <p>Page content goes here</p>
 </section>
+<!-- =============================================================================================================== -->
+
+<!-- =============================================================================================================== -->
+<!-- Footer -->
+<footer class="p-4 bg-gray-100 rounded-b-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800 mt-11">
+
+    <!-- Left part : Royllo copyright and link -->
+    <span class="text-sm text-gray-500 sm:text-center">
+      © <script>document.write(/\d{4}/.exec(Date())[0])</script>
+        <a th:href="@{https://www.royllo.org}"
+           class="hover:underline"
+           target="royllo_website">Royllo</a>
+      -
+        <a th:href="@{https://github.com/royllo/explorer/blob/development/LICENSE}"
+           class="hover:underline"
+           target="royllo_website">GNU General Public License v3.0</a>
+    </span>
+
+    <!-- Right part : Links to know more about Royllo -->
+    <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 sm:mt-0">
+        <li>
+            <a th:href="@{https://github.com/royllo/explorer}"
+               class="mr-4 hover:underline md:mr-6"
+               target="github">Github</a>
+        </li>
+        <li>
+            <a th:href="@{https://twitter.com/royllo_systems}"
+               class="mr-4 hover:underline md:mr-6"
+               target="twitter">Twitter</a>
+        </li>
+        <li>
+            <a th:href="@{mailto:contact@royllo.org}"
+               class="hover:underline">Contact</a>
+        </li>
+    </ul>
+
+</footer>
+<!-- =============================================================================================================== -->
 
 </body>
 

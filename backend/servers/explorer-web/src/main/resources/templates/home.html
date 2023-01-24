@@ -5,8 +5,10 @@
 
 <!-- =============================================================================================================== -->
 <section layout:fragment="content">
-    <h1>Content</h1>
-Voici un texte avec i18n : <p th:text="#{home.welcome}"/>
+
+    <!-- Search form -->
+    <div class="flex flex-col h-screen mt-11" th:insert="fragments/components/search_asset_form"></div>
+
 </section>
 <!-- =============================================================================================================== -->
 
