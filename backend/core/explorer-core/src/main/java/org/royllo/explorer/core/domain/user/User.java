@@ -44,7 +44,7 @@ public class User extends BaseDomain {
     /** User role. */
     @NotNull(message = "Role is mandatory")
     @Enumerated(STRING)
-    @Column(name = "ROLE")
+    @Column(name = "ROLE", nullable = false)
     private UserRole role;
 
 }

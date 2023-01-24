@@ -1,5 +1,7 @@
-<!DOCTYPE HTML>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/default_layout}" lang="en">
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{fragments/layouts/default_layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!-- =============================================================================================================== -->
 <section layout:fragment="content">
@@ -7,3 +9,5 @@
 Voici un texte avec i18n : <p th:text="#{home.welcome}"/>
 </section>
 <!-- =============================================================================================================== -->
+
+</html>

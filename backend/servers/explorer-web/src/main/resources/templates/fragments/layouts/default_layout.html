@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <!-- Configuration -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Page description -->
+    <title th:text="#{head.title}"></title>
+    <meta name="description" th:content="#{head.description}">
+    <meta name="author" content="Royllo">
+
+    <!-- Open Graph -->
+    <meta property="og:title" th:content="#{og.title}">
+    <meta property="og:type" th:content="#{og.type}">
+    <meta property="og:url" th:content="#{og.url}">
+    <meta property="og:description" th:content="#{og.description}">
+    <meta property="og:image" th:content="#{og.image}">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" th:href="@{/images/favicon/favicon.ico}">
+    <link rel="icon" type="image/png" th:href="@{/images/favicon/favicon-16x16.png}" sizes="16x16">
+    <link rel="icon" type="image/png" th:href="@{/images/favicon/favicon-32x32.png}" sizes="32x32">
+    <link rel="apple-touch-icon" th:href="@{/images/favicon/apple-touch-icon.png}">
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/application.css}">
+</head>
+
+<body>
+
+<section layout:fragment="content">
+    <p>Page content goes here</p>
+</section>
+
+</body>
+
+</html>

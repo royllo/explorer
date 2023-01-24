@@ -36,7 +36,7 @@ services:
       - "5432:5432"
 
   # ====================================================================================================================
-  # Royllo explorer batch server.
+  # Royllo explorer batch server ( https://hub.docker.com/r/royllo/explorer-batch ).
   royllo-explorer-batch-server:
     image: royllo/explorer-batch:latest
     depends_on:
@@ -54,7 +54,7 @@ services:
       - com.centurylinklabs.watchtower.enable=true
 
   # ====================================================================================================================
-  # Royllo explorer API server.
+  # Royllo explorer API server ( https://hub.docker.com/r/royllo/explorer-api ).
   royllo-explorer-api-server:
     image: royllo/explorer-api:latest
     depends_on:
@@ -74,7 +74,7 @@ services:
       - com.centurylinklabs.watchtower.enable=true
 
   # ====================================================================================================================
-  # Royllo explorer web server.
+  # Royllo explorer web server ( https://hub.docker.com/r/royllo/explorer-web ).
   royllo-explorer-web-server:
     image: royllo/explorer-web:latest
     depends_on:
