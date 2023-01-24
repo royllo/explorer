@@ -4,12 +4,18 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!-- =============================================================================================================== -->
-<section layout:fragment="content">
+<div class="flex flex-col h-screen mt-11 items-center" layout:fragment="content">
+
+    <!-- Logo (The mx-auto should also go to the image as tailwind make the image a block element) -->
+    <a th:href="@{/}">
+        <img th:src="@{/images/logo/royllo_logo_homepage.png}"
+             alt="Royllo Logo"/>
+    </a>
 
     <!-- Search form -->
-    <div class="flex flex-col h-screen mt-11" th:insert="fragments/components/search_asset_form"></div>
+    <div th:insert="fragments/components/search_asset_form"></div>
 
-</section>
+</div>
 <!-- =============================================================================================================== -->
 
 </html>
