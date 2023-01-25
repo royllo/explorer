@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"
       layout:decorate="~{fragments/layouts/default_layout}"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html">
 
 <!-- =============================================================================================================== -->
 <div class="flex flex-col h-screen items-center" layout:fragment="content">
@@ -19,27 +19,40 @@
         <p th:text="${result.content.isEmpty()} ? #{search.noResult}"></p>
 
         <!-- Display results -->
-        <div class="">
+        <div th:each="asset: ${result.content}">
 
-            <!-- For each asset -->
-            <div class="" th:each="asset: ${result.content}">
+            <!-- One asset -->
+            <h2 class="text-gray-900 text-xl leading-tight font-medium mb-2" th:text="${asset.name}"></h2>
+            <p class="text-gray-700 text-base mb-4 truncate md:text-clip">
+            <p class="truncate" th:text="@{'Asset id: ' + ${asset.assetId}}"></p>
+            <p class="truncate" th:text="@{'Creator: ' + ${asset.creator.username}}"></p>
+            <p class="truncate"
+               th:text="@{'Genesis point: ' + ${asset.genesisPoint.txId} + '-' + ${asset.genesisPoint.vout}}"></p>
+            <p>
+            <br>
+            <hr>
+            <br>
+        </div>
 
-                <h2 class="text-gray-900 text-xl leading-tight font-medium mb-2" th:text="${asset.name}"></h2>
-                <p class="text-gray-700 text-base mb-4 truncate md:text-clip">
-                    <span><b>Asset id: </b></span><span th:text="${asset.assetId}"></span>
-                    <br>
-                    <span><b>Creator: </b></span><span th:text="${asset.creator.username}"></span>
-                    <br>
-                    <span><b>Genesis point: </b></span><span th:text="${asset.genesisPoint.txId}"></span>-<span th:text="${asset.genesisPoint.vout}"></span>
-                    <p>
-                        <hr>
-                    </p>
-                    <br>
-                </p>
+        <!-- Display pages -->
+        <div class=" mb-12">
+            <ul class="inline-flex items-center -space-x-px mb-12" th:if="${!result.content.isEmpty()}">
+                <!-- Page list (current and other -->
+                <li th:each="pageNumber: ${#numbers.sequence(1, result.totalPages)}">
 
+                    <a href="#"
+                       th:if="${page == pageNumber}"
+                       th:text="${pageNumber}"
+                       aria-current="page"
+                       class="px-3 py-2 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
 
-            </div>
+                    <a th:href="@{'/search?query=' + ${query} + '&page=' + ${pageNumber}}"
+                       th:if="${page != pageNumber}"
+                       th:text="${pageNumber}"
+                       class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"></a>
 
+                </li>
+            </ul>
         </div>
 
     </div>

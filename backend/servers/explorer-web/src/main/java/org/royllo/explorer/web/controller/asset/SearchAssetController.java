@@ -40,8 +40,10 @@ public class SearchAssetController {
                        @RequestParam(defaultValue = "1") final int page) {
         // If the query is present, we make the search.
         if (query.isPresent()) {
-            // Value the user searched for.
+            // Value the user searched for and the page.
             model.addAttribute("query", query.get());
+            model.addAttribute("page", page);
+
             // Adding result to the page.
             Page<AssetDTO> result = assetService.queryAssets(query.get(), page, DEFAULT_PAGE_SIZE);
             model.addAttribute("result", result);
