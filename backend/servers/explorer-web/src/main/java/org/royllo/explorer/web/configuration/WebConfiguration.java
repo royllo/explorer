@@ -10,6 +10,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class WebConfiguration {
 
+    /** Default page size. */
+    public static final int DEFAULT_PAGE_SIZE = 10;
+
     /**
      * Add Thymeleaf Layout Dialect support.
      *

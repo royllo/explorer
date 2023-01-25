@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{fragments/layouts/default_layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!-- =============================================================================================================== -->
+<div class="flex flex-col h-screen items-center" layout:fragment="content">
+
+    <!-- Search form -->
+    <div th:insert="fragments/components/search_asset_form"></div>
+
+    <!-- Results -->
+    <div class="mt-11">
+
+        <!-- No value for the "query" parameter -->
+        <p th:text="${#strings.isEmpty(query)} ? #{search.error.noQuery}"></p>
+
+        <!-- No asset found -->
+        <p th:text="${result.content.isEmpty()} ? #{search.noResult}"></p>
+
+        <!-- Display results -->
+        <div class="">
+
+            <!-- For each asset -->
+            <div class="" th:each="asset: ${result.content}">
+
+                <h2 class="text-gray-900 text-xl leading-tight font-medium mb-2" th:text="${asset.name}"></h2>
+                <p class="text-gray-700 text-base mb-4 truncate md:text-clip">
+                    <span><b>Asset id: </b></span><span th:text="${asset.assetId}"></span>
+                    <br>
+                    <span><b>Creator: </b></span><span th:text="${asset.creator.username}"></span>
+                    <br>
+                    <span><b>Genesis point: </b></span><span th:text="${asset.genesisPoint.txId}"></span>-<span th:text="${asset.genesisPoint.vout}"></span>
+                    <p>
+                        <hr>
+                    </p>
+                    <br>
+                </p>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- =============================================================================================================== -->
+
+</html>
