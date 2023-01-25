@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.QUERY_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.HOME_PAGE;
 
 /**
@@ -25,7 +26,7 @@ public class HomeController {
     @GetMapping("/")
     public String home(final Model model,
                        @RequestParam(required = false) final Optional<String> query) {
-        query.ifPresent(queryValue -> model.addAttribute("query", queryValue));
+        query.ifPresent(queryValue -> model.addAttribute(QUERY_ATTRIBUTE, queryValue));
         return HOME_PAGE;
     }
 

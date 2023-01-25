@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Optional;
 
 import static org.royllo.explorer.web.configuration.WebConfiguration.DEFAULT_PAGE_SIZE;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.*;
 import static org.royllo.explorer.web.util.constants.PagesConstants.SEARCH_PAGE;
 
 /**
@@ -31,7 +32,7 @@ public class SearchAssetController {
      *
      * @param model model
      * @param query query
-     * @param page page number
+     * @param page  page number
      * @return page to display
      */
     @GetMapping("/search")
@@ -39,14 +40,15 @@ public class SearchAssetController {
                        @RequestParam(required = false) final Optional<String> query,
                        @RequestParam(defaultValue = "1") final int page) {
         // If the query is present, we make the search.
-        if (query.isPresent()) {
+        if (query.isPresent() && !query.get().isEmpty()) {
             // Value the user searched for and the page.
-            model.addAttribute("query", query.get());
-            model.addAttribute("page", page);
+            model.addAttribute(QUERY_ATTRIBUTE, query.get());
+            model.addAttribute(PAGE_ATTRIBUTE, page);
 
             // Adding result to the page.
-            Page<AssetDTO> result = assetService.queryAssets(query.get(), page, DEFAULT_PAGE_SIZE);
-            model.addAttribute("result", result);
+            model.addAttribute(RESULT_ATTRIBUTE, assetService.queryAssets(query.get(),
+                    page,
+                    DEFAULT_PAGE_SIZE));
         }
         return SEARCH_PAGE;
     }

@@ -9,16 +9,16 @@
     <!-- Search form -->
     <div th:insert="fragments/components/search_asset_form"></div>
 
+    <!-- No value for the "query" parameter -->
+    <p class="mt-11"  th:text="${#strings.isEmpty(query)} ? #{search.error.noQuery}"></p>
+
     <!-- Results -->
-    <div class="mt-11">
+    <div class="mt-11" th:if="${result != null}">
 
-        <!-- No value for the "query" parameter -->
-        <p th:text="${#strings.isEmpty(query)} ? #{search.error.noQuery}"></p>
-
-        <!-- No asset found -->
+        <!-- If no result - No asset found -->
         <p th:text="${result.content.isEmpty()} ? #{search.noResult}"></p>
 
-        <!-- Display results -->
+        <!-- If there are results - Display results -->
         <div th:each="asset: ${result.content}">
 
             <!-- One asset -->
@@ -28,14 +28,13 @@
             <p class="truncate" th:text="@{'Creator: ' + ${asset.creator.username}}"></p>
             <p class="truncate"
                th:text="@{'Genesis point: ' + ${asset.genesisPoint.txId} + '-' + ${asset.genesisPoint.vout}}"></p>
-            <p>
             <br>
             <hr>
             <br>
         </div>
 
-        <!-- Display pages -->
-        <div class=" mb-12">
+        <!-- If there are results - Display pages -->
+        <div class=" mb-12" th:if="${result != null}">
             <ul class="inline-flex items-center -space-x-px mb-12" th:if="${!result.content.isEmpty()}">
                 <!-- Page list (current and other -->
                 <li th:each="pageNumber: ${#numbers.sequence(1, result.totalPages)}">
