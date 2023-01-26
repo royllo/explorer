@@ -11,19 +11,16 @@ public final class ModelAttributeConstants {
     private ModelAttributeConstants() {
     }
 
-    /**
-     * Query attribute.
-     */
+    /** Query attribute. */
     public static final String QUERY_ATTRIBUTE = "query";
 
-    /**
-     * Page attribute.
-     */
+    /** Page attribute. */
     public static final String PAGE_ATTRIBUTE = "page";
 
-    /**
-     * Result attribute.
-     */
+    /** Asset id attribute. */
+    public static final String ASSET_ID_ATTRIBUTE = "assetId";
+
+    /** Result attribute. */
     public static final String RESULT_ATTRIBUTE = "result";
 
 }

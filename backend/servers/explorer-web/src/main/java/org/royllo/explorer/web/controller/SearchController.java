@@ -1,9 +1,7 @@
-package org.royllo.explorer.web.controller.asset;
+package org.royllo.explorer.web.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.service.asset.AssetService;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,19 +10,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Optional;
 
 import static org.royllo.explorer.web.configuration.WebConfiguration.DEFAULT_PAGE_SIZE;
-import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.*;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PAGE_ATTRIBUTE;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.QUERY_ATTRIBUTE;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.SEARCH_PAGE;
 
 /**
- * Search asset controller.
+ * Search controller.
  */
 @Controller
 @RequiredArgsConstructor
-public class SearchAssetController {
+public class SearchController {
 
-    /**
-     * Asset service.
-     */
+    /** Asset service. */
     private final AssetService assetService;
 
     /**
@@ -40,7 +38,7 @@ public class SearchAssetController {
                        @RequestParam(required = false) final Optional<String> query,
                        @RequestParam(defaultValue = "1") final int page) {
         // If the query is present, we make the search.
-        if (query.isPresent() && !query.get().isEmpty()) {
+        if (query.isPresent() && !query.get().trim().isEmpty()) {
             // Value the user searched for and the page.
             model.addAttribute(QUERY_ATTRIBUTE, query.get());
             model.addAttribute(PAGE_ATTRIBUTE, page);

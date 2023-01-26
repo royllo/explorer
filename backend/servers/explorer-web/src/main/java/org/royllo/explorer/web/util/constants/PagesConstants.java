@@ -11,14 +11,13 @@ public final class PagesConstants {
     private PagesConstants() {
     }
 
-    /**
-     * Home page.
-     */
+    /** Home page. */
     public static final String HOME_PAGE = "home";
 
-    /**
-     * Search page.
-     */
+    /** Search page. */
     public static final String SEARCH_PAGE = "search";
+
+    /** Asset page. */
+    public static final String ASSET_PAGE = "asset/view";
 
 }
