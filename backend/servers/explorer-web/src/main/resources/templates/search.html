@@ -33,12 +33,15 @@
         <div th:each="asset: ${result.content}">
 
             <!-- One line -->
-            <div class="mb-5 mt-5">
-                <h2 class="text-gray-900 text-xl leading-tight font-medium mb-2" th:text="${asset.name}"></h2>
-                <p class="text-gray-700 text-base mb-4 truncate md:text-clip">
-                <p class="truncate" th:text="@{'Asset id: ' + ${asset.assetId}}"></p>
-                <p class="truncate" th:text="@{'Creator: ' + ${asset.creator.username}}"></p>
-                <p class="truncate" th:text="@{'Genesis point: ' + ${asset.genesisPoint}}"></p>
+            <div class="my-6">
+                <a th:href="@{'/asset/' + ${asset.assetId}}"
+                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                   th:text="${asset.name}"></a>
+                <p class="text-gray-700 text-base mb-2 truncate md:text-clip">
+                <p class="truncate" th:text="@{#{field.asset.assetId} + ': ' + ${asset.assetId}}"></p>
+                <p class="truncate" th:text="@{#{field.asset.creator.username} + ': ' + ${asset.creator.username}}"></p>
+                <p class="truncate" th:text="@{#{field.asset.genesisPoint} + ': ' + ${asset.genesisPoint}}"></p>
+                </p>
             </div>
 
         </div>
