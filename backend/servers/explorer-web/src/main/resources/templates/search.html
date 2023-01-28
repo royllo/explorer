@@ -18,21 +18,28 @@
     </div>
 
 
-    <!-- If no result -->
-    <div    th:if="${result != null && result.content.isEmpty()}"
+    <!-- No result -->
+    <div    th:if="${result != null && result.getTotalElements() == 0}"
             class="mt-11 bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 min-w-[50%]"
             role="alert">
         <p class="font-bold" th:text="#{generic.error}"></p>
         <p th:text="#{search.noResult(${query})}"></p>
     </div>
 
+    <!-- There is results but not for the page they asked for -->
+    <div    th:if="${result != null && result.getTotalElements() > 0 && result.getContent().isEmpty()}"
+            class="mt-11 bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 min-w-[50%]"
+            role="alert">
+        <p class="font-bold" th:text="#{generic.error}"></p>
+        <p th:text="#{search.error.invalidPage}"></p>
+    </div>
+
     <!-- Results -->
     <div class="mt-11" th:if="${result != null}">
 
-        <!-- If there are results - Display results -->
         <div th:each="asset: ${result.content}">
 
-            <!-- One line -->
+            <!-- Result display -->
             <div class="my-6">
                 <a th:href="@{'/asset/' + ${asset.assetId}}"
                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
@@ -46,7 +53,7 @@
 
         </div>
 
-        <!-- If there are results - Display pages -->
+        <!-- Pages numbers -->
         <div class=" mb-12" th:if="${result != null}">
             <ul class="inline-flex items-center -space-x-px mb-12" th:if="${!result.content.isEmpty()}">
                 <!-- Page list (current and other -->
