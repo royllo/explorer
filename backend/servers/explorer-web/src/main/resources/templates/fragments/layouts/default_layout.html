@@ -2,69 +2,69 @@
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<!-- =============================================================================================================== -->
-<!-- Header -->
+<!--/* =========================================================================================================== */-->
+<!--/* Header */-->
 <head>
-    <!-- Configuration -->
+    <!--/* Configuration */-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Page description -->
+    <!--/* Page description */-->
     <title th:text="#{head.title}"></title>
     <meta name="description" th:content="#{head.description}">
     <meta name="author" th:content="#{head.author}">
 
-    <!-- Open Graph -->
+    <!--/* Open Graph */-->
     <meta property="og:title" th:content="#{og.title}">
     <meta property="og:type" th:content="#{og.type}">
     <meta property="og:url" th:content="#{og.url}">
     <meta property="og:description" th:content="#{og.description}">
     <meta property="og:image" th:content="#{og.image}">
 
-    <!-- Favicons -->
+    <!--/* Favicons */-->
     <link rel="icon" type="image/x-icon" th:href="@{/images/favicon/favicon.ico}">
     <link rel="icon" type="image/png" th:href="@{/images/favicon/favicon-16x16.png}" sizes="16x16">
     <link rel="icon" type="image/png" th:href="@{/images/favicon/favicon-32x32.png}" sizes="32x32">
     <link rel="apple-touch-icon" th:href="@{/images/favicon/apple-touch-icon.png}">
 
-    <!-- CSS -->
+    <!--/* CSS */-->
     <link rel="stylesheet" th:href="@{/css/application.css}">
 </head>
-<!-- =============================================================================================================== -->
+<!--/* =========================================================================================================== */-->
 
 <body>
 <div class="flex flex-col h-screen justify-between">
 
-<!-- =============================================================================================================== -->
-<!-- Header -->
-<header class="flex items-center justify-between px-4 py-4 bg-white">
+    <!--/* ======================================================================================================= */-->
+    <!--/* Header */-->
+    <header class="flex items-center justify-between px-4 py-4 bg-white">
 
-    <!-- Left logo with link -->
-    <a th:href="@{/}">
-        <img th:src="@{/images/logo/royllo_logo_horizontal_with_title.png}"
-             alt="Royllo Logo"/>
-    </a>
+        <!--/* Left logo with link */-->
+        <a th:href="@{/}">
+            <img th:src="@{/images/logo/royllo_logo_horizontal_with_title.png}"
+                 alt="Royllo Logo"/>
+        </a>
 
-    <!-- Register asset button -->
-    <a href="#"
-       class="px-4 py-2 font-bold text-white rounded bg-blue-500 hover:bg-blue-700">Register an asset</a>
+        <!--/* Register asset button */-->
+        <a href="#"
+           class="px-4 py-2 font-bold text-white rounded bg-blue-500 hover:bg-blue-700">Register an asset</a>
 
-</header>
-<!-- =============================================================================================================== -->
+    </header>
+    <!--/* ======================================================================================================= */-->
 
-<!-- =============================================================================================================== -->
-<!-- Content -->
-<section layout:fragment="content">
-    <p>Page content goes here</p>
-</section>
-<!-- =============================================================================================================== -->
+    <!--/* ======================================================================================================= */-->
+    <!--/* Content */-->
+    <section layout:fragment="content">
+        <p>Page content goes here</p>
+    </section>
+    <!--/* ======================================================================================================= */-->
 
-<!-- =============================================================================================================== -->
-<!-- Footer -->
-<footer class="fixed bottom-0 left-0 w-full p-4 bg-gray-100 rounded-b-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800 mt-12">
+    <!--/* ======================================================================================================= */-->
+    <!--/* Footer */-->
+    <footer class="fixed bottom-0 left-0 w-full p-4 bg-gray-100 rounded-b-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800 mt-12">
 
-    <!-- Left part : Royllo copyright and link -->
-    <span class="text-sm text-gray-500 sm:text-center">
+        <!--/* Left part : Royllo copyright and link */-->
+        <span class="text-sm text-gray-500 sm:text-center">
       © <script>document.write(/\d{4}/.exec(Date())[0])</script>
         <a th:href="@{https://www.royllo.org}"
            class="hover:underline"
@@ -75,26 +75,26 @@
            target="royllo_website">GNU General Public License v3.0</a>
     </span>
 
-    <!-- Right part : Links to know more about Royllo -->
-    <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 sm:mt-0">
-        <li>
-            <a th:href="@{https://github.com/royllo/explorer}"
-               class="mr-4 hover:underline md:mr-6"
-               target="github">Github</a>
-        </li>
-        <li>
-            <a th:href="@{https://twitter.com/royllo_systems}"
-               class="mr-4 hover:underline md:mr-6"
-               target="twitter">Twitter</a>
-        </li>
-        <li>
-            <a th:href="@{mailto:contact@royllo.org}"
-               class="hover:underline">Contact</a>
-        </li>
-    </ul>
+        <!--/* Right part : Links to know more about Royllo */-->
+        <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 sm:mt-0">
+            <li>
+                <a th:href="@{https://github.com/royllo/explorer}"
+                   class="mr-4 hover:underline md:mr-6"
+                   target="github">Github</a>
+            </li>
+            <li>
+                <a th:href="@{https://twitter.com/royllo_systems}"
+                   class="mr-4 hover:underline md:mr-6"
+                   target="twitter">Twitter</a>
+            </li>
+            <li>
+                <a th:href="@{mailto:contact@royllo.org}"
+                   class="hover:underline">Contact</a>
+            </li>
+        </ul>
 
-</footer>
-<!-- =============================================================================================================== -->
+    </footer>
+    <!--/* ======================================================================================================= */-->
 
 </div>
 </body>

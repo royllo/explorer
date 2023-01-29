@@ -3,13 +3,13 @@
       layout:decorate="~{fragments/layouts/default_layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<!-- =============================================================================================================== -->
+<!--/* =========================================================================================================== */-->
 <div class="flex flex-col h-screen items-center" layout:fragment="content">
 
-    <!-- Search form -->
+    <!--/* Search form */-->
     <div th:insert="fragments/components/search_asset_form"></div>
 
-    <!-- No value for the "query" parameter -->
+    <!--/* No value for the "query" parameter */-->
     <div    th:if="${#strings.isEmpty(query)}"
             class="mt-11 bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 min-w-[50%]"
             role="alert">
@@ -17,8 +17,7 @@
         <p th:text="#{search.error.noQuery}"></p>
     </div>
 
-
-    <!-- No result -->
+    <!--/* No result */-->
     <div    th:if="${result != null && result.getTotalElements() == 0}"
             class="mt-11 bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 min-w-[50%]"
             role="alert">
@@ -26,7 +25,7 @@
         <p th:text="#{search.noResult(${query})}"></p>
     </div>
 
-    <!-- There is results but not for the page they asked for -->
+    <!--/* There is results but not for the page they asked for */-->
     <div    th:if="${result != null && result.getTotalElements() > 0 && result.getContent().isEmpty()}"
             class="mt-11 bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 min-w-[50%]"
             role="alert">
@@ -34,12 +33,12 @@
         <p th:text="#{search.error.invalidPage}"></p>
     </div>
 
-    <!-- Results -->
+    <!--/* Results */-->
     <div class="mt-11" th:if="${result != null}">
 
         <div th:each="asset: ${result.content}">
 
-            <!-- Result display -->
+            <!--/* Display one line result */-->
             <div class="my-6">
                 <a th:href="@{'/asset/' + ${asset.assetId}}"
                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
@@ -53,10 +52,10 @@
 
         </div>
 
-        <!-- Pages numbers -->
+        <!--/* Pages numbers */-->
         <div class=" mb-12" th:if="${result != null}">
             <ul class="inline-flex items-center -space-x-px mb-12" th:if="${!result.content.isEmpty()}">
-                <!-- Page list (current and other -->
+                <!--/* Page list (current one and the others) */-->
                 <li th:each="pageNumber: ${#numbers.sequence(1, result.totalPages)}">
 
                     <a href="#"

@@ -3,22 +3,22 @@
       layout:decorate="~{fragments/layouts/default_layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<!-- =============================================================================================================== -->
+<!--/* =========================================================================================================== */-->
 <div class="flex flex-col h-screen mt-11 items-center" layout:fragment="content">
 
-    <!-- Logo -->
+    <!--/* Logo */-->
     <a th:href="@{/}">
         <img th:src="@{/images/logo/royllo_logo_homepage.png}"
              alt="Royllo Logo"/>
     </a>
 
-    <!-- Search form -->
+    <!--/* Search form */-->
     <div th:insert="fragments/components/search_asset_form"></div>
 
-    <!-- Homepage message -->
+    <!--/* Homepage message */-->
     <div class="mt-11 text-sm" th:text="#{home.message}"></div>
 
 </div>
-<!-- =============================================================================================================== -->
+<!--/* =========================================================================================================== */-->
 
 </html>

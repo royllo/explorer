@@ -20,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @SpringBootTest
+@DisplayName("Search controller")
 @AutoConfigureMockMvc
 @PropertySource("classpath:messages.properties")
 public class SearchControllerTest {
@@ -53,7 +54,7 @@ public class SearchControllerTest {
     @Test
     @DisplayName("Search page with no result")
     void searchPageWithNoResult() throws Exception {
-        // We remove the parameter from the message
+        // We remove the parameter from the message.
         final String expectedMessage = Objects.requireNonNull(environment.getProperty("search.noResult")).replace("\"{0}\"", "");
         mockMvc.perform(get("/search").param("query", "NO_RESULT_QUERY"))
                 .andExpect(status().isOk())
@@ -68,6 +69,31 @@ public class SearchControllerTest {
         // Results - Page 1 (page not specified).
         mockMvc.perform(get("/search")
                         .param("query", "coin"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(SEARCH_PAGE))
+                // Checking results.
+                .andExpect(content().string(containsString(">Coin 001</a>")))
+                .andExpect(content().string(containsString(">Coin 002</a>")))
+                .andExpect(content().string(containsString(">Coin 003</a>")))
+                .andExpect(content().string(containsString(">Coin 004</a>")))
+                .andExpect(content().string(containsString(">Coin 005</a>")))
+                .andExpect(content().string(containsString(">Coin 006</a>")))
+                .andExpect(content().string(containsString(">Coin 007</a>")))
+                .andExpect(content().string(containsString(">Coin 008</a>")))
+                .andExpect(content().string(containsString(">Coin 009</a>")))
+                .andExpect(content().string(containsString(">Coin 010</a>")))
+                .andExpect(content().string(not(containsString(">Coin 011</a>"))))
+                // Checking pages.
+                .andExpect(content().string(not(containsString(">0</a>"))))
+                .andExpect(content().string(containsString(">1</a>")))
+                .andExpect(content().string(containsString(">2</a>")))
+                .andExpect(content().string(containsString(">3</a>")))
+                .andExpect(content().string(not(containsString(">4</a>"))));
+
+        // Results - Page 1 (page specified).
+        mockMvc.perform(get("/search")
+                        .param("query", "coin")
+                        .param("page", "1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(SEARCH_PAGE))
                 // Checking results.

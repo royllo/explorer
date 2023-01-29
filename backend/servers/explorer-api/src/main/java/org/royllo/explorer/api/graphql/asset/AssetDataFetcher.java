@@ -43,6 +43,7 @@ public class AssetDataFetcher extends BaseDataFetcher {
         final Page<AssetDTO> results = assetService.queryAssets(query,
                 Objects.requireNonNullElse(page, 1),
                 DEFAULT_PAGE_SIZE);
+        // TODO Add a page size parameter (With a maximum value).
         // Logs.
         if (results.isEmpty()) {
             logger.info("queryAssets - For '{}', there is no results", query);
