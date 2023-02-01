@@ -4,11 +4,14 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<div class="flex flex-col h-screen items-center" layout:fragment="content">
+<div class="content" layout:fragment="content">
+
+    <!--/* ======================================================================================================= */-->
+    <!--/* Error management */-->
 
     <!--/* No value for the "assetId" parameter */-->
     <div th:if="${#strings.isEmpty(assetId)}"
-         class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 min-w-[50%]"
+         class="errorPanel"
          role="alert">
         <p class="font-bold" th:text="#{generic.error}"></p>
         <p th:text="#{asset.view.error.noAssetId}"></p>
@@ -16,40 +19,39 @@
 
     <!--/* We have the "assetId" parameter but the asset was not found */-->
     <div th:if="${!#strings.isEmpty(assetId) && result == null}"
-         class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 min-w-[50%]"
+         class="errorPanel"
          role="alert">
         <p class="font-bold" th:text="#{generic.error}"></p>
         <p th:text="#{asset.view.error.assetNotFound(${assetId})}"></p>
     </div>
 
-    <!--/* Result */-->
-    <div class="flex justify-center px-2" v-if="data != null" th:if="${result != null}">
-        <div class="block p-6 rounded-lg shadow-lg bg-white w-2/3">
-            <h5 class="text-gray-900 text-xl leading-tight font-medium mb-2" th:text="${result.name}">{{ data?.assetByAssetId?.name }}</h5>
-            <hr>
-            <p class="text-gray-700 text-base truncate md:text-clip">
-                <!--/* =========================================================================================== */-->
-                <p class="my-2">
-                <b>Creator</b><br>
-                <span class="truncate" th:text="@{#{field.asset.creator.username} + ': ' + ${result.creator.username}}"></span>
-                </p>
-                <!--/* =========================================================================================== */-->
-                <p class="my-2">
-                <b>Asset description</b><br>
-                Asset id: {{ data?.assetByAssetId?.assetId }}<br>
-                Asset metadata: {{ data?.assetByAssetId?.metaData }}<br>
-                Output index: {{ data?.assetByAssetId?.outputIndex }}<br>
-                </p>
-                <!--/* =========================================================================================== */-->
-                <b>Bitcoin transaction output</b><br>
-                Block height: {{ data?.assetByAssetId?.genesisPoint?.blockHeight }}<br>
-                Transaction: {{ data?.assetByAssetId?.genesisPoint?.txId }} / {{data?.assetByAssetId?.genesisPoint?.vout }}<br>
-                ScriptPubKey: {{ data?.assetByAssetId?.genesisPoint?.scriptPubKey }}<br>
-                ScriptPubKey (ASM): {{ data?.assetByAssetId?.genesisPoint?.scriptPubKeyAsm }}<br>
-                scriptPubKey address: {{ data?.assetByAssetId?.genesisPoint?.scriptPubKeyAddress }}<br>
-                Type: {{ data?.assetByAssetId?.genesisPoint?.scriptPubKeyType }}<br>
-                value: {{ data?.assetByAssetId?.genesisPoint?.value }}<br>
-            </p>
+    <!--/* ======================================================================================================= */-->
+    <!--/* Display result */-->
+
+    <!--*/ Asset viewer */-->
+    <div class="head" th:if="${result != null}">
+        <!--*/ Header */-->
+        <div class="tableHead">
+            <h3 class="tableHeadDescription" th:text="${result.name}"></h3>
+            <p class="tableHeadValue" th:text="${result.assetId}"></p>
+        </div>
+        <!--/* Data */-->
+        <div class="tableLines">
+            <dl>
+                <!--/* Creator */-->
+                <div class="tableLineGray">
+                    <dt class="tableLineDescription" th:text="#{field.asset.creator.username}"></dt>
+                    <dd class="tableLineValue" th:text="${result.creator.username}"></dd>
+                </div>
+                <div class="tableLineWhite">
+                    <dt class="tableLineDescription">Application for</dt>
+                    <dd class="tableLineValue">Backend developer</dd>
+                </div>
+                <div class="tableLineGray">
+                    <dt class="tableLineDescription" th:text="#{field.asset.creator.username}"></dt>
+                    <dd class="tableLineValue" th:text="${result.creator.username}"></dd>
+                </div>
+            </dl>
         </div>
     </div>
 

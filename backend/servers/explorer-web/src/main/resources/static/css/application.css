@@ -2,8 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ================================================================================================================== */
+/* Tailwind's base styles and any base styles registered by plugins. */
 @layer base {
-    h1 {
-        @apply text-2xl;
-    }
+
 }
+/* ================================================================================================================== */
+
+
+/* ================================================================================================================== */
+/* Tailwind's component classes and any component classes registered by plugins. */
+@layer components {
+
+    .blueButton {
+        @apply px-4 py-2 font-bold text-white rounded bg-blue-500 hover:bg-blue-700
+    }
+
+    .errorPanel {
+        @apply bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 min-w-[50%] mt-11
+    }
+
+}
+/* ================================================================================================================== */
+
+/* ================================================================================================================== */
+/* Tailwind's utility classes and any utility classes registered by plugins. */
+@layer utilities {
+
+    .content {
+        @apply flex flex-col h-screen items-center
+    }
+
+    /* ============================================================================================================== */
+    /** Used to display data in a table. */
+    .head {
+        @apply overflow-hidden bg-white shadow sm:rounded-lg mx-11 w-4/5 border-black
+    }
+    .tableHead {
+        @apply px-4 py-5 sm:px-6
+    }
+    .tableHeadDescription {
+        @apply text-lg font-medium leading-6 text-gray-900
+    }
+    .tableHeadValue {
+        @apply mt-1 max-w-2xl text-sm text-gray-500
+    }
+    .tableLines {
+        @apply border-t border-gray-900
+    }
+    .tableLineWhite {
+        @apply bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6
+    }
+    .tableLineGray {
+        @apply bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6
+    }
+    .tableLineDescription {
+        @apply text-sm font-medium text-gray-500
+    }
+    .tableLineValue {
+        @apply mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0
+    }
+
+}
+/* ================================================================================================================== */

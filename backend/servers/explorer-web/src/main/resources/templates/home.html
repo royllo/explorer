@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<div class="flex flex-col h-screen mt-11 items-center" layout:fragment="content">
+<div class="content" layout:fragment="content">
 
     <!--/* Logo */-->
     <a th:href="@{/}">
@@ -16,7 +16,7 @@
     <div th:insert="fragments/components/search_asset_form"></div>
 
     <!--/* Homepage message */-->
-    <div class="mt-11 text-sm" th:text="#{home.message}"></div>
+    <div class="mt-11 text-sm" th:utext="#{home.message}"></div>
 
 </div>
 <!--/* =========================================================================================================== */-->

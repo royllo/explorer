@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<!--/* Header */-->
+<!--/* Head */-->
 <head>
     <!--/* Configuration */-->
     <meta charset="utf-8">
@@ -46,8 +46,8 @@
         </a>
 
         <!--/* Register asset button */-->
-        <a href="#"
-           class="px-4 py-2 font-bold text-white rounded bg-blue-500 hover:bg-blue-700">Register an asset</a>
+        <a th:href="@{#}"
+           class="blueButton">Register an asset</a>
 
     </header>
     <!--/* ======================================================================================================= */-->
@@ -65,15 +65,15 @@
 
         <!--/* Left part : Royllo copyright and link */-->
         <span class="text-sm text-gray-500 sm:text-center">
-      © <script>document.write(/\d{4}/.exec(Date())[0])</script>
-        <a th:href="@{https://www.royllo.org}"
-           class="hover:underline"
-           target="royllo_website">Royllo</a>
-      -
-        <a th:href="@{https://github.com/royllo/explorer/blob/development/LICENSE}"
-           class="hover:underline"
-           target="royllo_website">GNU General Public License v3.0</a>
-    </span>
+          © <script>document.write(/\d{4}/.exec(Date())[0])</script>
+            <a th:href="@{https://www.royllo.org}"
+               class="hover:underline"
+               target="royllo_website">Royllo</a>
+          -
+            <a th:href="@{https://github.com/royllo/explorer/blob/development/LICENSE}"
+               class="hover:underline"
+               target="royllo_licence">GNU General Public License v3.0</a>
+        </span>
 
         <!--/* Right part : Links to know more about Royllo */-->
         <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 sm:mt-0">
