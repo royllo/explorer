@@ -34,7 +34,7 @@
     }
 
     /* ============================================================================================================== */
-    /** Used to display data in a table. */
+    /* Used to display data in a table. */
     .head {
         @apply overflow-hidden bg-white shadow sm:rounded-lg mx-11 w-4/5 border-black
     }

@@ -9,8 +9,6 @@ import org.royllo.explorer.api.util.base.BaseDataFetcher;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 
-import java.util.Optional;
-
 /**
  * Bitcoin transaction output data fetcher.
  */
@@ -31,14 +29,7 @@ public class TransactionOutputDataFetcher extends BaseDataFetcher {
     @DgsQuery
     public final BitcoinTransactionOutputDTO bitcoinTransactionOutput(final @InputArgument String txId,
                                                                       final @InputArgument int vout) {
-        final Optional<BitcoinTransactionOutputDTO> bitcoinTransactionOutput = bitcoinService.getBitcoinTransactionOutput(txId, vout);
-        if (bitcoinTransactionOutput.isEmpty()) {
-            logger.info("bitcoinTransactionOutput - Transaction output with txId:vout {}:{} not found", txId, vout);
-            throw new DgsEntityNotFoundException();
-        } else {
-            logger.info("bitcoinTransactionOutput - Transaction output with txId:vout {}:{} found: {}", txId, vout, bitcoinTransactionOutput.get());
-            return bitcoinTransactionOutput.get();
-        }
+        return bitcoinService.getBitcoinTransactionOutput(txId, vout).orElseThrow(DgsEntityNotFoundException::new);
     }
 
 }

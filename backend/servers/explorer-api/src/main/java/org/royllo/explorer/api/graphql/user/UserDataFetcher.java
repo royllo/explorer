@@ -9,8 +9,6 @@ import org.royllo.explorer.api.util.base.BaseDataFetcher;
 import org.royllo.explorer.core.dto.user.UserDTO;
 import org.royllo.explorer.core.service.user.UserService;
 
-import java.util.Optional;
-
 /**
  * User data fetcher.
  */
@@ -29,14 +27,7 @@ public class UserDataFetcher extends BaseDataFetcher {
      */
     @DgsQuery
     public final UserDTO userByUsername(final @InputArgument String username) {
-        final Optional<UserDTO> user = userService.getUserByUsername(username);
-        if (user.isEmpty()) {
-            logger.info("userByUsername - User with username {} not found", username);
-            throw new DgsEntityNotFoundException();
-        } else {
-            logger.info("userByUsername - User with username '{}' found: {}", username, user.get());
-            return user.get();
-        }
+        return userService.getUserByUsername(username).orElseThrow(DgsEntityNotFoundException::new);
     }
 
 }

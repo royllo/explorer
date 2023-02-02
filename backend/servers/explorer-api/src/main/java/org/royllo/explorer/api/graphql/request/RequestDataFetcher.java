@@ -14,8 +14,6 @@ import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.service.request.RequestService;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Request data fetcher.
@@ -52,18 +50,7 @@ public class RequestDataFetcher extends BaseDataFetcher {
      */
     @DgsQuery
     public final List<RequestDTO> openedRequests() {
-        final List<RequestDTO> results = requestService.getOpenedRequests();
-        if (results.isEmpty()) {
-            logger.info("openedRequests - There is no results");
-        } else {
-            logger.info("openedRequests - {} results with requests ids: {}",
-                    results.size(),
-                    results.stream()
-                            .map(RequestDTO::getId)
-                            .map(Object::toString)
-                            .collect(Collectors.joining(", ")));
-        }
-        return results;
+        return requestService.getOpenedRequests();
     }
 
     /**
@@ -74,14 +61,7 @@ public class RequestDataFetcher extends BaseDataFetcher {
      */
     @DgsQuery
     public final RequestDTO request(final @InputArgument long id) {
-        final Optional<RequestDTO> request = requestService.getRequest(id);
-        if (request.isEmpty()) {
-            logger.info("request - Request with id {} not found", id);
-            throw new DgsEntityNotFoundException();
-        } else {
-            logger.info("request - Request with id {} found: {}", id, request.get());
-            return request.get();
-        }
+        return requestService.getRequest(id).orElseThrow(DgsEntityNotFoundException::new);
     }
 
     /**
@@ -92,15 +72,12 @@ public class RequestDataFetcher extends BaseDataFetcher {
      */
     @DgsMutation
     public final AddAssetRequestDTO addAssetRequest(final @InputArgument AddAssetRequestInputs input) {
-        logger.info("addAssetRequest - With values {}", input);
-        final AddAssetRequestDTO addAssetRequest = requestService.addAsset(input.getGenesisPoint(),
+        return requestService.addAsset(input.getGenesisPoint(),
                 input.getName(),
                 input.getMetaData(),
                 input.getAssetId(),
                 input.getOutputIndex(),
                 input.getProof());
-        logger.info("addAssetRequest - Successfully created {} with the values {} ", addAssetRequest, input);
-        return addAssetRequest;
     }
 
     /**
@@ -111,10 +88,7 @@ public class RequestDataFetcher extends BaseDataFetcher {
      */
     @DgsMutation
     public final AddAssetMetaDataRequestDTO addAssetMetaDataRequest(final @InputArgument AddAssetMetaDataRequestInputs input) {
-        logger.info("addAssetMetaDataRequest - With values {}", input);
-        final AddAssetMetaDataRequestDTO addAssetMetaDataRequest = requestService.addAssetMetaData(input.getAssetId(), input.getMetaData());
-        logger.info("addAssetMetaDataRequest - Successfully created {} with the values {} ", addAssetMetaDataRequest, input);
-        return addAssetMetaDataRequest;
+        return requestService.addAssetMetaData(input.getAssetId(), input.getMetaData());
     }
 
 }
