@@ -1,10 +1,8 @@
 <!--/* Search form */-->
 <form class="flex mx-auto" th:action="@{/search}" method="GET">
 
-    <!--/* Information about the field - this content is visible only to screen readers */-->
-    <label for="query" class="sr-only">Search asset by asset id or asset name</label>
-
     <!--/* Search field */-->
+    <label for="query" class="sr-only">Search asset by asset id or asset name</label>
     <div class="relative w-96">
         <input type="search"
                id="query"

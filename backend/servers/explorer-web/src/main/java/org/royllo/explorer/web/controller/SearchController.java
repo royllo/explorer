@@ -40,7 +40,7 @@ public class SearchController {
         // If the query is present, we make the search.
         if (query.isPresent() && !query.get().trim().isEmpty()) {
             // Value the user searched for and the page.
-            model.addAttribute(QUERY_ATTRIBUTE, query.get());
+            model.addAttribute(QUERY_ATTRIBUTE, query.get().trim());
             model.addAttribute(PAGE_ATTRIBUTE, page);
 
             // Adding result to the page.

@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @SpringBootTest
-@DisplayName("Search controller")
+@DisplayName("Search controller tests")
 @AutoConfigureMockMvc
 @PropertySource("classpath:messages.properties")
 public class SearchControllerTest {

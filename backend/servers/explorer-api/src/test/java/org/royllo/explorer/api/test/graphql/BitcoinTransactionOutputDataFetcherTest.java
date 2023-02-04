@@ -56,7 +56,7 @@ public class BitcoinTransactionOutputDataFetcherTest extends BaseTest {
         assertEquals("410415ca91c387efac4ea86f0196b2a1d831f75a488f115055636f0022c51df508197ad4fc31f553d48052b05b0a3b6030a84a0441adae97734129bb8ea0ddfd4004ac", transactionOutput.getScriptPubKey());
         assertEquals("OP_PUSHBYTES_65 0415ca91c387efac4ea86f0196b2a1d831f75a488f115055636f0022c51df508197ad4fc31f553d48052b05b0a3b6030a84a0441adae97734129bb8ea0ddfd4004 OP_CHECKSIG", transactionOutput.getScriptPubKeyAsm());
         assertEquals("p2pk", transactionOutput.getScriptPubKeyType());
-        assertNull(transactionOutput.getScriptPubKeyAddress());
+        assertEquals("19oAxAJhAKmEFb2pcA9qiX8sV8hxKeXjzd", transactionOutput.getScriptPubKeyAddress());
         assertEquals(0, new BigDecimal("5000000000").compareTo(transactionOutput.getValue()));
     }
 

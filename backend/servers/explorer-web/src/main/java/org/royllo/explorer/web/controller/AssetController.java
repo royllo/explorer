@@ -30,18 +30,18 @@ public class AssetController {
      * @param assetId asset id
      * @return view asset page
      */
-    @GetMapping(value = {"/asset/", "/asset/{assetId}"})
+    @GetMapping(value = {"/asset", "/asset/", "/asset/{assetId}"})
     public String getAssetByAssetId(final Model model,
                                     @PathVariable("assetId") final Optional<String> assetId) {
         // If assetId is present, we retrieve it.
         if (assetId.isPresent() && !assetId.get().trim().isEmpty()) {
             // Value the user asked for.
-            model.addAttribute(ASSET_ID_ATTRIBUTE, assetId.get());
+            model.addAttribute(ASSET_ID_ATTRIBUTE, assetId.get().trim());
 
             // We retrieve the asset to display it.
             assetService.getAssetByAssetId(assetId.get()).ifPresent(asset -> model.addAttribute(RESULT_ATTRIBUTE, asset));
         } else {
-            // If the user just typed "/asset/".
+            // If the user just typed "/asset" or "/asset/".
             model.addAttribute(ASSET_ID_ATTRIBUTE, "");
         }
         return ASSET_PAGE;

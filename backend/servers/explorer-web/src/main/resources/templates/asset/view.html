@@ -38,18 +38,60 @@
         <!--/* Data */-->
         <div class="tableLines">
             <dl>
+                <!--/* Asset name */-->
+                <div class="tableLineGray">
+                    <dt class="tableLineDescription" th:text="#{field.asset.name}"></dt>
+                    <dd class="tableLineValue" th:text="${result.name}"></dd>
+                </div>
+                <!--/* Asset ID */-->
+                <div class="tableLineWhite">
+                    <dt class="tableLineDescription" th:text="#{field.asset.assetId}"></dt>
+                    <dd class="tableLineValue" th:text="${result.assetId}"></dd>
+                </div>
                 <!--/* Creator */-->
                 <div class="tableLineGray">
                     <dt class="tableLineDescription" th:text="#{field.asset.creator.username}"></dt>
                     <dd class="tableLineValue" th:text="${result.creator.username}"></dd>
                 </div>
+                <!--/* Metadata hash */-->
                 <div class="tableLineWhite">
-                    <dt class="tableLineDescription">Application for</dt>
-                    <dd class="tableLineValue">Backend developer</dd>
+                    <dt class="tableLineDescription" th:text="#{field.asset.metaDataHash}"></dt>
+                    <dd class="tableLineValue" th:text="${result.metaData}"></dd>
                 </div>
+                <!--/* Transaction id */-->
                 <div class="tableLineGray">
-                    <dt class="tableLineDescription" th:text="#{field.asset.creator.username}"></dt>
-                    <dd class="tableLineValue" th:text="${result.creator.username}"></dd>
+                    <dt class="tableLineDescription" th:text="#{field.asset.transactionId}"></dt>
+                    <dd class="tableLineValue" th:text="${result.genesisPoint.txId}"></dd>
+                </div>
+                <!--/* Transaction vout */-->
+                <div class="tableLineWhite">
+                    <dt class="tableLineDescription" th:text="#{field.asset.vout}"></dt>
+                    <dd class="tableLineValue" th:text="${result.genesisPoint.vout}"></dd>
+                </div>
+                <!--/* Transaction output index */-->
+                <div class="tableLineGray">
+                    <dt class="tableLineDescription" th:text="#{field.asset.outputIndex}"></dt>
+                    <dd class="tableLineValue" th:text="${result.outputIndex}"></dd>
+                </div>
+                <!--/* scriptPubKey */-->
+                <div class="tableLineWhite">
+                    <dt class="tableLineDescription" th:text="#{field.asset.scriptPubKey}"></dt>
+                    <dd class="tableLineValue" th:text="${result.genesisPoint.scriptPubKey}"></dd>
+                </div>
+                <!--/* scriptPubKey asm */-->
+                <div class="tableLineGray">
+                    <dt class="tableLineDescription" th:text="#{field.asset.scriptPubKeyAsm}"></dt>
+                    <dd class="tableLineValue" th:text="${result.genesisPoint.scriptPubKeyAsm}"></dd>
+                </div>
+                <!--/* scriptPubKey asm */-->
+                <div class="tableLineWhite">
+                    <dt class="tableLineDescription" th:text="#{field.asset.scriptPubKeyType}"></dt>
+                    <dd class="tableLineValue" th:text="${result.genesisPoint.scriptPubKeyType}"></dd>
+                </div>
+                <!--/* scriptPubKey address */-->
+                <div class="tableLineGray">
+                    <dt class="tableLineDescription" th:text="#{field.asset.scriptPubKeyAddress}"></dt>
+                    <dd class="tableLineValue" th:text="${result.genesisPoint.scriptPubKeyAddress}"></dd>
                 </div>
             </dl>
         </div>

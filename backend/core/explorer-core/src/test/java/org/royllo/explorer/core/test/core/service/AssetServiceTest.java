@@ -205,7 +205,7 @@ public class AssetServiceTest extends BaseTest {
         assertEquals(asset.get().getName(), "starbackrcoin");
         assertEquals(asset.get().getMetaData(), "737461726261636b72206d6f6e6579");
         assertEquals(asset.get().getAssetId(), "b34b05956d828a7f7a0df598771c9f6df0378680c432480837852bcb94a8f21e");
-        assertEquals(asset.get().getOutputIndex(), 0);
+        assertEquals(asset.get().getOutputIndex(), 1);
     }
 
     @Test
@@ -224,7 +224,7 @@ public class AssetServiceTest extends BaseTest {
         assertEquals("starbackrcoin", asset.get().getName());
         assertEquals("737461726261636b72206d6f6e6579", asset.get().getMetaData());
         assertEquals("b34b05956d828a7f7a0df598771c9f6df0378680c432480837852bcb94a8f21e", asset.get().getAssetId());
-        assertEquals(0, asset.get().getOutputIndex());
+        assertEquals(1, asset.get().getOutputIndex());
     }
 
 }

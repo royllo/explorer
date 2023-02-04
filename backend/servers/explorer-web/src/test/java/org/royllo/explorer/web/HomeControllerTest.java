@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @SpringBootTest
-@DisplayName("Home controller")
+@DisplayName("Home controller tests")
 @AutoConfigureMockMvc
 @PropertySource("classpath:messages.properties")
 public class HomeControllerTest {

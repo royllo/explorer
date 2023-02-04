@@ -13,7 +13,7 @@
             <column name="NAME" value="starbackrcoin"/>
             <column name="META_DATA" value="737461726261636b72206d6f6e6579"/>
             <column name="ASSET_ID" value="b34b05956d828a7f7a0df598771c9f6df0378680c432480837852bcb94a8f21e"/>
-            <column name="OUTPUT_INDEX" value="0"/>
+            <column name="OUTPUT_INDEX" value="1"/>
         </insert>
 
         <!-- TODO Replace this asset by a Royllo coin created on the testnet -->
