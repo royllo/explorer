@@ -76,7 +76,7 @@
         <jdbc.driver.hsqldb.version>2.7.1</jdbc.driver.hsqldb.version>
         <jdbc.driver.postgresql.version>42.5.1</jdbc.driver.postgresql.version>
 
-        <lombok.version>1.18.24</lombok.version>
+        <lombok.version>1.18.26</lombok.version>
         <lombok.mapstruct.version>0.2.0</lombok.mapstruct.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
 
