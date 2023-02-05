@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{fragments/layouts/default_layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!--/* =========================================================================================================== */-->
+<div class="content" layout:fragment="content">
+
+    <div class="errorPanel"
+         role="alert">
+        <p class="font-bold" th:text="#{generic.error}"></p>
+        <p th:text="#{generic.error.500}"></p>
+    </div>
+
+</div>
+<!-- =============================================================================================================== -->
+
+</html>

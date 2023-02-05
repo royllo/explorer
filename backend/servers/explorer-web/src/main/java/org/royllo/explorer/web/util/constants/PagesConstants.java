@@ -20,4 +20,13 @@ public final class PagesConstants {
     /** Asset page. */
     public static final String ASSET_PAGE = "asset/view";
 
+    /** Error page. */
+    public static final String ERROR_PAGE = "util/error";
+
+    /** Error 404 page. */
+    public static final String ERROR_404_PAGE = "util/error-404";
+
+    /** Error 500 page. */
+    public static final String ERROR_500_PAGE = "util/error-500";
+
 }
