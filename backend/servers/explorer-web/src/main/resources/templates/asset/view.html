@@ -38,41 +38,37 @@
         <!--/* Data */-->
         <div class="tableLines">
             <dl>
+                <!--/* Genesis point  */-->
+                <div class="tableLineWhite">
+                    <dt class="tableLineDescription" th:text="#{field.asset.genesisPoint}"></dt>
+                    <dd class="tableLineValue" th:text="${result.genesisPoint.txId} + ':' + ${result.genesisPoint.vout}"></dd>
+                </div>
                 <!--/* Asset name */-->
                 <div class="tableLineGray">
                     <dt class="tableLineDescription" th:text="#{field.asset.name}"></dt>
                     <dd class="tableLineValue" th:text="${result.name}"></dd>
-                </div>
-                <!--/* Asset ID */-->
-                <div class="tableLineWhite">
-                    <dt class="tableLineDescription" th:text="#{field.asset.assetId}"></dt>
-                    <dd class="tableLineValue" th:text="${result.assetId}"></dd>
-                </div>
-                <!--/* Creator */-->
-                <div class="tableLineGray">
-                    <dt class="tableLineDescription" th:text="#{field.asset.creator.username}"></dt>
-                    <dd class="tableLineValue" th:text="${result.creator.username}"></dd>
                 </div>
                 <!--/* Metadata hash */-->
                 <div class="tableLineWhite">
                     <dt class="tableLineDescription" th:text="#{field.asset.metaDataHash}"></dt>
                     <dd class="tableLineValue" th:text="${result.metaData}"></dd>
                 </div>
-                <!--/* Transaction id */-->
+                <!--/* Asset ID */-->
                 <div class="tableLineGray">
-                    <dt class="tableLineDescription" th:text="#{field.asset.transactionId}"></dt>
-                    <dd class="tableLineValue" th:text="${result.genesisPoint.txId}"></dd>
+                    <dt class="tableLineDescription" th:text="#{field.asset.assetId}"></dt>
+                    <dd class="tableLineValue" th:text="${result.assetId}"></dd>
                 </div>
-                <!--/* Transaction vout */-->
+                <!--/* Taro output index */-->
                 <div class="tableLineWhite">
-                    <dt class="tableLineDescription" th:text="#{field.asset.vout}"></dt>
-                    <dd class="tableLineValue" th:text="${result.genesisPoint.vout}"></dd>
-                </div>
-                <!--/* Transaction output index */-->
-                <div class="tableLineGray">
                     <dt class="tableLineDescription" th:text="#{field.asset.outputIndex}"></dt>
                     <dd class="tableLineValue" th:text="${result.outputIndex}"></dd>
                 </div>
+                <!--/* Creator */-->
+                <div class="tableLineGray">
+                    <dt class="tableLineDescription" th:text="#{field.asset.creator.username}"></dt>
+                    <dd class="tableLineValue" th:text="${result.creator.username}"></dd>
+                </div>
+
                 <!--/* scriptPubKey */-->
                 <div class="tableLineWhite">
                     <dt class="tableLineDescription" th:text="#{field.asset.scriptPubKey}"></dt>
