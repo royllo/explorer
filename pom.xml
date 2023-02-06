@@ -9,7 +9,7 @@
     <groupId>org.royllo.explorer</groupId>
     <artifactId>explorer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Royllo, a Taro asset explorer</name>
+    <name>Royllo - A Taro asset explorer</name>
     <description>Taro explorer allows you to search for Taro assets created on the Bitcoin blockchain</description>
     <packaging>pom</packaging>
     <url>https://github.com/royllo/explorer</url>
@@ -104,8 +104,7 @@
     <!-- =========================================================================================================== -->
     <!-- Modules -->
     <modules>
-        <module>backend/core/explorer-database</module>
-        <module>backend/core/explorer-core</module>
+        <module>backend/explorer-core</module>
         <module>backend/servers/explorer-batch</module>
         <module>backend/servers/explorer-api</module>
         <module>backend/servers/explorer-web</module>
