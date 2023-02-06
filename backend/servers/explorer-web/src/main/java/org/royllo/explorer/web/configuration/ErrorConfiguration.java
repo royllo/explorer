@@ -1,4 +1,4 @@
-package org.royllo.explorer.web.util.controller;
+package org.royllo.explorer.web.configuration;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -18,7 +18,7 @@ import static org.royllo.explorer.web.util.constants.PagesConstants.ERROR_PAGE;
  */
 @Controller
 @RequiredArgsConstructor
-public class RoylloErrorController implements ErrorController {
+public class ErrorConfiguration implements ErrorController {
 
     /**
      * Handle error.
