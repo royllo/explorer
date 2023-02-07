@@ -31,7 +31,7 @@ public class AssetControllerTest {
     Environment environment;
 
     @Test
-    @DisplayName("Calling /asset")
+    @DisplayName("Calling '/asset'")
     void assetPageWithoutParameterAndSlash() throws Exception {
         mockMvc.perform(get("/asset"))
                 .andExpect(status().isOk())
@@ -41,7 +41,7 @@ public class AssetControllerTest {
     }
 
     @Test
-    @DisplayName("Calling /asset/")
+    @DisplayName("Calling '/asset/'")
     void assetPageWithoutParameter() throws Exception {
         mockMvc.perform(get("/asset/"))
                 .andExpect(status().isOk())
