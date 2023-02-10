@@ -30,6 +30,7 @@ public class AssetController {
      * @param assetId asset id
      * @return view asset page
      */
+    @SuppressWarnings("SameReturnValue")
     @GetMapping(value = {"/asset", "/asset/", "/asset/{assetId}"})
     public String getAssetByAssetId(final Model model,
                                     @PathVariable("assetId") final Optional<String> assetId) {

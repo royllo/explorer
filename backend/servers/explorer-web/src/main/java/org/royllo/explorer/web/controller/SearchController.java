@@ -33,6 +33,7 @@ public class SearchController {
      * @param page  page number
      * @return page to display
      */
+    @SuppressWarnings("SameReturnValue")
     @GetMapping("/search")
     public String home(final Model model,
                        @RequestParam(required = false) final Optional<String> query,

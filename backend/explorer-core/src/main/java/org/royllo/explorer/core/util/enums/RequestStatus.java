@@ -17,7 +17,7 @@ public enum RequestStatus {
     FAILURE;
 
     /**
-     * REturn true if it's a final status - Meaning there is nothing more to do with this request.
+     * Return true if it's a final status - Meaning there is nothing more to do with this request.
      *
      * @return true if a final status
      */

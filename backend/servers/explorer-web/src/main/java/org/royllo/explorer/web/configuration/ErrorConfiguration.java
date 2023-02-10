@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.http.HttpServletRequest;
 
 import static org.royllo.explorer.web.util.constants.PagesConstants.ERROR_404_PAGE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.ERROR_500_PAGE;
