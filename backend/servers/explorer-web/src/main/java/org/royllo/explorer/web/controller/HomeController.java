@@ -23,6 +23,7 @@ public class HomeController {
      * @param query query
      * @return page to display
      */
+    @SuppressWarnings("SameReturnValue")
     @GetMapping("/")
     public String home(final Model model,
                        @RequestParam(required = false) final Optional<String> query) {

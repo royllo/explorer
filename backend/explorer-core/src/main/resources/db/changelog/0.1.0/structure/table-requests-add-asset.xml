@@ -5,7 +5,7 @@
     <changeSet author="straumat" id="0.1.0-table-requests-add-request">
 
         <createTable tableName="REQUESTS_ADD_ASSET"
-                     remarks="A request to add asset to royllo explorer">
+                     remarks="A request to add an asset to royllo explorer">
 
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"

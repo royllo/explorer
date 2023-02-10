@@ -64,11 +64,11 @@
 
         <!-- ======================================================================================================= -->
         <!-- Project libraries -->
-        <spring.version>2.7.8</spring.version>
+        <spring.version>3.0.2</spring.version>
         <reactor-core.version>3.5.2</reactor-core.version>
         <reactor-netty.version>1.1.2</reactor-netty.version>
 
-        <graphql-dgs-platform-dependencies.version>5.5.1</graphql-dgs-platform-dependencies.version>
+        <graphql-dgs-platform-dependencies.version>6.0.0</graphql-dgs-platform-dependencies.version>
         <graphql-dgs-codegen-core.version>5.6.9</graphql-dgs-codegen-core.version>
         <graphql-dgs-codegen-client-core.version>5.1.17</graphql-dgs-codegen-client-core.version>
 
@@ -146,7 +146,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.8</version>
+        <version>3.0.2</version>
         <relativePath/>
     </parent>
     <!-- =========================================================================================================== -->

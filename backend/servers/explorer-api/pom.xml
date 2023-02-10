@@ -97,17 +97,6 @@
             <artifactId>graphql-dgs-mocking</artifactId>
             <!-- TODO Remove temporary fix : Scope should be set to test -->
         </dependency>
-        <!-- TODO Remove temporary fix for error : "nested exception is java.lang.NoSuchMethodError" -->
-        <dependency>
-            <groupId>com.graphql-java</groupId>
-            <artifactId>graphql-java</artifactId>
-            <version>19.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>5.3.25</version>
-        </dependency>
     </dependencies>
 
     <dependencyManagement>

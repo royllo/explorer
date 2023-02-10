@@ -2,10 +2,7 @@
 
 ## Core
 
-Contains Royllo core API and its database:
-
-- The database description made with Liquibase (`exporer-database`).
-- The core API (`explorer-core`).
+Contains Royllo core (database, domain, dto, repository, services...) included in all projects.
 
 ## Servers
 

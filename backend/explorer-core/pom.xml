@@ -9,7 +9,7 @@
     <artifactId>explorer-core</artifactId>
     <packaging>jar</packaging>
     <name>Royllo Explorer core</name>
-    <description>Contains domain, repository, dto, services, util</description>
+    <description>Contains database schema, domain, repository, dto, services, util</description>
     <!-- =========================================================================================================== -->
 
     <!-- =========================================================================================================== -->
