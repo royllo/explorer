@@ -8,15 +8,15 @@ import org.junit.jupiter.api.Test;
 import org.royllo.explorer.api.graphql.generated.DgsConstants;
 import org.royllo.explorer.api.graphql.generated.client.AddAssetMetaDataRequestGraphQLQuery;
 import org.royllo.explorer.api.graphql.generated.client.AddAssetMetaDataRequestProjectionRoot;
-import org.royllo.explorer.api.graphql.generated.client.AddAssetRequestGraphQLQuery;
-import org.royllo.explorer.api.graphql.generated.client.AddAssetRequestProjectionRoot;
+import org.royllo.explorer.api.graphql.generated.client.AddProofRequestGraphQLQuery;
+import org.royllo.explorer.api.graphql.generated.client.AddProofRequestProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.client.OpenedRequestsGraphQLQuery;
 import org.royllo.explorer.api.graphql.generated.client.OpenedRequestsProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.client.RequestGraphQLQuery;
 import org.royllo.explorer.api.graphql.generated.client.RequestProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.types.AddAssetMetaDataRequest;
-import org.royllo.explorer.api.graphql.generated.types.AddAssetRequest;
-import org.royllo.explorer.api.graphql.generated.types.AddAssetRequestInputs;
+import org.royllo.explorer.api.graphql.generated.types.AddProofRequest;
+import org.royllo.explorer.api.graphql.generated.types.AddProofRequestInputs;
 import org.royllo.explorer.api.graphql.generated.types.Request;
 import org.royllo.explorer.api.graphql.generated.types.addAssetMetaDataRequestInputs;
 import org.royllo.explorer.core.util.constants.UserConstants;
@@ -49,7 +49,7 @@ public class RequestDataFetcherTest {
                         .creator().id().username().parent()
                         .status().getParent()
                         .errorMessage()
-                        .onAddAssetRequest().genesisPoint().name().metaData().assetId().outputIndex().proof().getParent()
+                        .onAddProofRequest().rawProof().getParent()
                         .onAddAssetMetaDataRequest().assetId().metaData());
 
         List<Request> requests = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
@@ -60,18 +60,13 @@ public class RequestDataFetcherTest {
         assertEquals(3, requests.size());
 
         // Request 1.
-        final AddAssetRequest request1 = (AddAssetRequest) requests.get(0);
+        final AddProofRequest request1 = (AddProofRequest) requests.get(0);
         assertEquals("1", request1.getId());
         assertEquals(UserConstants.ANONYMOUS_USER_ID.toString(), request1.getCreator().getId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request1.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED.toString(), request1.getStatus().toString());
         assertNull(request1.getErrorMessage());
-        assertEquals("GP1", request1.getGenesisPoint());
-        assertEquals("NAME1", request1.getName());
-        assertEquals("ME1", request1.getMetaData());
-        assertEquals("AI1", request1.getAssetId());
-        assertEquals(1, request1.getOutputIndex());
-        assertEquals("P1", request1.getProof());
+        assertEquals("P1", request1.getRawProof());
 
         // Request 2.
         final AddAssetMetaDataRequest request2 = (AddAssetMetaDataRequest) requests.get(1);
@@ -84,18 +79,13 @@ public class RequestDataFetcherTest {
         assertEquals("MD2", request2.getMetaData());
 
         // Request 3.
-        final AddAssetRequest request3 = (AddAssetRequest) requests.get(2);
+        final AddProofRequest request3 = (AddProofRequest) requests.get(2);
         assertEquals("4", request3.getId());
         assertEquals(UserConstants.ANONYMOUS_USER_ID.toString(), request3.getCreator().getId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request3.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED.toString(), request3.getStatus().toString());
         assertNull(request3.getErrorMessage());
-        assertEquals("GP4", request3.getGenesisPoint());
-        assertEquals("NAME4", request3.getName());
-        assertEquals("ME4", request3.getMetaData());
-        assertEquals("AI4", request3.getAssetId());
-        assertEquals(4, request3.getOutputIndex());
-        assertEquals("P4", request3.getProof());
+        assertEquals("P4", request3.getRawProof());
     }
 
     @Test
@@ -108,7 +98,7 @@ public class RequestDataFetcherTest {
                         .creator().id().username().parent()
                         .status().getParent()
                         .errorMessage()
-                        .onAddAssetRequest().genesisPoint().name().metaData().assetId().outputIndex().proof().getParent()
+                        .onAddProofRequest().rawProof().parent()
                         .onAddAssetMetaDataRequest().assetId().metaData());
 
         Request request = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
@@ -117,45 +107,33 @@ public class RequestDataFetcherTest {
                 new TypeRef<>() {
                 });
 
-        AddAssetRequest addAssetRequest = (AddAssetRequest) request;
+        AddProofRequest addAssetRequest = (AddProofRequest) request;
         assertEquals("4", addAssetRequest.getId());
         assertEquals(UserConstants.ANONYMOUS_USER_ID.toString(), addAssetRequest.getCreator().getId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, addAssetRequest.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED.toString(), addAssetRequest.getStatus().toString());
         assertNull(addAssetRequest.getErrorMessage());
-        assertEquals("GP4", addAssetRequest.getGenesisPoint());
-        assertEquals("NAME4", addAssetRequest.getName());
-        assertEquals("ME4", addAssetRequest.getMetaData());
-        assertEquals("AI4", addAssetRequest.getAssetId());
-        assertEquals(4, addAssetRequest.getOutputIndex());
-        assertEquals("P4", addAssetRequest.getProof());
+        assertEquals("P4", addAssetRequest.getRawProof());
     }
 
     @Test
-    @DisplayName("addAssetRequest()")
-    public void addAssetRequest() {
+    @DisplayName("addProofRequest()")
+    public void addProofRequest() {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                AddAssetRequestGraphQLQuery.newRequest()
-                        .input(AddAssetRequestInputs.newBuilder()
-                                .genesisPoint("4ce18f49ba153a51bcda9bb80d7f978e3de6e81b5fc326f00465464530c052f4:0")
-                                .name("2")
-                                .metaData("3")
-                                .assetId("4")
-                                .outputIndex(5)
-                                .proof("proof01")
-                                .proof("6")
+                AddProofRequestGraphQLQuery.newRequest()
+                        .input(AddProofRequestInputs.newBuilder()
+                                .rawProof("6")
                                 .build())
                         .build(),
-                new AddAssetRequestProjectionRoot()
+                new AddProofRequestProjectionRoot()
                         .id()
                         .creator().id().username().parent()
                         .status().getParent()
-                        .errorMessage()
-                        .genesisPoint().name().metaData().assetId().outputIndex().proof());
+                        .errorMessage().rawProof());
 
-        AddAssetRequest requestCreated = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+        AddProofRequest requestCreated = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 graphQLQueryRequest.serialize(),
-                "data." + DgsConstants.MUTATION.AddAssetRequest,
+                "data." + DgsConstants.MUTATION.AddProofRequest,
                 new TypeRef<>() {
                 });
 
@@ -164,12 +142,7 @@ public class RequestDataFetcherTest {
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, requestCreated.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED.toString(), requestCreated.getStatus().toString());
         assertNull(requestCreated.getErrorMessage());
-        assertEquals("4ce18f49ba153a51bcda9bb80d7f978e3de6e81b5fc326f00465464530c052f4:0", requestCreated.getGenesisPoint());
-        assertEquals("2", requestCreated.getName());
-        assertEquals("3", requestCreated.getMetaData());
-        assertEquals("4", requestCreated.getAssetId());
-        assertEquals(5, requestCreated.getOutputIndex());
-        assertEquals("6", requestCreated.getProof());
+        assertEquals("6", requestCreated.getRawProof());
     }
 
     @Test

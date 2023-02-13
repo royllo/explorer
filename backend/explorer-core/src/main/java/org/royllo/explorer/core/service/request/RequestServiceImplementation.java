@@ -2,10 +2,10 @@ package org.royllo.explorer.core.service.request;
 
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.request.AddAssetMetaDataRequest;
-import org.royllo.explorer.core.domain.request.AddAssetRequest;
+import org.royllo.explorer.core.domain.request.AddProof;
 import org.royllo.explorer.core.domain.request.Request;
 import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
-import org.royllo.explorer.core.dto.request.AddAssetRequestDTO;
+import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.util.base.BaseService;
@@ -61,30 +61,22 @@ public class RequestServiceImplementation extends BaseService implements Request
     }
 
     @Override
-    public AddAssetRequestDTO addAsset(final String genesisPoint,
-                                       final String name,
-                                       final String metaData,
-                                       final String assetId,
-                                       final int outputIndex,
-                                       final String proof) {
+    public AddProofRequestDTO addProof(final String rawProof) {
+        // TODO check if rawProof is not empty.
+
         // =============================================================================================================
         // Creating the request.
-        AddAssetRequest request = AddAssetRequest.builder()
+        AddProof request = AddProof.builder()
                 .creator(USER_MAPPER.mapToUser(ANONYMOUS_USER))
                 .status(OPENED)
-                .genesisPoint(genesisPoint)
-                .name(name)
-                .metaData(metaData)
-                .assetId(assetId)
-                .outputIndex(outputIndex)
-                .proof(proof)
+                .rawProof(rawProof)
                 .build();
-        logger.debug("addAsset - New request to add {}", request);
+        logger.debug("addProof - New request to add {}", request);
 
         // =============================================================================================================
         // Saving the request.
-        AddAssetRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetRequestDTO(requestRepository.save(request));
-        logger.debug("addAsset - Request {} saved", savedRequest);
+        AddProofRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetRequestDTO(requestRepository.save(request));
+        logger.debug("addProof - Request {} saved", savedRequest);
         return savedRequest;
     }
 

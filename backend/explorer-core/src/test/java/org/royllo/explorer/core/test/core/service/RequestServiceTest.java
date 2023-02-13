@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
-import org.royllo.explorer.core.dto.request.AddAssetRequestDTO;
+import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.service.request.RequestService;
 import org.royllo.explorer.core.util.constants.UserConstants;
@@ -45,17 +45,12 @@ public class RequestServiceTest {
         assertEquals(3, openedRequests.size());
 
         // Request 1.
-        AddAssetRequestDTO request1 = (AddAssetRequestDTO) openedRequests.get(0);
+        AddProofRequestDTO request1 = (AddProofRequestDTO) openedRequests.get(0);
         assertEquals(1, request1.getId());
         assertEquals(UserConstants.ANONYMOUS_USER_ID, request1.getCreator().getId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request1.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED, request1.getStatus());
-        assertEquals("GP1", request1.getGenesisPoint());
-        assertEquals("NAME1", request1.getName());
-        assertEquals("ME1", request1.getMetaData());
-        assertEquals("AI1", request1.getAssetId());
-        assertEquals(1, request1.getOutputIndex());
-        assertEquals("P1", request1.getProof());
+        assertEquals("P1", request1.getRawProof());
 
         // Request 2.
         AddAssetMetaDataRequestDTO request2 = (AddAssetMetaDataRequestDTO) openedRequests.get(1);
@@ -68,18 +63,13 @@ public class RequestServiceTest {
         assertEquals("MD2", request2.getMetaData());
 
         // Request 3.
-        AddAssetRequestDTO request3 = (AddAssetRequestDTO) openedRequests.get(2);
+        AddProofRequestDTO request3 = (AddProofRequestDTO) openedRequests.get(2);
         assertEquals(4, request3.getId());
         assertEquals(UserConstants.ANONYMOUS_USER_ID, request3.getCreator().getId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request3.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED, request3.getStatus());
         assertNull(request3.getErrorMessage());
-        assertEquals("GP4", request3.getGenesisPoint());
-        assertEquals("NAME4", request3.getName());
-        assertEquals("ME4", request3.getMetaData());
-        assertEquals("AI4", request3.getAssetId());
-        assertEquals(4, request3.getOutputIndex());
-        assertEquals("P4", request3.getProof());
+        assertEquals("P4", request3.getRawProof());
     }
 
     @Test
@@ -89,48 +79,31 @@ public class RequestServiceTest {
         // =============================================================================================================
         // Testing data validation.
         try {
-            requestService.addAsset(null,
-                    null,
-                    null,
-                    null,
-                    -1,
-                    null
-            );
+            requestService.addProof(null);
         } catch (ConstraintViolationException e) {
             final Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
-            assertEquals(6, constraintViolations.size());
+            assertEquals(1, constraintViolations.size());
         }
 
         // =============================================================================================================
         // Request 1 (addAsset).
-        RequestDTO request1DTO = requestService.addAsset("f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16:0",
-                "name1",
-                "metaData1",
-                "assetId1",
-                1,
-                "proof1"
-        );
+        RequestDTO request1DTO = requestService.addProof("proof1");
         assertNotNull(request1DTO);
         long request1Id = request1DTO.getId();
 
         // Use getRequest()
         Optional<RequestDTO> request1 = requestService.getRequest(request1Id);
         assertTrue(request1.isPresent());
-        assertTrue(request1.get() instanceof AddAssetRequestDTO);
+        assertTrue(request1.get() instanceof AddProofRequestDTO);
 
         // We cast and check of all the data is here.
-        AddAssetRequestDTO request1Casted = (AddAssetRequestDTO) request1.get();
+        AddProofRequestDTO request1Casted = (AddProofRequestDTO) request1.get();
         assertEquals(request1Id, request1Casted.getId());
         assertEquals(UserConstants.ANONYMOUS_USER_ID, request1Casted.getCreator().getId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request1Casted.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED, request1Casted.getStatus());
         assertNull(request1Casted.getErrorMessage());
-        assertEquals("f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16:0", request1Casted.getGenesisPoint());
-        assertEquals("name1", request1Casted.getName());
-        assertEquals("metaData1", request1Casted.getMetaData());
-        assertEquals("assetId1", request1Casted.getAssetId());
-        assertEquals(1, request1Casted.getOutputIndex());
-        assertEquals("proof1", request1Casted.getProof());
+        assertEquals("proof1", request1Casted.getRawProof());
 
         // =============================================================================================================
         // Request 2 (addAssetMetaData).
@@ -155,34 +128,23 @@ public class RequestServiceTest {
 
         // =============================================================================================================
         // Request 3 (addAsset).
-        RequestDTO request3DTO = requestService.addAsset("22284fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16:0",
-                "name2",
-                "metaData2",
-                "assetId2",
-                2,
-                "proof2"
-        );
+        RequestDTO request3DTO = requestService.addProof("proof2");
         assertNotNull(request3DTO);
         long request3Id = request3DTO.getId();
 
         // Use getRequest()
         Optional<RequestDTO> request3 = requestService.getRequest(request3Id);
         assertTrue(request3.isPresent());
-        assertTrue(request3.get() instanceof AddAssetRequestDTO);
+        assertTrue(request3.get() instanceof AddProofRequestDTO);
 
         // We cast and check of all the data is here.
-        AddAssetRequestDTO request3Casted = (AddAssetRequestDTO) request3.get();
+        AddProofRequestDTO request3Casted = (AddProofRequestDTO) request3.get();
         assertEquals(request3Id, request3Casted.getId());
         assertEquals(UserConstants.ANONYMOUS_USER_ID, request3Casted.getCreator().getId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request3Casted.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED, request3Casted.getStatus());
         assertNull(request3Casted.getErrorMessage());
-        assertEquals("22284fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16:0", request3Casted.getGenesisPoint());
-        assertEquals("name2", request3Casted.getName());
-        assertEquals("metaData2", request3Casted.getMetaData());
-        assertEquals("assetId2", request3Casted.getAssetId());
-        assertEquals(2, request3Casted.getOutputIndex());
-        assertEquals("proof2", request3Casted.getProof());
+        assertEquals("proof2", request3Casted.getRawProof());
     }
 
 }

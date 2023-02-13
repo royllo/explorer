@@ -1,7 +1,7 @@
 package org.royllo.explorer.core.service.request;
 
 import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
-import org.royllo.explorer.core.dto.request.AddAssetRequestDTO;
+import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 
 import java.util.List;
@@ -28,22 +28,12 @@ public interface RequestService {
     Optional<RequestDTO> getRequest(long id);
 
     /**
-     * Add a request to add an asset.
+     * Add a request to add a Raw proof.
      *
-     * @param genesisPoint The first outpoint of the transaction that created the asset (txid:vout)
-     * @param name         The name of the asset
-     * @param metaData     The hashed metadata of the asset
-     * @param assetId      The asset ID that uniquely identifies the asset
-     * @param outputIndex  The index of the output that carries the unique Taro commitment in the genesis transaction
-     * @param proof        Proof that validates the asset information
-     * @return id of the request created
+     * @param rawProof Raw proof that validates the asset information
+     * @return id The request created
      */
-    AddAssetRequestDTO addAsset(String genesisPoint,
-                                String name,
-                                String metaData,
-                                String assetId,
-                                int outputIndex,
-                                String proof);
+    AddProofRequestDTO addProof(String rawProof);
 
     /**
      * Add a request to add an asset meta data.
