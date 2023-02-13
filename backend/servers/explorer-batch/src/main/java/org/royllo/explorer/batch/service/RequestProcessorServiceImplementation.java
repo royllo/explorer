@@ -2,18 +2,12 @@ package org.royllo.explorer.batch.service;
 
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.batch.util.BaseProcessor;
-import org.royllo.explorer.core.domain.bitcoin.BitcoinTransactionOutput;
-import org.royllo.explorer.core.dto.asset.AssetDTO;
-import org.royllo.explorer.core.dto.request.AddAssetRequestDTO;
+import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.repository.bitcoin.BitcoinTransactionOutputRepository;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
-
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
 
 /**
  * Request processor service implementation.
@@ -38,8 +32,8 @@ public class RequestProcessorServiceImplementation extends BaseProcessor impleme
 
         // Add asset request.
         // TODO Simplify when pattern Matching for switch will be available.
-        if (requestDTO.getClass().equals(AddAssetRequestDTO.class)) {
-            return processAddAssetRequest((AddAssetRequestDTO) requestDTO);
+        if (requestDTO.getClass().equals(AddProofRequestDTO.class)) {
+            return processAddAssetRequest((AddProofRequestDTO) requestDTO);
         }
         return null;
     }
@@ -47,53 +41,49 @@ public class RequestProcessorServiceImplementation extends BaseProcessor impleme
     /**
      * Process add asset request.
      *
-     * @param addAssetRequestDTO request to process
+     * @param addProofRequestDTO request to process
      * @return process result
      */
-    private RequestDTO processAddAssetRequest(final AddAssetRequestDTO addAssetRequestDTO) {
-        logger.info("processAddAssetRequest {} - Processing request {}", addAssetRequestDTO.getId(), addAssetRequestDTO);
-
+    private RequestDTO processAddAssetRequest(final AddProofRequestDTO addProofRequestDTO) {
+        logger.info("processAddAssetRequest {} - Processing request {}", addProofRequestDTO.getId(), addProofRequestDTO);
+        return null;
         // =============================================================================================================
         // We check if the transaction can be found in the blockchain or in our database.
-        final Optional<BitcoinTransactionOutput> transactionOutput = bitcoinTransactionOutputRepository.findByTxIdAndVout(addAssetRequestDTO.getTxId(), addAssetRequestDTO.getVout());
-        if (transactionOutput.isEmpty()) {
-            // Transaction not found in database.
-            logger.info("processAddAssetRequest {} - Error - Transaction not found: {}", addAssetRequestDTO.getId(),
-                    addAssetRequestDTO.getGenesisPoint());
-            addAssetRequestDTO.failed("Transaction not found (" + addAssetRequestDTO.getGenesisPoint() + ")");
-            requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(addAssetRequestDTO));
-            return addAssetRequestDTO;
-        }
+//        final Optional<BitcoinTransactionOutput> transactionOutput = bitcoinTransactionOutputRepository.findByTxIdAndVout(addProofDTO.getTxId(), addProofDTO.getVout());
+//        if (transactionOutput.isEmpty()) {
+//            // Transaction not found in database.
+////            logger.info("processAddAssetRequest {} - Error - Transaction not found: {}", addProofDTO.getId(),
+////                    addProofDTO.getGenesisPoint());
+////            addProofDTO.failed("Transaction not found (" + addProofDTO.getGenesisPoint() + ")");
+////            requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(addProofDTO));
+//            return addProofDTO;
+//        }
 
-        // =============================================================================================================
-        // We check the provided proof.
-        if (!"VALID_PROOF".equals(addAssetRequestDTO.getProof())) {
-            logger.info("processAddAssetRequest {} - Error - Invalid proof: {}", addAssetRequestDTO.getId(),
-                    addAssetRequestDTO.getProof());
-            addAssetRequestDTO.failed("Invalid proof");
-            requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(addAssetRequestDTO));
-            return addAssetRequestDTO;
-        }
-
-        // =============================================================================================================
-        // Everything is ok, we now create the asset, update the request and return it.
-        final AssetDTO assetDTOCreated = assetService.addAsset(
-                AssetDTO.builder()
-                        .genesisPoint(BITCOIN_MAPPER.mapToBitcoinTransactionOutputDTO(transactionOutput.get()))
-                        .creator(ANONYMOUS_USER)
-                        .name(addAssetRequestDTO.getName())
-                        .metaData(addAssetRequestDTO.getMetaData())
-                        .assetId(addAssetRequestDTO.getAssetId())
-                        .outputIndex(addAssetRequestDTO.getOutputIndex())
-                        .build()
-        );
-        addAssetRequestDTO.setAsset(assetDTOCreated);
-        addAssetRequestDTO.succeed();
-        requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(addAssetRequestDTO));
-        logger.info("processAddAssetRequest {} - Success - Request {} has updated asset {}", addAssetRequestDTO.getId(),
-                addAssetRequestDTO,
-                assetDTOCreated);
-        return addAssetRequestDTO;
+//        // =============================================================================================================
+//        // We check the provided proof.
+//        if (!"VALID_PROOF".equals(addProofDTO.getRawProof())) {
+//            logger.info("processAddAssetRequest {} - Error - Invalid proof: {}", addProofDTO.getId(),
+//                    addProofDTO.getRawProof());
+//            addProofDTO.failed("Invalid proof");
+//            requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(addProofDTO));
+//            return addProofDTO;
+//        }
+//
+//        // =============================================================================================================
+//        // Everything is ok, we now create the asset, update the request and return it.
+//        final AssetDTO assetDTOCreated = assetService.addAsset(
+//                AssetDTO.builder()
+//                        .genesisPoint(BITCOIN_MAPPER.mapToBitcoinTransactionOutputDTO(transactionOutput.get()))
+//                        .creator(ANONYMOUS_USER)
+//                        .build()
+//        );
+//        addProofDTO.setAsset(assetDTOCreated);
+//        addProofDTO.succeed();
+//        requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(addProofDTO));
+//        logger.info("processAddAssetRequest {} - Success - Request {} has updated asset {}", addProofDTO.getId(),
+//                addProofDTO,
+//                assetDTOCreated);
+//        return addProofDTO;
     }
 
 }

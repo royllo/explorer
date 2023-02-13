@@ -5,7 +5,7 @@
     <changeSet author="straumat" id="0.1.0-table-requests-add-request-meta-data">
 
         <createTable tableName="REQUESTS_ADD_ASSET_META_DATA"
-                     remarks="A request to add asset meta data to an asset already in Royllo database">
+                     remarks="A request to add asset meta data to an asset already in Royllo explorer">
 
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"

@@ -32,8 +32,6 @@ services:
       - POSTGRES_DB=royllo_explorer_database
       - POSTGRES_USER=royllo_explorer_username
       - POSTGRES_PASSWORD=Q5QnE5S%Y]qt7
-    ports:
-      - "5432:5432"
 
   # ====================================================================================================================
   # Royllo explorer batch server ( https://hub.docker.com/r/royllo/explorer-batch ).

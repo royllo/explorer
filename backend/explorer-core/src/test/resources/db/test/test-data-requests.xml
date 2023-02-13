@@ -11,14 +11,9 @@
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="STATUS" value="OPENED"/>
         </insert>
-        <insert tableName="REQUESTS_ADD_ASSET">
+        <insert tableName="REQUESTS_ADD_PROOF">
             <column name="ID" value="1"/>
-            <column name="GENESIS_POINT" value="GP1"/>
-            <column name="NAME" value="NAME1"/>
-            <column name="META_DATA" value="ME1"/>
-            <column name="ASSET_ID" value="AI1"/>
-            <column name="OUTPUT_INDEX" value="1"/>
-            <column name="PROOF" value="P1"/>
+            <column name="RAW_PROOF" value="P1"/>
         </insert>
 
         <!-- Add asset request n°2 ( Closed addAsset ) -->
@@ -28,14 +23,9 @@
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="STATUS" value="FAILURE"/>
         </insert>
-        <insert tableName="REQUESTS_ADD_ASSET">
+        <insert tableName="REQUESTS_ADD_PROOF">
             <column name="ID" value="2"/>
-            <column name="GENESIS_POINT" value="GP2"/>
-            <column name="NAME" value="NAME2"/>
-            <column name="META_DATA" value="ME2"/>
-            <column name="ASSET_ID" value="AI2"/>
-            <column name="OUTPUT_INDEX" value="2"/>
-            <column name="PROOF" value="P2"/>
+            <column name="RAW_PROOF" value="P2"/>
         </insert>
 
         <!-- Add asset request n°3 ( Opened addAssetMetaData GI3/P3 ) -->
@@ -58,14 +48,9 @@
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="STATUS" value="OPENED"/>
         </insert>
-        <insert tableName="REQUESTS_ADD_ASSET">
+        <insert tableName="REQUESTS_ADD_PROOF">
             <column name="ID" value="4"/>
-            <column name="GENESIS_POINT" value="GP4"/>
-            <column name="NAME" value="NAME4"/>
-            <column name="META_DATA" value="ME4"/>
-            <column name="ASSET_ID" value="AI4"/>
-            <column name="OUTPUT_INDEX" value="4"/>
-            <column name="PROOF" value="P4"/>
+            <column name="RAW_PROOF" value="P4"/>
         </insert>
 
     </changeSet>

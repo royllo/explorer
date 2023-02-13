@@ -9,7 +9,7 @@ import com.netflix.graphql.dgs.exceptions.DgsEntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.api.util.base.BaseDataFetcher;
 import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
-import org.royllo.explorer.core.dto.request.AddAssetRequestDTO;
+import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.service.request.RequestService;
 
@@ -34,8 +34,8 @@ public class RequestDataFetcher extends BaseDataFetcher {
     @DgsTypeResolver(name = "Request")
     public String resolveRequest(final RequestDTO requestDTO) {
         // TODO Simplify when pattern Matching for switch will be available.
-        if (requestDTO instanceof AddAssetRequestDTO) {
-            return "AddAssetRequest";
+        if (requestDTO instanceof AddProofRequestDTO) {
+            return "AddProofRequest";
         } else if (requestDTO instanceof AddAssetMetaDataRequestDTO) {
             return "AddAssetMetaDataRequest";
         } else {
@@ -65,19 +65,14 @@ public class RequestDataFetcher extends BaseDataFetcher {
     }
 
     /**
-     * Add a request to add an asset.
+     * Add a request to add a proof.
      *
      * @param input add asset request inputs
      * @return request created
      */
     @DgsMutation
-    public final AddAssetRequestDTO addAssetRequest(final @InputArgument AddAssetRequestInputs input) {
-        return requestService.addAsset(input.getGenesisPoint(),
-                input.getName(),
-                input.getMetaData(),
-                input.getAssetId(),
-                input.getOutputIndex(),
-                input.getProof());
+    public final AddProofRequestDTO addProofRequest(final @InputArgument AddProofRequestInputs input) {
+        return requestService.addProof(input.getRawProof());
     }
 
     /**
