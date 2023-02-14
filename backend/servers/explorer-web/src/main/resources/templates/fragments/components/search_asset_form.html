@@ -2,18 +2,18 @@
 <form class="flex mx-auto" th:action="@{/search}" method="GET">
 
     <!--/* Search field */-->
-    <label for="query" class="sr-only">Search asset by asset id or asset name</label>
+    <label for="query" class="sr-only" th:text="#{search.field.helper}"></label>
     <div class="relative w-96">
         <input type="search"
                id="query"
                name="query"
                th:value="${query}"
-               placeholder="Search asset by asset id or asset name"
+               th:placeholder="#{search.field.helper}"
                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                autofocus
                required
                onFocus="this.select();"
-               onClick="this.select();">
+               onClick="this.select();"/>
     </div>
 
     <!--/* Submit button */-->

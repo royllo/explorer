@@ -17,7 +17,7 @@ import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 @SuperBuilder
 @ToString
 @SuppressWarnings("checkstyle:VisibilityModifier")
-public class RequestDTO {
+public abstract class RequestDTO {
 
     /** Unique identifier. */
     Long id;

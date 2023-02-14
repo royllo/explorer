@@ -36,8 +36,7 @@ public class HomeControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(HOME_PAGE))
                 // Checking the button in the header is here.
-                // TODO Replace when i18n will be done with this button
-                .andExpect(content().string(containsString("Register an asset")))
+                .andExpect(content().string(containsString(environment.getProperty("request.proof.add"))))
                 // Checking the search form is here.
                 .andExpect(content().string(containsString("input type=\"search\"")))
                 // Checking the footer is here.

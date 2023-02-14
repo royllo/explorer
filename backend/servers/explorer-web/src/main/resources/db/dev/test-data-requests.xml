@@ -25,7 +25,7 @@
         </insert>
         <insert tableName="REQUESTS_ADD_PROOF">
             <column name="ID" value="2"/>
-            <column name="RAW_PROOFPROOF" value="P2"/>
+            <column name="RAW_PROOF" value="P2"/>
         </insert>
 
         <!-- Add asset request n°3 ( Opened addAssetMetaData GI3/P3 ) -->

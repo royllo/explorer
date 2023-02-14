@@ -9,7 +9,7 @@ import lombok.experimental.SuperBuilder;
  */
 @Getter
 @SuperBuilder
-@ToString
+@ToString(callSuper = true)
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public class AddProofRequestDTO extends RequestDTO {
 
