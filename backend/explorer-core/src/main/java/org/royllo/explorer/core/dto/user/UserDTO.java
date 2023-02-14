@@ -19,6 +19,9 @@ public class UserDTO {
     /** Unique identifier. */
     Long id;
 
+    /** User UUID. */
+    String userId;
+
     /** Username. */
     String username;
 

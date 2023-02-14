@@ -36,6 +36,11 @@ public class User extends BaseDomain {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
+    /** User UUID. */
+    @NotNull(message = "User ID is required")
+    @Column(name = "USER_ID")
+    private String userId;
+
     /** Username. */
     @NotBlank(message = "Username is mandatory")
     @Column(name = "USERNAME", nullable = false)

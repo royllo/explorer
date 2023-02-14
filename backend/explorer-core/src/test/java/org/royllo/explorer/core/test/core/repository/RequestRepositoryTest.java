@@ -18,6 +18,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -39,12 +40,13 @@ public class RequestRepositoryTest extends BaseTest {
     @Test
     @DisplayName("Create requests")
     public void createRequests() {
-        Optional<User> user = userRepository.findById(UserConstants.ANONYMOUS_USER_ID);
+        Optional<User> user = userRepository.findById(UserConstants.ANONYMOUS_ID);
         assertTrue(user.isPresent());
 
         // =============================================================================================================
         // Creating request 1 (ADD_ASSET).
         AddProof request1 = new AddProof();
+        request1.setRequestId(UUID.randomUUID().toString());
         request1.setCreator(user.get());
         request1.setStatus(RequestStatus.OPENED);
         request1.setRawProof("Proof1");
@@ -71,6 +73,7 @@ public class RequestRepositoryTest extends BaseTest {
         // =============================================================================================================
         // Creating request 2 (ADD_ASSET_META_DATA).
         AddAssetMetaDataRequest request2 = new AddAssetMetaDataRequest();
+        request2.setRequestId(UUID.randomUUID().toString());
         request2.setCreator(user.get());
         request2.setStatus(RequestStatus.SUCCESS);
         request2.setAssetId("TaroAssetId1");
@@ -99,6 +102,7 @@ public class RequestRepositoryTest extends BaseTest {
         // =============================================================================================================
         // Creating request 3 (ADD_ASSET).
         AddProof request3 = new AddProof();
+        request3.setRequestId(UUID.randomUUID().toString());
         request3.setCreator(user.get());
         request3.setStatus(RequestStatus.FAILURE);
         request3.setRawProof("Proof2");

@@ -22,7 +22,7 @@ public class UserServiceImplementation extends BaseService implements UserServic
 
     @Override
     public final UserDTO getAnonymousUser() {
-        final Optional<User> anonymousUser = userRepository.findById(UserConstants.ANONYMOUS_USER_ID);
+        final Optional<User> anonymousUser = userRepository.findById(UserConstants.ANONYMOUS_ID);
         if (anonymousUser.isPresent()) {
             logger.error("getAnonymousUser - Returning anonymous user");
             return USER_MAPPER.mapToUserDTO(anonymousUser.get());

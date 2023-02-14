@@ -48,6 +48,7 @@ public abstract class Request extends BaseDomain {
     private Long id;
 
     /** Request UUID. */
+    @NotNull(message = "Request ID is required")
     @Column(name = "REQUEST_ID")
     private String requestId;
 

@@ -43,7 +43,7 @@ public class RequestDataFetcherTest {
                 RequestByRequestIdGraphQLQuery.newRequest().requestId("91425ba6-8b16-46a8-baa6-request_p_03").build(),
                 new RequestByRequestIdProjectionRoot()
                         .requestId()
-                        .creator().id().username().parent()
+                        .creator().userId().username().parent()
                         .status().getParent()
                         .errorMessage()
                         .onAddProofRequest().rawProof().parent()
@@ -57,7 +57,7 @@ public class RequestDataFetcherTest {
 
         AddProofRequest addAssetRequest = (AddProofRequest) request;
         assertEquals("91425ba6-8b16-46a8-baa6-request_p_03", addAssetRequest.getRequestId());
-        assertEquals(UserConstants.ANONYMOUS_USER_ID.toString(), addAssetRequest.getCreator().getId());
+        assertEquals(UserConstants.ANONYMOUS_USER_ID, addAssetRequest.getCreator().getUserId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, addAssetRequest.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED.toString(), addAssetRequest.getStatus().toString());
         assertNull(addAssetRequest.getErrorMessage());
@@ -75,7 +75,7 @@ public class RequestDataFetcherTest {
                         .build(),
                 new AddProofRequestProjectionRoot()
                         .requestId()
-                        .creator().id().username().parent()
+                        .creator().userId().username().parent()
                         .status().getParent()
                         .errorMessage().rawProof());
 
@@ -86,7 +86,7 @@ public class RequestDataFetcherTest {
                 });
 
         assertNotNull(requestCreated.getRequestId());
-        assertEquals(UserConstants.ANONYMOUS_USER_ID.toString(), requestCreated.getCreator().getId());
+        assertEquals(UserConstants.ANONYMOUS_USER_ID, requestCreated.getCreator().getUserId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, requestCreated.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED.toString(), requestCreated.getStatus().toString());
         assertNull(requestCreated.getErrorMessage());
@@ -105,7 +105,7 @@ public class RequestDataFetcherTest {
                         .build(),
                 new AddAssetMetaDataRequestProjectionRoot()
                         .requestId()
-                        .creator().id().username().parent()
+                        .creator().userId().username().parent()
                         .status().getParent()
                         .errorMessage()
                         .assetId()
@@ -118,7 +118,7 @@ public class RequestDataFetcherTest {
                 });
 
         assertNotNull(requestCreated.getRequestId());
-        assertEquals(UserConstants.ANONYMOUS_USER_ID.toString(), requestCreated.getCreator().getId());
+        assertEquals(UserConstants.ANONYMOUS_USER_ID, requestCreated.getCreator().getUserId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, requestCreated.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED.toString(), requestCreated.getStatus().toString());
         assertNull(requestCreated.getErrorMessage());

@@ -14,6 +14,8 @@
             </column>
 
             <!-- Table fields -->
+            <column name="USER_ID" type="VARCHAR(255)"
+                    remarks="User UUID"/>
             <column name="USERNAME" type="VARCHAR(255)"
                     remarks="Username"/>
             <column name="ROLE" type="VARCHAR(255)"

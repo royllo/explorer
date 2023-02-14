@@ -26,10 +26,9 @@ public class UserDataFetcherTest {
     @Test
     @DisplayName("getUserByUsername()")
     public void getUserByUsername() {
-        System.out.println("JE SUIS LA");
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 UserByUsernameGraphQLQuery.newRequest().username("straumat").build(),
-                new UserByUsernameProjectionRoot().id().username());
+                new UserByUsernameProjectionRoot().userId().username());
 
         User user = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 graphQLQueryRequest.serialize(),
@@ -38,7 +37,7 @@ public class UserDataFetcherTest {
                 });
 
         assertNotNull(user);
-        assertEquals("1", user.getId());
+        assertEquals("11111111-1111-1111-1111-111111111111", user.getUserId());
         assertEquals("straumat", user.getUsername());
     }
 

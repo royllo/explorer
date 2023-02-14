@@ -47,7 +47,8 @@ public class RequestServiceTest {
         // Request 1.
         AddProofRequestDTO request1 = (AddProofRequestDTO) openedRequests.get(0);
         assertEquals(1, request1.getId());
-        assertEquals(UserConstants.ANONYMOUS_USER_ID, request1.getCreator().getId());
+        assertEquals(UserConstants.ANONYMOUS_ID, request1.getCreator().getId());
+        assertEquals(UserConstants.ANONYMOUS_USER_ID, request1.getCreator().getUserId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request1.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED, request1.getStatus());
         assertEquals("P1", request1.getRawProof());
@@ -55,7 +56,8 @@ public class RequestServiceTest {
         // Request 2.
         AddAssetMetaDataRequestDTO request2 = (AddAssetMetaDataRequestDTO) openedRequests.get(1);
         assertEquals(3, request2.getId());
-        assertEquals(UserConstants.ANONYMOUS_USER_ID, request2.getCreator().getId());
+        assertEquals(UserConstants.ANONYMOUS_ID, request2.getCreator().getId());
+        assertEquals(UserConstants.ANONYMOUS_USER_ID, request2.getCreator().getUserId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request2.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED, request2.getStatus());
         assertNull(request2.getErrorMessage());
@@ -65,7 +67,8 @@ public class RequestServiceTest {
         // Request 3.
         AddProofRequestDTO request3 = (AddProofRequestDTO) openedRequests.get(2);
         assertEquals(4, request3.getId());
-        assertEquals(UserConstants.ANONYMOUS_USER_ID, request3.getCreator().getId());
+        assertEquals(UserConstants.ANONYMOUS_ID, request3.getCreator().getId());
+        assertEquals(UserConstants.ANONYMOUS_USER_ID, request3.getCreator().getUserId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request3.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED, request3.getStatus());
         assertNull(request3.getErrorMessage());
@@ -123,7 +126,8 @@ public class RequestServiceTest {
         AddProofRequestDTO request1Casted = (AddProofRequestDTO) request1.get();
         assertEquals(request1Id, request1Casted.getId());
         assertNotNull(request1Casted.getRequestId());
-        assertEquals(UserConstants.ANONYMOUS_USER_ID, request1Casted.getCreator().getId());
+        assertEquals(UserConstants.ANONYMOUS_ID, request1Casted.getCreator().getId());
+        assertEquals(UserConstants.ANONYMOUS_USER_ID, request1Casted.getCreator().getUserId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request1Casted.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED, request1Casted.getStatus());
         assertNull(request1Casted.getErrorMessage());
@@ -144,7 +148,8 @@ public class RequestServiceTest {
         AddAssetMetaDataRequestDTO request2Casted = (AddAssetMetaDataRequestDTO) request2.get();
         assertEquals(request2Id, request2Casted.getId());
         assertNotNull(request2Casted.getRequestId());
-        assertEquals(UserConstants.ANONYMOUS_USER_ID, request2Casted.getCreator().getId());
+        assertEquals(UserConstants.ANONYMOUS_ID, request2Casted.getCreator().getId());
+        assertEquals(UserConstants.ANONYMOUS_USER_ID, request2Casted.getCreator().getUserId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request2Casted.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED, request2Casted.getStatus());
         assertNull(request2Casted.getErrorMessage());
@@ -166,7 +171,8 @@ public class RequestServiceTest {
         AddProofRequestDTO request3Casted = (AddProofRequestDTO) request3.get();
         assertEquals(request3Id, request3Casted.getId());
         assertNotNull(request3Casted.getRequestId());
-        assertEquals(UserConstants.ANONYMOUS_USER_ID, request3Casted.getCreator().getId());
+        assertEquals(UserConstants.ANONYMOUS_ID, request3Casted.getCreator().getId());
+        assertEquals(UserConstants.ANONYMOUS_USER_ID, request3Casted.getCreator().getUserId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request3Casted.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED, request3Casted.getStatus());
         assertNull(request3Casted.getErrorMessage());

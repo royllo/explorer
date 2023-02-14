@@ -2,26 +2,21 @@ type Query {
 
     # ==================================================================================================================
     # Assets API
-    "Query for assets - Search for exact assetId or part of name"
+    "Query for assets - Search for exact assetId or part of its name"
     queryAssets(query: String!, page: Int, pageSize: Int): AssetPage
 
-    "Get an asset by it's taro asset id"
+    "Get an asset by its asset id"
     assetByAssetId(assetId: ID!): Asset
 
     # ==================================================================================================================
     # Requests API
-    "Get a request by it's id in database"
+    "Get a request by its request id"
     requestByRequestId(requestId: ID!): Request
 
     # ==================================================================================================================
-    # User API
+    # Users API
     "Get user by username"
     userByUsername(username: String!): User
-
-    # ==================================================================================================================
-    # Bitcoin information API
-    "Get a bitcoin transaction output by it's txId and vOut"
-    bitcoinTransactionOutput(txId: String!, vout: Int!): BitcoinTransactionOutput
 
 }
 

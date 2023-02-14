@@ -21,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.royllo.explorer.api.configuration.APIConfiguration.MAXIMUM_PAGE_SIZE;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
 
 @SpringBootTest
 @DisplayName("AssetDataFetcher tests")
@@ -37,7 +39,7 @@ public class AssetDataFetcherTest extends BaseTest {
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(1).build(),
                 new QueryAssetsProjectionRoot().content()
                         .id()
-                        .creator().id().username().parent()
+                        .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
                         .metaData()
@@ -66,7 +68,7 @@ public class AssetDataFetcherTest extends BaseTest {
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(2).build(),
                 new QueryAssetsProjectionRoot().content()
                         .id()
-                        .creator().id().username().parent()
+                        .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
                         .metaData()
@@ -98,7 +100,7 @@ public class AssetDataFetcherTest extends BaseTest {
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(1).pageSize(4).build(),
                 new QueryAssetsProjectionRoot().content()
                         .id()
-                        .creator().id().username().parent()
+                        .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
                         .metaData()
@@ -126,7 +128,7 @@ public class AssetDataFetcherTest extends BaseTest {
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(2).pageSize(4).build(),
                 new QueryAssetsProjectionRoot().content()
                         .id()
-                        .creator().id().username().parent()
+                        .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
                         .metaData()
@@ -154,7 +156,7 @@ public class AssetDataFetcherTest extends BaseTest {
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(3).pageSize(4).build(),
                 new QueryAssetsProjectionRoot().content()
                         .id()
-                        .creator().id().username().parent()
+                        .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
                         .metaData()
@@ -184,7 +186,7 @@ public class AssetDataFetcherTest extends BaseTest {
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").pageSize(MAXIMUM_PAGE_SIZE + 1).build(),
                 new QueryAssetsProjectionRoot().content()
                         .id()
-                        .creator().id().username().parent()
+                        .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
                         .metaData()
@@ -215,7 +217,7 @@ public class AssetDataFetcherTest extends BaseTest {
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").build(),
                 new QueryAssetsProjectionRoot().content()
                         .id()
-                        .creator().id().username().parent()
+                        .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
                         .metaData()
@@ -246,7 +248,7 @@ public class AssetDataFetcherTest extends BaseTest {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 AssetByAssetIdGraphQLQuery.newRequest().assetId(ASSET_ID_NUMBER_01).build(),
                 new AssetByAssetIdProjectionRoot().id()
-                        .creator().id().username().parent()
+                        .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
                         .metaData()
@@ -264,8 +266,8 @@ public class AssetDataFetcherTest extends BaseTest {
         assertEquals("2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea", asset.getGenesisPoint().getTxId());
         assertEquals(0, asset.getGenesisPoint().getVout());
         // TODO, there should be a test with another user than anonymous
-        assertEquals("0", asset.getCreator().getId());
-        assertEquals("anonymous", asset.getCreator().getUsername());
+        assertEquals(ANONYMOUS_USER_ID, asset.getCreator().getUserId());
+        assertEquals(ANONYMOUS_USER_USERNAME, asset.getCreator().getUsername());
         assertEquals("starbackrcoin", asset.getName());
         assertEquals("737461726261636b72206d6f6e6579", asset.getMetaData());
         assertEquals("b34b05956d828a7f7a0df598771c9f6df0378680c432480837852bcb94a8f21e", asset.getAssetId());
