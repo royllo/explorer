@@ -47,6 +47,10 @@ public abstract class Request extends BaseDomain {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
+    /** Request UUID. */
+    @Column(name = "REQUEST_ID")
+    private String requestId;
+
     /** Request creator. */
     @NotNull(message = "Request creator is required")
     @ManyToOne(fetch = EAGER)

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{fragments/layouts/default_layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!--/* =========================================================================================================== */-->
+<div class="content" layout:fragment="content">
+
+    <!--/* ======================================================================================================= */-->
+    <!--/* Error management */-->
+
+    <!--/* No value for the "requestId" parameter */-->
+    <div th:if="${#strings.isEmpty(requestId)}"
+         class="errorPanel"
+         role="alert">
+        <p class="font-bold" th:text="#{generic.error}"></p>
+        <p th:text="#{request.view.error.noRequestId}"></p>
+    </div>
+
+    <!--/* We have the "requestId" parameter but the asset was not found */-->
+    <div th:if="${!#strings.isEmpty(requestId) && result == null}"
+         class="errorPanel"
+         role="alert">
+        <p class="font-bold" th:text="#{generic.error}"></p>
+        <p th:text="#{request.view.error.requestNotFound(${requestId})}"></p>
+    </div>
+
+
+</div>
+<!-- =============================================================================================================== -->
+
+</html>

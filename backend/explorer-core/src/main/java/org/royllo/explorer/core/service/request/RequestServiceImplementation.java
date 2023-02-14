@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
@@ -61,12 +62,23 @@ public class RequestServiceImplementation extends BaseService implements Request
     }
 
     @Override
-    public AddProofRequestDTO addProof(final String rawProof) {
-        // TODO check if rawProof is not empty.
+    public Optional<RequestDTO> getRequestByRequestId(final String id) {
+        final Optional<Request> request = requestRepository.findByRequestId(id);
+        if (request.isEmpty()) {
+            logger.info("getRequestByRequestId - Request with request id {} not found", id);
+            return Optional.empty();
+        } else {
+            logger.info("getRequestByRequestId - Request with request id {} found: {}", id, request.get());
+            return request.map(REQUEST_MAPPER::mapToRequestDTO);
+        }
+    }
 
+    @Override
+    public AddProofRequestDTO addProof(final String rawProof) {
         // =============================================================================================================
         // Creating the request.
         AddProof request = AddProof.builder()
+                .requestId(UUID.randomUUID().toString())
                 .creator(USER_MAPPER.mapToUser(ANONYMOUS_USER))
                 .status(OPENED)
                 .rawProof(rawProof)
@@ -84,9 +96,10 @@ public class RequestServiceImplementation extends BaseService implements Request
     public AddAssetMetaDataRequestDTO addAssetMetaData(final String taroAssetId,
                                                        final String metaData) {
         // TODO add data validation
-
+        // =============================================================================================================
         // Creating the request.
         AddAssetMetaDataRequest request = AddAssetMetaDataRequest.builder()
+                .requestId(UUID.randomUUID().toString())
                 .creator(USER_MAPPER.mapToUser(ANONYMOUS_USER))
                 .status(OPENED)
                 .assetId(taroAssetId)
@@ -94,6 +107,7 @@ public class RequestServiceImplementation extends BaseService implements Request
                 .build();
         logger.debug("addAssetMeta - New request {}", request);
 
+        // =============================================================================================================
         // Saving the request.
         AddAssetMetaDataRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetMetaRequestDTO(requestRepository.save(request));
         logger.debug("addAssetMeta - Request {} saved", savedRequest);

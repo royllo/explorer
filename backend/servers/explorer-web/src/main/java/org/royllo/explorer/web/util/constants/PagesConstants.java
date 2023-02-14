@@ -20,6 +20,9 @@ public final class PagesConstants {
     /** Asset page. */
     public static final String ASSET_PAGE = "asset/view";
 
+    /** Request page. */
+    public static final String REQUEST_PAGE = "request/view";
+
     /** Request - Add proof form. */
     public static final String REQUEST_ADD_PROOF_FORM_PAGE = "request/proof/add_form";
 

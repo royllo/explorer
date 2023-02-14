@@ -22,6 +22,9 @@ public abstract class RequestDTO {
     /** Unique identifier. */
     Long id;
 
+    /** Request UUID. */
+    String requestId;
+
     /** Request creator. */
     UserDTO creator;
 

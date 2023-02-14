@@ -1,7 +1,7 @@
 "A request to update royllo data made by a user"
 interface Request {
     "Request ID in database"
-    id: ID!
+    requestId: ID!
     "Request creator"
     creator: User!
     "Request status"

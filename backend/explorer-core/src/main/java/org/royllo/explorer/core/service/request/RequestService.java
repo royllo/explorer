@@ -28,6 +28,14 @@ public interface RequestService {
     Optional<RequestDTO> getRequest(long id);
 
     /**
+     * Get a request.
+     *
+     * @param id request id
+     * @return request
+     */
+    Optional<RequestDTO> getRequestByRequestId(String id);
+
+    /**
      * Add a request to add a Raw proof.
      *
      * @param rawProof Raw proof that validates the asset information

@@ -22,6 +22,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -39,7 +40,6 @@ public class RequestServiceTest {
     @Order(1)
     @DisplayName("getOpenedRequests()")
     public void getOpenedRequests() {
-        requestService.getOpenedRequests().forEach(requestDTO -> System.out.println("==>" + requestDTO));
         List<RequestDTO> openedRequests = requestService.getOpenedRequests();
         // 4 requests - request n°2 is closed
         assertEquals(3, openedRequests.size());
@@ -74,6 +74,29 @@ public class RequestServiceTest {
 
     @Test
     @Order(2)
+    @DisplayName("getRequestByRequestId()")
+    public void getRequestByRequestId() {
+        // We should not find this string request id.
+        assertTrue(requestService.getRequestByRequestId("NON_EXISTING_REQUEST_ID").isEmpty());
+
+        // We should find this request id already in database.
+        assertTrue(requestService.getRequestByRequestId("91425ba6-8b16-46a8-baa6-request_p_02").isPresent());
+
+        // We create a new proof request, and we should find it.
+        RequestDTO request1DTO = requestService.addProof("proof1");
+        assertNotNull(request1DTO);
+        assertNotNull(request1DTO.getRequestId());
+        assertTrue(requestService.getRequestByRequestId(request1DTO.getRequestId()).isPresent());
+
+        // We create a new medata data request, and we should find it.
+        RequestDTO request2DTO = requestService.addAssetMetaData("taroAssetId1", "meta1");
+        assertNotNull(request2DTO);
+        assertNotNull(request2DTO.getRequestId());
+        assertTrue(requestService.getRequestByRequestId(request2DTO.getRequestId()).isPresent());
+    }
+
+    @Test
+    @Order(3)
     @DisplayName("Add requests")
     public void addRequests() {
         // =============================================================================================================
@@ -99,6 +122,7 @@ public class RequestServiceTest {
         // We cast and check of all the data is here.
         AddProofRequestDTO request1Casted = (AddProofRequestDTO) request1.get();
         assertEquals(request1Id, request1Casted.getId());
+        assertNotNull(request1Casted.getRequestId());
         assertEquals(UserConstants.ANONYMOUS_USER_ID, request1Casted.getCreator().getId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request1Casted.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED, request1Casted.getStatus());
@@ -119,6 +143,7 @@ public class RequestServiceTest {
         // We cast and check of all the data is here.
         AddAssetMetaDataRequestDTO request2Casted = (AddAssetMetaDataRequestDTO) request2.get();
         assertEquals(request2Id, request2Casted.getId());
+        assertNotNull(request2Casted.getRequestId());
         assertEquals(UserConstants.ANONYMOUS_USER_ID, request2Casted.getCreator().getId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request2Casted.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED, request2Casted.getStatus());
@@ -140,6 +165,7 @@ public class RequestServiceTest {
         // We cast and check of all the data is here.
         AddProofRequestDTO request3Casted = (AddProofRequestDTO) request3.get();
         assertEquals(request3Id, request3Casted.getId());
+        assertNotNull(request3Casted.getRequestId());
         assertEquals(UserConstants.ANONYMOUS_USER_ID, request3Casted.getCreator().getId());
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request3Casted.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED, request3Casted.getStatus());

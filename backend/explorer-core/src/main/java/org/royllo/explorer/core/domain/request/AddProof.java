@@ -21,7 +21,7 @@ import lombok.experimental.SuperBuilder;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "REQUESTS_ADD_PROOF")
-@DiscriminatorValue("ADD_ASSET")
+@DiscriminatorValue("ADD_PROOF")
 public class AddProof extends Request {
 
     /** Proof that validates the asset information. */

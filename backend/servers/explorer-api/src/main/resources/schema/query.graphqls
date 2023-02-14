@@ -5,18 +5,13 @@ type Query {
     "Query for assets - Search for exact assetId or part of name"
     queryAssets(query: String!, page: Int, pageSize: Int): AssetPage
 
-    "Get an asset by it's id in database"
-    asset(id: ID!): Asset
     "Get an asset by it's taro asset id"
     assetByAssetId(assetId: ID!): Asset
 
     # ==================================================================================================================
     # Requests API
-    "Returns the list of opened requests"
-    openedRequests: [Request]
-
     "Get a request by it's id in database"
-    request(id: ID!): Request
+    requestByRequestId(requestId: ID!): Request
 
     # ==================================================================================================================
     # User API

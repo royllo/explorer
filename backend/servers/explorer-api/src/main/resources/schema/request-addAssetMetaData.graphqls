@@ -1,7 +1,7 @@
 "A request to add asset meta data to an asset already in Royllo database"
 type AddAssetMetaDataRequest implements Request {
     "Request ID in database"
-    id: ID!
+    requestId: ID!
     "Request creator"
     creator: User!
     "Request status"

@@ -54,17 +54,6 @@ public class AssetDataFetcher extends BaseDataFetcher {
     }
 
     /**
-     * Get an asset by its id in database.
-     *
-     * @param id id in database
-     * @return asset
-     */
-    @DgsQuery
-    public final AssetDTO asset(final @InputArgument long id) {
-        return assetService.getAsset(id).orElseThrow(DgsEntityNotFoundException::new);
-    }
-
-    /**
      * Get an asset by its taro asset id.
      *
      * @param assetId taro asset id

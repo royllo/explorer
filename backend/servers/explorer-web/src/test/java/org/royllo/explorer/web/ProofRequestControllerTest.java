@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("Proof request controller tests")
 @AutoConfigureMockMvc
 @PropertySource("classpath:messages.properties")
-public class ProofRequestTest {
+public class ProofRequestControllerTest {
 
     @Autowired
     MockMvc mockMvc;

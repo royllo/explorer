@@ -13,8 +13,6 @@ import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.service.request.RequestService;
 
-import java.util.List;
-
 /**
  * Request data fetcher.
  */
@@ -44,24 +42,14 @@ public class RequestDataFetcher extends BaseDataFetcher {
     }
 
     /**
-     * Get opened requests.
+     * Get a request by its request id in database.
      *
-     * @return requests with OPENED status
-     */
-    @DgsQuery
-    public final List<RequestDTO> openedRequests() {
-        return requestService.getOpenedRequests();
-    }
-
-    /**
-     * Get a request by its id in database.
-     *
-     * @param id request id
+     * @param requestId request id
      * @return request
      */
     @DgsQuery
-    public final RequestDTO request(final @InputArgument long id) {
-        return requestService.getRequest(id).orElseThrow(DgsEntityNotFoundException::new);
+    public final RequestDTO requestByRequestId(final @InputArgument String requestId) {
+        return requestService.getRequestByRequestId(requestId).orElseThrow(DgsEntityNotFoundException::new);
     }
 
     /**

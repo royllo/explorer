@@ -20,6 +20,9 @@ public final class ModelAttributeConstants {
     /** Asset id attribute. */
     public static final String ASSET_ID_ATTRIBUTE = "assetId";
 
+    /** Request id attribute. */
+    public static final String REQUEST_ID_ATTRIBUTE = "requestId";
+
     /** Result attribute. */
     public static final String RESULT_ATTRIBUTE = "result";
 
