@@ -49,12 +49,12 @@ jobs:
         id: userByUsername
         run: |
           userByUsernameResult=$(curl  -H "Content-Type: application/json" \
-                -d '{ "query": "{ userByUsername(username: \"anonymous\") { id, username }}" }' \
-                http://localhost:9090/graphql | jq '.data.userByUsername.id')
+                -d '{ "query": "{ userByUsername(username: \"anonymous\") { userId, username }}" }' \
+                http://localhost:9090/graphql | jq '.data.userByUsername.userId')
           echo "userByUsernameResult=${userByUsernameResult}" >> $GITHUB_OUTPUT
 
       - name: Check if userByUsername returns the correct value
-        if: ${{ steps.userByUsername.outputs.userByUsernameResult != '"0"' }}
+        if: ${{ steps.userByUsername.outputs.userByUsernameResult != '"00000000-0000-0000-0000-000000000000"' }}
         run: |
           echo "Error - userByUsername id result is ${{ steps.userByUsername.outputs.userByUsernameResult }}"
           cat docker.logs
