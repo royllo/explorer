@@ -41,10 +41,21 @@
                              constraintName="USERS_UNIQUE_USERNAME"
                              tableName="USERS"/>
 
+        <!-- Adding a unique constraint on USER_ID -->
+        <addUniqueConstraint columnNames="USER_ID"
+                             constraintName="USERS_UNIQUE_USER_ID"
+                             tableName="USERS"/>
+
         <!-- Index on USERNAME -->
         <createIndex indexName="IDX_USERS_USERNAME"
                      tableName="USERS">
             <column name="USERNAME"/>
+        </createIndex>
+
+        <!-- Index on USER_ID -->
+        <createIndex indexName="IDX_USERS_USER_ID"
+                     tableName="USERS">
+            <column name="USER_ID"/>
         </createIndex>
 
     </changeSet>

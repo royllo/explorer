@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"
-      layout:decorate="~{fragments/layouts/default_layout}"
+      layout:decorate="~{util/fragments/layouts/default_layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
@@ -13,7 +13,7 @@
     </a>
 
     <!--/* Search form */-->
-    <div th:insert="fragments/components/search_asset_form"></div>
+    <div th:insert="util/fragments/components/search_asset_form"></div>
 
     <!--/* Homepage message */-->
     <div class="mt-11 text-sm" th:utext="#{home.message}"></div>

@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"
-      layout:decorate="~{fragments/layouts/default_layout}"
+      layout:decorate="~{util/fragments/layouts/default_layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
@@ -19,7 +19,7 @@
                       clip-rule="evenodd"></path>
             </svg>
             <span class="sr-only">Info</span>
-            <h3 class="text-lg font-medium" th:text="#{request.createdSuccessfully(${result.getId()})}"></h3>
+            <h3 class="text-lg font-medium" th:text="#{request.createdSuccessfully(${result.getRequestId()})}"></h3>
         </div>
         <!--/* =================================================================================================== */-->
 

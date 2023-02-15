@@ -30,12 +30,12 @@ public final class PagesConstants {
     public static final String REQUEST_ADD_PROOF_SUCCESS_PAGE = "request/proof/add_success";
 
     /** Error page. */
-    public static final String ERROR_PAGE = "util/error";
+    public static final String ERROR_PAGE = "util/errors/error";
 
     /** Error 404 page. */
-    public static final String ERROR_404_PAGE = "util/error-404";
+    public static final String ERROR_404_PAGE = "util/errors/error-404";
 
     /** Error 500 page. */
-    public static final String ERROR_500_PAGE = "util/error-500";
+    public static final String ERROR_500_PAGE = "util/errors/error-500";
 
 }
