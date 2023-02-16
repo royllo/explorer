@@ -54,7 +54,7 @@
                     <dd class="tableLineValue" th:text="#{status.success}" th:if="${#strings.equals(result.status, 'SUCCESS')}"></dd>
                 </div>
                 <!--/*  Error message (if failure)  */-->
-                <div class="tableLineGray">
+                <div class="tableLineGray" th:if="${#strings.equals(result.status, 'FAILURE')}">
                     <dt class="tableLineDescription" th:text="#{field.asset.errorMessage}"></dt>
                     <dd class="tableLineValue" th:text="${result.errorMessage}"></dd>
                 </div>
