@@ -38,7 +38,6 @@ public class AssetDataFetcherTest extends BaseTest {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(1).build(),
                 new QueryAssetsProjectionRoot().content()
-                        .id()
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
@@ -57,17 +56,16 @@ public class AssetDataFetcherTest extends BaseTest {
 
         assertEquals(9, assetPage.getTotalElements());
         assertEquals(2, assetPage.getTotalPages());
-        assertEquals("1009", assetPage.getContent().get(0).getId());
-        assertEquals("1001", assetPage.getContent().get(1).getId());
-        assertEquals("1002", assetPage.getContent().get(2).getId());
-        assertEquals("1003", assetPage.getContent().get(3).getId());
-        assertEquals("1004", assetPage.getContent().get(4).getId());
+        assertEquals("asset_id_0", assetPage.getContent().get(0).getAssetId());
+        assertEquals("asset_id_1", assetPage.getContent().get(1).getAssetId());
+        assertEquals("asset_id_2", assetPage.getContent().get(2).getAssetId());
+        assertEquals("asset_id_3", assetPage.getContent().get(3).getAssetId());
+        assertEquals("asset_id_4", assetPage.getContent().get(4).getAssetId());
 
         // Looking at page 2
         graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(2).build(),
                 new QueryAssetsProjectionRoot().content()
-                        .id()
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
@@ -86,10 +84,10 @@ public class AssetDataFetcherTest extends BaseTest {
 
         assertEquals(9, assetPage.getTotalElements());
         assertEquals(2, assetPage.getTotalPages());
-        assertEquals("1005", assetPage.getContent().get(0).getId());
-        assertEquals("1006", assetPage.getContent().get(1).getId());
-        assertEquals("1007", assetPage.getContent().get(2).getId());
-        assertEquals("1008", assetPage.getContent().get(3).getId());
+        assertEquals("asset_id_5", assetPage.getContent().get(0).getAssetId());
+        assertEquals("asset_id_6", assetPage.getContent().get(1).getAssetId());
+        assertEquals("asset_id_7", assetPage.getContent().get(2).getAssetId());
+        assertEquals("asset_id_8", assetPage.getContent().get(3).getAssetId());
     }
 
     @Test
@@ -99,7 +97,6 @@ public class AssetDataFetcherTest extends BaseTest {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(1).pageSize(4).build(),
                 new QueryAssetsProjectionRoot().content()
-                        .id()
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
@@ -118,16 +115,15 @@ public class AssetDataFetcherTest extends BaseTest {
 
         assertEquals(9, assetPage.getTotalElements());
         assertEquals(3, assetPage.getTotalPages());
-        assertEquals("1009", assetPage.getContent().get(0).getId());
-        assertEquals("1001", assetPage.getContent().get(1).getId());
-        assertEquals("1002", assetPage.getContent().get(2).getId());
-        assertEquals("1003", assetPage.getContent().get(3).getId());
+        assertEquals("asset_id_0", assetPage.getContent().get(0).getAssetId());
+        assertEquals("asset_id_1", assetPage.getContent().get(1).getAssetId());
+        assertEquals("asset_id_2", assetPage.getContent().get(2).getAssetId());
+        assertEquals("asset_id_3", assetPage.getContent().get(3).getAssetId());
 
         // Looking at page 2
         graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(2).pageSize(4).build(),
                 new QueryAssetsProjectionRoot().content()
-                        .id()
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
@@ -146,16 +142,15 @@ public class AssetDataFetcherTest extends BaseTest {
 
         assertEquals(9, assetPage.getTotalElements());
         assertEquals(3, assetPage.getTotalPages());
-        assertEquals("1004", assetPage.getContent().get(0).getId());
-        assertEquals("1005", assetPage.getContent().get(1).getId());
-        assertEquals("1006", assetPage.getContent().get(2).getId());
-        assertEquals("1007", assetPage.getContent().get(3).getId());
+        assertEquals("asset_id_4", assetPage.getContent().get(0).getAssetId());
+        assertEquals("asset_id_5", assetPage.getContent().get(1).getAssetId());
+        assertEquals("asset_id_6", assetPage.getContent().get(2).getAssetId());
+        assertEquals("asset_id_7", assetPage.getContent().get(3).getAssetId());
 
         // Looking at page 3
         graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(3).pageSize(4).build(),
                 new QueryAssetsProjectionRoot().content()
-                        .id()
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
@@ -174,7 +169,7 @@ public class AssetDataFetcherTest extends BaseTest {
 
         assertEquals(9, assetPage.getTotalElements());
         assertEquals(3, assetPage.getTotalPages());
-        assertEquals("1008", assetPage.getContent().get(0).getId());
+        assertEquals("asset_id_8", assetPage.getContent().get(0).getAssetId());
     }
 
 
@@ -185,7 +180,6 @@ public class AssetDataFetcherTest extends BaseTest {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").pageSize(MAXIMUM_PAGE_SIZE + 1).build(),
                 new QueryAssetsProjectionRoot().content()
-                        .id()
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
@@ -216,7 +210,6 @@ public class AssetDataFetcherTest extends BaseTest {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").build(),
                 new QueryAssetsProjectionRoot().content()
-                        .id()
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
@@ -235,11 +228,11 @@ public class AssetDataFetcherTest extends BaseTest {
 
         assertEquals(9, assetPage.getTotalElements());
         assertEquals(2, assetPage.getTotalPages());
-        assertEquals("1009", assetPage.getContent().get(0).getId());
-        assertEquals("1001", assetPage.getContent().get(1).getId());
-        assertEquals("1002", assetPage.getContent().get(2).getId());
-        assertEquals("1003", assetPage.getContent().get(3).getId());
-        assertEquals("1004", assetPage.getContent().get(4).getId());
+        assertEquals("asset_id_0", assetPage.getContent().get(0).getAssetId());
+        assertEquals("asset_id_1", assetPage.getContent().get(1).getAssetId());
+        assertEquals("asset_id_2", assetPage.getContent().get(2).getAssetId());
+        assertEquals("asset_id_3", assetPage.getContent().get(3).getAssetId());
+        assertEquals("asset_id_4", assetPage.getContent().get(4).getAssetId());
     }
 
     @Test
@@ -247,7 +240,7 @@ public class AssetDataFetcherTest extends BaseTest {
     public void assetByAssetId() {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 AssetByAssetIdGraphQLQuery.newRequest().assetId(ASSET_ID_NUMBER_01).build(),
-                new AssetByAssetIdProjectionRoot().id()
+                new AssetByAssetIdProjectionRoot()
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
@@ -262,7 +255,6 @@ public class AssetDataFetcherTest extends BaseTest {
                 });
 
         assertNotNull(asset);
-        assertEquals("1", asset.getId());
         assertEquals("2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea", asset.getGenesisPoint().getTxId());
         assertEquals(0, asset.getGenesisPoint().getVout());
         // TODO, there should be a test with another user than anonymous

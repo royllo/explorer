@@ -25,6 +25,42 @@
         <p th:text="#{request.view.error.requestNotFound(${requestId})}"></p>
     </div>
 
+    <!--/* ======================================================================================================= */-->
+    <!--/* Display request */-->
+
+    <div class="head" th:if="${result != null}">
+        <!--*/ Header */-->
+        <div class="tableHead">
+            <h3 class="tableHeadDescription" th:text="'Request ' + ${result.requestId}"></h3>
+        </div>
+        <!--/* Data */-->
+        <div class="tableLines">
+            <dl>
+                <!--/* Request id  */-->
+                <div class="tableLineWhite">
+                    <dt class="tableLineDescription" th:text="#{field.asset.requestId}"></dt>
+                    <dd class="tableLineValue" th:text="${result.requestId}"></dd>
+                </div>
+                <!--/* Creator */-->
+                <div class="tableLineGray">
+                    <dt class="tableLineDescription" th:text="#{field.asset.creator.username}"></dt>
+                    <dd class="tableLineValue" th:text="${result.creator.username}"></dd>
+                </div>
+                <!--/* Request status  */-->
+                <div class="tableLineWhite">
+                    <dt class="tableLineDescription" th:text="#{field.asset.status}"></dt>
+                    <dd class="tableLineValue" th:text="#{status.opened}" th:if="${#strings.equals(result.status, 'OPENED')}"></dd>
+                    <dd class="tableLineValue" th:text="#{status.failure}" th:if="${#strings.equals(result.status, 'FAILURE')}"></dd>
+                    <dd class="tableLineValue" th:text="#{status.success}" th:if="${#strings.equals(result.status, 'SUCCESS')}"></dd>
+                </div>
+                <!--/*  Error message (if failure)  */-->
+                <div class="tableLineGray">
+                    <dt class="tableLineDescription" th:text="#{field.asset.errorMessage}"></dt>
+                    <dd class="tableLineValue" th:text="${result.errorMessage}"></dd>
+                </div>
+            </dl>
+        </div>
+    </div>
 
 </div>
 <!-- =============================================================================================================== -->

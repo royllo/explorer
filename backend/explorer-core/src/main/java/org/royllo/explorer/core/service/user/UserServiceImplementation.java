@@ -33,6 +33,18 @@ public class UserServiceImplementation extends BaseService implements UserServic
     }
 
     @Override
+    public final Optional<UserDTO> getUserByUserId(final String userId) {
+        final Optional<User> user = userRepository.findByUserId(userId);
+        if (user.isEmpty()) {
+            logger.info("getUserByUserId - User with user id {} not found", userId);
+            return Optional.empty();
+        } else {
+            logger.info("getUserByUserId - User with user id '{}' found: {}", userId, user.get());
+            return user.map(USER_MAPPER::mapToUserDTO);
+        }
+    }
+
+    @Override
     public final Optional<UserDTO> getUserByUsername(final String username) {
         final Optional<User> user = userRepository.findByUsername(username);
         if (user.isEmpty()) {

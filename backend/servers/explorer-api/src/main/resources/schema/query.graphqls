@@ -2,19 +2,22 @@ type Query {
 
     # ==================================================================================================================
     # Assets API
+    "Get an asset by asset id"
+    assetByAssetId(assetId: ID!): Asset
+
     "Query for assets - Search for exact assetId or part of its name"
     queryAssets(query: String!, page: Int, pageSize: Int): AssetPage
 
-    "Get an asset by its asset id"
-    assetByAssetId(assetId: ID!): Asset
-
     # ==================================================================================================================
     # Requests API
-    "Get a request by its request id"
+    "Get a request by request id"
     requestByRequestId(requestId: ID!): Request
 
     # ==================================================================================================================
     # Users API
+    "Get user by user id"
+    userByUserId(userId: String!): User
+
     "Get user by username"
     userByUsername(username: String!): User
 

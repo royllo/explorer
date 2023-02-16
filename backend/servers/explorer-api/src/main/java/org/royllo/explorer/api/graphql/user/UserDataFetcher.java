@@ -20,6 +20,17 @@ public class UserDataFetcher extends BaseDataFetcher {
     private final UserService userService;
 
     /**
+     * Get user by its user id.
+     *
+     * @param userId user id
+     * @return user if found or null
+     */
+    @DgsQuery
+    public final UserDTO userByUserId(final @InputArgument String userId) {
+        return userService.getUserByUserId(userId).orElseThrow(DgsEntityNotFoundException::new);
+    }
+
+    /**
      * Get user by username.
      *
      * @param username username

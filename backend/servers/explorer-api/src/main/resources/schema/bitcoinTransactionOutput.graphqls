@@ -1,7 +1,5 @@
 "Bitcoin transaction output"
 type BitcoinTransactionOutput {
-    "Bitcoin transaction output ID in database"
-    id: ID!
     "Block height"
     blockHeight: Int
     "Transaction id"

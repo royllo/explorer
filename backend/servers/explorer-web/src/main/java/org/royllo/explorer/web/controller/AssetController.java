@@ -34,6 +34,7 @@ public class AssetController {
     @GetMapping(value = {"/asset", "/asset/", "/asset/{assetId}"})
     public String getAssetByAssetId(final Model model,
                                     @PathVariable(ASSET_ID_ATTRIBUTE) final Optional<String> assetId) {
+        // TODO Add a test to see if trim is necessary ??
         // If assetId is present, we retrieve it.
         if (assetId.isPresent() && !assetId.get().trim().isEmpty()) {
             // Value the user asked for.

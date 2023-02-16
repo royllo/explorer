@@ -33,11 +33,10 @@
         <!--/* =================================================================================================== */-->
         <!--/* Actions */-->
         <div class="flex">
-            <button type="button"
-                    class="blueButton"
-                    th:text="#{request.viewStatus}"
-            >
-            </button>
+            <!--/* Request - Add a proof button */-->
+            <a th:href="@{'/request/' + ${result.getRequestId()}}"
+               th:text="#{request.viewStatus}"
+               class="blueButton"></a>
         </div>
         <!--/* =================================================================================================== */-->
 

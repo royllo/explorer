@@ -17,6 +17,14 @@ public interface UserService {
     UserDTO getAnonymousUser();
 
     /**
+     * Get user by its user id.
+     *
+     * @param userId exact user id to find
+     * @return corresponding user
+     */
+    Optional<UserDTO> getUserByUserId(String userId);
+
+    /**
      * Get user by username.
      *
      * @param username exact username to find

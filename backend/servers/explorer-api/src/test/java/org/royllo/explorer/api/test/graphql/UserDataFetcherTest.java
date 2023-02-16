@@ -7,6 +7,8 @@ import com.netflix.graphql.dgs.client.codegen.GraphQLQueryRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.api.graphql.generated.DgsConstants;
+import org.royllo.explorer.api.graphql.generated.client.UserByUserIdGraphQLQuery;
+import org.royllo.explorer.api.graphql.generated.client.UserByUserIdProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.client.UserByUsernameGraphQLQuery;
 import org.royllo.explorer.api.graphql.generated.client.UserByUsernameProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.types.User;
@@ -22,6 +24,24 @@ public class UserDataFetcherTest {
 
     @Autowired
     DgsQueryExecutor dgsQueryExecutor;
+
+    @Test
+    @DisplayName("getUserByUserId()")
+    public void getUserByUserId() {
+        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
+                UserByUserIdGraphQLQuery.newRequest().userId("11111111-1111-1111-1111-111111111111").build(),
+                new UserByUserIdProjectionRoot().userId().username());
+
+        User user = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+                graphQLQueryRequest.serialize(),
+                "data." + DgsConstants.QUERY.UserByUserId,
+                new TypeRef<>() {
+                });
+
+        assertNotNull(user);
+        assertEquals("11111111-1111-1111-1111-111111111111", user.getUserId());
+        assertEquals("straumat", user.getUsername());
+    }
 
     @Test
     @DisplayName("getUserByUsername()")
