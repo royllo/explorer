@@ -1,23 +1,22 @@
 package org.royllo.explorer.core.util.parameters;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
-
 /**
- * Mempool parameters.
+ * Tarod parameters.
  */
 @Validated
 @Getter
 @Setter
 @ToString
-@ConfigurationProperties(prefix = "mempool")
-public class MempoolParameters {
+@ConfigurationProperties(prefix = "tarod")
+public class TarodParameters {
 
     /** API. */
     @Valid
@@ -28,12 +27,16 @@ public class MempoolParameters {
     @Getter
     @Setter
     @ToString
-    @ConfigurationProperties(prefix = "mempool.api")
+    @ConfigurationProperties(prefix = "tarod.api")
     public static class Api {
 
-        /** Mempool API base url. */
+        /** Tarod API base url. */
         @NotEmpty(message = "Mempool API base URL is required")
         private String baseUrl;
+
+        /** Tarod macaroon. */
+        @NotEmpty(message = "Macaroon is required")
+        private String macaroon;
 
     }
 

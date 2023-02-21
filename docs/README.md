@@ -87,9 +87,3 @@ and you will get:
 }
 
 ```
-
-You can send assets there:
-
-```bash
-docker exec -it lnd-taro-with-docker_taro_1 /bin/tarocli addrs send tarotb1qqqsqqjq8lhkp5c4t9elmqamlnfhg87pj6wlkjf7u0dnymvvydhs3q4uzs0sqqqqqq98ymmed3kx7sm0d9hqk5n009kxcmeqvdhkjmsqqqqqqqqyyyppq2nuy6dlvx6c0338sgrdq4pnlgymn7lrp4sc5txxrp5xyt64rrcxyypnx6pse6kmplrlvl8ktvdhn5dhm3hv60gnlu403d82de73fnhplesgq9jqu8zuyz
-```
