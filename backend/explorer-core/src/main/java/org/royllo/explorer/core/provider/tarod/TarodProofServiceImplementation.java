@@ -71,6 +71,9 @@ public class TarodProofServiceImplementation extends BaseMempoolService implemen
 //                })
 //                .bodyToMono(DecodedProofResponse.class);
 //                //.retryWhen(defaultRetryConfiguration);
+
+
+
     }
 
 }
