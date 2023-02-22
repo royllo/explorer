@@ -9,14 +9,12 @@ import org.royllo.explorer.core.util.parameters.TarodParameters;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.BodyInserter;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
 
 import javax.net.ssl.SSLException;
-import java.util.List;
 
 /**
  * Tarod proof service implementation.
@@ -30,6 +28,7 @@ public class TarodProofServiceImplementation extends BaseMempoolService implemen
 
     @Override
     public final Mono<DecodedProofResponse> decode(final String rawProof, final long proofIndex) {
+        // TODO Refactor this part (make it more clean and check error management).
         SslContext sslContext = null;
         try {
             sslContext = SslContextBuilder
@@ -43,11 +42,8 @@ public class TarodProofServiceImplementation extends BaseMempoolService implemen
         SslContext finalSslContext = sslContext;
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(finalSslContext));
 
-
-
         logger.info("Calling decode for proof n°{} with raw proof {}", proofIndex, rawProof);
-        return WebClient
-                .builder()
+        return WebClient.builder()
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
                 .baseUrl(tarodParameters.getApi().getBaseUrl())
                 .build()
@@ -56,8 +52,8 @@ public class TarodProofServiceImplementation extends BaseMempoolService implemen
                 .header("Grpc-Metadata-macaroon", tarodParameters.getApi().getMacaroon())
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(ProofDTO.builder()
-                        .rawProof("looo")
-                        .proofIndex(1)
+                        .rawProof(rawProof)
+                        .proofIndex(proofIndex)
                         .build()
                 ))
                 .retrieve()
@@ -66,14 +62,6 @@ public class TarodProofServiceImplementation extends BaseMempoolService implemen
                         proofIndex,
                         rawProof,
                         throwable.getMessage()));
-//                .onStatus(HttpStatus::isError, clientResponse -> {
-//                    return Mono.error(new Exception("error"));
-//                })
-//                .bodyToMono(DecodedProofResponse.class);
-//                //.retryWhen(defaultRetryConfiguration);
-
-
-
     }
 
 }

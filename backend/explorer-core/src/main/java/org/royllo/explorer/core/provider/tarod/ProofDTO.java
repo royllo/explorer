@@ -19,7 +19,7 @@ public class ProofDTO {
     /**
      * Raw proof.
      */
-    @JsonProperty("raw_index")
+    @JsonProperty("raw_proof")
     String rawProof;
 
     /**
