@@ -77,7 +77,7 @@
             <column name="STATUS"/>
         </createIndex>
 
-        <!-- Index on STATUS -->
+        <!-- Index on REQUEST_ID -->
         <createIndex indexName="IDX_REQUESTS_REQUEST_ID"
                      tableName="REQUESTS">
             <column name="REQUEST_ID"/>

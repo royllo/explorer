@@ -14,7 +14,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @AllArgsConstructor(access = PRIVATE)
 @SuppressWarnings("checkstyle:VisibilityModifier")
-public class ProofDTO {
+public class ProofQuery {
 
     /**
      * Raw proof.

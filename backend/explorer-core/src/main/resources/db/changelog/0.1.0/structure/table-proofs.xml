@@ -1,0 +1,51 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="0.1.0-table-proofs">
+
+        <createTable tableName="PROOFS"
+                     remarks="Taro proofs">
+
+            <!-- Unique identifier -->
+            <column name="ID" type="BIGINT"
+                    remarks="Unique identifier">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PROOFS"/>
+            </column>
+
+            <!-- Table fields -->
+            <column name="PROOF_ID" type="VARCHAR(255)"
+                    remarks="Calculated value : sha256(Raw proof + ':' + Proof index)"/>
+            <column name="RAW_PROOF" type="TEXT"
+                    remarks="Raw proof"/>
+            <column name="PROOF_INDEX" type="BIGINT"
+                    remarks="Proof index"/>
+
+            <!-- Technical fields -->
+            <column name="CREATED_ON" type="TIMESTAMP WITH TIME ZONE"
+                    remarks="Data created on"/>
+            <column name="UPDATED_ON" type="TIMESTAMP WITH TIME ZONE"
+                    remarks="Data updated on"/>
+
+        </createTable>
+
+        <!-- Auto increment on the unique identifier -->
+        <addAutoIncrement tableName="PROOFS"
+                          columnName="ID"
+                          columnDataType="BIGINT"
+                          incrementBy="1"
+                          startWith="1"/>
+
+        <!-- Adding a unique constraint on PROOF_ID -->
+        <addUniqueConstraint columnNames="PROOF_ID"
+                             constraintName="PROOFS_UNIQUE_PROOF_ID"
+                             tableName="PROOFS"/>
+
+        <!-- Index on PROOF_ID -->
+        <createIndex indexName="IDX_PROOFS_PROOF_ID"
+                     tableName="PROOFS">
+            <column name="PROOF_ID"/>
+        </createIndex>
+
+    </changeSet>
+</databaseChangeLog>

@@ -3,6 +3,7 @@ package org.royllo.explorer.core.util.base;
 import org.mapstruct.factory.Mappers;
 import org.royllo.explorer.core.util.mapper.AssetMapper;
 import org.royllo.explorer.core.util.mapper.BitcoinMapper;
+import org.royllo.explorer.core.util.mapper.ProofMapper;
 import org.royllo.explorer.core.util.mapper.RequestMapper;
 import org.royllo.explorer.core.util.mapper.UserMapper;
 import org.slf4j.Logger;
@@ -27,6 +28,9 @@ public abstract class Base {
 
     /** Request related mapper. */
     protected static final RequestMapper REQUEST_MAPPER = Mappers.getMapper(RequestMapper.class);
+
+    /** Proof related mapper. */
+    protected static final ProofMapper PROOF_MAPPER = Mappers.getMapper(ProofMapper.class);
 
     /**
      * Returns a formatted ID to display.

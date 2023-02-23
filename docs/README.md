@@ -85,5 +85,4 @@ and you will get:
     "internal_key": "03336830ceadb0fc7f67cf65b1b79d1b7dc6ecd3d13ff2af8b4ea6e7d14cee1fe6",
     "taproot_output_key": "32c1d8ce773cc6fae4d528e8874dd1e5fa3af794c79b383e72cf52b6d6af384e"
 }
-
 ```

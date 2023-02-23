@@ -71,5 +71,11 @@
                                  referencedColumnNames="ID"
                                  validate="true"/>
 
+        <!-- Index on ASSETS -->
+        <createIndex indexName="IDX_ASSETS_ASSET_ID"
+                     tableName="ASSETS">
+            <column name="ASSET_ID"/>
+        </createIndex>
+
     </changeSet>
 </databaseChangeLog>

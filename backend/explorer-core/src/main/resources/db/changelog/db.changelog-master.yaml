@@ -14,6 +14,8 @@ databaseChangeLog:
       file: /db/changelog/0.1.0/structure/table-requests-add-proof.xml
   - include:
       file: /db/changelog/0.1.0/structure/table-requests-add-asset-meta-data.xml
+  - include:
+      file: /db/changelog/0.1.0/structure/table-proofs.xml
 
   # ====================================================================================================================
   # 0.1.0 database data
