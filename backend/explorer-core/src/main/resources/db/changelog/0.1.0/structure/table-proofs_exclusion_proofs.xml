@@ -1,0 +1,41 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="0.1.0-table-proofs_exclusion_proofs">
+
+        <createTable tableName="PROOFS_EXCLUSION_PROOFS"
+                     remarks="Exclusion proofs from a proof">
+
+            <!-- Proof unique identifier -->
+            <column name="FK_PROOF" type="BIGINT"
+                    remarks="Proof unique identifier">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PROOFS_EXCLUSION_PROOFS"/>
+            </column>
+
+            <!-- Table fields -->
+            <column name="EXCLUSION_PROOF" type="VARCHAR(255)"
+                    remarks="Exclusion proof"/>
+
+        </createTable>
+
+        <!-- Foreign key FK_PROOF > PROOFS.ID -->
+        <addForeignKeyConstraint constraintName="FK_PROOFS_EXCLUSION_PROOFS"
+                                 baseColumnNames="FK_PROOF"
+                                 baseTableName="PROOFS_EXCLUSION_PROOFS"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedTableName="PROOFS"
+                                 referencedColumnNames="ID"
+                                 validate="true"/>
+
+        <!-- Index on PROOF_ID -->
+        <createIndex indexName="IDX_PROOFS_EXCLUSION_PROOFS_PROOF_ID"
+                     tableName="PROOFS_EXCLUSION_PROOFS">
+            <column name="FK_PROOF"/>
+        </createIndex>
+
+    </changeSet>
+</databaseChangeLog>

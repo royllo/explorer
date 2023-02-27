@@ -8,13 +8,13 @@ import lombok.Value;
 import static lombok.AccessLevel.PRIVATE;
 
 /**
- * Proof used by the decode method.
+ * Proof request used by the decode method.
  */
 @Value
 @Builder
 @AllArgsConstructor(access = PRIVATE)
 @SuppressWarnings("checkstyle:VisibilityModifier")
-public class ProofQuery {
+public class ProofRequest {
 
     /**
      * Raw proof.

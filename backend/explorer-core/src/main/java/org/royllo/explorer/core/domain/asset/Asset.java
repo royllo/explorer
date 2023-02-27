@@ -1,13 +1,5 @@
 package org.royllo.explorer.core.domain.asset;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.royllo.explorer.core.domain.bitcoin.BitcoinTransactionOutput;
-import org.royllo.explorer.core.domain.user.User;
-import org.royllo.explorer.core.util.base.BaseDomain;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,6 +9,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.royllo.explorer.core.domain.bitcoin.BitcoinTransactionOutput;
+import org.royllo.explorer.core.domain.user.User;
+import org.royllo.explorer.core.util.base.BaseDomain;
 
 import static jakarta.persistence.FetchType.EAGER;
 import static jakarta.persistence.GenerationType.IDENTITY;

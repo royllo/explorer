@@ -16,6 +16,8 @@
             <!-- Table fields -->
             <column name="PROOF_ID" type="VARCHAR(255)"
                     remarks="Calculated value : sha256(Raw proof + ':' + Proof index)"/>
+            <column name="FK_USER_CREATOR" type="BIGINT"
+                    remarks="The user who created this proof"/>
             <column name="RAW_PROOF" type="TEXT"
                     remarks="Raw proof"/>
             <column name="PROOF_INDEX" type="BIGINT"
@@ -40,6 +42,18 @@
         <addUniqueConstraint columnNames="PROOF_ID"
                              constraintName="PROOFS_UNIQUE_PROOF_ID"
                              tableName="PROOFS"/>
+
+        <!-- Foreign key FK_USER_CREATOR > USERS.ID -->
+        <addForeignKeyConstraint constraintName="FK_PROOFS_USER_CREATOR"
+                                 baseColumnNames="FK_USER_CREATOR"
+                                 baseTableName="PROOFS"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedTableName="USERS"
+                                 referencedColumnNames="ID"
+                                 validate="true"/>
 
         <!-- Index on PROOF_ID -->
         <createIndex indexName="IDX_PROOFS_PROOF_ID"

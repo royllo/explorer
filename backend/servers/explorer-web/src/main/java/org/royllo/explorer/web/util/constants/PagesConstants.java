@@ -1,15 +1,13 @@
 package org.royllo.explorer.web.util.constants;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * Pages constants.
  */
-public final class PagesConstants {
-
-    /**
-     * Private constructor to prevent instantiation.
-     */
-    private PagesConstants() {
-    }
+@UtilityClass
+@SuppressWarnings("checkstyle:HideUtilityClassConstructor")
+public class PagesConstants {
 
     /** Home page. */
     public static final String HOME_PAGE = "home";

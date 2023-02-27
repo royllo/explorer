@@ -1,17 +1,14 @@
 package org.royllo.explorer.core.util.constants;
 
+import lombok.experimental.UtilityClass;
 import org.royllo.explorer.core.dto.user.UserDTO;
 
 /**
  * User constants.
  */
-public final class UserConstants {
-
-    /**
-     * Private constructor to prevent instantiation.
-     */
-    private UserConstants() {
-    }
+@UtilityClass
+@SuppressWarnings("checkstyle:HideUtilityClassConstructor")
+public class UserConstants {
 
     /** Anonymous user ID in database. */
     public static final long ANONYMOUS_ID = 0L;

@@ -78,7 +78,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         assert newAsset.getGenesisPoint() != null : "Bitcoin transaction is required";
         assert assetRepository.findByAssetId(newAsset.getAssetId()).isEmpty() : newAsset.getAssetId() + " already registered";
 
-        // We save the value.
+        // We update and save the asset.
         final Asset assetToCreate = ASSET_MAPPER.mapToAsset(newAsset);
         // Setting the creator.
         assetToCreate.setCreator(USER_MAPPER.mapToUser(ANONYMOUS_USER));

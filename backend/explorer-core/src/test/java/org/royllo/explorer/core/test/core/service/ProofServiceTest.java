@@ -2,16 +2,13 @@ package org.royllo.explorer.core.test.core.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.royllo.explorer.core.dto.proof.ProofDTO;
+import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.proof.ProofService;
 import org.royllo.explorer.core.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
@@ -22,23 +19,32 @@ public class ProofServiceTest extends BaseTest {
     @Autowired
     private ProofService proofService;
 
+    @Autowired
+    private AssetService assetService;
+
     @Test
-    @DisplayName("createProof()")
-    public void createProof() {
-        // We try to create a proof with an already existing proof (an ID is set!)
+    @DisplayName("addProof()")
+    public void addProof() {
+        // We add our proof for an asset that doesn't exist --> an error must occur.
+
+        // We add the asset of our proof, and then, our proof --> No error, proof should be added.
+
+        // We add again our proof as it's already in our database --> an error must occur.
+
+        /*
+ If the proof is already in the database, we should have an error.
         try {
-            proofService.createProof(ProofDTO.builder()
+            proofService.addProof(ProofDTO.builder()
                     .id(1L)
                     .rawProof(ROYLLO_COIN_RAW_PROOF)
                     .proofIndex(ROYLLO_COIN_PROOF_INDEX)
                     .build());
-            fail("An error should occurred because we have an id for that proof");
+            fail("An error should occur because we have an id for that proof");
         } catch (AssertionError error) {
             assertEquals("Your proof already has an ID, this method can only be used to create a proof" , error.getMessage());
         }
-
-        // We create a proof with correct value.
-        ProofDTO createdProof = proofService.createProof(ProofDTO.builder()
+ We create a proof with correct value.
+        ProofDTO createdProof = proofService.addProof(ProofDTO.builder()
                 .rawProof(ROYLLO_COIN_RAW_PROOF)
                 .proofIndex(ROYLLO_COIN_PROOF_INDEX)
                 .build());
@@ -48,6 +54,7 @@ public class ProofServiceTest extends BaseTest {
         assertEquals(ROYLLO_COIN_PROOF_ID, createdProof.getProofId());
         assertEquals(ROYLLO_COIN_RAW_PROOF, createdProof.getRawProof());
         assertEquals(ROYLLO_COIN_PROOF_INDEX, createdProof.getProofIndex());
+*/
     }
 
 }

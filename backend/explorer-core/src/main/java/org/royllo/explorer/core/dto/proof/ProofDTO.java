@@ -3,11 +3,9 @@ package org.royllo.explorer.core.dto.proof;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
+import org.royllo.explorer.core.dto.user.UserDTO;
 
-import javax.xml.bind.DatatypeConverter;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -23,22 +21,11 @@ public class ProofDTO {
     /** Unique identifier. */
     Long id;
 
+    /** Proof id (rawProof + ":" + proofIndex). */
+    String proofId;
 
-    /**
-     * Proof id (rawProof + ":" + proofIndex).
-     *
-     * @return calculated proof ID.
-     */
-    @SuppressWarnings("checkstyle:MagicNumber")
-    public String getProofId() {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] digest = md.digest((rawProof + ":" + proofIndex).getBytes(StandardCharsets.UTF_8));
-            return DatatypeConverter.printHexBinary(digest).toLowerCase();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("SHA-256 is not available:" + e.getMessage());
-        }
-    }
+    /** The proof creator. */
+    UserDTO creator;
 
     /** Raw proof. */
     String rawProof;
@@ -46,6 +33,14 @@ public class ProofDTO {
     /** Proof index. */
     long proofIndex;
 
+    /** Transaction merkle proof. */
+    String txMerkleProof;
+
+    /** Inclusion proof. */
+    String inclusionProof;
+
+    /** Exclusion proofs. */
+    List<String> exclusionProofs;
 
     // TODO Add author!
 

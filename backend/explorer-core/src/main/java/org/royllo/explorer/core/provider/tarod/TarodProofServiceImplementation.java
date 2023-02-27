@@ -51,7 +51,7 @@ public class TarodProofServiceImplementation extends BaseMempoolService implemen
                 .uri("proofs/decode")
                 .header("Grpc-Metadata-macaroon", tarodParameters.getApi().getMacaroon())
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromValue(ProofQuery.builder()
+                .body(BodyInserters.fromValue(ProofRequest.builder()
                         .rawProof(rawProof)
                         .proofIndex(proofIndex)
                         .build()

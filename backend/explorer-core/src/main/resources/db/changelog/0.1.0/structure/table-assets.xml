@@ -17,7 +17,7 @@
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" type="BIGINT"
                     remarks="The first outpoint of the transaction that created the asset (txid:vout)"/>
             <column name="FK_USER_CREATOR" type="BIGINT"
-                    remarks="Asset creator"/>
+                    remarks="The user who created this asset"/>
             <column name="NAME" type="VARCHAR(255)"
                     remarks="The name of the asset"/>
             <column name="META_DATA" type="VARCHAR(255)"

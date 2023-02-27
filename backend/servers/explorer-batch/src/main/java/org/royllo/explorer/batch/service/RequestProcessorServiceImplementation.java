@@ -53,17 +53,14 @@ public class RequestProcessorServiceImplementation extends BaseProcessor impleme
         // If (decode() returns an error) : ERROR -> "Invalid proof".
         // If SUCCESS -> We retrieve the DecodedProof.
 
-        // We calculate the proofId from DecodedProof, and we search for it with proofService.getProofByProofId().
-        // If (getProofByProofId() returns 1) : ERROR -> "Proof already registered".
-
         // Calling assetService.getAssetByAssetId() with DecodedProof.assetId.
         // If the asset doesn't already exist, we create the asset.
         // We retrieve the asset ID.
 
         // With DecodedProof, we call createProof() from ProofService with a link to the existing asset.
 
-
         return null;
+
         // =============================================================================================================
         // We check if the transaction can be found in the blockchain or in our database.
 //        final Optional<BitcoinTransactionOutput> transactionOutput = bitcoinTransactionOutputRepository.findByTxIdAndVout(addProofDTO.getTxId(), addProofDTO.getVout());
