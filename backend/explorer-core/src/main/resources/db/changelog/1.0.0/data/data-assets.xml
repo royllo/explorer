@@ -2,7 +2,7 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
-    <changeSet author="straumat" id="test-data-assets">
+    <changeSet author="straumat" id="1.0.0-data-assets">
 
         <!-- TODO Replace this asset by a Royllo coin created on the testnet -->
         <!-- Test royllo coin n°1 (bitcoin transaction output is already in the database) -->
