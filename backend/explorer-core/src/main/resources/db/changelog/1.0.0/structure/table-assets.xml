@@ -2,7 +2,7 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
-    <changeSet author="straumat" id="0.1.0-table-assets">
+    <changeSet author="straumat" id="1.0.0-table-assets">
 
         <createTable tableName="ASSETS"
                      remarks="Taro assets">
@@ -40,7 +40,7 @@
                           columnName="ID"
                           columnDataType="BIGINT"
                           incrementBy="1"
-                          startWith="1"/>
+                          startWith="2"/>
 
         <!-- Adding a unique constraint on ASSET_ID -->
         <addUniqueConstraint columnNames="ASSET_ID"
