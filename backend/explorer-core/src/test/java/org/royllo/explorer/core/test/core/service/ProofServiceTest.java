@@ -2,25 +2,37 @@ package org.royllo.explorer.core.test.core.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.royllo.explorer.core.provider.tarod.TarodProofService;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.proof.ProofService;
 import org.royllo.explorer.core.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
+@ActiveProfiles("tarodProofServiceMock")
 @DisplayName("ProofService tests")
 public class ProofServiceTest extends BaseTest {
+
+    @Autowired
+    private TarodProofService tarodProofService;
 
     @Autowired
     private ProofService proofService;
 
     @Autowired
     private AssetService assetService;
+
+    @Test
+    @DisplayName("tarodProofServiceMock")
+    public void tarodProofServiceMock() {
+        // tarodProofService.decode();
+    }
 
     @Test
     @DisplayName("addProof()")

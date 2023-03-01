@@ -51,8 +51,8 @@ docker exec -it lnd-taro-with-docker_taro_1 \
 docker exec -it lnd-taro-with-docker_taro_1 \
                 /bin/tarocli proofs \
                 export  --asset_id 1781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e5413 \
-                        --script_key 024e9d77ff1df871af183419a6cfd308235f512717f13da57dbf045a4a8c2ca5cc \
-                        --proof_file activeRoylloCoin.proof
+                        --script_key 02576e6cf95f0d7724f2e17afcd74a690231bf4e1ecb1963229af3fe33edcd58ca \
+                        --proof_file activeRoylloCoin-3.proof
 ```
 
 ### Decode proof
@@ -60,6 +60,6 @@ docker exec -it lnd-taro-with-docker_taro_1 \
 ```
 docker exec -it lnd-taro-with-docker_taro_1 \
                 /bin/tarocli proofs decode \
-                --proof_file activeRoylloCoin.proof \
+                --proof_file activeRoylloCoin-2.proof \
                 --proof_index 0
 ```

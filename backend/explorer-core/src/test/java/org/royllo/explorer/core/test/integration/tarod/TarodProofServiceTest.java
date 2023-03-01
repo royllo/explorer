@@ -37,6 +37,7 @@ public class TarodProofServiceTest extends BaseTest {
                 1).block();
 
         // Testing all the value from the response.        assertNotNull(response);
+        assertNotNull(response);
         assertNotNull(response.getDecodedProof());
         assertEquals(1, response.getDecodedProof().getProofIndex());
         assertEquals(2, response.getDecodedProof().getNumberOfProofs());
