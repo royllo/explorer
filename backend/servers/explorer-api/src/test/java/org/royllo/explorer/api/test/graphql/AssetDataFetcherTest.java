@@ -21,8 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.royllo.explorer.api.configuration.APIConfiguration.MAXIMUM_PAGE_SIZE;
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
 
 @SpringBootTest
 @DisplayName("AssetDataFetcher tests")
@@ -239,14 +237,28 @@ public class AssetDataFetcherTest extends BaseTest {
     @DisplayName("assetByAssetId()")
     public void assetByAssetId() {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                AssetByAssetIdGraphQLQuery.newRequest().assetId(ASSET_ID_NUMBER_01).build(),
+                AssetByAssetIdGraphQLQuery.newRequest().assetId(MY_ROYLLO_COIN_ASSET_ID).build(),
                 new AssetByAssetIdProjectionRoot()
+                        .version()
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
                         .metaData()
                         .assetId()
-                        .outputIndex());
+                        .outputIndex()
+                        .genesisBootstrapInformation()
+                        .genesisVersion()
+                        .type().parent()
+                        .amount()
+                        .lockTime()
+                        .relativeLockTime()
+                        .scriptVersion()
+                        .scriptKey()
+                        .anchorTx()
+                        .anchorTxId()
+                        .anchorBlockHash()
+                        .anchorOutpoint()
+                        .anchorInternalKey());
 
         Asset asset = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 graphQLQueryRequest.serialize(),
@@ -255,15 +267,31 @@ public class AssetDataFetcherTest extends BaseTest {
                 });
 
         assertNotNull(asset);
-        assertEquals("2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea", asset.getGenesisPoint().getTxId());
-        assertEquals(0, asset.getGenesisPoint().getVout());
-        // TODO, there should be a test with another user than anonymous
-        assertEquals(ANONYMOUS_USER_ID, asset.getCreator().getUserId());
-        assertEquals(ANONYMOUS_USER_USERNAME, asset.getCreator().getUsername());
-        assertEquals("starbackrcoin", asset.getName());
-        assertEquals("737461726261636b72206d6f6e6579", asset.getMetaData());
-        assertEquals("b34b05956d828a7f7a0df598771c9f6df0378680c432480837852bcb94a8f21e", asset.getAssetId());
-        assertEquals(1, asset.getOutputIndex());
+        assertEquals(MY_ROYLLO_COIN_VERSION, asset.getVersion());
+
+        // Genesis point.
+        assertEquals(MY_ROYLLO_COIN_GENESIS_POINT_TXID, asset.getGenesisPoint().getTxId());
+        assertEquals(MY_ROYLLO_COIN_GENESIS_POINT_VOUT, asset.getGenesisPoint().getVout());
+        assertEquals(MY_ROYLLO_COIN_NAME, asset.getName());
+        assertEquals(MY_ROYLLO_COIN_META, asset.getMetaData());
+        assertEquals(MY_ROYLLO_COIN_ASSET_ID, asset.getAssetId());
+        assertEquals(MY_ROYLLO_COIN_OUTPUT_INDEX, asset.getOutputIndex());
+        assertEquals(MY_ROYLLO_COIN_GENESIS_BOOTSTRAP_INFORMATION, asset.getGenesisBootstrapInformation());
+        assertEquals(MY_ROYLLO_COIN_GENESIS_VERSION, asset.getGenesisVersion());
+
+        assertEquals(MY_ROYLLO_COIN_ASSET_TYPE.toString(), asset.getType().toString());
+        assertEquals(0, MY_ROYLLO_COIN_AMOUNT.compareTo(asset.getAmount()));
+        assertEquals(MY_ROYLLO_COIN_LOCK_TIME, asset.getLockTime());
+        assertEquals(MY_ROYLLO_COIN_RELATIVE_LOCK_TIME, asset.getRelativeLockTime());
+        assertEquals(MY_ROYLLO_COIN_SCRIPT_VERSION, asset.getScriptVersion());
+        assertEquals(MY_ROYLLO_COIN_SCRIPT_KEY, asset.getScriptKey());
+
+        // Chain anchor.
+        assertEquals(MY_ROYLLO_COIN_ANCHOR_TX, asset.getAnchorTx());
+        assertEquals(MY_ROYLLO_COIN_ANCHOR_TX_ID, asset.getAnchorTxId());
+        assertEquals(MY_ROYLLO_COIN_ANCHOR_BLOCK_HASH, asset.getAnchorBlockHash());
+        assertEquals(MY_ROYLLO_COIN_ANCHOR_OUTPOINT, asset.getAnchorOutpoint());
+        assertEquals(MY_ROYLLO_COIN_ANCHRO_INTERNAL_KEY, asset.getAnchorInternalKey());
     }
 
 }
