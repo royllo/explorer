@@ -1,7 +1,10 @@
 package org.royllo.explorer.core.test.util;
 
+import org.royllo.explorer.core.util.enums.AssetType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.math.BigInteger;
 
 /**
  * Utility classes for tests.
@@ -36,14 +39,29 @@ public class BaseTest {
     /** Taro asset number 1. */
     protected static final String ASSET_ID_NUMBER_01 = "b34b05956d828a7f7a0df598771c9f6df0378680c432480837852bcb94a8f21e";
 
-    /* Test data living on the testnet. */
+    /* ============================================================================================================== */
+    /* My Royllo coin (living on testnet). */
+    protected static final int MY_ROYLLO_COIN_ID = 1;
+    protected static final int MY_ROYLLO_COIN_VERSION = 0;
+    protected static final String MY_ROYLLO_COIN_GENESIS_POINT_TXID = "0c396370aa65b5ff800ca106f85cf14352c55bd38f60a30220c68d4f4091854b";
+    protected static final int MY_ROYLLO_COIN_GENESIS_POINT_VOUT = 1;
+    protected static final String MY_ROYLLO_COIN_NAME = "myRoylloCoin";
+    protected static final String MY_ROYLLO_COIN_META = "5573656420627920526f796c6c6f";
+    protected static final String MY_ROYLLO_COIN_ASSET_ID = "692453c6d7d54f508adaf09df86573018579ac749501991f0853baedaa16faf9";
+    protected static final int MY_ROYLLO_COIN_OUTPUT_INDEX = 0;
+    protected static final String MY_ROYLLO_COIN_GENESIS_BOOTSTRAP_INFORMATION = "4b8591404f8dc62002a3608fd35bc55243f15cf806a10c80ffb565aa7063390c000000010c6d79526f796c6c6f436f696e0e5573656420627920526f796c6c6f0000000000";
+    protected static final int MY_ROYLLO_COIN_GENESIS_VERSION = 0;
+    protected static final AssetType MY_ROYLLO_COIN_ASSET_TYPE = AssetType.NORMAL;
+    protected static final BigInteger MY_ROYLLO_COIN_AMOUNT = BigInteger.valueOf(1000L);
+    protected static final int MY_ROYLLO_COIN_LOCK_TIME = 0;
+    protected static final int MY_ROYLLO_COIN_RELATIVE_LOCK_TIME = 0;
+    protected static final int MY_ROYLLO_COIN_SCRIPT_VERSION = 0;
+    protected static final String MY_ROYLLO_COIN_SCRIPT_KEY = "0251e05abec04e300351523e6cbdbceadae4332896ca59dbdad6801e2fc35c1e71";
+    protected static final String MY_ROYLLO_COIN_ANCHOR_TX= "020000000001014b8591404f8dc62002a3608fd35bc55243f15cf806a10c80ffb565aa7063390c0100000000ffffffff02e803000000000000225120890016973f4a07ecb7afc16f805219e3eaf1bc1d0635894c821114dbf6e2ca36bd11000000000000160014c35088956d26c44af4c00dfc8bf10d9a4c79320e0248304502210095b84eb101cd33d1b95bf1527d79653a09d75d8db259192bd9ff09a313eb9fbc02200eacd659b386ccea82a82f26458a0a6893eeb454cd50cc2c05e2ff7bf71d4b2d012103219e2594f427e338690c3f51409706439d8ab83fde02d18d0c28ec55c285801c00000000";
+    protected static final String MY_ROYLLO_COIN_ANCHOR_TX_ID = "56fe33cc4fbdba40de3b710ba6b572f1e6b04ac93ab7103e586e4b897d0840c3";
+    protected static final String MY_ROYLLO_COIN_ANCHOR_BLOCK_HASH = "0000000000000000000000000000000000000000000000000000000000000000";
+    protected static final String MY_ROYLLO_COIN_ANCHOR_OUTPOINT = "56fe33cc4fbdba40de3b710ba6b572f1e6b04ac93ab7103e586e4b897d0840c3";
+    protected static final String MY_ROYLLO_COIN_ANCHRO_INTERNAL_KEY = "03336830ceadb0fc7f67cf65b1b79d1b7dc6ecd3d13ff2af8b4ea6e7d14cee1fe6";
+    /* ============================================================================================================== */
 
-    /** Royllo coin - First coin created by me - Raw proof. */
-    protected static final String ROYLLO_COIN_RAW_PROOF = "AAAAAAL9BDwAJBDC6+N2taWDvnmTVLgwr4mGBCuZpHd1LFUnq5CqK1crAAAAAAFQAAAAIGegXtiUZvfVqFzIXM+Ul6Ea0ocKGbVXeRYAAAAAAAAA88V9mnDK6ygsK+wQ7KfCeg/nwff6vxI6hejjG3e3ppSzbuFj//8AHfcJY/QC9wIAAAAAAQEQwuvjdrWlg755k1S4MK+JhgQrmaR3dSxVJ6uQqitXKwAAAAAA/////wLoAwAAAAAAACJRIEl5QgFinncSR5W9teZ0N9pg58KwtxVaxsqFGhe/u9T62wIUAAAAAAAiUSBCgsBJGj0pHAIH5pnVg2aT5RRCO77LppWEcSI74X/5+wJIMEUCIQD6tMoanMEyK7rpP8b2rIx087ZAwe0mVoYpuCxkAamPmwIgENrBagbUcOWF075vtCPOvlI9X57J/fvVE8P4t4czbdkBIQK+k2PkmF3Nwiw95Io50bOKY24IHopAQLzt0o3QBXxMBQAAAAAD/QECCNgtEMDuLNmpqUJZOmpfRiLqFw2aYQ4U5oWH8TweQpeRlrZDEsFy8XAbIOrDi2ZrkZxm7znVvSkgK7S/B2Ta49wxA67ssl5wpx9vdsc61OZNPi3AI0y6gS/q4+rok/ol1ad+s90SwnbVUgkJ47SxCRkj5grGRt1PrFv0Zjf+rJVpmZTmL8MZvk9dChCbc510zh+wdAan3BdudN0AOSrMQctsMb97k0nHtICgrjIRPivXUXdEUNO2SHLoqC9SsypXuDoleqRtyL1uga66yfapcEgOHBYhAKQShxShweEXXQsVb+Ok1B+O7rVz6Nqn2gbg3doES/fH/i/4zxHLLAbHZVTnBPAAAQABTxDC6+N2taWDvnmTVLgwr4mGBCuZpHd1LFUnq5CqK1crAAAAABBoYWJpYnRhcm9fcmVtb3RlFGhhYmlidGFyby5jb21fcmVtb3RlAAAAAAACAQADBf4BQG9ABmkBZwBlAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAgAACSECA+AboGxeZjf10S0GaTD2D9iVIjqlz4EM++c0+e6OeHoFnwAEAAAAAAEhA30ykpyTT6FlRxaNVkG5o8GTpDZs/evCPmYMwsU4TEbsAnQASQABAAEgPgVFMqaoaedeG96KJeeUQXfWSKA0/lwUirf3dDU4zJ4CIgAA//////////////////////////////////////////8BJwABAAEiAAD//////////////////////////////////////////wYwAS4ABAAAAAEBIQLcSHLzaT/lCeYzvSz09KG7cDGpf10FayQj1Nabl6rTHwMDAgEBvBHvQ38qh6p5zALFW2Tb5hlkomhRe2JrsW+JXDHjKTv9B6MAJItUvaRjib4LIAdu+JHZhfKL09chEbykNqv8Wtf4ZjuFAAAAAAFQAABgIKp/g5866TLs7shSVp67lnMLTGj5SrWe6RQAAAAAAAAAfYgH/VE/hEuIsQEzMW3sPtBF6wySS/DXEfxSoQJXzTGljOFjQV0iGT8vm9wC/QFjAgAAAAABAotUvaRjib4LIAdu+JHZhfKL09chEbykNqv8Wtf4ZjuFAQAAAAD/////i1S9pGOJvgsgB274kdmF8ovT1yERvKQ2q/xa1/hmO4UAAAAAAAAAAAAD6AMAAAAAAAAiUSA9IQPuVFvpjbeV1z4R/YY0s8C9ddkTNAJSC2HoHyHIregDAAAAAAAAIlEgUai+/8Zd3X7xelRG7HWkqk+aWMERe8R0VTxvNBXKbCY+zRMAAAAAACJRINqgGvK1f1IpAc/1nKQ2DiPaSkHWu0qknqmPtn2NIRvHAUBlGhmFAycyVnnN7vFCI4h26fRS3xbQDzqwVtbUudst1Zxiv/5WsajTzq/0QGcbyJCoG/eL7/obfCqbl+idWInBAUDzUTcJn5wvzDEoP7vkiVTKu4LKMPRyi800488/ygMl6nsKKgmnizlM+0cky4CPYcdWt8aXt4qE/Wl9O+8jENqqAAAAAAPiB4WGOIm06NBFx7jkGoxP2hfVp/npBoT99oeOOr2DShfGjGvX13J3mw9bMkLPbe4lHetJ/pwnnY1t+ZTD9Z3Fp8LS8WQioOgFhuZMDFFVpkAUJ3sWLX/PNArkawLbYitBfXNJBaHOgK9Ydt4lPyWl+ggcdZv6HPoPcWZEfo7MkGLbaepIee3Lt90lJLxKLD50EwXkjvtE5AcLHTc+v4RNw3aBE4FYQhF1lPIpqaKkJ2C2i+l6UJTqXIFZByqnfgVWtKm7KIaL5WUd0hxpJoA2dyJkJP04S8N3wKBxMRuWgTr7dAT9AqAAAQABTxDC6+N2taWDvnmTVLgwr4mGBCuZpHd1LFUnq5CqK1crAAAAABBoYWJpYnRhcm9fcmVtb3RlFGhhYmlidGFyby5jb21fcmVtb3RlAAAAAAACAQADAQoG/QIbAf0CFwBlAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC/QGsSgAB5NRF1CXSOcmsCA7ruti701k17esd4DkHknGTvKlyybkAAAAAAUBvNv////////////////////////////////////////9//QFeAAEAAU8QwuvjdrWlg755k1S4MK+JhgQrmaR3dSxVJ6uQqitXKwAAAAAQaGFiaWJ0YXJvX3JlbW90ZRRoYWJpYnRhcm8uY29tX3JlbW90ZQAAAAAAAgEAAwX+AUBvNgatAasAZYtUvaRjib4LIAdu+JHZhfKL09chEbykNqv8Wtf4ZjuFAAAAAD4FRTKmqGnnXhveiiXnlEF31kigNP5cFIq393Q1OMyeAgPgG6BsXmY39dEtBmkw9g/YlSI6pc+BDPvnNPnujnh6AUIBQOcBOWi0inzLOOcRrYChn+G4JyWe9eJlO6s4pYa9PKXiSs9jhJn507nvN3D3am3rGN8L59gXo5Whx5noCeHzct8HKMbUVMC2KVHdr5Jiz2Vteqtd2BzaNSwvi8Lns2tfwA/RAAAAAAFAb0AIAgAACSECV+BOR3G04Fq5J3zkatO6g72pRZit4NNLYohjWD1wyyMIAgAACSECj1cBE6L59z9epRdOVwJVSLvamNAyPwX1tWvm++NAxO4FnwAEAAAAAQEhA+riUffgTwRYogPwsYZf9qSPZu7VB09YbeMsTCO0eWIkAnQASQABAAEgPgVFMqaoaedeG96KJeeUQXfWSKA0/lwUirf3dDU4zJ4CIgAA//////////////////////////////////////////8BJwABAAEiAAD//////////////////////////////////////////wb4AscABAAAAAABIQJ6GjV81gvs1dD4gom7Br/bN320g9vfVd4cOArP+8KYbgKcAHEAAQABID4FRTKmqGnnXhveiiXnlEF31kigNP5cFIq393Q1OMyeAkoAAQik60qmGCuF2rjsQQM4XPAulUxC/2fwPMvHLDeu2Y6IAAAAAAFAbzb/////////////////////////////////////////3wEnAAEAASIAAP//////////////////////////////////////////LgAEAAAAAgEhAhsLhWslxtgqGnR7DWI87F8C/47W24vggHC6nqnBr2NsAwMCAQEHnwAEAAAAAAEhAnoaNXzWC+zV0PiCibsGv9s3fbSD299V3hw4Cs/7wphuAnQASQABAAEgPgVFMqaoaedeG96KJeeUQXfWSKA0/lwUirf3dDU4zJ4CIgAA//////////////////////////////////////////8BJwABAAEiAAD//////////////////////////////////////////6NumG4nl1ZBFr46o4uvgs0ocbYbB1NTHzX7mTrGcqqx";
-
-    /** Royllo coin - First coin created by me - Raw proof. */
-    protected static final long ROYLLO_COIN_PROOF_INDEX = 1;
-
-    /** Royllo coin - First coin created by me - Proof id generated. */
-    protected static final String ROYLLO_COIN_PROOF_ID = "13c6a622d93c12d608b9d8189c715c4bffda254eb0dde0376dcb641e2e7b8222";
 }

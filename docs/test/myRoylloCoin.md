@@ -1,4 +1,4 @@
-# roylloCoin
+# myRoylloCoin
 
 ## Asset
 
