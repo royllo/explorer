@@ -42,7 +42,7 @@ public class AssetServiceTest extends BaseTest {
     @Test
     @DisplayName("queryAssets()")
     public void queryAssets() {
-        // Test on two coins in database : "royllostar" and "starbackrcoin"
+        // Test on two coins in database : "royllostar" and "myRoylloCoin"
 
         // Searching for an asset that doesn't exist.
         Page<AssetDTO> results = assetService.queryAssets("NON-EXISTING", 1, 5);
@@ -244,7 +244,7 @@ public class AssetServiceTest extends BaseTest {
         assertEquals(MY_ROYLLO_COIN_ANCHOR_TX_ID, asset.get().getAnchorTxId());
         assertEquals(MY_ROYLLO_COIN_ANCHOR_BLOCK_HASH, asset.get().getAnchorBlockHash());
         assertEquals(MY_ROYLLO_COIN_ANCHOR_OUTPOINT, asset.get().getAnchorOutpoint());
-        assertEquals(MY_ROYLLO_COIN_ANCHRO_INTERNAL_KEY, asset.get().getAnchorInternalKey());
+        assertEquals(MY_ROYLLO_COIN_ANCHOR_INTERNAL_KEY, asset.get().getAnchorInternalKey());
     }
 
     @Test
@@ -282,7 +282,7 @@ public class AssetServiceTest extends BaseTest {
         assertEquals(MY_ROYLLO_COIN_ANCHOR_TX_ID, asset.get().getAnchorTxId());
         assertEquals(MY_ROYLLO_COIN_ANCHOR_BLOCK_HASH, asset.get().getAnchorBlockHash());
         assertEquals(MY_ROYLLO_COIN_ANCHOR_OUTPOINT, asset.get().getAnchorOutpoint());
-        assertEquals(MY_ROYLLO_COIN_ANCHRO_INTERNAL_KEY, asset.get().getAnchorInternalKey());
+        assertEquals(MY_ROYLLO_COIN_ANCHOR_INTERNAL_KEY, asset.get().getAnchorInternalKey());
     }
 
 }

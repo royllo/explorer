@@ -2,16 +2,20 @@ package org.royllo.explorer.core.service.proof;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.royllo.explorer.core.domain.asset.Asset;
 import org.royllo.explorer.core.dto.proof.ProofDTO;
 import org.royllo.explorer.core.provider.tarod.DecodedProofResponse;
+import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.repository.proof.ProofRepository;
 import org.royllo.explorer.core.util.base.BaseService;
+import org.royllo.explorer.core.util.exceptions.proof.ProofCreationException;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Optional;
 
 /**
  * Proof implementation service.
@@ -21,6 +25,9 @@ import java.security.NoSuchAlgorithmException;
 @SuppressWarnings("checkstyle:DesignForExtension")
 public class ProofServiceImplementation extends BaseService implements ProofService {
 
+    /** Asset repository. */
+    private final AssetRepository assetRepository;
+
     /** Proof repository. */
     private final ProofRepository proofRepository;
 
@@ -29,8 +36,21 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
                              final long proofIndex,
                              @NonNull final DecodedProofResponse decodedProof) {
         logger.info("addProof - Adding {}", decodedProof);
+
         // We check that the proof is not in our database.
+        proofRepository.findByProofId(getProofId(rawProof, proofIndex)).ifPresent(proof -> {
+            throw new ProofCreationException("This proof is already registered with proof id: " + proof.getProofId());
+        });
+
         // We check that the asset exists in our database.
+        final String assetId = decodedProof.getDecodedProof().getAsset().getAssetGenesis().getAssetId();
+        final Optional<Asset> asset = assetRepository.findByAssetId(assetId);
+        if (asset.isEmpty()) {
+            // Asset does not exists.
+            throw new ProofCreationException("Asset " + assetId + " is not registered in our database");
+        } else {
+            // We create the proof.
+        }
 
         // We create the proof (link to asset and user).
 /*        Proof proof = Proof.builder()
@@ -44,6 +64,19 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
                 .build();*/
 
         return null;
+    }
+
+    /**
+     * Returns the proof id calculated from raw proof and proof index.
+     * SHA256(rawProof + ":" + proofIndex).
+     *
+     * @param rawProof   raw proof
+     * @param proofIndex proof index
+     * @return calculated proof id
+     */
+    private String getProofId(@NonNull final String rawProof,
+                              final long proofIndex) {
+        return getSHA256(rawProof + ":" + proofIndex);
     }
 
     /**

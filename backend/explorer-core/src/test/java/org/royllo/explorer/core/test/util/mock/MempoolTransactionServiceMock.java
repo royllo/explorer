@@ -35,6 +35,32 @@ public class MempoolTransactionServiceMock extends BaseTest {
         Mockito.when(mockedService.getTransaction(BITCOIN_TRANSACTION_NON_EXISTING)).thenReturn(Mono.empty());
 
         // =============================================================================================================
+        // UNKNOWN_ROYLLO_COIN_GENESIS_POINT_TXID - Unknown Royllo coin transaction
+        // curl -ssL https://mempool.space/api/tx/b97285f17dc029b92dfe0a5c9f2be412b13699fe0cf93f99deb606b20b110e75 | jq
+        status = new GetTransactionResponse.Status();
+        status.setBlockHeight(2422164);
+
+        vout1 = new GetTransactionResponse.VOut();
+        vout1.setScriptPubKey("5120592efc989c327d03dbf68484b3e7b84d3b122b6e11951f8c6093d818422db4d5");
+        vout1.setScriptPubKeyAsm("OP_PUSHNUM_1 OP_PUSHBYTES_32 592efc989c327d03dbf68484b3e7b84d3b122b6e11951f8c6093d818422db4d5");
+        vout1.setScriptPubKeyType("v1_p2tr");
+        vout1.setScriptPubKeyAddress("tb1ptyh0exyuxf7s8klksjzt8eacf5a3y2mwzx23lrrqj0vpss3dkn2s5c5v79");
+        vout1.setValue(new BigDecimal("1000"));
+
+        vout2 = new GetTransactionResponse.VOut();
+        vout2.setScriptPubKey("0014db6d89fb2231cf81c02599e12fce7edaaaca0a18");
+        vout2.setScriptPubKeyAsm("OP_0 OP_PUSHBYTES_20 db6d89fb2231cf81c02599e12fce7edaaaca0a18");
+        vout2.setScriptPubKeyType("v0_p2wpkh");
+        vout2.setScriptPubKeyAddress("tb1qmdkcn7ezx88crsp9n8sjlnn7m24v5zsch8xtev");
+        vout2.setValue(new BigDecimal("3235"));
+
+        response = new GetTransactionResponse();
+        response.setStatus(status);
+        response.getVout().add(vout1);
+        response.getVout().add(vout2);
+        Mockito.when(mockedService.getTransaction(UNKNOWN_ROYLLO_COIN_GENESIS_POINT_TXID)).thenReturn(Mono.just(response));
+
+        // =============================================================================================================
         // BITCOIN_TRANSACTION_1_TXID - Transaction already on our database.
         // curl -ssL https://mempool.space/api/tx/2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea | jq
         status = new GetTransactionResponse.Status();

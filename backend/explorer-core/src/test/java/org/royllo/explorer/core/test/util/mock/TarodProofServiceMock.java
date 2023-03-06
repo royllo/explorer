@@ -3,28 +3,105 @@ package org.royllo.explorer.core.test.util.mock;
 import org.mockito.Mockito;
 import org.royllo.explorer.core.provider.tarod.DecodedProofResponse;
 import org.royllo.explorer.core.provider.tarod.TarodProofService;
+import org.royllo.explorer.core.test.util.BaseTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
+import reactor.core.publisher.Mono;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static org.mockito.ArgumentMatchers.any;
 
 /**
  * {@link TarodProofService} mock.
  */
 @Profile("tarodProofServiceMock")
 @Configuration
-public class TarodProofServiceMock {
+public class TarodProofServiceMock extends BaseTest {
 
     @Bean
     @Primary
     public TarodProofService tarodProofService() {
         final TarodProofService mockedService = Mockito.mock(TarodProofService.class);
 
+        // Non-existing proof.
+        // Mockito.when(mockedService.decode(any(), 0)).thenReturn(Mono.empty());
+
+        Mockito.when(mockedService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF, 0)).thenReturn(Mono.just(getUnknownRoylloCoin()));
+
+        return mockedService;
+    }
+
+    /**
+     * Returns "Unknown royllo coin" decoded proof.
+     *
+     * @return "unknown royllo coin" decoded proof.
+     */
+    private DecodedProofResponse getUnknownRoylloCoin() {
+        // "unknownRoylloCoin" (documented in docs/test/unknownRoylloCoin.MD).
+        DecodedProofResponse decodedProofResponse = new DecodedProofResponse();
+
+        // Decoded proof.
+        DecodedProofResponse.DecodedProof decodedProof = new DecodedProofResponse.DecodedProof();
+        decodedProof.setProofIndex(0);
+        decodedProof.setNumberOfProofs(1);
+
+        // Asset.
+        DecodedProofResponse.DecodedProof.Asset asset = new DecodedProofResponse.DecodedProof.Asset();
+        asset.setVersion(UNKNOWN_ROYLLO_COIN_VERSION);
+
+        // Asset genesis.
+        DecodedProofResponse.DecodedProof.Asset.AssetGenesis assetGenesis = new DecodedProofResponse.DecodedProof.Asset.AssetGenesis();
+        assetGenesis.setGenesisPoint(UNKNOWN_ROYLLO_COIN_GENESIS_POINT_TXID + ":" + UNKNOWN_ROYLLO_COIN_GENESIS_POINT_VOUT);
+        assetGenesis.setName(UNKNOWN_ROYLLO_COIN_NAME);
+        assetGenesis.setMeta(UNKNOWN_ROYLLO_COIN_META);
+        assetGenesis.setAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID);
+        assetGenesis.setOutputIndex(UNKNOWN_ROYLLO_COIN_OUTPUT_INDEX);
+        assetGenesis.setGenesisBootstrapInfo(UNKNOWN_ROYLLO_COIN_GENESIS_BOOTSTRAP_INFORMATION);
+        assetGenesis.setVersion(UNKNOWN_ROYLLO_COIN_GENESIS_VERSION);
+        asset.setAssetGenesis(assetGenesis);
+
+        asset.setAssetType(UNKNOWN_ROYLLO_COIN_ASSET_TYPE.toString());
+        asset.setAmount(UNKNOWN_ROYLLO_COIN_AMOUNT);
+        asset.setLockTime(UNKNOWN_ROYLLO_COIN_LOCK_TIME);
+        asset.setRelativeLockTime(UNKNOWN_ROYLLO_COIN_RELATIVE_LOCK_TIME);
+        asset.setScriptVersion(UNKNOWN_ROYLLO_COIN_SCRIPT_VERSION);
+        asset.setScriptKey(UNKNOWN_ROYLLO_COIN_SCRIPT_KEY);
+        asset.setAssetGroup(null);
+
+        // Chain anchor.
+        DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchor = new DecodedProofResponse.DecodedProof.Asset.ChainAnchor();
+        chainAnchor.setAnchorTx(UNKNOWN_ROYLLO_COIN_ANCHOR_TX);
+        chainAnchor.setAnchorTxId(UNKNOWN_ROYLLO_COIN_ANCHOR_TX_ID);
+        chainAnchor.setAnchorBlockHash(UNKNOWN_ROYLLO_COIN_ANCHOR_BLOCK_HASH);
+        chainAnchor.setAnchorOutpoint(UNKNOWN_ROYLLO_COIN_ANCHOR_OUTPOINT);
+        chainAnchor.setInternalKey(UNKNOWN_ROYLLO_COIN_ANCHOR_INTERNAL_KEY);
+        asset.setChainAnchor(chainAnchor);
+
+        asset.setPrevWitnesses(Collections.emptyList());
+
+        decodedProof.setTxMerkleProof(UNKNOWN_ROYLLO_COIN_TX_MERKLE_PROOF);
+        decodedProof.setInclusionProof(UNKNOWN_ROYLLO_COIN_INCLUSION_PROOF);
+        decodedProof.setExclusionProofs(Collections.emptyList());
+        decodedProofResponse.setDecodedProof(decodedProof);
+
+        decodedProof.setAsset(asset);
+
+        return decodedProofResponse;
+    }
+
+
+    /**
+     * Returns habibtaro coin decoded proof
+     *
+     * @return habibtaro coin decoded proof
+     */
+    private DecodedProofResponse getHabitaroCoin() {
         // Decoded response.
         DecodedProofResponse decodedProofResponse = new DecodedProofResponse();
 
@@ -49,7 +126,7 @@ public class TarodProofServiceMock {
         asset.setAssetGenesis(assetGenesis);
 
         asset.setAssetType("NORMAL");
-        asset.setAmount(BigDecimal.valueOf(10));
+        asset.setAmount(BigInteger.valueOf(10));
         asset.setLockTime(0);
         asset.setRelativeLockTime(0);
         asset.setScriptVersion(0);
@@ -62,7 +139,7 @@ public class TarodProofServiceMock {
         chainAnchor.setAnchorTxId("6ac3a0f55ab3370e689b4dffee511936a9550782be7a2d1eaf9566f39442a0e9");
         chainAnchor.setAnchorBlockHash("00000000000000033049394c9a659c276dd09ebd197803ebac5ca2691df81ea9");
         chainAnchor.setAnchorOutpoint("6ac3a0f55ab3370e689b4dffee511936a9550782be7a2d1eaf9566f39442a0e9:1");
-        chainAnchor.setAnchorTxId("A+riUffgTwRYogPwsYZf9qSPZu7VB09YbeMsTCO0eWIk");
+        chainAnchor.setInternalKey("A+riUffgTwRYogPwsYZf9qSPZu7VB09YbeMsTCO0eWIk");
         asset.setChainAnchor(chainAnchor);
 
         asset.setPrevWitnesses(Collections.emptyList());
@@ -72,7 +149,7 @@ public class TarodProofServiceMock {
         decodedProof.setExclusionProofs(Stream.of("AAQAAAAAASECeho1fNYL7NXQ+IKJuwa/2zd9tIPb31XeHDgKz/vCmG4CnABxAAEAASA+BUUypqhp514b3ool55RBd9ZIoDT+XBSKt/d0NTjMngJKAAEIpOtKphgrhdq47EEDOFzwLpVMQv9n8DzLxyw3rtmOiAAAAAABQG82/////////////////////////////////////////98BJwABAAEiAAD//////////////////////////////////////////w==",
                         "AAQAAAACASECGwuFayXG2CoadHsNYjzsXwL/jtbbi+CAcLqeqcGvY2wDAwIBAQ==")
                 .collect(Collectors.toList()));
-        return mockedService;
+        return decodedProofResponse;
     }
 
 }

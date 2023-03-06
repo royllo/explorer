@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -56,7 +57,7 @@ public class TarodProofServiceTest extends BaseTest {
         assertEquals(0, assetGenesis.getVersion());
         // End asset genesis.
         assertEquals("NORMAL", asset.getAssetType());
-        assertEquals(0, asset.getAmount().compareTo(BigDecimal.valueOf(10)));
+        assertEquals(0, asset.getAmount().compareTo(BigInteger.valueOf(10)));
         assertEquals(0, asset.getLockTime());
         assertEquals(0, asset.getRelativeLockTime());
         assertEquals(0, asset.getScriptVersion());

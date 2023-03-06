@@ -20,8 +20,12 @@
                     remarks="The user who created this proof"/>
             <column name="RAW_PROOF" type="TEXT"
                     remarks="Raw proof"/>
-            <column name="PROOF_INDEX" type="BIGINT"
+            <column name="PROOF_INDEX" type="VARCHAR(255)"
                     remarks="Proof index"/>
+            <column name="TX_MERKLE_PROOF" type="TEXT"
+                    remarks="Transaction merkle proof"/>
+            <column name="INCLUSION_PROOF" type="VARCHAR(255)"
+                    remarks="Inclusion proof"/>
 
             <!-- Technical fields -->
             <column name="CREATED_ON" type="TIMESTAMP WITH TIME ZONE"

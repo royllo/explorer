@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -102,7 +103,7 @@ public class DecodedProofResponse {
 
             /** Amount. */
             @JsonProperty("amount")
-            BigDecimal amount;
+            BigInteger amount;
 
             /** Lock time. */
             @JsonProperty("lock_time")
