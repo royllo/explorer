@@ -1,4 +1,4 @@
-package org.royllo.explorer.web;
+package org.royllo.explorer.web.test.controllers;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -151,7 +151,6 @@ public class SearchControllerTest {
                 .andExpect(content().string(not(containsString(">Coin 020</a>"))))
                 .andExpect(content().string(containsString(">Coin 021</a>")))
                 .andExpect(content().string(containsString(">Coin 022</a>")))
-                .andExpect(content().string(containsString(">starbackrcoin</a>")))
                 .andExpect(content().string(not(containsString(">Coin 023</a>"))))
                 // Checking pages.
                 .andExpect(content().string(not(containsString(">0</a>"))))

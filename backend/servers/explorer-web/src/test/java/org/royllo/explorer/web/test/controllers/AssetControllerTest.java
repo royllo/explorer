@@ -1,7 +1,8 @@
-package org.royllo.explorer.web;
+package org.royllo.explorer.web.test.controllers;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.royllo.explorer.web.test.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("Asset controller tests")
 @AutoConfigureMockMvc
 @PropertySource("classpath:messages.properties")
-public class AssetControllerTest {
+public class AssetControllerTest extends BaseTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -64,20 +65,29 @@ public class AssetControllerTest {
     @Test
     @DisplayName("Asset display")
     void assetDisplay() throws Exception {
-        mockMvc.perform(get("/asset/b34b05956d828a7f7a0df598771c9f6df0378680c432480837852bcb94a8f21e"))
+        mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ASSET_PAGE))
                 // Checking each field.
-                .andExpect(content().string(containsString(">starbackrcoin<")))
-                .andExpect(content().string(containsString(">b34b05956d828a7f7a0df598771c9f6df0378680c432480837852bcb94a8f21e<")))
-                .andExpect(content().string(containsString(">anonymous<")))
-                .andExpect(content().string(containsString(">737461726261636b72206d6f6e6579<")))
-                .andExpect(content().string(containsString(">2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea:0<")))
-                .andExpect(content().string(containsString(">1<")))
-                .andExpect(content().string(containsString(">410415ca91c387efac4ea86f0196b2a1d831f75a488f115055636f0022c51df508197ad4fc31f553d48052b05b0a3b6030a84a0441adae97734129bb8ea0ddfd4004ac<")))
-                .andExpect(content().string(containsString(">OP_PUSHBYTES_65 0415ca91c387efac4ea86f0196b2a1d831f75a488f115055636f0022c51df508197ad4fc31f553d48052b05b0a3b6030a84a0441adae97734129bb8ea0ddfd4004 OP_CHECKSIG<")))
-                .andExpect(content().string(containsString(">p2pk<")))
-                .andExpect(content().string(containsString(">19oAxAJhAKmEFb2pcA9qiX8sV8hxKeXjzd<")));
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_NAME + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ASSET_ID + "<")))
+                // Asset genesis.
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_GENESIS_POINT_TXID + ":" + MY_ROYLLO_COIN_GENESIS_POINT_VOUT + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_NAME + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_META + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ASSET_ID + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_OUTPUT_INDEX + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_GENESIS_BOOTSTRAP_INFORMATION + "<")))
+                // Other data.
+                .andExpect(content().string(containsString(">Normal<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_AMOUNT + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_SCRIPT_KEY + "<")))
+                // Anchor.
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_TX + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_TX_ID + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_BLOCK_HASH + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_OUTPOINT + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHRO_INTERNAL_KEY + "<")));
     }
 
 }

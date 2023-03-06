@@ -1,4 +1,4 @@
-package org.royllo.explorer.web;
+package org.royllo.explorer.web.test.controllers;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
