@@ -41,7 +41,7 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
         logger.info("addProof - Adding {}", decodedProof);
 
         // We check that the proof is not in our database.
-        proofRepository.findByProofId(getProofId(rawProof, proofIndex)).ifPresent(proof -> {
+        proofRepository.findByProofId(calculateProofId(rawProof, proofIndex)).ifPresent(proof -> {
             throw new ProofCreationException("This proof is already registered with proof id: " + proof.getProofId());
         });
 
@@ -54,7 +54,7 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
         } else {
             // We create the proof.
             final Proof proof = proofRepository.save(Proof.builder()
-                    .proofId(getSHA256(rawProof + ":" + proofIndex))
+                    .proofId(calculateSHA256(rawProof + ":" + proofIndex))
                     .creator(ANONYMOUS_USER)
                     .asset(asset.get())
                     .rawProof(rawProof)
@@ -67,6 +67,11 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
         }
     }
 
+    @Override
+    public Optional<ProofDTO> getProofByProofId(@NonNull final String proofId) {
+        return proofRepository.findByProofId(proofId).map(PROOF_MAPPER::mapToProofDTO);
+    }
+
     /**
      * Returns the proof id calculated from raw proof and proof index.
      * SHA256(rawProof + ":" + proofIndex).
@@ -75,9 +80,9 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
      * @param proofIndex proof index
      * @return calculated proof id
      */
-    private String getProofId(@NonNull final String rawProof,
-                              final long proofIndex) {
-        return getSHA256(rawProof + ":" + proofIndex);
+    private String calculateProofId(@NonNull final String rawProof,
+                                    final long proofIndex) {
+        return calculateSHA256(rawProof + ":" + proofIndex);
     }
 
     /**
@@ -86,7 +91,7 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
      * @param value value
      * @return sha256 of value
      */
-    private String getSHA256(@NonNull final String value) {
+    private String calculateSHA256(@NonNull final String value) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] digest = md.digest(value.getBytes(StandardCharsets.UTF_8));

@@ -16,6 +16,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Fail.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -87,7 +89,7 @@ public class ProofServiceTest extends BaseTest {
         assertEquals(UNKNOWN_ROYLLO_COIN_ANCHOR_INTERNAL_KEY, unknownRoylloCoin.getAnchorInternalKey());
         assertTrue(assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
 
-        // Then, our proof.
+        // Then, our proof that should be added without any problem.
         final ProofDTO proofAdded = proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, 0, unknownRoylloCoinDecodedProof);
         assertNotNull(proofAdded);
         assertNotNull(proofAdded.getId());
@@ -107,6 +109,43 @@ public class ProofServiceTest extends BaseTest {
         } catch (ProofCreationException e) {
             assertEquals(e.getMessage(), "This proof is already registered with proof id: 8d8176924f625ba627689608bc0f5e73ea233e471e78e1d333dee4c4cee7d623");
         }
+    }
+
+    @Test
+    @DisplayName("getProofByProofId()")
+    public void getProofByProofId() {
+        final Optional<ProofDTO> myRoylloCoinProof = proofService.getProofByProofId("986990b5cf583d5a9e2f86da9e3df7f191b8000a42b811728f2efd1d9371653f");
+        assertTrue(myRoylloCoinProof.isPresent());
+
+        // Checking asset
+        assertEquals(MY_ROYLLO_COIN_ID, myRoylloCoinProof.get().getAsset().getId());
+        assertEquals(MY_ROYLLO_COIN_VERSION, myRoylloCoinProof.get().getAsset().getVersion());
+        // Genesis point.
+        assertEquals(MY_ROYLLO_COIN_GENESIS_POINT_TXID, myRoylloCoinProof.get().getAsset().getGenesisPoint().getTxId());
+        assertEquals(MY_ROYLLO_COIN_GENESIS_POINT_VOUT, myRoylloCoinProof.get().getAsset().getGenesisPoint().getVout());
+        assertEquals(MY_ROYLLO_COIN_NAME, myRoylloCoinProof.get().getAsset().getName());
+        assertEquals(MY_ROYLLO_COIN_META, myRoylloCoinProof.get().getAsset().getMetaData());
+        assertEquals(MY_ROYLLO_COIN_ASSET_ID, myRoylloCoinProof.get().getAsset().getAssetId());
+        assertEquals(MY_ROYLLO_COIN_OUTPUT_INDEX, myRoylloCoinProof.get().getAsset().getOutputIndex());
+        assertEquals(MY_ROYLLO_COIN_GENESIS_BOOTSTRAP_INFORMATION, myRoylloCoinProof.get().getAsset().getGenesisBootstrapInformation());
+        assertEquals(MY_ROYLLO_COIN_GENESIS_VERSION, myRoylloCoinProof.get().getAsset().getGenesisVersion());
+        assertEquals(MY_ROYLLO_COIN_ASSET_TYPE, myRoylloCoinProof.get().getAsset().getType());
+        assertEquals(0, MY_ROYLLO_COIN_AMOUNT.compareTo(myRoylloCoinProof.get().getAsset().getAmount()));
+        assertEquals(MY_ROYLLO_COIN_LOCK_TIME, myRoylloCoinProof.get().getAsset().getLockTime());
+        assertEquals(MY_ROYLLO_COIN_RELATIVE_LOCK_TIME, myRoylloCoinProof.get().getAsset().getRelativeLockTime());
+        assertEquals(MY_ROYLLO_COIN_SCRIPT_VERSION, myRoylloCoinProof.get().getAsset().getScriptVersion());
+        assertEquals(MY_ROYLLO_COIN_SCRIPT_KEY, myRoylloCoinProof.get().getAsset().getScriptKey());
+        // Chain anchor.
+        assertEquals(MY_ROYLLO_COIN_ANCHOR_TX, myRoylloCoinProof.get().getAsset().getAnchorTx());
+        assertEquals(MY_ROYLLO_COIN_ANCHOR_TX_ID, myRoylloCoinProof.get().getAsset().getAnchorTxId());
+        assertEquals(MY_ROYLLO_COIN_ANCHOR_BLOCK_HASH, myRoylloCoinProof.get().getAsset().getAnchorBlockHash());
+        assertEquals(MY_ROYLLO_COIN_ANCHOR_OUTPOINT, myRoylloCoinProof.get().getAsset().getAnchorOutpoint());
+        assertEquals(MY_ROYLLO_COIN_ANCHOR_INTERNAL_KEY, myRoylloCoinProof.get().getAsset().getAnchorInternalKey());
+
+        // Check proof.
+        assertEquals(MY_ROYLLO_COIN_TX_MERKLE_PROOF, myRoylloCoinProof.get().getTxMerkleProof());
+        assertEquals(MY_ROYLLO_COIN_INCLUSION_PROOF, myRoylloCoinProof.get().getInclusionProof());
+        assertEquals(0, myRoylloCoinProof.get().getExclusionProofs().size());
     }
 
 }

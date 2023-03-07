@@ -3,6 +3,8 @@ package org.royllo.explorer.core.service.proof;
 import org.royllo.explorer.core.dto.proof.ProofDTO;
 import org.royllo.explorer.core.provider.tarod.DecodedProofResponse;
 
+import java.util.Optional;
+
 /**
  * Proof service.
  */
@@ -20,5 +22,13 @@ public interface ProofService {
     ProofDTO addProof(String rawProof,
                       long proofIndex,
                       DecodedProofResponse decodedProof);
+
+    /**
+     * Returns a proof with its corresponding proof id.
+     *
+     * @param proofId proof id
+     * @return proof
+     */
+    Optional<ProofDTO> getProofByProofId(String proofId);
 
 }

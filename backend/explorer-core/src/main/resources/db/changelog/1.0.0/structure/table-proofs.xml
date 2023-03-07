@@ -22,7 +22,7 @@
                     remarks="The asset linked to this proof"/>
             <column name="RAW_PROOF" type="TEXT"
                     remarks="Raw proof"/>
-            <column name="PROOF_INDEX" type="VARCHAR(255)"
+            <column name="PROOF_INDEX" type="INTEGER"
                     remarks="Proof index"/>
             <column name="TX_MERKLE_PROOF" type="TEXT"
                     remarks="Transaction merkle proof"/>

@@ -27,6 +27,8 @@ databaseChangeLog:
       file: /db/changelog/1.0.0/data/data-bitcoin_transaction_outputs.xml
   - include:
       file: /db/changelog/1.0.0/data/data-assets.xml
+  - include:
+      file: /db/changelog/1.0.0/data/data-proofs.xml
 
   # ====================================================================================================================
   # 0.1.0 database specific
