@@ -1,12 +1,5 @@
 package org.royllo.explorer.core.domain.user;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.royllo.explorer.core.util.base.BaseDomain;
-import org.royllo.explorer.core.util.enums.UserRole;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
@@ -15,6 +8,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.royllo.explorer.core.util.base.BaseDomain;
+import org.royllo.explorer.core.util.enums.UserRole;
 
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -26,6 +28,8 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Setter
 @ToString
 @RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@Builder
 @Entity
 @Table(name = "USERS")
 public class User extends BaseDomain {

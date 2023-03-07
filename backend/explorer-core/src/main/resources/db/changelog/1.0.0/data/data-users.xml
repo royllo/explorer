@@ -1,0 +1,18 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="1.0.0-data-users">
+
+        <!-- Anonymous user -->
+        <insert tableName="USERS">
+            <column name="ID" value="0"/>
+            <column name="USER_ID" value="00000000-0000-0000-0000-000000000000"/>
+            <column name="USERNAME" value="anonymous"/>
+            <column name="ROLE" value="USER"/>
+            <column name="CREATED_ON"/>
+            <column name="UPDATED_ON"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

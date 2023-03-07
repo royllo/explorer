@@ -3,28 +3,34 @@ databaseChangeLog:
   # ====================================================================================================================
   # 0.1.0 database structure
   - include:
-      file: /db/changelog/0.1.0/structure/table-bitcoin_transaction_outputs.xml
+      file: /db/changelog/1.0.0/structure/table-bitcoin_transaction_outputs.xml
   - include:
-      file: /db/changelog/0.1.0/structure/table-users.xml
+      file: /db/changelog/1.0.0/structure/table-users.xml
   - include:
-      file: /db/changelog/0.1.0/structure/table-assets.xml
+      file: /db/changelog/1.0.0/structure/table-assets.xml
   - include:
-      file: /db/changelog/0.1.0/structure/table-requests.xml
+      file: /db/changelog/1.0.0/structure/table-requests.xml
   - include:
-      file: /db/changelog/0.1.0/structure/table-requests-add-proof.xml
+      file: /db/changelog/1.0.0/structure/table-requests_add_proof.xml
   - include:
-      file: /db/changelog/0.1.0/structure/table-requests-add-asset-meta-data.xml
+      file: /db/changelog/1.0.0/structure/table-requests_add_asset_meta_data.xml
+  - include:
+      file: /db/changelog/1.0.0/structure/table-proofs.xml
+  - include:
+      file: /db/changelog/1.0.0/structure/table-proofs_exclusion_proofs.xml
 
   # ====================================================================================================================
   # 0.1.0 database data
   - include:
-      file: /db/changelog/0.1.0/data/data-users.xml
+      file: /db/changelog/1.0.0/data/data-users.xml
   - include:
-      file: /db/changelog/0.1.0/data/data-bitcoin_transaction_outputs.xml
+      file: /db/changelog/1.0.0/data/data-bitcoin_transaction_outputs.xml
   - include:
-      file: /db/changelog/0.1.0/data/data-assets.xml
+      file: /db/changelog/1.0.0/data/data-assets.xml
+  - include:
+      file: /db/changelog/1.0.0/data/data-proofs.xml
 
   # ====================================================================================================================
   # 0.1.0 database specific
   - include:
-      file: /db/changelog/0.1.0/specific/postgresql.xml
+      file: /db/changelog/1.0.0/specific/postgresql.xml

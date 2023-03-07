@@ -51,7 +51,7 @@ public class ProofRequestController {
                            @Valid @ModelAttribute(COMMAND_ATTRIBUTE) final ProofFormCommand command,
                            final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            // if we have errors in the form data validation.
+            // If we have errors in the form data validation.
             return REQUEST_ADD_PROOF_FORM_PAGE;
         } else {
             // Calling the service to create the proof.

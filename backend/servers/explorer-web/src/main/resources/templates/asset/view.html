@@ -63,31 +63,57 @@
                     <dt class="tableLineDescription" th:text="#{field.asset.outputIndex}"></dt>
                     <dd class="tableLineValue" th:text="${result.outputIndex}"></dd>
                 </div>
+                <!--/* Genesis bootstrap information */-->
+                <div class="tableLineWhite">
+                    <dt class="tableLineDescription" th:text="#{field.asset.genesisBootStrapInformation}"></dt>
+                    <dd class="tableLineValue" th:text="${result.genesisBootstrapInformation}"></dd>
+                </div>
+
+                <!--/* Asset type */-->
+                <div class="tableLineWhite">
+                    <dt class="tableLineDescription" th:text="#{field.asset.assetType}"></dt>
+                    <dd class="tableLineValue" th:text="#{field.asset.assetType.normal}" th:if="${#strings.equals(result.type, 'NORMAL')}"></dd>
+                    <dd class="tableLineValue" th:text="#{field.asset.assetType.collectible}" th:if="${#strings.equals(result.type, 'COLLECTIBLE')}"></dd>
+                </div>
+                <!--/* Asset amount */-->
+                <div class="tableLineWhite">
+                    <dt class="tableLineDescription" th:text="#{field.asset.amount}"></dt>
+                    <dd class="tableLineValue" th:text="${result.amount}"></dd>
+                </div>
+                <!--/* Script key */-->
+                <div class="tableLineWhite">
+                    <dt class="tableLineDescription" th:text="#{field.asset.scriptKey}"></dt>
+                    <dd class="tableLineValue" th:text="${result.scriptKey}"></dd>
+                </div>
+
                 <!--/* Creator */-->
                 <div class="tableLineGray">
                     <dt class="tableLineDescription" th:text="#{field.asset.creator.username}"></dt>
                     <dd class="tableLineValue" th:text="${result.creator.username}"></dd>
                 </div>
-                <!--/* scriptPubKey */-->
-                <div class="tableLineWhite">
-                    <dt class="tableLineDescription" th:text="#{field.asset.scriptPubKey}"></dt>
-                    <dd class="tableLineValue" th:text="${result.genesisPoint.scriptPubKey}"></dd>
-                </div>
-                <!--/* scriptPubKey asm */-->
+
+                <!--/* Anchor */-->
                 <div class="tableLineGray">
-                    <dt class="tableLineDescription" th:text="#{field.asset.scriptPubKeyAsm}"></dt>
-                    <dd class="tableLineValue" th:text="${result.genesisPoint.scriptPubKeyAsm}"></dd>
+                    <dt class="tableLineDescription" th:text="#{field.asset.anchorTx}"></dt>
+                    <dd class="tableLineValue" th:text="${result.anchorTx}"></dd>
                 </div>
-                <!--/* scriptPubKey asm */-->
-                <div class="tableLineWhite">
-                    <dt class="tableLineDescription" th:text="#{field.asset.scriptPubKeyType}"></dt>
-                    <dd class="tableLineValue" th:text="${result.genesisPoint.scriptPubKeyType}"></dd>
-                </div>
-                <!--/* scriptPubKey address */-->
                 <div class="tableLineGray">
-                    <dt class="tableLineDescription" th:text="#{field.asset.scriptPubKeyAddress}"></dt>
-                    <dd class="tableLineValue" th:text="${result.genesisPoint.scriptPubKeyAddress}"></dd>
+                    <dt class="tableLineDescription" th:text="#{field.asset.anchorTxid}"></dt>
+                    <dd class="tableLineValue" th:text="${result.anchorTxId}"></dd>
                 </div>
+                <div class="tableLineGray">
+                    <dt class="tableLineDescription" th:text="#{field.asset.anchorBlockHash}"></dt>
+                    <dd class="tableLineValue" th:text="${result.anchorBlockHash}"></dd>
+                </div>
+                <div class="tableLineGray">
+                    <dt class="tableLineDescription" th:text="#{field.asset.anchorOutpoint}"></dt>
+                    <dd class="tableLineValue" th:text="${result.anchorOutpoint}"></dd>
+                </div>
+                <div class="tableLineGray">
+                    <dt class="tableLineDescription" th:text="#{field.asset.anchorInernalKey}"></dt>
+                    <dd class="tableLineValue" th:text="${result.anchorInternalKey}"></dd>
+                </div>
+
             </dl>
         </div>
     </div>

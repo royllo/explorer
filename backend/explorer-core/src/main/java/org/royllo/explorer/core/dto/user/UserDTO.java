@@ -25,7 +25,7 @@ public class UserDTO {
     /** Username. */
     String username;
 
-    /** User role. */
+    /** User role. TODO Allow several roles for one user with ElementCollection */
     UserRole role;
 
 }

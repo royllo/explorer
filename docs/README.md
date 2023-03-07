@@ -5,7 +5,7 @@ After starting our `docker-compose up` and waiting the `SRVR: Taro Daemon fully 
 new coin with the command:
 
 ```bash
-docker exec -it lnd-taro-with-docker_taro_1 /bin/tarocli assets mint --type normal --name roylloCoin --supply 1000 --meta "Royllo coin" --skip_batc
+docker exec -it lnd-taro-with-docker_taro_1 /bin/tarocli assets mint --type normal --name roylloCoin --supply 1000 --meta "Royllo coin" --skip_batch
 ```
 
 You can see its creation with the command:
@@ -85,11 +85,4 @@ and you will get:
     "internal_key": "03336830ceadb0fc7f67cf65b1b79d1b7dc6ecd3d13ff2af8b4ea6e7d14cee1fe6",
     "taproot_output_key": "32c1d8ce773cc6fae4d528e8874dd1e5fa3af794c79b383e72cf52b6d6af384e"
 }
-
-```
-
-You can send assets there:
-
-```bash
-docker exec -it lnd-taro-with-docker_taro_1 /bin/tarocli addrs send tarotb1qqqsqqjq8lhkp5c4t9elmqamlnfhg87pj6wlkjf7u0dnymvvydhs3q4uzs0sqqqqqq98ymmed3kx7sm0d9hqk5n009kxcmeqvdhkjmsqqqqqqqqyyyppq2nuy6dlvx6c0338sgrdq4pnlgymn7lrp4sc5txxrp5xyt64rrcxyypnx6pse6kmplrlvl8ktvdhn5dhm3hv60gnlu403d82de73fnhplesgq9jqu8zuyz
 ```

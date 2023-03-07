@@ -1,0 +1,62 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="1.0.0-table-bitcoin_transaction_outputs">
+
+        <createTable tableName="BITCOIN_TRANSACTION_OUTPUTS"
+                     remarks="Bitcoin transaction outputs">
+
+            <!-- Unique identifier -->
+            <column name="ID" type="BIGINT"
+                    remarks="Unique identifier">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_BITCOIN_TRANSACTION_OUTPUTS"/>
+            </column>
+
+            <!-- Output localisation -->
+            <column name="BLOCK_HEIGHT" type="INTEGER"
+                    remarks="Block height (where the transaction is)"/>
+            <column name="TXID" type="VARCHAR(255)"
+                    remarks="Transaction id"/>
+            <column name="VOUT" type="INTEGER"
+                    remarks="Output index (starts at 0)"/>
+            <!-- Output data -->
+            <column name="SCRIPTPUBKEY" type="VARCHAR(255)"
+                    remarks="ScriptPubKey is the script which controls how bitcoin can be spent"/>
+            <column name="SCRIPTPUBKEY_ASM" type="VARCHAR(255)"
+                    remarks="ScriptPubKey asm is the symbolic representation of the Bitcoin's Script language op-codes"/>
+            <column name="SCRIPTPUBKEY_TYPE" type="VARCHAR(255)"
+                    remarks="ScriptPubKey type (p2pkh, p2wsh...)"/>
+            <column name="SCRIPTPUBKEY_ADDRESS" type="VARCHAR(255)"
+                    remarks="ScriptPubKey address"/>
+            <column name="VALUE" type="BIGINT"
+                    remarks="Value is the number of Satoshi (1 BTC = 100,000,000 Satoshi)"/>
+
+            <!-- Technical fields -->
+            <column name="CREATED_ON" type="TIMESTAMP WITH TIME ZONE"
+                    remarks="Data created on"/>
+            <column name="UPDATED_ON" type="TIMESTAMP WITH TIME ZONE"
+                    remarks="Data updated on"/>
+
+        </createTable>
+
+        <!-- Auto increment on the unique identifier -->
+        <addAutoIncrement tableName="BITCOIN_TRANSACTION_OUTPUTS"
+                          columnName="ID"
+                          columnDataType="BIGINT"
+                          incrementBy="1"
+                          startWith="2"/>
+
+        <!-- Adding a unique constraint on TXID + VOUT -->
+        <addUniqueConstraint columnNames="TXID, VOUT"
+                             constraintName="UNIQUE_BITCOIN_TRANSACTION_OUTPUTS_UNIQUE_TXID_VOUT"
+                             tableName="BITCOIN_TRANSACTION_OUTPUTS"/>
+
+        <!-- Index on TXID -->
+        <createIndex indexName="IDX_BITCOIN_TRANSACTION_OUTPUTS_TXID"
+                     tableName="BITCOIN_TRANSACTION_OUTPUTS">
+            <column name="TXID"/>
+        </createIndex>
+
+    </changeSet>
+</databaseChangeLog>

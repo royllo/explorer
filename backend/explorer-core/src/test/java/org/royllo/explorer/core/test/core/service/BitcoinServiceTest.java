@@ -16,7 +16,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
@@ -77,7 +76,7 @@ public class BitcoinServiceTest extends BaseTest {
         // Getting a transaction that doesn't exist in our database but exists in the blockchain (index 1).
         bto = bitcoinService.getBitcoinTransactionOutput(BITCOIN_TRANSACTION_3_TXID, 1);
         assertTrue(bto.isPresent());
-        assertEquals(5, bto.get().getId());
+        assertEquals(6, bto.get().getId());
         assertFalse(bto.get().isTaprootType());
         assertEquals(754381, bto.get().getBlockHeight());
         assertEquals("76a914611385f68799bfc360feacc3095de4e51a9c1bd688ac", bto.get().getScriptPubKey());
@@ -90,7 +89,7 @@ public class BitcoinServiceTest extends BaseTest {
         // Getting a transaction that doesn't exist in our database but exists in the blockchain (index 0).
         bto = bitcoinService.getBitcoinTransactionOutput(BITCOIN_TRANSACTION_3_TXID, 0);
         assertTrue(bto.isPresent());
-        assertEquals(6, bto.get().getId());
+        assertEquals(7, bto.get().getId());
         assertFalse(bto.get().isTaprootType());
         assertEquals(754381, bto.get().getBlockHeight());
         assertEquals("76a9140aa7e954ae2c972225309f0992e3ecd698a90f5f88ac", bto.get().getScriptPubKey());
@@ -103,7 +102,7 @@ public class BitcoinServiceTest extends BaseTest {
         // Getting again a transaction we saved in database. Check we did not create a duplicate.
         bto = bitcoinService.getBitcoinTransactionOutput(BITCOIN_TRANSACTION_3_TXID, 1);
         assertTrue(bto.isPresent());
-        assertEquals(5, bto.get().getId());
+        assertEquals(6, bto.get().getId());
 
         // =============================================================================================================
         // Getting a transaction that doesn't exist in our database but exists in the blockchain.
@@ -114,7 +113,7 @@ public class BitcoinServiceTest extends BaseTest {
         // Getting a taproot transaction directly from the blockchain.
         bto = bitcoinService.getBitcoinTransactionOutput(BITCOIN_TAPROOT_TRANSACTION_2_TXID, 0);
         assertTrue(bto.isPresent());
-        assertEquals(7, bto.get().getId());
+        assertEquals(8, bto.get().getId());
         assertTrue(bto.get().isTaprootType());
         assertEquals(742158, bto.get().getBlockHeight());
         assertEquals("5120b037c6aa6784da1cfb00a5b0caaafd70556aa832cb6b67ba5e934f483d6a7f23", bto.get().getScriptPubKey());

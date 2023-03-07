@@ -1,0 +1,83 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="1.0.0-table-requests">
+
+        <createTable tableName="REQUESTS"
+                     remarks="A request to update royllo data made by a user">
+
+            <!-- Unique identifier -->
+            <column name="ID" type="BIGINT"
+                    remarks="Unique identifier">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_REQUESTS"/>
+            </column>
+
+            <!-- Table fields -->
+            <column name="REQUEST_ID" type="VARCHAR(255)"
+                    remarks="Request UUID"/>
+            <column name="FK_USER_CREATOR" type="BIGINT"
+                    remarks="The user who created this request"/>
+            <column name="TYPE" type="VARCHAR(255)"
+                    remarks="Request type"/>
+            <column name="STATUS" type="VARCHAR(255)"
+                    remarks="Request status"/>
+            <column name="FK_ASSET" type="BIGINT"
+                    remarks="The asset created/updated by this request"/>
+            <column name="ERROR_MESSAGE" type="VARCHAR(255)"
+                    remarks="Error message - Not empty if status is equals to ERROR"/>
+
+            <!-- Technical fields -->
+            <column name="CREATED_ON" type="TIMESTAMP WITH TIME ZONE"
+                    remarks="Data created on"/>
+            <column name="UPDATED_ON" type="TIMESTAMP WITH TIME ZONE"
+                    remarks="Data updated on"/>
+
+        </createTable>
+
+        <!-- Auto increment on technical ID -->
+        <addAutoIncrement tableName="REQUESTS"
+                          columnName="ID"
+                          columnDataType="BIGINT"
+                          incrementBy="1"
+                          startWith="1"/>
+
+        <!-- Adding a unique constraint on REQUEST_ID -->
+        <addUniqueConstraint columnNames="REQUEST_ID"
+                             constraintName="REQUESTS_UNIQUE_REQUEST_ID"
+                             tableName="REQUESTS"/>
+
+        <!-- Foreign key FK_USER_CREATOR > USERS.ID -->
+        <addForeignKeyConstraint constraintName="FK_REQUESTS_USER_CREATOR"
+                                 baseColumnNames="FK_USER_CREATOR"
+                                 baseTableName="REQUESTS"
+                                 referencedTableName="USERS"
+                                 referencedColumnNames="ID"
+                                 validate="true"/>
+
+        <!-- Foreign key FK_ASSET > ASSETS.ID -->
+        <addForeignKeyConstraint constraintName="FK_REQUESTS_ASSET"
+                                 baseColumnNames="FK_ASSET"
+                                 baseTableName="REQUESTS"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedTableName="ASSETS"
+                                 referencedColumnNames="ID"
+                                 validate="true"/>
+
+        <!-- Index on STATUS -->
+        <createIndex indexName="IDX_REQUESTS_STATUS"
+                     tableName="REQUESTS">
+            <column name="STATUS"/>
+        </createIndex>
+
+        <!-- Index on REQUEST_ID -->
+        <createIndex indexName="IDX_REQUESTS_REQUEST_ID"
+                     tableName="REQUESTS">
+            <column name="REQUEST_ID"/>
+        </createIndex>
+
+    </changeSet>
+</databaseChangeLog>

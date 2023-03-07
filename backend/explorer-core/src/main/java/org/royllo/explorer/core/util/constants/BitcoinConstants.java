@@ -1,15 +1,13 @@
 package org.royllo.explorer.core.util.constants;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * Bitcoin constants.
  */
-public final class BitcoinConstants {
-
-    /**
-     * Private constructor to prevent instantiation.
-     */
-    private BitcoinConstants() {
-    }
+@UtilityClass
+@SuppressWarnings("checkstyle:HideUtilityClassConstructor")
+public class BitcoinConstants {
 
     /** A TXID is always 32 bytes (64 characters) and hexadecimal.. */
     public static final int SIZE = 64;

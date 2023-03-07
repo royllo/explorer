@@ -5,6 +5,22 @@
     <changeSet author="straumat" id="test-data-bitcoin_transaction_outputs">
 
         <!--
+        Block 766 / Transaction 46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946 / Output 0
+        curl -sSL "https://mempool.space/api/tx/46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946"
+        -->
+        <insert tableName="BITCOIN_TRANSACTION_OUTPUTS">
+            <column name="ID" value="2"/>
+            <column name="BLOCK_HEIGHT" value="766"/>
+            <column name="TXID" value="46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946"/>
+            <column name="VOUT" value="0"/>
+            <column name="SCRIPTPUBKEY" value="76a914607c727d45ba97358a3fa06be04a514cfb12f4dd88ac"/>
+            <column name="SCRIPTPUBKEY_ASM" value="OP_DUP OP_HASH160 OP_PUSHBYTES_20 607c727d45ba97358a3fa06be04a514cfb12f4dd OP_EQUALVERIFY OP_CHECKSIG"/>
+            <column name="SCRIPTPUBKEY_TYPE" value="p2pkh"/>
+            <column name="SCRIPTPUBKEY_ADDRESS" value="19oAxAJhAKmEFb2pcA9qiX8sV8hxKeXjzd"/>
+            <column name="VALUE" value="10000000"/>
+        </insert>
+
+        <!--
         Block 766 / Transaction 46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946 / Output 1
         curl -sSL "https://mempool.space/api/tx/46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946"
         -->

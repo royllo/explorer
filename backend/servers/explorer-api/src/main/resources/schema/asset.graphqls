@@ -2,16 +2,44 @@
 type Asset {
     "The asset ID that uniquely identifies the asset"
     assetId: ID!
-    "The first outpoint of the transaction that created the asset (txid:vout)"
-    genesisPoint: BitcoinTransactionOutput!
     "The asset creator"
     creator: User!
+    "The version of the Taro asset"
+    version: Int!
+    "The first outpoint of the transaction that created the asset (txid:vout)"
+    genesisPoint: BitcoinTransactionOutput!
     "The name of the asset"
-    name: String
+    name: String!
     "The hashed metadata of the asset"
-    metaData: String
+    metaData: String!
     "The index of the output that carries the unique Taro commitment in the genesis transaction"
-    outputIndex: Int
+    outputIndex: Int!
+    "The full genesis information encoded in a portable manner, so it can be easily copy/pasted for address creation"
+    genesisBootstrapInformation: String!
+    "The version of the Taro commitment that created this asset"
+    genesisVersion: Int!
+    "The type of the asset: normal or a collectible"
+    type : AssetType!
+    "The total amount of the asset stored in this Taro UTXO"
+    amount: BigInteger!
+    "An optional lock time, as with Bitcoin transactions"
+    lockTime: Int!
+    "An optional relative lock time, as with Bitcoin transactions"
+    relativeLockTime: Int!
+    "The version of the script, only version 0 is defined at present"
+    scriptVersion: Int!
+    "The script key of the asset, which can be spent under Taproot semantics"
+    scriptKey: String!
+    "The transaction that anchors the Taro commitment where the asset resides"
+    anchorTx: String!
+    "The txid of the anchor transaction"
+    anchorTxId: String!
+    "The block hash the contains the anchor transaction above"
+    anchorBlockHash: String!
+    "Outpoint (txid:vout) that stores the Taro commitment"
+    anchorOutpoint: String!
+    "The raw internal key that was used to create the anchor Taproot output key"
+    anchorInternalKey: String!
 }
 
 "Taro asset page - Container used to return search asset results"
@@ -22,4 +50,12 @@ type AssetPage {
     totalElements: Int!
     "Total number of pages returned for the search"
     totalPages: Int!
+}
+
+"Asset type"
+enum AssetType {
+    "Indicates that an asset is capable of being split/merged, with each of the units being fungible, even across a key asset ID boundary (assuming the key group is the same)"
+    NORMAL
+    "Indicates that an asset is a collectible, meaning that each of the other items under the same key group are not fully fungible with each other. Collectibles also cannot be split or merged."
+    COLLECTIBLE
 }

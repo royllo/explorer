@@ -23,7 +23,7 @@ public class MempoolParameters {
     @Valid
     private Api api = new Api();
 
-    /** Exchange modes. */
+    /** API parameters. */
     @Validated
     @Getter
     @Setter

@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 
 /**
@@ -79,7 +79,7 @@ public class RequestServiceImplementation extends BaseService implements Request
         // Creating the request.
         AddProof request = AddProof.builder()
                 .requestId(UUID.randomUUID().toString())
-                .creator(USER_MAPPER.mapToUser(ANONYMOUS_USER))
+                .creator(USER_MAPPER.mapToUser(ANONYMOUS_USER_DTO))
                 .status(OPENED)
                 .rawProof(rawProof)
                 .build();
@@ -100,7 +100,7 @@ public class RequestServiceImplementation extends BaseService implements Request
         // Creating the request.
         AddAssetMetaDataRequest request = AddAssetMetaDataRequest.builder()
                 .requestId(UUID.randomUUID().toString())
-                .creator(USER_MAPPER.mapToUser(ANONYMOUS_USER))
+                .creator(USER_MAPPER.mapToUser(ANONYMOUS_USER_DTO))
                 .status(OPENED)
                 .assetId(taroAssetId)
                 .metaData(metaData)

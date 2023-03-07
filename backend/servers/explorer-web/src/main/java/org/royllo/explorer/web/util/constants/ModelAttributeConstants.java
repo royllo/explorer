@@ -1,15 +1,13 @@
 package org.royllo.explorer.web.util.constants;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * Model attribute constants.
  */
-public final class ModelAttributeConstants {
-
-    /**
-     * Private constructor to prevent instantiation.
-     */
-    private ModelAttributeConstants() {
-    }
+@UtilityClass
+@SuppressWarnings("checkstyle:HideUtilityClassConstructor")
+public class ModelAttributeConstants {
 
     /** Query attribute. */
     public static final String QUERY_ATTRIBUTE = "query";
