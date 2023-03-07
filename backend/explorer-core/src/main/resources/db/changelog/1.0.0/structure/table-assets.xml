@@ -91,10 +91,6 @@
         <addForeignKeyConstraint constraintName="FK_ASSETS_FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT"
                                  baseColumnNames="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT"
                                  baseTableName="ASSETS"
-                                 deferrable="false"
-                                 initiallyDeferred="false"
-                                 onDelete="NO ACTION"
-                                 onUpdate="NO ACTION"
                                  referencedTableName="BITCOIN_TRANSACTION_OUTPUTS"
                                  referencedColumnNames="ID"
                                  validate="true"/>
@@ -103,10 +99,6 @@
         <addForeignKeyConstraint constraintName="FK_ASSETS_USER_CREATOR"
                                  baseColumnNames="FK_USER_CREATOR"
                                  baseTableName="ASSETS"
-                                 deferrable="false"
-                                 initiallyDeferred="false"
-                                 onDelete="NO ACTION"
-                                 onUpdate="NO ACTION"
                                  referencedTableName="USERS"
                                  referencedColumnNames="ID"
                                  validate="true"/>

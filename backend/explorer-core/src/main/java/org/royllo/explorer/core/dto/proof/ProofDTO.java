@@ -3,6 +3,7 @@ package org.royllo.explorer.core.dto.proof;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
+import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.user.UserDTO;
 
 import java.util.List;
@@ -24,6 +25,9 @@ public class ProofDTO {
     /** Proof id (rawProof + ":" + proofIndex). */
     String proofId;
 
+    /** Target asset. */
+    AssetDTO asset;
+
     /** The proof creator. */
     UserDTO creator;
 
@@ -41,7 +45,5 @@ public class ProofDTO {
 
     /** Exclusion proofs. */
     List<String> exclusionProofs;
-
-    // TODO Add author!
 
 }

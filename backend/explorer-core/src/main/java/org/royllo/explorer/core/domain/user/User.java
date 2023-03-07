@@ -8,6 +8,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -25,6 +28,8 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Setter
 @ToString
 @RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@Builder
 @Entity
 @Table(name = "USERS")
 public class User extends BaseDomain {

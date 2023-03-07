@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
@@ -139,7 +139,7 @@ public class AssetServiceTest extends BaseTest {
 
         try {
             assetService.addAsset(AssetDTO.builder()
-                    .creator(ANONYMOUS_USER)
+                    .creator(ANONYMOUS_USER_DTO)
                     .version(0)
                     .genesisPoint(bto.get())
                     .name("name")

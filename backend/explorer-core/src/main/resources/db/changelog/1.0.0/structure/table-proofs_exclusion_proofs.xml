@@ -23,10 +23,6 @@
         <addForeignKeyConstraint constraintName="FK_PROOFS_EXCLUSION_PROOFS"
                                  baseColumnNames="FK_PROOF"
                                  baseTableName="PROOFS_EXCLUSION_PROOFS"
-                                 deferrable="false"
-                                 initiallyDeferred="false"
-                                 onDelete="NO ACTION"
-                                 onUpdate="NO ACTION"
                                  referencedTableName="PROOFS"
                                  referencedColumnNames="ID"
                                  validate="true"/>

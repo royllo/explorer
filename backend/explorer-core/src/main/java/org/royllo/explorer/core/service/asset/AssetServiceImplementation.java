@@ -16,7 +16,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 
 /**
  * Asset service implementation.
@@ -81,7 +81,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         // We update and save the asset.
         final Asset assetToCreate = ASSET_MAPPER.mapToAsset(newAsset);
         // Setting the creator.
-        assetToCreate.setCreator(USER_MAPPER.mapToUser(ANONYMOUS_USER));
+        assetToCreate.setCreator(USER_MAPPER.mapToUser(ANONYMOUS_USER_DTO));
         // Setting the bitcoin transaction output ID if not already set.
         if (newAsset.getGenesisPoint().getId() == null) {
             final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(newAsset.getGenesisPoint().getTxId(), newAsset.getGenesisPoint().getVout());

@@ -51,10 +51,6 @@
         <addForeignKeyConstraint constraintName="FK_REQUESTS_USER_CREATOR"
                                  baseColumnNames="FK_USER_CREATOR"
                                  baseTableName="REQUESTS"
-                                 deferrable="false"
-                                 initiallyDeferred="false"
-                                 onDelete="NO ACTION"
-                                 onUpdate="NO ACTION"
                                  referencedTableName="USERS"
                                  referencedColumnNames="ID"
                                  validate="true"/>

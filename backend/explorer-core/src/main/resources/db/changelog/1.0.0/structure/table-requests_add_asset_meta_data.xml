@@ -31,10 +31,6 @@
         <addForeignKeyConstraint constraintName="FK_REQUESTS_ADD_ASSET_META_DATA_REQUESTS_ID"
                                  baseColumnNames="ID"
                                  baseTableName="REQUESTS_ADD_ASSET_META_DATA"
-                                 deferrable="false"
-                                 initiallyDeferred="false"
-                                 onDelete="NO ACTION"
-                                 onUpdate="NO ACTION"
                                  referencedTableName="REQUESTS"
                                  referencedColumnNames="ID"
                                  validate="true"/>

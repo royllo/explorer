@@ -11,10 +11,14 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.royllo.explorer.core.domain.asset.Asset;
 import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.util.base.BaseDomain;
 
@@ -30,6 +34,8 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Setter
 @ToString
 @RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@Builder
 @Entity
 @Table(name = "PROOFS")
 public class Proof extends BaseDomain {
@@ -40,11 +46,17 @@ public class Proof extends BaseDomain {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    /** Asset creator. */
+    /** Proof creator. */
     @NotNull(message = "Proof creator is required")
     @ManyToOne(fetch = EAGER)
     @JoinColumn(name = "FK_USER_CREATOR", nullable = false)
     private User creator;
+
+    /** Target asset. */
+    @NotNull(message = "Target asset is required")
+    @ManyToOne(fetch = EAGER)
+    @JoinColumn(name = "FK_ASSET", nullable = false)
+    private Asset asset;
 
     /** The proof ID that uniquely identifies the proof. */
     @NotBlank(message = "Proof ID is required")
@@ -74,7 +86,7 @@ public class Proof extends BaseDomain {
     /** Exclusion proofs. */
     @ElementCollection(fetch = EAGER)
     @CollectionTable(name = "PROOFS_EXCLUSION_PROOFS", joinColumns = @JoinColumn(name = "FK_PROOF"))
-    @Column(name = "EXCLUSION_PROOFS", updatable = false)
+    @Column(name = "EXCLUSION_PROOF", updatable = false)
     private List<String> exclusionProofs;
 
 }

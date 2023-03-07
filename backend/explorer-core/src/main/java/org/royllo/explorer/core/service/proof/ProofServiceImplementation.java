@@ -3,6 +3,7 @@ package org.royllo.explorer.core.service.proof;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.asset.Asset;
+import org.royllo.explorer.core.domain.proof.Proof;
 import org.royllo.explorer.core.dto.proof.ProofDTO;
 import org.royllo.explorer.core.provider.tarod.DecodedProofResponse;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
@@ -16,6 +17,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
+
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
 
 /**
  * Proof implementation service.
@@ -50,20 +53,18 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
             throw new ProofCreationException("Asset " + assetId + " is not registered in our database");
         } else {
             // We create the proof.
+            final Proof proof = proofRepository.save(Proof.builder()
+                    .proofId(getSHA256(rawProof + ":" + proofIndex))
+                    .creator(ANONYMOUS_USER)
+                    .asset(asset.get())
+                    .rawProof(rawProof)
+                    .proofIndex(proofIndex)
+                    .txMerkleProof(decodedProof.getDecodedProof().getTxMerkleProof())
+                    .inclusionProof(decodedProof.getDecodedProof().getInclusionProof())
+                    .exclusionProofs(decodedProof.getDecodedProof().getExclusionProofs())
+                    .build());
+            return PROOF_MAPPER.mapToProofDTO(proof);
         }
-
-        // We create the proof (link to asset and user).
-/*        Proof proof = Proof.builder()
-                .proofId(getSHA256(rawProof + ":" + proofIndex))
-                .creator(ANONYMOUS_USER)
-                .rawProof(rawProof)UserConstants
-                .proofIndex(proofIndex)
-                .txMerkleProof(decodedProof.getDecodedProof().getTxMerkleProof())
-                .inclusionProof(decodedProof.getDecodedProof().getInclusionProof())
-                .exclusionProofs(decodedProof.getDecodedProof().getExclusionProofs())
-                .build();*/
-
-        return null;
     }
 
     /**
@@ -85,7 +86,7 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
      * @param value value
      * @return sha256 of value
      */
-    private String getSHA256(final String value) {
+    private String getSHA256(@NonNull final String value) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] digest = md.digest(value.getBytes(StandardCharsets.UTF_8));
