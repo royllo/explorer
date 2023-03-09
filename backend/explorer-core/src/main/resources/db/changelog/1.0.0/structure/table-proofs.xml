@@ -13,21 +13,17 @@
                 <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PROOFS"/>
             </column>
 
-            <!-- Table fields -->
-            <column name="PROOF_ID" type="VARCHAR(255)"
-                    remarks="Calculated value : sha256(Raw proof + ':' + Proof index)"/>
+            <!-- Foreign keys -->
             <column name="FK_USER_CREATOR" type="BIGINT"
                     remarks="The user who created this proof"/>
             <column name="FK_ASSET" type="BIGINT"
                     remarks="The asset linked to this proof"/>
+
+            <!-- Table fields -->
+            <column name="PROOF_ID" type="VARCHAR(255)"
+                    remarks="Calculated value : sha256(Raw proof)"/>
             <column name="RAW_PROOF" type="TEXT"
                     remarks="Raw proof"/>
-            <column name="PROOF_INDEX" type="INTEGER"
-                    remarks="Proof index"/>
-            <column name="TX_MERKLE_PROOF" type="TEXT"
-                    remarks="Transaction merkle proof"/>
-            <column name="INCLUSION_PROOF" type="TEXT"
-                    remarks="Inclusion proof"/>
 
             <!-- Technical fields -->
             <column name="CREATED_ON" type="TIMESTAMP WITH TIME ZONE"
@@ -71,10 +67,16 @@
             <column name="PROOF_ID"/>
         </createIndex>
 
-        <!-- Index on PROOF_ID -->
+        <!-- Index on FK_ASSET -->
         <createIndex indexName="IDX_PROOFS_FK_ASSET"
                      tableName="PROOFS">
             <column name="FK_ASSET"/>
+        </createIndex>
+
+        <!-- Index on FK_USER_CREATOR -->
+        <createIndex indexName="IDX_PROOFS_FK_USER_CREATOR"
+                     tableName="PROOFS">
+            <column name="FK_USER_CREATOR"/>
         </createIndex>
 
     </changeSet>

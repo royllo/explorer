@@ -1,8 +1,6 @@
 package org.royllo.explorer.core.domain.proof;
 
-import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -21,8 +19,6 @@ import lombok.ToString;
 import org.royllo.explorer.core.domain.asset.Asset;
 import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.util.base.BaseDomain;
-
-import java.util.List;
 
 import static jakarta.persistence.FetchType.EAGER;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -58,7 +54,7 @@ public class Proof extends BaseDomain {
     @JoinColumn(name = "FK_ASSET", nullable = false)
     private Asset asset;
 
-    /** The proof ID that uniquely identifies the proof. */
+    /** The proof ID that uniquely identifies the proof - sha256(raw proof). */
     @NotBlank(message = "Proof ID is required")
     @Column(name = "PROOF_ID", updatable = false)
     private String proofId;
@@ -67,26 +63,5 @@ public class Proof extends BaseDomain {
     @NotBlank(message = "Raw proof is required")
     @Column(name = "RAW_PROOF", updatable = false)
     private String rawProof;
-
-    /** Proof index. */
-    @NotNull(message = "Proof index is required")
-    @Column(name = "PROOF_INDEX", updatable = false)
-    private Long proofIndex;
-
-    /** Transaction merkle proof. */
-    @NotNull(message = "Transaction merkle proof is required")
-    @Column(name = "TX_MERKLE_PROOF", updatable = false)
-    private String txMerkleProof;
-
-    /** Inclusion proof. */
-    @NotNull(message = "Inclusion proof is required")
-    @Column(name = "INCLUSION_PROOF", updatable = false)
-    private String inclusionProof;
-
-    /** Exclusion proofs. */
-    @ElementCollection(fetch = EAGER)
-    @CollectionTable(name = "PROOFS_EXCLUSION_PROOFS", joinColumns = @JoinColumn(name = "FK_PROOF"))
-    @Column(name = "EXCLUSION_PROOF", updatable = false)
-    private List<String> exclusionProofs;
 
 }

@@ -36,12 +36,11 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
 
     @Override
     public ProofDTO addProof(@NonNull final String rawProof,
-                             final long proofIndex,
                              @NonNull final DecodedProofResponse decodedProof) {
-        logger.info("addProof - Adding {}", decodedProof);
+        logger.info("addProof - Adding {} with {}", rawProof, decodedProof);
 
         // We check that the proof is not in our database.
-        proofRepository.findByProofId(calculateProofId(rawProof, proofIndex)).ifPresent(proof -> {
+        proofRepository.findByProofId(calculateSHA256(rawProof)).ifPresent(proof -> {
             throw new ProofCreationException("This proof is already registered with proof id: " + proof.getProofId());
         });
 
@@ -54,14 +53,10 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
         } else {
             // We create the proof.
             final Proof proof = proofRepository.save(Proof.builder()
-                    .proofId(calculateSHA256(rawProof + ":" + proofIndex))
+                    .proofId(calculateSHA256(rawProof))
                     .creator(ANONYMOUS_USER)
                     .asset(asset.get())
                     .rawProof(rawProof)
-                    .proofIndex(proofIndex)
-                    .txMerkleProof(decodedProof.getDecodedProof().getTxMerkleProof())
-                    .inclusionProof(decodedProof.getDecodedProof().getInclusionProof())
-                    .exclusionProofs(decodedProof.getDecodedProof().getExclusionProofs())
                     .build());
             return PROOF_MAPPER.mapToProofDTO(proof);
         }
@@ -70,19 +65,6 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
     @Override
     public Optional<ProofDTO> getProofByProofId(@NonNull final String proofId) {
         return proofRepository.findByProofId(proofId).map(PROOF_MAPPER::mapToProofDTO);
-    }
-
-    /**
-     * Returns the proof id calculated from raw proof and proof index.
-     * SHA256(rawProof + ":" + proofIndex).
-     *
-     * @param rawProof   raw proof
-     * @param proofIndex proof index
-     * @return calculated proof id
-     */
-    private String calculateProofId(@NonNull final String rawProof,
-                                    final long proofIndex) {
-        return calculateSHA256(rawProof + ":" + proofIndex);
     }
 
     /**

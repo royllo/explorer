@@ -6,8 +6,6 @@ import lombok.Value;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.user.UserDTO;
 
-import java.util.List;
-
 import static lombok.AccessLevel.PRIVATE;
 
 /**
@@ -22,28 +20,16 @@ public class ProofDTO {
     /** Unique identifier. */
     Long id;
 
-    /** Proof id (rawProof + ":" + proofIndex). */
-    String proofId;
+    /** The proof creator. */
+    UserDTO creator;
 
     /** Target asset. */
     AssetDTO asset;
 
-    /** The proof creator. */
-    UserDTO creator;
+    /** Proof id  - sha256(rawProof). */
+    String proofId;
 
     /** Raw proof. */
     String rawProof;
-
-    /** Proof index. */
-    long proofIndex;
-
-    /** Transaction merkle proof. */
-    String txMerkleProof;
-
-    /** Inclusion proof. */
-    String inclusionProof;
-
-    /** Exclusion proofs. */
-    List<String> exclusionProofs;
 
 }

@@ -20,9 +20,11 @@
             <column name="VERSION" type="INTEGER"
                     remarks="The version of the Taro asset"/>
 
-            <!-- Asset genesis -->
+            <!-- Foreign keys -->
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" type="BIGINT"
                     remarks="The first outpoint of the transaction that created the asset (txid:vout)"/>
+
+            <!-- Asset genesis -->
             <column name="NAME" type="VARCHAR(255)"
                     remarks="The name of the asset"/>
             <column name="META_DATA" type="VARCHAR(255)"

@@ -55,7 +55,7 @@ public class ProofServiceTest extends BaseTest {
         // We add our proof but our an asset doesn't exist yet --> an error must occur.
         assertFalse(assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
         try {
-            proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, 0, unknownRoylloCoinDecodedProof);
+            proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, unknownRoylloCoinDecodedProof);
             fail("An exception should have occurred");
         } catch (ProofCreationException e) {
             assertEquals(e.getMessage(), "Asset " + UNKNOWN_ROYLLO_COIN_ASSET_ID + " is not registered in our database");
@@ -90,24 +90,20 @@ public class ProofServiceTest extends BaseTest {
         assertTrue(assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
 
         // Then, our proof that should be added without any problem.
-        final ProofDTO proofAdded = proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, 0, unknownRoylloCoinDecodedProof);
+        final ProofDTO proofAdded = proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, unknownRoylloCoinDecodedProof);
         assertNotNull(proofAdded);
         assertNotNull(proofAdded.getId());
-        assertEquals("8d8176924f625ba627689608bc0f5e73ea233e471e78e1d333dee4c4cee7d623", proofAdded.getProofId());
+        assertEquals("a6cde389a35fcb8582fbbf1515f0f43ed3dc7b78dc4537c01d2505ddc25036de", proofAdded.getProofId());
         assertEquals(UNKNOWN_ROYLLO_COIN_ASSET_ID, proofAdded.getAsset().getAssetId());
         assertEquals(ANONYMOUS_ID, proofAdded.getCreator().getId());
         assertEquals(UNKNOWN_ROYLLO_COIN_RAW_PROOF, proofAdded.getRawProof());
-        assertEquals(0, proofAdded.getProofIndex());
-        assertEquals(UNKNOWN_ROYLLO_COIN_TX_MERKLE_PROOF, proofAdded.getTxMerkleProof());
-        assertEquals(UNKNOWN_ROYLLO_COIN_INCLUSION_PROOF, proofAdded.getInclusionProof());
-        assertEquals(0, proofAdded.getExclusionProofs().size());
 
         // We add again our proof as it's already in our database --> an error must occur.
         try {
-            proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, 0, unknownRoylloCoinDecodedProof);
+            proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, unknownRoylloCoinDecodedProof);
             fail("An exception should have occurred");
         } catch (ProofCreationException e) {
-            assertEquals(e.getMessage(), "This proof is already registered with proof id: 8d8176924f625ba627689608bc0f5e73ea233e471e78e1d333dee4c4cee7d623");
+            assertEquals(e.getMessage(), "This proof is already registered with proof id: a6cde389a35fcb8582fbbf1515f0f43ed3dc7b78dc4537c01d2505ddc25036de");
         }
     }
 
@@ -141,11 +137,6 @@ public class ProofServiceTest extends BaseTest {
         assertEquals(MY_ROYLLO_COIN_ANCHOR_BLOCK_HASH, myRoylloCoinProof.get().getAsset().getAnchorBlockHash());
         assertEquals(MY_ROYLLO_COIN_ANCHOR_OUTPOINT, myRoylloCoinProof.get().getAsset().getAnchorOutpoint());
         assertEquals(MY_ROYLLO_COIN_ANCHOR_INTERNAL_KEY, myRoylloCoinProof.get().getAsset().getAnchorInternalKey());
-
-        // Check proof.
-        assertEquals(MY_ROYLLO_COIN_TX_MERKLE_PROOF, myRoylloCoinProof.get().getTxMerkleProof());
-        assertEquals(MY_ROYLLO_COIN_INCLUSION_PROOF, myRoylloCoinProof.get().getInclusionProof());
-        assertEquals(0, myRoylloCoinProof.get().getExclusionProofs().size());
     }
 
 }
