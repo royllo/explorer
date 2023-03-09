@@ -27,7 +27,7 @@ public interface ProofService {
      * @param assetId  asset id
      * @param page     the page number we want to retrieve (First page is page 1)
      * @param pageSize the page size
-     * @return
+     * @return proofs
      */
     Page<ProofDTO> getProofsByAssetId(String assetId, int page, int pageSize);
 
