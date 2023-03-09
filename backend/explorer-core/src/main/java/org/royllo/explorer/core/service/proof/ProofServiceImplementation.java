@@ -10,6 +10,8 @@ import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.repository.proof.ProofRepository;
 import org.royllo.explorer.core.util.base.BaseService;
 import org.royllo.explorer.core.util.exceptions.proof.ProofCreationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.DatatypeConverter;
@@ -40,7 +42,7 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
         logger.info("addProof - Adding {} with {}", rawProof, decodedProof);
 
         // We check that the proof is not in our database.
-        proofRepository.findByProofId(calculateSHA256(rawProof)).ifPresent(proof -> {
+        proofRepository.findByProofId(sha256(rawProof)).ifPresent(proof -> {
             throw new ProofCreationException("This proof is already registered with proof id: " + proof.getProofId());
         });
 
@@ -53,13 +55,24 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
         } else {
             // We create the proof.
             final Proof proof = proofRepository.save(Proof.builder()
-                    .proofId(calculateSHA256(rawProof))
+                    .proofId(sha256(rawProof))
                     .creator(ANONYMOUS_USER)
                     .asset(asset.get())
                     .rawProof(rawProof)
                     .build());
             return PROOF_MAPPER.mapToProofDTO(proof);
         }
+    }
+
+    @Override
+    public Page<ProofDTO> getProofsByAssetId(@NonNull final String assetId,
+                                             final int page,
+                                             final int pageSize) {
+        assert page >= 1 : "Page number starts at page 1";
+        assert assetRepository.findByAssetId(assetId).isPresent() : "Asset ID not found";
+
+        return proofRepository.findByAssetAssetIdOrderByCreatedOn(assetId, PageRequest.of(page - 1, pageSize))
+                .map(PROOF_MAPPER::mapToProofDTO);
     }
 
     @Override
@@ -73,7 +86,7 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
      * @param value value
      * @return sha256 of value
      */
-    private String calculateSHA256(@NonNull final String value) {
+    private String sha256(@NonNull final String value) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] digest = md.digest(value.getBytes(StandardCharsets.UTF_8));

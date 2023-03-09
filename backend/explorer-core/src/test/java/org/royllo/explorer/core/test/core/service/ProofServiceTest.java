@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.proof.ProofDTO;
-import org.royllo.explorer.core.provider.mempool.MempoolTransactionService;
 import org.royllo.explorer.core.provider.tarod.DecodedProofResponse;
 import org.royllo.explorer.core.provider.tarod.TarodProofService;
 import org.royllo.explorer.core.service.asset.AssetService;
@@ -13,6 +12,7 @@ import org.royllo.explorer.core.test.util.BaseTest;
 import org.royllo.explorer.core.util.exceptions.proof.ProofCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -31,9 +31,6 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 @ActiveProfiles({"tarodProofServiceMock", "mempoolTransactionServiceMock"})
 @DisplayName("ProofService tests")
 public class ProofServiceTest extends BaseTest {
-
-    @Autowired
-    private MempoolTransactionService mempoolTransactionService;
 
     @Autowired
     private TarodProofService tarodProofService;
@@ -105,6 +102,69 @@ public class ProofServiceTest extends BaseTest {
         } catch (ProofCreationException e) {
             assertEquals(e.getMessage(), "This proof is already registered with proof id: a6cde389a35fcb8582fbbf1515f0f43ed3dc7b78dc4537c01d2505ddc25036de");
         }
+    }
+
+    @Test
+    @DisplayName("getProofsByAssetId()")
+    public void getProofsByAssetId() {
+
+        // =============================================================================================================
+        // First case: asset id not found in database.
+        try {
+            proofService.getProofsByAssetId(MY_ROYLLO_COIN_ASSET_ID, 0, 1);
+        } catch (AssertionError e) {
+            assertEquals(e.getMessage(), "Page number starts at page 1");
+        }
+
+        // =============================================================================================================
+        // Second case: asset id not found in database.
+        try {
+            proofService.getProofsByAssetId("NON_EXISTING_ASSET_ID", 1, 1);
+        } catch (AssertionError e) {
+            assertEquals(e.getMessage(), "Asset ID not found");
+        }
+
+        // =============================================================================================================
+        // Getting proofs of "activeRoylloCoin" - One page.
+        final Page<ProofDTO> activeRoylloCoinProofs = proofService.getProofsByAssetId(ACTIVE_ROYLLO_COIN_ASSET_ID, 1, 10);
+        assertEquals(3, activeRoylloCoinProofs.getTotalElements());
+
+        // Proof 1.
+        Optional<ProofDTO> proof1 = activeRoylloCoinProofs.getContent().stream().filter(proofDTO -> proofDTO.getId() == 10001).findFirst();
+        assertTrue(proof1.isPresent());
+        assertEquals(ANONYMOUS_ID, proof1.get().getCreator().getId());
+        assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, proof1.get().getAsset().getAssetId());
+        assertEquals("14e2075827c687217bede3f703cfbc94345717213f4fd34d83b68f8268040691", proof1.get().getProofId());
+        assertEquals(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF, proof1.get().getRawProof());
+
+        // Proof 2.
+        Optional<ProofDTO> proof2 = activeRoylloCoinProofs.getContent().stream().filter(proofDTO -> proofDTO.getId() == 10002).findFirst();
+        assertTrue(proof2.isPresent());
+        assertEquals(ANONYMOUS_ID, proof2.get().getCreator().getId());
+        assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, proof2.get().getAsset().getAssetId());
+        assertEquals("23a6c9e1db87a8993490c7578c7ae6d85fee3bc16b9fc7d3c4c756f7452262e1", proof2.get().getProofId());
+        assertEquals(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF, proof2.get().getRawProof());
+
+        // Proof 3.
+        Optional<ProofDTO> proof3 = activeRoylloCoinProofs.getContent().stream().filter(proofDTO -> proofDTO.getId() == 10003).findFirst();
+        assertTrue(proof3.isPresent());
+        assertEquals(ANONYMOUS_ID, proof3.get().getCreator().getId());
+        assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, proof3.get().getAsset().getAssetId());
+        assertEquals("e537eddf83dcb34723121860b49579eb4e766ace01bbb81fc7fec233835f2e1e", proof3.get().getProofId());
+        assertEquals(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF, proof3.get().getRawProof());
+
+        // =============================================================================================================
+        // Getting proofs of "myRoylloCoin" - One page.
+        final Page<ProofDTO> myRoylloCoinProofs = proofService.getProofsByAssetId(MY_ROYLLO_COIN_ASSET_ID, 1, 10);
+        assertEquals(1, myRoylloCoinProofs.getTotalElements());
+
+        // Proof 1.
+        Optional<ProofDTO> myRoylloCoinProof1 = myRoylloCoinProofs.getContent().stream().filter(proofDTO -> proofDTO.getId() == 1).findFirst();
+        assertTrue(myRoylloCoinProof1.isPresent());
+        assertEquals(ANONYMOUS_ID, myRoylloCoinProof1.get().getCreator().getId());
+        assertEquals(MY_ROYLLO_COIN_ASSET_ID, myRoylloCoinProof1.get().getAsset().getAssetId());
+        assertEquals("986990b5cf583d5a9e2f86da9e3df7f191b8000a42b811728f2efd1d9371653f", myRoylloCoinProof1.get().getProofId());
+        assertEquals(MY_ROYLLO_COIN_RAW_PROOF, myRoylloCoinProof1.get().getRawProof());
     }
 
     @Test
