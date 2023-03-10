@@ -4,6 +4,39 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet author="straumat" id="test-data-assets">
 
+        <!-- activeRoylloCoin - Assets used to test several proofs -->
+        <insert tableName="ASSETS">
+            <column name="ID" value="10000"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
+            <column name="NAME" value="activeRoylloCoin"/>
+            <column name="META_DATA" value="5573656420627920526f796c6c6f"/>
+            <column name="ASSET_ID" value="1781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e5413"/>
+            <column name="OUTPUT_INDEX" value="1"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION"
+                    value="39481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0000000110616374697665526f796c6c6f436f696e0e5573656420627920526f796c6c6f0000000100"/>
+            <column name="GENESIS_VERSION" value="0"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="1003"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+
+            <column name="SCRIPT_VERSION" value="0"/>
+            <column name="SCRIPT_KEY" value="024e9d77ff1df871af183419a6cfd308235f512717f13da57dbf045a4a8c2ca5cc"/>
+
+            <column name="ANCHOR_TX"
+                    value="0200000000010139481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0100000000ffffffff026f02000000000000160014b3cb6391af7e94b41475cb925e1eafed57c318cae803000000000000225120541c599eae0b80c2c7c5c7a17b75b147a0fe20663277bbbd49247e87b9b1c1370247304402204afb9a04135bc36e9062e8e0cafad11a58fc2e13f6dcf01447938faced44b53e02202492dc504f6b5577d4add1ea550fad8f7357f7c7215a7d5ec21e14269f270a5e0121027ebfbaf2f6612b4819b188f3b80386d5ddf3d4c55c5f4af8c688d97b8984b0d600000000"/>
+            <column name="ANCHOR_TXID" value="60b11c06d29ad10a66082953e37010090b39bc7541c321066a9e8bf7507abdd7"/>
+            <column name="ANCHOR_BLOCK_HASH" value="000000000000002366fc3e4cc4074a94529e09858b6585004a0056e47e08c0c9"/>
+            <column name="ANCHOR_OUTPOINT" value="60b11c06d29ad10a66082953e37010090b39bc7541c321066a9e8bf7507abdd7"/>
+            <column name="ANCHOR_INTERNAL_KEY"
+                    value="03bea9941963648cfaaa2981d68ebf209e20b3e68287d94371805832e962401429"/>
+        </insert>
+
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000001"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
-import static org.royllo.explorer.web.configuration.WebConfiguration.DEFAULT_PAGE_SIZE;
+import static org.royllo.explorer.web.configuration.WebConfiguration.ASSET_SEARCH_DEFAULT_PAGE_SIZE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PAGE_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.QUERY_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
@@ -47,7 +47,7 @@ public class SearchController {
             // Adding result to the page.
             model.addAttribute(RESULT_ATTRIBUTE, assetService.queryAssets(query.get(),
                     page,
-                    DEFAULT_PAGE_SIZE));
+                    ASSET_SEARCH_DEFAULT_PAGE_SIZE));
         }
         return SEARCH_PAGE;
     }

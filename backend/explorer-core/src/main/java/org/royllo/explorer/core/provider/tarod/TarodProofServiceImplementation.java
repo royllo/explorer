@@ -29,7 +29,7 @@ public class TarodProofServiceImplementation extends BaseMempoolService implemen
     @Override
     public final Mono<DecodedProofResponse> decode(final String rawProof, final long proofIndex) {
         // TODO Refactor this part (make it more clean and check error management).
-        SslContext sslContext = null;
+        SslContext sslContext;
         try {
             sslContext = SslContextBuilder
                     .forClient()

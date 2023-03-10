@@ -89,6 +89,27 @@ public class ProofDataFetcherTest extends BaseTest {
         assertEquals(ANONYMOUS_USER_ID, proof3.get().getCreator().getUserId());
         assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, proof3.get().getAsset().getAssetId());
         assertEquals(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF, proof3.get().getRawProof());
+
+        // Checking page management results.
+        graphQLQueryRequest = new GraphQLQueryRequest(
+                ProofsByAssetIdGraphQLQuery.newRequest().assetId(ACTIVE_ROYLLO_COIN_ASSET_ID).page(1).pageSize(1).build(),
+                new ProofsByAssetIdProjectionRoot().content()
+                        .creator().userId().username().parent()
+                        .asset().assetId().parent()
+                        .proofId()
+                        .rawProof()
+                        .parent()
+                        .totalElements()
+                        .totalPages());
+
+        proofPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+                graphQLQueryRequest.serialize(),
+                "data." + DgsConstants.QUERY.ProofsByAssetId,
+                new TypeRef<>() {
+                });
+
+        assertEquals(3, proofPage.getTotalElements());
+        assertEquals(3, proofPage.getTotalPages());
     }
 
 }

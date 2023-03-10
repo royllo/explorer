@@ -18,6 +18,9 @@ public class PagesConstants {
     /** Asset page. */
     public static final String ASSET_PAGE = "asset/view";
 
+    /** Asset proofs page. */
+    public static final String ASSET_PROOFS_PAGE = "asset/proofs";
+
     /** Request page. */
     public static final String REQUEST_PAGE = "request/view";
 
@@ -27,7 +30,7 @@ public class PagesConstants {
     /** Request - Saved proof with success. */
     public static final String REQUEST_ADD_PROOF_SUCCESS_PAGE = "request/proof/add_success";
 
-    /** Error page. */
+    /** Generic error page. */
     public static final String ERROR_PAGE = "util/errors/error";
 
     /** Error 404 page. */

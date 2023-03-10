@@ -12,8 +12,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Objects;
 
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.containsString;
 import static org.royllo.explorer.web.util.constants.PagesConstants.ASSET_PAGE;
+import static org.royllo.explorer.web.util.constants.PagesConstants.ASSET_PROOFS_PAGE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -88,6 +90,30 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_BLOCK_HASH + "<")))
                 .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_OUTPOINT + "<")))
                 .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHRO_INTERNAL_KEY + "<")));
+    }
+
+    @Test
+    @DisplayName("Calling '/asset/{assetId}/proofs'")
+    void assetProofsPage() throws Exception {
+        // My royllo coin has only one proof.
+        mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(ASSET_PROOFS_PAGE))
+                // Checking proofs.
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_RAW_PROOF + "<")))
+                .andExpect(content().string(not(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF + "<"))))
+                .andExpect(content().string(not(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF + "<"))))
+                .andExpect(content().string(not(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF + "<"))));
+
+        // Active royllo coin has only one proof.
+        mockMvc.perform(get("/asset/" + ACTIVE_ROYLLO_COIN_ASSET_ID + "/proofs/"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(ASSET_PROOFS_PAGE))
+                // Checking proofs.
+                .andExpect(content().string(not(containsString(">" + MY_ROYLLO_COIN_RAW_PROOF + "<"))))
+                .andExpect(content().string(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF + "<")))
+                .andExpect(content().string(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF + "<")))
+                .andExpect(content().string(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF + "<")));
     }
 
 }

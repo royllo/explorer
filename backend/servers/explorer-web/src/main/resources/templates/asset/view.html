@@ -34,6 +34,12 @@
         <div class="tableHead">
             <h3 class="tableHeadDescription" th:text="${result.name}"></h3>
             <p class="tableHeadValue" th:text="${result.assetId}"></p>
+            <p class="tableHeadValue">
+                <!--*/ Link to view proofs */-->
+                <a th:href="@{'/asset/' + ${result.assetId} + '/proofs/'}"
+                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                   th:text="#{asset.view.proofs}"></a>
+            </p>
         </div>
         <!--/* Data */-->
         <div class="tableLines">
@@ -41,7 +47,8 @@
                 <!--/* Genesis point  */-->
                 <div class="tableLineWhite">
                     <dt class="tableLineDescription" th:text="#{field.asset.genesisPoint}"></dt>
-                    <dd class="tableLineValue" th:text="${result.genesisPoint.txId} + ':' + ${result.genesisPoint.vout}"></dd>
+                    <dd class="tableLineValue"
+                        th:text="${result.genesisPoint.txId} + ':' + ${result.genesisPoint.vout}"></dd>
                 </div>
                 <!--/* Asset name */-->
                 <div class="tableLineGray">
@@ -64,7 +71,7 @@
                     <dd class="tableLineValue" th:text="${result.outputIndex}"></dd>
                 </div>
                 <!--/* Genesis bootstrap information */-->
-                <div class="tableLineWhite">
+                <div class="tableLineGray">
                     <dt class="tableLineDescription" th:text="#{field.asset.genesisBootStrapInformation}"></dt>
                     <dd class="tableLineValue" th:text="${result.genesisBootstrapInformation}"></dd>
                 </div>
@@ -72,11 +79,13 @@
                 <!--/* Asset type */-->
                 <div class="tableLineWhite">
                     <dt class="tableLineDescription" th:text="#{field.asset.assetType}"></dt>
-                    <dd class="tableLineValue" th:text="#{field.asset.assetType.normal}" th:if="${#strings.equals(result.type, 'NORMAL')}"></dd>
-                    <dd class="tableLineValue" th:text="#{field.asset.assetType.collectible}" th:if="${#strings.equals(result.type, 'COLLECTIBLE')}"></dd>
+                    <dd class="tableLineValue" th:text="#{field.asset.assetType.normal}"
+                        th:if="${#strings.equals(result.type, 'NORMAL')}"></dd>
+                    <dd class="tableLineValue" th:text="#{field.asset.assetType.collectible}"
+                        th:if="${#strings.equals(result.type, 'COLLECTIBLE')}"></dd>
                 </div>
                 <!--/* Asset amount */-->
-                <div class="tableLineWhite">
+                <div class="tableLineGray">
                     <dt class="tableLineDescription" th:text="#{field.asset.amount}"></dt>
                     <dd class="tableLineValue" th:text="${result.amount}"></dd>
                 </div>
@@ -97,7 +106,7 @@
                     <dt class="tableLineDescription" th:text="#{field.asset.anchorTx}"></dt>
                     <dd class="tableLineValue" th:text="${result.anchorTx}"></dd>
                 </div>
-                <div class="tableLineGray">
+                <div class="tableLineWhite">
                     <dt class="tableLineDescription" th:text="#{field.asset.anchorTxid}"></dt>
                     <dd class="tableLineValue" th:text="${result.anchorTxId}"></dd>
                 </div>
@@ -105,7 +114,7 @@
                     <dt class="tableLineDescription" th:text="#{field.asset.anchorBlockHash}"></dt>
                     <dd class="tableLineValue" th:text="${result.anchorBlockHash}"></dd>
                 </div>
-                <div class="tableLineGray">
+                <div class="tableLineWhite">
                     <dt class="tableLineDescription" th:text="#{field.asset.anchorOutpoint}"></dt>
                     <dd class="tableLineValue" th:text="${result.anchorOutpoint}"></dd>
                 </div>

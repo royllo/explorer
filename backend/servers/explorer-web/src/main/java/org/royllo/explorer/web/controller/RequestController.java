@@ -30,6 +30,7 @@ public class RequestController {
      * @param requestId request id
      * @return page to display
      */
+    @SuppressWarnings("SameReturnValue")
     @GetMapping(value = {"/request", "/request/", "/request/{requestId}"})
     public String getRequestByRequestId(final Model model,
                                         @PathVariable(REQUEST_ID_ATTRIBUTE) final Optional<String> requestId) {

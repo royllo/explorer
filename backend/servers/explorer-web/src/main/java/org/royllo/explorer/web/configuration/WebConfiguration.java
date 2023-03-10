@@ -10,8 +10,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class WebConfiguration {
 
-    /** Default page size. */
-    public static final int DEFAULT_PAGE_SIZE = 10;
+    /** Asset search results default page size. */
+    public static final int ASSET_SEARCH_DEFAULT_PAGE_SIZE = 10;
+
+    /** Asset proofs default page size. */
+    public static final int ASSET_PROOFS_DEFAULT_PAGE_SIZE = 100;
 
     /**
      * Add Thymeleaf Layout Dialect support.
