@@ -9,6 +9,11 @@ type Query {
     queryAssets(query: String!, page: Int, pageSize: Int): AssetPage
 
     # ==================================================================================================================
+    # Proofs API
+    "Returns the proofs of the asset id"
+    proofsByAssetId(assetId: ID!, page: Int, pageSize: Int): ProofPage
+
+    # ==================================================================================================================
     # Requests API
     "Get a request by request id"
     requestByRequestId(requestId: ID!): Request
