@@ -70,6 +70,8 @@ public class AssetControllerTest extends BaseTest {
         mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ASSET_PAGE))
+                // Checking view proof link.
+                .andExpect(content().string(containsString("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs")))
                 // Checking each field.
                 .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_NAME + "<")))
                 .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ASSET_ID + "<")))

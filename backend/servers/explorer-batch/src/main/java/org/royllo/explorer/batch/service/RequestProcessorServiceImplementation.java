@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.batch.util.BaseProcessor;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
+import org.royllo.explorer.core.provider.tarod.TarodProofService;
 import org.royllo.explorer.core.repository.bitcoin.BitcoinTransactionOutputRepository;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.service.asset.AssetService;
@@ -19,6 +20,9 @@ public class RequestProcessorServiceImplementation extends BaseProcessor impleme
 
     /** Bitcoin transaction output repository. */
     private final BitcoinTransactionOutputRepository bitcoinTransactionOutputRepository;
+
+    /** Tarod proof service. */
+    private final TarodProofService tarodProofService;
 
     /** Request repository. */
     private final RequestRepository requestRepository;
@@ -46,6 +50,22 @@ public class RequestProcessorServiceImplementation extends BaseProcessor impleme
      */
     private RequestDTO processAddAssetRequest(final AddProofRequestDTO addProofRequestDTO) {
         logger.info("processAddAssetRequest {} - Processing request {}", addProofRequestDTO.getId(), addProofRequestDTO);
+
+
+        // We try to decode the proof.
+        try {
+            tarodProofService.decode(addProofRequestDTO.getRawProof(), 0).subscribe(decodedProofResponse -> {
+                //
+
+            });
+        } catch (Throwable tarodError) {
+            // We failed on calling tarod.
+            addProofRequestDTO.failed(tarodError.getMessage());
+        }
+
+        // We save the request.
+        requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(addProofRequestDTO));
+
 
         // From the request AddProofRequestDTO, we retrieve the raw proof.
 

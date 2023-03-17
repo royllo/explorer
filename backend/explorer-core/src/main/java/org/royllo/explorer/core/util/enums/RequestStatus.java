@@ -10,6 +10,9 @@ public enum RequestStatus {
     /** An opened request that must be treated. */
     OPENED,
 
+    /** An error occurred, but it may work later, so we should try again. */
+    RECOVERABLE_ERROR,
+
     /** The request has been treated with success. */
     SUCCESS,
 

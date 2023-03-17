@@ -1,5 +1,6 @@
-package org.royllo.explorer.batch;
+package org.royllo.explorer.batch.configuration;
 
+import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.util.base.BaseConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +11,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
-import jakarta.annotation.PreDestroy;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
