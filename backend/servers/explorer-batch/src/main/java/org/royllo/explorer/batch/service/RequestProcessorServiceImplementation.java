@@ -4,10 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.batch.util.BaseProcessor;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
+import org.royllo.explorer.core.provider.tarod.DecodedProofResponse;
 import org.royllo.explorer.core.provider.tarod.TarodProofService;
 import org.royllo.explorer.core.repository.bitcoin.BitcoinTransactionOutputRepository;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.service.asset.AssetService;
+import org.royllo.explorer.core.service.proof.ProofService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -30,6 +32,9 @@ public class RequestProcessorServiceImplementation extends BaseProcessor impleme
     /** Asset service. */
     private final AssetService assetService;
 
+    /** Proof service. */
+    private final ProofService proofService;
+
     @Override
     public RequestDTO processRequest(final RequestDTO requestDTO) {
         assert !requestDTO.getStatus().isFinalStatus() : "This request has already been treated";
@@ -51,13 +56,18 @@ public class RequestProcessorServiceImplementation extends BaseProcessor impleme
     private RequestDTO processAddAssetRequest(final AddProofRequestDTO addProofRequestDTO) {
         logger.info("processAddAssetRequest {} - Processing request {}", addProofRequestDTO.getId(), addProofRequestDTO);
 
-
         // We try to decode the proof.
         try {
-            tarodProofService.decode(addProofRequestDTO.getRawProof(), 0).subscribe(decodedProofResponse -> {
-                //
-
-            });
+            final DecodedProofResponse decodedProofResponse = tarodProofService.decode(addProofRequestDTO.getRawProof(), 0).block();
+            // We have the decoded proof, we check if the asset exists.
+            final String assetId = decodedProofResponse.getDecodedProof().getAsset().getAssetGenesis().getAssetId();
+            if (assetService.getAssetByAssetId(assetId).isEmpty()) {
+                // If it doesn't exist, we create it
+                assetService.addAsset(ASSET_MAPPER.mapToAssetDTO(decodedProofResponse.getDecodedProof()));
+            }
+            // We can now add the proof.
+            proofService.addProof(addProofRequestDTO.getRawProof(), decodedProofResponse);
+            addProofRequestDTO.succeed();
         } catch (Throwable tarodError) {
             // We failed on calling tarod.
             addProofRequestDTO.failed(tarodError.getMessage());
@@ -65,6 +75,7 @@ public class RequestProcessorServiceImplementation extends BaseProcessor impleme
 
         // We save the request.
         requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(addProofRequestDTO));
+        return addProofRequestDTO;
 
 
         // From the request AddProofRequestDTO, we retrieve the raw proof.
@@ -79,7 +90,6 @@ public class RequestProcessorServiceImplementation extends BaseProcessor impleme
 
         // With DecodedProof, we call createProof() from ProofService with a link to the existing asset.
 
-        return null;
 
         // =============================================================================================================
         // We check if the transaction can be found in the blockchain or in our database.

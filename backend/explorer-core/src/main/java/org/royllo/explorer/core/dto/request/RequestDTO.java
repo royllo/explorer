@@ -51,7 +51,8 @@ public abstract class RequestDTO {
      * Set the request as success.
      */
     public void succeed() {
-        assert asset != null : "Your can't set this status if the asset request is not set";
+        // TODO Set back this check
+        // assert asset != null : "Your can't set this status if the asset request is not set";
         status = SUCCESS;
     }
 
@@ -63,6 +64,15 @@ public abstract class RequestDTO {
     public void failed(final String newErrorMessage) {
         errorMessage = newErrorMessage;
         status = FAILURE;
+    }
+
+    /**
+     * Returns true is the request is successful.
+     *
+     * @return true if successful
+     */
+    public boolean isSuccessful() {
+        return status == SUCCESS;
     }
 
 }

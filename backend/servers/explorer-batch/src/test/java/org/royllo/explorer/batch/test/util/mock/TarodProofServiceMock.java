@@ -30,9 +30,68 @@ public class TarodProofServiceMock extends BaseTest {
         // Non-existing proof.
         // Mockito.when(mockedService.decode(any(), 0)).thenReturn(Mono.empty());
 
+        Mockito.when(mockedService.decode(MY_ROYLLO_COIN_RAW_PROOF, 0)).thenReturn(Mono.just(getMyRoylloCoin()));
         Mockito.when(mockedService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF, 0)).thenReturn(Mono.just(getUnknownRoylloCoin()));
 
         return mockedService;
+    }
+
+    /**
+     * Returns "My royllo coin" decoded proof.
+     *
+     * @return "My royllo coin" decoded proof.
+     */
+    private DecodedProofResponse getMyRoylloCoin() {
+        // "myRoylloCoin" (documented in docs/test/myRoylloCoin.MD).
+        DecodedProofResponse decodedProofResponse = new DecodedProofResponse();
+
+        // Decoded proof.
+        DecodedProofResponse.DecodedProof decodedProof = new DecodedProofResponse.DecodedProof();
+        decodedProof.setProofIndex(0);
+        decodedProof.setNumberOfProofs(1);
+
+        // Asset.
+        DecodedProofResponse.DecodedProof.Asset asset = new DecodedProofResponse.DecodedProof.Asset();
+        asset.setVersion(MY_ROYLLO_COIN_VERSION);
+
+        // Asset genesis.
+        DecodedProofResponse.DecodedProof.Asset.AssetGenesis assetGenesis = new DecodedProofResponse.DecodedProof.Asset.AssetGenesis();
+        assetGenesis.setGenesisPoint(MY_ROYLLO_COIN_GENESIS_POINT_TXID + ":" + MY_ROYLLO_COIN_GENESIS_POINT_VOUT);
+        assetGenesis.setName(MY_ROYLLO_COIN_NAME);
+        assetGenesis.setMeta(MY_ROYLLO_COIN_META);
+        assetGenesis.setAssetId(MY_ROYLLO_COIN_ASSET_ID);
+        assetGenesis.setOutputIndex(MY_ROYLLO_COIN_OUTPUT_INDEX);
+        assetGenesis.setGenesisBootstrapInfo(MY_ROYLLO_COIN_GENESIS_BOOTSTRAP_INFORMATION);
+        assetGenesis.setVersion(MY_ROYLLO_COIN_GENESIS_VERSION);
+        asset.setAssetGenesis(assetGenesis);
+
+        asset.setAssetType(MY_ROYLLO_COIN_ASSET_TYPE.toString());
+        asset.setAmount(MY_ROYLLO_COIN_AMOUNT);
+        asset.setLockTime(MY_ROYLLO_COIN_LOCK_TIME);
+        asset.setRelativeLockTime(MY_ROYLLO_COIN_RELATIVE_LOCK_TIME);
+        asset.setScriptVersion(MY_ROYLLO_COIN_SCRIPT_VERSION);
+        asset.setScriptKey(MY_ROYLLO_COIN_SCRIPT_KEY);
+        asset.setAssetGroup(null);
+
+        // Chain anchor.
+        DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchor = new DecodedProofResponse.DecodedProof.Asset.ChainAnchor();
+        chainAnchor.setAnchorTx(MY_ROYLLO_COIN_ANCHOR_TX);
+        chainAnchor.setAnchorTxId(MY_ROYLLO_COIN_ANCHOR_TX_ID);
+        chainAnchor.setAnchorBlockHash(MY_ROYLLO_COIN_ANCHOR_BLOCK_HASH);
+        chainAnchor.setAnchorOutpoint(MY_ROYLLO_COIN_ANCHOR_OUTPOINT);
+        chainAnchor.setInternalKey(MY_ROYLLO_COIN_ANCHOR_INTERNAL_KEY);
+        asset.setChainAnchor(chainAnchor);
+
+        asset.setPrevWitnesses(Collections.emptyList());
+
+        decodedProof.setTxMerkleProof(MY_ROYLLO_COIN_TX_MERKLE_PROOF);
+        decodedProof.setInclusionProof(MY_ROYLLO_COIN_INCLUSION_PROOF);
+        decodedProof.setExclusionProofs(Collections.emptyList());
+        decodedProofResponse.setDecodedProof(decodedProof);
+
+        decodedProof.setAsset(asset);
+
+        return decodedProofResponse;
     }
 
     /**

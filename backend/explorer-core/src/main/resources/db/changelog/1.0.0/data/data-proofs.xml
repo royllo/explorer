@@ -11,7 +11,7 @@
         -->
         <insert tableName="PROOFS">
             <column name="ID" value="1"/>
-            <column name="PROOF_ID" value="986990b5cf583d5a9e2f86da9e3df7f191b8000a42b811728f2efd1d9371653f"/>
+            <column name="PROOF_ID" value="19c7a8309fad48bdbdefe6983e93e2e98aaa367aa8c31fa4caf739abac503d69"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="FK_ASSET" value="1"/>
             <column name="RAW_PROOF"

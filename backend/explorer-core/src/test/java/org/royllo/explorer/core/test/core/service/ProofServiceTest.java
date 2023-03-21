@@ -163,14 +163,14 @@ public class ProofServiceTest extends BaseTest {
         assertTrue(myRoylloCoinProof1.isPresent());
         assertEquals(ANONYMOUS_ID, myRoylloCoinProof1.get().getCreator().getId());
         assertEquals(MY_ROYLLO_COIN_ASSET_ID, myRoylloCoinProof1.get().getAsset().getAssetId());
-        assertEquals("986990b5cf583d5a9e2f86da9e3df7f191b8000a42b811728f2efd1d9371653f", myRoylloCoinProof1.get().getProofId());
+        assertEquals("19c7a8309fad48bdbdefe6983e93e2e98aaa367aa8c31fa4caf739abac503d69", myRoylloCoinProof1.get().getProofId());
         assertEquals(MY_ROYLLO_COIN_RAW_PROOF, myRoylloCoinProof1.get().getRawProof());
     }
 
     @Test
     @DisplayName("getProofByProofId()")
     public void getProofByProofId() {
-        final Optional<ProofDTO> myRoylloCoinProof = proofService.getProofByProofId("986990b5cf583d5a9e2f86da9e3df7f191b8000a42b811728f2efd1d9371653f");
+        final Optional<ProofDTO> myRoylloCoinProof = proofService.getProofByProofId("19c7a8309fad48bdbdefe6983e93e2e98aaa367aa8c31fa4caf739abac503d69");
         assertTrue(myRoylloCoinProof.isPresent());
 
         // Checking asset

@@ -53,7 +53,7 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
             // Asset does not exists.
             throw new ProofCreationException("Asset " + assetId + " is not registered in our database");
         } else {
-            // We create the proof.
+            // Asset exists, we create the proof.
             final Proof proof = proofRepository.save(Proof.builder()
                     .proofId(sha256(rawProof))
                     .creator(ANONYMOUS_USER)
