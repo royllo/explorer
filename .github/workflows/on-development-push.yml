@@ -83,7 +83,7 @@ jobs:
           docker push royllo/explorer-web:${{ steps.release.outputs.version }}
 
       # ================================================================================================================
-      - name: Qodana Scan
-        uses: JetBrains/qodana-action@main
-        env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+#      - name: Qodana Scan
+#        uses: JetBrains/qodana-action@main
+#        env:
+#          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}

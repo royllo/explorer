@@ -157,6 +157,32 @@ public class MempoolTransactionServiceMock extends BaseTest {
         response.getVout().add(vout1);
         Mockito.when(mockedService.getTransaction(BITCOIN_TAPROOT_TRANSACTION_2_TXID)).thenReturn(Mono.just(response));
 
+        // =============================================================================================================
+        // Active royllo coin - Taproot transaction NOT in our database, but IN the blockchain.
+        // curl -ssL https://mempool.space/testnet/api/tx/db848f3114a248aed35008febbf04505652cb296726d4e1a998d08ca351e4839 | jq
+        status = new GetTransactionResponse.Status();
+        status.setBlockHeight(2422165);
+
+        vout1 = new GetTransactionResponse.VOut();
+        vout1.setScriptPubKey("512074381d0361b8bb274bbec7ae6ef19578e2c9c6b789d9f6a390920bbb6a816bc9");
+        vout1.setScriptPubKeyAsm("OP_PUSHNUM_1 OP_PUSHBYTES_32 74381d0361b8bb274bbec7ae6ef19578e2c9c6b789d9f6a390920bbb6a816bc9");
+        vout1.setScriptPubKeyType("v1_p2tr");
+        vout1.setScriptPubKeyAddress("tb1pwsup6qmphzajwja7c7hxauv40r3vn34h38vldgusjg9mk65pd0ys9lnfnq");
+        vout1.setValue(new BigDecimal("1000"));
+
+        vout2 = new GetTransactionResponse.VOut();
+        vout2.setScriptPubKey("001443e6aa57dd19692fdb4ed0d2fe4395f9073ac9d0");
+        vout2.setScriptPubKeyAsm("OP_0 OP_PUSHBYTES_20 43e6aa57dd19692fdb4ed0d2fe4395f9073ac9d0");
+        vout2.setScriptPubKeyType("v0_p2wpkh");
+        vout2.setScriptPubKeyAddress("tb1qg0n2547ar95jlk6w6rf0usu4lyrn4jwshay0fc");
+        vout2.setValue(new BigDecimal("1929"));
+
+        response = new GetTransactionResponse();
+        response.setStatus(status);
+        response.getVout().add(vout1);
+        response.getVout().add(vout2);
+        Mockito.when(mockedService.getTransaction(ACTIVE_ROYLLO_COIN_GENESIS_POINT_TXID)).thenReturn(Mono.just(response));
+
         return mockedService;
     }
 

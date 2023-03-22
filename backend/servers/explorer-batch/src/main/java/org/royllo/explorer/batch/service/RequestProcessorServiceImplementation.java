@@ -63,7 +63,10 @@ public class RequestProcessorServiceImplementation extends BaseProcessor impleme
             final String assetId = decodedProofResponse.getDecodedProof().getAsset().getAssetGenesis().getAssetId();
             if (assetService.getAssetByAssetId(assetId).isEmpty()) {
                 // If it doesn't exist, we create it
+                logger.info("processAddAssetRequest {} - Adding asset {}", addProofRequestDTO.getId(), assetId);
                 assetService.addAsset(ASSET_MAPPER.mapToAssetDTO(decodedProofResponse.getDecodedProof()));
+            } else {
+                logger.info("processAddAssetRequest {} - Asset {} already exists", addProofRequestDTO.getId(), assetId);
             }
             // We can now add the proof.
             proofService.addProof(addProofRequestDTO.getRawProof(), decodedProofResponse);
