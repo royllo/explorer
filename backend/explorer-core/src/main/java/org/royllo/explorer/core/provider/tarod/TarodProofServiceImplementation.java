@@ -6,6 +6,7 @@ import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.util.base.BaseMempoolService;
 import org.royllo.explorer.core.util.parameters.TarodParameters;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,10 @@ public class TarodProofServiceImplementation extends BaseMempoolService implemen
 
         SslContext finalSslContext = sslContext;
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(finalSslContext));
+//
+//        final DecodedProofResponse object = restTemplate.getForObject(tarodParameters.getApi().getBaseUrl(), DecodedProofResponse.class);
+//        System.out.printf("===> " + object);
+
 
         logger.info("Calling decode for proof n°{} with raw proof {}", proofIndex, rawProof);
         return WebClient.builder()
@@ -56,12 +61,18 @@ public class TarodProofServiceImplementation extends BaseMempoolService implemen
                         .proofIndex(proofIndex)
                         .build()
                 ))
-                .retrieve()
-                .bodyToMono(DecodedProofResponse.class)
-                .doOnError(throwable -> logger.error("Calling decode for proof n°{} with raw proof {}: {}",
-                        proofIndex,
-                        rawProof,
-                        throwable.getMessage()));
+                .exchangeToFlux(response -> {
+                    if (response.statusCode().equals(HttpStatus.BAD_REQUEST)) {
+                        return response.bodyToFlux(DecodedProofResponse.class);
+                    } else {
+                        return response.bodyToFlux(DecodedProofResponse.class);
+                    }
+                })
+                .next();
+//                .doOnError(throwable -> logger.error("Calling decode for proof n°{} with raw proof {}: {}",
+//                        proofIndex,
+//                        rawProof,
+//                        throwable.getMessage()));
     }
 
 }

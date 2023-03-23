@@ -63,3 +63,13 @@ docker exec -it lnd-taro-with-docker_taro_1 \
                 --proof_file activeRoylloCoin-2.proof \
                 --proof_index 0
 ```
+
+AN invalid proof will return :
+
+```json
+{
+  "code": 2,
+  "message": "unable to decode proof file: invalid proof file checksum",
+  "details": []
+}
+```

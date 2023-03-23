@@ -15,8 +15,6 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.mockito.ArgumentMatchers.any;
-
 /**
  * {@link TarodProofService} mock.
  */
@@ -48,7 +46,7 @@ public class TarodProofServiceMock extends BaseTest {
 
         // Decoded proof.
         DecodedProofResponse.DecodedProof decodedProof = new DecodedProofResponse.DecodedProof();
-        decodedProof.setProofIndex(0);
+        decodedProof.setProofAtDepth(0);
         decodedProof.setNumberOfProofs(1);
 
         // Asset.
@@ -107,7 +105,7 @@ public class TarodProofServiceMock extends BaseTest {
 
         // Decoded proof.
         DecodedProofResponse.DecodedProof decodedProof = new DecodedProofResponse.DecodedProof();
-        decodedProof.setProofIndex(1);
+        decodedProof.setProofAtDepth(1);
         decodedProof.setNumberOfProofs(2);
 
         // Asset - "habibtaro_remote".

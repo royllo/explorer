@@ -25,7 +25,7 @@ public class ProofRequest {
     /**
      * Proof index.
      */
-    @JsonProperty("proof_index")
+    @JsonProperty("proof_at_depth")
     long proofIndex;
 
 }

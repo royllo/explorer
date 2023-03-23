@@ -32,9 +32,9 @@ public class DecodedProofResponse {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class DecodedProof {
 
-        /** Proof index. */
-        @JsonProperty("proof_index")
-        long proofIndex;
+        /** Proof at depth. */
+        @JsonProperty("proof_at_depth")
+        long proofAtDepth;
 
         /** Number of proofs. */
         @JsonProperty("number_of_proofs")
@@ -176,5 +176,13 @@ public class DecodedProofResponse {
         List<String> exclusionProofs;
 
     }
+
+    /** Error code. */
+    @JsonProperty("code")
+    Long errorCode;
+
+    /** Error code. */
+    @JsonProperty("message")
+    String errorMessage;
 
 }

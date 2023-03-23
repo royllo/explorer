@@ -57,7 +57,7 @@ public class TarodProofServiceMock extends BaseTest {
 
         // Decoded proof.
         DecodedProofResponse.DecodedProof decodedProof = new DecodedProofResponse.DecodedProof();
-        decodedProof.setProofIndex(0);
+        decodedProof.setProofAtDepth(0);
         decodedProof.setNumberOfProofs(1);
 
         // Asset.
@@ -115,7 +115,7 @@ public class TarodProofServiceMock extends BaseTest {
 
         // Decoded proof.
         DecodedProofResponse.DecodedProof decodedProof = new DecodedProofResponse.DecodedProof();
-        decodedProof.setProofIndex(0);
+        decodedProof.setProofAtDepth(0);
         decodedProof.setNumberOfProofs(1);
 
         // Asset.
@@ -173,7 +173,7 @@ public class TarodProofServiceMock extends BaseTest {
 
         // Decoded proof.
         DecodedProofResponse.DecodedProof decodedProof = new DecodedProofResponse.DecodedProof();
-        decodedProof.setProofIndex(0);
+        decodedProof.setProofAtDepth(0);
         decodedProof.setNumberOfProofs(1);
 
         // Asset.
@@ -231,7 +231,7 @@ public class TarodProofServiceMock extends BaseTest {
 
         // Decoded proof.
         DecodedProofResponse.DecodedProof decodedProof = new DecodedProofResponse.DecodedProof();
-        decodedProof.setProofIndex(0);
+        decodedProof.setProofAtDepth(0);
         decodedProof.setNumberOfProofs(2);
 
         // Asset.
@@ -289,7 +289,7 @@ public class TarodProofServiceMock extends BaseTest {
 
         // Decoded proof.
         DecodedProofResponse.DecodedProof decodedProof = new DecodedProofResponse.DecodedProof();
-        decodedProof.setProofIndex(1);
+        decodedProof.setProofAtDepth(1);
         decodedProof.setNumberOfProofs(2);
 
         // Asset.
@@ -343,7 +343,7 @@ public class TarodProofServiceMock extends BaseTest {
 
         // Decoded proof.
         DecodedProofResponse.DecodedProof decodedProof = new DecodedProofResponse.DecodedProof();
-        decodedProof.setProofIndex(0);
+        decodedProof.setProofAtDepth(0);
         decodedProof.setNumberOfProofs(1);
 
         // Asset.
@@ -401,7 +401,7 @@ public class TarodProofServiceMock extends BaseTest {
 
         // Decoded proof.
         DecodedProofResponse.DecodedProof decodedProof = new DecodedProofResponse.DecodedProof();
-        decodedProof.setProofIndex(0);
+        decodedProof.setProofAtDepth(0);
         decodedProof.setNumberOfProofs(1);
 
         // Asset.
@@ -459,7 +459,7 @@ public class TarodProofServiceMock extends BaseTest {
 
         // Decoded proof.
         DecodedProofResponse.DecodedProof decodedProof = new DecodedProofResponse.DecodedProof();
-        decodedProof.setProofIndex(1);
+        decodedProof.setProofAtDepth(1);
         decodedProof.setNumberOfProofs(2);
 
         // Asset - "habibtaro_remote".
