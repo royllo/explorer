@@ -2,6 +2,8 @@ package org.royllo.explorer.batch.configuration;
 
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
+import org.royllo.explorer.batch.service.RequestProcessorService;
+import org.royllo.explorer.core.service.request.RequestService;
 import org.royllo.explorer.core.util.base.BaseConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,6 +39,12 @@ public class Scheduler extends BaseConfiguration {
     /** Batch continues to run as long as enabled is set to true. */
     private final AtomicBoolean enabled = new AtomicBoolean(true);
 
+    /** Request service. */
+    private RequestService requestService;
+
+    /** Request processor service. */
+    private RequestProcessorService requestProcessorService;
+
     /**
      * Configure the task scheduler.
      *
@@ -66,6 +74,8 @@ public class Scheduler extends BaseConfiguration {
     public void processRequests() {
         if (enabled.get()) {
             logger.info("Processing requests...");
+            requestService.getOpenedRequests().forEach(requestDTO -> requestProcessorService.processRequest(requestDTO));
+            logger.info("");
         }
     }
 
