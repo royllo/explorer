@@ -46,8 +46,18 @@ public class AddAssetProcessorTest extends BaseTest {
     @DisplayName("Process")
     public void process() {
         // =============================================================================================================
-        // "Invalid Royllo coin": we add a proof that can be decoded.
-        // TODO test if raw proof returns an error.
+        // We add a proof that can be decoded.
+
+        // Add the proof
+        AddProofRequestDTO invalidProofRequest = requestService.addProof("INVALID_PROOF");
+        assertNotNull(invalidProofRequest);
+        assertEquals(OPENED, invalidProofRequest.getStatus());
+
+        // Process the request.
+        final RequestDTO invalidProofRequestTreated = requestProcessorService.processRequest(invalidProofRequest);
+        assertFalse(invalidProofRequestTreated.isSuccessful());
+        assertEquals(FAILURE, invalidProofRequestTreated.getStatus());
+        assertEquals("An error occurred while decoding", invalidProofRequestTreated.getErrorMessage());
 
         // =============================================================================================================
         // "My Royllo coin": The asset is already in our database and MY_ROYLLO_COIN_RAW_PROOF also.

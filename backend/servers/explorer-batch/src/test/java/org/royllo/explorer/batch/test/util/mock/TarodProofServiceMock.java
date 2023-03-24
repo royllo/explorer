@@ -28,7 +28,7 @@ public class TarodProofServiceMock extends BaseTest {
         final TarodProofService mockedService = Mockito.mock(TarodProofService.class);
 
         // Non-existing proof.
-        // Mockito.when(mockedService.decode(any(), 0)).thenReturn(Mono.empty());
+        Mockito.when(mockedService.decode("INVALID_PROOF", 0)).thenReturn(Mono.just(getError()));
 
         // My Royllo coin.
         Mockito.when(mockedService.decode(MY_ROYLLO_COIN_RAW_PROOF, 0)).thenReturn(Mono.just(getMyRoylloCoin()));
@@ -44,6 +44,18 @@ public class TarodProofServiceMock extends BaseTest {
         Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF, 1)).thenReturn(Mono.just(getActiveRoylloCoinProof3Index1()));
 
         return mockedService;
+    }
+
+    /**
+     * Returns decoded proof error.
+     *
+     * @return decoded proof error.
+     */
+    private DecodedProofResponse getError() {
+        DecodedProofResponse decodedProofResponse = new DecodedProofResponse();
+        decodedProofResponse.setErrorCode(1L);
+        decodedProofResponse.setErrorMessage("An error occurred while decoding");
+        return decodedProofResponse;
     }
 
     /**

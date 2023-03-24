@@ -59,18 +59,29 @@ public class RequestProcessorServiceImplementation extends BaseProcessor impleme
         // We try to decode the proof.
         try {
             final DecodedProofResponse decodedProofResponse = tarodProofService.decode(addProofRequestDTO.getRawProof(), 0).block();
-            // We have the decoded proof, we check if the asset exists.
-            final String assetId = decodedProofResponse.getDecodedProof().getAsset().getAssetGenesis().getAssetId();
-            if (assetService.getAssetByAssetId(assetId).isEmpty()) {
-                // If it doesn't exist, we create it
-                logger.info("processAddAssetRequest {} - Adding asset {}", addProofRequestDTO.getId(), assetId);
-                assetService.addAsset(ASSET_MAPPER.mapToAssetDTO(decodedProofResponse.getDecodedProof()));
+
+            // We check if we have a decoded proof response.
+            if (decodedProofResponse == null) {
+                addProofRequestDTO.failed("Decoded proof is null");
             } else {
-                logger.info("processAddAssetRequest {} - Asset {} already exists", addProofRequestDTO.getId(), assetId);
+                // We check if we had an error deciding the response.
+                if (decodedProofResponse.getErrorCode() != null) {
+                    addProofRequestDTO.failed(decodedProofResponse.getErrorMessage());
+                } else {
+                    // We have the decoded proof, we check if the asset exists.
+                    final String assetId = decodedProofResponse.getDecodedProof().getAsset().getAssetGenesis().getAssetId();
+                    if (assetService.getAssetByAssetId(assetId).isEmpty()) {
+                        // If it doesn't exist, we create it
+                        logger.info("processAddAssetRequest {} - Adding asset {}", addProofRequestDTO.getId(), assetId);
+                        assetService.addAsset(ASSET_MAPPER.mapToAssetDTO(decodedProofResponse.getDecodedProof()));
+                    } else {
+                        logger.info("processAddAssetRequest {} - Asset {} already exists", addProofRequestDTO.getId(), assetId);
+                    }
+                    // We can now add the proof.
+                    proofService.addProof(addProofRequestDTO.getRawProof(), decodedProofResponse);
+                    addProofRequestDTO.succeed();
+                }
             }
-            // We can now add the proof.
-            proofService.addProof(addProofRequestDTO.getRawProof(), decodedProofResponse);
-            addProofRequestDTO.succeed();
         } catch (Throwable tarodError) {
             // We failed on calling tarod.
             addProofRequestDTO.failed(tarodError.getMessage());
@@ -79,58 +90,6 @@ public class RequestProcessorServiceImplementation extends BaseProcessor impleme
         // We save the request.
         requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(addProofRequestDTO));
         return addProofRequestDTO;
-
-
-        // From the request AddProofRequestDTO, we retrieve the raw proof.
-
-        // We use TarodProofService.decode() with raw proof and '1' as proof index.
-        // If (decode() returns an error) : ERROR -> "Invalid proof".
-        // If SUCCESS -> We retrieve the DecodedProof.
-
-        // Calling assetService.getAssetByAssetId() with DecodedProof.assetId.
-        // If the asset doesn't already exist, we create the asset.
-        // We retrieve the asset ID.
-
-        // With DecodedProof, we call createProof() from ProofService with a link to the existing asset.
-
-
-        // =============================================================================================================
-        // We check if the transaction can be found in the blockchain or in our database.
-//        final Optional<BitcoinTransactionOutput> transactionOutput = bitcoinTransactionOutputRepository.findByTxIdAndVout(addProofDTO.getTxId(), addProofDTO.getVout());
-//        if (transactionOutput.isEmpty()) {
-//            // Transaction not found in database.
-////            logger.info("processAddAssetRequest {} - Error - Transaction not found: {}", addProofDTO.getId(),
-////                    addProofDTO.getGenesisPoint());
-////            addProofDTO.failed("Transaction not found (" + addProofDTO.getGenesisPoint() + ")");
-////            requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(addProofDTO));
-//            return addProofDTO;
-//        }
-
-//        // =============================================================================================================
-//        // We check the provided proof.
-//        if (!"VALID_PROOF".equals(addProofDTO.getRawProof())) {
-//            logger.info("processAddAssetRequest {} - Error - Invalid proof: {}", addProofDTO.getId(),
-//                    addProofDTO.getRawProof());
-//            addProofDTO.failed("Invalid proof");
-//            requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(addProofDTO));
-//            return addProofDTO;
-//        }
-//
-//        // =============================================================================================================
-//        // Everything is ok, we now create the asset, update the request and return it.
-//        final AssetDTO assetDTOCreated = assetService.addAsset(
-//                AssetDTO.builder()
-//                        .genesisPoint(BITCOIN_MAPPER.mapToBitcoinTransactionOutputDTO(transactionOutput.get()))
-//                        .creator(ANONYMOUS_USER)
-//                        .build()
-//        );
-//        addProofDTO.setAsset(assetDTOCreated);
-//        addProofDTO.succeed();
-//        requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(addProofDTO));
-//        logger.info("processAddAssetRequest {} - Success - Request {} has updated asset {}", addProofDTO.getId(),
-//                addProofDTO,
-//                assetDTOCreated);
-//        return addProofDTO;
     }
 
 }

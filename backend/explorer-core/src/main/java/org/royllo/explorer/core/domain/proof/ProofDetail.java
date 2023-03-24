@@ -49,7 +49,6 @@ public class ProofDetail {
     @JoinColumn(name = "FK_PROOF", nullable = false)
     private Proof asset;
 
-
     /** Proof index. */
     @NotNull(message = "Proof index is required")
     @Column(name = "PROOF_INDEX", updatable = false)
