@@ -6,9 +6,11 @@ on:
       - "development"
 
 jobs:
-  build:
-    runs-on: ubuntu-22.04
 
+  # ====================================================================================================================
+  # Build artifacts (jar & docker images).
+  build:
+    runs-on: ubuntu-latest
     steps:
       # ================================================================================================================
       - name: Retrieve the sources
@@ -22,15 +24,8 @@ jobs:
           java-version: '17'
 
       # ================================================================================================================
-      - name: Get release number
-        id: release
-        run: echo "version=$(mvn help:evaluate -D expression=project.version -q -D forceStdout)" >> $GITHUB_OUTPUT
-
-      # ================================================================================================================
-      - name: Run backend tests
+      - name: Build jars
         run: |
-          mvn clean test
-          mvn clean test -P integration
           mvn clean install -P release -Dmaven.test.skip
 
       # ================================================================================================================
@@ -40,6 +35,35 @@ jobs:
           mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-api/pom.xml
           mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-web/pom.xml
 
+  # ====================================================================================================================
+  # Java tests.
+  java_tests:
+    runs-on: ubuntu-latest
+    needs: [ build ]
+    steps:
+      # ================================================================================================================
+      - name: Retrieve the sources
+        uses: actions/checkout@v3
+
+      # ================================================================================================================
+      - name: Java Setup
+        uses: actions/setup-java@v3.10.0
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # ================================================================================================================
+      - name: Run java tests
+        run: |
+          mvn clean test
+          mvn clean test -P integration
+
+  # ====================================================================================================================
+  # Docker tests.
+  docker_tests:
+    runs-on: ubuntu-latest
+    needs: [ build ]
+    steps:
       # ================================================================================================================
       - name: Run the docker-compose with our images
         run: |
@@ -62,6 +86,28 @@ jobs:
           cat docker.logs
           exit 1
 
+  # ====================================================================================================================
+  # Docker images publication.
+  docker_push:
+    runs-on: ubuntu-latest
+    needs: [ docker_tests ]
+    steps:
+      # ================================================================================================================
+      - name: Retrieve the sources
+        uses: actions/checkout@v3
+
+      # ================================================================================================================
+      - name: Java Setup
+        uses: actions/setup-java@v3.10.0
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # ================================================================================================================
+      - name: Get release number
+        id: release
+        run: echo "version=$(mvn help:evaluate -D expression=project.version -q -D forceStdout)" >> $GITHUB_OUTPUT
+
       # ================================================================================================================
       - name: Docker Hub login
         uses: docker/login-action@v2.1.0
@@ -81,9 +127,3 @@ jobs:
           docker push royllo/explorer-api:${{ steps.release.outputs.version }}
           docker push royllo/explorer-web:latest
           docker push royllo/explorer-web:${{ steps.release.outputs.version }}
-
-      # ================================================================================================================
-#      - name: Qodana Scan
-#        uses: JetBrains/qodana-action@main
-#        env:
-#          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
