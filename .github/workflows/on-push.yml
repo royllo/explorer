@@ -97,6 +97,7 @@ jobs:
   docker_push:
     runs-on: ubuntu-latest
     needs: [ java_tests, docker_tests ]
+    if: github.ref == 'refs/heads/development'
     steps:
       # ================================================================================================================
       - name: Retrieve the sources
@@ -114,6 +115,13 @@ jobs:
       - name: Get release number
         id: release
         run: echo "version=$(mvn help:evaluate -D expression=project.version -q -D forceStdout)" >> $GITHUB_OUTPUT
+
+      # ================================================================================================================
+      - name: Build docker images
+        run: |
+          mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-batch/pom.xml
+          mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-api/pom.xml
+          mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-web/pom.xml
 
       # ================================================================================================================
       - name: Docker Hub login
