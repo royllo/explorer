@@ -22,6 +22,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+          cache: 'maven'
 
       # ================================================================================================================
       - name: Build jars
@@ -51,6 +52,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+          cache: 'maven'
 
       # ================================================================================================================
       - name: Run java tests
@@ -64,6 +66,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ build ]
     steps:
+      # ================================================================================================================
+      - name: Retrieve the sources
+        uses: actions/checkout@v3
+
       # ================================================================================================================
       - name: Run the docker-compose with our images
         run: |
@@ -90,7 +96,7 @@ jobs:
   # Docker images publication.
   docker_push:
     runs-on: ubuntu-latest
-    needs: [ docker_tests ]
+    needs: [ java_tests, docker_tests ]
     steps:
       # ================================================================================================================
       - name: Retrieve the sources
@@ -102,6 +108,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+          cache: 'maven'
 
       # ================================================================================================================
       - name: Get release number
