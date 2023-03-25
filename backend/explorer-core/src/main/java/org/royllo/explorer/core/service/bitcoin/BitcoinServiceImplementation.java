@@ -29,7 +29,7 @@ public class BitcoinServiceImplementation extends BaseService implements Bitcoin
 
     @Override
     public Optional<BitcoinTransactionOutputDTO> getBitcoinTransactionOutput(final String txId, final int vout) {
-        logger.info("getBitcoinTransactionOutput - Getting transaction output with txId:vout {}:{} not found", txId, vout);
+        logger.info("getBitcoinTransactionOutput - Getting transaction output with txId:vout {}:{}", txId, vout);
 
         // =============================================================================================================
         // We check if we have the transaction in our database.
@@ -76,16 +76,16 @@ public class BitcoinServiceImplementation extends BaseService implements Bitcoin
                 logger.info("getBitcoinTransactionOutput - The transaction and it's output {}/{} is in the blockchain, we save it", txId, vout);
                 GetTransactionResponse.VOut output = (GetTransactionResponse.VOut) transaction.getVout().toArray()[vout];
                 final BitcoinTransactionOutput bto = BITCOIN_MAPPER.mapToBitcoinTransactionOutput(
-                    BitcoinTransactionOutputDTO.builder()
-                        .blockHeight(transaction.getStatus().getBlockHeight())
-                        .txId(txId)
-                        .vout(vout)
-                        .scriptPubKey(output.getScriptPubKey())
-                        .scriptPubKeyAsm(output.getScriptPubKeyAsm())
-                        .scriptPubKeyType(output.getScriptPubKeyType())
-                        .scriptPubKeyAddress(output.getScriptPubKeyAddress())
-                        .value(output.getValue())
-                        .build());
+                        BitcoinTransactionOutputDTO.builder()
+                                .blockHeight(transaction.getStatus().getBlockHeight())
+                                .txId(txId)
+                                .vout(vout)
+                                .scriptPubKey(output.getScriptPubKey())
+                                .scriptPubKeyAsm(output.getScriptPubKeyAsm())
+                                .scriptPubKeyType(output.getScriptPubKeyType())
+                                .scriptPubKeyAddress(output.getScriptPubKeyAddress())
+                                .value(output.getValue())
+                                .build());
                 return Optional.of(BITCOIN_MAPPER.mapToBitcoinTransactionOutputDTO(bitcoinTransactionOutputRepository.save(bto)));
             }
         }

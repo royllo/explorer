@@ -1,5 +1,6 @@
 package org.royllo.explorer.core.service.request;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.request.AddAssetMetaDataRequest;
 import org.royllo.explorer.core.domain.request.AddProof;
@@ -14,8 +15,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.joining;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 
@@ -32,25 +33,32 @@ public class RequestServiceImplementation extends BaseService implements Request
 
     @Override
     public List<RequestDTO> getOpenedRequests() {
+        logger.info("getOpenedRequests - Getting opened requests");
+
+        // Getting results.
         final List<RequestDTO> results = requestRepository.findByStatusOrderById(OPENED)
                 .stream()
                 .map(REQUEST_MAPPER::mapToRequestDTO)
                 .toList();
+
+        // Displaying logs.
         if (results.isEmpty()) {
-            logger.info("getOpenedRequests - There is no results");
+            logger.info("getOpenedRequests - There is no result");
         } else {
             logger.info("getOpenedRequests - {} results with requests ids: {}",
                     results.size(),
                     results.stream()
                             .map(RequestDTO::getId)
                             .map(Object::toString)
-                            .collect(Collectors.joining(", ")));
+                            .collect(joining(", ")));
         }
         return results;
     }
 
     @Override
     public Optional<RequestDTO> getRequest(final long id) {
+        logger.info("getRequest - Getting request with id {}", id);
+
         final Optional<Request> request = requestRepository.findById(id);
         if (request.isEmpty()) {
             logger.info("getRequest - Request with id {} not found", id);
@@ -62,19 +70,23 @@ public class RequestServiceImplementation extends BaseService implements Request
     }
 
     @Override
-    public Optional<RequestDTO> getRequestByRequestId(final String id) {
-        final Optional<Request> request = requestRepository.findByRequestId(id);
+    public Optional<RequestDTO> getRequestByRequestId(@NonNull final String requestId) {
+        logger.info("getRequestByRequestId - Getting request with requestId {}", requestId);
+
+        final Optional<Request> request = requestRepository.findByRequestId(requestId);
         if (request.isEmpty()) {
-            logger.info("getRequestByRequestId - Request with request id {} not found", id);
+            logger.info("getRequestByRequestId - Request with request requestId {} not found", requestId);
             return Optional.empty();
         } else {
-            logger.info("getRequestByRequestId - Request with request id {} found: {}", id, request.get());
+            logger.info("getRequestByRequestId - Request with request requestId {} found: {}", requestId, request.get());
             return request.map(REQUEST_MAPPER::mapToRequestDTO);
         }
     }
 
     @Override
-    public AddProofRequestDTO addProof(final String rawProof) {
+    public AddProofRequestDTO addProofRequest(final String rawProof) {
+        logger.info("addProofRequest - Adding proof request with raw proof {}", rawProof);
+
         // =============================================================================================================
         // Creating the request.
         AddProof request = AddProof.builder()
@@ -83,18 +95,20 @@ public class RequestServiceImplementation extends BaseService implements Request
                 .status(OPENED)
                 .rawProof(rawProof)
                 .build();
-        logger.debug("addProof - New request to add {}", request);
+        logger.info("addProofRequest - New request to add {}", request);
 
         // =============================================================================================================
         // Saving the request.
         AddProofRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetRequestDTO(requestRepository.save(request));
-        logger.debug("addProof - Request {} saved", savedRequest);
+        logger.info("addProofRequest - Request {} saved", savedRequest);
         return savedRequest;
     }
 
     @Override
-    public AddAssetMetaDataRequestDTO addAssetMetaData(final String taroAssetId,
-                                                       final String metaData) {
+    public AddAssetMetaDataRequestDTO addAssetMetaDataRequest(@NonNull final String taroAssetId,
+                                                              final String metaData) {
+        logger.info("addAssetMetaDataRequest - Adding metadata request for taro asset id {}", taroAssetId);
+
         // TODO add data validation
         // =============================================================================================================
         // Creating the request.
@@ -105,12 +119,12 @@ public class RequestServiceImplementation extends BaseService implements Request
                 .assetId(taroAssetId)
                 .metaData(metaData)
                 .build();
-        logger.debug("addAssetMeta - New request {}", request);
+        logger.info("addAssetMetaDataRequest - New request {}", request);
 
         // =============================================================================================================
         // Saving the request.
         AddAssetMetaDataRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetMetaRequestDTO(requestRepository.save(request));
-        logger.debug("addAssetMeta - Request {} saved", savedRequest);
+        logger.info("addAssetMetaDataRequest - Request {} saved", savedRequest);
         return savedRequest;
     }
 

@@ -60,7 +60,7 @@ public class RequestDataFetcher extends BaseDataFetcher {
      */
     @DgsMutation
     public final AddProofRequestDTO addProofRequest(final @InputArgument AddProofRequestInputs input) {
-        return requestService.addProof(input.getRawProof());
+        return requestService.addProofRequest(input.getRawProof());
     }
 
     /**
@@ -71,7 +71,7 @@ public class RequestDataFetcher extends BaseDataFetcher {
      */
     @DgsMutation
     public final AddAssetMetaDataRequestDTO addAssetMetaDataRequest(final @InputArgument AddAssetMetaDataRequestInputs input) {
-        return requestService.addAssetMetaData(input.getAssetId(), input.getMetaData());
+        return requestService.addAssetMetaDataRequest(input.getAssetId(), input.getMetaData());
     }
 
 }

@@ -73,9 +73,9 @@ public class Scheduler extends BaseConfiguration {
     @Scheduled(initialDelay = START_DELAY_IN_MILLISECONDS, fixedDelay = DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS)
     public void processRequests() {
         if (enabled.get()) {
-            logger.info("Processing requests...");
-            requestService.getOpenedRequests().forEach(requestDTO -> requestProcessorService.processRequest(requestDTO));
-            logger.info("");
+            logger.info("Processing opened requests...");
+            requestService.getOpenedRequests()
+                    .forEach(requestDTO -> requestProcessorService.processRequest(requestDTO));
         }
     }
 

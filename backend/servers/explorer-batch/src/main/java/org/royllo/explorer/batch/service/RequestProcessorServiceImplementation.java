@@ -62,10 +62,14 @@ public class RequestProcessorServiceImplementation extends BaseProcessor impleme
 
             // We check if we have a decoded proof response.
             if (decodedProofResponse == null) {
+                logger.info("processAddAssetRequest {} - Decoded proof is null", addProofRequestDTO.getId());
                 addProofRequestDTO.failed("Decoded proof is null");
             } else {
                 // We check if we had an error deciding the response.
                 if (decodedProofResponse.getErrorCode() != null) {
+                    logger.info("processAddAssetRequest {} - Proof cannot be decoded because of this error: {}",
+                            addProofRequestDTO.getId(),
+                            decodedProofResponse.getErrorMessage());
                     addProofRequestDTO.failed(decodedProofResponse.getErrorMessage());
                 } else {
                     // We have the decoded proof, we check if the asset exists.
@@ -88,6 +92,7 @@ public class RequestProcessorServiceImplementation extends BaseProcessor impleme
         }
 
         // We save the request.
+        logger.info("processAddAssetRequest {} - Proof {} added", addProofRequestDTO.getId(), addProofRequestDTO);
         requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(addProofRequestDTO));
         return addProofRequestDTO;
     }

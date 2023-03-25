@@ -22,7 +22,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -86,13 +85,13 @@ public class RequestServiceTest {
         assertTrue(requestService.getRequestByRequestId("91425ba6-8b16-46a8-baa6-request_p_02").isPresent());
 
         // We create a new proof request, and we should find it.
-        RequestDTO request1DTO = requestService.addProof("proof1");
+        RequestDTO request1DTO = requestService.addProofRequest("proof1");
         assertNotNull(request1DTO);
         assertNotNull(request1DTO.getRequestId());
         assertTrue(requestService.getRequestByRequestId(request1DTO.getRequestId()).isPresent());
 
         // We create a new medata data request, and we should find it.
-        RequestDTO request2DTO = requestService.addAssetMetaData("taroAssetId1", "meta1");
+        RequestDTO request2DTO = requestService.addAssetMetaDataRequest("taroAssetId1", "meta1");
         assertNotNull(request2DTO);
         assertNotNull(request2DTO.getRequestId());
         assertTrue(requestService.getRequestByRequestId(request2DTO.getRequestId()).isPresent());
@@ -105,7 +104,7 @@ public class RequestServiceTest {
         // =============================================================================================================
         // Testing data validation.
         try {
-            requestService.addProof(null);
+            requestService.addProofRequest(null);
         } catch (ConstraintViolationException e) {
             final Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
             assertEquals(1, constraintViolations.size());
@@ -113,7 +112,7 @@ public class RequestServiceTest {
 
         // =============================================================================================================
         // Request 1 (addAsset).
-        RequestDTO request1DTO = requestService.addProof("proof1");
+        RequestDTO request1DTO = requestService.addProofRequest("proof1");
         assertNotNull(request1DTO);
         long request1Id = request1DTO.getId();
 
@@ -135,7 +134,7 @@ public class RequestServiceTest {
 
         // =============================================================================================================
         // Request 2 (addAssetMetaData).
-        RequestDTO request2DTO = requestService.addAssetMetaData("taroAssetId1", "meta1");
+        RequestDTO request2DTO = requestService.addAssetMetaDataRequest("taroAssetId1", "meta1");
         assertNotNull(request2DTO);
         long request2Id = request2DTO.getId();
 
@@ -158,7 +157,7 @@ public class RequestServiceTest {
 
         // =============================================================================================================
         // Request 3 (addAsset).
-        RequestDTO request3DTO = requestService.addProof("proof2");
+        RequestDTO request3DTO = requestService.addProofRequest("proof2");
         assertNotNull(request3DTO);
         long request3Id = request3DTO.getId();
 

@@ -20,5 +20,4 @@ public class AddAssetMetaDataRequestInputs {
     /** Metadata corresponding to the meta hash stored in the genesis information. */
     private String metaData;
 
-
 }

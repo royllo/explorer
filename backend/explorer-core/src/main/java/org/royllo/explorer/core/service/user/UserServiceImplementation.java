@@ -1,5 +1,6 @@
 package org.royllo.explorer.core.service.user;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.dto.user.UserDTO;
@@ -22,6 +23,8 @@ public class UserServiceImplementation extends BaseService implements UserServic
 
     @Override
     public final UserDTO getAnonymousUser() {
+        logger.info("getAnonymousUser - Getting anonymous user");
+
         final Optional<User> anonymousUser = userRepository.findById(UserConstants.ANONYMOUS_ID);
         if (anonymousUser.isPresent()) {
             logger.error("getAnonymousUser - Returning anonymous user");
@@ -33,7 +36,9 @@ public class UserServiceImplementation extends BaseService implements UserServic
     }
 
     @Override
-    public final Optional<UserDTO> getUserByUserId(final String userId) {
+    public final Optional<UserDTO> getUserByUserId(@NonNull final String userId) {
+        logger.info("getUserByUserId - Getting user with userId: {}" + userId);
+
         final Optional<User> user = userRepository.findByUserId(userId);
         if (user.isEmpty()) {
             logger.info("getUserByUserId - User with user id {} not found", userId);
@@ -45,7 +50,9 @@ public class UserServiceImplementation extends BaseService implements UserServic
     }
 
     @Override
-    public final Optional<UserDTO> getUserByUsername(final String username) {
+    public final Optional<UserDTO> getUserByUsername(@NonNull final String username) {
+        logger.info("getUserByUserId - Getting user with username: {}" + username);
+
         final Optional<User> user = userRepository.findByUsername(username);
         if (user.isEmpty()) {
             logger.info("getUserByUsername - User with username {} not found", username);

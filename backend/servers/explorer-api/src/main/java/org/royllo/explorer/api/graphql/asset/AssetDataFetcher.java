@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import java.util.Objects;
 
 import static org.royllo.explorer.api.configuration.APIConfiguration.DEFAULT_PAGE_SIZE;
+import static org.royllo.explorer.api.configuration.APIConfiguration.FIRST_PAGE;
 import static org.royllo.explorer.api.configuration.APIConfiguration.MAXIMUM_PAGE_SIZE;
 
 /**
@@ -47,7 +48,7 @@ public class AssetDataFetcher extends BaseDataFetcher {
 
         // Return the results.
         return assetService.queryAssets(query,
-                Objects.requireNonNullElse(page, 1),
+                Objects.requireNonNullElse(page, FIRST_PAGE),
                 Objects.requireNonNullElse(pageSize, DEFAULT_PAGE_SIZE));
     }
 

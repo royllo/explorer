@@ -10,7 +10,6 @@ import java.util.Optional;
 
 /**
  * Database configuration.
- * TODO Is this necessary with Spring boot 3.0 ?
  */
 @Configuration
 @EnableJpaAuditing(dateTimeProviderRef = "auditingDateTimeProvider")

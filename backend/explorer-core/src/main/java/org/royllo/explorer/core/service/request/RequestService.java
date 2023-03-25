@@ -41,7 +41,7 @@ public interface RequestService {
      * @param rawProof Raw proof that validates the asset information
      * @return id The request created
      */
-    AddProofRequestDTO addProof(String rawProof);
+    AddProofRequestDTO addProofRequest(String rawProof);
 
     /**
      * Add a request to add an asset meta data.
@@ -50,7 +50,7 @@ public interface RequestService {
      * @param metaData    Metadata corresponding to the meta hash stored in the genesis information
      * @return id of the request created
      */
-    AddAssetMetaDataRequestDTO addAssetMetaData(String taroAssetId,
-                                                String metaData);
+    AddAssetMetaDataRequestDTO addAssetMetaDataRequest(String taroAssetId,
+                                                       String metaData);
 
 }
