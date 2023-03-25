@@ -1,5 +1,6 @@
 package org.royllo.explorer.web.controller;
 
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.proof.ProofService;
@@ -7,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import java.util.Optional;
 
 import static org.royllo.explorer.web.configuration.WebConfiguration.ASSET_PROOFS_DEFAULT_PAGE_SIZE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_ID_ATTRIBUTE;
@@ -39,18 +38,13 @@ public class AssetController {
     @SuppressWarnings("SameReturnValue")
     @GetMapping(value = {"/asset", "/asset/", "/asset/{assetId}"})
     public String getAssetByAssetId(final Model model,
-                                    @PathVariable(ASSET_ID_ATTRIBUTE) final Optional<String> assetId) {
-        // TODO Add a test to see if trim is necessary ??
+                                    @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
         // If assetId is present, we retrieve it.
-        if (assetId.isPresent() && !assetId.get().trim().isEmpty()) {
-            // Value the user asked for.
-            model.addAttribute(ASSET_ID_ATTRIBUTE, assetId.get().trim());
+        if (StringUtils.isNotBlank(assetId)) {
+            model.addAttribute(ASSET_ID_ATTRIBUTE, assetId);
 
             // We retrieve the asset to display it.
-            assetService.getAssetByAssetId(assetId.get().trim()).ifPresent(asset -> model.addAttribute(RESULT_ATTRIBUTE, asset));
-        } else {
-            // If the user just typed "/asset" or "/asset/".
-            model.addAttribute(ASSET_ID_ATTRIBUTE, "");
+            assetService.getAssetByAssetId(assetId.trim()).ifPresent(asset -> model.addAttribute(RESULT_ATTRIBUTE, asset));
         }
         return ASSET_PAGE;
     }
@@ -65,19 +59,17 @@ public class AssetController {
     @SuppressWarnings("SameReturnValue")
     @GetMapping(value = {"/asset/{assetId}/proofs", "/asset/{assetId}/proofs/"})
     public String getProofsByAssetId(final Model model,
-                                     @PathVariable(name = ASSET_ID_ATTRIBUTE, required = false) final Optional<String> assetId) {
+                                     @PathVariable(name = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
         // If assetId is present, we retrieve it.
-        if (assetId.isPresent() && !assetId.get().trim().isEmpty()) {
+        if (StringUtils.isNotBlank(assetId)) {
             // Value the user asked for.
-            model.addAttribute(ASSET_ID_ATTRIBUTE, assetId.get().trim());
+            model.addAttribute(ASSET_ID_ATTRIBUTE, assetId.trim());
 
             // We retrieve the proofs to display them IF the asset is found.
-            assetService.getAssetByAssetId(assetId.get().trim()).ifPresent(assetDTO -> model.addAttribute(RESULT_ATTRIBUTE, proofService.getProofsByAssetId(assetId.get().trim(),
-                    1,
-                    ASSET_PROOFS_DEFAULT_PAGE_SIZE)));
-        } else {
-            // If the user just typed ".../proofs" or "/proofs/".
-            model.addAttribute(ASSET_ID_ATTRIBUTE, "");
+            assetService.getAssetByAssetId(assetId.trim()).ifPresent(assetDTO -> model.addAttribute(RESULT_ATTRIBUTE,
+                    proofService.getProofsByAssetId(assetId.trim(),
+                            1,
+                            ASSET_PROOFS_DEFAULT_PAGE_SIZE)));
         }
         return ASSET_PROOFS_PAGE;
     }

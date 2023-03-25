@@ -25,10 +25,10 @@ public class PagesConstants {
     public static final String REQUEST_PAGE = "request/view";
 
     /** Request - Add proof form. */
-    public static final String REQUEST_ADD_PROOF_FORM_PAGE = "request/proof/add_form";
+    public static final String ADD_PROOF_REQUEST_FORM_PAGE = "request/proof/add_form";
 
     /** Request - Saved proof with success. */
-    public static final String REQUEST_ADD_PROOF_SUCCESS_PAGE = "request/proof/add_success";
+    public static final String ADD_PROOF_REQUEST_SUCCESS_PAGE = "request/proof/add_success";
 
     /** Generic error page. */
     public static final String ERROR_PAGE = "util/errors/error";

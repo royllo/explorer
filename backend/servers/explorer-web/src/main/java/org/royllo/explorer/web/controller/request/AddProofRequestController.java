@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.COMMAND_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.REQUEST_ADD_PROOF_FORM_PAGE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.REQUEST_ADD_PROOF_SUCCESS_PAGE;
+import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_PROOF_REQUEST_FORM_PAGE;
+import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_PROOF_REQUEST_SUCCESS_PAGE;
 
 /**
- * Proof request controller.
+ * Add Proof request controller.
  */
 @Controller
 @RequiredArgsConstructor
-public class ProofRequestController {
+public class AddProofRequestController {
 
     /** Request service. */
     private final RequestService requestService;
@@ -34,29 +34,29 @@ public class ProofRequestController {
     @SuppressWarnings("SameReturnValue")
     @GetMapping("/request/proof/add")
     public String displayForm(final Model model) {
-        model.addAttribute(COMMAND_ATTRIBUTE, new ProofFormCommand());
-        return REQUEST_ADD_PROOF_FORM_PAGE;
+        model.addAttribute(COMMAND_ATTRIBUTE, new AddProofRequestForm());
+        return ADD_PROOF_REQUEST_FORM_PAGE;
     }
 
     /**
      * Requests - Add proof post.
      *
      * @param model         model
-     * @param command       form
+     * @param form          form
      * @param bindingResult binding result
      * @return proof success or error
      */
     @PostMapping("/request/proof/add")
     public String saveForm(final Model model,
-                           @Valid @ModelAttribute(COMMAND_ATTRIBUTE) final ProofFormCommand command,
+                           @Valid @ModelAttribute(COMMAND_ATTRIBUTE) final AddProofRequestForm form,
                            final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             // If we have errors in the form data validation.
-            return REQUEST_ADD_PROOF_FORM_PAGE;
+            return ADD_PROOF_REQUEST_FORM_PAGE;
         } else {
             // Calling the service to create the proof.
-            model.addAttribute(RESULT_ATTRIBUTE, requestService.addProof(command.getRawProof()));
-            return REQUEST_ADD_PROOF_SUCCESS_PAGE;
+            model.addAttribute(RESULT_ATTRIBUTE, requestService.addProof(form.getRawProof()));
+            return ADD_PROOF_REQUEST_SUCCESS_PAGE;
         }
     }
 

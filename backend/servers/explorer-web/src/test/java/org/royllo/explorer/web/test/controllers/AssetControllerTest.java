@@ -92,6 +92,33 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_BLOCK_HASH + "<")))
                 .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_OUTPOINT + "<")))
                 .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHRO_INTERNAL_KEY + "<")));
+
+        // Trim test with spaces
+        mockMvc.perform(get("/asset/ " + MY_ROYLLO_COIN_ASSET_ID + " "))
+                .andExpect(status().isOk())
+                .andExpect(view().name(ASSET_PAGE))
+                // Checking view proof link.
+                .andExpect(content().string(containsString("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs")))
+                // Checking each field.
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_NAME + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ASSET_ID + "<")))
+                // Asset genesis.
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_GENESIS_POINT_TXID + ":" + MY_ROYLLO_COIN_GENESIS_POINT_VOUT + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_NAME + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_META + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ASSET_ID + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_OUTPUT_INDEX + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_GENESIS_BOOTSTRAP_INFORMATION + "<")))
+                // Other data.
+                .andExpect(content().string(containsString(">Normal<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_AMOUNT + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_SCRIPT_KEY + "<")))
+                // Anchor.
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_TX + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_TX_ID + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_BLOCK_HASH + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_OUTPOINT + "<")))
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHRO_INTERNAL_KEY + "<")));
     }
 
     @Test

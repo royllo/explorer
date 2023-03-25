@@ -65,6 +65,7 @@ public class ProofDetail {
     private String inclusionProof;
 
     /** Exclusion proofs. */
+    // TODO Refactor this with https://stackoverflow.com/questions/53108949/how-to-map-a-liststring-with-hibernate-jpa-without-an-extra-join-table
     @ElementCollection(fetch = EAGER)
     @CollectionTable(name = "PROOFS_EXCLUSION_PROOFS", joinColumns = @JoinColumn(name = "FK_PROOF"))
     @Column(name = "EXCLUSION_PROOF", updatable = false)

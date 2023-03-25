@@ -1,13 +1,12 @@
 package org.royllo.explorer.web.controller;
 
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.service.request.RequestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import java.util.Optional;
 
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.REQUEST_ID_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
@@ -33,18 +32,14 @@ public class RequestController {
     @SuppressWarnings("SameReturnValue")
     @GetMapping(value = {"/request", "/request/", "/request/{requestId}"})
     public String getRequestByRequestId(final Model model,
-                                        @PathVariable(REQUEST_ID_ATTRIBUTE) final Optional<String> requestId) {
-        // TODO Add a test to see if trim is necessary ??
+                                        @PathVariable(value = REQUEST_ID_ATTRIBUTE, required = false) final String requestId) {
         // If requestId is present, we retrieve it.
-        if (requestId.isPresent() && !requestId.get().trim().isEmpty()) {
+        if (StringUtils.isNotBlank(requestId)) {
             // Value the user asked for.
-            model.addAttribute(REQUEST_ID_ATTRIBUTE, requestId.get().trim());
+            model.addAttribute(REQUEST_ID_ATTRIBUTE, requestId.trim());
 
             // We retrieve the request to display it.
-            requestService.getRequestByRequestId(requestId.get().trim()).ifPresent(request -> model.addAttribute(RESULT_ATTRIBUTE, request));
-        } else {
-            // If the user just typed "/request" or "/request/".
-            model.addAttribute(REQUEST_ID_ATTRIBUTE, "");
+            requestService.getRequestByRequestId(requestId.trim()).ifPresent(request -> model.addAttribute(RESULT_ATTRIBUTE, request));
         }
         return REQUEST_PAGE;
     }

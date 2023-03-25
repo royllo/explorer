@@ -11,8 +11,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Objects;
 
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.Matchers.containsString;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PAGE_ATTRIBUTE;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.QUERY_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.SEARCH_PAGE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -44,7 +46,14 @@ public class SearchControllerTest {
     @Test
     @DisplayName("Search page with empty parameter")
     void searchPageWithEmptyParameter() throws Exception {
-        mockMvc.perform(get("/search").param("query", ""))
+        mockMvc.perform(get("/search").queryParam(QUERY_ATTRIBUTE, ""))
+                .andExpect(status().isOk())
+                .andExpect(view().name(SEARCH_PAGE))
+                // Checking error message.
+                .andExpect(content().string(containsString(environment.getProperty("search.error.noQuery"))));
+
+        // With space!
+        mockMvc.perform(get("/search").queryParam(QUERY_ATTRIBUTE, " "))
                 .andExpect(status().isOk())
                 .andExpect(view().name(SEARCH_PAGE))
                 // Checking error message.
@@ -56,7 +65,7 @@ public class SearchControllerTest {
     void searchPageWithNoResult() throws Exception {
         // We remove the parameter from the message.
         final String expectedMessage = Objects.requireNonNull(environment.getProperty("search.noResult")).replace("\"{0}\"", "");
-        mockMvc.perform(get("/search").param("query", "NO_RESULT_QUERY"))
+        mockMvc.perform(get("/search").param(QUERY_ATTRIBUTE, "NO_RESULT_QUERY"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(SEARCH_PAGE))
                 // Checking error message.
@@ -64,11 +73,10 @@ public class SearchControllerTest {
     }
 
     @Test
-    @DisplayName("Search page with results")
+    @DisplayName("Search page with results & blank spaces")
     void searchPageWithResults() throws Exception {
         // Results - Page 1 (page not specified).
-        mockMvc.perform(get("/search")
-                        .param("query", "coin"))
+        mockMvc.perform(get("/search").param(QUERY_ATTRIBUTE, "coin"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(SEARCH_PAGE))
                 // Checking results.
@@ -92,8 +100,8 @@ public class SearchControllerTest {
 
         // Results - Page 1 (page specified).
         mockMvc.perform(get("/search")
-                        .param("query", "coin")
-                        .param("page", "1"))
+                        .param(QUERY_ATTRIBUTE, "coin")
+                        .param(PAGE_ATTRIBUTE, "1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(SEARCH_PAGE))
                 // Checking results.
@@ -115,10 +123,10 @@ public class SearchControllerTest {
                 .andExpect(content().string(containsString(">3</a>")))
                 .andExpect(content().string(not(containsString(">4</a>"))));
 
-        // Results - Page 2.
+        // Results - Page 2 - Added spaces to test trim().
         mockMvc.perform(get("/search")
-                        .param("query", "coin")
-                        .param("page", "2"))
+                        .param(QUERY_ATTRIBUTE, " coin ")
+                        .param(PAGE_ATTRIBUTE, "2"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(SEARCH_PAGE))
                 // Checking results.
@@ -143,8 +151,8 @@ public class SearchControllerTest {
 
         // Results - Page 3.
         mockMvc.perform(get("/search")
-                        .param("query", "coin")
-                        .param("page", "3"))
+                        .param(QUERY_ATTRIBUTE, "coin")
+                        .param(PAGE_ATTRIBUTE, "3"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(SEARCH_PAGE))
                 // Checking results.
@@ -164,8 +172,8 @@ public class SearchControllerTest {
     @DisplayName("Search page with invalid page number")
     void searchPageWithInvalidPageNumber() throws Exception {
         mockMvc.perform(get("/search")
-                        .param("query", "coin")
-                        .param("page", "4"))
+                        .param(QUERY_ATTRIBUTE, "coin")
+                        .param(PAGE_ATTRIBUTE, "4"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(SEARCH_PAGE))
                 // Checking error message.

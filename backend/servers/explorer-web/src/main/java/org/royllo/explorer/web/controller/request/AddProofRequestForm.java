@@ -4,11 +4,11 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 /**
- * Proof form command.
+ * Add proof request form.
  */
 @Data
 @SuppressWarnings("checkstyle:VisibilityModifier")
-public class ProofFormCommand {
+public class AddProofRequestForm {
 
     /** Raw proof. */
     @NotBlank

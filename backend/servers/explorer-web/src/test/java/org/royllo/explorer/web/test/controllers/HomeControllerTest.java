@@ -10,6 +10,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.QUERY_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.HOME_PAGE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -47,6 +48,17 @@ public class HomeControllerTest {
                 .andExpect(status().isOk());
         mockMvc.perform(get("/images/logo/royllo_logo_horizontal_with_title.png"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("Display home page with query parameter")
+    void homePagWithQueryParameter() throws Exception {
+        // Web page.
+        mockMvc.perform(get("/").queryParam(QUERY_ATTRIBUTE, "MyQuery"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(HOME_PAGE))
+                // Checking the search form is already filled.
+                .andExpect(content().string(containsString("value=\"MyQuery\"")));
     }
 
 }

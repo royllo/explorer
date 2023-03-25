@@ -24,8 +24,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.COMMAND_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.REQUEST_ADD_PROOF_FORM_PAGE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.REQUEST_ADD_PROOF_SUCCESS_PAGE;
+import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_PROOF_REQUEST_FORM_PAGE;
+import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_PROOF_REQUEST_SUCCESS_PAGE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.REQUEST_PAGE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -39,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("Proof request controller tests")
 @AutoConfigureMockMvc
 @PropertySource("classpath:messages.properties")
-public class ProofRequestControllerTest {
+public class AddProofRequestControllerTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -52,7 +52,7 @@ public class ProofRequestControllerTest {
     void proofRequestFormTest() throws Exception {
         mockMvc.perform(get("/request/proof/add"))
                 .andExpect(status().isOk())
-                .andExpect(view().name(REQUEST_ADD_PROOF_FORM_PAGE))
+                .andExpect(view().name(ADD_PROOF_REQUEST_FORM_PAGE))
                 .andExpect(model().attributeExists(COMMAND_ATTRIBUTE));
     }
 
@@ -63,19 +63,18 @@ public class ProofRequestControllerTest {
         mockMvc.perform(post("/request/proof/add")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
-                .andExpect(view().name(REQUEST_ADD_PROOF_FORM_PAGE))
+                .andExpect(view().name(ADD_PROOF_REQUEST_FORM_PAGE))
                 .andExpect(model().hasErrors())
                 .andExpect(model().attributeErrorCount(COMMAND_ATTRIBUTE, 1))
                 .andExpect(content().string(containsString(environment.getProperty("NotBlank.command.rawProof"))));
 
-        // =============================================================================================================
-        // Test if everything is ok if we pass correct information to create a proof.
+        // Test if everything is ok if we pass correct information to create a request.
         AtomicReference<AddProofRequestDTO> proof = new AtomicReference<>();
         mockMvc.perform(post("/request/proof/add")
                         .param("rawProof", "simple raw proof")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
-                .andExpect(view().name(REQUEST_ADD_PROOF_SUCCESS_PAGE))
+                .andExpect(view().name(ADD_PROOF_REQUEST_SUCCESS_PAGE))
                 .andExpect(flash().attribute(COMMAND_ATTRIBUTE, hasProperty("rawProof", equalTo("simple raw proof").toString())))
                 .andExpect(model().attributeExists(RESULT_ATTRIBUTE))
                 .andExpect(model().hasNoErrors())
@@ -99,7 +98,7 @@ public class ProofRequestControllerTest {
     }
 
     @Test
-    @DisplayName("Proof request form post test")
+    @DisplayName("View proof test")
     void viewProofTest() throws Exception {
         // Request 1 - Add proof OPENED - Anonymous.
         mockMvc.perform(get("/request/f5623bdf-9fa6-46cf-85df-request_p_01"))
@@ -169,6 +168,16 @@ public class ProofRequestControllerTest {
                 .andExpect(content().string(containsString(">Success<")))
                 // NOT error message
                 .andExpect(content().string(not(containsString(environment.getProperty("field.asset.errorMessage")))));
+
+        // Trim test.
+        // Request 4 - Add proof SUCCESS.
+        mockMvc.perform(get("/request/ 91425ba6-8b16-46a8-baa6-request_p_03 "))
+                .andExpect(status().isOk())
+                .andExpect(view().name(REQUEST_PAGE))
+                // Checking each field.
+                // Request id.
+                .andExpect(content().string(containsString(environment.getProperty("field.asset.requestId"))))
+                .andExpect(content().string(containsString(">91425ba6-8b16-46a8-baa6-request_p_03<")));
     }
 
 }

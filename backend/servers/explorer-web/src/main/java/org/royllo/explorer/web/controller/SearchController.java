@@ -1,13 +1,12 @@
 package org.royllo.explorer.web.controller;
 
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Optional;
 
 import static org.royllo.explorer.web.configuration.WebConfiguration.ASSET_SEARCH_DEFAULT_PAGE_SIZE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PAGE_ATTRIBUTE;
@@ -36,18 +35,14 @@ public class SearchController {
     @SuppressWarnings("SameReturnValue")
     @GetMapping("/search")
     public String home(final Model model,
-                       @RequestParam(required = false) final Optional<String> query,
+                       @RequestParam(required = false) final String query,
                        @RequestParam(defaultValue = "1") final int page) {
-        // If the query is present, we make the search.
-        if (query.isPresent() && !query.get().trim().isEmpty()) {
-            // Value the user searched for and the page.
-            model.addAttribute(QUERY_ATTRIBUTE, query.get().trim());
+        if (StringUtils.isNotBlank(query)) {
+            model.addAttribute(QUERY_ATTRIBUTE, query.trim());
             model.addAttribute(PAGE_ATTRIBUTE, page);
 
-            // Adding result to the page.
-            model.addAttribute(RESULT_ATTRIBUTE, assetService.queryAssets(query.get(),
-                    page,
-                    ASSET_SEARCH_DEFAULT_PAGE_SIZE));
+            // If the query is present, we make the search and add result to the page.
+            model.addAttribute(RESULT_ATTRIBUTE, assetService.queryAssets(query.trim(), page, ASSET_SEARCH_DEFAULT_PAGE_SIZE));
         }
         return SEARCH_PAGE;
     }
