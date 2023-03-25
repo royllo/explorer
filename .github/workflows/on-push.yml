@@ -2,14 +2,12 @@ name: Push on develop - Build, test, create docker images & push them to docker 
 
 on:
   push:
-    branches:
-      - "development"
 
 jobs:
 
   # ====================================================================================================================
-  # Build artifacts (jar & docker images).
-  build:
+  # Build and run tests.
+  build_and_test:
     runs-on: ubuntu-latest
     steps:
       # ================================================================================================================
@@ -25,50 +23,37 @@ jobs:
           cache: 'maven'
 
       # ================================================================================================================
-      - name: Build jars
+      - name: build and run java tests
         run: |
-          mvn clean install -P release -Dmaven.test.skip
-
-      # ================================================================================================================
-      - name: Build docker images
-        run: |
-          mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-batch/pom.xml
-          mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-api/pom.xml
-          mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-web/pom.xml
-
-  # ====================================================================================================================
-  # Java tests.
-  java_tests:
-    runs-on: ubuntu-latest
-    needs: [ build ]
-    steps:
-      # ================================================================================================================
-      - name: Retrieve the sources
-        uses: actions/checkout@v3
-
-      # ================================================================================================================
-      - name: Java Setup
-        uses: actions/setup-java@v3.10.0
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-          cache: 'maven'
-
-      # ================================================================================================================
-      - name: Run java tests
-        run: |
+          mvn clan install -P release -Dmaven.test.skip
           mvn clean test
           mvn clean test -P integration
 
   # ====================================================================================================================
-  # Docker tests.
-  docker_tests:
+  # Integration tests with Docker.
+  integration_tests:
     runs-on: ubuntu-latest
-    needs: [ build ]
+    needs: [ build_and_test ]
     steps:
       # ================================================================================================================
       - name: Retrieve the sources
         uses: actions/checkout@v3
+
+      # ================================================================================================================
+      - name: Java Setup
+        uses: actions/setup-java@v3.10.0
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+
+      # ================================================================================================================
+      - name: Build docker images
+        run: |
+          mvn clan install -P release -Dmaven.test.skip
+          mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-batch/pom.xml
+          mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-api/pom.xml
+          mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-web/pom.xml
 
       # ================================================================================================================
       - name: Run the docker-compose with our images
@@ -96,7 +81,7 @@ jobs:
   # Docker images publication.
   docker_push:
     runs-on: ubuntu-latest
-    needs: [ java_tests, docker_tests ]
+    needs: [ integration_tests ]
     if: github.ref == 'refs/heads/development'
     steps:
       # ================================================================================================================
@@ -119,6 +104,7 @@ jobs:
       # ================================================================================================================
       - name: Build docker images
         run: |
+          mvn clan install -P release -Dmaven.test.skip
           mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-batch/pom.xml
           mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-api/pom.xml
           mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-web/pom.xml
