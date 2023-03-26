@@ -25,6 +25,7 @@ jobs:
       # ================================================================================================================
       - name: build and run java tests
         run: |
+          mvn clean install -P release -Dmaven.test.skip 
           mvn clean test
           mvn clean test -P integration
 
