@@ -6,8 +6,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,17 +39,14 @@ public class User extends BaseDomain {
     private Long id;
 
     /** User UUID. */
-    @NotNull(message = "User ID is required")
     @Column(name = "USER_ID")
     private String userId;
 
     /** Username. */
-    @NotBlank(message = "Username is mandatory")
     @Column(name = "USERNAME", nullable = false)
     private String username;
 
     /** User role. */
-    @NotNull(message = "Role is mandatory")
     @Enumerated(STRING)
     @Column(name = "ROLE", nullable = false)
     private UserRole role;

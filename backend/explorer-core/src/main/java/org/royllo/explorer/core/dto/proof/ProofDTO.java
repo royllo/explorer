@@ -1,5 +1,7 @@
 package org.royllo.explorer.core.dto.proof;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
@@ -21,15 +23,19 @@ public class ProofDTO {
     Long id;
 
     /** The proof creator. */
+    @NotNull(message = "Proof creator is required")
     UserDTO creator;
 
     /** Target asset. */
+    @NotNull(message = "Target asset is required")
     AssetDTO asset;
 
     /** Proof id  - sha256(rawProof). */
+    @NotBlank(message = "Proof ID is required")
     String proofId;
 
     /** Raw proof. */
+    @NotBlank(message = "Raw proof is required")
     String rawProof;
 
 }

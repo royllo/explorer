@@ -1,5 +1,6 @@
 package org.royllo.explorer.core.dto.bitcoin;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
@@ -24,6 +25,7 @@ public class BitcoinTransactionOutputDTO {
     Integer blockHeight;
 
     /** Transaction id. */
+    @NotBlank(message = "Transaction id is mandatory")
     String txId;
 
     /** Output index (starts at 0). */

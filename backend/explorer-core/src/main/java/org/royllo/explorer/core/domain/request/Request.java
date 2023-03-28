@@ -1,15 +1,5 @@
 package org.royllo.explorer.core.domain.request;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.experimental.SuperBuilder;
-import org.royllo.explorer.core.domain.asset.Asset;
-import org.royllo.explorer.core.domain.user.User;
-import org.royllo.explorer.core.util.base.BaseDomain;
-import org.royllo.explorer.core.util.enums.RequestStatus;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
@@ -20,7 +10,15 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
+import org.royllo.explorer.core.domain.asset.Asset;
+import org.royllo.explorer.core.domain.user.User;
+import org.royllo.explorer.core.util.base.BaseDomain;
+import org.royllo.explorer.core.util.enums.RequestStatus;
 
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.FetchType.EAGER;
@@ -28,7 +26,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 import static jakarta.persistence.InheritanceType.JOINED;
 
 /**
- * A request to update royllo data made by a user.
+ * A user request to update royllo data.
  */
 @Getter
 @Setter
@@ -48,18 +46,15 @@ public abstract class Request extends BaseDomain {
     private Long id;
 
     /** Request UUID. */
-    @NotNull(message = "Request ID is required")
     @Column(name = "REQUEST_ID")
     private String requestId;
 
     /** Request creator. */
-    @NotNull(message = "Request creator is required")
     @ManyToOne(fetch = EAGER)
     @JoinColumn(name = "FK_USER_CREATOR", updatable = false)
     private User creator;
 
     /** Request status. */
-    @NotNull(message = "Request status is mandatory")
     @Enumerated(STRING)
     @Column(name = "STATUS")
     private RequestStatus status;

@@ -7,8 +7,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +22,7 @@ import static jakarta.persistence.FetchType.EAGER;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 /**
- * Proof.
+ * A Taro Proof.
  */
 @Getter
 @Setter
@@ -43,24 +41,20 @@ public class Proof extends BaseDomain {
     private Long id;
 
     /** Proof creator. */
-    @NotNull(message = "Proof creator is required")
     @ManyToOne(fetch = EAGER)
     @JoinColumn(name = "FK_USER_CREATOR", nullable = false)
     private User creator;
 
     /** Target asset. */
-    @NotNull(message = "Target asset is required")
     @ManyToOne(fetch = EAGER)
     @JoinColumn(name = "FK_ASSET", nullable = false)
     private Asset asset;
 
-    /** The proof ID that uniquely identifies the proof - sha256(raw proof). */
-    @NotBlank(message = "Proof ID is required")
+    /** The proof ID that uniquely identifies the proof - sha256(rawProof). */
     @Column(name = "PROOF_ID", updatable = false)
     private String proofId;
 
     /** Raw proof. */
-    @NotBlank(message = "Raw proof is required")
     @Column(name = "RAW_PROOF", updatable = false)
     private String rawProof;
 

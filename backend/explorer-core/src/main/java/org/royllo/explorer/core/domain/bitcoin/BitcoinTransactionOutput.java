@@ -1,23 +1,22 @@
 package org.royllo.explorer.core.domain.bitcoin;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.royllo.explorer.core.util.base.BaseDomain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 /**
- * Information about a Bitcoin transaction output.
+ * Bitcoin transaction output.
  */
 @Getter
 @Setter
@@ -33,12 +32,13 @@ public class BitcoinTransactionOutput extends BaseDomain {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
+    // TODO Should I add a BitcoinTransactionOutputId field ?
+
     /** Block height. */
     @Column(name = "BLOCK_HEIGHT")
     private Integer blockHeight;
 
     /** Transaction id. */
-    @NotBlank(message = "Transaction id is mandatory")
     @Column(name = "TXID", updatable = false)
     private String txId;
 

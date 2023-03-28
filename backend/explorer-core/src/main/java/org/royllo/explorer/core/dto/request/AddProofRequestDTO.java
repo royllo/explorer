@@ -1,11 +1,12 @@
 package org.royllo.explorer.core.dto.request;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 /**
- * A request to add proof to royllo explorer.
+ * A request to add a proof to royllo explorer.
  */
 @Getter
 @SuperBuilder
@@ -14,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 public class AddProofRequestDTO extends RequestDTO {
 
     /** Proof that validates the asset information. */
+    @NotBlank(message = "Raw proof is required")
     String rawProof;
 
 }

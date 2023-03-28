@@ -4,7 +4,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -25,7 +24,6 @@ import lombok.experimental.SuperBuilder;
 public class AddProof extends Request {
 
     /** Proof that validates the asset information. */
-    @NotBlank(message = "Raw proof is required")
     @Column(name = "RAW_PROOF", updatable = false)
     private String rawProof;
 

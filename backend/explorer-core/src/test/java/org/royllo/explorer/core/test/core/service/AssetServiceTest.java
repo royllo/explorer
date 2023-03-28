@@ -155,6 +155,7 @@ public class AssetServiceTest extends BaseTest {
                     .scriptVersion(0)
                     .scriptKey("Script key")
                     .anchorTx("Anchor tx")
+                    .anchorTxId("Anchor tx id")
                     .anchorBlockHash("Anchor block hash")
                     .anchorOutpoint("Anchor outpoint")
                     .anchorInternalKey("Anchor internal key")
@@ -174,6 +175,19 @@ public class AssetServiceTest extends BaseTest {
                 .metaData("my meta data")
                 .assetId("my asset id")
                 .outputIndex(8)
+                .genesisBootstrapInformation("genesis bootstrap information")
+                .genesisVersion(0)
+                .type(AssetType.NORMAL)
+                .amount(new BigInteger("1"))
+                .lockTime(0)
+                .relativeLockTime(0)
+                .scriptVersion(0)
+                .scriptKey("Script key")
+                .anchorTx("Anchor tx")
+                .anchorTxId("Anchor tx id")
+                .anchorBlockHash("Anchor block hash")
+                .anchorOutpoint("Anchor outpoint")
+                .anchorInternalKey("Anchor internal key")
                 .build());
 
         // Testing asset value.
@@ -202,6 +216,19 @@ public class AssetServiceTest extends BaseTest {
                 .metaData("metaData2")
                 .assetId("assetId2")
                 .outputIndex(9)
+                .genesisBootstrapInformation("genesis bootstrap information")
+                .genesisVersion(0)
+                .type(AssetType.NORMAL)
+                .amount(new BigInteger("1"))
+                .lockTime(0)
+                .relativeLockTime(0)
+                .scriptVersion(0)
+                .scriptKey("Script key")
+                .anchorTx("Anchor tx")
+                .anchorTxId("Anchor tx id")
+                .anchorBlockHash("Anchor block hash")
+                .anchorOutpoint("Anchor outpoint")
+                .anchorInternalKey("Anchor internal key")
                 .build());
 
         // Testing asset value.

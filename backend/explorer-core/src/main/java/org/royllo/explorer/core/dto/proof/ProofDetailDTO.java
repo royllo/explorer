@@ -10,6 +10,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 /**
  * Proof detail DTO.
+ * === NOT USED FOR THE MOMENT. ===
  */
 @Value
 @Builder

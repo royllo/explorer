@@ -14,7 +14,7 @@ import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 /**
  * Request related mapper.
  */
-@Mapper(nullValuePropertyMappingStrategy = IGNORE, uses = {UserMapper.class})
+@Mapper(nullValuePropertyMappingStrategy = IGNORE, uses = {UserMapper.class, BitcoinMapper.class, AssetMapper.class})
 public interface RequestMapper {
 
     // =================================================================================================================

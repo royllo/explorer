@@ -1,5 +1,6 @@
 package org.royllo.explorer.core.dto.request;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
@@ -23,12 +24,15 @@ public abstract class RequestDTO {
     Long id;
 
     /** Request UUID. */
+    @NotNull(message = "Request ID is required")
     String requestId;
 
     /** Request creator. */
+    @NotNull(message = "Request creator is required")
     UserDTO creator;
 
     /** Request status. */
+    @NotNull(message = "Request status is mandatory")
     RequestStatus status;
 
     /** The asset created/updated by this request. */
@@ -43,7 +47,7 @@ public abstract class RequestDTO {
      * @param newAsset new asset
      */
     public void setAsset(final AssetDTO newAsset) {
-        assert asset == null : "You can't update the asset, it's already set";
+        assert asset == null : "You can't update the target asset, it's already set";
         asset = newAsset;
     }
 

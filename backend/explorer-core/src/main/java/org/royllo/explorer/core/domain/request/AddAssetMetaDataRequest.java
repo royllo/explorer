@@ -1,16 +1,14 @@
 package org.royllo.explorer.core.domain.request;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 
 /**
  * A request to add asset meta data to an asset already in Royllo database.
@@ -26,12 +24,10 @@ import jakarta.validation.constraints.NotBlank;
 public class AddAssetMetaDataRequest extends Request {
 
     /** Taro asset id. */
-    @NotBlank(message = "Taro asset id is required")
     @Column(name = "ASSET_ID", updatable = false)
     private String assetId;
 
     /** Metadata corresponding to the meta hash stored in the genesis information. */
-    @NotBlank(message = "Meta is required")
     @Column(name = "META_DATA", updatable = false)
     private String metaData;
 
