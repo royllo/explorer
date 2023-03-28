@@ -12,7 +12,7 @@ import static org.royllo.explorer.core.util.enums.RequestStatus.FAILURE;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 
 /**
- * A request to update royllo data made by a user.
+ * User request to update royllo database.
  */
 @Getter
 @SuperBuilder

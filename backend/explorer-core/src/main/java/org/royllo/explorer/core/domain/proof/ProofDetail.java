@@ -26,6 +26,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 
 /**
  * Proof detail.
+ * === NOT USED FOR THE MOMENT. ===
  */
 @Getter
 @Setter

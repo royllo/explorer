@@ -6,7 +6,7 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 /**
- * A request to add an asset meta data to an asset already in Royllo database.
+ * Request to add asset meta data to an asset already in royllo database.
  */
 @Getter
 @SuperBuilder

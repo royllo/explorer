@@ -11,7 +11,7 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 /**
- * A request to add proof to royllo explorer.
+ * Request to add proof to royllo database.
  */
 @Getter
 @Setter

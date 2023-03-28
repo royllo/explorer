@@ -22,7 +22,7 @@ import static jakarta.persistence.FetchType.EAGER;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 /**
- * A Taro Proof.
+ * Taro Proof.
  */
 @Getter
 @Setter

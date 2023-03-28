@@ -26,7 +26,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 import static jakarta.persistence.InheritanceType.JOINED;
 
 /**
- * A user request to update royllo data.
+ * User request to update royllo database.
  */
 @Getter
 @Setter

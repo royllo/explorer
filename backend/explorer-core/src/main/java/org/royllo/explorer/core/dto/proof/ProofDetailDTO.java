@@ -9,7 +9,7 @@ import java.util.List;
 import static lombok.AccessLevel.PRIVATE;
 
 /**
- * Proof detail DTO.
+ * Proof detail.
  * === NOT USED FOR THE MOMENT. ===
  */
 @Value
