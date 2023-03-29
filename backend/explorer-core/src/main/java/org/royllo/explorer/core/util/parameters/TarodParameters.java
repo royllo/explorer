@@ -31,7 +31,7 @@ public class TarodParameters {
     public static class Api {
 
         /** Tarod API base url. */
-        @NotEmpty(message = "Mempool API base URL is required")
+        @NotEmpty(message = "Tarod API base URL is required")
         private String baseUrl;
 
         /** Tarod macaroon. */

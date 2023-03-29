@@ -22,7 +22,15 @@ public interface ProofService {
                       DecodedProofResponse decodedProof);
 
     /**
-     * Returns the proofs of the asset id.
+     * Get a proof by its proof id.
+     *
+     * @param proofId proof id
+     * @return proof
+     */
+    Optional<ProofDTO> getProofByProofId(String proofId);
+
+    /**
+     * Returns the proofs of a specific asset.
      *
      * @param assetId  asset id
      * @param page     the page number we want to retrieve (First page is page 1)
@@ -30,13 +38,5 @@ public interface ProofService {
      * @return proofs
      */
     Page<ProofDTO> getProofsByAssetId(String assetId, int page, int pageSize);
-
-    /**
-     * Returns a proof with its corresponding proof id.
-     *
-     * @param proofId proof id
-     * @return proof
-     */
-    Optional<ProofDTO> getProofByProofId(String proofId);
 
 }

@@ -13,10 +13,12 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 import static java.util.stream.Collectors.joining;
+import static org.royllo.explorer.core.util.constants.TaroConstants.ASSET_ID_SIZE;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 
 /**
@@ -46,19 +48,25 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         // Checking constraints.
         assert page >= 1 : "Page number starts at page 1";
 
-        // Getting results.
-        Page<AssetDTO> results;
-        final Optional<Asset> firstSearch = assetRepository.findByAssetId(query);
-        if (firstSearch.isPresent()) {
-            // We found an asset with the corresponding assetId, we return it.
-            results = new PageImpl<>(firstSearch.stream()
-                    .map(ASSET_MAPPER::mapToAssetDTO)
-                    .toList());
-        } else {
-            // We search all assets where "query" is in the name.
+        // Results.
+        Page<AssetDTO> results = new PageImpl<>(List.of());
+
+        // If the "query" parameter has a size equals to ASSET_ID_SIZE,
+        // we search if there is this asset in database with this exact assetId.
+        if (query.length() == ASSET_ID_SIZE) {
+            final Optional<Asset> assetIdSearch = assetRepository.findByAssetId(query);
+            if (assetIdSearch.isPresent()) {
+                results = new PageImpl<>(assetIdSearch.stream()
+                        .map(ASSET_MAPPER::mapToAssetDTO)
+                        .toList());
+            }
+        }
+
+        // If the query with exact assetId found nothing (or "query" parameter is not 64 characters),
+        // we search if there is an asset with "query" parameter as complete or partial asset name.
+        if (results.isEmpty()) {
             results = assetRepository.findByNameContainsIgnoreCaseOrderByName(query,
-                            PageRequest.of(page - 1, pageSize))
-                    .map(ASSET_MAPPER::mapToAssetDTO);
+                    PageRequest.of(page - 1, pageSize)).map(ASSET_MAPPER::mapToAssetDTO);
         }
 
         // Displaying logs.
@@ -95,11 +103,11 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
             assert bto.isPresent() : "UTXO " + newAsset.getGenesisPoint().getTxId() + "/" + newAsset.getGenesisPoint().getVout() + " Not found";
             assetToCreate.setGenesisPoint(BITCOIN_MAPPER.mapToBitcoinTransactionOutput(bto.get()));
         }
-        final Asset assetCreated = assetRepository.save(assetToCreate);
+        final AssetDTO assetCreated = ASSET_MAPPER.mapToAssetDTO(assetRepository.save(assetToCreate));
 
         // We return the value.
-        logger.info("Asset created with id {} : {}", assetCreated.getId(), assetCreated);
-        return ASSET_MAPPER.mapToAssetDTO(assetCreated);
+        logger.info("addAsset - Asset created with id {} : {}", assetCreated.getId(), assetCreated);
+        return assetCreated;
     }
 
     @Override

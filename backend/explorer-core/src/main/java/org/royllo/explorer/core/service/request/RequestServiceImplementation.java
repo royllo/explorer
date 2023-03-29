@@ -87,39 +87,33 @@ public class RequestServiceImplementation extends BaseService implements Request
     public AddProofRequestDTO addProofRequest(final String rawProof) {
         logger.info("addProofRequest - Adding proof request with raw proof {}", rawProof);
 
-        // =============================================================================================================
-        // Creating the request.
+        // Creating and saving the request.
         AddProof request = AddProof.builder()
                 .requestId(UUID.randomUUID().toString())
                 .creator(USER_MAPPER.mapToUser(ANONYMOUS_USER_DTO))
                 .status(OPENED)
                 .rawProof(rawProof)
                 .build();
-        logger.info("addProofRequest - New request to add {}", request);
 
-        // =============================================================================================================
-        // Saving the request.
         AddProofRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetRequestDTO(requestRepository.save(request));
         logger.info("addProofRequest - Request {} saved", savedRequest);
         return savedRequest;
     }
 
     @Override
-    public AddAssetMetaDataRequestDTO addAssetMetaDataRequest(@NonNull final String taroAssetId,
+    public AddAssetMetaDataRequestDTO addAssetMetaDataRequest(@NonNull final String assetId,
                                                               final String metaData) {
-        logger.info("addAssetMetaDataRequest - Adding metadata request for taro asset id {}", taroAssetId);
+        logger.info("addAssetMetaDataRequest - Adding metadata request for taro asset id {}", assetId);
 
-        // TODO add data validation
         // =============================================================================================================
         // Creating the request.
         AddAssetMetaDataRequest request = AddAssetMetaDataRequest.builder()
                 .requestId(UUID.randomUUID().toString())
                 .creator(USER_MAPPER.mapToUser(ANONYMOUS_USER_DTO))
                 .status(OPENED)
-                .assetId(taroAssetId)
+                .assetId(assetId)
                 .metaData(metaData)
                 .build();
-        logger.info("addAssetMetaDataRequest - New request {}", request);
 
         // =============================================================================================================
         // Saving the request.

@@ -14,7 +14,7 @@ public interface BitcoinService {
      *
      * @param txId transaction id
      * @param vOut output index (starts at 0)
-     * @return transaction details
+     * @return transaction output
      */
     Optional<BitcoinTransactionOutputDTO> getBitcoinTransactionOutput(String txId, int vOut);
 

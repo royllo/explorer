@@ -32,14 +32,4 @@ public abstract class Base {
     /** Proof related mapper. */
     protected static final ProofMapper PROOF_MAPPER = Mappers.getMapper(ProofMapper.class);
 
-    /**
-     * Returns a formatted ID to display.
-     *
-     * @param id id to format
-     * @return formatted id
-     */
-    protected static String getFormattedId(final long id) {
-        return String.format("%09d", id);
-    }
-
 }

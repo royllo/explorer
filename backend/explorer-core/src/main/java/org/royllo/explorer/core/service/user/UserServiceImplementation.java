@@ -27,7 +27,7 @@ public class UserServiceImplementation extends BaseService implements UserServic
 
         final Optional<User> anonymousUser = userRepository.findById(UserConstants.ANONYMOUS_ID);
         if (anonymousUser.isPresent()) {
-            logger.error("getAnonymousUser - Returning anonymous user");
+            logger.info("getAnonymousUser - Returning anonymous user");
             return USER_MAPPER.mapToUserDTO(anonymousUser.get());
         } else {
             logger.error("getAnonymousUser - Anonymous user not found - This should never happened");
@@ -37,7 +37,7 @@ public class UserServiceImplementation extends BaseService implements UserServic
 
     @Override
     public final Optional<UserDTO> getUserByUserId(@NonNull final String userId) {
-        logger.info("getUserByUserId - Getting user with userId: {}" + userId);
+        logger.info("getUserByUserId - Getting user with userId: {}", userId);
 
         final Optional<User> user = userRepository.findByUserId(userId);
         if (user.isEmpty()) {
@@ -51,7 +51,7 @@ public class UserServiceImplementation extends BaseService implements UserServic
 
     @Override
     public final Optional<UserDTO> getUserByUsername(@NonNull final String username) {
-        logger.info("getUserByUserId - Getting user with username: {}" + username);
+        logger.info("getUserByUserId - Getting user with username: {}", username);
 
         final Optional<User> user = userRepository.findByUsername(username);
         if (user.isEmpty()) {

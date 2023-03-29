@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 /**
- * Proof repository.
+ * {@link Proof} repository.
  */
 @Repository
 public interface ProofRepository extends JpaRepository<Proof, Long> {
@@ -18,7 +18,7 @@ public interface ProofRepository extends JpaRepository<Proof, Long> {
      * Find a proof by its proofId.
      *
      * @param proofId proof id
-     * @return proof if proof is found
+     * @return proof
      */
     Optional<Proof> findByProofId(String proofId);
 
@@ -26,7 +26,7 @@ public interface ProofRepository extends JpaRepository<Proof, Long> {
      * Returns all the proofs of an Asset.
      *
      * @param assetId  asset id
-     * @param pageable page configuration
+     * @param pageable page parameters
      * @return proofs
      */
     Page<Proof> findByAssetAssetIdOrderByCreatedOn(String assetId, Pageable pageable);

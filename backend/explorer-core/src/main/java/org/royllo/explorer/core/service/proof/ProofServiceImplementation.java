@@ -41,7 +41,7 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
     @Override
     public ProofDTO addProof(@NonNull final String rawProof,
                              @NonNull final DecodedProofResponse decodedProof) {
-        // TODO remove rawProof parameter and add it to decodedProof ?
+        // TODO remove decodedProof from parameters.
         logger.info("addProof - Adding {} with {}", rawProof, decodedProof);
 
         // We check that the proof is not in our database.
@@ -66,8 +66,22 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
                     .rawProof(rawProof)
                     .build());
             final ProofDTO proofDTO = PROOF_MAPPER.mapToProofDTO(proof);
-            logger.info("addProof - Proof created {}", proofDTO);
+            logger.info("addProof - Proof created with id {} : {}", proofDTO.getProofId(), proofDTO);
             return proofDTO;
+        }
+    }
+
+    @Override
+    public Optional<ProofDTO> getProofByProofId(@NonNull final String proofId) {
+        logger.info("getProofByProofId - Getting proof with proofId {}", proofId);
+
+        final Optional<Proof> proof = proofRepository.findByProofId(proofId);
+        if (proof.isEmpty()) {
+            logger.info("getProofByProofId - Proof with proofId {} not found", proofId);
+            return Optional.empty();
+        } else {
+            logger.info("getProofByProofId - Proof with proofId {} found: {}", proofId, proof.get());
+            return proof.map(PROOF_MAPPER::mapToProofDTO);
         }
     }
 
@@ -100,20 +114,6 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
         }
 
         return results;
-    }
-
-    @Override
-    public Optional<ProofDTO> getProofByProofId(@NonNull final String proofId) {
-        logger.info("getProofByProofId - Getting proof with proofId {}", proofId);
-
-        final Optional<Proof> proof = proofRepository.findByProofId(proofId);
-        if (proof.isEmpty()) {
-            logger.info("getProofByProofId - Proof with proofId {} not found", proofId);
-            return Optional.empty();
-        } else {
-            logger.info("getProofByProofId - Proof with proofId {} found: {}", proofId, proof.get());
-            return proof.map(PROOF_MAPPER::mapToProofDTO);
-        }
     }
 
     /**

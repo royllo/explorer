@@ -1,5 +1,6 @@
 package org.royllo.explorer.core.service.bitcoin;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.bitcoin.BitcoinTransactionOutput;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
@@ -28,7 +29,8 @@ public class BitcoinServiceImplementation extends BaseService implements Bitcoin
     private final MempoolTransactionService mempoolTransactionService;
 
     @Override
-    public Optional<BitcoinTransactionOutputDTO> getBitcoinTransactionOutput(final String txId, final int vout) {
+    public Optional<BitcoinTransactionOutputDTO> getBitcoinTransactionOutput(@NonNull final String txId,
+                                                                             final int vout) {
         logger.info("getBitcoinTransactionOutput - Getting transaction output with txId:vout {}:{}", txId, vout);
 
         // =============================================================================================================

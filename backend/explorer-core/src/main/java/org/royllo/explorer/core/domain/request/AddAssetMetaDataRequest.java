@@ -11,7 +11,7 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 /**
- * Request to add asset meta data to an asset already in royllo database
+ * Request to add asset meta data to an asset already in royllo database.
  */
 @Getter
 @Setter

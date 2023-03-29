@@ -28,15 +28,16 @@ public interface RequestService {
     Optional<RequestDTO> getRequest(long id);
 
     /**
-     * Get a request.
+     * Get a request by its requestId.
      *
-     * @param id request id
+     * @param requestId requestId
      * @return request
      */
-    Optional<RequestDTO> getRequestByRequestId(String id);
+    Optional<RequestDTO> getRequestByRequestId(String requestId);
 
     /**
-     * Add a request to add a Raw proof.
+     * Creates a request to add a raw proof.
+     * TODO This name doesn't seems to be the best one.
      *
      * @param rawProof Raw proof that validates the asset information
      * @return id The request created
@@ -44,13 +45,14 @@ public interface RequestService {
     AddProofRequestDTO addProofRequest(String rawProof);
 
     /**
-     * Add a request to add an asset meta data.
+     * Creates a request to add an asset meta data.
+     * TODO This name doesn't seems to be the best one.
      *
-     * @param taroAssetId Taro asset id
-     * @param metaData    Metadata corresponding to the meta hash stored in the genesis information
+     * @param assetId  asset id
+     * @param metaData Metadata corresponding to the meta hash stored in the genesis information
      * @return id of the request created
      */
-    AddAssetMetaDataRequestDTO addAssetMetaDataRequest(String taroAssetId,
+    AddAssetMetaDataRequestDTO addAssetMetaDataRequest(String assetId,
                                                        String metaData);
 
 }

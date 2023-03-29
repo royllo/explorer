@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 /**
- * Asset repository.
+ * {@link Asset} repository.
  */
 @Repository
 public interface AssetRepository extends JpaRepository<Asset, Long> {
@@ -23,11 +23,11 @@ public interface AssetRepository extends JpaRepository<Asset, Long> {
     Optional<Asset> findByAssetId(String assetId);
 
     /**
-     * Find an asset with a partial name.
+     * Find an asset by its complete or partial name.
      *
-     * @param name     partial name
-     * @param pageable page configuration
-     * @return assets containing the parameter
+     * @param name     complete or partial name
+     * @param pageable page parameters
+     * @return assets containing the complete or partial name
      */
     Page<Asset> findByNameContainsIgnoreCaseOrderByName(String name, Pageable pageable);
 

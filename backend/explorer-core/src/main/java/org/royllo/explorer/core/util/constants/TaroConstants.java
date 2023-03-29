@@ -7,9 +7,9 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 @SuppressWarnings("checkstyle:HideUtilityClassConstructor")
-public class BitcoinConstants {
+public class TaroConstants {
 
-    /** A TXID is always 32 bytes (64 characters) and hexadecimal. */
-    public static final int TX_ID_SIZE = 64;
+    /** Asset id size is always 32 bytes (64 characters) and hexadecimal. */
+    public static final int ASSET_ID_SIZE = 64;
 
 }

@@ -11,12 +11,12 @@ import java.util.Optional;
 public interface AssetService {
 
     /**
-     * Query for assets.
-     * - Search if query is an assetId, if true, returns only this one.
-     * - Search if query contains in assets name.
+     * Query assets.
+     * - Search if the "query" parameter is an assetId, if true, returns only this one.
+     * - Search if the "query" parameter contains in assets name.
      *
      * @param query    the query
-     * @param page     the page number we want to retrieve (First page is page 1)
+     * @param page     the page we want to retrieve (First page is page 1)
      * @param pageSize the page size
      * @return list of assets corresponding to the search
      */
@@ -39,7 +39,7 @@ public interface AssetService {
     Optional<AssetDTO> getAsset(long id);
 
     /**
-     * Get an asset by asset id.
+     * Get an asset by its asset id.
      *
      * @param assetId asset id
      * @return asset

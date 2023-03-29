@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Request repository.
+ * {@link Request} repository.
  */
 @Repository
 public interface RequestRepository extends JpaRepository<Request, Long> {
