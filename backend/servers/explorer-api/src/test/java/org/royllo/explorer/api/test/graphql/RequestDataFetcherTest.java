@@ -6,10 +6,10 @@ import com.netflix.graphql.dgs.client.codegen.GraphQLQueryRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.api.graphql.generated.DgsConstants;
-import org.royllo.explorer.api.graphql.generated.client.AddAssetMetaDataRequestGraphQLQuery;
-import org.royllo.explorer.api.graphql.generated.client.AddAssetMetaDataRequestProjectionRoot;
-import org.royllo.explorer.api.graphql.generated.client.AddProofRequestGraphQLQuery;
-import org.royllo.explorer.api.graphql.generated.client.AddProofRequestProjectionRoot;
+import org.royllo.explorer.api.graphql.generated.client.CreateAddAssetMetaDataRequestGraphQLQuery;
+import org.royllo.explorer.api.graphql.generated.client.CreateAddAssetMetaDataRequestProjectionRoot;
+import org.royllo.explorer.api.graphql.generated.client.CreateAddProofRequestGraphQLQuery;
+import org.royllo.explorer.api.graphql.generated.client.CreateAddProofRequestProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.client.RequestByRequestIdGraphQLQuery;
 import org.royllo.explorer.api.graphql.generated.client.RequestByRequestIdProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.types.AddAssetMetaDataRequest;
@@ -65,15 +65,15 @@ public class RequestDataFetcherTest {
     }
 
     @Test
-    @DisplayName("addProofRequest()")
+    @DisplayName("createAddProofRequest()")
     public void addProofRequest() {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                AddProofRequestGraphQLQuery.newRequest()
+                CreateAddProofRequestGraphQLQuery.newRequest()
                         .input(AddProofRequestInputs.newBuilder()
                                 .rawProof("6")
                                 .build())
                         .build(),
-                new AddProofRequestProjectionRoot()
+                new CreateAddProofRequestProjectionRoot()
                         .requestId()
                         .creator().userId().username().parent()
                         .status().getParent()
@@ -81,7 +81,7 @@ public class RequestDataFetcherTest {
 
         AddProofRequest requestCreated = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 graphQLQueryRequest.serialize(),
-                "data." + DgsConstants.MUTATION.AddProofRequest,
+                "data." + DgsConstants.MUTATION.CreateAddProofRequest,
                 new TypeRef<>() {
                 });
 
@@ -94,16 +94,16 @@ public class RequestDataFetcherTest {
     }
 
     @Test
-    @DisplayName("addAssetMetaDataRequest()")
+    @DisplayName("createAddAssetMetaDataRequest()")
     public void addAssetMetaDataRequest() {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                AddAssetMetaDataRequestGraphQLQuery.newRequest()
+                CreateAddAssetMetaDataRequestGraphQLQuery.newRequest()
                         .input(addAssetMetaDataRequestInputs.newBuilder()
                                 .assetId("AssetID1")
                                 .metaData("MetaData01")
                                 .build())
                         .build(),
-                new AddAssetMetaDataRequestProjectionRoot()
+                new CreateAddAssetMetaDataRequestProjectionRoot()
                         .requestId()
                         .creator().userId().username().parent()
                         .status().getParent()
@@ -113,7 +113,7 @@ public class RequestDataFetcherTest {
 
         AddAssetMetaDataRequest requestCreated = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 graphQLQueryRequest.serialize(),
-                "data." + DgsConstants.MUTATION.AddAssetMetaDataRequest,
+                "data." + DgsConstants.MUTATION.CreateAddAssetMetaDataRequest,
                 new TypeRef<>() {
                 });
 

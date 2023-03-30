@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * addProofRequest inputs.
+ * createAddProofRequest inputs.
  */
 @Getter
 @Setter

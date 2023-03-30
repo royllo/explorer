@@ -3,10 +3,10 @@ type Mutation {
     # ==================================================================================================================
     # Requests API
     "Creates a request to add a proof"
-    addProofRequest(input: AddProofRequestInputs!): AddProofRequest
+    createAddProofRequest(input: AddProofRequestInputs!): AddProofRequest
 
     "Creates a request to add an asset meta data"
-    addAssetMetaDataRequest(input: addAssetMetaDataRequestInputs!): AddAssetMetaDataRequest
+    createAddAssetMetaDataRequest(input: addAssetMetaDataRequestInputs!): AddAssetMetaDataRequest
 
 }
 

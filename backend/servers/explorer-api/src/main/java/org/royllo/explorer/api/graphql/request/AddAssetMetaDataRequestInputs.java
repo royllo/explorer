@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * addAssetMetaDataRequest inputs.
+ * createAddAssetMetaDataRequest inputs.
  */
 @Getter
 @Setter

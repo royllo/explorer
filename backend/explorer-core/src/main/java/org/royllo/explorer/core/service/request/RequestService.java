@@ -37,22 +37,20 @@ public interface RequestService {
 
     /**
      * Creates a request to add a raw proof.
-     * TODO This name doesn't seems to be the best one.
      *
      * @param rawProof Raw proof that validates the asset information
      * @return id The request created
      */
-    AddProofRequestDTO addProofRequest(String rawProof);
+    AddProofRequestDTO createAddProofRequest(String rawProof);
 
     /**
      * Creates a request to add an asset meta data.
-     * TODO This name doesn't seems to be the best one.
      *
      * @param assetId  asset id
      * @param metaData Metadata corresponding to the meta hash stored in the genesis information
      * @return id of the request created
      */
-    AddAssetMetaDataRequestDTO addAssetMetaDataRequest(String assetId,
-                                                       String metaData);
+    AddAssetMetaDataRequestDTO createAddAssetMetaDataRequest(String assetId,
+                                                             String metaData);
 
 }

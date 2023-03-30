@@ -55,7 +55,7 @@ public class AddProofRequestController {
             return ADD_PROOF_REQUEST_FORM_PAGE;
         } else {
             // Calling the service to create the proof.
-            model.addAttribute(RESULT_ATTRIBUTE, requestService.addProofRequest(form.getRawProof()));
+            model.addAttribute(RESULT_ATTRIBUTE, requestService.createAddProofRequest(form.getRawProof()));
             return ADD_PROOF_REQUEST_SUCCESS_PAGE;
         }
     }

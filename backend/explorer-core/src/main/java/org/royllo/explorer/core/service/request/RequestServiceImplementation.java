@@ -84,8 +84,8 @@ public class RequestServiceImplementation extends BaseService implements Request
     }
 
     @Override
-    public AddProofRequestDTO addProofRequest(final String rawProof) {
-        logger.info("addProofRequest - Adding proof request with raw proof {}", rawProof);
+    public AddProofRequestDTO createAddProofRequest(final String rawProof) {
+        logger.info("createAddProofRequest - Adding proof request with raw proof {}", rawProof);
 
         // Creating and saving the request.
         AddProof request = AddProof.builder()
@@ -96,14 +96,14 @@ public class RequestServiceImplementation extends BaseService implements Request
                 .build();
 
         AddProofRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetRequestDTO(requestRepository.save(request));
-        logger.info("addProofRequest - Request {} saved", savedRequest);
+        logger.info("createAddProofRequest - Request {} saved", savedRequest);
         return savedRequest;
     }
 
     @Override
-    public AddAssetMetaDataRequestDTO addAssetMetaDataRequest(@NonNull final String assetId,
-                                                              final String metaData) {
-        logger.info("addAssetMetaDataRequest - Adding metadata request for taro asset id {}", assetId);
+    public AddAssetMetaDataRequestDTO createAddAssetMetaDataRequest(@NonNull final String assetId,
+                                                                    final String metaData) {
+        logger.info("createAddAssetMetaDataRequest - Adding metadata request for taro asset id {}", assetId);
 
         // =============================================================================================================
         // Creating the request.
@@ -118,7 +118,7 @@ public class RequestServiceImplementation extends BaseService implements Request
         // =============================================================================================================
         // Saving the request.
         AddAssetMetaDataRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetMetaRequestDTO(requestRepository.save(request));
-        logger.info("addAssetMetaDataRequest - Request {} saved", savedRequest);
+        logger.info("createAddAssetMetaDataRequest - Request {} saved", savedRequest);
         return savedRequest;
     }
 
