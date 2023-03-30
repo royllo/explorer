@@ -234,6 +234,28 @@ public class AssetDataFetcherTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("queryAssets() without negative number")
+    public void queryAssetsWithNegativePageNumber() {
+        try {
+            // Looking at page -1.
+            GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
+                    QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(-1).build(),
+                    new QueryAssetsProjectionRoot().content()
+                            .creator().userId().username().parent()
+                            .genesisPoint().txId().vout().parent()
+                            .name()
+                            .metaData()
+                            .assetId()
+                            .outputIndex()
+                            .parent()
+                            .totalElements()
+                            .totalPages());
+        } catch (QueryException e) {
+            assertEquals("Page number starts at page 1", e.getMessage());
+        }
+    }
+
+    @Test
     @DisplayName("assetByAssetId()")
     public void assetByAssetId() {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(

@@ -27,7 +27,7 @@ public class RequestDataFetcher extends BaseDataFetcher {
      * DGS type resolver.
      *
      * @param requestDTO request dto
-     * @return type
+     * @return request dto type
      */
     @DgsTypeResolver(name = "Request")
     public String resolveRequest(final RequestDTO requestDTO) {
@@ -42,7 +42,7 @@ public class RequestDataFetcher extends BaseDataFetcher {
     }
 
     /**
-     * Get a request by its request id in database.
+     * Get a request by its request id.
      *
      * @param requestId request id
      * @return request
@@ -53,7 +53,7 @@ public class RequestDataFetcher extends BaseDataFetcher {
     }
 
     /**
-     * Add a request to add a proof.
+     * Creates a request to add a proof.
      *
      * @param input add asset request inputs
      * @return request created
@@ -64,7 +64,7 @@ public class RequestDataFetcher extends BaseDataFetcher {
     }
 
     /**
-     * Add a request to add an asset meta data.
+     * Creates a request to add an asset meta data.
      *
      * @param input add asset meta data request inputs
      * @return request created

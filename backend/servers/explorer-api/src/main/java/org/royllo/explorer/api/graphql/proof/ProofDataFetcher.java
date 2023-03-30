@@ -27,7 +27,7 @@ public class ProofDataFetcher extends BaseDataFetcher {
     private final ProofService proofService;
 
     /**
-     * Get proofs for the corresponding asset id.
+     * Returns the proofs of a specific asset.
      *
      * @param assetId  asset id
      * @param page     the page number you want

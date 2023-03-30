@@ -28,9 +28,9 @@ public class AssetDataFetcher extends BaseDataFetcher {
     private final AssetService assetService;
 
     /**
-     * Query for assets.
-     * - Search if query is an assetId, if true, returns only this one.
-     * - Search if query contains in assets name.
+     * Query assets.
+     * - Search if the "query" parameter is an assetId, if true, returns only this one.
+     * - Search if the "query" parameter contains in assets name.
      *
      * @param query    the query to search for
      * @param page     the page number you want
@@ -42,6 +42,7 @@ public class AssetDataFetcher extends BaseDataFetcher {
                                             final @InputArgument Integer page,
                                             final @InputArgument Integer pageSize) {
         // Checking maximum page size.
+        // Note : page size validation (> 0) is done by the service layer.
         if (Objects.requireNonNullElse(pageSize, DEFAULT_PAGE_SIZE) > MAXIMUM_PAGE_SIZE) {
             throw new DgsInvalidInputArgumentException("Page size can't be superior to " + MAXIMUM_PAGE_SIZE, null);
         }
@@ -53,7 +54,7 @@ public class AssetDataFetcher extends BaseDataFetcher {
     }
 
     /**
-     * Get an asset by its taro asset id.
+     * Get an asset by its asset id.
      *
      * @param assetId taro asset id
      * @return asset
