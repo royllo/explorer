@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 /**
- * Royllo csore.
+ * Royllo core.
  */
 @SpringBootApplication
 @EnableConfigurationProperties({

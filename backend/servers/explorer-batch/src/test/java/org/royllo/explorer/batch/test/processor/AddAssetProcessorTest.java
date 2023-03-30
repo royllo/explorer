@@ -3,7 +3,7 @@ package org.royllo.explorer.batch.test.processor;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.royllo.explorer.batch.service.RequestProcessorService;
+import org.royllo.explorer.batch.batch.AddProofBatch;
 import org.royllo.explorer.batch.test.util.BaseTest;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -40,7 +42,7 @@ public class AddAssetProcessorTest extends BaseTest {
     ProofService proofService;
 
     @Autowired
-    RequestProcessorService requestProcessorService;
+    AddProofBatch addProofBatch;
 
     @Test
     @DisplayName("Process")
@@ -54,10 +56,12 @@ public class AddAssetProcessorTest extends BaseTest {
         assertEquals(OPENED, invalidProofRequest.getStatus());
 
         // Process the request.
-        final RequestDTO invalidProofRequestTreated = requestProcessorService.processRequest(invalidProofRequest);
-        assertFalse(invalidProofRequestTreated.isSuccessful());
-        assertEquals(FAILURE, invalidProofRequestTreated.getStatus());
-        assertEquals("An error occurred while decoding", invalidProofRequestTreated.getErrorMessage());
+        addProofBatch.processRequests();
+        final Optional<RequestDTO> invalidProofRequestTreated = requestService.getRequest(invalidProofRequest.getId());
+        assertTrue(invalidProofRequestTreated.isPresent());
+        assertFalse(invalidProofRequestTreated.get().isSuccessful());
+        assertEquals(FAILURE, invalidProofRequestTreated.get().getStatus());
+        assertEquals("An error occurred while decoding", invalidProofRequestTreated.get().getErrorMessage());
 
         // =============================================================================================================
         // "My Royllo coin": The asset is already in our database and MY_ROYLLO_COIN_RAW_PROOF also.
@@ -69,10 +73,12 @@ public class AddAssetProcessorTest extends BaseTest {
         assertEquals(OPENED, myRoylloCoinRequest.getStatus());
 
         // Process the request.
-        final RequestDTO myRoylloCoinRequestTreated = requestProcessorService.processRequest(myRoylloCoinRequest);
-        assertFalse(myRoylloCoinRequestTreated.isSuccessful());
-        assertEquals(FAILURE, myRoylloCoinRequestTreated.getStatus());
-        assertEquals("This proof is already registered with proof id: " + MY_ROYLLO_COIN_PROOF_ID, myRoylloCoinRequestTreated.getErrorMessage());
+        addProofBatch.processRequests();
+        final Optional<RequestDTO> myRoylloCoinRequestTreated = requestService.getRequest(myRoylloCoinRequest.getId());
+        assertTrue(myRoylloCoinRequestTreated.isPresent());
+        assertFalse(myRoylloCoinRequestTreated.get().isSuccessful());
+        assertEquals(FAILURE, myRoylloCoinRequestTreated.get().getStatus());
+        assertEquals("This proof is already registered with proof id: " + MY_ROYLLO_COIN_PROOF_ID, myRoylloCoinRequestTreated.get().getErrorMessage());
 
         // =============================================================================================================
         // "Unknown Royllo coin": The asset and the proof are not in our database.
@@ -88,19 +94,24 @@ public class AddAssetProcessorTest extends BaseTest {
         assertNotNull(unknownRoylloCoinRequest);
 
         // Process the request.
-        final RequestDTO unknownRoylloCoinRequestTreated = requestProcessorService.processRequest(unknownRoylloCoinRequest);
-        assertTrue(unknownRoylloCoinRequest.isSuccessful());
-        assertEquals(SUCCESS, unknownRoylloCoinRequestTreated.getStatus());
+        addProofBatch.processRequests();
+        final Optional<RequestDTO> unknownRoylloCoinRequestTreated = requestService.getRequest(unknownRoylloCoinRequest.getId());
+        assertTrue(unknownRoylloCoinRequestTreated.isPresent());
+        assertTrue(unknownRoylloCoinRequestTreated.get().isSuccessful());
+        assertEquals(SUCCESS, unknownRoylloCoinRequestTreated.get().getStatus());
 
         // Check that the asset and the proof now exists.
         assertTrue(assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
         assertTrue(proofService.getProofByProofId(UNKNOWN_ROYLLO_COIN_RAW_PROOF_PROOF_ID).isPresent());
 
         // We add again the same proof, we should get an error.
-        final RequestDTO myRoylloCoinRequestTreatedBis = requestProcessorService.processRequest(requestService.addProofRequest(UNKNOWN_ROYLLO_COIN_RAW_PROOF));
-        assertFalse(myRoylloCoinRequestTreatedBis.isSuccessful());
-        assertEquals(FAILURE, myRoylloCoinRequestTreatedBis.getStatus());
-        assertEquals("This proof is already registered with proof id: " + UNKNOWN_ROYLLO_COIN_RAW_PROOF_PROOF_ID, myRoylloCoinRequestTreatedBis.getErrorMessage());
+        AddProofRequestDTO unknownRoylloCoinRequestBis = requestService.addProofRequest(UNKNOWN_ROYLLO_COIN_RAW_PROOF);
+        addProofBatch.processRequests();
+        final Optional<RequestDTO> myRoylloCoinRequestTreatedBis = requestService.getRequest(unknownRoylloCoinRequestBis.getId());
+        assertTrue(myRoylloCoinRequestTreatedBis.isPresent());
+        assertFalse(myRoylloCoinRequestTreatedBis.get().isSuccessful());
+        assertEquals(FAILURE, myRoylloCoinRequestTreatedBis.get().getStatus());
+        assertEquals("This proof is already registered with proof id: " + UNKNOWN_ROYLLO_COIN_RAW_PROOF_PROOF_ID, myRoylloCoinRequestTreatedBis.get().getErrorMessage());
 
         // =============================================================================================================
         // "Active Royllo coin" : The asset and the proofs are not in our database.
@@ -115,9 +126,11 @@ public class AddAssetProcessorTest extends BaseTest {
 
         // Add the request for proof 1 and process it.
         AddProofRequestDTO activeRoylloCoinRequest1 = requestService.addProofRequest(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF);
-        RequestDTO activeRoylloCoinRequest1Treated = requestProcessorService.processRequest(activeRoylloCoinRequest1);
-        assertTrue(activeRoylloCoinRequest1Treated.isSuccessful());
-        assertEquals(SUCCESS, activeRoylloCoinRequest1Treated.getStatus());
+        addProofBatch.processRequests();
+        Optional<RequestDTO> activeRoylloCoinRequest1Treated = requestService.getRequest(activeRoylloCoinRequest1.getId());
+        assertTrue(activeRoylloCoinRequest1Treated.isPresent());
+        assertTrue(activeRoylloCoinRequest1Treated.get().isSuccessful());
+        assertEquals(SUCCESS, activeRoylloCoinRequest1Treated.get().getStatus());
 
         // Check the asset and the proofs.
         assertTrue(assetService.getAssetByAssetId(ACTIVE_ROYLLO_COIN_ASSET_ID).isPresent());
@@ -127,9 +140,11 @@ public class AddAssetProcessorTest extends BaseTest {
 
         // Add the request for proof 3 and process it.
         AddProofRequestDTO activeRoylloCoinRequest2 = requestService.addProofRequest(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF);
-        RequestDTO activeRoylloCoinRequest2Treated = requestProcessorService.processRequest(activeRoylloCoinRequest2);
-        assertTrue(activeRoylloCoinRequest2Treated.isSuccessful());
-        assertEquals(SUCCESS, activeRoylloCoinRequest2Treated.getStatus());
+        addProofBatch.processRequests();
+        Optional<RequestDTO> activeRoylloCoinRequest2Treated = requestService.getRequest(activeRoylloCoinRequest2.getId());
+        assertTrue(activeRoylloCoinRequest2Treated.isPresent());
+        assertTrue(activeRoylloCoinRequest2Treated.get().isSuccessful());
+        assertEquals(SUCCESS, activeRoylloCoinRequest2Treated.get().getStatus());
 
         // Check the asset and the proofs.
         assertTrue(assetService.getAssetByAssetId(ACTIVE_ROYLLO_COIN_ASSET_ID).isPresent());
@@ -139,9 +154,11 @@ public class AddAssetProcessorTest extends BaseTest {
 
         // Add the request for proof 2 and process it.
         AddProofRequestDTO activeRoylloCoinRequest3 = requestService.addProofRequest(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF);
-        RequestDTO activeRoylloCoinRequest3Treated = requestProcessorService.processRequest(activeRoylloCoinRequest3);
-        assertTrue(activeRoylloCoinRequest3Treated.isSuccessful());
-        assertEquals(SUCCESS, activeRoylloCoinRequest3Treated.getStatus());
+        addProofBatch.processRequests();
+        Optional<RequestDTO> activeRoylloCoinRequest3Treated = requestService.getRequest(activeRoylloCoinRequest3.getId());
+        assertTrue(activeRoylloCoinRequest3Treated.isPresent());
+        assertTrue(activeRoylloCoinRequest3Treated.get().isSuccessful());
+        assertEquals(SUCCESS, activeRoylloCoinRequest3Treated.get().getStatus());
 
         // Check the asset and the proofs.
         assertTrue(assetService.getAssetByAssetId(ACTIVE_ROYLLO_COIN_ASSET_ID).isPresent());

@@ -84,7 +84,7 @@ public class RequestServiceImplementation extends BaseService implements Request
     }
 
     @Override
-    public AddProofRequestDTO addProofRequest(@NonNull final String rawProof) {
+    public AddProofRequestDTO addProofRequest(final String rawProof) {
         logger.info("addProofRequest - Adding proof request with raw proof {}", rawProof);
 
         // Creating and saving the request.
