@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
-import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.COMMAND_ATTRIBUTE;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.FORM_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_PROOF_REQUEST_FORM_PAGE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_PROOF_REQUEST_SUCCESS_PAGE;
@@ -53,7 +53,7 @@ public class AddProofRequestControllerTest {
         mockMvc.perform(get("/request/proof/add"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ADD_PROOF_REQUEST_FORM_PAGE))
-                .andExpect(model().attributeExists(COMMAND_ATTRIBUTE));
+                .andExpect(model().attributeExists(FORM_ATTRIBUTE));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class AddProofRequestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(ADD_PROOF_REQUEST_FORM_PAGE))
                 .andExpect(model().hasErrors())
-                .andExpect(model().attributeErrorCount(COMMAND_ATTRIBUTE, 1))
+                .andExpect(model().attributeErrorCount(FORM_ATTRIBUTE, 1))
                 .andExpect(content().string(containsString(environment.getProperty("NotBlank.command.rawProof"))));
 
         // Test if everything is ok if we pass correct information to create a request.
@@ -75,7 +75,7 @@ public class AddProofRequestControllerTest {
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ADD_PROOF_REQUEST_SUCCESS_PAGE))
-                .andExpect(flash().attribute(COMMAND_ATTRIBUTE, hasProperty("rawProof", equalTo("simple raw proof").toString())))
+                .andExpect(flash().attribute(FORM_ATTRIBUTE, hasProperty("rawProof", equalTo("simple raw proof").toString())))
                 .andExpect(model().attributeExists(RESULT_ATTRIBUTE))
                 .andExpect(model().hasNoErrors())
                 .andDo(result -> proof.set((AddProofRequestDTO) Objects.requireNonNull(result.getModelAndView()).getModelMap().get(RESULT_ATTRIBUTE)))

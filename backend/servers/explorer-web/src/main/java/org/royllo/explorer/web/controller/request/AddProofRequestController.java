@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.COMMAND_ATTRIBUTE;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.FORM_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_PROOF_REQUEST_FORM_PAGE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_PROOF_REQUEST_SUCCESS_PAGE;
@@ -34,7 +34,7 @@ public class AddProofRequestController {
     @SuppressWarnings("SameReturnValue")
     @GetMapping("/request/proof/add")
     public String displayForm(final Model model) {
-        model.addAttribute(COMMAND_ATTRIBUTE, new AddProofRequestForm());
+        model.addAttribute(FORM_ATTRIBUTE, new AddProofRequestForm());
         return ADD_PROOF_REQUEST_FORM_PAGE;
     }
 
@@ -48,7 +48,7 @@ public class AddProofRequestController {
      */
     @PostMapping("/request/proof/add")
     public String saveForm(final Model model,
-                           @Valid @ModelAttribute(COMMAND_ATTRIBUTE) final AddProofRequestForm form,
+                           @Valid @ModelAttribute(FORM_ATTRIBUTE) final AddProofRequestForm form,
                            final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             // If we have errors in the form data validation.

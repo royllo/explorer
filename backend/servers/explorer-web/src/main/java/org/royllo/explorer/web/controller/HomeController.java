@@ -9,13 +9,13 @@ import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.QUE
 import static org.royllo.explorer.web.util.constants.PagesConstants.HOME_PAGE;
 
 /**
- * Homepage controller.
+ * Home page controller.
  */
 @Controller
 public class HomeController {
 
     /**
-     * Home page.
+     * Page displaying page.
      *
      * @param model model
      * @param query query

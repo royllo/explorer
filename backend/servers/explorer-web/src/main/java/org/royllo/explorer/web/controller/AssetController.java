@@ -50,7 +50,7 @@ public class AssetController {
     }
 
     /**
-     * Page display the proofs of an asset.
+     * Page displaying the proofs of an asset.
      *
      * @param model   model
      * @param assetId asset id

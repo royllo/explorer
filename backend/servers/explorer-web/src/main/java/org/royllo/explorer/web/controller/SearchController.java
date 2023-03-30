@@ -25,7 +25,7 @@ public class SearchController {
     private final AssetService assetService;
 
     /**
-     * Search result.
+     * Page displaying search results.
      *
      * @param model model
      * @param query query

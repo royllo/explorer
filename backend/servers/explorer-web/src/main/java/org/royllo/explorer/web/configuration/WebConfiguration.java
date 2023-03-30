@@ -10,10 +10,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class WebConfiguration {
 
-    /** Asset search results default page size. */
+    /** Assets search results default page size. */
     public static final int ASSET_SEARCH_DEFAULT_PAGE_SIZE = 10;
 
-    /** Asset proofs default page size. */
+    /** Asset's proofs default page size. */
     public static final int ASSET_PROOFS_DEFAULT_PAGE_SIZE = 100;
 
     /**

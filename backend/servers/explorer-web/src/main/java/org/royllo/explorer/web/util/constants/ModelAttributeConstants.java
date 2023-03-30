@@ -24,7 +24,7 @@ public class ModelAttributeConstants {
     /** Result attribute. */
     public static final String RESULT_ATTRIBUTE = "result";
 
-    /** Command attribute. */
-    public static final String COMMAND_ATTRIBUTE = "command";
+    /** Form attribute. */
+    public static final String FORM_ATTRIBUTE = "command";
 
 }
