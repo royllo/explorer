@@ -80,7 +80,7 @@
         <lombok.mapstruct.version>0.2.0</lombok.mapstruct.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
 
-        <thymeleaf-layout-dialect.version>3.2.0</thymeleaf-layout-dialect.version>
+        <thymeleaf-layout-dialect.version>3.2.1</thymeleaf-layout-dialect.version>
 
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
