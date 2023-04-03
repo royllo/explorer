@@ -14,25 +14,25 @@
     <!--/* Error management */-->
 
     <!--/* No value for the "query" parameter */-->
-    <div    th:if="${#strings.isEmpty(query)}"
-            class="errorPanel"
-            role="alert">
+    <div th:if="${#strings.isEmpty(query)}"
+         class="errorPanel"
+         role="alert">
         <p class="font-bold" th:text="#{generic.error}"></p>
         <p th:text="#{search.error.noQuery}"></p>
     </div>
 
     <!--/* No result */-->
-    <div    th:if="${result != null && result.getTotalElements() == 0}"
-            class="errorPanel"
-            role="alert">
+    <div th:if="${result != null && result.getTotalElements() == 0}"
+         class="errorPanel"
+         role="alert">
         <p class="font-bold" th:text="#{generic.error}"></p>
         <p th:text="#{search.noResult(${query})}"></p>
     </div>
 
     <!--/* There is results but not for the page they asked for */-->
-    <div    th:if="${result != null && result.getTotalElements() > 0 && result.getContent().isEmpty()}"
-            class="errorPanel"
-            role="alert">
+    <div th:if="${result != null && result.getTotalElements() > 0 && result.getContent().isEmpty()}"
+         class="errorPanel"
+         role="alert">
         <p class="font-bold" th:text="#{generic.error}"></p>
         <p th:text="#{search.error.invalidPage}"></p>
     </div>
@@ -51,8 +51,8 @@
                    th:text="${asset.name}"></a>
                 <p class="text-gray-700 text-base mb-2 truncate md:text-clip">
                 <p class="truncate" th:text="@{#{field.asset.assetId} + ': ' + ${asset.assetId}}"></p>
-                <p class="truncate" th:text="@{#{field.asset.creator.username} + ': ' + ${asset.creator.username}}"></p>
                 <p class="truncate" th:text="@{#{field.asset.genesisPoint} + ': ' + ${asset.genesisPoint}}"></p>
+                <p class="truncate" th:text="@{#{field.asset.creator.username} + ': ' + ${asset.creator.username}}"></p>
             </div>
         </div>
 
