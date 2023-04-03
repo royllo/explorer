@@ -66,7 +66,7 @@ public class RequestDataFetcherTest {
 
     @Test
     @DisplayName("createAddProofRequest()")
-    public void addProofRequest() {
+    public void createAddProofRequest() {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 CreateAddProofRequestGraphQLQuery.newRequest()
                         .input(AddProofRequestInputs.newBuilder()
@@ -95,7 +95,7 @@ public class RequestDataFetcherTest {
 
     @Test
     @DisplayName("createAddAssetMetaDataRequest()")
-    public void addAssetMetaDataRequest() {
+    public void createAddAssetMetaDataRequest() {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 CreateAddAssetMetaDataRequestGraphQLQuery.newRequest()
                         .input(addAssetMetaDataRequestInputs.newBuilder()
