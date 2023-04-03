@@ -93,7 +93,7 @@ jobs:
         run: |
           genesisBootstrapInformation=$(curl -H "Content-Type: application/json" \
               -d '{ "query": "{ assetByAssetId(assetId: \"PgVFMqaoaedeG96KJeeUQXfWSKA0/lwUirf3dDU4zJ4=\") { genesisBootstrapInformation }}" }' \
-              http://localhost:9090/graphql | jq -r '.data.assetByAssetId.genesisBootstrapInformatione')
+              http://localhost:9090/graphql | jq -r '.data.assetByAssetId.genesisBootstrapInformation')
           echo "genesisBootstrapInformation=${genesisBootstrapInformation}" >> $GITHUB_OUTPUT
 
       - name: Check if the asset has been treated
