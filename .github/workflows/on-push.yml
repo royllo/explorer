@@ -78,11 +78,11 @@ jobs:
           sleep 60
           status=$(curl -H "Content-Type: application/json" \
               -d '{ "query": "{ requestByRequestId(requestId: \"${{ steps.addProofRequest.outputs.requestId }}\") { status }}" }' \
-              http://localhost:9090/graphql | jq '.data.requestByRequestId.status')
+              http://localhost:9090/graphql | jq -r '.data.requestByRequestId.status')
           echo "status=${status}" >> $GITHUB_OUTPUT
 
       - name: Check if the request has been treated
-        if: ${{ steps.requestByRequestId.outputs.status != '"SUCCESS"' }}
+        if: ${{ steps.requestByRequestId.outputs.status != 'SUCCESS' }}
         run: |
           echo "Error - request status is ${{ steps.requestByRequestId.outputs.status }}"
           cat docker.logs
@@ -93,11 +93,11 @@ jobs:
         run: |
           genesisBootstrapInformation=$(curl -H "Content-Type: application/json" \
               -d '{ "query": "{ assetByAssetId(assetId: \"9eaee900fc3948eda143238f220372a61b535c6b1b984b6b26acd4c014537c15\") { genesisBootstrapInformation }}" }' \
-              http://localhost:9090/graphql | jq '.data.assetByAssetId.genesisBootstrapInformation'
+              http://localhost:9090/graphql | jq -r '.data.assetByAssetId.genesisBootstrapInformation'
           echo "genesisBootstrapInformation=${genesisBootstrapInformation}" >> $GITHUB_OUTPUT
 
       - name: Check if the asset has been treated
-        if: ${{ steps.assetByAssetId.outputs.genesisBootstrapInformation != '"750e110bb206b6de993ff90cfe9936b112e42b9f5c0afe2db929c07df18572b90000000111756e6b6e6f776e526f796c6c6f436f696e0e5573656420627920526f796c6c6f0000000000"' }}
+        if: ${{ steps.assetByAssetId.outputs.genesisBootstrapInformation != '750e110bb206b6de993ff90cfe9936b112e42b9f5c0afe2db929c07df18572b90000000111756e6b6e6f776e526f796c6c6f436f696e0e5573656420627920526f796c6c6f0000000000' }}
         run: |
           echo "Error - Asset not found ${{ steps.requestByRequestId.outputs.genesisBootstrapInformation }}"
           cat docker.logs
