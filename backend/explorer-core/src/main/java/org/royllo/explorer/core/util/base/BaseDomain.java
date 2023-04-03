@@ -33,7 +33,7 @@ public abstract class BaseDomain {
 
     /** Data updated on. */
     @LastModifiedDate
-    @Column(name = "UPDATED_ON", nullable = false, insertable = false)
+    @Column(name = "UPDATED_ON", insertable = false)
     private ZonedDateTime updatedOn;
 
 }

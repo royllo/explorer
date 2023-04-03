@@ -3,7 +3,7 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet author="straumat" id="test-data-assets">
-
+        <!-- ======================================================================================================= -->
         <!-- activeRoylloCoin - Assets used to test several proofs -->
         <insert tableName="ASSETS">
             <column name="ID" value="10000"/>
@@ -39,201 +39,641 @@
 
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000001"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 001"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000001"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000002"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 002"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000002"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000003"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 003"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000003"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000004"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 004"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000004"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000005"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 005"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000005"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000006"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 006"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000006"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000007"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 007"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000007"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000008"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 008"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000008"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000009"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 009"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000009"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000010"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 010"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000010"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000011"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 011"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000011"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000012"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 012"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000012"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000013"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 013"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000013"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000014"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 014"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000014"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000015"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 015"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000015"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000016"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 016"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000016"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000017"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 017"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000017"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000018"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 018"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000018"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000019"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 019"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000019"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000020"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 020"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000020"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000021"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 021"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000021"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000022"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+
+            <column name="VERSION" value="0"/>
+
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 022"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000022"/>
             <column name="OUTPUT_INDEX" value="0"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
+            <column name="GENESIS_VERSION" value="1"/>
+
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="10001"/>
+            <column name="LOCK_TIME" value="1"/>
+            <column name="RELATIVE_LOCK_TIME" value="2"/>
+
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="script key 1"/>
+
+            <column name="ANCHOR_TX" value="Anchor tx 1"/>
+            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
+            <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
+            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
 
     </changeSet>
