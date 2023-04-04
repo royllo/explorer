@@ -12,7 +12,7 @@ Once deployed:
 - Anyone can do the things above by using the GraphQL API.
 
 <p align="center">
-    <img    src="https://github.com/royllo/explorer/blob/development/docs/images/screenshots/homepage.png?raw=true"
+    <img    src="https://github.com/royllo/explorer/blob/development/docs/assets/images/screenshots/homepage.png?raw=true"
             alt="Royllo explorer homepage"/>
 </p>
 
@@ -34,7 +34,7 @@ Royllo has four components:
 
 Royllo also needs to access two external services: Lnd & Taro & Mempool.
 
-The easiest way to run it is to use the docker-compose file provided in this repository.
+The easiest way to run it is to use the `docker-compose` file provided in this repository.
 Just run : `docker-compose up`
 
 ## Contact
