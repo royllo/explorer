@@ -68,7 +68,7 @@ public class AssetServiceTest extends BaseTest {
         assertEquals(1, results.getContent().get(0).getId());
 
         // Searching for an asset with its partial name corresponding to two assets.
-        // The last coin we insert in database has "TestPaginationCoin0" as name so it appears first in results.
+        // The last coin we insert in database has "TestPaginationCoin0" as name, so it appears first in results.
         results = assetService.queryAssets("PaginationCoin", 1, 5);
         assertEquals(9, results.getTotalElements());
         assertEquals(2, results.getTotalPages());
