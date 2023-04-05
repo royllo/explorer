@@ -32,21 +32,28 @@
     <!--/* ======================================================================================================= */-->
     <!--/* Display result */-->
 
-    <!--*/ Asset viewer */-->
+    <!--*/ Proofs viewer */-->
     <div class="head" th:if="${result.size != 0}">
         <!--*/ Header */-->
         <div class="tableHead">
             <h3 class="tableHeadDescription" th:text="#{proof.view.title(${assetId})}"></h3>
         </div>
         <!--/* Data */-->
-        <div class="tableLines" th:each="proof: ${result.content}">
-            <dl>
-                <!--/* Genesis point  */-->
-                <div class="tableLineWhite">
-                    <dd class="tableLineValue"
-                        th:text="${proof.rawProof}"></dd>
+        <div class="tableLines truncate" th:each="proof, iStat: ${result.content}">
+            <div class="col-span-full">
+                <div class="mt-2">
+                    <textarea th:id="@{'proof-' + ${iStat.index}}"
+                              name="about"
+                              rows="5"
+                              th:text="${proof.rawProof}"
+                              class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
                 </div>
-            </dl>
+                <a href="#"
+                   th:onClick="@{'copy(\'proof-' + ${iStat.index} + '\');'}"
+                   th:text="#{proof.view.copyProof}"
+                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline"></a>
+                <p>&nbsp;</p>
+            </div>
         </div>
     </div>
 
