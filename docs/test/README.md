@@ -133,7 +133,7 @@ curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./admin.macaroon)
 
 ### Decode proof
 
-You can copy proof inside the container with the following command : `docker cp activeRoylloCoin-2.proof cc510ea50846:.`
+You can copy proof inside the container with the following command : `docker cp myRoylloCoinProof.proof cc510ea50846:.`
 
 ```
 docker exec -it lnd-taro-with-docker_taro_1 \
