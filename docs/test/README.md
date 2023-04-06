@@ -121,13 +121,15 @@ docker exec -it lnd-taro-with-docker_taro_1 \
 docker cp cc510ea50846:myRoylloCoinProof .
 ```
 
-You can use curl to decode the proof with the following command :
+You can use curl to decode the proof:
 
-TODO : This doesn't work.
+Take our proof file and decode it with `cat myRoylloCoinProof | base64 -w 0`, put the content of this file
+in `raw_proof` field of `raw_myRoylloCoinProof` file.
 
 ```bash
+
 curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./admin.macaroon)" \
-        --data @temp_proof \
+        --data @raw_myRoylloCoinProof \
         --insecure https://157.230.85.88:8089/v1/taro/proofs/decode
 ```
 
