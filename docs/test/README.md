@@ -153,4 +153,3 @@ An invalid proof will return :
   "details": []
 }
 ```
-
