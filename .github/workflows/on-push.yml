@@ -156,3 +156,25 @@ jobs:
           docker push royllo/explorer-api:${{ steps.release.outputs.version }}
           docker push royllo/explorer-web:latest
           docker push royllo/explorer-web:${{ steps.release.outputs.version }}
+
+      # ================================================================================================================
+      # TEMP : Publish images to Digital Ocean Container Registry
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Publish Image to Container Registry
+        uses: ripplr-io/docr-docker-publish@v1
+        with:
+          image_path: royllo/explorer-batch
+
+      - name: Publish Image to Container Registry
+        uses: ripplr-io/docr-docker-publish@v1
+        with:
+          image_path: royllo/explorer-api
+
+      - name: Publish Image to Container Registry
+        uses: ripplr-io/docr-docker-publish@v1
+        with:
+          image_path: royllo/explorer-web
