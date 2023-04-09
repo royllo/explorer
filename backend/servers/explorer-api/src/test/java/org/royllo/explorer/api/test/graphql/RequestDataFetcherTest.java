@@ -41,7 +41,7 @@ public class RequestDataFetcherTest {
     public void requestByRequestId() {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 RequestByRequestIdGraphQLQuery.newRequest().requestId("91425ba6-8b16-46a8-baa6-request_p_03").build(),
-                new RequestByRequestIdProjectionRoot()
+                new RequestByRequestIdProjectionRoot<>()
                         .requestId()
                         .creator().userId().username().parent()
                         .status().getParent()
@@ -73,7 +73,7 @@ public class RequestDataFetcherTest {
                                 .rawProof("6")
                                 .build())
                         .build(),
-                new CreateAddProofRequestProjectionRoot()
+                new CreateAddProofRequestProjectionRoot<>()
                         .requestId()
                         .creator().userId().username().parent()
                         .status().getParent()
@@ -103,7 +103,7 @@ public class RequestDataFetcherTest {
                                 .metaData("MetaData01")
                                 .build())
                         .build(),
-                new CreateAddAssetMetaDataRequestProjectionRoot()
+                new CreateAddAssetMetaDataRequestProjectionRoot<>()
                         .requestId()
                         .creator().userId().username().parent()
                         .status().getParent()

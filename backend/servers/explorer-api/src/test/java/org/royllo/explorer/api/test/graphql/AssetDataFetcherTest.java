@@ -35,8 +35,8 @@ public class AssetDataFetcherTest extends BaseTest {
         // Looking at page 1.
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(1).build(),
-                new QueryAssetsProjectionRoot().content()
-                        .creator().userId().username().parent()
+                new QueryAssetsProjectionRoot<>().content()
+                        .creator().userId().username().getParent()
                         .genesisPoint().txId().vout().parent()
                         .name()
                         .metaData()
@@ -63,7 +63,7 @@ public class AssetDataFetcherTest extends BaseTest {
         // Looking at page 2
         graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(2).build(),
-                new QueryAssetsProjectionRoot().content()
+                new QueryAssetsProjectionRoot<>().content()
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
@@ -94,7 +94,7 @@ public class AssetDataFetcherTest extends BaseTest {
         // Looking at page 1.
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(1).pageSize(4).build(),
-                new QueryAssetsProjectionRoot().content()
+                new QueryAssetsProjectionRoot<>().content()
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
@@ -121,7 +121,7 @@ public class AssetDataFetcherTest extends BaseTest {
         // Looking at page 2
         graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(2).pageSize(4).build(),
-                new QueryAssetsProjectionRoot().content()
+                new QueryAssetsProjectionRoot<>().content()
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
@@ -130,7 +130,8 @@ public class AssetDataFetcherTest extends BaseTest {
                         .outputIndex()
                         .parent()
                         .totalElements()
-                        .totalPages());
+                        .totalPages()
+        );
 
         assetPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 graphQLQueryRequest.serialize(),
@@ -148,7 +149,7 @@ public class AssetDataFetcherTest extends BaseTest {
         // Looking at page 3
         graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(3).pageSize(4).build(),
-                new QueryAssetsProjectionRoot().content()
+                new QueryAssetsProjectionRoot<>().content()
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
@@ -177,7 +178,7 @@ public class AssetDataFetcherTest extends BaseTest {
         // Looking at page 1.
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").pageSize(MAXIMUM_PAGE_SIZE + 1).build(),
-                new QueryAssetsProjectionRoot().content()
+                new QueryAssetsProjectionRoot<>().content()
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
@@ -207,7 +208,7 @@ public class AssetDataFetcherTest extends BaseTest {
         // Looking at page 1.
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").build(),
-                new QueryAssetsProjectionRoot().content()
+                new QueryAssetsProjectionRoot<>().content()
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
@@ -240,7 +241,7 @@ public class AssetDataFetcherTest extends BaseTest {
             // Looking at page -1.
             GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                     QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(-1).build(),
-                    new QueryAssetsProjectionRoot().content()
+                    new QueryAssetsProjectionRoot<>().content()
                             .creator().userId().username().parent()
                             .genesisPoint().txId().vout().parent()
                             .name()
@@ -260,7 +261,7 @@ public class AssetDataFetcherTest extends BaseTest {
     public void assetByAssetId() {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 AssetByAssetIdGraphQLQuery.newRequest().assetId(MY_ROYLLO_COIN_ASSET_ID).build(),
-                new AssetByAssetIdProjectionRoot()
+                new AssetByAssetIdProjectionRoot<>()
                         .version()
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()

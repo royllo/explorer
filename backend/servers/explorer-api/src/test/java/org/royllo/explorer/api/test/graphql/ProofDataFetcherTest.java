@@ -45,7 +45,7 @@ public class ProofDataFetcherTest extends BaseTest {
         // Checking all results.
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 ProofsByAssetIdGraphQLQuery.newRequest().assetId(ACTIVE_ROYLLO_COIN_ASSET_ID).page(1).pageSize(10).build(),
-                new ProofsByAssetIdProjectionRoot().content()
+                new ProofsByAssetIdProjectionRoot<>().content()
                         .creator().userId().username().parent()
                         .asset().assetId().parent()
                         .proofId()
@@ -64,7 +64,8 @@ public class ProofDataFetcherTest extends BaseTest {
         assertEquals(1, proofPage.getTotalPages());
 
         // Proof 1.
-        final Optional<Proof> proof1 = proofPage.getContent().stream()
+        final Optional<Proof> proof1 = proofPage.getContent()
+                .stream()
                 .filter(proof -> proof.getProofId().equals(ACTIVE_ROYLLO_COIN_PROOF_1_PROOF_ID))
                 .findFirst();
         assertTrue(proof1.isPresent());
@@ -93,7 +94,7 @@ public class ProofDataFetcherTest extends BaseTest {
         // Checking page management results.
         graphQLQueryRequest = new GraphQLQueryRequest(
                 ProofsByAssetIdGraphQLQuery.newRequest().assetId(ACTIVE_ROYLLO_COIN_ASSET_ID).page(1).pageSize(1).build(),
-                new ProofsByAssetIdProjectionRoot().content()
+                new ProofsByAssetIdProjectionRoot<>().content()
                         .creator().userId().username().parent()
                         .asset().assetId().parent()
                         .proofId()

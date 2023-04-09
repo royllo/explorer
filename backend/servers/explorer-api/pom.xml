@@ -201,7 +201,8 @@
                         <param>src/main/resources/schema/mutation.graphqls</param>
                     </schemaPaths>
                     <packageName>org.royllo.explorer.api.graphql.generated</packageName>
-                    <generateClient>true</generateClient>
+                    <generateClientApiV2>true</generateClientApiV2>
+                    <addGeneratedAnnotation>true</addGeneratedAnnotation>
                 </configuration>
             </plugin>
             <plugin>
