@@ -164,17 +164,15 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-      - name: Publish Image to Container Registry
-        uses: ripplr-io/docr-docker-publish@v1
-        with:
-          image_path: royllo/explorer-batch
+      # ================================================================================================================
+      - name: Tag docker images and publish them to DigitalOcean Container Registry
+        run: |
+          doctl registry login
+          docker tag royllo/explorer-batch:latest registry.digitalocean.com/royllo/explorer-batch:latest
+          docker push registry.digitalocean.com/royllo/explorer-batch:latest
+          docker tag royllo/explorer-api:latest registry.digitalocean.com/royllo/explorer-api:latest
+          docker push registry.digitalocean.com/royllo/explorer-api:latest
+          docker tag royllo/explorer-web:latest registry.digitalocean.com/royllo/explorer-web:latest
+          docker push registry.digitalocean.com/royllo/explorer-web:latest
 
-      - name: Publish Image to Container Registry
-        uses: ripplr-io/docr-docker-publish@v1
-        with:
-          image_path: royllo/explorer-api
-
-      - name: Publish Image to Container Registry
-        uses: ripplr-io/docr-docker-publish@v1
-        with:
-          image_path: royllo/explorer-web
+          
