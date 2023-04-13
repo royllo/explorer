@@ -7,8 +7,8 @@ Royllo explorer is like "Google" for [Taro Assets](https://docs.lightning.engine
 Once deployed:
 
 - Anyone can search for Taro assets by name, asset id or description with the web interface.
-- Anyone can view an asset, it's description and all its proofs.
-- Anyone can add proofs to Royllo explorer. They will be validated and added to Royllo database.
+- Anyone can view an asset, its description and all its proofs.
+- Anyone can add proofs to Royllo explorer. They will be validated and added to the Royllo database.
 - Anyone can do the things above by using the GraphQL API.
 
 <p align="center">
@@ -32,7 +32,7 @@ Royllo has four components:
 - An API server ([royllo/explorer-api](https://hub.docker.com/r/royllo/explorer-api)).
 - A Web server ([royllo/explorer-web](https://hub.docker.com/r/royllo/explorer-web)).
 
-Royllo also needs to access two external services: Lnd & Taro & Mempool.
+Royllo also needs to access two external services: Lnd, Taro & Mempool.
 
 The easiest way to run it is to use the `docker-compose` file provided in this repository.
 Just run : `docker-compose up`

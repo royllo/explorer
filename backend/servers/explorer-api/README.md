@@ -8,6 +8,7 @@ Server side:
 You can then access graphiql here: [http://localhost:8080/graphiql](http://localhost:8080/graphiql).
 
 Here are some queries you can use:
+
 ```
 {
   userByUsername(username: "anonymous") {
@@ -21,9 +22,8 @@ Here are some queries you can use:
 {
   queryAssets(query: "coin") {
     content {
-      id
-      name
       assetId
+      name
     }
   }
 }
