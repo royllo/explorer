@@ -156,21 +156,3 @@ jobs:
           docker push royllo/explorer-api:${{ steps.release.outputs.version }}
           docker push royllo/explorer-web:latest
           docker push royllo/explorer-web:${{ steps.release.outputs.version }}
-
-      # ================================================================================================================
-      # TEMP : Publish images to Digital Ocean Container Registry
-      - name: Install doctl
-        uses: digitalocean/action-doctl@v2
-        with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      - name: Tag docker images and publish them to DigitalOcean Container Registry
-        run: |
-          doctl registry login
-          docker tag royllo/explorer-batch:latest registry.digitalocean.com/royllo/explorer-batch:latest
-          docker push registry.digitalocean.com/royllo/explorer-batch:latest
-          docker tag royllo/explorer-api:latest registry.digitalocean.com/royllo/explorer-api:latest
-          docker push registry.digitalocean.com/royllo/explorer-api:latest
-          docker tag royllo/explorer-web:latest registry.digitalocean.com/royllo/explorer-web:latest
-          docker push registry.digitalocean.com/royllo/explorer-web:latest
-
-          
