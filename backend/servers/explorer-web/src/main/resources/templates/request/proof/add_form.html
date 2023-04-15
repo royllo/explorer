@@ -25,6 +25,11 @@
                   th:placeholder="#{request.proof.rawProof.helper}"></textarea>
             <p class="mt-2 text-sm text-red-600 dark:text-red-500" th:if="${#fields.hasErrors('rawProof')}" th:errors="*{rawProof}"></p>
 
+        <!--/* Explain how to retrieve a raw proof ? */-->
+        <p th:text="#{request.proof.explanation.title}"></p>
+        <code th:utext="#{request.proof.explanation.code}"></code>
+        <br>
+
         <!--/* Submit button */-->
         <button type="submit"
                 th:text="#{request.proof.submit}"
