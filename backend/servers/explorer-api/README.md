@@ -12,7 +12,7 @@ Here are some queries you can use:
 ```
 {
   userByUsername(username: "anonymous") {
-    id
+    userId
     username
   }
 }
