@@ -1,29 +1,19 @@
 <!--/* Search form */-->
-<form class="flex mx-auto" th:action="@{/search}" method="GET">
+<form method="GET" th:action="@{/search}">
 
     <!--/* Search field */-->
-    <label for="query" class="sr-only" th:text="#{search.field.helper}"></label>
-    <div class="relative w-96">
-        <input type="search"
-               id="query"
-               name="query"
-               th:value="${query}"
-               th:placeholder="#{search.field.helper}"
-               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-               autofocus
-               required
-               onFocus="this.select();"
-               onClick="this.select();"/>
-    </div>
-
-    <!--/* Submit button */-->
-    <button type="submit"
-            class="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-        </svg>
-        <span class="sr-only">Search</span>
-    </button>
+    <sl-input autofocus
+              id="query"
+              name="query"
+              onClick="this.select();"
+              onFocus="this.select();"
+              pill
+              required
+              size="medium"
+              style="width:400px"
+              th:placeholder="#{search.field.helper}"
+              th:value="${query}">
+        <sl-icon name="search" slot="suffix"></sl-icon>
+    </sl-input>
 
 </form>

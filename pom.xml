@@ -84,6 +84,11 @@
 
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
+        <webjars-locator.version>0.46</webjars-locator.version>
+        <shoelace.version>2.2.0</shoelace.version>
+
+        <!-- ======================================================================================================= -->
+        <!-- Test libraries -->
         <testcontainers.version>1.18.0</testcontainers.version>
         <mockito-core.version>5.3.1</mockito-core.version>
 

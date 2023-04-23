@@ -1,0 +1,25 @@
+<!--/*
+        Header
+        flex            :   Utilities for controlling how flex items both grow and shrink.
+        items-center    :   Use items-center to align items along the center of the container’s cross axis.
+        justify-between :   Use justify-between to justify items along the container’s main axis such that there is an equal amount of space between each item
+        px-4 py-4       :   To add horizontal padding, use the px-{size} utilities, py-{size} for vertical.
+        bg-white        :   Utilities for controlling an element's background color.
+    */-->
+<header class="flex items-center justify-between px-4 py-4">
+
+    <!--/* Left logo with link */-->
+    <a th:href="@{/}">
+        <img alt="Royllo Logo"
+             th:src="@{/images/logo/royllo_logo_horizontal_with_title.png}"/>
+    </a>
+
+    <!--/* Request - Add a proof button */-->
+    <sl-button outline
+               size="large"
+               th:href="@{/request/proof/add}"
+               th:text="#{request.proof.add}"
+               variant="primary">
+    </sl-button>
+
+</header>

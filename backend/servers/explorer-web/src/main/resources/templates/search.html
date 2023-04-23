@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<div class="content" layout:fragment="content">
+<div layout:fragment="content">
 
     <!--/* ======================================================================================================= */-->
     <!--/* Search form */-->
@@ -12,66 +12,83 @@
 
     <!--/* ======================================================================================================= */-->
     <!--/* Error management */-->
+    <div class="w-1/3 pt-12">
 
-    <!--/* No value for the "query" parameter */-->
-    <div th:if="${#strings.isEmpty(query)}"
-         class="errorPanel"
-         role="alert">
-        <p class="font-bold" th:text="#{generic.error}"></p>
-        <p th:text="#{search.error.noQuery}"></p>
-    </div>
+        <!--/* No value for the "query" parameter */-->
+        <sl-alert open th:if="${#strings.isEmpty(query)}" variant="danger">
+            <sl-icon name="exclamation-octagon" slot="icon"></sl-icon>
+            <strong th:text="#{generic.error}"></strong><br/>
+            <div th:text="#{search.error.noQuery}"></div>
+        </sl-alert>
 
-    <!--/* No result */-->
-    <div th:if="${result != null && result.getTotalElements() == 0}"
-         class="errorPanel"
-         role="alert">
-        <p class="font-bold" th:text="#{generic.error}"></p>
-        <p th:text="#{search.noResult(${query})}"></p>
-    </div>
+        <!--/* No result */-->
+        <sl-alert open th:if="${result != null && result.getTotalElements() == 0}" variant="danger">
+            <sl-icon name="exclamation-octagon" slot="icon"></sl-icon>
+            <strong th:text="#{generic.error}"></strong><br/>
+            <div th:text="#{search.noResult(${query})}"></div>
+        </sl-alert>
 
-    <!--/* There is results but not for the page they asked for */-->
-    <div th:if="${result != null && result.getTotalElements() > 0 && result.getContent().isEmpty()}"
-         class="errorPanel"
-         role="alert">
-        <p class="font-bold" th:text="#{generic.error}"></p>
-        <p th:text="#{search.error.invalidPage}"></p>
+        <!--/* There is results but not for the page they asked for */-->
+        <sl-alert open th:if="${result != null && result.getTotalElements() > 0 && result.getContent().isEmpty()}"
+                  variant="danger">
+            <sl-icon name="exclamation-octagon" slot="icon"></sl-icon>
+            <strong th:text="#{generic.error}"></strong><br/>
+            <div th:text="#{search.error.invalidPage}"></div>
+        </sl-alert>
+
     </div>
 
     <!--/* ======================================================================================================= */-->
-    <!--/* Display results */-->
+    <!--/* Results */-->
 
     <!--/* If result is not null */-->
-    <div class="w-4/5" th:if="${result != null}">
+    <div class="w-4/5 flex flex-col" th:if="${result != null && !result.getContent().isEmpty()}">
 
         <!--/* Display every result, line by line */-->
-        <div th:each="asset: ${result.content}">
-            <div class="my-6">
-                <a th:href="@{'/asset/' + ${asset.assetId}}"
-                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+        <sl-card class="card-header py-2" th:each="asset: ${result.content}">
+            <!--/* Header */-->
+            <div slot="header">
+                <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                   th:href="@{'/asset/' + ${asset.assetId}}"
                    th:text="${asset.name}"></a>
-                <p class="text-gray-700 text-base mb-2 truncate md:text-clip">
-                <p class="truncate" th:text="@{#{field.asset.assetId} + ': ' + ${asset.assetId}}"></p>
-                <p class="truncate" th:text="@{#{field.asset.genesisPoint} + ': ' + ${asset.genesisPoint}}"></p>
-                <p class="truncate" th:text="@{#{field.asset.creator.username} + ': ' + ${asset.creator.username}}"></p>
             </div>
-        </div>
+            <!--/* Asset description */-->
+            <p class="truncate" th:text="@{#{field.asset.assetId} + ': ' + ${asset.assetId}}"></p>
+            <p class="truncate" th:text="@{#{field.asset.genesisPoint} + ': ' + ${asset.genesisPoint}}"></p>
+            <p class="truncate" th:text="@{#{field.asset.creator.username} + ': ' + ${asset.creator.username}}"></p>
+            <!--/* Footer */-->
+            <div slot="footer">
+                <!--/* View asset */-->
+                <!-- TODO Add a test for this button -->
+                <sl-button th:href="@{'/asset/' + ${asset.assetId}}"
+                           th:text="#{search.button.asset.view}"
+                           variant="primary">
+                </sl-button>
+                <!--/* View proofs */-->
+                <!-- TODO Add a test for this button -->
+                <sl-button th:href="@{'/asset/' + ${asset.assetId} + '/proofs'}"
+                           th:text="#{search.button.asset.proofs.view}"
+                           variant="primary">
+                </sl-button>
+            </div>
+        </sl-card>
 
         <!--/* Pages numbers */-->
-        <div class=" mb-12" th:if="${result != null}">
-            <ul class="inline-flex items-center -space-x-px mb-12" th:if="${result.getTotalElements() > 0}">
+        <div class="my-6">
+            <ul class="pagination" th:if="${result.getTotalElements() > 0}">
                 <!--/* Page list (current one and the others) */-->
                 <li th:each="pageNumber: ${#numbers.sequence(1, result.totalPages)}">
 
-                    <a href="#"
+                    <a aria-current="page"
+                       class="paginationSelectedPage"
+                       href="#"
                        th:if="${page == pageNumber}"
-                       th:text="${pageNumber}"
-                       aria-current="page"
-                       class="px-3 py-2 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
+                       th:text="${pageNumber}">3</a>
 
-                    <a th:href="@{'/search?query=' + ${query} + '&page=' + ${pageNumber}}"
+                    <a class="paginationNotSelectedPage"
+                       th:href="@{'/search?query=' + ${query} + '&page=' + ${pageNumber}}"
                        th:if="${page != pageNumber}"
-                       th:text="${pageNumber}"
-                       class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"></a>
+                       th:text="${pageNumber}"></a>
 
                 </li>
             </ul>
@@ -80,6 +97,5 @@
     </div>
 
 </div>
-<!-- =============================================================================================================== -->
 
 </html>

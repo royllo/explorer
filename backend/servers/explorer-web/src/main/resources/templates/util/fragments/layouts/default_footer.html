@@ -1,0 +1,39 @@
+<!--/* Footer */-->
+<footer class="fixed bottom-0 left-0 w-full p-4 bg-gray-100 rounded-b-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800 mt-12">
+
+    <!--/* Left part : Royllo copyright and link */-->
+    <span class="text-sm text-gray-500 sm:text-center">
+          © <script>document.write(/\d{4}/.exec(Date())[0])</script>
+            <a class="hover:underline"
+               target="royllo_website"
+               th:href="@{https://www.royllo.org}">Royllo</a>
+          -
+            <a class="hover:underline"
+               target="royllo_licence"
+               th:href="@{https://github.com/royllo/explorer/blob/development/LICENSE}">GNU General Public License v3.0</a>
+        </span>
+
+    <!--/* Right part : Links to know more about Royllo */-->
+    <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 sm:mt-0">
+        <li>
+            <a class="mr-4 hover:underline md:mr-6"
+               target="api"
+               th:href="@{https://api.explorer.royllo.org/graphiql}">API</a>
+        </li>
+        <li>
+            <a class="mr-4 hover:underline md:mr-6"
+               target="github"
+               th:href="@{https://github.com/royllo/explorer}">Github</a>
+        </li>
+        <li>
+            <a class="mr-4 hover:underline md:mr-6"
+               target="twitter"
+               th:href="@{https://twitter.com/royllo_org}">Twitter</a>
+        </li>
+        <li>
+            <a class="hover:underline"
+               th:href="@{mailto:contact@royllo.org}">Contact</a>
+        </li>
+    </ul>
+
+</footer>

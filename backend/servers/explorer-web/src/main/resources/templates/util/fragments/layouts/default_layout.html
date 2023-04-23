@@ -4,110 +4,42 @@
 
 <!--/* =========================================================================================================== */-->
 <!--/* Head */-->
-<head>
-    <!--/* Configuration */-->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!--/* Page description */-->
+<head th:replace="util/fragments/layouts/default_head">
     <title th:text="#{head.title}"></title>
-    <meta name="description" th:content="#{head.description}">
-    <meta name="author" th:content="#{head.author}">
-
-    <!--/* Open Graph */-->
-    <meta property="og:title" th:content="#{og.title}">
-    <meta property="og:type" th:content="#{og.type}">
-    <meta property="og:url" th:content="#{og.url}">
-    <meta property="og:description" th:content="#{og.description}">
-    <meta property="og:image" th:content="#{og.image}">
-
-    <!--/* Favicons */-->
-    <link rel="icon" type="image/x-icon" th:href="@{/images/favicon/favicon.ico}">
-    <link rel="icon" type="image/png" th:href="@{/images/favicon/favicon-16x16.png}" sizes="16x16">
-    <link rel="icon" type="image/png" th:href="@{/images/favicon/favicon-32x32.png}" sizes="32x32">
-    <link rel="apple-touch-icon" th:href="@{/images/favicon/apple-touch-icon.png}">
-
-    <!--/* Javascript */-->
-    <script type="text/javascript" th:src="@{/js/roylloLib.js}"></script>
-
-    <!--/* CSS */-->
-    <link rel="stylesheet" th:href="@{/css/application.css}">
 </head>
 <!--/* =========================================================================================================== */-->
 
+<!--/* =========================================================================================================== */-->
+<!--/* Body */-->
 <body>
-<div class="flex flex-col h-screen justify-between">
 
-    <!--/* ======================================================================================================= */-->
-    <!--/* Header */-->
-    <header class="flex items-center justify-between px-4 py-4 bg-white">
+<!--/* Page */-->
+<!--/*
+    flex            :   Utilities for controlling how flex items both grow and shrink.
+    flex-col        :   Use flex-col to position flex items vertically.
+    h-screen        :   Use h-screen to make an element span the entire height of the viewport.
+    justify-between :   Use justify-between to justify items along the container’s main axis such that there is an equal amount of space between each item
+*/-->
+<div class="bg-white flex flex-col h-screen justify-between">
 
-        <!--/* Left logo with link */-->
-        <a th:href="@{/}">
-            <img th:src="@{/images/logo/royllo_logo_horizontal_with_title.png}"
-                 alt="Royllo Logo"/>
-        </a>
+    <header th:replace="util/fragments/layouts/default_header"></header>
 
-        <!--/* Request - Add a proof button */-->
-        <a th:href="@{/request/proof/add}"
-           th:text="#{request.proof.add}"
-           class="blueButton"></a>
-
-    </header>
-    <!--/* ======================================================================================================= */-->
-
-    <!--/* ======================================================================================================= */-->
     <!--/* Content */-->
-    <section layout:fragment="content">
-        <p>Page content goes here</p>
+    <!--/*
+        flex            :   Utilities for controlling how flex items both grow and shrink.
+        flex-col        :   Use flex-col to position flex items vertically.
+        h-screen        :   Use h-screen to make an element span the entire height of the viewport.
+        items-center    :   Use items-center to align items along the center of the container’s cross axis.
+    */-->
+    <section class="flex flex-col h-screen items-center"
+             layout:fragment="content">
     </section>
-    <!--/* ======================================================================================================= */-->
 
-    <!--/* ======================================================================================================= */-->
-    <!--/* Footer */-->
-    <footer class="fixed bottom-0 left-0 w-full p-4 bg-gray-100 rounded-b-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800 mt-12">
-
-        <!--/* Left part : Royllo copyright and link */-->
-        <span class="text-sm text-gray-500 sm:text-center">
-          © <script>document.write(/\d{4}/.exec(Date())[0])</script>
-            <a th:href="@{https://www.royllo.org}"
-               class="hover:underline"
-               target="royllo_website">Royllo</a>
-          -
-            <a th:href="@{https://github.com/royllo/explorer/blob/development/LICENSE}"
-               class="hover:underline"
-               target="royllo_licence">GNU General Public License v3.0</a>
-        </span>
-
-        <!--/* Right part : Links to know more about Royllo */-->
-        <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 sm:mt-0">
-            <li>
-                <a th:href="@{https://api.explorer.royllo.org/graphiql}"
-                   class="mr-4 hover:underline md:mr-6"
-                   target="api">API</a>
-            </li>
-            <li>
-                <a th:href="@{https://github.com/royllo/explorer}"
-                   class="mr-4 hover:underline md:mr-6"
-                   target="github">Github</a>
-            </li>
-            <li>
-                <!--/* TODO Activate Royllo twitter account */-->
-                <a th:href="@{https://twitter.com/royllo_org}"
-                   class="mr-4 hover:underline md:mr-6"
-                   target="twitter">Twitter</a>
-            </li>
-            <li>
-                <!--/* TODO Test that the email is working   */-->
-                <a th:href="@{mailto:contact@royllo.org}"
-                   class="hover:underline">Contact</a>
-            </li>
-        </ul>
-
-    </footer>
-    <!--/* ======================================================================================================= */-->
+    <footer th:replace="util/fragments/layouts/default_footer"></footer>
 
 </div>
+
 </body>
+<!--/* =========================================================================================================== */-->
 
 </html>
