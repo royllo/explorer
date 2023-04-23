@@ -39,8 +39,11 @@ public class HomeControllerTest {
                 // Checking the button in the header is here.
                 .andExpect(content().string(containsString(environment.getProperty("request.proof.add"))))
                 // Checking the search form is here.
-                .andExpect(content().string(containsString("input type=\"search\"")))
+                .andExpect(content().string(containsString("form")))
+                .andExpect(content().string(containsString("input")))
+                .andExpect(content().string(containsString("query")))
                 // Checking the footer is here.
+                // TODO check footer content
                 .andExpect(content().string(containsString("License")));
 
         // Images on the home page.

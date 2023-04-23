@@ -41,7 +41,7 @@
     <!--/* ======================================================================================================= */-->
     <!--/* Results */-->
 
-    <!--/* If result is not null */-->
+    <!--/* If result is present */-->
     <div class="w-4/5 flex flex-col" th:if="${result != null && !result.getContent().isEmpty()}">
 
         <!--/* Display every result, line by line */-->
@@ -52,21 +52,25 @@
                    th:href="@{'/asset/' + ${asset.assetId}}"
                    th:text="${asset.name}"></a>
             </div>
+
             <!--/* Asset description */-->
             <p class="truncate" th:text="@{#{field.asset.assetId} + ': ' + ${asset.assetId}}"></p>
             <p class="truncate" th:text="@{#{field.asset.genesisPoint} + ': ' + ${asset.genesisPoint}}"></p>
             <p class="truncate" th:text="@{#{field.asset.creator.username} + ': ' + ${asset.creator.username}}"></p>
+
             <!--/* Footer */-->
             <div slot="footer">
                 <!--/* View asset */-->
                 <!-- TODO Add a test for this button -->
-                <sl-button th:href="@{'/asset/' + ${asset.assetId}}"
+                <sl-button outline
+                           th:href="@{'/asset/' + ${asset.assetId}}"
                            th:text="#{search.button.asset.view}"
                            variant="primary">
                 </sl-button>
                 <!--/* View proofs */-->
                 <!-- TODO Add a test for this button -->
-                <sl-button th:href="@{'/asset/' + ${asset.assetId} + '/proofs'}"
+                <sl-button outline
+                           th:href="@{'/asset/' + ${asset.assetId} + '/proofs'}"
                            th:text="#{search.button.asset.proofs.view}"
                            variant="primary">
                 </sl-button>
