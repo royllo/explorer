@@ -4,25 +4,26 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<div class="content" layout:fragment="content">
+<div layout:fragment="content">
 
     <!--/* ======================================================================================================= */-->
     <!--/* Error management */-->
+    <div class="w-1/3 pt-12">
 
-    <!--/* No value for the "assetId" parameter */-->
-    <div th:if="${#strings.isEmpty(assetId)}"
-         class="errorPanel"
-         role="alert">
-        <p class="font-bold" th:text="#{generic.error}"></p>
-        <p th:text="#{asset.view.error.noAssetId}"></p>
-    </div>
+        <!--/* No value for the "assetId" parameter */-->
+        <sl-alert open th:if="${#strings.isEmpty(assetId)}" variant="danger">
+            <sl-icon name="exclamation-octagon" slot="icon"></sl-icon>
+            <strong th:text="#{generic.error}"></strong><br/>
+            <div th:text="#{asset.view.error.noAssetId}"></div>
+        </sl-alert>
 
-    <!--/* We have the "assetId" parameter but the asset was not found */-->
-    <div th:if="${!#strings.isEmpty(assetId) && result == null}"
-         class="errorPanel"
-         role="alert">
-        <p class="font-bold" th:text="#{generic.error}"></p>
-        <p th:text="#{asset.view.error.assetNotFound(${assetId})}"></p>
+        <!--/* We have the "assetId" parameter but the asset was not found */-->
+        <sl-alert open th:if="${!#strings.isEmpty(assetId) && result == null}" variant="danger">
+            <sl-icon name="exclamation-octagon" slot="icon"></sl-icon>
+            <strong th:text="#{generic.error}"></strong><br/>
+            <div th:text="#{asset.view.error.assetNotFound(${assetId})}"></div>
+        </sl-alert>
+
     </div>
 
     <!--/* ======================================================================================================= */-->
@@ -30,17 +31,19 @@
 
     <!--*/ Asset viewer */-->
     <div class="head" th:if="${result != null}">
+
         <!--*/ Header */-->
         <div class="tableHead">
             <h3 class="tableHeadDescription" th:text="${result.name}"></h3>
             <p class="tableHeadValue" th:text="${result.assetId}"></p>
             <p class="tableHeadValue">
                 <!--*/ Link to view proofs */-->
-                <a th:href="@{'/asset/' + ${result.assetId} + '/proofs/'}"
-                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                   th:href="@{'/asset/' + ${result.assetId} + '/proofs/'}"
                    th:text="#{asset.view.proofs}"></a>
             </p>
         </div>
+
         <!--/* Data */-->
         <div class="tableLines">
             <dl>
@@ -79,10 +82,10 @@
                 <!--/* Asset type */-->
                 <div class="tableLineWhite">
                     <dt class="tableLineDescription" th:text="#{field.asset.assetType}"></dt>
-                    <dd class="tableLineValue" th:text="#{field.asset.assetType.normal}"
-                        th:if="${#strings.equals(result.type, 'NORMAL')}"></dd>
-                    <dd class="tableLineValue" th:text="#{field.asset.assetType.collectible}"
-                        th:if="${#strings.equals(result.type, 'COLLECTIBLE')}"></dd>
+                    <dd class="tableLineValue" th:if="${#strings.equals(result.type, 'NORMAL')}"
+                        th:text="#{field.asset.assetType.normal}"></dd>
+                    <dd class="tableLineValue" th:if="${#strings.equals(result.type, 'COLLECTIBLE')}"
+                        th:text="#{field.asset.assetType.collectible}"></dd>
                 </div>
                 <!--/* Asset amount */-->
                 <div class="tableLineGray">
@@ -102,29 +105,29 @@
                 </div>
 
                 <!--/* Anchor */-->
-                <div class="tableLineGray">
+                <div class="tableLineWhite">
                     <dt class="tableLineDescription" th:text="#{field.asset.anchorTx}"></dt>
                     <dd class="tableLineValue" th:text="${result.anchorTx}"></dd>
                 </div>
-                <div class="tableLineWhite">
+                <div class="tableLineGray">
                     <dt class="tableLineDescription" th:text="#{field.asset.anchorTxid}"></dt>
                     <dd class="tableLineValue" th:text="${result.anchorTxId}"></dd>
                 </div>
-                <div class="tableLineGray">
+                <div class="tableLineWhite">
                     <dt class="tableLineDescription" th:text="#{field.asset.anchorBlockHash}"></dt>
                     <dd class="tableLineValue" th:text="${result.anchorBlockHash}"></dd>
                 </div>
-                <div class="tableLineWhite">
+                <div class="tableLineGray">
                     <dt class="tableLineDescription" th:text="#{field.asset.anchorOutpoint}"></dt>
                     <dd class="tableLineValue" th:text="${result.anchorOutpoint}"></dd>
                 </div>
-                <div class="tableLineGray">
+                <div class="tableLineWhite">
                     <dt class="tableLineDescription" th:text="#{field.asset.anchorInernalKey}"></dt>
                     <dd class="tableLineValue" th:text="${result.anchorInternalKey}"></dd>
                 </div>
-
             </dl>
         </div>
+
     </div>
 
 </div>
