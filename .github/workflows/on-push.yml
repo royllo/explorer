@@ -28,6 +28,12 @@ jobs:
           mvn clean test
           mvn clean test -P integration
 
+      # ================================================================================================================
+      - name: Qodana Scan
+        uses: JetBrains/qodana-action@v2023.1.0
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+
   # ====================================================================================================================
   # Integration tests with Docker.
   integration_tests:
