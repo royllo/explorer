@@ -4,36 +4,34 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<div class="content" layout:fragment="content">
+<div layout:fragment="content">
 
     <!--/* ======================================================================================================= */-->
     <!--/* Display form */-->
     <div class="overflow-hidden bg-white sm:rounded-lg mx-11 w-4/5">
-        <form th:action="@{/request/proof/add}" th:object="${command}" method="post">
+        <form method="post" th:action="@{/request/proof/add}" th:object="${command}">
 
-        <!--/* Raw proof field */-->
-        <label for="rawProof" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-               th:text="#{request.proof.rawProof}"></label>
-        <textarea id="rawProof"
-                  th:field="*{rawProof}"
-                  rows="25"
-                  class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  autofocus
-                  required
-                  onFocus="this.select();"
-                  onClick="this.select();"
-                  th:placeholder="#{request.proof.rawProof.helper}"></textarea>
-            <p class="mt-2 text-sm text-red-600 dark:text-red-500" th:if="${#fields.hasErrors('rawProof')}" th:errors="*{rawProof}"></p>
+            <!--/* Raw proof field */-->
+            <sl-textarea name="rawProof"
+                         onClick="this.select();"
+                         onFocus="this.select();"
+                         required
+                         rows="25"
+                         th:field="*{rawProof}"
+                         th:placeholder="#{request.proof.rawProof.helper}">
+            </sl-textarea>
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500" th:errors="*{rawProof}"
+               th:if="${#fields.hasErrors('rawProof')}"></p>
+            <br/>
 
-        <!--/* Explain how to retrieve a raw proof ? */-->
-        <p th:text="#{request.proof.explanation.title}"></p>
-        <code th:utext="#{request.proof.explanation.code}"></code>
-        <br>
+            <!--/* Explain how to retrieve a raw proof ? */-->
+            <sl-details th:summary="#{request.proof.explanation.title}">
+                <code th:utext="#{request.proof.explanation.code}"></code>
+            </sl-details>
+            <br/>
 
-        <!--/* Submit button */-->
-        <button type="submit"
-                th:text="#{request.proof.submit}"
-                class="blueButton mt-8"></button>
+            <!--/* Submit button */-->
+            <sl-button th:text="#{request.proof.submit}" type="submit">Button</sl-button>
 
         </form>
     </div>
