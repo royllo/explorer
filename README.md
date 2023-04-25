@@ -11,6 +11,8 @@ Once deployed:
 - Anyone can add proofs to Royllo explorer. They will be validated and added to the Royllo database.
 - Anyone can do the things above by using the GraphQL API.
 
+A live version is available here: [https://explorer.royllo.org/](https://explorer.royllo.org/)
+
 <p align="center">
     <img    src="https://github.com/royllo/explorer/blob/development/docs/assets/images/screenshots/homepage.png?raw=true"
             alt="Royllo explorer homepage"/>
