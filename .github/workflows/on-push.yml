@@ -8,6 +8,7 @@ jobs:
   # ====================================================================================================================
   # Run java tests.
   java_tests:
+    name: Java tests
     runs-on: ubuntu-latest
     steps:
       # ================================================================================================================
@@ -37,6 +38,7 @@ jobs:
   # ====================================================================================================================
   # Run integration tests (with Docker).
   integration_tests:
+    name: Integration tests
     runs-on: ubuntu-latest
     steps:
       # ================================================================================================================
@@ -107,8 +109,9 @@ jobs:
           exit 1
 
   # ====================================================================================================================
-  # Docker images publication.
+  # Docker images creation and publication.
   docker_push:
+    name: Docker images creation and publication
     runs-on: ubuntu-latest
     needs: [ java_tests, integration_tests ]
     if: github.ref == 'refs/heads/development'
