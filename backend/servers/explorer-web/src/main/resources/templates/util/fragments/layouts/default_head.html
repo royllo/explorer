@@ -1,0 +1,56 @@
+<!--/* Head */-->
+<head>
+    <!--/* Configuration */-->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!--/* Page description */-->
+    <title th:text="#{head.title}"></title>
+    <meta name="description" th:content="#{head.description}">
+    <meta name="author" th:content="#{head.author}">
+
+    <!--/* Open Graph */-->
+    <meta property="og:title" th:content="#{og.title}">
+    <meta property="og:type" th:content="#{og.type}">
+    <meta property="og:url" th:content="#{og.url}">
+    <meta property="og:description" th:content="#{og.description}">
+    <meta property="og:image" th:content="#{og.image}">
+
+    <!--/* Favicons */-->
+    <link rel="icon" th:href="@{/images/favicon/favicon.ico}" type="image/x-icon">
+    <link rel="icon" sizes="16x16" th:href="@{/images/favicon/favicon-16x16.png}" type="image/png">
+    <link rel="icon" sizes="32x32" th:href="@{/images/favicon/favicon-32x32.png}" type="image/png">
+    <link rel="apple-touch-icon" th:href="@{/images/favicon/apple-touch-icon.png}">
+
+    <!--/* Javascript */-->
+    <script th:src="@{/js/application.js}" type="text/javascript"></script>
+    <script th:src="@{/webjars/shoelace-style__shoelace/dist/shoelace.js}" type="module"></script>
+
+    <!--/* CSS */-->
+    <link rel="stylesheet" th:href="@{/css/application.css}">
+    <link rel="stylesheet" th:href="@{/webjars/shoelace-style__shoelace/dist/themes/light.css}">
+
+    <!--/* Used to avoid component "flashing" */-->
+    <style>
+        body {
+            opacity: 0;
+        }
+
+        body.ready {
+            opacity: 1;
+            transition: 0.25s opacity;
+        }
+    </style>
+    <script type="module">
+        await Promise.allSettled([
+            customElements.whenDefined('sl-button'),
+            customElements.whenDefined('sl-card'),
+            customElements.whenDefined('sl-rating')
+        ]);
+
+        // Button, card, and rating are registered now!
+        // Add the `ready` class so the UI fades in.
+        document.body.classList.add('ready');
+    </script>
+
+</head>

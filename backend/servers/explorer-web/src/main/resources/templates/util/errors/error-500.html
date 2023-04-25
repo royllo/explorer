@@ -4,12 +4,16 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<div class="content" layout:fragment="content">
+<div layout:fragment="content">
 
-    <div class="errorPanel"
-         role="alert">
-        <p class="font-bold" th:text="#{generic.error}"></p>
-        <p th:text="#{generic.error.500}"></p>
+    <div class="w-2/5">
+
+        <sl-alert open variant="danger">
+            <sl-icon name="exclamation-octagon" slot="icon"></sl-icon>
+            <strong th:text="#{generic.error}"></strong><br/>
+            <div th:text="#{generic.error.500}"></div>
+        </sl-alert>
+
     </div>
 
 </div>

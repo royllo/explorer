@@ -4,19 +4,19 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<div class="content" layout:fragment="content">
+<div layout:fragment="content">
 
     <!--/* Logo */-->
     <a th:href="@{/}">
-        <img th:src="@{/images/logo/royllo_logo_homepage.png}"
-             alt="Royllo Logo"/>
+        <img alt="Royllo Logo"
+             th:src="@{/images/logo/royllo_logo_homepage.png}"/>
     </a>
 
     <!--/* Search form */-->
     <div th:insert="util/fragments/components/search_asset_form"></div>
 
     <!--/* Homepage message */-->
-    <div class="mt-11 text-sm" th:utext="#{home.message}"></div>
+    <div class="mt-8 text-sm" th:utext="#{home.message}"></div>
 
 </div>
 <!--/* =========================================================================================================== */-->

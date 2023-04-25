@@ -6,8 +6,9 @@ on:
 jobs:
 
   # ====================================================================================================================
-  # Build and run tests.
-  build_and_test:
+  # Run java tests.
+  java_tests:
+    name: Java tests
     runs-on: ubuntu-latest
     steps:
       # ================================================================================================================
@@ -28,11 +29,17 @@ jobs:
           mvn clean test
           mvn clean test -P integration
 
+      # ================================================================================================================
+      - name: Qodana Scan
+        uses: JetBrains/qodana-action@v2023.1.0
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+
   # ====================================================================================================================
-  # Integration tests with Docker.
-  integration_tests:
+  # Run docker tests.
+  docker_tests:
+    name: Docker tests
     runs-on: ubuntu-latest
-    needs: [ build_and_test ]
     steps:
       # ================================================================================================================
       - name: Retrieve the sources
@@ -102,10 +109,11 @@ jobs:
           exit 1
 
   # ====================================================================================================================
-  # Docker images publication.
+  # Docker images creation and publication.
   docker_push:
+    name: Docker images creation and publication
     runs-on: ubuntu-latest
-    needs: [ integration_tests ]
+    needs: [ java_tests, docker_tests ]
     if: github.ref == 'refs/heads/development'
     steps:
       # ================================================================================================================

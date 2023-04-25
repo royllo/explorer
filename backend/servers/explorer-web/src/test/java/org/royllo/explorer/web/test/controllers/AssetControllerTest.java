@@ -129,20 +129,20 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(ASSET_PROOFS_PAGE))
                 // Checking proofs.
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_RAW_PROOF + "<")))
-                .andExpect(content().string(not(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF + "<"))))
-                .andExpect(content().string(not(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF + "<"))))
-                .andExpect(content().string(not(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF + "<"))));
+                .andExpect(content().string(containsString("value=\"" + MY_ROYLLO_COIN_RAW_PROOF + "\"")))
+                .andExpect(content().string(not(containsString("value=\"" + ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF + "\""))))
+                .andExpect(content().string(not(containsString("value=\"" + ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF + "\""))))
+                .andExpect(content().string(not(containsString("value=\"" + ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF + "\""))));
 
-        // Active royllo coin has only one proof.
+        // Active royllo coin has several proofs.
         mockMvc.perform(get("/asset/" + ACTIVE_ROYLLO_COIN_ASSET_ID + "/proofs/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ASSET_PROOFS_PAGE))
                 // Checking proofs.
-                .andExpect(content().string(not(containsString(">" + MY_ROYLLO_COIN_RAW_PROOF + "<"))))
-                .andExpect(content().string(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF + "<")))
-                .andExpect(content().string(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF + "<")))
-                .andExpect(content().string(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF + "<")));
+                .andExpect(content().string(not(containsString("value=\"" + MY_ROYLLO_COIN_RAW_PROOF + "\""))))
+                .andExpect(content().string(containsString("value=\"" + ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF + "\"")))
+                .andExpect(content().string(containsString("value=\"" + ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF + "\"")))
+                .andExpect(content().string(containsString("value=\"" + ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF + "\"")));
     }
 
 }

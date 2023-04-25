@@ -1,0 +1,36 @@
+name: CodeQL analysis
+
+on:
+  schedule:
+    - cron: '45 20 * * SUN'
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ================================================================================================================
+      - name: Retrieve the sources
+        uses: actions/checkout@v3
+
+      # ================================================================================================================
+      - name: Java Setup
+        uses: actions/setup-java@v3.11.0
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # ================================================================================================================
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: java
+
+      # ================================================================================================================
+      - name: Build and package
+        run: |
+          mvn package -Dgpg.skip -Dmaven.test.skip=true
+
+      # ================================================================================================================
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2

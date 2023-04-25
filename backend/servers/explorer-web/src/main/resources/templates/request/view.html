@@ -4,35 +4,39 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<div class="content" layout:fragment="content">
+<div layout:fragment="content">
 
     <!--/* ======================================================================================================= */-->
     <!--/* Error management */-->
+    <div class="w-1/3 pt-12">
 
-    <!--/* No value for the "requestId" parameter */-->
-    <div th:if="${#strings.isEmpty(requestId)}"
-         class="errorPanel"
-         role="alert">
-        <p class="font-bold" th:text="#{generic.error}"></p>
-        <p th:text="#{request.view.error.noRequestId}"></p>
-    </div>
+        <!--/* No value for the "requestId" parameter */-->
+        <!--/* TODO Check test */-->
+        <sl-alert open th:if="${#strings.isEmpty(requestId)}" variant="danger">
+            <sl-icon name="exclamation-octagon" slot="icon"></sl-icon>
+            <strong th:text="#{generic.error}"></strong><br/>
+            <div th:text="#{request.view.error.noRequestId}"></div>
+        </sl-alert>
 
-    <!--/* We have the "requestId" parameter but the asset was not found */-->
-    <div th:if="${!#strings.isEmpty(requestId) && result == null}"
-         class="errorPanel"
-         role="alert">
-        <p class="font-bold" th:text="#{generic.error}"></p>
-        <p th:text="#{request.view.error.requestNotFound(${requestId})}"></p>
+        <!--/* We have the "requestId" parameter but the request was not found */-->
+        <!--/* TODO Check test */-->
+        <sl-alert open th:if="${!#strings.isEmpty(requestId) && result == null}" variant="danger">
+            <sl-icon name="exclamation-octagon" slot="icon"></sl-icon>
+            <strong th:text="#{generic.error}"></strong><br/>
+            <div th:text="#{request.view.error.requestNotFound(${requestId})}"></div>
+        </sl-alert>
+
     </div>
 
     <!--/* ======================================================================================================= */-->
     <!--/* Display request */-->
-
     <div class="head" th:if="${result != null}">
+
         <!--*/ Header */-->
         <div class="tableHead">
             <h3 class="tableHeadDescription" th:text="'Request ' + ${result.requestId}"></h3>
         </div>
+
         <!--/* Data */-->
         <div class="tableLines">
             <dl>
@@ -49,10 +53,14 @@
                 <!--/* Request status  */-->
                 <div class="tableLineWhite">
                     <dt class="tableLineDescription" th:text="#{field.asset.status}"></dt>
-                    <dd class="tableLineValue" th:text="#{status.opened}" th:if="${#strings.equals(result.status, 'OPENED')}"></dd>
-                    <dd class="tableLineValue" th:text="#{status.failure}" th:if="${#strings.equals(result.status, 'FAILURE')}"></dd>
-                    <dd class="tableLineValue" th:text="#{status.success}" th:if="${#strings.equals(result.status, 'SUCCESS')}"></dd>
+                    <dd class="tableLineValue" th:if="${#strings.equals(result.status, 'OPENED')}"
+                        th:text="#{status.opened}"></dd>
+                    <dd class="tableLineValue" th:if="${#strings.equals(result.status, 'FAILURE')}"
+                        th:text="#{status.failure}"></dd>
+                    <dd class="tableLineValue" th:if="${#strings.equals(result.status, 'SUCCESS')}"
+                        th:text="#{status.success}"></dd>
                 </div>
+                <!--/*  TODO Add a link to the asset  */-->
                 <!--/*  Error message (if failure)  */-->
                 <div class="tableLineGray" th:if="${#strings.equals(result.status, 'FAILURE')}">
                     <dt class="tableLineDescription" th:text="#{field.asset.errorMessage}"></dt>
@@ -60,6 +68,7 @@
                 </div>
             </dl>
         </div>
+
     </div>
 
 </div>

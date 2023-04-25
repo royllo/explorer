@@ -4,55 +4,40 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<div class="content" layout:fragment="content">
+<div layout:fragment="content">
 
     <!--/* ======================================================================================================= */-->
     <!--/* Error management */-->
 
-    <!--/* No value for the "assetId" parameter */-->
-    <!--/* TODO This is not working */-->
-    <div th:if="${#strings.isEmpty(assetId)}"
-         class="errorPanel"
-         role="alert">
-        <p class="font-bold" th:text="#{generic.error}"></p>
-        <p th:text="#{proof.view.error.noAssetId}"></p>
-    </div>
-
     <!--/* We have the "assetId" parameter but the asset was not found */-->
-    <div th:if="${!#strings.isEmpty(assetId) && result == null}"
-         class="errorPanel"
-         role="alert">
-        <p class="font-bold" th:text="#{generic.error}"></p>
-        <p th:text="#{proof.view.error.assetNotFound(${assetId})}"></p>
-    </div>
-
-    <!--/* No proof for the asset */-->
-    <!--/* TODO This should never happen but we must still add a test for it */-->
+    <sl-alert open th:if="${!#strings.isEmpty(assetId) && result == null}" variant="danger">
+        <sl-icon name="exclamation-octagon" slot="icon"></sl-icon>
+        <strong th:text="#{generic.error}"></strong><br/>
+        <div th:text="#{proof.view.error.assetNotFound(${assetId})}"></div>
+    </sl-alert>
 
     <!--/* ======================================================================================================= */-->
     <!--/* Display result */-->
 
     <!--*/ Proofs viewer */-->
-    <div class="head" th:if="${result.size != 0}">
+    <div class="head" th:if="${result != null && result.size != 0}">
         <!--*/ Header */-->
         <div class="tableHead">
             <h3 class="tableHeadDescription" th:text="#{proof.view.title(${assetId})}"></h3>
         </div>
         <!--/* Data */-->
         <div class="tableLines truncate" th:each="proof, iStat: ${result.content}">
-            <div class="col-span-full">
-                <div class="mt-2">
-                    <textarea th:id="@{'proof-' + ${iStat.index}}"
-                              name="about"
-                              rows="5"
-                              th:text="${proof.rawProof}"
-                              class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
-                </div>
-                <a href="#"
-                   th:onClick="@{'copy(\'proof-' + ${iStat.index} + '\');'}"
-                   th:text="#{proof.view.copyProof}"
-                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline"></a>
-                <p>&nbsp;</p>
+            <div class="flex flex-col space-y-1 col-span-full mt-2 ml-2 mr-2 mb-2">
+                <sl-textarea disabled="true"
+                             rows="10"
+                             th:id="@{'proof-' + ${iStat.index}}"
+                             th:value="${proof.rawProof}">
+                </sl-textarea>
+                <sl-button outline
+                           th:onClick="@{'copy(\'proof-' + ${iStat.index} + '\');'}"
+                           th:text="#{proof.view.copyProof}"
+                           variant="primary">
+                </sl-button>
             </div>
         </div>
     </div>
