@@ -41,4 +41,4 @@ Just run : `docker-compose up`
 
 ## Contact
 
-feel free to contact me: [straumat](https://github.com/straumat)
+Feel free to contact me: [straumat](https://github.com/straumat)
