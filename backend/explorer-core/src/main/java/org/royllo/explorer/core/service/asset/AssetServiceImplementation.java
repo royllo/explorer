@@ -90,7 +90,6 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
 
         // Checking constraints.
         assert newAsset.getId() == null : "Asset already exists";
-        assert newAsset.getGenesisPoint() != null : "Bitcoin transaction is required";
         assert assetRepository.findByAssetId(newAsset.getAssetId()).isEmpty() : newAsset.getAssetId() + " already registered";
 
         // We update and save the asset.
