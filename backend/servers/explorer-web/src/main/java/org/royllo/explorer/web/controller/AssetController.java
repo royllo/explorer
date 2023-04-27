@@ -8,9 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import static org.royllo.explorer.web.configuration.WebConfiguration.ASSET_PROOFS_DEFAULT_PAGE_SIZE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_ID_ATTRIBUTE;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PAGE_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.ASSET_PAGE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.ASSET_PROOFS_PAGE;
@@ -54,21 +56,24 @@ public class AssetController {
      *
      * @param model   model
      * @param assetId asset id
+     * @param page    page number
      * @return proofs
      */
     @SuppressWarnings("SameReturnValue")
     @GetMapping(value = {"/asset/{assetId}/proofs", "/asset/{assetId}/proofs/"})
     public String getProofsByAssetId(final Model model,
-                                     @PathVariable(name = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
+                                     @PathVariable(name = ASSET_ID_ATTRIBUTE, required = false) final String assetId,
+                                     @RequestParam(defaultValue = "1") final int page) {
         // If assetId is present, we retrieve it.
         if (StringUtils.isNotBlank(assetId)) {
             // Value the user asked for.
             model.addAttribute(ASSET_ID_ATTRIBUTE, assetId.trim());
+            model.addAttribute(PAGE_ATTRIBUTE, page);
 
             // We retrieve the proofs to display them IF the asset is found.
             assetService.getAssetByAssetId(assetId.trim()).ifPresent(assetDTO -> model.addAttribute(RESULT_ATTRIBUTE,
                     proofService.getProofsByAssetId(assetId.trim(),
-                            1,
+                            page,
                             ASSET_PROOFS_DEFAULT_PAGE_SIZE)));
         }
         return ASSET_PROOFS_PAGE;
