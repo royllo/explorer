@@ -8,7 +8,7 @@
     <!-- Project information -->
     <groupId>org.royllo.explorer</groupId>
     <artifactId>explorer</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>Royllo - A Taro asset explorer</name>
     <description>Taro explorer allows you to search for Taro assets created on the Bitcoin blockchain</description>
     <packaging>pom</packaging>
@@ -134,6 +134,7 @@
                 <version>${maven.gitflow.version}</version>
                 <configuration>
                     <gitFlowConfig>
+                        <productionBranch>production</productionBranch>
                         <developmentBranch>development</developmentBranch>
                     </gitFlowConfig>
                     <commitMessages>
