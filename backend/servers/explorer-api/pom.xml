@@ -97,12 +97,6 @@
             <artifactId>graphql-dgs-mocking</artifactId>
             <!-- TODO Remove temporary fix : Scope should be set to test -->
         </dependency>
-        <dependency>
-            <!-- TODO This dependency should not be but intellij don't find it in dependencies -->
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>2.14.2</version>
-        </dependency>
     </dependencies>
 
     <dependencyManagement>
