@@ -32,7 +32,7 @@ jobs:
   # ====================================================================================================================
   # Run code analysis
   code_analysis:
-    name: CodeQL analysis
+    name: Code analysis
     runs-on: ubuntu-latest
 
     steps:
