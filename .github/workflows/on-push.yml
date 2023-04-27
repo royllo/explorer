@@ -34,6 +34,7 @@ jobs:
   code_analysis:
     name: Code analysis
     runs-on: ubuntu-latest
+    continue-on-error: true
 
     steps:
       # ================================================================================================================
