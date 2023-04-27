@@ -190,11 +190,12 @@ jobs:
           password: ${{ secrets.EXPLORER_DOCKER_HUB_PASSWORD }}
 
       # ================================================================================================================
-      - name: Push docker images to Docker hub
+      - name: Push production docker images to update our online services
+        if: startsWith(github.ref, 'refs/tags/')
         run: |
-          docker push royllo/explorer-batch:latest
-          docker push royllo/explorer-batch:${{ steps.release.outputs.version }}
-          docker push royllo/explorer-api:latest
-          docker push royllo/explorer-api:${{ steps.release.outputs.version }}
-          docker push royllo/explorer-web:latest
-          docker push royllo/explorer-web:${{ steps.release.outputs.version }}
+          docker tag royllo/explorer-batch:latest royllo/explorer-batch:production
+          docker tag royllo/explorer-api:latest royllo/explorer-api:production
+          docker tag royllo/explorer-web:latest royllo/explorer-web:production
+          docker push royllo/explorer-batch:production
+          docker push royllo/explorer-api:production
+          docker push royllo/explorer-web:production
