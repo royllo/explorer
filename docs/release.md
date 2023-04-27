@@ -10,6 +10,7 @@ Check that you are on the development branch and that everything is committed:
 
 ```bash
 git checkout development
+git pull
 git status
 ```
 
