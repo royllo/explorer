@@ -8,7 +8,7 @@
     <!-- Project information -->
     <groupId>org.royllo.explorer</groupId>
     <artifactId>explorer</artifactId>
-    <version>0.0.5-SNAPSHOT</version>
+    <version>0.0.5</version>
     <name>Royllo - A Taro asset explorer</name>
     <description>Taro explorer allows you to search for Taro assets created on the Bitcoin blockchain</description>
     <packaging>pom</packaging>
