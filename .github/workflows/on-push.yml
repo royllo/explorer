@@ -30,7 +30,7 @@ jobs:
           mvn clean test -P integration
 
   # ====================================================================================================================
-  # Run code analysis
+  # Run code analysis.
   code_analysis:
     name: Code analysis
     runs-on: ubuntu-latest
