@@ -4,7 +4,7 @@
 
 <!--/* =========================================================================================================== */-->
 <!--/* Head */-->
-<head th:replace="util/fragments/layouts/default_head">
+<head th:replace="~{util/fragments/layouts/default_head :: head}">
     <title th:text="#{head.title}"></title>
 </head>
 <!--/* =========================================================================================================== */-->
@@ -22,7 +22,7 @@
 */-->
 <div class="bg-white flex flex-col h-screen justify-between">
 
-    <header th:replace="util/fragments/layouts/default_header"></header>
+    <header th:replace="~{util/fragments/layouts/default_header :: header}"></header>
 
     <!--/* Content */-->
     <!--/*
@@ -35,7 +35,7 @@
              layout:fragment="content">
     </section>
 
-    <footer th:replace="util/fragments/layouts/default_footer"></footer>
+    <footer th:replace="~{util/fragments/layouts/default_footer :: footer}"></footer>
 
 </div>
 

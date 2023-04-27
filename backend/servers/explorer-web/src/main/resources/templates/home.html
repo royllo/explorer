@@ -13,7 +13,7 @@
     </a>
 
     <!--/* Search form */-->
-    <div th:insert="util/fragments/components/search_asset_form"></div>
+    <div th:insert="~{util/fragments/components/search_asset_form :: form}"></div>
 
     <!--/* Homepage message */-->
     <div class="mt-8 text-sm" th:utext="#{home.message}"></div>
