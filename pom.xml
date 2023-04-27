@@ -134,6 +134,7 @@
                 <version>${maven.gitflow.version}</version>
                 <configuration>
                     <gitFlowConfig>
+                        <productionBranch>production</productionBranch>
                         <developmentBranch>development</developmentBranch>
                     </gitFlowConfig>
                     <commitMessages>
