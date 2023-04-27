@@ -30,46 +30,6 @@ jobs:
           mvn clean test -P integration
 
   # ====================================================================================================================
-  # Run code analysis.
-  code_analysis:
-    name: Code analysis
-    runs-on: ubuntu-latest
-    continue-on-error: true
-
-    steps:
-      # ================================================================================================================
-      - name: Retrieve the sources
-        uses: actions/checkout@v3
-
-      # ================================================================================================================
-      - name: Java Setup
-        uses: actions/setup-java@v3.11.0
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      # ================================================================================================================
-      # Using CodeQL.
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: java
-
-      - name: Build and package
-        run: |
-          mvn package -Dgpg.skip -Dmaven.test.skip=true
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
-
-      # ================================================================================================================
-      # Using Qodana.
-      - name: Qodana Scan
-        uses: JetBrains/qodana-action@v2023.1.0
-        env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
-
-  # ====================================================================================================================
   # Run docker tests.
   docker_tests:
     name: Docker tests
@@ -141,6 +101,46 @@ jobs:
           echo "Error - Asset not found ${{ steps.requestByRequestId.outputs.genesisBootstrapInformation }}"
           cat docker.logs
           exit 1
+
+  # ====================================================================================================================
+  # Run code analysis.
+  code_analysis:
+    name: Code analysis
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      # ================================================================================================================
+      - name: Retrieve the sources
+        uses: actions/checkout@v3
+
+      # ================================================================================================================
+      - name: Java Setup
+        uses: actions/setup-java@v3.11.0
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # ================================================================================================================
+      # Using CodeQL.
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: java
+
+      - name: Build and package
+        run: |
+          mvn package -Dgpg.skip -Dmaven.test.skip=true
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+
+      # ================================================================================================================
+      # Using Qodana.
+      - name: Qodana Scan
+        uses: JetBrains/qodana-action@v2023.1.0
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
 
   # ====================================================================================================================
   # Docker images creation and publication.
