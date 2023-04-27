@@ -218,16 +218,7 @@ jobs:
         run: echo "version=$(mvn help:evaluate -D expression=project.version -q -D forceStdout)" >> $GITHUB_OUTPUT
 
       # ================================================================================================================
-      - name: Tag docker images
-        run: |
-          docker tag royllo/explorer-batch:latest royllo/explorer-batch:${{ steps.release.outputs.version }}
-          docker tag royllo/explorer-api:latest royllo/explorer-api:${{ steps.release.outputs.version }}
-          docker tag royllo/explorer-web:latest royllo/explorer-web:${{ steps.release.outputs.version }}
-          docker tag royllo/explorer-batch:latest royllo/explorer-batch:production
-          docker tag royllo/explorer-api:latest royllo/explorer-api:production
-          docker tag royllo/explorer-web:latest royllo/explorer-web:production
-
-      # ================================================================================================================
+      # Publish to Docker Hub.
       - name: Docker Hub login
         uses: docker/login-action@v2.1.0
         with:
@@ -235,11 +226,35 @@ jobs:
           password: ${{ secrets.EXPLORER_DOCKER_HUB_PASSWORD }}
 
       # ================================================================================================================
-      - name: Push production docker images to update our online services
+      - name: Tag docker images
+        run: |
+          docker tag royllo/explorer-batch:latest royllo/explorer-batch:${{ steps.release.outputs.version }}
+          docker tag royllo/explorer-api:latest royllo/explorer-api:${{ steps.release.outputs.version }}
+          docker tag royllo/explorer-web:latest royllo/explorer-web:${{ steps.release.outputs.version }}
+
+      # ================================================================================================================
+      - name: Push tagged images to Docker hub
         run: |
           docker push royllo/explorer-batch:${{ steps.release.outputs.version }}
           docker push royllo/explorer-api:${{ steps.release.outputs.version }}
           docker push royllo/explorer-web:${{ steps.release.outputs.version }}
-          docker push royllo/explorer-batch:production
-          docker push royllo/explorer-api:production
-          docker push royllo/explorer-web:production
+
+      # ================================================================================================================
+      # Push to DigitalOcean Container Registry.
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Tag docker images
+        run: |
+          docker tag royllo/explorer-batch:latest registry.digitalocean.com/royllo/explorer-batch:production
+          docker tag royllo/explorer-api:latest registry.digitalocean.com/royllo/explorer-api:production
+          docker tag royllo/explorer-web:latest registry.digitalocean.com/royllo/explorer-web:production
+
+      - name: Push production images to DigitalOcean Container Registry
+        run: |
+          doctl registry login          
+          docker push registry.digitalocean.com/royllo/explorer-batch:production
+          docker push registry.digitalocean.com/royllo/explorer-api:production
+          docker push registry.digitalocean.com/royllo/explorer-web:production
