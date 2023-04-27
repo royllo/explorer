@@ -100,6 +100,11 @@
         <maven.puppycrawl.checkstyle.version>10.9.3</maven.puppycrawl.checkstyle.version>
         <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
 
+        <maven.source.plugin.version>3.2.1</maven.source.plugin.version>
+        <maven.javadoc.plugin.version>3.4.1</maven.javadoc.plugin.version>
+        <maven.jar.plugin.version>3.3.0</maven.jar.plugin.version>
+        <maven.archetype-packaging.version>3.2.1</maven.archetype-packaging.version>
+
         <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
         <frontend-maven-plugin.nodeVersion>v19.4.0</frontend-maven-plugin.nodeVersion>
         <frontend-maven-plugin.npmVersion>9.3.0</frontend-maven-plugin.npmVersion>
@@ -109,7 +114,8 @@
     <!-- =========================================================================================================== -->
     <!-- Modules -->
     <modules>
-        <module>backend/explorer-core</module>
+        <module>backend/explorer-core/autoconfigure</module>
+        <module>backend/explorer-core/starter</module>
         <module>backend/servers/explorer-batch</module>
         <module>backend/servers/explorer-api</module>
         <module>backend/servers/explorer-web</module>

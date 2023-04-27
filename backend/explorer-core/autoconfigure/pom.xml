@@ -6,9 +6,9 @@
 
     <!-- =========================================================================================================== -->
     <!-- Project information -->
-    <artifactId>explorer-core</artifactId>
+    <artifactId>explorer-core-spring-boot-autoconfigure</artifactId>
     <packaging>jar</packaging>
-    <name>Royllo Explorer core</name>
+    <name>Royllo Explorer core Spring boot starter (autoconfigure)</name>
     <description>Contains database schema, domain, repository, dto, services, util</description>
     <!-- =========================================================================================================== -->
 
@@ -16,6 +16,10 @@
     <!-- Dependencies -->
     <dependencies>
         <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
@@ -142,7 +146,7 @@
                     <excludes>**/mapper/**/*</excludes>
                     <excludes>**/generated-sources/**</excludes>
                     <consoleOutput>true</consoleOutput>
-                    <configLocation>../../checkstyle.xml</configLocation>
+                    <configLocation>../../../checkstyle.xml</configLocation>
                     <failOnViolation>true</failOnViolation>
                     <violationSeverity>warning</violationSeverity>
                 </configuration>
@@ -222,7 +226,7 @@
         <groupId>org.royllo.explorer</groupId>
         <artifactId>explorer</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
     <!-- =========================================================================================================== -->
 
