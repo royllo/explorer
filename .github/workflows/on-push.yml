@@ -189,13 +189,51 @@ jobs:
           username: ${{ secrets.EXPLORER_DOCKER_HUB_USERNAME }}
           password: ${{ secrets.EXPLORER_DOCKER_HUB_PASSWORD }}
 
+  # ====================================================================================================================
+  # Push docker images to update our online services
+  production_push:
+    name: Push docker images to production
+    runs-on: ubuntu-latest
+    needs: [ java_tests, docker_tests ]
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
       # ================================================================================================================
-      - name: Push production docker images to update our online services
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Retrieve the sources
+        uses: actions/checkout@v3
+
+      # ================================================================================================================
+      - name: Java Setup
+        uses: actions/setup-java@v3.11.0
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+
+      # ================================================================================================================
+      - name: Build docker images
+        run: |
+          mvn clean install -P release -Dmaven.test.skip
+          mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-batch/pom.xml
+          mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-api/pom.xml
+          mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-web/pom.xml
+
+      # ================================================================================================================
+      - name: Tag docker images
         run: |
           docker tag royllo/explorer-batch:latest royllo/explorer-batch:production
           docker tag royllo/explorer-api:latest royllo/explorer-api:production
           docker tag royllo/explorer-web:latest royllo/explorer-web:production
+
+      # ================================================================================================================
+      - name: Docker Hub login
+        uses: docker/login-action@v2.1.0
+        with:
+          username: ${{ secrets.EXPLORER_DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.EXPLORER_DOCKER_HUB_PASSWORD }}
+
+      # ================================================================================================================
+      - name: Push production docker images to update our online services
+        run: |
           docker push royllo/explorer-batch:production
           docker push royllo/explorer-api:production
           docker push royllo/explorer-web:production
