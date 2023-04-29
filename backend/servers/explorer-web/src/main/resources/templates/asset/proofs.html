@@ -26,7 +26,8 @@
 
     <!--/* ======================================================================================================= */-->
     <!--/* Display result */-->
-    <div class="w-4/5 flex flex-col" th:if="${result != null && result.getContent().size() != 0}">
+    <div class="w-4/5 flex flex-col items-center justify-center"
+         th:if="${result != null && result.getContent().size() != 0}">
 
         <!--*/ Proofs viewer */-->
         <div class="head">
@@ -50,27 +51,28 @@
                 </div>
             </div>
 
-            <!--/* Pages numbers */-->
-            <div class="my-6">
-                <ul class="pagination" th:if="${result.getTotalElements() > 0}">
-                    <!--/* Page list (current one and the others) */-->
-                    <li th:each="pageNumber: ${#numbers.sequence(1, result.totalPages)}">
+        </div>
 
-                        <a aria-current="page"
-                           class="paginationSelectedPage"
-                           href="#"
-                           th:if="${page == pageNumber}"
-                           th:text="${pageNumber}">3</a>
 
-                        <a class="paginationNotSelectedPage"
-                           th:href="@{'/assets/' + assetId + '/proofs?page=' + ${pageNumber}}"
-                           th:if="${page != pageNumber}"
-                           th:text="${pageNumber}"></a>
+        <!--/* Pages numbers */-->
+        <div class="my-6">
+            <ul class="pagination" th:if="${result.getTotalElements() > 0}">
+                <!--/* Page list (current one and the others) */-->
+                <li th:each="pageNumber: ${#numbers.sequence(1, result.totalPages)}">
 
-                    </li>
-                </ul>
-            </div>
+                    <a aria-current="page"
+                       class="paginationSelectedPage"
+                       href="#"
+                       th:if="${page == pageNumber}"
+                       th:text="${pageNumber}">3</a>
 
+                    <a class="paginationNotSelectedPage"
+                       th:href="@{'/assets/' + assetId + '/proofs?page=' + ${pageNumber}}"
+                       th:if="${page != pageNumber}"
+                       th:text="${pageNumber}"></a>
+
+                </li>
+            </ul>
         </div>
 
     </div>

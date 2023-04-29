@@ -55,8 +55,7 @@ public abstract class RequestDTO {
      * Set the request as success.
      */
     public void succeed() {
-        // TODO Set back this check
-        // assert asset != null : "Your can't set this status if the asset request is not set";
+        assert asset != null : "Your can't set this status if the asset request is not set";
         status = SUCCESS;
     }
 
