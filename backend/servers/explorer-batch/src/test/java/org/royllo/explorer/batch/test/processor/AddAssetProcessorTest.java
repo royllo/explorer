@@ -93,12 +93,14 @@ public class AddAssetProcessorTest extends BaseTest {
         AddProofRequestDTO unknownRoylloCoinRequest = requestService.createAddProofRequest(UNKNOWN_ROYLLO_COIN_RAW_PROOF);
         assertNotNull(unknownRoylloCoinRequest);
 
-        // Process the request.
+        // Process the request and test its values after.
         addProofBatch.processRequests();
         final Optional<RequestDTO> unknownRoylloCoinRequestTreated = requestService.getRequest(unknownRoylloCoinRequest.getId());
         assertTrue(unknownRoylloCoinRequestTreated.isPresent());
         assertTrue(unknownRoylloCoinRequestTreated.get().isSuccessful());
         assertEquals(SUCCESS, unknownRoylloCoinRequestTreated.get().getStatus());
+        assertNotNull(unknownRoylloCoinRequestTreated.get().getAsset());
+        assertEquals(UNKNOWN_ROYLLO_COIN_ASSET_ID, unknownRoylloCoinRequestTreated.get().getAsset().getAssetId());
 
         // Check that the asset and the proof now exists.
         assertTrue(assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());

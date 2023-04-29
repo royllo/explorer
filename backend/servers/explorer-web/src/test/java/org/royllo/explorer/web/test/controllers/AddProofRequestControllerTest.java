@@ -166,6 +166,9 @@ public class AddProofRequestControllerTest {
                 // Request status.
                 .andExpect(content().string(containsString(environment.getProperty("field.asset.status"))))
                 .andExpect(content().string(containsString(">Success<")))
+                // View asset.
+                .andExpect(content().string(containsString(environment.getProperty("request.button.asset.view"))))
+                .andExpect(content().string(containsString("\"/asset/692453c6d7d54f508adaf09df86573018579ac749501991f0853baedaa16faf9\"")))
                 // NOT error message
                 .andExpect(content().string(not(containsString(environment.getProperty("field.asset.errorMessage")))));
 

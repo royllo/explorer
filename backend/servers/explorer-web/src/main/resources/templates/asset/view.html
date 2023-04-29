@@ -37,10 +37,12 @@
             <h3 class="tableHeadDescription" th:text="${result.name}"></h3>
             <p class="tableHeadValue" th:text="${result.assetId}"></p>
             <p class="tableHeadValue">
-                <!--*/ Link to view proofs */-->
-                <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                   th:href="@{'/asset/' + ${result.assetId} + '/proofs/'}"
-                   th:text="#{asset.view.proofs}"></a>
+                <!--/* View proofs */-->
+                <sl-button outline
+                           th:href="@{'/asset/' + ${result.assetId} + '/proofs'}"
+                           th:text="#{asset.view.proofs}"
+                           variant="primary">
+                </sl-button>
             </p>
         </div>
 

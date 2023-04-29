@@ -1,6 +1,6 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet author="straumat" id="test-data-requests">
 
@@ -56,6 +56,20 @@
         <insert tableName="REQUESTS_ADD_PROOF">
             <column name="ID" value="4"/>
             <column name="RAW_PROOF" value="P4"/>
+        </insert>
+
+        <!-- Add proof request n°5 ( Closed add proof with success ) -->
+        <insert tableName="REQUESTS">
+            <column name="ID" value="5"/>
+            <column name="REQUEST_ID" value="5"/>
+            <column name="TYPE" value="ADD_PROOF"/>
+            <column name="FK_USER_CREATOR" value="0"/>
+            <column name="STATUS" value="SUCCESS"/>
+            <column name="FK_ASSET" value="1"/>
+        </insert>
+        <insert tableName="REQUESTS_ADD_PROOF">
+            <column name="ID" value="5"/>
+            <column name="RAW_PROOF" value="P3"/>
         </insert>
 
     </changeSet>

@@ -3,6 +3,7 @@ package org.royllo.explorer.batch.batch;
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.batch.util.base.BaseBatch;
+import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.provider.tarod.DecodedProofResponse;
 import org.royllo.explorer.core.provider.tarod.TarodProofService;
@@ -13,6 +14,7 @@ import org.royllo.explorer.core.service.request.RequestService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -78,15 +80,17 @@ public class AddProofBatch extends BaseBatch {
                                 } else {
                                     // We have the decoded proof, we check if the asset exists.
                                     final String assetId = decodedProofResponse.getDecodedProof().getAsset().getAssetGenesis().getAssetId();
-                                    if (assetService.getAssetByAssetId(assetId).isEmpty()) {
+                                    Optional<AssetDTO> assetDTO = assetService.getAssetByAssetId(assetId);
+                                    if (assetDTO.isEmpty()) {
                                         // If it doesn't exist, we create it
                                         logger.info("addProofBatch - Because of request {}, adding asset {}", request.getId(), assetId);
-                                        assetService.addAsset(ASSET_MAPPER.mapToAssetDTO(decodedProofResponse.getDecodedProof()));
+                                        assetDTO = Optional.of(assetService.addAsset(ASSET_MAPPER.mapToAssetDTO(decodedProofResponse.getDecodedProof())));
                                     } else {
                                         logger.info("addProofBatch - For request {}, asset {} already exists", request.getId(), assetId);
                                     }
                                     // We can now add the proof.
                                     proofService.addProof(request.getRawProof(), decodedProofResponse);
+                                    request.setAsset(assetDTO.get());
                                     request.succeed();
                                 }
                             }

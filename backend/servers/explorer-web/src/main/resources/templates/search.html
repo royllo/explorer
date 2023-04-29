@@ -61,18 +61,16 @@
             <!--/* Footer */-->
             <div slot="footer">
                 <!--/* View asset */-->
-                <!-- TODO Add a test for this button -->
                 <sl-button outline
                            th:href="@{'/asset/' + ${asset.assetId}}"
                            th:text="#{search.button.asset.view}"
                            variant="primary">
                 </sl-button>
                 <!--/* View proofs */-->
-                <!-- TODO Add a test for this button -->
                 <sl-button outline
                            th:href="@{'/asset/' + ${asset.assetId} + '/proofs'}"
                            th:text="#{search.button.asset.proofs.view}"
-                           variant="primary">
+                           variant="secondary">
                 </sl-button>
             </div>
         </sl-card>
