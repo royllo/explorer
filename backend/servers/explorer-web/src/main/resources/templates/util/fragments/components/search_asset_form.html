@@ -1,19 +1,21 @@
 <!--/* Search form */-->
-<form method="GET" th:action="@{/search}">
+<div class="overflow-hidden bg-white sm:rounded-lg mx-11 w-4/5">
+    <form method="GET" th:action="@{/search}">
 
-    <!--/* Search field */-->
-    <sl-input autofocus
-              id="query"
-              name="query"
-              onClick="this.select();"
-              onFocus="this.select();"
-              pill
-              required
-              size="medium"
-              style="width:400px"
-              th:placeholder="#{search.field.helper}"
-              th:value="${query}">
-        <sl-icon name="search" slot="suffix"></sl-icon>
-    </sl-input>
+        <!--/* Search field */-->
+        <sl-input autofocus
+                  id="query"
+                  name="query"
+                  onClick="this.select();"
+                  onFocus="this.select();"
+                  pill
+                  required
+                  size="medium"
+                  style="width:350px"
+                  th:placeholder="#{search.field.helper}"
+                  th:value="${query}">
+            <sl-icon name="search" slot="suffix"></sl-icon>
+        </sl-input>
 
-</form>
+    </form>
+</div>
