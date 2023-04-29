@@ -43,8 +43,11 @@ public class HomeControllerTest {
                 .andExpect(content().string(containsString("input")))
                 .andExpect(content().string(containsString("query")))
                 // Checking the footer is here.
-                // TODO check footer content
-                .andExpect(content().string(containsString("License")));
+                .andExpect(content().string(containsString("https://www.royllo.org")))
+                .andExpect(content().string(containsString("https://api.explorer.royllo.org")))
+                .andExpect(content().string(containsString("https://github.com/royllo/explorer")))
+                .andExpect(content().string(containsString("https://twitter.com/royllo_org")))
+                .andExpect(content().string(containsString("mailto:contact@royllo.org")));
 
         // Images on the home page.
         mockMvc.perform(get("/images/logo/royllo_logo_homepage.png"))

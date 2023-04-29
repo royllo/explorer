@@ -43,7 +43,7 @@
     }
 
     .tableHeadDescription {
-        @apply text-lg font-medium leading-6 text-gray-900
+        @apply break-all  text-lg font-medium leading-6 text-gray-900
     }
 
     .tableHeadValue {

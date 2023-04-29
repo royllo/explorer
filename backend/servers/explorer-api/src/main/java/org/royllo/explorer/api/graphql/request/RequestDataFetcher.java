@@ -31,7 +31,6 @@ public class RequestDataFetcher extends BaseDataFetcher {
      */
     @DgsTypeResolver(name = "Request")
     public String resolveRequest(final RequestDTO requestDTO) {
-        // TODO Simplify when pattern Matching for switch will be available.
         if (requestDTO instanceof AddProofRequestDTO) {
             return "AddProofRequest";
         } else if (requestDTO instanceof AddAssetMetaDataRequestDTO) {

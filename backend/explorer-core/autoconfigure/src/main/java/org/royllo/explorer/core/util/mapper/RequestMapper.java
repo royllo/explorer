@@ -20,7 +20,6 @@ public interface RequestMapper {
     // =================================================================================================================
     // Generic mapper.
     default RequestDTO mapToRequestDTO(Request source) {
-        // TODO Simplify when pattern Matching for switch will be available.
         if (source instanceof AddProof) {
             return mapToAddAssetRequestDTO((AddProof) source);
         }

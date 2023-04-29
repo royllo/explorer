@@ -1,5 +1,5 @@
 function copy(textAreaId) {
     let textarea = document.getElementById(textAreaId);
-    textarea.select();
-    document.execCommand("copy");
+    navigator.clipboard.writeText(textarea.value).then(value => {
+    });
 }

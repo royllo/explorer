@@ -68,6 +68,10 @@
             <artifactId>federation-graphql-java-support</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.netflix.graphql.dgs</groupId>
+            <artifactId>graphql-dgs-mocking</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-joda</artifactId>
         </dependency>
@@ -91,11 +95,6 @@
             <artifactId>mockito-core</artifactId>
             <version>${mockito-core.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.netflix.graphql.dgs</groupId>
-            <artifactId>graphql-dgs-mocking</artifactId>
-            <!-- TODO Remove temporary fix : Scope should be set to test -->
         </dependency>
     </dependencies>
 
@@ -290,7 +289,7 @@
     <parent>
         <groupId>org.royllo.explorer</groupId>
         <artifactId>explorer</artifactId>
-        <version>0.0.7</version>
+        <version>0.0.8</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
     <!-- =========================================================================================================== -->

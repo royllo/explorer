@@ -8,7 +8,7 @@
     <!-- Project information -->
     <groupId>org.royllo.explorer</groupId>
     <artifactId>explorer</artifactId>
-    <version>0.0.7</version>
+    <version>0.0.8</version>
     <name>Royllo - A Taro asset explorer</name>
     <description>Taro explorer allows you to search for Taro assets created on the Bitcoin blockchain</description>
     <packaging>pom</packaging>
@@ -101,7 +101,7 @@
         <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
 
         <maven.source.plugin.version>3.2.1</maven.source.plugin.version>
-        <maven.javadoc.plugin.version>3.4.1</maven.javadoc.plugin.version>
+        <maven.javadoc.plugin.version>3.5.0</maven.javadoc.plugin.version>
         <maven.jar.plugin.version>3.3.0</maven.jar.plugin.version>
         <maven.archetype-packaging.version>3.2.1</maven.archetype-packaging.version>
 

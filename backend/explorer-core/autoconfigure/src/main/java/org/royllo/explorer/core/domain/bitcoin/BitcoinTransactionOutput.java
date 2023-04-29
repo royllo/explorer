@@ -32,8 +32,6 @@ public class BitcoinTransactionOutput extends BaseDomain {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    // TODO Should I add a BitcoinTransactionOutputId field ?
-
     /** Block height. */
     @Column(name = "BLOCK_HEIGHT")
     private Integer blockHeight;
