@@ -266,6 +266,9 @@
     <!-- Profiles -->
     <profiles>
         <profile>
+            <id>release</id>
+        </profile>
+        <profile>
             <id>integration</id>
             <build>
                 <plugins>

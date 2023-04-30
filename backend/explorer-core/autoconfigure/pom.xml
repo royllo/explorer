@@ -8,7 +8,7 @@
     <!-- Project information -->
     <artifactId>explorer-core-spring-boot-autoconfigure</artifactId>
     <packaging>jar</packaging>
-    <name>Royllo Explorer core Spring boot starter (autoconfigure)</name>
+    <name>Royllo Explorer spring boot starter (autoconfigure)</name>
     <description>Contains database schema, domain, repository, dto, services, util</description>
     <!-- =========================================================================================================== -->
 

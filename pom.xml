@@ -83,7 +83,7 @@
         <thymeleaf-layout-dialect.version>3.2.1</thymeleaf-layout-dialect.version>
 
         <!-- ======================================================================================================= -->
-        <!-- Test libraries -->
+        <!-- Web libraries -->
         <webjars-locator.version>0.46</webjars-locator.version>
         <shoelace.version>2.2.0</shoelace.version>
 
@@ -106,8 +106,8 @@
         <maven.archetype-packaging.version>3.2.1</maven.archetype-packaging.version>
 
         <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
-        <frontend-maven-plugin.nodeVersion>v19.4.0</frontend-maven-plugin.nodeVersion>
-        <frontend-maven-plugin.npmVersion>9.3.0</frontend-maven-plugin.npmVersion>
+        <frontend-maven-plugin.nodeVersion>v19.9.0</frontend-maven-plugin.nodeVersion>
+        <frontend-maven-plugin.npmVersion>9.6.5</frontend-maven-plugin.npmVersion>
     </properties>
     <!-- =========================================================================================================== -->
 
