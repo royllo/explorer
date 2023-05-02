@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-@SpringBootTest
+@SpringBootTest(properties = {"mempool.api.base-url=https://mempool.space/api"})
 @DisplayName("Mempool transaction service test on mainnet")
 public class MempoolTransactionServiceMainnetTest extends BaseTest {
 
