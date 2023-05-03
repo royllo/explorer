@@ -26,7 +26,6 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 
 /**
  * Proof detail.
- * === NOT USED FOR THE MOMENT. ===
  */
 @Getter
 @Setter
@@ -48,7 +47,7 @@ public class ProofDetail {
     @NotNull(message = "Target asset is required")
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "FK_PROOF", nullable = false)
-    private Proof asset;
+    private Proof proof;
 
     /** Proof index. */
     @NotNull(message = "Proof index is required")
@@ -66,7 +65,6 @@ public class ProofDetail {
     private String inclusionProof;
 
     /** Exclusion proofs. */
-    // TODO Refactor this with https://stackoverflow.com/questions/53108949/how-to-map-a-liststring-with-hibernate-jpa-without-an-extra-join-table
     @ElementCollection(fetch = EAGER)
     @CollectionTable(name = "PROOFS_EXCLUSION_PROOFS", joinColumns = @JoinColumn(name = "FK_PROOF"))
     @Column(name = "EXCLUSION_PROOF", updatable = false)

@@ -12,7 +12,7 @@ import org.royllo.explorer.core.dto.user.UserDTO;
 public class UserConstants {
 
     /** Anonymous user ID in database. */
-    public static final long ANONYMOUS_ID = 0L;
+    public static final long ANONYMOUS_ID = 1L;
 
     /** Anonymous user USER_ID in database. */
     public static final String ANONYMOUS_USER_ID = "00000000-0000-0000-0000-000000000000";

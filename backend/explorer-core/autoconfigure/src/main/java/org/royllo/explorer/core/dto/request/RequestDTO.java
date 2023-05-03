@@ -56,7 +56,7 @@ public abstract class RequestDTO {
      */
     public void succeed() {
         // TODO process() test fails if this is not commented.
-        // assert asset != null : "Your can't set this status if the asset request is not set";
+        assert asset != null : "Your can't set this status if the asset request is not set";
         status = SUCCESS;
     }
 

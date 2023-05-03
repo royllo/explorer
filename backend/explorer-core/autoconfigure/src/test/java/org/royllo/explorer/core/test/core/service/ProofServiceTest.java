@@ -63,7 +63,7 @@ public class ProofServiceTest extends BaseTest {
         assertNotNull(unknownRoylloCoin);
         assertNotNull(unknownRoylloCoin.getId());
         assertNotNull(unknownRoylloCoin.getCreator());
-        assertEquals(0, unknownRoylloCoin.getCreator().getId());
+        assertEquals(ANONYMOUS_ID, unknownRoylloCoin.getCreator().getId());
         assertEquals(0, unknownRoylloCoin.getVersion());
         assertEquals(UNKNOWN_ROYLLO_COIN_GENESIS_POINT_TXID, unknownRoylloCoin.getGenesisPoint().getTxId());
         assertEquals(UNKNOWN_ROYLLO_COIN_GENESIS_POINT_VOUT, unknownRoylloCoin.getGenesisPoint().getVout());

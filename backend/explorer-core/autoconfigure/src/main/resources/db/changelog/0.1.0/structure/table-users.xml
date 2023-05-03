@@ -1,8 +1,8 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
-    <changeSet author="straumat" id="1.0.0-table-users">
+    <changeSet author="straumat" id="0.0.1-table-users">
 
         <createTable tableName="USERS"
                      remarks="Application users">
@@ -22,9 +22,9 @@
                     remarks="User role"/>
 
             <!-- Technical fields -->
-            <column name="CREATED_ON" type="TIMESTAMP WITH TIME ZONE"
+            <column name="CREATED_ON" type="TIMESTAMP"
                     remarks="Data created on"/>
-            <column name="UPDATED_ON" type="TIMESTAMP WITH TIME ZONE"
+            <column name="UPDATED_ON" type="TIMESTAMP"
                     remarks="Data updated on"/>
 
         </createTable>
@@ -33,17 +33,16 @@
         <addAutoIncrement tableName="USERS"
                           columnName="ID"
                           columnDataType="BIGINT"
-                          incrementBy="1"
-                          startWith="1"/>
-
-        <!-- Adding a unique constraint on USERNAME -->
-        <addUniqueConstraint columnNames="USERNAME"
-                             constraintName="USERS_UNIQUE_USERNAME"
-                             tableName="USERS"/>
+                          startWith="2"/>
 
         <!-- Adding a unique constraint on USER_ID -->
         <addUniqueConstraint columnNames="USER_ID"
                              constraintName="USERS_UNIQUE_USER_ID"
+                             tableName="USERS"/>
+
+        <!-- Adding a unique constraint on USERNAME -->
+        <addUniqueConstraint columnNames="USERNAME"
+                             constraintName="USERS_UNIQUE_USERNAME"
                              tableName="USERS"/>
 
         <!-- Index on USERNAME -->

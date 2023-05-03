@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
 
 @SpringBootTest
 @DisplayName("UserService tests")
@@ -27,7 +28,7 @@ public class UserServiceTest {
     public void getAnonymousUserTest() {
         final UserDTO anonymousUser = userService.getAnonymousUser();
         assertNotNull(anonymousUser);
-        assertEquals(0, anonymousUser.getId().longValue());
+        assertEquals(ANONYMOUS_ID, anonymousUser.getId().longValue());
         assertEquals("anonymous", anonymousUser.getUsername());
         assertEquals(UserRole.USER, anonymousUser.getRole());
     }
@@ -42,7 +43,7 @@ public class UserServiceTest {
         // Existing user.
         final Optional<UserDTO> existingUser = userService.getUserByUsername("straumat");
         assertTrue(existingUser.isPresent());
-        assertEquals(1, existingUser.get().getId().longValue());
+        assertEquals(2, existingUser.get().getId().longValue());
         assertEquals("straumat", existingUser.get().getUsername());
         assertEquals(UserRole.ADMINISTRATOR, existingUser.get().getRole());
     }

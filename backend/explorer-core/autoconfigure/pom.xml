@@ -61,6 +61,11 @@
             <artifactId>postgresql</artifactId>
             <version>${jdbc.driver.postgresql.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>${jdbc.driver.mysql.version}</version>
+        </dependency>
 
         <!-- Others -->
         <dependency>
@@ -101,6 +106,11 @@
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>postgresql</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>mysql</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -209,7 +219,8 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <excludes>
-                                <exclude>**/core/**</exclude>
+                                <exclude>**/repository/**</exclude>
+                                <exclude>**/service/**</exclude>
                                 <exclude>**/issues/**</exclude>
                             </excludes>
                         </configuration>
