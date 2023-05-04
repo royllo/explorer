@@ -1,6 +1,5 @@
 package org.royllo.explorer.core.test.integration.tarod;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.provider.tarod.DecodedProofResponse;
@@ -74,7 +73,6 @@ public class TarodProofServiceTest extends BaseTest {
         assertNull(response.getErrorMessage());
     }
 
-    @Disabled
     @Test
     @DisplayName("Calling decode() on Tarod with an invalid proof")
     public void decodeErrorTest() {
