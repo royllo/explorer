@@ -11,6 +11,7 @@ import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.proof.ProofService;
 import org.royllo.explorer.core.service.request.RequestService;
+import org.royllo.explorer.core.util.exceptions.proof.ProofCreationException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -69,14 +70,14 @@ public class AddProofBatch extends BaseBatch {
                             // We check if we have a decoded proof response.
                             if (decodedProofResponse == null) {
                                 logger.info("addProofBatch - Decoded proof for request {} is null", request.getId());
-                                request.failed("Decoded proof is null");
+                                request.failure("Decoded proof is null");
                             } else {
                                 // We check if we had an error deciding the response.
                                 if (decodedProofResponse.getErrorCode() != null) {
                                     logger.info("addProofBatch - Request {} proof cannot be decoded because of this error: {}",
                                             request.getId(),
                                             decodedProofResponse.getErrorMessage());
-                                    request.failed(decodedProofResponse.getErrorMessage());
+                                    request.failure(decodedProofResponse.getErrorMessage());
                                 } else {
                                     // We have the decoded proof, we check if the asset exists.
                                     final String assetId = decodedProofResponse.getDecodedProof().getAsset().getAssetGenesis().getAssetId();
@@ -91,12 +92,16 @@ public class AddProofBatch extends BaseBatch {
                                     // We can now add the proof.
                                     proofService.addProof(request.getRawProof(), decodedProofResponse);
                                     request.setAsset(assetDTO.get());
-                                    request.succeed();
+                                    request.success();
                                 }
                             }
+                        } catch (ProofCreationException exception) {
+                            logger.error("Request {} has error: {}", request.getId(), exception.getMessage());
+                            request.failure(exception.getMessage());
                         } catch (Throwable tarodError) {
-                            // We failed on calling tarod.
-                            request.failed(tarodError.getMessage());
+                            // We failed on calling tarod, but it's an exception; not a "valid" error.
+                            logger.error("Request {} has error: {}", request.getId(), tarodError.getMessage());
+                            request.recoverableFailure("Recoverable error: " + tarodError.getMessage());
                         }
 
                         // We save the request.

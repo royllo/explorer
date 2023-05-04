@@ -10,22 +10,22 @@ public enum RequestStatus {
     /** An opened request that must be treated. */
     OPENED,
 
-    /** An error occurred, but it may work later, so we should try again. */
-    RECOVERABLE_ERROR,
-
     /** The request has been treated with success. */
     SUCCESS,
+
+    /** An error occurred, it's a failure. */
+    RECOVERABLE_FAILURE,
 
     /** An error occurred, it's a failure. */
     FAILURE;
 
     /**
-     * Return true if it's a final status - Meaning there is nothing more to do with this request.
+     * Returns the list of status that are finals - Updates with these status cannot be changed.
      *
-     * @return true if a final status
+     * @return list of final status
      */
-    public boolean isFinalStatus() {
-        return finalStatus().contains(this);
+    public static List<RequestStatus> openedStatus() {
+        return List.of(OPENED, RECOVERABLE_FAILURE);
     }
 
     /**
@@ -35,6 +35,15 @@ public enum RequestStatus {
      */
     public static List<RequestStatus> finalStatus() {
         return List.of(SUCCESS, FAILURE);
+    }
+
+    /**
+     * Return true if it's a final status - Meaning there is nothing more to do with this request.
+     *
+     * @return true if a final status
+     */
+    public boolean isFinalStatus() {
+        return finalStatus().contains(this);
     }
 
 }
