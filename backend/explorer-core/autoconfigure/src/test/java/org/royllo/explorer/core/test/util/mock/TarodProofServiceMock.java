@@ -30,6 +30,8 @@ public class TarodProofServiceMock extends BaseTest {
         // Non-existing proof.
         // Mockito.when(mockedService.decode(any(), 0)).thenReturn(Mono.empty());
 
+        Mockito.when(mockedService.decode("TIMEOUT_ERROR", 0)).thenThrow(new RuntimeException("Time out error"));
+
         Mockito.when(mockedService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF, 0)).thenReturn(Mono.just(getUnknownRoylloCoin()));
 
         return mockedService;

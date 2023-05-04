@@ -1,6 +1,5 @@
 package org.royllo.explorer.batch.test.processor;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.AddProofBatch;
@@ -26,7 +25,6 @@ import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
-@Disabled
 @SpringBootTest
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles({"mempoolTransactionServiceMock", "tarodProofServiceMock", "scheduler-disabled"})
@@ -45,7 +43,7 @@ public class AddAssetProcessorTest extends BaseTest {
     AddProofBatch addProofBatch;
 
     @Test
-    @DisplayName("Process")
+    @DisplayName("Add asset request processing")
     public void process() {
         // =============================================================================================================
         // We add a proof that can be decoded.
@@ -167,6 +165,26 @@ public class AddAssetProcessorTest extends BaseTest {
         assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF_PROOF_ID).isPresent());
         assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF_PROOF_ID).isPresent());
         assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF_PROOF_ID).isPresent());
+    }
+
+    @Test
+    @DisplayName("Exception management")
+    public void exceptionManagement() {
+        // =============================================================================================================
+        // We add a proof that can be decoded.
+
+        // Add the proof
+        AddProofRequestDTO invalidProofRequest = requestService.createAddProofRequest("TIMEOUT_ERROR");
+        assertNotNull(invalidProofRequest);
+        assertEquals(OPENED, invalidProofRequest.getStatus());
+
+        // Process the request.
+        addProofBatch.processRequests();
+        final Optional<RequestDTO> invalidProofRequestTreated = requestService.getRequest(invalidProofRequest.getId());
+        assertTrue(invalidProofRequestTreated.isPresent());
+        assertFalse(invalidProofRequestTreated.get().isSuccessful());
+        assertEquals(FAILURE, invalidProofRequestTreated.get().getStatus());
+        assertEquals("An error occurred while decoding", invalidProofRequestTreated.get().getErrorMessage());
     }
 
 }
