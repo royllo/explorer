@@ -2,37 +2,45 @@
 <footer class="fixed bottom-0 left-0 w-full p-4 bg-gray-100 rounded-b-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800 mt-12">
 
     <!--/* Left part : Royllo copyright and link */-->
-    <span class="text-sm text-gray-500 sm:text-center">
-          © <script>document.write(/\d{4}/.exec(Date())[0])</script>
+    <span class="text-sm text-gray-900 sm:text-center">
+          © <span x-data x-text="new Date().getFullYear()"></span>
             <a class="hover:underline"
                target="royllo_website"
                th:href="@{https://www.royllo.org}">Royllo</a>
           -
             <a class="hover:underline"
                target="royllo_licence"
-               th:href="@{https://github.com/royllo/explorer/blob/development/LICENSE}">GNU General Public License v3.0</a>
+               th:href="@{https://github.com/royllo/explorer/blob/development/LICENSE}">GNU GPL v3.0</a>
         </span>
 
     <!--/* Right part : Links to know more about Royllo */-->
-    <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 sm:mt-0">
+    <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 sm:mt-0 space-x-4">
         <li>
             <a class="mr-4 hover:underline md:mr-6"
                target="api"
-               th:href="@{https://api.explorer.royllo.org}">API</a>
+               th:href="@{https://api.explorer.royllo.org}">
+                <img class="footerIcon" th:alt="#{footer.api}" th:src="@{/svg/api.svg}"/>
+            </a>
         </li>
         <li>
             <a class="mr-4 hover:underline md:mr-6"
                target="github"
-               th:href="@{https://github.com/royllo/explorer}">Github</a>
+               th:href="@{https://github.com/royllo/explorer}">
+                <img class="footerIcon" th:alt="#{footer.github}" th:src="@{/svg/github.svg}"/>
+            </a>
         </li>
         <li>
             <a class="mr-4 hover:underline md:mr-6"
                target="twitter"
-               th:href="@{https://twitter.com/royllo_org}">Twitter</a>
+               th:href="@{https://twitter.com/royllo_org}">
+                <img class="footerIcon" th:alt="#{footer.twitter}" th:src="@{/svg/twitter.svg}"/>
+            </a>
         </li>
         <li>
-            <a class="hover:underline"
-               th:href="@{mailto:contact@royllo.org}">Contact</a>
+            <a class="mr-4 hover:underline md:mr-6"
+               th:href="@{mailto:contact@royllo.org}">
+                <img class="footerIcon" th:alt="#{footer.email}" th:src="@{/svg/email.svg}"/>
+            </a>
         </li>
     </ul>
 

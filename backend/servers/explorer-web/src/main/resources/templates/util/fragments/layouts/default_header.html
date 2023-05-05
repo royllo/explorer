@@ -4,7 +4,6 @@
         items-center    :   Use items-center to align items along the center of the container’s cross axis.
         justify-between :   Use justify-between to justify items along the container’s main axis such that there is an equal amount of space between each item
         px-4 py-4       :   To add horizontal padding, use the px-{size} utilities, py-{size} for vertical.
-        bg-white        :   Utilities for controlling an element's background color.
     */-->
 <header class="flex items-center justify-between px-4 py-4">
 
@@ -15,11 +14,8 @@
     </a>
 
     <!--/* Request - Add a proof button */-->
-    <sl-button outline
-               size="large"
-               th:href="@{/request/proof/add}"
-               th:text="#{request.proof.add}"
-               variant="primary">
-    </sl-button>
+    <a class="defaultButton"
+       th:href="@{/request/proof/add}"
+       th:text="#{request.proof.add}"></a>
 
 </header>

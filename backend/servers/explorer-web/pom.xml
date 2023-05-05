@@ -63,11 +63,13 @@
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator</artifactId>
             <version>${webjars-locator.version}</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.webjars.npm</groupId>
-            <artifactId>shoelace-style__shoelace</artifactId>
-            <version>${shoelace.version}</version>
+            <artifactId>alpinejs</artifactId>
+            <version>${webjars-alpinejs.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Test dependencies -->
