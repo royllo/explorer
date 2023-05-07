@@ -10,19 +10,14 @@
     <!--/* Error management */-->
 
     <!--/* We have the "assetId" parameter but the asset was not found */-->
-    <sl-alert open th:if="${!#strings.isEmpty(assetId) && result == null}" variant="danger">
-        <sl-icon name="exclamation-octagon" slot="icon"></sl-icon>
-        <strong th:text="#{generic.error}"></strong><br/>
-        <div th:text="#{proof.view.error.assetNotFound(${assetId})}"></div>
-    </sl-alert>
+    <div th:if="${!#strings.isEmpty(assetId) && result == null}"
+         th:insert="~{util/fragments/components/error_message :: error_message(#{proof.view.error.assetNotFound(${assetId})})}">
+    </div>
 
     <!--/* There is results but not for the page they asked for */-->
-    <sl-alert open th:if="${result != null && result.getTotalElements() > 0 && result.getContent().isEmpty()}"
-              variant="danger">
-        <sl-icon name="exclamation-octagon" slot="icon"></sl-icon>
-        <strong th:text="#{generic.error}"></strong><br/>
-        <div th:text="#{proof.view.error.invalidPage}"></div>
-    </sl-alert>
+    <div th:if="${result != null && result.getTotalElements() > 0 && result.getContent().isEmpty()}"
+         th:insert="~{util/fragments/components/error_message :: error_message(#{proof.view.error.invalidPage})}">
+    </div>
 
     <!--/* ======================================================================================================= */-->
     <!--/* Display result */-->

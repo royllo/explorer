@@ -42,40 +42,24 @@
 
     /* ============================================================================================================== */
     /* Used to display data in a table. */
-    .head {
-        @apply overflow-visible bg-white shadow sm:rounded-lg mx-11 w-4/5 border-black
+    .tableHeadTitle {
+        @apply text-base font-semibold leading-7 text-gray-900 truncate block
     }
 
-    .tableHead {
-        @apply px-4 py-5 sm:px-6
+    .tableHeadSubTitle {
+        @apply mt-1 max-w-2xl text-sm leading-6 text-gray-500 truncate block
     }
 
-    .tableHeadDescription {
-        @apply break-all  text-lg font-medium leading-6 text-gray-900
-    }
-
-    .tableHeadValue {
-        @apply mt-1 max-w-2xl text-sm text-gray-500
-    }
-
-    .tableLines {
-        @apply border-t border-gray-900
-    }
-
-    .tableLineWhite {
-        @apply bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6
-    }
-
-    .tableLineGray {
-        @apply bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6
+    .tableLine {
+        @apply px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6
     }
 
     .tableLineDescription {
-        @apply text-sm font-medium text-gray-500
+        @apply text-sm font-medium text-gray-900
     }
 
     .tableLineValue {
-        @apply break-all mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0
+        @apply mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 truncate block
     }
 
 }
