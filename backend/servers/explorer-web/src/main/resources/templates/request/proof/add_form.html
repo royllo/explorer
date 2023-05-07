@@ -8,34 +8,37 @@
 
     <!--/* ======================================================================================================= */-->
     <!--/* Display form */-->
-    <div class="overflow-hidden bg-white sm:rounded-lg mx-11 w-4/5">
+    <div class="pt-12 w-4/5 mx-auto">
         <form method="post" th:action="@{/request/proof/add}" th:object="${command}">
 
             <!--/* Raw proof field */-->
-            <sl-textarea name="rawProof"
-                         onClick="this.select();"
-                         onFocus="this.select();"
-                         required
-                         rows="25"
-                         th:field="*{rawProof}"
-                         th:placeholder="#{request.proof.rawProof.helper}">
-            </sl-textarea>
+            <textarea
+                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    name="rawProof"
+                    onClick="this.select();"
+                    onFocus="this.select();"
+                    required
+                    rows="25"
+                    th:field="*{rawProof}"
+                    th:placeholder="#{request.proof.rawProof.helper}">
+            </textarea>
             <p class="mt-2 text-sm text-red-600 dark:text-red-500" th:errors="*{rawProof}"
                th:if="${#fields.hasErrors('rawProof')}"></p>
             <br/>
-
-            <!--/* Explain how to retrieve a raw proof ? */-->
-            <sl-details th:summary="#{request.proof.explanation.title}">
-                <code th:utext="#{request.proof.explanation.code}"></code>
-            </sl-details>
+            <button class="defaultButton"
+                    th:text="#{request.proof.submit}"
+                    type="submit"></button>
+            <br/>
             <br/>
 
-            <!--/* Submit button */-->
-            <sl-button th:text="#{request.proof.submit}" type="submit">Button</sl-button>
+            <!--/* Explain how to retrieve a raw proof ? */-->
+            <div th:text="#{request.proof.explanation.title}"></div>
+            <code th:utext="#{request.proof.explanation.code}"></code>
 
+            <!--/* TODO, this should not be needed! */-->
+            <div class="my-12">&nbsp;</div>
         </form>
     </div>
-    <!--/* ======================================================================================================= */-->
 
 </div>
 <!--/* =========================================================================================================== */-->
