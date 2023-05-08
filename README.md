@@ -23,8 +23,8 @@ A live version is available here: [https://explorer.royllo.org/](https://explore
 ```mermaid
 graph LR
     BatchServer(Batch server) --- database[(Database)];
-    database[(Database)] --- APIServer(API server);
-    database[(Database)] --- WebServer(Web server);
+    database[(Database)] --- APIServers(API servers);
+    database[(Database)] --- WebServers(Web servers);
 ```
 
 Royllo has four components:
@@ -34,7 +34,8 @@ Royllo has four components:
 - An API server ([royllo/explorer-api](https://hub.docker.com/r/royllo/explorer-api)).
 - A Web server ([royllo/explorer-web](https://hub.docker.com/r/royllo/explorer-web)).
 
-Royllo also needs to access two external services: Lnd, Taro & Mempool.
+Royllo also needs to access to three external
+services: [Lnd, Taro](https://github.com/royllo/lnd-taro-with-docker) & [Mempool](https://mempool.space/).
 
 The easiest way to run it is to use the `docker-compose` file provided in this repository.
 Just run : `docker-compose up`
