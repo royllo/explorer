@@ -2,7 +2,7 @@
 <databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
-    <changeSet author="straumat" id="0.0.1-table-requests_add_request_meta_data">
+    <changeSet author="straumat" id="0.1.0-table-requests_add_request_meta_data">
 
         <createTable tableName="REQUESTS_ADD_ASSET_META_DATA"
                      remarks="A request to add asset meta data to an asset already in royllo explorer">
