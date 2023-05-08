@@ -8,128 +8,126 @@
 
     <!--/* ======================================================================================================= */-->
     <!--/* Error management */-->
-    <div class="w-1/3 pt-12">
+    <div class="errorManagement">
 
         <!--/* No value for the "assetId" parameter */-->
-        <sl-alert open th:if="${#strings.isEmpty(assetId)}" variant="danger">
-            <sl-icon name="exclamation-octagon" slot="icon"></sl-icon>
-            <strong th:text="#{generic.error}"></strong><br/>
-            <div th:text="#{asset.view.error.noAssetId}"></div>
-        </sl-alert>
+        <div th:if="${#strings.isEmpty(assetId)}"
+             th:insert="~{util/fragments/components/error_message :: error_message(#{asset.view.error.noAssetId})}">
+        </div>
 
         <!--/* We have the "assetId" parameter but the asset was not found */-->
-        <sl-alert open th:if="${!#strings.isEmpty(assetId) && result == null}" variant="danger">
-            <sl-icon name="exclamation-octagon" slot="icon"></sl-icon>
-            <strong th:text="#{generic.error}"></strong><br/>
-            <div th:text="#{asset.view.error.assetNotFound(${assetId})}"></div>
-        </sl-alert>
+        <div th:if="${!#strings.isEmpty(assetId) && result == null}"
+             th:insert="~{util/fragments/components/error_message :: error_message(#{asset.view.error.assetNotFound(${assetId})})}">
+        </div>
 
     </div>
 
     <!--/* ======================================================================================================= */-->
     <!--/* Display result */-->
+    <div class="pt-12 w-4/5 mx-auto" th:if="${result != null}">
 
-    <!--*/ Asset viewer */-->
-    <div class="head" th:if="${result != null}">
+        <!--*/ Asset viewer */-->
+        <div class="overflow-hidden shadow sm:rounded-lg">
+            <div class="px-4 py-6 sm:px-6">
+                <h3 class="tableHeadTitle" th:text="${result.name}"></h3>
+                <p class="tableHeadSubTitle" th:text="${result.assetId}"></p>
+            </div>
+            <div class="border-t border-gray-100">
+                <dl class="divide-y divide-gray-100">
 
-        <!--*/ Header */-->
-        <div class="tableHead">
-            <h3 class="tableHeadDescription" th:text="${result.name}"></h3>
-            <p class="tableHeadValue" th:text="${result.assetId}"></p>
-            <p class="tableHeadValue">
-                <!--/* View proofs */-->
-                <sl-button outline
-                           th:href="@{'/asset/' + ${result.assetId} + '/proofs'}"
-                           th:text="#{asset.view.proofs}"
-                           variant="primary">
-                </sl-button>
-            </p>
+                    <!--/* Genesis bootstrap information */-->
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.genesisBootStrapInformation}"></dt>
+                        <dd class="tableLineValue" th:text="${result.genesisBootstrapInformation}"></dd>
+                    </div>
+
+                    <!--/* Genesis point */-->
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.genesisPoint}"></dt>
+                        <dd class="tableLineValue"
+                            th:text="${result.genesisPoint.txId} + ':' + ${result.genesisPoint.vout}"></dd>
+                    </div>
+
+                    <!--/* Asset ID */-->
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.assetId}"></dt>
+                        <dd class="tableLineValue" th:text="${result.assetId}"></dd>
+                    </div>
+
+                    <!--/* Asset name */-->
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.name}"></dt>
+                        <dd class="tableLineValue" th:text="${result.name}"></dd>
+                    </div>
+
+                    <!--/* Metadata hash */-->
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.metaDataHash}"></dt>
+                        <dd class="tableLineValue" th:text="${result.metaData}"></dd>
+                    </div>
+
+                    <!--/* Asset type */-->
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.assetType}"></dt>
+                        <dd class="tableLineValue" th:if="${#strings.equals(result.type, 'NORMAL')}"
+                            th:text="#{field.asset.assetType.normal}"></dd>
+                        <dd class="tableLineValue" th:if="${#strings.equals(result.type, 'COLLECTIBLE')}"
+                            th:text="#{field.asset.assetType.collectible}"></dd>
+                    </div>
+
+                    <!--/* Taro output index */-->
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.outputIndex}"></dt>
+                        <dd class="tableLineValue" th:text="${result.outputIndex}"></dd>
+                    </div>
+
+                    <!--/* Asset amount */-->
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.amount}"></dt>
+                        <dd class="tableLineValue" th:text="${result.amount}"></dd>
+                    </div>
+
+                    <!--/* Script key */-->
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.scriptKey}"></dt>
+                        <dd class="tableLineValue" th:text="${result.scriptKey}"></dd>
+                    </div>
+
+                    <!--/* Anchor */-->
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.anchorTx}"></dt>
+                        <dd class="tableLineValue" th:text="${result.anchorTx}"></dd>
+                    </div>
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.anchorTxid}"></dt>
+                        <dd class="tableLineValue" th:text="${result.anchorTxId}"></dd>
+                    </div>
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.anchorBlockHash}"></dt>
+                        <dd class="tableLineValue" th:text="${result.anchorBlockHash}"></dd>
+                    </div>
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.anchorOutpoint}"></dt>
+                        <dd class="tableLineValue" th:text="${result.anchorOutpoint}"></dd>
+                    </div>
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.anchorInernalKey}"></dt>
+                        <dd class="tableLineValue" th:text="${result.anchorInternalKey}"></dd>
+                    </div>
+
+                </dl>
+            </div>
         </div>
 
-        <!--/* Data */-->
-        <div class="tableLines">
-            <dl>
-                <!--/* Genesis point  */-->
-                <div class="tableLineWhite">
-                    <dt class="tableLineDescription" th:text="#{field.asset.genesisPoint}"></dt>
-                    <dd class="tableLineValue"
-                        th:text="${result.genesisPoint.txId} + ':' + ${result.genesisPoint.vout}"></dd>
-                </div>
-                <!--/* Asset name */-->
-                <div class="tableLineGray">
-                    <dt class="tableLineDescription" th:text="#{field.asset.name}"></dt>
-                    <dd class="tableLineValue" th:text="${result.name}"></dd>
-                </div>
-                <!--/* Metadata hash */-->
-                <div class="tableLineWhite">
-                    <dt class="tableLineDescription" th:text="#{field.asset.metaDataHash}"></dt>
-                    <dd class="tableLineValue" th:text="${result.metaData}"></dd>
-                </div>
-                <!--/* Asset ID */-->
-                <div class="tableLineGray">
-                    <dt class="tableLineDescription" th:text="#{field.asset.assetId}"></dt>
-                    <dd class="tableLineValue" th:text="${result.assetId}"></dd>
-                </div>
-                <!--/* Taro output index */-->
-                <div class="tableLineWhite">
-                    <dt class="tableLineDescription" th:text="#{field.asset.outputIndex}"></dt>
-                    <dd class="tableLineValue" th:text="${result.outputIndex}"></dd>
-                </div>
-                <!--/* Genesis bootstrap information */-->
-                <div class="tableLineGray">
-                    <dt class="tableLineDescription" th:text="#{field.asset.genesisBootStrapInformation}"></dt>
-                    <dd class="tableLineValue" th:text="${result.genesisBootstrapInformation}"></dd>
-                </div>
-
-                <!--/* Asset type */-->
-                <div class="tableLineWhite">
-                    <dt class="tableLineDescription" th:text="#{field.asset.assetType}"></dt>
-                    <dd class="tableLineValue" th:if="${#strings.equals(result.type, 'NORMAL')}"
-                        th:text="#{field.asset.assetType.normal}"></dd>
-                    <dd class="tableLineValue" th:if="${#strings.equals(result.type, 'COLLECTIBLE')}"
-                        th:text="#{field.asset.assetType.collectible}"></dd>
-                </div>
-                <!--/* Asset amount */-->
-                <div class="tableLineGray">
-                    <dt class="tableLineDescription" th:text="#{field.asset.amount}"></dt>
-                    <dd class="tableLineValue" th:text="${result.amount}"></dd>
-                </div>
-                <!--/* Script key */-->
-                <div class="tableLineWhite">
-                    <dt class="tableLineDescription" th:text="#{field.asset.scriptKey}"></dt>
-                    <dd class="tableLineValue" th:text="${result.scriptKey}"></dd>
-                </div>
-
-                <!--/* Creator */-->
-                <div class="tableLineGray">
-                    <dt class="tableLineDescription" th:text="#{field.asset.creator.username}"></dt>
-                    <dd class="tableLineValue" th:text="${result.creator.username}"></dd>
-                </div>
-
-                <!--/* Anchor */-->
-                <div class="tableLineWhite">
-                    <dt class="tableLineDescription" th:text="#{field.asset.anchorTx}"></dt>
-                    <dd class="tableLineValue" th:text="${result.anchorTx}"></dd>
-                </div>
-                <div class="tableLineGray">
-                    <dt class="tableLineDescription" th:text="#{field.asset.anchorTxid}"></dt>
-                    <dd class="tableLineValue" th:text="${result.anchorTxId}"></dd>
-                </div>
-                <div class="tableLineWhite">
-                    <dt class="tableLineDescription" th:text="#{field.asset.anchorBlockHash}"></dt>
-                    <dd class="tableLineValue" th:text="${result.anchorBlockHash}"></dd>
-                </div>
-                <div class="tableLineGray">
-                    <dt class="tableLineDescription" th:text="#{field.asset.anchorOutpoint}"></dt>
-                    <dd class="tableLineValue" th:text="${result.anchorOutpoint}"></dd>
-                </div>
-                <div class="tableLineWhite">
-                    <dt class="tableLineDescription" th:text="#{field.asset.anchorInernalKey}"></dt>
-                    <dd class="tableLineValue" th:text="${result.anchorInternalKey}"></dd>
-                </div>
-            </dl>
+        <div class="my-12">
+            <!--/* Request - Add a proof button */-->
+            <a class="defaultButton"
+               th:href="@{'/asset/' + ${result.assetId} + '/proofs'}"
+               th:text="#{asset.view.proofs}"></a>
         </div>
 
+        <!--/* TODO, this should not be needed! */-->
+        <div class="my-12">&nbsp;</div>
     </div>
 
 </div>

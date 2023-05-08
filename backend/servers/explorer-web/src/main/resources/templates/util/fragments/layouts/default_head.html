@@ -24,31 +24,9 @@
 
     <!--/* Javascript */-->
     <script th:src="@{/js/application.js}" type="text/javascript"></script>
-    <script th:src="@{/webjars/shoelace-style__shoelace/dist/shoelace.js}" type="module"></script>
+    <script defer th:src="@{/webjars/alpinejs/dist/cdn.min.js}" type="text/javascript"></script>
 
     <!--/* CSS */-->
     <link rel="stylesheet" th:href="@{/css/application.css}">
-    <link rel="stylesheet" th:href="@{/webjars/shoelace-style__shoelace/dist/themes/light.css}">
-
-    <!--/* Used to avoid component "flashing" */-->
-    <style>
-        body {
-            opacity: 0;
-        }
-
-        body.ready {
-            opacity: 1;
-            transition: 0.25s opacity;
-        }
-    </style>
-    <script type="module">
-        await Promise.allSettled([
-            customElements.whenDefined('sl-button'),
-        ]);
-
-        // Button, card, and rating are registered now!
-        // Add the `ready` class so the UI fades in.
-        document.body.classList.add('ready');
-    </script>
 
 </head>

@@ -13,7 +13,7 @@ public enum RequestStatus {
     /** The request has been treated with success. */
     SUCCESS,
 
-    /** An error occurred, it's a failure. */
+    /** An error occurred, it's a failure, but it could work again if we retry.. */
     RECOVERABLE_FAILURE,
 
     /** An error occurred, it's a failure. */
@@ -35,15 +35,6 @@ public enum RequestStatus {
      */
     public static List<RequestStatus> finalStatus() {
         return List.of(SUCCESS, FAILURE);
-    }
-
-    /**
-     * Return true if it's a final status - Meaning there is nothing more to do with this request.
-     *
-     * @return true if a final status
-     */
-    public boolean isFinalStatus() {
-        return finalStatus().contains(this);
     }
 
 }
