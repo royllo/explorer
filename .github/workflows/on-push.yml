@@ -21,7 +21,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-          cache: 'maven'
 
       # ================================================================================================================
       - name: build and run tests
@@ -45,7 +44,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-          cache: 'maven'
 
       # ================================================================================================================
       - name: Build docker images
@@ -160,7 +158,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-          cache: 'maven'
 
       # ================================================================================================================
       - name: Build docker images
@@ -202,7 +199,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-          cache: 'maven'
 
       # ================================================================================================================
       - name: Build docker images
