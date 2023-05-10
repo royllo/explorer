@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
@@ -201,7 +202,7 @@ public class AssetServiceTest extends BaseTest {
         assertEquals("p2pkh", asset1.getGenesisPoint().getScriptPubKeyType());
         assertEquals("1yLucPwZwVuNxMFTXyyX5qTk3YFNpAGEz", asset1.getGenesisPoint().getScriptPubKeyAddress());
         assertEquals(0, new BigDecimal("2036308").compareTo(asset1.getGenesisPoint().getValue()));
-        assertEquals(0, asset1.getCreator().getId());
+        assertEquals(ANONYMOUS_ID, asset1.getCreator().getId());
         assertEquals("anonymous", asset1.getCreator().getUsername());
         assertEquals("testCoin", asset1.getName());
         assertEquals("my meta data", asset1.getMetaData());

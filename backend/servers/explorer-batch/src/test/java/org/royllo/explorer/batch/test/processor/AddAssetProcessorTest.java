@@ -1,6 +1,5 @@
 package org.royllo.explorer.batch.test.processor;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.AddProofBatch;
@@ -23,10 +22,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.enums.RequestStatus.FAILURE;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
+import static org.royllo.explorer.core.util.enums.RequestStatus.RECOVERABLE_FAILURE;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
-@Disabled
 @SpringBootTest
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles({"mempoolTransactionServiceMock", "tarodProofServiceMock", "scheduler-disabled"})
@@ -45,7 +44,7 @@ public class AddAssetProcessorTest extends BaseTest {
     AddProofBatch addProofBatch;
 
     @Test
-    @DisplayName("Process")
+    @DisplayName("Add asset request processing")
     public void process() {
         // =============================================================================================================
         // We add a proof that can be decoded.
@@ -93,12 +92,14 @@ public class AddAssetProcessorTest extends BaseTest {
         AddProofRequestDTO unknownRoylloCoinRequest = requestService.createAddProofRequest(UNKNOWN_ROYLLO_COIN_RAW_PROOF);
         assertNotNull(unknownRoylloCoinRequest);
 
-        // Process the request.
+        // Process the request and test its values after.
         addProofBatch.processRequests();
         final Optional<RequestDTO> unknownRoylloCoinRequestTreated = requestService.getRequest(unknownRoylloCoinRequest.getId());
         assertTrue(unknownRoylloCoinRequestTreated.isPresent());
         assertTrue(unknownRoylloCoinRequestTreated.get().isSuccessful());
         assertEquals(SUCCESS, unknownRoylloCoinRequestTreated.get().getStatus());
+        assertNotNull(unknownRoylloCoinRequestTreated.get().getAsset());
+        assertEquals(UNKNOWN_ROYLLO_COIN_ASSET_ID, unknownRoylloCoinRequestTreated.get().getAsset().getAssetId());
 
         // Check that the asset and the proof now exists.
         assertTrue(assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
@@ -165,6 +166,32 @@ public class AddAssetProcessorTest extends BaseTest {
         assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF_PROOF_ID).isPresent());
         assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF_PROOF_ID).isPresent());
         assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF_PROOF_ID).isPresent());
+    }
+
+    @Test
+    @DisplayName("Exception management")
+    public void exceptionManagement() {
+        // Add the proof
+        AddProofRequestDTO invalidProofRequest = requestService.createAddProofRequest("TIMEOUT_ERROR");
+        assertNotNull(invalidProofRequest);
+        assertEquals(OPENED, invalidProofRequest.getStatus());
+
+        // Process the request with an exception being raised!
+        addProofBatch.processRequests();
+        Optional<RequestDTO> invalidProofRequestTreated = requestService.getRequest(invalidProofRequest.getId());
+        assertTrue(invalidProofRequestTreated.isPresent());
+        assertFalse(invalidProofRequestTreated.get().isSuccessful());
+        assertEquals(RECOVERABLE_FAILURE, invalidProofRequestTreated.get().getStatus());
+        assertTrue(invalidProofRequestTreated.get().getErrorMessage().startsWith("Recoverable error: "));
+
+        // On the second call, the tarod should give a good reply<;
+        addProofBatch.processRequests();
+        invalidProofRequestTreated = requestService.getRequest(invalidProofRequest.getId());
+        assertTrue(invalidProofRequestTreated.isPresent());
+        System.out.println(invalidProofRequestTreated);
+        assertTrue(invalidProofRequestTreated.get().isSuccessful());
+        assertEquals(SUCCESS, invalidProofRequestTreated.get().getStatus());
+        assertNotNull(invalidProofRequestTreated.get().getAsset());
     }
 
 }

@@ -29,7 +29,7 @@ public class UserDTO {
     @NotBlank(message = "Username is mandatory")
     String username;
 
-    /** User role. TODO Allow several roles for one user with ElementCollection */
+    /** User role. */
     @NotNull(message = "Role is mandatory")
     UserRole role;
 

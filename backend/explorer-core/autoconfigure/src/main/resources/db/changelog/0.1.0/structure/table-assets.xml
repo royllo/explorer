@@ -1,8 +1,8 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
-    <changeSet author="straumat" id="1.0.0-table-assets">
+    <changeSet author="straumat" id="0.1.0-table-assets">
 
         <createTable tableName="ASSETS"
                      remarks="Taro assets">
@@ -16,11 +16,8 @@
             <!-- Table fields -->
             <column name="FK_USER_CREATOR" type="BIGINT"
                     remarks="The user who created this asset"/>
-
             <column name="VERSION" type="INTEGER"
                     remarks="The version of the Taro asset"/>
-
-            <!-- Foreign keys -->
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" type="BIGINT"
                     remarks="The first outpoint of the transaction that created the asset (txid:vout)"/>
 
@@ -37,7 +34,6 @@
                     remarks="The full genesis information encoded in a portable manner, so it can be easily copy/pasted for address creation"/>
             <column name="GENESIS_VERSION" type="INTEGER"
                     remarks="The version of the Taro commitment that created this asset"/>
-
             <column name="ASSET_TYPE" type="VARCHAR(255)"
                     remarks="The type of the asset: normal or a collectible"/>
             <column name="AMOUNT" type="BIGINT"
@@ -48,8 +44,6 @@
             <column name="RELATIVE_LOCK_TIME" type="INTEGER"
                     remarks="An optional relative lock time, same as Bitcoin transactions"/>
 
-            <!-- TODO add asset_group ? -->
-
             <column name="SCRIPT_VERSION" type="INTEGER"
                     remarks="The version of the script, only version 0 is defined at present"/>
             <column name="SCRIPT_KEY" type="VARCHAR(255)"
@@ -59,7 +53,7 @@
             <column name="ANCHOR_TX" type="VARCHAR(1000)"
                     remarks="The transaction that anchors the Taro commitment where the asset resides"/>
             <column name="ANCHOR_TXID" type="VARCHAR(255)"
-                    remarks="The txid of the anchor transaction"/>
+                    remarks="The transaction id of the anchor transaction"/>
             <column name="ANCHOR_BLOCK_HASH" type="VARCHAR(255)"
                     remarks="The block hash the contains the anchor transaction above"/>
             <column name="ANCHOR_OUTPOINT" type="VARCHAR(255)"
@@ -67,12 +61,10 @@
             <column name="ANCHOR_INTERNAL_KEY" type="VARCHAR(255)"
                     remarks="The raw internal key that was used to create the anchor Taproot output key"/>
 
-            <!-- TODO add prev_witnesses ? -->
-
             <!-- Technical fields -->
-            <column name="CREATED_ON" type="TIMESTAMP WITH TIME ZONE"
+            <column name="CREATED_ON" type="TIMESTAMP"
                     remarks="Data created on"/>
-            <column name="UPDATED_ON" type="TIMESTAMP WITH TIME ZONE"
+            <column name="UPDATED_ON" type="TIMESTAMP"
                     remarks="Data updated on"/>
 
         </createTable>
@@ -81,7 +73,6 @@
         <addAutoIncrement tableName="ASSETS"
                           columnName="ID"
                           columnDataType="BIGINT"
-                          incrementBy="1"
                           startWith="2"/>
 
         <!-- Adding a unique constraint on ASSET_ID -->
@@ -105,7 +96,7 @@
                                  referencedColumnNames="ID"
                                  validate="true"/>
 
-        <!-- Index on ASSETS -->
+        <!-- Index on ASSET_ID -->
         <createIndex indexName="IDX_ASSETS_ASSET_ID"
                      tableName="ASSETS">
             <column name="ASSET_ID"/>

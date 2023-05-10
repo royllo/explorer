@@ -1,6 +1,6 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet author="straumat" id="test-data-requests">
 
@@ -9,7 +9,7 @@
             <column name="ID" value="1"/>
             <column name="REQUEST_ID" value="f5623bdf-9fa6-46cf-85df-request_p_01"/>
             <column name="TYPE" value="ADD_PROOF"/>
-            <column name="FK_USER_CREATOR" value="0"/>
+            <column name="FK_USER_CREATOR" value="1"/>
             <column name="STATUS" value="OPENED"/>
         </insert>
         <insert tableName="REQUESTS_ADD_PROOF">
@@ -22,7 +22,7 @@
             <column name="ID" value="2"/>
             <column name="REQUEST_ID" value="91425ba6-8b16-46a8-baa6-request_p_02"/>
             <column name="TYPE" value="ADD_PROOF"/>
-            <column name="FK_USER_CREATOR" value="0"/>
+            <column name="FK_USER_CREATOR" value="1"/>
             <column name="STATUS" value="FAILURE"/>
             <column name="ERROR_MESSAGE" value="There is an error !"/>
         </insert>
@@ -36,7 +36,7 @@
             <column name="ID" value="3"/>
             <column name="REQUEST_ID" value="91425ba6-8b16-46a8-baa6-request_m_01"/>
             <column name="TYPE" value="ADD_ASSET_META_DATA"/>
-            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_USER_CREATOR" value="2"/>
             <column name="STATUS" value="OPENED"/>
         </insert>
         <insert tableName="REQUESTS_ADD_ASSET_META_DATA">
@@ -45,13 +45,14 @@
             <column name="META_DATA" value="MD2"/>
         </insert>
 
-        <!-- Add proof request n°4 ( Successfull proof GI4/P4 ) -->
+        <!-- Add proof request n°4 ( Successful proof GI4/P4 ) -->
         <insert tableName="REQUESTS">
             <column name="ID" value="4"/>
             <column name="REQUEST_ID" value="91425ba6-8b16-46a8-baa6-request_p_03"/>
             <column name="TYPE" value="ADD_PROOF"/>
-            <column name="FK_USER_CREATOR" value="0"/>
+            <column name="FK_USER_CREATOR" value="1"/>
             <column name="STATUS" value="SUCCESS"/>
+            <column name="FK_ASSET" value="1"/>
         </insert>
         <insert tableName="REQUESTS_ADD_PROOF">
             <column name="ID" value="4"/>

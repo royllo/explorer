@@ -38,10 +38,25 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
     /** Proof repository. */
     private final ProofRepository proofRepository;
 
+    /**
+     * Returns the sha256 value calculated with the parameter.
+     *
+     * @param value value
+     * @return sha256 of value
+     */
+    private static String sha256(@NonNull final String value) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] digest = md.digest(value.getBytes(StandardCharsets.UTF_8));
+            return DatatypeConverter.printHexBinary(digest).toLowerCase();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("SHA-256 is not available: " + e.getMessage());
+        }
+    }
+
     @Override
     public ProofDTO addProof(@NonNull final String rawProof,
                              @NonNull final DecodedProofResponse decodedProof) {
-        // TODO remove decodedProof from parameters.
         logger.info("addProof - Adding {} with {}", rawProof, decodedProof);
 
         // We check that the proof is not in our database.
@@ -114,22 +129,6 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
         }
 
         return results;
-    }
-
-    /**
-     * Returns the sha256 value calculated with the parameter.
-     *
-     * @param value value
-     * @return sha256 of value
-     */
-    private static String sha256(@NonNull final String value) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] digest = md.digest(value.getBytes(StandardCharsets.UTF_8));
-            return DatatypeConverter.printHexBinary(digest).toLowerCase();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("SHA-256 is not available: " + e.getMessage());
-        }
     }
 
 }

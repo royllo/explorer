@@ -2,8 +2,8 @@ package org.royllo.explorer.core.test.core.repository;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.royllo.explorer.core.repository.user.UserRepository;
 import org.royllo.explorer.core.domain.user.User;
+import org.royllo.explorer.core.repository.user.UserRepository;
 import org.royllo.explorer.core.util.constants.UserConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,14 +36,14 @@ public class UserRepositoryTest {
         // Finding the user by its uid.
         final Optional<User> anonymousUserByUserId = userRepository.findByUserId(UserConstants.ANONYMOUS_USER_ID);
         assertTrue(anonymousUserByUserId.isPresent());
-        assertEquals(0, anonymousUserByUserId.get().getId().longValue());
+        assertEquals(ANONYMOUS_ID, anonymousUserByUserId.get().getId().longValue());
         assertEquals(ANONYMOUS_USER_ID, anonymousUserByUserId.get().getUserId());
         assertEquals("anonymous", anonymousUserByUserId.get().getUsername());
 
         // Finding the user by its username.
         final Optional<User> anonymousUserByUsername = userRepository.findByUsername(UserConstants.ANONYMOUS_USER_USERNAME);
         assertTrue(anonymousUserByUsername.isPresent());
-        assertEquals(0, anonymousUserByUsername.get().getId().longValue());
+        assertEquals(ANONYMOUS_ID, anonymousUserByUsername.get().getId().longValue());
         assertEquals(ANONYMOUS_USER_ID, anonymousUserByUsername.get().getUserId());
         assertEquals("anonymous", anonymousUserByUsername.get().getUsername());
     }
@@ -60,7 +60,7 @@ public class UserRepositoryTest {
     public void findExistingUser() {
         final Optional<User> existingUser = userRepository.findByUsername("straumat");
         assertTrue(existingUser.isPresent());
-        assertEquals(1, existingUser.get().getId().longValue());
+        assertEquals(2, existingUser.get().getId().longValue());
         assertEquals("straumat", existingUser.get().getUsername());
     }
 

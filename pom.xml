@@ -8,7 +8,7 @@
     <!-- Project information -->
     <groupId>org.royllo.explorer</groupId>
     <artifactId>explorer</artifactId>
-    <version>0.0.8</version>
+    <version>0.0.9</version>
     <name>Royllo - A Taro asset explorer</name>
     <description>Taro explorer allows you to search for Taro assets created on the Bitcoin blockchain</description>
     <packaging>pom</packaging>
@@ -65,27 +65,27 @@
         <!-- ======================================================================================================= -->
         <!-- Project libraries -->
         <spring.version>3.0.6</spring.version>
-        <reactor-core.version>3.5.5</reactor-core.version>
-        <reactor-netty.version>1.1.6</reactor-netty.version>
+        <reactor-core.version>3.5.6</reactor-core.version>
+        <reactor-netty.version>1.1.7</reactor-netty.version>
 
         <graphql-dgs-platform-dependencies.version>6.0.0</graphql-dgs-platform-dependencies.version>
-        <graphql-dgs-codegen-core.version>5.7.1</graphql-dgs-codegen-core.version>
+        <graphql-dgs-codegen-core.version>5.7.2</graphql-dgs-codegen-core.version>
         <graphql-dgs-codegen-client-core.version>5.1.17</graphql-dgs-codegen-client-core.version>
 
         <liquibase.version>4.21.1</liquibase.version>
         <jdbc.driver.hsqldb.version>2.7.1</jdbc.driver.hsqldb.version>
         <jdbc.driver.postgresql.version>42.6.0</jdbc.driver.postgresql.version>
+        <jdbc.driver.mysql.version>8.0.33</jdbc.driver.mysql.version>
 
         <lombok.version>1.18.26</lombok.version>
         <lombok.mapstruct.version>0.2.0</lombok.mapstruct.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
 
-        <thymeleaf-layout-dialect.version>3.2.1</thymeleaf-layout-dialect.version>
-
         <!-- ======================================================================================================= -->
-        <!-- Test libraries -->
+        <!-- Web libraries -->
+        <thymeleaf-layout-dialect.version>3.2.1</thymeleaf-layout-dialect.version>
         <webjars-locator.version>0.46</webjars-locator.version>
-        <shoelace.version>2.2.0</shoelace.version>
+        <webjars-alpinejs.version>3.12.0</webjars-alpinejs.version>
 
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
@@ -97,7 +97,7 @@
         <maven.gitflow.version>1.19.0</maven.gitflow.version>
         <maven.checkstyle.plugin.version>3.2.2</maven.checkstyle.plugin.version>
         <maven.graphqlcodegen.plugin.version>1.32</maven.graphqlcodegen.plugin.version>
-        <maven.puppycrawl.checkstyle.version>10.10.0</maven.puppycrawl.checkstyle.version>
+        <maven.puppycrawl.checkstyle.version>10.11.0</maven.puppycrawl.checkstyle.version>
         <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
 
         <maven.source.plugin.version>3.2.1</maven.source.plugin.version>
@@ -106,8 +106,8 @@
         <maven.archetype-packaging.version>3.2.1</maven.archetype-packaging.version>
 
         <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
-        <frontend-maven-plugin.nodeVersion>v19.4.0</frontend-maven-plugin.nodeVersion>
-        <frontend-maven-plugin.npmVersion>9.3.0</frontend-maven-plugin.npmVersion>
+        <frontend-maven-plugin.nodeVersion>v19.9.0</frontend-maven-plugin.nodeVersion>
+        <frontend-maven-plugin.npmVersion>9.6.5</frontend-maven-plugin.npmVersion>
     </properties>
     <!-- =========================================================================================================== -->
 

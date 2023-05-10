@@ -58,7 +58,7 @@ public class HomeControllerTest {
 
     @Test
     @DisplayName("Display home page with query parameter")
-    void homePagWithQueryParameter() throws Exception {
+    void homePageWithQueryParameter() throws Exception {
         // Web page.
         mockMvc.perform(get("/").queryParam(QUERY_ATTRIBUTE, "MyQuery"))
                 .andExpect(status().isOk())

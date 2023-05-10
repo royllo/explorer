@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<div layout:fragment="content">
+<div class="items-center justify-center align-top mx-auto w-5/6" layout:fragment="content">
 
     <!--/* ======================================================================================================= */-->
     <!--/* Search form */-->
@@ -12,73 +12,76 @@
 
     <!--/* ======================================================================================================= */-->
     <!--/* Error management */-->
-    <div class="w-1/3 pt-12">
+    <div class="errorManagement">
 
         <!--/* No value for the "query" parameter */-->
-        <sl-alert open th:if="${#strings.isEmpty(query)}" variant="danger">
-            <sl-icon name="exclamation-octagon" slot="icon"></sl-icon>
-            <strong th:text="#{generic.error}"></strong><br/>
-            <div th:text="#{search.error.noQuery}"></div>
-        </sl-alert>
+        <div th:if="${#strings.isEmpty(query)}"
+             th:insert="~{util/fragments/components/error_message :: error_message(#{search.error.noQuery})}">
+        </div>
 
         <!--/* No result */-->
-        <sl-alert open th:if="${result != null && result.getTotalElements() == 0}" variant="danger">
-            <sl-icon name="exclamation-octagon" slot="icon"></sl-icon>
-            <strong th:text="#{generic.error}"></strong><br/>
-            <div th:text="#{search.noResult(${query})}"></div>
-        </sl-alert>
+        <div th:if="${result != null && result.getTotalElements() == 0}"
+             th:insert="~{util/fragments/components/error_message :: error_message(#{search.noResult(${query})})}">
+        </div>
 
         <!--/* There is results but not for the page they asked for */-->
-        <sl-alert open th:if="${result != null && result.getTotalElements() > 0 && result.getContent().isEmpty()}"
-                  variant="danger">
-            <sl-icon name="exclamation-octagon" slot="icon"></sl-icon>
-            <strong th:text="#{generic.error}"></strong><br/>
-            <div th:text="#{search.error.invalidPage}"></div>
-        </sl-alert>
+        <div th:if="${result != null && result.getTotalElements() > 0 && result.getContent().isEmpty()}"
+             th:insert="~{util/fragments/components/error_message :: error_message(#{search.error.invalidPage})}">
+        </div>
 
     </div>
 
     <!--/* ======================================================================================================= */-->
     <!--/* Results */-->
+    <div th:if="${result != null && !result.getContent().isEmpty()}">
 
-    <!--/* If result is present */-->
-    <div class="w-4/5 flex flex-col" th:if="${result != null && !result.getContent().isEmpty()}">
+        <!--/* If result is present */-->
+        <ul class="divide-y divide-gray-100" role="list">
 
-        <!--/* Display every result, line by line */-->
-        <sl-card class="card-header py-2" th:each="asset: ${result.content}">
-            <!--/* Header */-->
-            <div slot="header">
-                <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                   th:href="@{'/asset/' + ${asset.assetId}}"
-                   th:text="${asset.name}"></a>
-            </div>
+            <!--/* For each asset in the result */-->
+            <li class="relative flex justify-between gap-x-6 py-5" th:each="asset: ${result.content}">
 
-            <!--/* Asset description */-->
-            <p class="truncate" th:text="@{#{field.asset.assetId} + ': ' + ${asset.assetId}}"></p>
-            <p class="truncate" th:text="@{#{field.asset.genesisPoint} + ': ' + ${asset.genesisPoint}}"></p>
-            <p class="truncate" th:text="@{#{field.asset.creator.username} + ': ' + ${asset.creator.username}}"></p>
+                <div class="flex gap-x-4 w-4/5">
+                    <img class="h-12 w-12 flex-none bg-gray-50"
+                         th:alt="${asset.name}"
+                         th:src="@{/svg/coin.svg}"/>
+                    <div class="min-w-0 flex-auto">
+                        <p class="text-sm font-semibold leading-6 text-gray-900">
+                            <a th:href="@{'/asset/' + ${asset.assetId}}">
+                                <span class="absolute inset-x-0 -top-px bottom-0"></span>
+                                <span th:text="${asset.name}"></span>
+                            </a>
+                        </p>
+                        <p class="text-xs text-gray-500 ">
+                        <span class="relative truncate block"
+                              th:text="@{#{field.asset.assetId} + ': ' + ${asset.assetId}}"></span>
+                            <span class="relative truncate block"
+                                  th:text="@{#{field.asset.genesisPoint} + ': ' + ${asset.genesisPoint}}"></span>
+                            <span class="relative truncate block"
+                                  th:text="@{#{field.asset.creator.username} + ': ' + ${asset.creator.username}}"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-x-4">
+                    <!--/*
+                    <div class="hidden sm:flex sm:flex-col sm:items-end">
+                        <p class="text-sm leading-6 text-gray-900">temp</p>
+                        <p class="mt-1 text-xs leading-5 text-gray-500">temp</p>
+                    </div>
+                    */-->
+                    <svg aria-hidden="true" class="h-5 w-5 flex-none text-gray-400" fill="currentColor"
+                         viewBox="0 0 20 20">
+                        <path clip-rule="evenodd"
+                              d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                              fill-rule="evenodd"/>
+                    </svg>
+                </div>
 
-            <!--/* Footer */-->
-            <div slot="footer">
-                <!--/* View asset */-->
-                <!-- TODO Add a test for this button -->
-                <sl-button outline
-                           th:href="@{'/asset/' + ${asset.assetId}}"
-                           th:text="#{search.button.asset.view}"
-                           variant="primary">
-                </sl-button>
-                <!--/* View proofs */-->
-                <!-- TODO Add a test for this button -->
-                <sl-button outline
-                           th:href="@{'/asset/' + ${asset.assetId} + '/proofs'}"
-                           th:text="#{search.button.asset.proofs.view}"
-                           variant="primary">
-                </sl-button>
-            </div>
-        </sl-card>
+            </li>
+        </ul>
 
         <!--/* Pages numbers */-->
-        <div class="my-6">
+        <div class="mb-16">
             <ul class="pagination" th:if="${result.getTotalElements() > 0}">
                 <!--/* Page list (current one and the others) */-->
                 <li th:each="pageNumber: ${#numbers.sequence(1, result.totalPages)}">

@@ -3,6 +3,7 @@ package org.royllo.explorer.batch.batch;
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.batch.util.base.BaseBatch;
+import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.provider.tarod.DecodedProofResponse;
 import org.royllo.explorer.core.provider.tarod.TarodProofService;
@@ -10,9 +11,11 @@ import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.proof.ProofService;
 import org.royllo.explorer.core.service.request.RequestService;
+import org.royllo.explorer.core.util.exceptions.proof.ProofCreationException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -67,32 +70,38 @@ public class AddProofBatch extends BaseBatch {
                             // We check if we have a decoded proof response.
                             if (decodedProofResponse == null) {
                                 logger.info("addProofBatch - Decoded proof for request {} is null", request.getId());
-                                request.failed("Decoded proof is null");
+                                request.failure("Decoded proof is null");
                             } else {
                                 // We check if we had an error deciding the response.
                                 if (decodedProofResponse.getErrorCode() != null) {
                                     logger.info("addProofBatch - Request {} proof cannot be decoded because of this error: {}",
                                             request.getId(),
                                             decodedProofResponse.getErrorMessage());
-                                    request.failed(decodedProofResponse.getErrorMessage());
+                                    request.failure(decodedProofResponse.getErrorMessage());
                                 } else {
                                     // We have the decoded proof, we check if the asset exists.
                                     final String assetId = decodedProofResponse.getDecodedProof().getAsset().getAssetGenesis().getAssetId();
-                                    if (assetService.getAssetByAssetId(assetId).isEmpty()) {
+                                    Optional<AssetDTO> assetDTO = assetService.getAssetByAssetId(assetId);
+                                    if (assetDTO.isEmpty()) {
                                         // If it doesn't exist, we create it
                                         logger.info("addProofBatch - Because of request {}, adding asset {}", request.getId(), assetId);
-                                        assetService.addAsset(ASSET_MAPPER.mapToAssetDTO(decodedProofResponse.getDecodedProof()));
+                                        assetDTO = Optional.of(assetService.addAsset(ASSET_MAPPER.mapToAssetDTO(decodedProofResponse.getDecodedProof())));
                                     } else {
                                         logger.info("addProofBatch - For request {}, asset {} already exists", request.getId(), assetId);
                                     }
                                     // We can now add the proof.
                                     proofService.addProof(request.getRawProof(), decodedProofResponse);
-                                    request.succeed();
+                                    request.setAsset(assetDTO.get());
+                                    request.success();
                                 }
                             }
+                        } catch (ProofCreationException exception) {
+                            logger.error("Request {} has error: {}", request.getId(), exception.getMessage());
+                            request.failure(exception.getMessage());
                         } catch (Throwable tarodError) {
-                            // We failed on calling tarod.
-                            request.failed(tarodError.getMessage());
+                            // We failed on calling tarod, but it's an exception; not a "valid" error.
+                            logger.error("Request {} has error: {}", request.getId(), tarodError.getMessage());
+                            request.recoverableFailure("Recoverable error: " + tarodError.getMessage());
                         }
 
                         // We save the request.

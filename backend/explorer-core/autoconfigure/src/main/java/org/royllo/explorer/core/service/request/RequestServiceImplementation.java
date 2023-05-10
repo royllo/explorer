@@ -19,6 +19,7 @@ import java.util.UUID;
 import static java.util.stream.Collectors.joining;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
+import static org.royllo.explorer.core.util.enums.RequestStatus.openedStatus;
 
 /**
  * Request service implementation.
@@ -36,7 +37,7 @@ public class RequestServiceImplementation extends BaseService implements Request
         logger.info("getOpenedRequests - Getting opened requests");
 
         // Getting results.
-        final List<RequestDTO> results = requestRepository.findByStatusOrderById(OPENED)
+        final List<RequestDTO> results = requestRepository.findByStatusInOrderById(openedStatus())
                 .stream()
                 .map(REQUEST_MAPPER::mapToRequestDTO)
                 .toList();

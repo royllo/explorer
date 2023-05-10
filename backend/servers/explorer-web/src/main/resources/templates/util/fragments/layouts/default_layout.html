@@ -20,7 +20,7 @@
     h-screen        :   Use h-screen to make an element span the entire height of the viewport.
     justify-between :   Use justify-between to justify items along the container’s main axis such that there is an equal amount of space between each item
 */-->
-<div class="bg-white flex flex-col h-screen justify-between">
+<div class="bg-white">
 
     <header th:replace="~{util/fragments/layouts/default_header :: header}"></header>
 
@@ -29,9 +29,8 @@
         flex            :   Utilities for controlling how flex items both grow and shrink.
         flex-col        :   Use flex-col to position flex items vertically.
         h-screen        :   Use h-screen to make an element span the entire height of the viewport.
-        items-center    :   Use items-center to align items along the center of the container’s cross axis.
     */-->
-    <section class="flex flex-col h-screen items-center"
+    <section class="flex flex-col h-screen"
              layout:fragment="content">
     </section>
 

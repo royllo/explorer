@@ -1,8 +1,8 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
-    <changeSet author="straumat" id="1.0.0-data-proofs">
+    <changeSet author="straumat" id="0.1.0-data-proofs">
 
         <!--
         myRoylloCoin - Testnet (More info in docs/test/myRoylloCoin.md)
@@ -12,7 +12,7 @@
         <insert tableName="PROOFS">
             <column name="ID" value="1"/>
             <column name="PROOF_ID" value="19c7a8309fad48bdbdefe6983e93e2e98aaa367aa8c31fa4caf739abac503d69"/>
-            <column name="FK_USER_CREATOR" value="0"/>
+            <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET" value="1"/>
             <column name="RAW_PROOF"
                     value="0000000001fd03d000244b8591404f8dc62002a3608fd35bc55243f15cf806a10c80ffb565aa7063390c00000001015000006020713234eeaad00b44193c578408e3757e424c99a4c05cce4c325417cc00000000a808982cc61b2133da021e78b7a6743fceb17d0af513179bd94aacdf35d6b6050d64ff63bcfe3319631abe2302eb020000000001014b8591404f8dc62002a3608fd35bc55243f15cf806a10c80ffb565aa7063390c0100000000ffffffff02e803000000000000225120890016973f4a07ecb7afc16f805219e3eaf1bc1d0635894c821114dbf6e2ca36bd11000000000000160014c35088956d26c44af4c00dfc8bf10d9a4c79320e0248304502210095b84eb101cd33d1b95bf1527d79653a09d75d8db259192bd9ff09a313eb9fbc02200eacd659b386ccea82a82f26458a0a6893eeb454cd50cc2c05e2ff7bf71d4b2d012103219e2594f427e338690c3f51409706439d8ab83fde02d18d0c28ec55c285801c0000000003e2078815347d5fdd9f01473804e9c888f1bac2bcabac72ddb35e58c8e9f4701fc324b1b6be16e92d8ce50454dba490446b93da58d4f0bea2b44911975d2d8aa13896f8fc7133fec0a0b35f938099a62d6173aa1540bd2a141fb5e49ad8409a7d4682499f594761d218af93adadc18a6eb6d6d9f72b5b3f9f62f0b8cecc9bc343bb9373cb8b9b1f270663f5502c11f63ee8b1f94426959dcc080317bccc91f0b1f704548644f7ad66cfba3e60ff7ed9bdca643903b06edafee103b54f7d95a04b797158f5223828d1f70a2be98cb7f7c8c36e48b3f35c99f004879c01add7c6f5e3225e04e400010001454b8591404f8dc62002a3608fd35bc55243f15cf806a10c80ffb565aa7063390c000000010c6d79526f796c6c6f436f696e0e5573656420627920526f796c6c6f00000000000201000303fd03e806690167006500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000802000009210251e05abec04e300351523e6cbdbceadae4332896ca59dbdad6801e2fc35c1e71059f000400000000012103336830ceadb0fc7f67cf65b1b79d1b7dc6ecd3d13ff2af8b4ea6e7d14cee1fe6027400490001000120692453c6d7d54f508adaf09df86573018579ac749501991f0853baedaa16faf902220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff012700010001220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7a223a9c46816a8f7a94eca15335268b7496f0db3113c3bb5883f3a7b528d092"/>

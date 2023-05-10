@@ -1,8 +1,8 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
-    <changeSet author="straumat" id="1.0.0-data-assets">
+    <changeSet author="straumat" id="0.1.0-data-assets">
 
         <!--
         myRoylloCoin - Testnet (More info in docs/test/myRoylloCoin.md)
@@ -11,7 +11,7 @@
         -->
         <insert tableName="ASSETS">
             <column name="ID" value="1"/>
-            <column name="FK_USER_CREATOR" value="0"/>
+            <column name="FK_USER_CREATOR" value="1"/>
 
             <column name="VERSION" value="0"/>
 
@@ -21,7 +21,8 @@
             <column name="META_DATA" value="5573656420627920526f796c6c6f"/>
             <column name="ASSET_ID" value="692453c6d7d54f508adaf09df86573018579ac749501991f0853baedaa16faf9"/>
             <column name="OUTPUT_INDEX" value="0"/>
-            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="4b8591404f8dc62002a3608fd35bc55243f15cf806a10c80ffb565aa7063390c000000010c6d79526f796c6c6f436f696e0e5573656420627920526f796c6c6f0000000000"/>
+            <column name="GENESIS_BOOTSTRAP_INFORMATION"
+                    value="4b8591404f8dc62002a3608fd35bc55243f15cf806a10c80ffb565aa7063390c000000010c6d79526f796c6c6f436f696e0e5573656420627920526f796c6c6f0000000000"/>
             <column name="GENESIS_VERSION" value="0"/>
 
             <column name="ASSET_TYPE" value="NORMAL"/>
@@ -33,11 +34,13 @@
             <column name="SCRIPT_KEY" value="0251e05abec04e300351523e6cbdbceadae4332896ca59dbdad6801e2fc35c1e71"/>
 
             <!-- Chain anchor -->
-            <column name="ANCHOR_TX" value="020000000001014b8591404f8dc62002a3608fd35bc55243f15cf806a10c80ffb565aa7063390c0100000000ffffffff02e803000000000000225120890016973f4a07ecb7afc16f805219e3eaf1bc1d0635894c821114dbf6e2ca36bd11000000000000160014c35088956d26c44af4c00dfc8bf10d9a4c79320e0248304502210095b84eb101cd33d1b95bf1527d79653a09d75d8db259192bd9ff09a313eb9fbc02200eacd659b386ccea82a82f26458a0a6893eeb454cd50cc2c05e2ff7bf71d4b2d012103219e2594f427e338690c3f51409706439d8ab83fde02d18d0c28ec55c285801c00000000"/>
+            <column name="ANCHOR_TX"
+                    value="020000000001014b8591404f8dc62002a3608fd35bc55243f15cf806a10c80ffb565aa7063390c0100000000ffffffff02e803000000000000225120890016973f4a07ecb7afc16f805219e3eaf1bc1d0635894c821114dbf6e2ca36bd11000000000000160014c35088956d26c44af4c00dfc8bf10d9a4c79320e0248304502210095b84eb101cd33d1b95bf1527d79653a09d75d8db259192bd9ff09a313eb9fbc02200eacd659b386ccea82a82f26458a0a6893eeb454cd50cc2c05e2ff7bf71d4b2d012103219e2594f427e338690c3f51409706439d8ab83fde02d18d0c28ec55c285801c00000000"/>
             <column name="ANCHOR_TXID" value="56fe33cc4fbdba40de3b710ba6b572f1e6b04ac93ab7103e586e4b897d0840c3"/>
             <column name="ANCHOR_BLOCK_HASH" value="0000000000000000000000000000000000000000000000000000000000000000"/>
             <column name="ANCHOR_OUTPOINT" value="56fe33cc4fbdba40de3b710ba6b572f1e6b04ac93ab7103e586e4b897d0840c3"/>
-            <column name="ANCHOR_INTERNAL_KEY" value="03336830ceadb0fc7f67cf65b1b79d1b7dc6ecd3d13ff2af8b4ea6e7d14cee1fe6"/>
+            <column name="ANCHOR_INTERNAL_KEY"
+                    value="03336830ceadb0fc7f67cf65b1b79d1b7dc6ecd3d13ff2af8b4ea6e7d14cee1fe6"/>
         </insert>
 
     </changeSet>

@@ -25,24 +25,33 @@ public class TarodProofServiceImplementation extends BaseMempoolService implemen
 
     /** Tarod parameters. */
     private final TarodParameters tarodParameters;
+    /** SSL Context. */
+    private SslContext sslContext;
+
+    /**
+     * Getter sslContext.
+     *
+     * @return sslContext
+     */
+    public final SslContext getSslContext() {
+        // We build a ssl Context where valid SSL is not required.
+        if (sslContext == null) {
+            try {
+                sslContext = SslContextBuilder
+                        .forClient()
+                        .trustManager(InsecureTrustManagerFactory.INSTANCE)
+                        .build();
+            } catch (SSLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return sslContext;
+    }
 
     @Override
     public final Mono<DecodedProofResponse> decode(final String rawProof, final long proofIndex) {
-        // TODO Refactor this part (make it more clean and check error management).
-        SslContext sslContext;
-        try {
-            sslContext = SslContextBuilder
-                    .forClient()
-                    .trustManager(InsecureTrustManagerFactory.INSTANCE)
-                    .build();
-        } catch (SSLException e) {
-            throw new RuntimeException(e);
-        }
-
-        SslContext finalSslContext = sslContext;
-        HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(finalSslContext));
-
         logger.info("Calling decode for proof n°{} with raw proof {}", proofIndex, rawProof);
+        HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
         return WebClient.builder()
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
                 .baseUrl(tarodParameters.getApi().getBaseUrl())
@@ -58,10 +67,6 @@ public class TarodProofServiceImplementation extends BaseMempoolService implemen
                 ))
                 .exchangeToFlux(response -> response.bodyToFlux(DecodedProofResponse.class))
                 .next();
-//                .doOnError(throwable -> logger.error("Calling decode for proof n°{} with raw proof {}: {}",
-//                        proofIndex,
-//                        rawProof,
-//                        throwable.getMessage()));
     }
 
 }

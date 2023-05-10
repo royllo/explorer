@@ -28,6 +28,6 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
      * @param status status filter
      * @return Requests with the corresponding status
      */
-    List<Request> findByStatusOrderById(RequestStatus status);
+    List<Request> findByStatusInOrderById(List<RequestStatus> status);
 
 }

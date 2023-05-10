@@ -1,6 +1,6 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet author="straumat" id="test-data-assets">
 
@@ -8,7 +8,7 @@
         <!-- activeRoylloCoin - Assets used to test several proofs -->
         <insert tableName="ASSETS">
             <column name="ID" value="10000"/>
-            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_USER_CREATOR" value="2"/>
 
             <column name="VERSION" value="0"/>
 
@@ -42,7 +42,7 @@
         <!-- Assets used to test pagination search -->
         <insert tableName="ASSETS">
             <column name="ID" value="1001"/>
-            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_USER_CREATOR" value="2"/>
 
             <column name="VERSION" value="0"/>
 
@@ -71,12 +71,11 @@
 
         <insert tableName="ASSETS">
             <column name="ID" value="1002"/>
-            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_USER_CREATOR" value="2"/>
 
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="1"/>
             <column name="NAME" value="TestPaginationCoin2"/>
             <column name="META_DATA" value="meta_data_2"/>
             <column name="ASSET_ID" value="asset_id_2"/>
@@ -102,12 +101,11 @@
 
         <insert tableName="ASSETS">
             <column name="ID" value="1003"/>
-            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_USER_CREATOR" value="2"/>
 
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="1"/>
             <column name="NAME" value="TestPaginationCoin3"/>
             <column name="META_DATA" value="meta_data_3"/>
             <column name="ASSET_ID" value="asset_id_3"/>
@@ -132,12 +130,11 @@
 
         <insert tableName="ASSETS">
             <column name="ID" value="1004"/>
-            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_USER_CREATOR" value="2"/>
 
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="1"/>
             <column name="NAME" value="TestPaginationCoin4"/>
             <column name="META_DATA" value="meta_data_4"/>
             <column name="ASSET_ID" value="asset_id_4"/>
@@ -162,12 +159,11 @@
 
         <insert tableName="ASSETS">
             <column name="ID" value="1005"/>
-            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_USER_CREATOR" value="2"/>
 
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="1"/>
             <column name="NAME" value="TestPaginationCoin5"/>
             <column name="META_DATA" value="meta_data_5"/>
             <column name="ASSET_ID" value="asset_id_5"/>
@@ -192,12 +188,11 @@
 
         <insert tableName="ASSETS">
             <column name="ID" value="1006"/>
-            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_USER_CREATOR" value="2"/>
 
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="1"/>
             <column name="NAME" value="TestPaginationCoin6"/>
             <column name="META_DATA" value="meta_data_6"/>
             <column name="ASSET_ID" value="asset_id_6"/>
@@ -222,12 +217,11 @@
 
         <insert tableName="ASSETS">
             <column name="ID" value="1007"/>
-            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_USER_CREATOR" value="2"/>
 
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="1"/>
             <column name="NAME" value="TestPaginationCoin7"/>
             <column name="META_DATA" value="meta_data_7"/>
             <column name="ASSET_ID" value="asset_id_7"/>
@@ -252,12 +246,11 @@
 
         <insert tableName="ASSETS">
             <column name="ID" value="1008"/>
-            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_USER_CREATOR" value="2"/>
 
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="1"/>
             <column name="NAME" value="TestPaginationCoin8"/>
             <column name="META_DATA" value="meta_data_8"/>
             <column name="ASSET_ID" value="asset_id_8"/>
@@ -282,12 +275,11 @@
 
         <insert tableName="ASSETS">
             <column name="ID" value="1009"/>
-            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_USER_CREATOR" value="2"/>
 
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="1"/>
             <column name="NAME" value="TestPaginationCoin0"/>
             <column name="META_DATA" value="meta_data_0"/>
             <column name="ASSET_ID" value="asset_id_0"/>

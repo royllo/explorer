@@ -1,6 +1,6 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet author="straumat" id="test-data-assets">
         <!-- ======================================================================================================= -->
@@ -44,7 +44,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 001"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000001"/>
@@ -66,6 +65,7 @@
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
             <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
+
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000002"/>
             <column name="FK_USER_CREATOR" value="1"/>
@@ -73,7 +73,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 002"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000002"/>
@@ -95,6 +94,7 @@
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
             <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
+
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000003"/>
             <column name="FK_USER_CREATOR" value="1"/>
@@ -102,7 +102,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 003"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000003"/>
@@ -124,6 +123,7 @@
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
             <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
+
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000004"/>
             <column name="FK_USER_CREATOR" value="1"/>
@@ -131,7 +131,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 004"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000004"/>
@@ -153,6 +152,7 @@
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
             <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
+
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000005"/>
             <column name="FK_USER_CREATOR" value="1"/>
@@ -160,7 +160,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 005"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000005"/>
@@ -182,6 +181,7 @@
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
             <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
+
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000006"/>
             <column name="FK_USER_CREATOR" value="1"/>
@@ -189,7 +189,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 006"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000006"/>
@@ -211,6 +210,7 @@
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
             <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
+
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000007"/>
             <column name="FK_USER_CREATOR" value="1"/>
@@ -218,7 +218,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 007"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000007"/>
@@ -240,6 +239,7 @@
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
             <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
+
         <insert tableName="ASSETS">
             <column name="ID" value="100000000000000008"/>
             <column name="FK_USER_CREATOR" value="1"/>
@@ -247,7 +247,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 008"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000008"/>
@@ -276,7 +275,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 009"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000009"/>
@@ -305,7 +303,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 010"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000010"/>
@@ -334,7 +331,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 011"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000011"/>
@@ -363,7 +359,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 012"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000012"/>
@@ -392,7 +387,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 013"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000013"/>
@@ -421,7 +415,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 014"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000014"/>
@@ -450,7 +443,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 015"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000015"/>
@@ -479,7 +471,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 016"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000016"/>
@@ -508,7 +499,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 017"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000017"/>
@@ -537,7 +527,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 018"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000018"/>
@@ -566,7 +555,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 019"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000019"/>
@@ -595,7 +583,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 020"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000020"/>
@@ -624,7 +611,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 021"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000021"/>
@@ -653,7 +639,6 @@
             <column name="VERSION" value="0"/>
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
-            <column name="FK_USER_CREATOR" value="0"/>
             <column name="NAME" value="Coin 022"/>
             <column name="META_DATA" value="737461726261636b72dezd206d6f6e6579"/>
             <column name="ASSET_ID" value="100000000000000022"/>

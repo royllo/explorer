@@ -21,6 +21,7 @@ import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.FORM_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
@@ -89,7 +90,7 @@ public class AddProofRequestControllerTest {
         assertNotNull(proof.get());
         assertNotNull(proof.get().getId());
         assertNotNull(proof.get().getRequestId());
-        assertEquals(0, proof.get().getCreator().getId());
+        assertEquals(ANONYMOUS_ID, proof.get().getCreator().getId());
         assertEquals("anonymous", proof.get().getCreator().getUsername());
         assertEquals(OPENED, proof.get().getStatus());
         assertNull(proof.get().getAsset());
@@ -166,6 +167,9 @@ public class AddProofRequestControllerTest {
                 // Request status.
                 .andExpect(content().string(containsString(environment.getProperty("field.asset.status"))))
                 .andExpect(content().string(containsString(">Success<")))
+                // View asset.
+                .andExpect(content().string(containsString(environment.getProperty("request.button.asset.view"))))
+                .andExpect(content().string(containsString("\"/asset/692453c6d7d54f508adaf09df86573018579ac749501991f0853baedaa16faf9\"")))
                 // NOT error message
                 .andExpect(content().string(not(containsString(environment.getProperty("field.asset.errorMessage")))));
 
