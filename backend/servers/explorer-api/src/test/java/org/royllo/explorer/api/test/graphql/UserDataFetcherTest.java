@@ -1,4 +1,3 @@
-
 package org.royllo.explorer.api.test.graphql;
 
 import com.jayway.jsonpath.TypeRef;
@@ -30,7 +29,7 @@ public class UserDataFetcherTest {
     public void getUserByUserId() {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 UserByUserIdGraphQLQuery.newRequest().userId("11111111-1111-1111-1111-111111111111").build(),
-                new UserByUserIdProjectionRoot().userId().username());
+                new UserByUserIdProjectionRoot<>().userId().username());
 
         User user = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 graphQLQueryRequest.serialize(),
@@ -48,7 +47,7 @@ public class UserDataFetcherTest {
     public void getUserByUsername() {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 UserByUsernameGraphQLQuery.newRequest().username("straumat").build(),
-                new UserByUsernameProjectionRoot().userId().username());
+                new UserByUsernameProjectionRoot<>().userId().username());
 
         User user = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 graphQLQueryRequest.serialize(),
