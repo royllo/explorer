@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @SpringBootTest
-@DisplayName("Proof request controller tests")
+@DisplayName("Add proof request controller tests")
 @AutoConfigureMockMvc
 @PropertySource("classpath:messages.properties")
 public class AddProofRequestControllerTest {
@@ -49,17 +49,19 @@ public class AddProofRequestControllerTest {
     Environment environment;
 
     @Test
-    @DisplayName("Proof request form test")
-    void proofRequestFormTest() throws Exception {
+    @DisplayName("Add proof request form test")
+    void addProofRequestFormTest() throws Exception {
         mockMvc.perform(get("/request/proof/add"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ADD_PROOF_REQUEST_FORM_PAGE))
-                .andExpect(model().attributeExists(FORM_ATTRIBUTE));
+                .andExpect(model().attributeExists(FORM_ATTRIBUTE))
+                // Error messages.
+                .andExpect(content().string(not(containsString(environment.getProperty("NotBlank.command.rawProof")))));
     }
 
     @Test
-    @DisplayName("Proof request form post test")
-    void proofRequestFormPostTest() throws Exception {
+    @DisplayName("Add proof request form post test")
+    void addProofRequestFormPostTest() throws Exception {
         // Empty form - raw proof not set.
         mockMvc.perform(post("/request/proof/add")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
@@ -84,9 +86,11 @@ public class AddProofRequestControllerTest {
                 .andExpect(content().string(containsString(proof.get().getRequestId())))
                 .andExpect(content().string(containsString(environment.getProperty("request.creationMessage"))))
                 .andExpect(content().string(containsString(environment.getProperty("request.viewStatus"))))
-                .andExpect(content().string(containsString("/request/" + proof.get().getRequestId())));
+                .andExpect(content().string(containsString("/request/" + proof.get().getRequestId())))
+                // Error messages.
+                .andExpect(content().string(not(containsString(environment.getProperty("NotBlank.command.rawProof")))));
 
-        // We test the request created.
+        // We test the request created (we get it from the model).
         assertNotNull(proof.get());
         assertNotNull(proof.get().getId());
         assertNotNull(proof.get().getRequestId());
@@ -99,9 +103,9 @@ public class AddProofRequestControllerTest {
     }
 
     @Test
-    @DisplayName("View proof test")
-    void viewProofTest() throws Exception {
-        // Request 1 - Add proof OPENED - Anonymous.
+    @DisplayName("View request test")
+    void viewRequestTest() throws Exception {
+        // Request 1 - "Add proof" - OPENED - Anonymous.
         mockMvc.perform(get("/request/f5623bdf-9fa6-46cf-85df-request_p_01"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(REQUEST_PAGE))
@@ -115,10 +119,14 @@ public class AddProofRequestControllerTest {
                 // Request status.
                 .andExpect(content().string(containsString(environment.getProperty("field.asset.status"))))
                 .andExpect(content().string(containsString(">Opened<")))
-                // NOT error message
-                .andExpect(content().string(not(containsString(environment.getProperty("field.asset.errorMessage")))));
+                // Error messages.
+                // Error messages.
+                .andExpect(content().string(not(containsString(environment.getProperty("request.view.error.noRequestId")))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("request.view.error.requestNotFound"))
+                        .replace("\"{0}\"", "&quot;&quot;")))));
 
-        // Request 2 - Add proof FAILED with error message - Anonymous.
+        // Request 2 - "Add proof" - FAILED with error message - Anonymous.
         mockMvc.perform(get("/request/91425ba6-8b16-46a8-baa6-request_p_02"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(REQUEST_PAGE))
@@ -132,11 +140,14 @@ public class AddProofRequestControllerTest {
                 // Request status.
                 .andExpect(content().string(containsString(environment.getProperty("field.asset.status"))))
                 .andExpect(content().string(containsString(">Failure<")))
-                // Error message
-                .andExpect(content().string(containsString(environment.getProperty("field.asset.errorMessage"))))
-                .andExpect(content().string(containsString(">There is an error !<")));
+                // Error messages.
+                // Error messages.
+                .andExpect(content().string(not(containsString(environment.getProperty("request.view.error.noRequestId")))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("request.view.error.requestNotFound"))
+                        .replace("\"{0}\"", "&quot;&quot;")))));
 
-        // Request 3 - Add metadata OPENED - straumat.
+        // Request 3 - "Add metadata" - OPENED - straumat.
         mockMvc.perform(get("/request/91425ba6-8b16-46a8-baa6-request_m_01"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(REQUEST_PAGE))
@@ -150,10 +161,13 @@ public class AddProofRequestControllerTest {
                 // Request status.
                 .andExpect(content().string(containsString(environment.getProperty("field.asset.status"))))
                 .andExpect(content().string(containsString(">Opened<")))
-                // NOT error message
-                .andExpect(content().string(not(containsString(environment.getProperty("field.asset.errorMessage")))));
+                // Error messages.
+                .andExpect(content().string(not(containsString(environment.getProperty("request.view.error.noRequestId")))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("request.view.error.requestNotFound"))
+                        .replace("\"{0}\"", "&quot;&quot;")))));
 
-        // Request 4 - Add proof SUCCESS.
+        // Request 4 - "Add proof" - SUCCESS.
         mockMvc.perform(get("/request/91425ba6-8b16-46a8-baa6-request_p_03"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(REQUEST_PAGE))
@@ -170,18 +184,64 @@ public class AddProofRequestControllerTest {
                 // View asset.
                 .andExpect(content().string(containsString(environment.getProperty("request.button.asset.view"))))
                 .andExpect(content().string(containsString("\"/asset/692453c6d7d54f508adaf09df86573018579ac749501991f0853baedaa16faf9\"")))
-                // NOT error message
-                .andExpect(content().string(not(containsString(environment.getProperty("field.asset.errorMessage")))));
+                // Error messages.
+                .andExpect(content().string(not(containsString(environment.getProperty("request.view.error.noRequestId")))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("request.view.error.requestNotFound"))
+                        .replace("\"{0}\"", "&quot;&quot;")))));
 
         // Trim test.
-        // Request 4 - Add proof SUCCESS.
+        // Request 4 - "Add proof" - SUCCESS.
         mockMvc.perform(get("/request/ 91425ba6-8b16-46a8-baa6-request_p_03 "))
                 .andExpect(status().isOk())
                 .andExpect(view().name(REQUEST_PAGE))
                 // Checking each field.
                 // Request id.
                 .andExpect(content().string(containsString(environment.getProperty("field.asset.requestId"))))
-                .andExpect(content().string(containsString(">91425ba6-8b16-46a8-baa6-request_p_03<")));
+                .andExpect(content().string(containsString(">91425ba6-8b16-46a8-baa6-request_p_03<")))
+                // Error messages.
+                .andExpect(content().string(not(containsString(environment.getProperty("request.view.error.noRequestId")))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("request.view.error.requestNotFound"))
+                        .replace("\"{0}\"", "&quot;&quot;")))));
+    }
+
+    @Test
+    @DisplayName("View request with invalid request id")
+    void viewRequestWithInvalidRequestId() throws Exception {
+        mockMvc.perform(get("/request/INVALID_ID"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(REQUEST_PAGE))
+                // Error messages.
+                .andExpect(content().string(containsString(Objects.requireNonNull(
+                                environment.getProperty("request.view.error.requestNotFound"))
+                        .replace("\"{0}\"", "&quot;INVALID_ID&quot;"))))
+                .andExpect(content().string(not(containsString(environment.getProperty("request.view.error.noRequestId")))));
+    }
+
+    @Test
+    @DisplayName("View request with invalid request id")
+    void viewRequestWithoutRequestId() throws Exception {
+        // No request id.
+        mockMvc.perform(get("/request/"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(REQUEST_PAGE))
+                // Error messages.
+                .andExpect(content().string(containsString(environment.getProperty("request.view.error.noRequestId"))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("request.view.error.requestNotFound"))
+                        .replace("\"{0}\"", "&quot;&quot;")))));
+        ;
+
+        // No request id and no "/".
+        mockMvc.perform(get("/request"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(REQUEST_PAGE))
+                // Error messages.
+                .andExpect(content().string(containsString(environment.getProperty("request.view.error.noRequestId"))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("request.view.error.requestNotFound"))
+                        .replace("\"{0}\"", "&quot;&quot;")))));
     }
 
 }
