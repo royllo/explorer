@@ -1,4 +1,4 @@
-package org.royllo.explorer.batch.test.processor;
+package org.royllo.explorer.batch.test.batch;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,9 +27,10 @@ import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
+@DisplayName("Add asset batch test")
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles({"mempoolTransactionServiceMock", "tarodProofServiceMock", "scheduler-disabled"})
-public class AddAssetProcessorTest extends BaseTest {
+public class AddAssetBatchTest extends BaseTest {
 
     @Autowired
     RequestService requestService;
@@ -45,9 +46,9 @@ public class AddAssetProcessorTest extends BaseTest {
 
     @Test
     @DisplayName("Add asset request processing")
-    public void process() {
+    public void batch() {
         // =============================================================================================================
-        // We add a proof that can be decoded.
+        // We add an invalid proof that can't be decoded ("INVALID_PROOF").
 
         // Add the proof
         AddProofRequestDTO invalidProofRequest = requestService.createAddProofRequest("INVALID_PROOF");
@@ -63,7 +64,8 @@ public class AddAssetProcessorTest extends BaseTest {
         assertEquals("An error occurred while decoding", invalidProofRequestTreated.get().getErrorMessage());
 
         // =============================================================================================================
-        // "My Royllo coin": The asset is already in our database and MY_ROYLLO_COIN_RAW_PROOF also.
+        // "My Royllo coin": The asset is already in our database.
+        // A request with "MY_ROYLLO_COIN_RAW_PROOF" is also in database (linked to the asset).
         // If we add a request to add this proof, we should get an error because the proof already exists.
 
         // Add the proof
@@ -117,7 +119,7 @@ public class AddAssetProcessorTest extends BaseTest {
         // =============================================================================================================
         // "Active Royllo coin" : The asset and the proofs are not in our database.
         // After processing the request, the asset and the proof must be present in database.
-        // We should be able to add two other proofs.
+        // We should be able to add two other proofs for the same asset.
 
         // Check that the asset and the proofs does not exist.
         assertFalse(assetService.getAssetByAssetId(ACTIVE_ROYLLO_COIN_ASSET_ID).isPresent());
@@ -169,9 +171,9 @@ public class AddAssetProcessorTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Exception management")
-    public void exceptionManagement() {
-        // Add the proof
+    @DisplayName("Recoverable error management")
+    public void recoverableErrorManagement() {
+        // Add the proof - The mock will create reply with an exception.
         AddProofRequestDTO invalidProofRequest = requestService.createAddProofRequest("TIMEOUT_ERROR");
         assertNotNull(invalidProofRequest);
         assertEquals(OPENED, invalidProofRequest.getStatus());
@@ -184,11 +186,10 @@ public class AddAssetProcessorTest extends BaseTest {
         assertEquals(RECOVERABLE_FAILURE, invalidProofRequestTreated.get().getStatus());
         assertTrue(invalidProofRequestTreated.get().getErrorMessage().startsWith("Recoverable error: "));
 
-        // On the second call, the tarod should give a good reply<;
+        // On the second call, the mock will give a valid reply.
         addProofBatch.processRequests();
         invalidProofRequestTreated = requestService.getRequest(invalidProofRequest.getId());
         assertTrue(invalidProofRequestTreated.isPresent());
-        System.out.println(invalidProofRequestTreated);
         assertTrue(invalidProofRequestTreated.get().isSuccessful());
         assertEquals(SUCCESS, invalidProofRequestTreated.get().getStatus());
         assertNotNull(invalidProofRequestTreated.get().getAsset());
