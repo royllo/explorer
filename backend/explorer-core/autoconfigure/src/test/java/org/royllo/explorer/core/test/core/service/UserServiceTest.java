@@ -46,6 +46,13 @@ public class UserServiceTest {
         assertEquals(2, existingUser.get().getId().longValue());
         assertEquals("straumat", existingUser.get().getUsername());
         assertEquals(UserRole.ADMINISTRATOR, existingUser.get().getRole());
+
+        // Existing user (Uppercase).
+        final Optional<UserDTO> existingUserUppercase = userService.getUserByUsername("STRAUMAT");
+        assertTrue(existingUserUppercase.isPresent());
+        assertEquals(2, existingUserUppercase.get().getId().longValue());
+        assertEquals("straumat", existingUserUppercase.get().getUsername());
+        assertEquals(UserRole.ADMINISTRATOR, existingUserUppercase.get().getRole());
     }
 
 }

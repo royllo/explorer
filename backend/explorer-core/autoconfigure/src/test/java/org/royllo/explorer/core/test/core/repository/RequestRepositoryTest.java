@@ -40,6 +40,7 @@ public class RequestRepositoryTest extends BaseTest {
     @Test
     @DisplayName("Create requests")
     public void createRequests() {
+        // This test is specifically designed to test the table inheritance.
         Optional<User> user = userRepository.findById(UserConstants.ANONYMOUS_ID);
         assertTrue(user.isPresent());
 

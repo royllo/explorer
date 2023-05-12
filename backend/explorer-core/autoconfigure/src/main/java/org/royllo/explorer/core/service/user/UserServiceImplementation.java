@@ -53,7 +53,7 @@ public class UserServiceImplementation extends BaseService implements UserServic
     public final Optional<UserDTO> getUserByUsername(@NonNull final String username) {
         logger.info("getUserByUserId - Getting user with username: {}", username);
 
-        final Optional<User> user = userRepository.findByUsername(username);
+        final Optional<User> user = userRepository.findByUsernameIgnoreCase(username);
         if (user.isEmpty()) {
             logger.info("getUserByUsername - User with username {} not found", username);
             return Optional.empty();
