@@ -35,7 +35,6 @@ public class AssetDTO {
     int version;
 
     /** The first outpoint of the transaction that created the asset (txid:vout). */
-    @NotNull(message = "Bitcoin transaction output is required")
     BitcoinTransactionOutputDTO genesisPoint;
 
     /** The name of the asset. */

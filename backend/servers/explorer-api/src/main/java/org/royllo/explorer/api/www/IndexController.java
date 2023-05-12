@@ -16,6 +16,7 @@ public class IndexController {
      *
      * @return graphiql page
      */
+    @SuppressWarnings("SameReturnValue")
     @RequestMapping(value = "/", method = GET)
     public String redirect() {
         return "redirect:/graphiql";

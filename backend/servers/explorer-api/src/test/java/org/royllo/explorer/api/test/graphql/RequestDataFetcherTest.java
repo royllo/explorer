@@ -13,10 +13,10 @@ import org.royllo.explorer.api.graphql.generated.client.CreateAddProofRequestPro
 import org.royllo.explorer.api.graphql.generated.client.RequestByRequestIdGraphQLQuery;
 import org.royllo.explorer.api.graphql.generated.client.RequestByRequestIdProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.types.AddAssetMetaDataRequest;
+import org.royllo.explorer.api.graphql.generated.types.AddAssetMetaDataRequestInputs;
 import org.royllo.explorer.api.graphql.generated.types.AddProofRequest;
 import org.royllo.explorer.api.graphql.generated.types.AddProofRequestInputs;
 import org.royllo.explorer.api.graphql.generated.types.Request;
-import org.royllo.explorer.api.graphql.generated.types.addAssetMetaDataRequestInputs;
 import org.royllo.explorer.core.util.constants.UserConstants;
 import org.royllo.explorer.core.util.enums.RequestStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,7 +98,7 @@ public class RequestDataFetcherTest {
     public void createAddAssetMetaDataRequest() {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 CreateAddAssetMetaDataRequestGraphQLQuery.newRequest()
-                        .input(addAssetMetaDataRequestInputs.newBuilder()
+                        .input(AddAssetMetaDataRequestInputs.newBuilder()
                                 .assetId("AssetID1")
                                 .metaData("MetaData01")
                                 .build())

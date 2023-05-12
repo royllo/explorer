@@ -6,7 +6,7 @@ type Mutation {
     createAddProofRequest(input: AddProofRequestInputs!): AddProofRequest
 
     "Creates a request to add an asset meta data"
-    createAddAssetMetaDataRequest(input: addAssetMetaDataRequestInputs!): AddAssetMetaDataRequest
+    createAddAssetMetaDataRequest(input: AddAssetMetaDataRequestInputs!): AddAssetMetaDataRequest
 
 }
 
@@ -17,7 +17,7 @@ input AddProofRequestInputs {
 }
 
 "Add asset request meta data inputs"
-input addAssetMetaDataRequestInputs {
+input AddAssetMetaDataRequestInputs {
     "Taro asset id"
     assetId: String!
     "Metadata corresponding to the meta hash stored in the genesis information"
