@@ -52,7 +52,6 @@ public class RequestRepositoryTest extends BaseTest {
         request1.setStatus(RequestStatus.OPENED);
         request1.setRawProof("Proof1");
         long request1ID = requestRepository.save(request1).getId();
-        logger.info("Request 1 ID is " + request1ID);
 
         // See what's in database with JPA.
         Optional<Request> request1FromJPA = requestRepository.findById(request1ID);
@@ -80,7 +79,6 @@ public class RequestRepositoryTest extends BaseTest {
         request2.setAssetId("TaroAssetId1");
         request2.setMetaData("Meta1");
         long request2ID = requestRepository.save(request2).getId();
-        logger.info("Request 2 ID is " + request2ID);
 
         // See what's in database with JPA.
         Optional<Request> request2FromJPA = requestRepository.findById(request2ID);
@@ -108,7 +106,6 @@ public class RequestRepositoryTest extends BaseTest {
         request3.setStatus(RequestStatus.FAILURE);
         request3.setRawProof("Proof2");
         long request3ID = requestRepository.save(request3).getId();
-        logger.info("Request 3 ID is " + request3ID);
 
         // See what's in database with JPA.
         Optional<Request> request3FromJPA = requestRepository.findById(request3ID);

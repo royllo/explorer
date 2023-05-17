@@ -61,7 +61,7 @@ public class AddProofBatch extends BaseBatch {
                     .filter(request -> request instanceof AddProofRequestDTO)
                     .map(requestDTO -> (AddProofRequestDTO) requestDTO)
                     .forEach(request -> {
-                        logger.info("addProofBatch - Processing request {}: {}", request.getId(), request);
+                        logger.info("Processing request {}: {}", request.getId(), request);
 
                         // We try to decode the proof.
                         try {
@@ -69,12 +69,12 @@ public class AddProofBatch extends BaseBatch {
 
                             // We check if we have a decoded proof response.
                             if (decodedProofResponse == null) {
-                                logger.info("addProofBatch - Decoded proof for request {} is null", request.getId());
+                                logger.info("Decoded proof for request {} is null", request.getId());
                                 request.failure("Decoded proof is null");
                             } else {
                                 // We check if we had an error deciding the response.
                                 if (decodedProofResponse.getErrorCode() != null) {
-                                    logger.info("addProofBatch - Request {} proof cannot be decoded because of this error: {}",
+                                    logger.info("Request {} proof cannot be decoded because of this error: {}",
                                             request.getId(),
                                             decodedProofResponse.getErrorMessage());
                                     request.failure(decodedProofResponse.getErrorMessage());
@@ -84,10 +84,10 @@ public class AddProofBatch extends BaseBatch {
                                     Optional<AssetDTO> assetDTO = assetService.getAssetByAssetId(assetId);
                                     if (assetDTO.isEmpty()) {
                                         // If it doesn't exist, we create it
-                                        logger.info("addProofBatch - Because of request {}, adding asset {}", request.getId(), assetId);
+                                        logger.info("Because of request {}, adding asset {}", request.getId(), assetId);
                                         assetDTO = Optional.of(assetService.addAsset(ASSET_MAPPER.mapToAssetDTO(decodedProofResponse.getDecodedProof())));
                                     } else {
-                                        logger.info("addProofBatch - For request {}, asset {} already exists", request.getId(), assetId);
+                                        logger.info("For request {}, asset {} already exists", request.getId(), assetId);
                                     }
                                     // We can now add the proof.
                                     proofService.addProof(request.getRawProof(), decodedProofResponse);
@@ -105,7 +105,7 @@ public class AddProofBatch extends BaseBatch {
                         }
 
                         // We save the request.
-                        logger.info("addProofBatch - Proof {} added: {} ", request.getId(), request);
+                        logger.info("Proof {} added: {} ", request.getId(), request);
                         requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(request));
                     });
         }
@@ -117,7 +117,7 @@ public class AddProofBatch extends BaseBatch {
      */
     @PreDestroy
     public void shutdown() {
-        logger.info("addProofBatch - Closing gracefully Royllo addProofBatch...");
+        logger.info("Closing gracefully Royllo addProofBatch...");
         enabled.set(false);
     }
 
