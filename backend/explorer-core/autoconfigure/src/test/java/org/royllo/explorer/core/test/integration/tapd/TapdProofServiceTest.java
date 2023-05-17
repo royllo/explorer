@@ -40,7 +40,7 @@ public class TapdProofServiceTest extends BaseTest {
         DecodedProofResponse.DecodedProof.Asset.AssetGenesis assetGenesis = asset.getAssetGenesis();
         assertEquals(0, response.getDecodedProof().getAsset().getVersion());
         assertEquals("2b572baa90ab27552c7577a4992b048689af30b8549379be83a5b576e3ebc210:0", assetGenesis.getGenesisPoint());
-        assertEquals("habib_remote", assetGenesis.getName());
+        assertEquals("habibtaro_remote", assetGenesis.getName());
         assertEquals("aGFiaWJ0YXJvLmNvbV9yZW1vdGU=", assetGenesis.getMeta());
         assertEquals("PgVFMqaoaedeG96KJeeUQXfWSKA0/lwUirf3dDU4zJ4=", assetGenesis.getAssetId());
         assertEquals(0, assetGenesis.getOutputIndex());
