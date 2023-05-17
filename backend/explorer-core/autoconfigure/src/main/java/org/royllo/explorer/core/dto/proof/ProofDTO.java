@@ -11,7 +11,7 @@ import org.royllo.explorer.core.dto.user.UserDTO;
 import static lombok.AccessLevel.PRIVATE;
 
 /**
- * Taro proof.
+ * Taproot proof.
  */
 @Value
 @Builder

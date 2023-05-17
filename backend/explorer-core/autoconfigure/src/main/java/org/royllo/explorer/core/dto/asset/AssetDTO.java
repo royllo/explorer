@@ -15,7 +15,7 @@ import java.math.BigInteger;
 import static lombok.AccessLevel.PRIVATE;
 
 /**
- * Taro asset.
+ * Taproot asset.
  */
 @Value
 @Builder
@@ -30,12 +30,11 @@ public class AssetDTO {
     @NotNull(message = "Asset creator is required")
     UserDTO creator;
 
-    /** The version of the Taro asset. */
-    @NotNull(message = "The version of the Taro asset is required")
+    /** The version of the Taproot asset. */
+    @NotNull(message = "The version of the Taproot asset is required")
     int version;
 
     /** The first outpoint of the transaction that created the asset (txid:vout). */
-    @NotNull(message = "Bitcoin transaction output is required")
     BitcoinTransactionOutputDTO genesisPoint;
 
     /** The name of the asset. */
@@ -50,7 +49,7 @@ public class AssetDTO {
     @Column(name = "ASSET_ID", updatable = false)
     String assetId;
 
-    /** The index of the output that carries the unique Taro commitment in the genesis transaction. */
+    /** The index of the output that carries the unique Taproot asset commitment in the genesis transaction. */
     @NotNull(message = "Output index is required")
     int outputIndex;
 
@@ -58,7 +57,7 @@ public class AssetDTO {
     @NotNull(message = "Genesis bootstrap information is required")
     String genesisBootstrapInformation;
 
-    /** The version of the Taro commitment that created this asset. */
+    /** The version of the Taproot asset commitment that created this asset. */
     @NotNull(message = "Genesis version is required")
     int genesisVersion;
 
@@ -66,7 +65,7 @@ public class AssetDTO {
     @NotNull(message = "Asset type is required")
     AssetType type;
 
-    /** The total amount of the asset stored in this Taro UTXO. */
+    /** The total amount of the asset stored in this Taproot asset UTXO. */
     @NotNull(message = "Total amount is required")
     BigInteger amount;
 
@@ -86,7 +85,7 @@ public class AssetDTO {
     @NotNull(message = "Script key is required")
     String scriptKey;
 
-    /** The transaction that anchors the Taro commitment where the asset resides. */
+    /** The transaction that anchors the Taproot asset commitment where the asset resides. */
     @NotNull(message = "Anchor transaction is required")
     String anchorTx;
 
@@ -98,7 +97,7 @@ public class AssetDTO {
     @NotNull(message = "Anchor block hash is required")
     String anchorBlockHash;
 
-    /** Outpoint (txid:vout) that stores the Taro commitment. */
+    /** Outpoint (txid:vout) that stores the Taproot asset commitment. */
     @NotNull(message = "Anchor outpoint is required")
     String anchorOutpoint;
 

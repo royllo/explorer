@@ -14,7 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class AddAssetMetaDataRequestInputs {
 
-    /** Taro asset id. */
+    /** Taproot asset id. */
     private String assetId;
 
     /** Metadata corresponding to the meta hash stored in the genesis information. */

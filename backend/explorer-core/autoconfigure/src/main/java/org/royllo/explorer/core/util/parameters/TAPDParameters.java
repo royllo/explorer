@@ -9,14 +9,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
 /**
- * Tarod parameters.
+ * TAPD parameters.
  */
 @Validated
 @Getter
 @Setter
 @ToString
-@ConfigurationProperties(prefix = "tarod")
-public class TarodParameters {
+@ConfigurationProperties(prefix = "tapd")
+public class TAPDParameters {
 
     /** API. */
     @Valid
@@ -27,14 +27,14 @@ public class TarodParameters {
     @Getter
     @Setter
     @ToString
-    @ConfigurationProperties(prefix = "tarod.api")
+    @ConfigurationProperties(prefix = "tapd.api")
     public static class Api {
 
-        /** Tarod API base url. */
-        @NotEmpty(message = "Tarod API base URL is required")
+        /** TAPD API base url. */
+        @NotEmpty(message = "TAPD API base URL is required")
         private String baseUrl;
 
-        /** Tarod macaroon. */
+        /** TAPD macaroon. */
         @NotEmpty(message = "Macaroon is required")
         private String macaroon;
 

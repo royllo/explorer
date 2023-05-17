@@ -1,7 +1,7 @@
 package org.royllo.explorer.core.configuration;
 
 import org.royllo.explorer.core.util.parameters.MempoolParameters;
-import org.royllo.explorer.core.util.parameters.TarodParameters;
+import org.royllo.explorer.core.util.parameters.TAPDParameters;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,9 +13,9 @@ import org.springframework.context.annotation.Configuration;
         // Mempool configuration.
         MempoolParameters.class,
         MempoolParameters.Api.class,
-        // Tarod configuration.
-        TarodParameters.class,
-        TarodParameters.Api.class
+        // TAPD configuration.
+        TAPDParameters.class,
+        TAPDParameters.Api.class
 })
 public class ParametersConfiguration {
 }

@@ -1,4 +1,4 @@
-package org.royllo.explorer.core.provider.tarod;
+package org.royllo.explorer.core.provider.tapd;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,6 +24,12 @@ public class DecodedProofResponse {
     /** Decoded proof. */
     @JsonProperty("decoded_proof")
     DecodedProof decodedProof;
+    /** Error code. */
+    @JsonProperty("code")
+    Long errorCode;
+    /** Error code. */
+    @JsonProperty("message")
+    String errorMessage;
 
     @Getter
     @Setter
@@ -43,6 +49,15 @@ public class DecodedProofResponse {
         /** Asset. */
         @JsonProperty("asset")
         Asset asset;
+        /** Transaction merkle proof. */
+        @JsonProperty("tx_merkle_proof")
+        String txMerkleProof;
+        /** Inclusion proof. */
+        @JsonProperty("inclusion_proof")
+        String inclusionProof;
+        /** Exclusion proofs. */
+        @JsonProperty("exclusion_proofs")
+        List<String> exclusionProofs;
 
         @Getter
         @Setter
@@ -58,6 +73,33 @@ public class DecodedProofResponse {
             /** Asset genesis. */
             @JsonProperty("asset_genesis")
             AssetGenesis assetGenesis;
+            /** Asset type. */
+            @JsonProperty("asset_type")
+            String assetType;
+            /** Amount. */
+            @JsonProperty("amount")
+            BigInteger amount;
+            /** Lock time. */
+            @JsonProperty("lock_time")
+            long lockTime;
+            /** Relative lock time. */
+            @JsonProperty("relative_lock_time")
+            long relativeLockTime;
+            /** Script version. */
+            @JsonProperty("script_version")
+            int scriptVersion;
+            /** Script key. */
+            @JsonProperty("script_key")
+            String scriptKey;
+            /** Asset group. */
+            @JsonProperty("asset_group")
+            String assetGroup;
+            /** Chain anchor. */
+            @JsonProperty("chain_anchor")
+            ChainAnchor chainAnchor;
+            /** Previous witnesses. */
+            @JsonProperty("prev_witnesses")
+            List<String> prevWitnesses;
 
             @Getter
             @Setter
@@ -96,38 +138,6 @@ public class DecodedProofResponse {
 
             }
 
-            /** Asset type. */
-            @JsonProperty("asset_type")
-            String assetType;
-
-            /** Amount. */
-            @JsonProperty("amount")
-            BigInteger amount;
-
-            /** Lock time. */
-            @JsonProperty("lock_time")
-            long lockTime;
-
-            /** Relative lock time. */
-            @JsonProperty("relative_lock_time")
-            long relativeLockTime;
-
-            /** Script version. */
-            @JsonProperty("script_version")
-            int scriptVersion;
-
-            /** Script key. */
-            @JsonProperty("script_key")
-            String scriptKey;
-
-            /** Asset group. */
-            @JsonProperty("asset_group")
-            String assetGroup;
-
-            /** Chain anchor. */
-            @JsonProperty("chain_anchor")
-            ChainAnchor chainAnchor;
-
             @Getter
             @Setter
             @NoArgsConstructor
@@ -157,32 +167,8 @@ public class DecodedProofResponse {
 
             }
 
-            /** Previous witnesses. */
-            @JsonProperty("prev_witnesses")
-            List<String> prevWitnesses;
-
         }
 
-        /** Transaction merkle proof. */
-        @JsonProperty("tx_merkle_proof")
-        String txMerkleProof;
-
-        /** Inclusion proof. */
-        @JsonProperty("inclusion_proof")
-        String inclusionProof;
-
-        /** Exclusion proofs. */
-        @JsonProperty("exclusion_proofs")
-        List<String> exclusionProofs;
-
     }
-
-    /** Error code. */
-    @JsonProperty("code")
-    Long errorCode;
-
-    /** Error code. */
-    @JsonProperty("message")
-    String errorMessage;
 
 }

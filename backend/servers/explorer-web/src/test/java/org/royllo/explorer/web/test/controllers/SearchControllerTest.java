@@ -39,8 +39,12 @@ public class SearchControllerTest {
         mockMvc.perform(get("/search"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(SEARCH_PAGE))
-                // Checking error message.
-                .andExpect(content().string(containsString(environment.getProperty("search.error.noQuery"))));
+                // Error message.
+                .andExpect(content().string(containsString(environment.getProperty("search.error.noQuery"))))
+                .andExpect(content().string(not(containsString(environment.getProperty("search.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("search.noResult"))
+                        .replace("\"{0}\"", "&quot;&quot;")))));
     }
 
     @Test
@@ -49,15 +53,23 @@ public class SearchControllerTest {
         mockMvc.perform(get("/search").queryParam(QUERY_ATTRIBUTE, ""))
                 .andExpect(status().isOk())
                 .andExpect(view().name(SEARCH_PAGE))
-                // Checking error message.
-                .andExpect(content().string(containsString(environment.getProperty("search.error.noQuery"))));
+                // Error message.
+                .andExpect(content().string(containsString(environment.getProperty("search.error.noQuery"))))
+                .andExpect(content().string(not(containsString(environment.getProperty("search.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("search.noResult"))
+                        .replace("\"{0}\"", "&quot;&quot;")))));
 
-        // With space!
+        // With space.
         mockMvc.perform(get("/search").queryParam(QUERY_ATTRIBUTE, " "))
                 .andExpect(status().isOk())
                 .andExpect(view().name(SEARCH_PAGE))
-                // Checking error message.
-                .andExpect(content().string(containsString(environment.getProperty("search.error.noQuery"))));
+                // Error message.
+                .andExpect(content().string(containsString(environment.getProperty("search.error.noQuery"))))
+                .andExpect(content().string(not(containsString(environment.getProperty("search.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("search.noResult"))
+                        .replace("\"{0}\"", "&quot;&quot;")))));
     }
 
     @Test
@@ -68,7 +80,9 @@ public class SearchControllerTest {
         mockMvc.perform(get("/search").param(QUERY_ATTRIBUTE, "NO_RESULT_QUERY"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(SEARCH_PAGE))
-                // Checking error message.
+                // Error message.
+                .andExpect(content().string(not(containsString(environment.getProperty("search.error.noQuery")))))
+                .andExpect(content().string(not(containsString(environment.getProperty("search.error.invalidPage")))))
                 .andExpect(content().string(containsString(expectedMessage)));
     }
 
@@ -96,7 +110,13 @@ public class SearchControllerTest {
                 .andExpect(content().string(containsString(">1</a>")))
                 .andExpect(content().string(containsString(">2</a>")))
                 .andExpect(content().string(containsString(">3</a>")))
-                .andExpect(content().string(not(containsString(">4</a>"))));
+                .andExpect(content().string(not(containsString(">4</a>"))))
+                // Error messages.
+                .andExpect(content().string(not(containsString(environment.getProperty("search.error.noQuery")))))
+                .andExpect(content().string(not(containsString(environment.getProperty("search.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("search.noResult"))
+                        .replace("\"{0}\"", "&quot;coin&quot;")))));
 
         // Results - Page 1 (page specified).
         mockMvc.perform(get("/search")
@@ -121,7 +141,13 @@ public class SearchControllerTest {
                 .andExpect(content().string(containsString(">1</a>")))
                 .andExpect(content().string(containsString(">2</a>")))
                 .andExpect(content().string(containsString(">3</a>")))
-                .andExpect(content().string(not(containsString(">4</a>"))));
+                .andExpect(content().string(not(containsString(">4</a>"))))
+                // Error messages.
+                .andExpect(content().string(not(containsString(environment.getProperty("search.error.noQuery")))))
+                .andExpect(content().string(not(containsString(environment.getProperty("search.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("search.noResult"))
+                        .replace("\"{0}\"", "&quot;coin&quot;")))));
 
         // Results - Page 2 - Added spaces to test trim().
         mockMvc.perform(get("/search")
@@ -147,7 +173,13 @@ public class SearchControllerTest {
                 .andExpect(content().string(containsString(">1</a>")))
                 .andExpect(content().string(containsString(">2</a>")))
                 .andExpect(content().string(containsString(">3</a>")))
-                .andExpect(content().string(not(containsString(">4</a>"))));
+                .andExpect(content().string(not(containsString(">4</a>"))))
+                // Error messages.
+                .andExpect(content().string(not(containsString(environment.getProperty("search.error.noQuery")))))
+                .andExpect(content().string(not(containsString(environment.getProperty("search.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("search.noResult"))
+                        .replace("\"{0}\"", "&quot;coin&quot;")))));
 
         // Results - Page 3.
         mockMvc.perform(get("/search")
@@ -165,7 +197,13 @@ public class SearchControllerTest {
                 .andExpect(content().string(containsString(">1</a>")))
                 .andExpect(content().string(containsString(">2</a>")))
                 .andExpect(content().string(containsString(">3</a>")))
-                .andExpect(content().string(not(containsString(">4</a>"))));
+                .andExpect(content().string(not(containsString(">4</a>"))))
+                // Error messages.
+                .andExpect(content().string(not(containsString(environment.getProperty("search.error.noQuery")))))
+                .andExpect(content().string(not(containsString(environment.getProperty("search.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("search.noResult"))
+                        .replace("\"{0}\"", "&quot;coin&quot;")))));
     }
 
     @Test
@@ -177,7 +215,11 @@ public class SearchControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(SEARCH_PAGE))
                 // Checking error message.
-                .andExpect(content().string(containsString(environment.getProperty("search.error.invalidPage"))));
+                .andExpect(content().string(containsString(environment.getProperty("search.error.invalidPage"))))
+                .andExpect(content().string(not(containsString(environment.getProperty("search.error.noQuery")))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("search.noResult"))
+                        .replace("\"{0}\"", "&quot;coin&quot;")))));
     }
 
 }

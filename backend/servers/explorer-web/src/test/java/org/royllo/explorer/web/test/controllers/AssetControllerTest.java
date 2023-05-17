@@ -48,39 +48,8 @@ public class AssetControllerTest extends BaseTest {
     Environment environment;
 
     @Test
-    @DisplayName("Calling '/asset'")
-    void assetPageWithoutParameterAndSlash() throws Exception {
-        mockMvc.perform(get("/asset"))
-                .andExpect(status().isOk())
-                .andExpect(view().name(ASSET_PAGE))
-                // Checking error message.
-                .andExpect(content().string(containsString(environment.getProperty("asset.view.error.noAssetId"))));
-    }
-
-    @Test
-    @DisplayName("Calling '/asset/'")
-    void assetPageWithoutParameter() throws Exception {
-        mockMvc.perform(get("/asset/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name(ASSET_PAGE))
-                // Checking error message.
-                .andExpect(content().string(containsString(environment.getProperty("asset.view.error.noAssetId"))));
-    }
-
-    @Test
-    @DisplayName("Invalid asset id")
-    void invalidAssetId() throws Exception {
-        final String expectedMessage = Objects.requireNonNull(environment.getProperty("asset.view.error.assetNotFound")).replace("\"{0}\"", "&quot;NON_EXISTING&quot;");
-        mockMvc.perform(get("/asset/NON_EXISTING"))
-                .andExpect(status().isOk())
-                .andExpect(view().name(ASSET_PAGE))
-                // Checking error message.
-                .andExpect(content().string(containsString(expectedMessage)));
-    }
-
-    @Test
-    @DisplayName("Asset display")
-    void assetDisplay() throws Exception {
+    @DisplayName("Asset page")
+    void assetPage() throws Exception {
         mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ASSET_PAGE))
@@ -105,7 +74,12 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_TX_ID + "<")))
                 .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_BLOCK_HASH + "<")))
                 .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_OUTPOINT + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHRO_INTERNAL_KEY + "<")));
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHRO_INTERNAL_KEY + "<")))
+                // Error messages.
+                .andExpect(content().string(not(containsString(environment.getProperty("asset.view.error.noAssetId")))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("asset.view.error.assetNotFound"))
+                        .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
 
         // Trim test with spaces
         mockMvc.perform(get("/asset/ " + MY_ROYLLO_COIN_ASSET_ID + " "))
@@ -132,11 +106,53 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_TX_ID + "<")))
                 .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_BLOCK_HASH + "<")))
                 .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_OUTPOINT + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHRO_INTERNAL_KEY + "<")));
+                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHRO_INTERNAL_KEY + "<")))
+                // Error messages.
+                .andExpect(content().string(not(containsString(environment.getProperty("asset.view.error.noAssetId")))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("asset.view.error.assetNotFound"))
+                        .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
     }
 
     @Test
-    @DisplayName("Calling '/asset/{assetId}/proofs'")
+    @DisplayName("Asset page without parameter")
+    void assetPageWithoutParameter() throws Exception {
+        mockMvc.perform(get("/asset/"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(ASSET_PAGE))
+                // Checking error message.
+                .andExpect(content().string(containsString(environment.getProperty("asset.view.error.noAssetId"))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("asset.view.error.assetNotFound"))
+                        .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
+    }
+
+    @Test
+    @DisplayName("Asset page without parameter and slash")
+    void assetPageWithoutParameterAndSlash() throws Exception {
+        mockMvc.perform(get("/asset"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(ASSET_PAGE))
+                // Checking error message.
+                .andExpect(content().string(containsString(environment.getProperty("asset.view.error.noAssetId"))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("asset.view.error.assetNotFound"))
+                        .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
+    }
+
+    @Test
+    @DisplayName("Invalid asset id")
+    void invalidAssetId() throws Exception {
+        final String expectedMessage = Objects.requireNonNull(environment.getProperty("asset.view.error.assetNotFound")).replace("\"{0}\"", "&quot;NON_EXISTING&quot;");
+        mockMvc.perform(get("/asset/NON_EXISTING"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(ASSET_PAGE))
+                // Checking error message.
+                .andExpect(content().string(containsString(expectedMessage)));
+    }
+
+    @Test
+    @DisplayName("Asset proofs page")
     void assetProofsPage() throws Exception {
         // My royllo coin has only one proof.
         mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs"))
@@ -146,7 +162,12 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_RAW_PROOF + "<")))
                 .andExpect(content().string(not(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF + "<"))))
                 .andExpect(content().string(not(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF + "<"))))
-                .andExpect(content().string(not(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF + "<"))));
+                .andExpect(content().string(not(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF + "<"))))
+                // Error messages.
+                .andExpect(content().string(not(containsString(environment.getProperty("proof.view.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("proof.view.error.assetNotFound"))
+                        .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
 
         // Active royllo coin has several proofs.
         mockMvc.perform(get("/asset/" + ACTIVE_ROYLLO_COIN_ASSET_ID + "/proofs/"))
@@ -156,11 +177,16 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(not(containsString(">" + MY_ROYLLO_COIN_RAW_PROOF + "<"))))
                 .andExpect(content().string(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF + "<")))
                 .andExpect(content().string(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF + "<")))
-                .andExpect(content().string(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF + "<")));
+                .andExpect(content().string(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF + "<")))
+                // Error messages.
+                .andExpect(content().string(not(containsString(environment.getProperty("proof.view.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("proof.view.error.assetNotFound"))
+                        .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
     }
 
     @Test
-    @DisplayName("Calling '/asset/{assetId}/proofs?page'")
+    @DisplayName("Asset proofs page with pagination")
     void assetProofsPagePagination() throws Exception {
         // Creating enough proofs to test pagination.
         final Optional<Asset> byAssetId = assetRepository.findByAssetId(MY_ROYLLO_COIN_ASSET_ID);
@@ -183,7 +209,12 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(view().name(ASSET_PROOFS_PAGE))
                 // Checking proofs.
                 .andExpect(content().string(containsString(">raw-proof-0<")))
-                .andExpect(content().string(not(containsString(">raw-proof-99<"))));
+                .andExpect(content().string(not(containsString(">raw-proof-99<"))))
+                // Error messages.
+                .andExpect(content().string(not(containsString(environment.getProperty("proof.view.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("proof.view.error.assetNotFound"))
+                        .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
 
         // Testing page 1 (with parameter).
         mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs?page=1"))
@@ -191,7 +222,12 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(view().name(ASSET_PROOFS_PAGE))
                 // Checking proofs.
                 .andExpect(content().string(containsString(">raw-proof-1<")))
-                .andExpect(content().string(not(containsString(">raw-proof-99<"))));
+                .andExpect(content().string(not(containsString(">raw-proof-99<"))))
+                // Error messages.
+                .andExpect(content().string(not(containsString(environment.getProperty("proof.view.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("proof.view.error.assetNotFound"))
+                        .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
 
         // Testing page 2 (with parameter).
         mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs?page=2"))
@@ -199,7 +235,12 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(view().name(ASSET_PROOFS_PAGE))
                 // Checking proofs.
                 .andExpect(content().string(not(containsString(">raw-proof-1<"))))
-                .andExpect(content().string(containsString(">raw-proof-99<")));
+                .andExpect(content().string(containsString(">raw-proof-99<")))
+                // Error messages.
+                .andExpect(content().string(not(containsString(environment.getProperty("proof.view.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(
+                                environment.getProperty("proof.view.error.assetNotFound"))
+                        .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
     }
 
     @Test

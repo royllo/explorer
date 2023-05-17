@@ -4,8 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.proof.ProofDTO;
-import org.royllo.explorer.core.provider.tarod.DecodedProofResponse;
-import org.royllo.explorer.core.provider.tarod.TarodProofService;
+import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
+import org.royllo.explorer.core.provider.tapd.TapdProofService;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.proof.ProofService;
 import org.royllo.explorer.core.test.util.BaseTest;
@@ -28,12 +28,12 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 
 @SpringBootTest
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
-@ActiveProfiles({"tarodProofServiceMock", "mempoolTransactionServiceMock"})
+@ActiveProfiles({"tapdProofServiceMock", "mempoolTransactionServiceMock"})
 @DisplayName("ProofService tests")
 public class ProofServiceTest extends BaseTest {
 
     @Autowired
-    private TarodProofService tarodProofService;
+    private TapdProofService TAPDProofService;
 
     @Autowired
     private ProofService proofService;
@@ -46,7 +46,7 @@ public class ProofServiceTest extends BaseTest {
     public void addProof() {
         // =============================================================================================================
         // Unknown Royllo coin.
-        DecodedProofResponse unknownRoylloCoinDecodedProof = tarodProofService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF, 0).block();
+        DecodedProofResponse unknownRoylloCoinDecodedProof = TAPDProofService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF, 0).block();
         assertNotNull(unknownRoylloCoinDecodedProof);
 
         // We add our proof but our an asset doesn't exist yet --> an error must occur.

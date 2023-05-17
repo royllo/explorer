@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.asset.Asset;
 import org.royllo.explorer.core.domain.proof.Proof;
 import org.royllo.explorer.core.dto.proof.ProofDTO;
-import org.royllo.explorer.core.provider.tarod.DecodedProofResponse;
+import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.repository.proof.ProofRepository;
 import org.royllo.explorer.core.util.base.BaseService;
@@ -57,11 +57,11 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
     @Override
     public ProofDTO addProof(@NonNull final String rawProof,
                              @NonNull final DecodedProofResponse decodedProof) {
-        logger.info("addProof - Adding {} with {}", rawProof, decodedProof);
+        logger.info("Adding {} with {}", rawProof, decodedProof);
 
         // We check that the proof is not in our database.
         proofRepository.findByProofId(sha256(rawProof)).ifPresent(proof -> {
-            logger.info("addProof - Proof {} is already registered", rawProof);
+            logger.info("Proof {} is already registered", rawProof);
             throw new ProofCreationException("This proof is already registered with proof id: " + proof.getProofId());
         });
 
@@ -70,7 +70,7 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
         final Optional<Asset> asset = assetRepository.findByAssetId(assetId);
         if (asset.isEmpty()) {
             // Asset does not exists.
-            logger.info("addProof - Asset {} is not registered in our database", assetId);
+            logger.info("Asset {} is not registered in our database", assetId);
             throw new ProofCreationException("Asset " + assetId + " is not registered in our database");
         } else {
             // Asset exists, we create the proof.
@@ -81,21 +81,21 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
                     .rawProof(rawProof)
                     .build());
             final ProofDTO proofDTO = PROOF_MAPPER.mapToProofDTO(proof);
-            logger.info("addProof - Proof created with id {} : {}", proofDTO.getProofId(), proofDTO);
+            logger.info("Proof created with id {} : {}", proofDTO.getProofId(), proofDTO);
             return proofDTO;
         }
     }
 
     @Override
     public Optional<ProofDTO> getProofByProofId(@NonNull final String proofId) {
-        logger.info("getProofByProofId - Getting proof with proofId {}", proofId);
+        logger.info("Getting proof with proofId {}", proofId);
 
         final Optional<Proof> proof = proofRepository.findByProofId(proofId);
         if (proof.isEmpty()) {
-            logger.info("getProofByProofId - Proof with proofId {} not found", proofId);
+            logger.info("Proof with proofId {} not found", proofId);
             return Optional.empty();
         } else {
-            logger.info("getProofByProofId - Proof with proofId {} found: {}", proofId, proof.get());
+            logger.info("Proof with proofId {} found: {}", proofId, proof.get());
             return proof.map(PROOF_MAPPER::mapToProofDTO);
         }
     }
@@ -104,7 +104,7 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
     public Page<ProofDTO> getProofsByAssetId(@NonNull final String assetId,
                                              final int page,
                                              final int pageSize) {
-        logger.info("getProofsByAssetId - Getting proofs for assetId {}", assetId);
+        logger.info("Getting proofs for assetId {}", assetId);
 
         // Checking constraints.
         assert page >= 1 : "Page number starts at page 1";
@@ -117,9 +117,9 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
 
         // Displaying logs.
         if (results.isEmpty()) {
-            logger.info("getProofsByAssetId - For assetId '{}', there is no proof", assetId);
+            logger.info("For assetId '{}', there is no proof", assetId);
         } else {
-            logger.info("getProofsByAssetId - For assetId '{}', there are {} proofs(s): {}",
+            logger.info("For assetId '{}', there are {} proofs(s): {}",
                     assetId,
                     results.getTotalElements(),
                     results.stream()

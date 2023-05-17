@@ -5,7 +5,7 @@
     <changeSet author="straumat" id="0.1.0-table-proofs">
 
         <createTable tableName="PROOFS"
-                     remarks="Taro proofs">
+                     remarks="Taproot assets proofs">
 
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"

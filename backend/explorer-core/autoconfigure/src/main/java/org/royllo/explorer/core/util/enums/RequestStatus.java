@@ -13,7 +13,7 @@ public enum RequestStatus {
     /** The request has been treated with success. */
     SUCCESS,
 
-    /** An error occurred, it's a failure, but it could work again if we retry.. */
+    /** An error occurred, it's a failure, but it could work again if we retry. */
     RECOVERABLE_FAILURE,
 
     /** An error occurred, it's a failure. */

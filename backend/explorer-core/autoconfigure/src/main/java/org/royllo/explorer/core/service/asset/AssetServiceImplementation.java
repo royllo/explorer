@@ -18,7 +18,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import static java.util.stream.Collectors.joining;
-import static org.royllo.explorer.core.util.constants.TaroConstants.ASSET_ID_SIZE;
+import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_SIZE;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 
 /**
@@ -43,7 +43,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
     public Page<AssetDTO> queryAssets(@NonNull final String query,
                                       final int page,
                                       final int pageSize) {
-        logger.info("queryAssets - Searching for {}", query);
+        logger.info("Searching for {}", query);
 
         // Checking constraints.
         assert page >= 1 : "Page number starts at page 1";
@@ -71,9 +71,9 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
 
         // Displaying logs.
         if (results.isEmpty()) {
-            logger.info("queryAssets - For '{}', there is no results", query);
+            logger.info("For '{}', there is no results", query);
         } else {
-            logger.info("queryAssets - For '{}', {} result(s) with assets id(s): {}",
+            logger.info("For '{}', {} result(s) with assets id(s): {}",
                     query,
                     results.getTotalElements(),
                     results.stream()
@@ -86,7 +86,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
 
     @Override
     public AssetDTO addAsset(@NonNull final AssetDTO newAsset) {
-        logger.info("addAsset - Adding asset {}", newAsset);
+        logger.info("Adding asset {}", newAsset);
 
         // Checking constraints.
         assert newAsset.getId() == null : "Asset already exists";
@@ -106,34 +106,34 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         final AssetDTO assetCreated = ASSET_MAPPER.mapToAssetDTO(assetRepository.save(assetToCreate));
 
         // We return the value.
-        logger.info("addAsset - Asset created with id {} : {}", assetCreated.getId(), assetCreated);
+        logger.info("Asset created with id {} : {}", assetCreated.getId(), assetCreated);
         return assetCreated;
     }
 
     @Override
     public Optional<AssetDTO> getAsset(final long id) {
-        logger.info("getAsset - Getting asset with id {}", id);
+        logger.info("Getting asset with id {}", id);
 
         final Optional<Asset> asset = assetRepository.findById(id);
         if (asset.isEmpty()) {
-            logger.info("getAsset - Asset with id {} not found", id);
+            logger.info("Asset with id {} not found", id);
             return Optional.empty();
         } else {
-            logger.info("getAsset - Asset with id {} found: {}", id, asset.get());
+            logger.info("Asset with id {} found: {}", id, asset.get());
             return asset.map(ASSET_MAPPER::mapToAssetDTO);
         }
     }
 
     @Override
     public Optional<AssetDTO> getAssetByAssetId(@NonNull final String assetId) {
-        logger.info("getAssetByAssetId - Getting asset with assetId {}", assetId);
+        logger.info("Getting asset with assetId {}", assetId);
 
         final Optional<Asset> asset = assetRepository.findByAssetId(assetId);
         if (asset.isEmpty()) {
-            logger.info("getAssetByAssetId - Asset with assetId {} not found", assetId);
+            logger.info("Asset with assetId {} not found", assetId);
             return Optional.empty();
         } else {
-            logger.info("getAssetByAssetId - Asset with assetId {} found: {}", assetId, asset.get());
+            logger.info("Asset with assetId {} found: {}", assetId, asset.get());
             return asset.map(ASSET_MAPPER::mapToAssetDTO);
         }
     }

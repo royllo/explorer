@@ -2,8 +2,8 @@ package org.royllo.explorer.batch.test.util.mock;
 
 import org.mockito.Mockito;
 import org.royllo.explorer.batch.test.util.BaseTest;
-import org.royllo.explorer.core.provider.tarod.DecodedProofResponse;
-import org.royllo.explorer.core.provider.tarod.TarodProofService;
+import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
+import org.royllo.explorer.core.provider.tapd.TapdProofService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -16,16 +16,16 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * {@link TarodProofService} mock.
+ * {@link TapdProofService} mock.
  */
-@Profile("tarodProofServiceMock")
+@Profile("tapdProofServiceMock")
 @Configuration
-public class TarodProofServiceMock extends BaseTest {
+public class TAPDProofServiceMock extends BaseTest {
 
     @Bean
     @Primary
-    public TarodProofService tarodProofService() {
-        final TarodProofService mockedService = Mockito.mock(TarodProofService.class);
+    public TapdProofService tapdProofService() {
+        final TapdProofService mockedService = Mockito.mock(TapdProofService.class);
 
         // Exception test.
         Mockito.when(mockedService.decode("TIMEOUT_ERROR", 0)).thenThrow(new RuntimeException("Time out error"))
@@ -465,11 +465,11 @@ public class TarodProofServiceMock extends BaseTest {
     }
 
     /**
-     * Returns habibtaro coin decoded proof
+     * Returns Habit coin decoded proof
      *
-     * @return habibtaro coin decoded proof
+     * @return Habit coin decoded proof
      */
-    private DecodedProofResponse getHabitaroCoin() {
+    private DecodedProofResponse getHabitCoin() {
         // Decoded response.
         DecodedProofResponse decodedProofResponse = new DecodedProofResponse();
 
@@ -478,14 +478,14 @@ public class TarodProofServiceMock extends BaseTest {
         decodedProof.setProofAtDepth(1);
         decodedProof.setNumberOfProofs(2);
 
-        // Asset - "habibtaro_remote".
+        // Asset - "habib_remote".
         DecodedProofResponse.DecodedProof.Asset asset = new DecodedProofResponse.DecodedProof.Asset();
         asset.setVersion(0);
 
         // Asset genesis.
         DecodedProofResponse.DecodedProof.Asset.AssetGenesis assetGenesis = new DecodedProofResponse.DecodedProof.Asset.AssetGenesis();
         assetGenesis.setGenesisPoint("2b572baa90ab27552c7577a4992b048689af30b8549379be83a5b576e3ebc210:0");
-        assetGenesis.setName("habibtaro_remote");
+        assetGenesis.setName("habib_remote");
         assetGenesis.setMeta("aGFiaWJ0YXJvLmNvbV9yZW1vdGU=");
         assetGenesis.setAssetId("PgVFMqaoaedeG96KJeeUQXfWSKA0/lwUirf3dDU4zJ4=");
         assetGenesis.setOutputIndex(0L);

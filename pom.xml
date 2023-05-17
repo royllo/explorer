@@ -8,9 +8,9 @@
     <!-- Project information -->
     <groupId>org.royllo.explorer</groupId>
     <artifactId>explorer</artifactId>
-    <version>0.0.10</version>
-    <name>Royllo - A Taro asset explorer</name>
-    <description>Taro explorer allows you to search for Taro assets created on the Bitcoin blockchain</description>
+    <version>0.0.11</version>
+    <name>Royllo - A Taproot asset explorer</name>
+    <description>Royllo explorer allows you to search for Taproot assets created on the Bitcoin blockchain</description>
     <packaging>pom</packaging>
     <url>https://github.com/royllo/explorer</url>
     <licenses>
@@ -69,10 +69,10 @@
         <reactor-netty.version>1.1.7</reactor-netty.version>
 
         <graphql-dgs-platform-dependencies.version>6.0.0</graphql-dgs-platform-dependencies.version>
-        <graphql-dgs-codegen-core.version>5.7.2</graphql-dgs-codegen-core.version>
+        <graphql-dgs-codegen-core.version>5.8.0</graphql-dgs-codegen-core.version>
         <graphql-dgs-codegen-client-core.version>5.1.17</graphql-dgs-codegen-client-core.version>
 
-        <liquibase.version>4.21.1</liquibase.version>
+        <liquibase.version>4.22.0</liquibase.version>
         <jdbc.driver.hsqldb.version>2.7.1</jdbc.driver.hsqldb.version>
         <jdbc.driver.postgresql.version>42.6.0</jdbc.driver.postgresql.version>
         <jdbc.driver.mysql.version>8.0.33</jdbc.driver.mysql.version>
@@ -85,11 +85,10 @@
         <!-- Web libraries -->
         <thymeleaf-layout-dialect.version>3.2.1</thymeleaf-layout-dialect.version>
         <webjars-locator.version>0.46</webjars-locator.version>
-        <webjars-alpinejs.version>3.12.0</webjars-alpinejs.version>
 
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
-        <testcontainers.version>1.18.0</testcontainers.version>
+        <testcontainers.version>1.18.1</testcontainers.version>
         <mockito-core.version>5.3.1</mockito-core.version>
 
         <!-- ======================================================================================================= -->

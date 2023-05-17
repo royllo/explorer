@@ -5,7 +5,7 @@ import org.mapstruct.Mapping;
 import org.royllo.explorer.core.domain.asset.Asset;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
-import org.royllo.explorer.core.provider.tarod.DecodedProofResponse;
+import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.royllo.explorer.core.util.enums.AssetType;
 
 import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;

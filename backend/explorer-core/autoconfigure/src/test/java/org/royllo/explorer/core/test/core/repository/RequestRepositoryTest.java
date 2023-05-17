@@ -40,6 +40,7 @@ public class RequestRepositoryTest extends BaseTest {
     @Test
     @DisplayName("Create requests")
     public void createRequests() {
+        // This test is specifically designed to test the table inheritance.
         Optional<User> user = userRepository.findById(UserConstants.ANONYMOUS_ID);
         assertTrue(user.isPresent());
 
@@ -51,7 +52,6 @@ public class RequestRepositoryTest extends BaseTest {
         request1.setStatus(RequestStatus.OPENED);
         request1.setRawProof("Proof1");
         long request1ID = requestRepository.save(request1).getId();
-        logger.info("Request 1 ID is " + request1ID);
 
         // See what's in database with JPA.
         Optional<Request> request1FromJPA = requestRepository.findById(request1ID);
@@ -76,10 +76,9 @@ public class RequestRepositoryTest extends BaseTest {
         request2.setRequestId(UUID.randomUUID().toString());
         request2.setCreator(user.get());
         request2.setStatus(RequestStatus.SUCCESS);
-        request2.setAssetId("TaroAssetId1");
+        request2.setAssetId("TaprootAssetId1");
         request2.setMetaData("Meta1");
         long request2ID = requestRepository.save(request2).getId();
-        logger.info("Request 2 ID is " + request2ID);
 
         // See what's in database with JPA.
         Optional<Request> request2FromJPA = requestRepository.findById(request2ID);
@@ -89,7 +88,7 @@ public class RequestRepositoryTest extends BaseTest {
         Assertions.assertEquals("anonymous", addAssetMeatRequest2FromJPA.getCreator().getUsername());
         Assertions.assertEquals(RequestStatus.SUCCESS, addAssetMeatRequest2FromJPA.getStatus());
         assertNull(addAssetMeatRequest2FromJPA.getErrorMessage());
-        assertEquals("TaroAssetId1", addAssetMeatRequest2FromJPA.getAssetId());
+        assertEquals("TaprootAssetId1", addAssetMeatRequest2FromJPA.getAssetId());
         assertEquals("Meta1", addAssetMeatRequest2FromJPA.getMetaData());
 
         // See what's in database with JDBC.
@@ -107,7 +106,6 @@ public class RequestRepositoryTest extends BaseTest {
         request3.setStatus(RequestStatus.FAILURE);
         request3.setRawProof("Proof2");
         long request3ID = requestRepository.save(request3).getId();
-        logger.info("Request 3 ID is " + request3ID);
 
         // See what's in database with JPA.
         Optional<Request> request3FromJPA = requestRepository.findById(request3ID);

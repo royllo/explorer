@@ -8,7 +8,7 @@ type AddAssetMetaDataRequest implements Request {
     status: RequestStatus!
     "Error message - Not empty if status is equals to ERROR"
     errorMessage: String
-    "Taro asset id"
+    "Taproot asset id"
     assetId: String!
     "Metadata corresponding to the meta hash stored in the genesis information"
     metaData: String!

@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.repository.user.UserRepository;
-import org.royllo.explorer.core.util.constants.UserConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -15,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
 
 @SpringBootTest
 @DisplayName("UserRepository tests")
@@ -34,14 +34,14 @@ public class UserRepositoryTest {
         assertEquals("anonymous", anonymousUserById.get().getUsername());
 
         // Finding the user by its uid.
-        final Optional<User> anonymousUserByUserId = userRepository.findByUserId(UserConstants.ANONYMOUS_USER_ID);
+        final Optional<User> anonymousUserByUserId = userRepository.findByUserId(ANONYMOUS_USER_ID);
         assertTrue(anonymousUserByUserId.isPresent());
         assertEquals(ANONYMOUS_ID, anonymousUserByUserId.get().getId().longValue());
         assertEquals(ANONYMOUS_USER_ID, anonymousUserByUserId.get().getUserId());
         assertEquals("anonymous", anonymousUserByUserId.get().getUsername());
 
         // Finding the user by its username.
-        final Optional<User> anonymousUserByUsername = userRepository.findByUsername(UserConstants.ANONYMOUS_USER_USERNAME);
+        final Optional<User> anonymousUserByUsername = userRepository.findByUsernameIgnoreCase(ANONYMOUS_USER_USERNAME);
         assertTrue(anonymousUserByUsername.isPresent());
         assertEquals(ANONYMOUS_ID, anonymousUserByUsername.get().getId().longValue());
         assertEquals(ANONYMOUS_USER_ID, anonymousUserByUsername.get().getUserId());
@@ -52,13 +52,13 @@ public class UserRepositoryTest {
     @DisplayName("Find non existing user")
     public void findNonExistingUser() {
         assertFalse(userRepository.findById(99999999999L).isPresent());
-        assertFalse(userRepository.findByUsername("NON_EXISTING_USER").isPresent());
+        assertFalse(userRepository.findByUsernameIgnoreCase("NON_EXISTING_USER").isPresent());
     }
 
     @Test
     @DisplayName("Find existing user")
     public void findExistingUser() {
-        final Optional<User> existingUser = userRepository.findByUsername("straumat");
+        final Optional<User> existingUser = userRepository.findByUsernameIgnoreCase("straumat");
         assertTrue(existingUser.isPresent());
         assertEquals(2, existingUser.get().getId().longValue());
         assertEquals("straumat", existingUser.get().getUsername());

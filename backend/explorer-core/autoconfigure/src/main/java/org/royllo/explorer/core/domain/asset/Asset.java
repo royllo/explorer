@@ -24,7 +24,7 @@ import static jakarta.persistence.FetchType.EAGER;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 /**
- * Taro asset.
+ * Taproot asset.
  */
 @Getter
 @Setter
@@ -45,7 +45,7 @@ public class Asset extends BaseDomain {
     @JoinColumn(name = "FK_USER_CREATOR", nullable = false)
     private User creator;
 
-    /** The version of the Taro asset. */
+    /** The version of the Taproot asset. */
     @Column(name = "VERSION", updatable = false)
     private int version;
 
@@ -66,7 +66,7 @@ public class Asset extends BaseDomain {
     @Column(name = "ASSET_ID", updatable = false)
     private String assetId;
 
-    /** The index of the output that carries the unique Taro commitment in the genesis transaction. */
+    /** The index of the output that carries the unique Taproot commitment in the genesis transaction. */
     @Column(name = "OUTPUT_INDEX", updatable = false)
     private int outputIndex;
 
@@ -74,7 +74,7 @@ public class Asset extends BaseDomain {
     @Column(name = "GENESIS_BOOTSTRAP_INFORMATION", updatable = false)
     private String genesisBootstrapInformation;
 
-    /** The version of the Taro commitment that created this asset. */
+    /** The version of the Taproot asset commitment that created this asset. */
     @Column(name = "GENESIS_VERSION", updatable = false)
     private int genesisVersion;
 
@@ -83,7 +83,7 @@ public class Asset extends BaseDomain {
     @Column(name = "ASSET_TYPE", updatable = false)
     private AssetType type;
 
-    /** The total amount of the asset stored in this Taro UTXO. */
+    /** The total amount of the asset stored in this Taproot asset UTXO. */
     @Column(name = "AMOUNT")
     private BigInteger amount;
 
@@ -103,7 +103,7 @@ public class Asset extends BaseDomain {
     @Column(name = "SCRIPT_KEY")
     private String scriptKey;
 
-    /** The transaction that anchors the Taro commitment where the asset resides. */
+    /** The transaction that anchors the Taproot asset commitment where the asset resides. */
     @Column(name = "ANCHOR_TX")
     private String anchorTx;
 
@@ -115,7 +115,7 @@ public class Asset extends BaseDomain {
     @Column(name = "ANCHOR_BLOCK_HASH")
     private String anchorBlockHash;
 
-    /** Outpoint (txid:vout) that stores the Taro commitment. */
+    /** Outpoint (txid:vout) that stores the Taproot asset commitment. */
     @Column(name = "ANCHOR_OUTPOINT")
     private String anchorOutpoint;
 
