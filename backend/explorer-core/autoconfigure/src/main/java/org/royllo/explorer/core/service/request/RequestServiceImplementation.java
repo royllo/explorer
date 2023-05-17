@@ -104,7 +104,7 @@ public class RequestServiceImplementation extends BaseService implements Request
     @Override
     public AddAssetMetaDataRequestDTO createAddAssetMetaDataRequest(@NonNull final String assetId,
                                                                     final String metaData) {
-        logger.info("createAddAssetMetaDataRequest - Adding metadata request for taro asset id {}", assetId);
+        logger.info("createAddAssetMetaDataRequest - Adding metadata request for Taproot asset id {}", assetId);
 
         // Creating and saving the request.
         AddAssetMetaDataRequest request = AddAssetMetaDataRequest.builder()

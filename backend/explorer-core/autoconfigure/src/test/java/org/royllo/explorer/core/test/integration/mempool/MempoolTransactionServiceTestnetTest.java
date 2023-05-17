@@ -26,7 +26,7 @@ public class MempoolTransactionServiceTestnetTest extends BaseTest {
     public void getTransactionTest() {
         // =============================================================================================================
         // Testing a taproot transaction.
-        GetTransactionResponse taprootTransaction = mempoolTransactionService.getTransaction(BITCOIN_TESTNET_TARO_TRANSACTION_1_TXID)
+        GetTransactionResponse taprootTransaction = mempoolTransactionService.getTransaction(BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID)
                 .doOnError(throwable -> logger.error("Error getting transaction from mempool: {}", throwable.getMessage()))
                 .block();
         assertNotNull(taprootTransaction);

@@ -1,10 +1,10 @@
-"Taro asset"
+"Taproot asset"
 type Asset {
-    "The asset ID that uniquely identifies the asset"
+    "The Taproot ID that uniquely identifies the asset"
     assetId: ID!
     "The asset creator"
     creator: User!
-    "The version of the Taro asset"
+    "The version of the Taproot asset"
     version: Int!
     "The first outpoint of the transaction that created the asset (txid:vout)"
     genesisPoint: BitcoinTransactionOutput!
@@ -12,15 +12,15 @@ type Asset {
     name: String!
     "The hashed metadata of the asset"
     metaData: String!
-    "The index of the output that carries the unique Taro commitment in the genesis transaction"
+    "The index of the output that carries the unique Taproot commitment in the genesis transaction"
     outputIndex: Int!
     "The full genesis information encoded in a portable manner, so it can be easily copy/pasted for address creation"
     genesisBootstrapInformation: String!
-    "The version of the Taro commitment that created this asset"
+    "The version of the Taproot commitment that created this asset"
     genesisVersion: Int!
     "The type of the asset: normal or a collectible"
     type : AssetType!
-    "The total amount of the asset stored in this Taro UTXO"
+    "The total amount of the asset stored in this Taproot UTXO"
     amount: BigInteger!
     "An optional lock time, as with Bitcoin transactions"
     lockTime: Int!
@@ -30,19 +30,19 @@ type Asset {
     scriptVersion: Int!
     "The script key of the asset, which can be spent under Taproot semantics"
     scriptKey: String!
-    "The transaction that anchors the Taro commitment where the asset resides"
+    "The transaction that anchors the Taproot commitment where the asset resides"
     anchorTx: String!
     "The txid of the anchor transaction"
     anchorTxId: String!
     "The block hash the contains the anchor transaction above"
     anchorBlockHash: String!
-    "Outpoint (txid:vout) that stores the Taro commitment"
+    "Outpoint (txid:vout) that stores the Taproot commitment"
     anchorOutpoint: String!
     "The raw internal key that was used to create the anchor Taproot output key"
     anchorInternalKey: String!
 }
 
-"Taro asset page - Container used to return search asset results"
+"Taproot asset page - Container used to return search asset results"
 type AssetPage {
     "Assets returned for a specific page number"
     content: [Asset]

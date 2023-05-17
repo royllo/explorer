@@ -14,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public class AddAssetMetaDataRequestDTO extends RequestDTO {
 
-    /** Taro asset id. */
+    /** Taproot asset id. */
     @NotBlank(message = "Asset id is required")
     String assetId;
 

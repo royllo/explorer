@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.asset.Asset;
 import org.royllo.explorer.core.domain.proof.Proof;
 import org.royllo.explorer.core.dto.proof.ProofDTO;
-import org.royllo.explorer.core.provider.tarod.DecodedProofResponse;
+import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.repository.proof.ProofRepository;
 import org.royllo.explorer.core.util.base.BaseService;

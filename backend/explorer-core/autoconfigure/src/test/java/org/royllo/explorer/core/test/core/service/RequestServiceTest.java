@@ -91,7 +91,7 @@ public class RequestServiceTest {
         assertTrue(requestService.getRequestByRequestId(request1DTO.getRequestId()).isPresent());
 
         // We create a new medata data request, and we should find it.
-        RequestDTO request2DTO = requestService.createAddAssetMetaDataRequest("taroAssetId1", "meta1");
+        RequestDTO request2DTO = requestService.createAddAssetMetaDataRequest("TaprootAssetId1", "meta1");
         assertNotNull(request2DTO);
         assertNotNull(request2DTO.getRequestId());
         assertTrue(requestService.getRequestByRequestId(request2DTO.getRequestId()).isPresent());
@@ -134,7 +134,7 @@ public class RequestServiceTest {
 
         // =============================================================================================================
         // Request 2 (addAssetMetaData).
-        RequestDTO request2DTO = requestService.createAddAssetMetaDataRequest("taroAssetId1", "meta1");
+        RequestDTO request2DTO = requestService.createAddAssetMetaDataRequest("TaprootAssetId1", "meta1");
         assertNotNull(request2DTO);
         long request2Id = request2DTO.getId();
 
@@ -152,7 +152,7 @@ public class RequestServiceTest {
         assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request2Casted.getCreator().getUsername());
         assertEquals(RequestStatus.OPENED, request2Casted.getStatus());
         assertNull(request2Casted.getErrorMessage());
-        assertEquals("taroAssetId1", request2Casted.getAssetId());
+        assertEquals("TaprootAssetId1", request2Casted.getAssetId());
         assertEquals("meta1", request2Casted.getMetaData());
 
         // =============================================================================================================

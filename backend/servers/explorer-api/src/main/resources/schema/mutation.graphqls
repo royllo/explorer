@@ -18,7 +18,7 @@ input AddProofRequestInputs {
 
 "Add asset request meta data inputs"
 input AddAssetMetaDataRequestInputs {
-    "Taro asset id"
+    "Taproot asset id"
     assetId: String!
     "Metadata corresponding to the meta hash stored in the genesis information"
     metaData: String!

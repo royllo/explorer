@@ -1,4 +1,4 @@
-package org.royllo.explorer.core.provider.tarod;
+package org.royllo.explorer.core.provider.tapd;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

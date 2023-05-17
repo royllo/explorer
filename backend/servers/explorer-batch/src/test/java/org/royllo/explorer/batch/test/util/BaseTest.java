@@ -23,10 +23,6 @@ public class BaseTest extends Base {
     protected static final String BITCOIN_TAPROOT_TRANSACTION_1_TXID = "taproot_test_transaction_number_1_d6fb80c7322dcb895a2429f84f4d4a";
     /** txid of a taproot transaction NOT in our database, but IN the blockchain. */
     protected static final String BITCOIN_TAPROOT_TRANSACTION_2_TXID = "d61a4957e5e756a7631246b1a00d685e4854f98f8c2835bafafed8b1d1e26be5";
-    /** txid of a taproot transaction containing a taro asset on the testnet (output 1). */
-    protected static final String BITCOIN_TESTNET_TARO_TRANSACTION_1_TXID = "d8a8016095b9fcd1f63c57342d375026ecbc72c885a54b676c6e62b216e15365";
-    /** Taro asset number 1. */
-    protected static final String ASSET_ID_NUMBER_01 = "b34b05956d828a7f7a0df598771c9f6df0378680c432480837852bcb94a8f21e";
 
     /* ============================================================================================================== */
     /* My Royllo coin (living on testnet). */

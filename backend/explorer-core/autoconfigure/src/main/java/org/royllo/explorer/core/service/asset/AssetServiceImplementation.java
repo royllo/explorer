@@ -18,7 +18,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import static java.util.stream.Collectors.joining;
-import static org.royllo.explorer.core.util.constants.TaroConstants.ASSET_ID_SIZE;
+import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_SIZE;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 
 /**

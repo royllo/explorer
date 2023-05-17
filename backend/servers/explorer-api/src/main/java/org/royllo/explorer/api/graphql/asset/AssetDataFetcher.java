@@ -56,7 +56,7 @@ public class AssetDataFetcher extends BaseDataFetcher {
     /**
      * Get an asset by its asset id.
      *
-     * @param assetId taro asset id
+     * @param assetId taproot asset id
      * @return asset
      */
     @DgsQuery

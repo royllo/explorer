@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.batch.util.base.BaseBatch;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
-import org.royllo.explorer.core.provider.tarod.DecodedProofResponse;
-import org.royllo.explorer.core.provider.tarod.TarodProofService;
+import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
+import org.royllo.explorer.core.provider.tapd.TapdProofService;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.proof.ProofService;
@@ -32,8 +32,8 @@ public class AddProofBatch extends BaseBatch {
     /** Delay between two calls to process requests (1 000 ms = 1 second). */
     private static final int DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS = 1_000;
 
-    /** Tarod proof service. */
-    private final TarodProofService tarodProofService;
+    /** Taproot proof service. */
+    private final TapdProofService tapdProofService;
 
     /** Request repository. */
     private final RequestRepository requestRepository;
@@ -65,7 +65,7 @@ public class AddProofBatch extends BaseBatch {
 
                         // We try to decode the proof.
                         try {
-                            final DecodedProofResponse decodedProofResponse = tarodProofService.decode(request.getRawProof(), 0).block();
+                            final DecodedProofResponse decodedProofResponse = tapdProofService.decode(request.getRawProof(), 0).block();
 
                             // We check if we have a decoded proof response.
                             if (decodedProofResponse == null) {
@@ -98,10 +98,10 @@ public class AddProofBatch extends BaseBatch {
                         } catch (ProofCreationException exception) {
                             logger.error("Request {} has error: {}", request.getId(), exception.getMessage());
                             request.failure(exception.getMessage());
-                        } catch (Throwable tarodError) {
-                            // We failed on calling tarod, but it's an exception; not a "valid" error.
-                            logger.error("Request {} has error: {}", request.getId(), tarodError.getMessage());
-                            request.recoverableFailure("Recoverable error: " + tarodError.getMessage());
+                        } catch (Throwable tapdError) {
+                            // We failed on calling tapd, but it's an exception; not a "valid" error.
+                            logger.error("Request {} has error: {}", request.getId(), tapdError.getMessage());
+                            request.recoverableFailure("Recoverable error: " + tapdError.getMessage());
                         }
 
                         // We save the request.

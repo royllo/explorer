@@ -76,7 +76,7 @@ public class RequestRepositoryTest extends BaseTest {
         request2.setRequestId(UUID.randomUUID().toString());
         request2.setCreator(user.get());
         request2.setStatus(RequestStatus.SUCCESS);
-        request2.setAssetId("TaroAssetId1");
+        request2.setAssetId("TaprootAssetId1");
         request2.setMetaData("Meta1");
         long request2ID = requestRepository.save(request2).getId();
 
@@ -88,7 +88,7 @@ public class RequestRepositoryTest extends BaseTest {
         Assertions.assertEquals("anonymous", addAssetMeatRequest2FromJPA.getCreator().getUsername());
         Assertions.assertEquals(RequestStatus.SUCCESS, addAssetMeatRequest2FromJPA.getStatus());
         assertNull(addAssetMeatRequest2FromJPA.getErrorMessage());
-        assertEquals("TaroAssetId1", addAssetMeatRequest2FromJPA.getAssetId());
+        assertEquals("TaprootAssetId1", addAssetMeatRequest2FromJPA.getAssetId());
         assertEquals("Meta1", addAssetMeatRequest2FromJPA.getMetaData());
 
         // See what's in database with JDBC.

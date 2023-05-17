@@ -1,11 +1,11 @@
-package org.royllo.explorer.core.provider.tarod;
+package org.royllo.explorer.core.provider.tapd;
 
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.util.base.BaseMempoolService;
-import org.royllo.explorer.core.util.parameters.TarodParameters;
+import org.royllo.explorer.core.util.parameters.TAPDParameters;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Service;
@@ -17,14 +17,15 @@ import reactor.netty.http.client.HttpClient;
 import javax.net.ssl.SSLException;
 
 /**
- * Tarod proof service implementation.
+ * TAPD proof service implementation.
  */
 @Service
 @RequiredArgsConstructor
-public class TarodProofServiceImplementation extends BaseMempoolService implements TarodProofService {
+public class TapdProofServiceImplementation extends BaseMempoolService implements TapdProofService {
 
-    /** Tarod parameters. */
-    private final TarodParameters tarodParameters;
+    /** TAPD parameters. */
+    private final TAPDParameters tapdParameters;
+
     /** SSL Context. */
     private SslContext sslContext;
 
@@ -54,11 +55,11 @@ public class TarodProofServiceImplementation extends BaseMempoolService implemen
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
         return WebClient.builder()
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
-                .baseUrl(tarodParameters.getApi().getBaseUrl())
+                .baseUrl(tapdParameters.getApi().getBaseUrl())
                 .build()
                 .post()
                 .uri("proofs/decode")
-                .header("Grpc-Metadata-macaroon", tarodParameters.getApi().getMacaroon())
+                .header("Grpc-Metadata-macaroon", tapdParameters.getApi().getMacaroon())
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(ProofRequest.builder()
                         .rawProof(rawProof)

@@ -1,4 +1,4 @@
-"Taro proof"
+"Taproot asset proof"
 type Proof {
     "Proof id  - sha256(rawProof)"
     proofId: String!

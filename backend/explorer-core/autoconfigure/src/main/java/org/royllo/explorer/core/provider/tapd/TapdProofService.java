@@ -1,12 +1,12 @@
-package org.royllo.explorer.core.provider.tarod;
+package org.royllo.explorer.core.provider.tapd;
 
 import reactor.core.publisher.Mono;
 
 /**
- * Tarod proof service.
- * <a href="https://lightning.engineering/api-docs/api/taro/rest-endpoints/index.html">Tarod API documentation</a>
+ * TAPD proof service.
+ * <a href="https://lightning.engineering/api-docs/api/taproot-assets/">TAPD API documentation</a>
  */
-public interface TarodProofService {
+public interface TapdProofService {
 
     /**
      * Decode proof.

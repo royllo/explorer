@@ -1,7 +1,7 @@
 package org.royllo.explorer.core.service.proof;
 
 import org.royllo.explorer.core.dto.proof.ProofDTO;
-import org.royllo.explorer.core.provider.tarod.DecodedProofResponse;
+import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.springframework.data.domain.Page;
 
 import java.util.Optional;

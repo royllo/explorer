@@ -23,7 +23,7 @@ import lombok.experimental.SuperBuilder;
 @DiscriminatorValue("ADD_ASSET_META_DATA")
 public class AddAssetMetaDataRequest extends Request {
 
-    /** Taro asset id. */
+    /** Taproot asset id. */
     @Column(name = "ASSET_ID", updatable = false)
     private String assetId;
 
