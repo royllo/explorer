@@ -69,7 +69,7 @@
         <reactor-netty.version>1.1.7</reactor-netty.version>
 
         <graphql-dgs-platform-dependencies.version>6.0.0</graphql-dgs-platform-dependencies.version>
-        <graphql-dgs-codegen-core.version>5.8.0</graphql-dgs-codegen-core.version>
+        <graphql-dgs-codegen-core.version>5.9.0</graphql-dgs-codegen-core.version>
         <graphql-dgs-codegen-client-core.version>5.1.17</graphql-dgs-codegen-client-core.version>
 
         <liquibase.version>4.22.0</liquibase.version>
@@ -95,7 +95,7 @@
         <!-- Maven plugins -->
         <maven.gitflow.version>1.19.0</maven.gitflow.version>
         <maven.checkstyle.plugin.version>3.2.2</maven.checkstyle.plugin.version>
-        <maven.graphqlcodegen.plugin.version>1.32</maven.graphqlcodegen.plugin.version>
+        <maven.graphqlcodegen.plugin.version>1.33</maven.graphqlcodegen.plugin.version>
         <maven.puppycrawl.checkstyle.version>10.11.0</maven.puppycrawl.checkstyle.version>
         <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
 
