@@ -77,7 +77,7 @@
         <jdbc.driver.postgresql.version>42.6.0</jdbc.driver.postgresql.version>
         <jdbc.driver.mysql.version>8.0.33</jdbc.driver.mysql.version>
 
-        <lombok.version>1.18.26</lombok.version>
+        <lombok.version>1.18.28</lombok.version>
         <lombok.mapstruct.version>0.2.0</lombok.mapstruct.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
 
