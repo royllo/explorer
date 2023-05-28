@@ -84,7 +84,10 @@
         <!-- ======================================================================================================= -->
         <!-- Web libraries -->
         <thymeleaf-layout-dialect.version>3.2.1</thymeleaf-layout-dialect.version>
+        <htmx-spring-boot-thymeleaf.version>2.0.0</htmx-spring-boot-thymeleaf.version>
         <webjars-locator.version>0.46</webjars-locator.version>
+        <htmx.version>1.9.2</htmx.version>
+        <alpinejs.version>3.12.1</alpinejs.version>
 
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->

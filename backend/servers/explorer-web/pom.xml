@@ -43,6 +43,11 @@
             <artifactId>thymeleaf-layout-dialect</artifactId>
             <version>${thymeleaf-layout-dialect.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.github.wimdeblauwe</groupId>
+            <artifactId>htmx-spring-boot-thymeleaf</artifactId>
+            <version>${htmx-spring-boot-thymeleaf.version}</version>
+        </dependency>
 
         <!-- Util dependencies -->
         <dependency>
@@ -68,12 +73,12 @@
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>htmx.org</artifactId>
-            <version>1.9.2</version>
+            <version>${htmx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>alpinejs</artifactId>
-            <version>3.12.1</version>
+            <version>${alpinejs.version}</version>
         </dependency>
 
         <!-- Test dependencies -->
