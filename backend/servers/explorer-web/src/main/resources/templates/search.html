@@ -87,7 +87,10 @@
                        th:text="${pageNumber}">3</a>
 
                     <a class="paginationNotSelectedPage"
-                       th:href="@{'/search?query=' + ${query} + '&page=' + ${pageNumber}}"
+                       href="#"
+                       hx-push-url="true"
+                       hx:get="|/search?query=${query}&page=${pageNumber}|"
+                       hx:target="|#content|"
                        th:if="${page != pageNumber}"
                        th:text="${pageNumber}"></a>
 
