@@ -8,7 +8,9 @@
 <header class="flex items-center justify-between px-4 py-4">
 
     <!--/* Left logo with link */-->
-    <a th:href="@{/}">
+    <a hx-push-url="true"
+       hx:get="|/|"
+       hx:target="|#content|">
         <img alt="Royllo Logo"
              height="52"
              th:src="@{/images/logo/royllo_logo_horizontal_with_title.png}"

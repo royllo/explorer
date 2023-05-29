@@ -12,6 +12,9 @@ public class PagesConstants {
     /** Home page. */
     public static final String HOME_PAGE = "home";
 
+    /** Home page. */
+    public static final String HOME_PAGE_FRAGMENT = "home :: home-content";
+
     /** Search page. */
     public static final String SEARCH_PAGE = "search";
 
