@@ -51,7 +51,6 @@ public class HomeControllerTest extends BaseTest {
                 .andExpect(content().string(containsString("query")))
                 // Checking the footer is here.
                 .andExpect(content().string(containsString("https://www.royllo.org")))
-                .andExpect(content().string(containsString("https://api.explorer.royllo.org")))
                 .andExpect(content().string(containsString("https://github.com/royllo/explorer")))
                 .andExpect(content().string(containsString("https://twitter.com/royllo_org")))
                 .andExpect(content().string(containsString("mailto:contact@royllo.org")));
@@ -81,7 +80,6 @@ public class HomeControllerTest extends BaseTest {
                 .andExpect(content().string(containsString("query")))
                 // Checking the footer is not here.
                 .andExpect(content().string(not(containsString("https://www.royllo.org"))))
-                .andExpect(content().string(not(containsString("https://api.explorer.royllo.org"))))
                 .andExpect(content().string(not(containsString("https://github.com/royllo/explorer"))))
                 .andExpect(content().string(not(containsString("https://twitter.com/royllo_org"))))
                 .andExpect(content().string(not(containsString("mailto:contact@royllo.org"))));

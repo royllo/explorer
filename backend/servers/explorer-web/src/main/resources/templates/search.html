@@ -47,7 +47,10 @@
                          th:src="@{/svg/coin.svg}"/>
                     <div class="min-w-0 flex-auto">
                         <p class="text-sm font-semibold leading-6 text-gray-900">
-                            <a th:href="@{'/asset/' + ${asset.assetId}}">
+                            <a hx-push-url="true"
+                               hx:get="|/asset/${asset.assetId}|"
+                               hx:target="|#content|"
+                               th:href="@{'/asset/' + ${asset.assetId}}">
                                 <span class="absolute inset-x-0 -top-px bottom-0"></span>
                                 <span th:text="${asset.name}"></span>
                             </a>
@@ -87,10 +90,10 @@
                        th:text="${pageNumber}">3</a>
 
                     <a class="paginationNotSelectedPage"
-                       href="#"
                        hx-push-url="true"
                        hx:get="|/search?query=${query}&page=${pageNumber}|"
                        hx:target="|#content|"
+                       th:href="@{'/search?query=' + ${query} + '&page=' + ${pageNumber}}"
                        th:if="${page != pageNumber}"
                        th:text="${pageNumber}"></a>
 

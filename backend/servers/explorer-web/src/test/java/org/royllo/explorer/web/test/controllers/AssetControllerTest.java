@@ -1,7 +1,8 @@
 package org.royllo.explorer.web.test.controllers;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.royllo.explorer.core.domain.asset.Asset;
 import org.royllo.explorer.core.domain.proof.Proof;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Objects;
@@ -47,12 +49,13 @@ public class AssetControllerTest extends BaseTest {
     @Autowired
     Environment environment;
 
-    @Test
+    @ParameterizedTest
+    @MethodSource("headers")
     @DisplayName("Asset page")
-    void assetPage() throws Exception {
-        mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID))
+    void assetPage(final HttpHeaders headers) throws Exception {
+        mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID).headers(headers))
                 .andExpect(status().isOk())
-                .andExpect(view().name(ASSET_PAGE))
+                .andExpect(view().name(containsString(ASSET_PAGE)))
                 // Checking view proof link.
                 .andExpect(content().string(containsString("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs")))
                 // Checking each field.
@@ -82,9 +85,9 @@ public class AssetControllerTest extends BaseTest {
                         .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
 
         // Trim test with spaces
-        mockMvc.perform(get("/asset/ " + MY_ROYLLO_COIN_ASSET_ID + " "))
+        mockMvc.perform(get("/asset/ " + MY_ROYLLO_COIN_ASSET_ID + " ").headers(headers))
                 .andExpect(status().isOk())
-                .andExpect(view().name(ASSET_PAGE))
+                .andExpect(view().name(containsString(ASSET_PAGE)))
                 // Checking view proof link.
                 .andExpect(content().string(containsString("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs")))
                 // Checking each field.
@@ -114,12 +117,13 @@ public class AssetControllerTest extends BaseTest {
                         .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
     }
 
-    @Test
+    @ParameterizedTest
+    @MethodSource("headers")
     @DisplayName("Asset page without parameter")
-    void assetPageWithoutParameter() throws Exception {
-        mockMvc.perform(get("/asset/"))
+    void assetPageWithoutParameter(final HttpHeaders headers) throws Exception {
+        mockMvc.perform(get("/asset/").headers(headers))
                 .andExpect(status().isOk())
-                .andExpect(view().name(ASSET_PAGE))
+                .andExpect(view().name(containsString(ASSET_PAGE)))
                 // Checking error message.
                 .andExpect(content().string(containsString(environment.getProperty("asset.view.error.noAssetId"))))
                 .andExpect(content().string(not(containsString(Objects.requireNonNull(
@@ -127,12 +131,13 @@ public class AssetControllerTest extends BaseTest {
                         .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
     }
 
-    @Test
+    @ParameterizedTest
+    @MethodSource("headers")
     @DisplayName("Asset page without parameter and slash")
-    void assetPageWithoutParameterAndSlash() throws Exception {
-        mockMvc.perform(get("/asset"))
+    void assetPageWithoutParameterAndSlash(final HttpHeaders headers) throws Exception {
+        mockMvc.perform(get("/asset").headers(headers))
                 .andExpect(status().isOk())
-                .andExpect(view().name(ASSET_PAGE))
+                .andExpect(view().name(containsString(ASSET_PAGE)))
                 // Checking error message.
                 .andExpect(content().string(containsString(environment.getProperty("asset.view.error.noAssetId"))))
                 .andExpect(content().string(not(containsString(Objects.requireNonNull(
@@ -140,24 +145,26 @@ public class AssetControllerTest extends BaseTest {
                         .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
     }
 
-    @Test
+    @ParameterizedTest
+    @MethodSource("headers")
     @DisplayName("Invalid asset id")
-    void invalidAssetId() throws Exception {
+    void invalidAssetId(final HttpHeaders headers) throws Exception {
         final String expectedMessage = Objects.requireNonNull(environment.getProperty("asset.view.error.assetNotFound")).replace("\"{0}\"", "&quot;NON_EXISTING&quot;");
-        mockMvc.perform(get("/asset/NON_EXISTING"))
+        mockMvc.perform(get("/asset/NON_EXISTING").headers(headers))
                 .andExpect(status().isOk())
-                .andExpect(view().name(ASSET_PAGE))
+                .andExpect(view().name(containsString(ASSET_PAGE)))
                 // Checking error message.
                 .andExpect(content().string(containsString(expectedMessage)));
     }
 
-    @Test
+    @ParameterizedTest
+    @MethodSource("headers")
     @DisplayName("Asset proofs page")
-    void assetProofsPage() throws Exception {
+    void assetProofsPage(final HttpHeaders headers) throws Exception {
         // My royllo coin has only one proof.
-        mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs"))
+        mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs").headers(headers))
                 .andExpect(status().isOk())
-                .andExpect(view().name(ASSET_PROOFS_PAGE))
+                .andExpect(view().name(containsString(ASSET_PROOFS_PAGE)))
                 // Checking proofs.
                 .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_RAW_PROOF + "<")))
                 .andExpect(content().string(not(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF + "<"))))
@@ -170,9 +177,9 @@ public class AssetControllerTest extends BaseTest {
                         .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
 
         // Active royllo coin has several proofs.
-        mockMvc.perform(get("/asset/" + ACTIVE_ROYLLO_COIN_ASSET_ID + "/proofs/"))
+        mockMvc.perform(get("/asset/" + ACTIVE_ROYLLO_COIN_ASSET_ID + "/proofs/").headers(headers))
                 .andExpect(status().isOk())
-                .andExpect(view().name(ASSET_PROOFS_PAGE))
+                .andExpect(view().name(containsString(ASSET_PROOFS_PAGE)))
                 // Checking proofs.
                 .andExpect(content().string(not(containsString(">" + MY_ROYLLO_COIN_RAW_PROOF + "<"))))
                 .andExpect(content().string(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF + "<")))
@@ -185,10 +192,16 @@ public class AssetControllerTest extends BaseTest {
                         .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
     }
 
-    @Test
+    @ParameterizedTest
+    @MethodSource("headers")
     @DisplayName("Asset proofs page with pagination")
-    void assetProofsPagePagination() throws Exception {
+    void assetProofsPagePagination(final HttpHeaders headers) throws Exception {
         // Creating enough proofs to test pagination.
+        // We purge data as the same test will be run with different headers.
+        proofRepository.findByAssetAssetIdOrderByCreatedOn(MY_ROYLLO_COIN_ASSET_ID, Pageable.ofSize(101))
+                .stream()
+                .filter(proof -> !Objects.equals(proof.getRawProof(), MY_ROYLLO_COIN_RAW_PROOF))
+                .forEach(proofRepository::delete);
         final Optional<Asset> byAssetId = assetRepository.findByAssetId(MY_ROYLLO_COIN_ASSET_ID);
         assertEquals(1, proofRepository.findByAssetAssetIdOrderByCreatedOn(MY_ROYLLO_COIN_ASSET_ID, Pageable.ofSize(1)).getTotalElements());
         byAssetId.ifPresent(asset -> {
@@ -204,9 +217,9 @@ public class AssetControllerTest extends BaseTest {
         assertEquals(101, proofRepository.findByAssetAssetIdOrderByCreatedOn(MY_ROYLLO_COIN_ASSET_ID, Pageable.ofSize(1)).getTotalElements());
 
         // Testing page 1 (without parameter).
-        mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs"))
+        mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs").headers(headers))
                 .andExpect(status().isOk())
-                .andExpect(view().name(ASSET_PROOFS_PAGE))
+                .andExpect(view().name(containsString(ASSET_PROOFS_PAGE)))
                 // Checking proofs.
                 .andExpect(content().string(containsString(">raw-proof-0<")))
                 .andExpect(content().string(not(containsString(">raw-proof-99<"))))
@@ -217,9 +230,9 @@ public class AssetControllerTest extends BaseTest {
                         .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
 
         // Testing page 1 (with parameter).
-        mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs?page=1"))
+        mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs?page=1").headers(headers))
                 .andExpect(status().isOk())
-                .andExpect(view().name(ASSET_PROOFS_PAGE))
+                .andExpect(view().name(containsString(ASSET_PROOFS_PAGE)))
                 // Checking proofs.
                 .andExpect(content().string(containsString(">raw-proof-1<")))
                 .andExpect(content().string(not(containsString(">raw-proof-99<"))))
@@ -230,9 +243,9 @@ public class AssetControllerTest extends BaseTest {
                         .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
 
         // Testing page 2 (with parameter).
-        mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs?page=2"))
+        mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs?page=2").headers(headers))
                 .andExpect(status().isOk())
-                .andExpect(view().name(ASSET_PROOFS_PAGE))
+                .andExpect(view().name(containsString(ASSET_PROOFS_PAGE)))
                 // Checking proofs.
                 .andExpect(content().string(not(containsString(">raw-proof-1<"))))
                 .andExpect(content().string(containsString(">raw-proof-99<")))
@@ -243,12 +256,13 @@ public class AssetControllerTest extends BaseTest {
                         .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
     }
 
-    @Test
+    @ParameterizedTest
+    @MethodSource("headers")
     @DisplayName("Asset proofs page with invalid page number")
-    void assetProofsPageWithInvalidPageNumber() throws Exception {
-        mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs?page=5"))
+    void assetProofsPageWithInvalidPageNumber(final HttpHeaders headers) throws Exception {
+        mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs?page=5").headers(headers))
                 .andExpect(status().isOk())
-                .andExpect(view().name(ASSET_PROOFS_PAGE))
+                .andExpect(view().name(containsString(ASSET_PROOFS_PAGE)))
                 // Checking error message.
                 .andExpect(content().string(containsString(environment.getProperty("proof.view.error.invalidPage"))));
     }

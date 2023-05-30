@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<div layout:fragment="content">
+<div layout:fragment="content" th:fragment="asset-proofs-list">
 
     <!--/* ======================================================================================================= */-->
     <!--/* Error management */-->
@@ -67,6 +67,9 @@
                        th:text="${pageNumber}">3</a>
 
                     <a class="paginationNotSelectedPage"
+                       hx-push-url="true"
+                       hx:get="|/assets/${assetId}/proofs?page=${pageNumber}|"
+                       hx:target="|#content|"
                        th:href="@{'/assets/' + assetId + '/proofs?page=' + ${pageNumber}}"
                        th:if="${page != pageNumber}"
                        th:text="${pageNumber}"></a>

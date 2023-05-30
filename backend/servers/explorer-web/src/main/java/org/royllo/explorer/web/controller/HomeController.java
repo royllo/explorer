@@ -30,6 +30,7 @@ public class HomeController extends BaseController {
     public String home(final Model model,
                        final HttpServletRequest request,
                        @RequestParam(required = false) final String query) {
+        // Update the model with the query.
         model.addAttribute(QUERY_ATTRIBUTE, query);
         // If it's an HTMX request, we return the fragment.
         if (isHtmxRequest(request)) {
