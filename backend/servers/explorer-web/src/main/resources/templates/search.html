@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<div class="items-center justify-center align-top mx-auto w-5/6" layout:fragment="content">
+<div class="items-center justify-center align-top mx-auto w-5/6" layout:fragment="content" th:fragment="search-results">
 
     <!--/* ======================================================================================================= */-->
     <!--/* Search form */-->
@@ -47,7 +47,10 @@
                          th:src="@{/svg/coin.svg}"/>
                     <div class="min-w-0 flex-auto">
                         <p class="text-sm font-semibold leading-6 text-gray-900">
-                            <a th:href="@{'/asset/' + ${asset.assetId}}">
+                            <a hx-push-url="true"
+                               hx:get="|/asset/${asset.assetId}|"
+                               hx:target="|#content|"
+                               th:href="@{'/asset/' + ${asset.assetId}}">
                                 <span class="absolute inset-x-0 -top-px bottom-0"></span>
                                 <span th:text="${asset.name}"></span>
                             </a>
@@ -63,12 +66,6 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-x-4">
-                    <!--/*
-                    <div class="hidden sm:flex sm:flex-col sm:items-end">
-                        <p class="text-sm leading-6 text-gray-900">temp</p>
-                        <p class="mt-1 text-xs leading-5 text-gray-500">temp</p>
-                    </div>
-                    */-->
                     <svg aria-hidden="true" class="h-5 w-5 flex-none text-gray-400" fill="currentColor"
                          viewBox="0 0 20 20">
                         <path clip-rule="evenodd"
@@ -93,6 +90,9 @@
                        th:text="${pageNumber}">3</a>
 
                     <a class="paginationNotSelectedPage"
+                       hx-push-url="true"
+                       hx:get="|/search?query=${query}&page=${pageNumber}|"
+                       hx:target="|#content|"
                        th:href="@{'/search?query=' + ${query} + '&page=' + ${pageNumber}}"
                        th:if="${page != pageNumber}"
                        th:text="${pageNumber}"></a>

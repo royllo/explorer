@@ -1,5 +1,5 @@
 <!--/* Search form */-->
-<form method="GET" th:action="@{/search}">
+<form hx-push-url="true" th:action="@{/search}" th:method="GET">
 
     <div class="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-xl ring-1 ring-black ring-opacity-5 transition-all">
         <div class="relative">
@@ -10,17 +10,23 @@
                       fill-rule="evenodd"/>
             </svg>
             <label class="sr-only" for="query" th:text="#{search.field.helper}"></label>
-            <input autofocus
+            <input autocomplete="false"
+                   autofocus
                    class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
+                   hx-get="/search"
+                   hx-target="#content"
+                   hx-trigger="keyup[key=='Enter']"
                    id="query"
-                   name="query"
-                   onClick="this.select();"
+                   name="query" onClick="this.select();"
                    onFocus="this.select();"
                    required
                    th:placeholder="#{search.field.helper}"
-                   th:value="${query}"
-                   type="search">
+                   th:value="${query}">
         </div>
     </div>
+
+    <!--/* Useless */-->
+    <!--/* TODO without this input, HTMX is not used and the page is completely reloaded */-->
+    <label><input name="useless"></label>
 
 </form>

@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<div layout:fragment="content">
+<div layout:fragment="content" th:fragment="asset-proofs-list">
 
     <!--/* ======================================================================================================= */-->
     <!--/* Error management */-->
@@ -38,7 +38,7 @@
             <li class="" th:each="proof, iStat: ${result.content}">
                 <div class="mx-auto">
                     <div class="flex flex-col space-y-1 col-span-full mt-2 ml-2 mr-2 mb-2">
-                        <label th:for="@{'proof-' + ${iStat.index}}" th:text="@{'N°' + ${iStat.index}}"></label>
+                        <label th:for="@{'proof-' + ${iStat.index}}" th:text="@{'N°' + ${iStat.index+1}}"></label>
                         <textarea
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 disabled="disabled"
@@ -67,6 +67,9 @@
                        th:text="${pageNumber}">3</a>
 
                     <a class="paginationNotSelectedPage"
+                       hx-push-url="true"
+                       hx:get="|/assets/${assetId}/proofs?page=${pageNumber}|"
+                       hx:target="|#content|"
                        th:href="@{'/assets/' + assetId + '/proofs?page=' + ${pageNumber}}"
                        th:if="${page != pageNumber}"
                        th:text="${pageNumber}"></a>
