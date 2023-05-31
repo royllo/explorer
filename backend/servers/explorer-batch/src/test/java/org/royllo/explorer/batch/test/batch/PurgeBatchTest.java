@@ -11,9 +11,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import javax.sql.DataSource;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.ZonedDateTime;
 import java.util.Collections;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
 import static org.royllo.explorer.core.util.enums.RequestStatus.FAILURE;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
@@ -28,6 +36,9 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 public class PurgeBatchTest extends BaseTest {
 
     @Autowired
+    private DataSource dataSource;
+
+    @Autowired
     private RequestRepository requestRepository;
 
     @Autowired
@@ -35,60 +46,118 @@ public class PurgeBatchTest extends BaseTest {
 
     @Test
     @DisplayName("Purge failed requests")
-    public void purgeFailedRequests() {
+    public void purgeFailedRequests() throws SQLException {
         // We start by erasing everything.
         requestRepository.deleteAll();
 
-        // We create "OPENED" requests.
-        for (int i = 1; i < 1_000; i++) {
+        // Requests used to change the request creation date.
+        final String updateDate = "UPDATE REQUESTS SET CREATED_ON = ? WHERE REQUEST_ID like ?;";
+
+        // We create 100 "OPENED" requests created before current date minus one month.
+        for (int i = 1; i <= 99; i++) {
             AddProof request = new AddProof();
-            request.setRequestId("OPENED-" + String.format("%05d", i));
+            request.setRequestId(UUID.randomUUID() + "-BEFORE-OPENED-" + String.format("%03d", i));
+            request.setCreator(ANONYMOUS_USER);
+            request.setStatus(OPENED);
+            request.setRawProof("Proof");
+            requestRepository.save(request);
+        }
+        // We create 100 "OPENED" requests created after current date minus one month.
+        for (int i = 100; i <= 199; i++) {
+            AddProof request = new AddProof();
+            request.setRequestId(UUID.randomUUID() + "-AFTER-OPENED-" + String.format("%03d", i));
             request.setCreator(ANONYMOUS_USER);
             request.setStatus(OPENED);
             request.setRawProof("Proof");
             requestRepository.save(request);
         }
 
-        // We create "SUCCESS" requests.
-        for (int i = 1_000; i < 2_000; i++) {
+        // We create 100 "SUCCESS" requests created before one month ago.
+        for (int i = 200; i <= 299; i++) {
             AddProof request = new AddProof();
-            request.setRequestId("SUCCESS-" + String.format("%05d", i));
+            request.setRequestId(UUID.randomUUID() + "-BEFORE-SUCCESS-" + String.format("%03d", i));
+            request.setCreator(ANONYMOUS_USER);
+            request.setStatus(SUCCESS);
+            request.setRawProof("Proof");
+            requestRepository.save(request);
+        }
+        // We create 100 "SUCCESS" requests created after current date minus one month.
+        for (int i = 300; i <= 399; i++) {
+            AddProof request = new AddProof();
+            request.setRequestId(UUID.randomUUID() + "-AFTER-SUCCESS-" + String.format("%03d", i));
             request.setCreator(ANONYMOUS_USER);
             request.setStatus(SUCCESS);
             request.setRawProof("Proof");
             requestRepository.save(request);
         }
 
-        // We create "RECOVERABLE_FAILURE" requests.
-        for (int i = 2_000; i < 3_000; i++) {
+        // We create 100 "RECOVERABLE_FAILURE" requests created before one month ago.
+        for (int i = 400; i <= 499; i++) {
             AddProof request = new AddProof();
-            request.setRequestId("RECOVERABLE_FAILURE-" + String.format("%05d", i));
+            request.setRequestId(UUID.randomUUID() + "-BEFORE-RECOVERABLE_FAILURE-" + String.format("%03d", i));
+            request.setCreator(ANONYMOUS_USER);
+            request.setStatus(RECOVERABLE_FAILURE);
+            request.setRawProof("Proof");
+            requestRepository.save(request);
+        }
+        // We create 100 "RECOVERABLE_FAILURE" requests created after current date minus one month.
+        for (int i = 500; i <= 599; i++) {
+            AddProof request = new AddProof();
+            request.setRequestId(UUID.randomUUID() + "-AFTER-RECOVERABLE_FAILURE-" + String.format("%03d", i));
             request.setCreator(ANONYMOUS_USER);
             request.setStatus(RECOVERABLE_FAILURE);
             request.setRawProof("Proof");
             requestRepository.save(request);
         }
 
-        // We create "FAILURE" requests.
-        for (int i = 3_000; i < 15_000; i++) {
+        // We create 100 "FAILURE" requests created before one month ago.
+        for (int i = 600; i <= 699; i++) {
             AddProof request = new AddProof();
-            request.setRequestId("FAILURE-" + String.format("%05d", i));
+            request.setRequestId(UUID.randomUUID() + "-BEFORE-FAILURE-" + String.format("%03d", i));
+            request.setCreator(ANONYMOUS_USER);
+            request.setStatus(FAILURE);
+            request.setRawProof("Proof");
+            requestRepository.save(request);
+        }
+        // We create 100 "FAILURE" requests created after current date minus one month.
+        for (int i = 700; i <= 799; i++) {
+            AddProof request = new AddProof();
+            request.setRequestId(UUID.randomUUID() + "-AFTER-FAILURE-" + String.format("%03d", i));
             request.setCreator(ANONYMOUS_USER);
             request.setStatus(FAILURE);
             request.setRawProof("Proof");
             requestRepository.save(request);
         }
 
-        // We should have 15 000 requests (all status).
-        // And there is 12 000 requests with the "FAILURE" status (15 000 - 3 000).
-        assertEquals(14_999, requestRepository.count());
-        assertEquals(12_000, requestRepository.findByStatusInOrderById(Collections.singletonList(FAILURE)).size());
+        // We should have 799 requests.
+        assertEquals(799, requestRepository.count());
 
-        // We make a purge.
-        // After the purge, only MAXIMUM_FAILED_REQUESTS_STORE (10 000) should be left.
-        // We delete the request found on the second page (with a page size of 10 000).
+        // We update the creation date to make our test.
+        PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(updateDate);
+        preparedStatement.setTimestamp(1, Timestamp.from(ZonedDateTime.now().minusMonths(3).toInstant()));
+        preparedStatement.setString(2, "%-BEFORE-%");
+        preparedStatement.execute();
+        preparedStatement = dataSource.getConnection().prepareStatement(updateDate);
+        preparedStatement.setTimestamp(1, Timestamp.from(ZonedDateTime.now().minusDays(3).toInstant()));
+        preparedStatement.setString(2, "%-AFTER-%");
+        preparedStatement.execute();
+
+        // We check this that we find 100 requests with status "RECOVERABLE_FAILURE" created before one month ago.
+        // And we check that they are the good ones (having "BEFORE-RECOVERABLE_FAILURE-" in their request id).
+        assertEquals(200, requestRepository.findByStatusInOrderById(Collections.singletonList(RECOVERABLE_FAILURE)).size());
+        assertEquals(100, requestRepository.findByStatusInAndCreatedOnBefore(Collections.singletonList(RECOVERABLE_FAILURE),
+                ZonedDateTime.now().minusMonths(1)).size());
+        requestRepository.findByStatusInAndCreatedOnBefore(Collections.singletonList(RECOVERABLE_FAILURE),
+                        ZonedDateTime.now().minusMonths(1))
+                .forEach(request -> assertTrue(request.getRequestId().contains("BEFORE-RECOVERABLE_FAILURE-")));
+
+        // After running the purge, we should not have any request with status "BEFORE-RECOVERABLE_FAILURE".
+        // 100 should have disappeared and no more "BEFORE-RECOVERABLE_FAILURE-" in their request id.
         purgeBatch.purge();
-        assertEquals(10_000, requestRepository.findByStatusInOrderById(Collections.singletonList(FAILURE)).size());
+        assertEquals(100, requestRepository.findByStatusInOrderById(Collections.singletonList(RECOVERABLE_FAILURE)).size());
+        requestRepository.findByStatusInAndCreatedOnBefore(Collections.singletonList(RECOVERABLE_FAILURE),
+                        ZonedDateTime.now().minusMonths(1))
+                .forEach(request -> assertFalse(request.getRequestId().contains("BEFORE-RECOVERABLE_FAILURE-")));
     }
 
 }

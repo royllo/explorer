@@ -1,12 +1,10 @@
 package org.royllo.explorer.core.repository.request;
 
-import jakarta.transaction.Transactional;
 import org.royllo.explorer.core.domain.request.Request;
 import org.royllo.explorer.core.util.enums.RequestStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
 import java.time.ZonedDateTime;
@@ -36,7 +34,7 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
     List<Request> findByStatusInOrderById(List<RequestStatus> status);
 
     /**
-     * Find all requests with the corresponding status.
+     * Find all requests with the corresponding status (ordered by id and with pagination).
      *
      * @param status   status filter
      * @param pageable page parameters
@@ -45,14 +43,12 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
     Page<Request> findByStatusInOrderById(List<RequestStatus> status, Pageable pageable);
 
     /**
-     * Delete all requests with the corresponding status and older than the date.
+     * Find all requests with the corresponding status and older than the date.
      *
      * @param status    status
      * @param createdOn date
-     * @return number of deleted requests
+     * @return Requests with the corresponding status and older than the date
      */
-    @Modifying
-    @Transactional
-    long deleteByStatusIsAndCreatedOnBefore(RequestStatus status, ZonedDateTime createdOn);
+    List<Request> findByStatusInAndCreatedOnBefore(List<RequestStatus> status, ZonedDateTime createdOn);
 
 }

@@ -8,11 +8,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static org.royllo.explorer.core.util.enums.RequestStatus.FAILURE;
+import static org.royllo.explorer.core.util.enums.RequestStatus.RECOVERABLE_FAILURE;
 
 /**
  * Purge batch.
@@ -43,6 +45,8 @@ public class PurgeBatch extends BaseBatch {
     public void purge() {
         AtomicLong numberOfPurgeRequests = new AtomicLong(0);
 
+        // =============================================================================================================
+        // Purge failed requests.
         logger.info("Checking if failed request should be purged");
         final List<Request> allFailedRequests = requestRepository.findByStatusInOrderById(Collections.singletonList(FAILURE));
 
@@ -55,10 +59,24 @@ public class PurgeBatch extends BaseBatch {
                         requestRepository.delete(request);
                         numberOfPurgeRequests.getAndIncrement();
                     });
-            logger.info("{} failed requests purged", allFailedRequests.size());
+            logger.info("{} failed requests purged", numberOfPurgeRequests.get());
         } else {
             logger.info("{} existing failed requests - No need to be purge", allFailedRequests.size());
         }
+
+        // =============================================================================================================
+        // Purge recoverable requests.
+        numberOfPurgeRequests.set(0L);
+        logger.info("Purging recoverable requests");
+
+        requestRepository.findByStatusInAndCreatedOnBefore(
+                Collections.singletonList(RECOVERABLE_FAILURE),
+                ZonedDateTime.now().minusMonths(1)).forEach(request -> {
+            logger.info("Purging request {}", request);
+            requestRepository.delete(request);
+            numberOfPurgeRequests.getAndIncrement();
+        });
+        logger.info("{} recoverable requests purged", numberOfPurgeRequests.get());
     }
 
 }
