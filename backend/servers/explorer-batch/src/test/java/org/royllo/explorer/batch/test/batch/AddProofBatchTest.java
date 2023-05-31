@@ -27,10 +27,10 @@ import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
-@DisplayName("Add asset batch test")
+@DisplayName("Add proof batch test")
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles({"mempoolTransactionServiceMock", "tapdProofServiceMock", "scheduler-disabled"})
-public class AddAssetBatchTest extends BaseTest {
+public class AddProofBatchTest extends BaseTest {
 
     @Autowired
     RequestService requestService;
@@ -45,7 +45,7 @@ public class AddAssetBatchTest extends BaseTest {
     AddProofBatch addProofBatch;
 
     @Test
-    @DisplayName("Add asset request processing")
+    @DisplayName("Add proof request processing")
     public void batch() {
         // =============================================================================================================
         // We add an invalid proof that can't be decoded ("INVALID_PROOF").

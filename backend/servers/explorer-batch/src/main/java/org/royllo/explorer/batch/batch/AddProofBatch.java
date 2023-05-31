@@ -1,6 +1,5 @@
 package org.royllo.explorer.batch.batch;
 
-import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.batch.util.base.BaseBatch;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
@@ -16,7 +15,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Batch treating {@link AddProofRequestDTO}.
@@ -46,9 +44,6 @@ public class AddProofBatch extends BaseBatch {
 
     /** Proof service. */
     private final ProofService proofService;
-
-    /** Batch continues to run as long as enabled is set to true. */
-    private final AtomicBoolean enabled = new AtomicBoolean(true);
 
     /**
      * Recurrent calls to process requests.
@@ -109,16 +104,6 @@ public class AddProofBatch extends BaseBatch {
                         requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(request));
                     });
         }
-    }
-
-    /**
-     * This method is called before the application shutdown.
-     * We stop calling the flux.
-     */
-    @PreDestroy
-    public void shutdown() {
-        logger.info("Closing gracefully Royllo addProofBatch...");
-        enabled.set(false);
     }
 
 }
