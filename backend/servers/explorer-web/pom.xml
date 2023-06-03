@@ -48,6 +48,16 @@
             <artifactId>htmx-spring-boot-thymeleaf</artifactId>
             <version>${htmx-spring-boot-thymeleaf.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.bucket4j</groupId>
+            <artifactId>bucket4j-core</artifactId>
+            <version>${bucket4j-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>${caffeine.version}</version>
+        </dependency>
 
         <!-- Util dependencies -->
         <dependency>
@@ -63,6 +73,7 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+
 
         <!-- Javascript dependencies -->
         <dependency>

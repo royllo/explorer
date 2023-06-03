@@ -83,6 +83,9 @@
 
         <!-- ======================================================================================================= -->
         <!-- Web libraries -->
+        <bucket4j-core.version>8.3.0</bucket4j-core.version>
+        <caffeine.version>3.1.6</caffeine.version>
+
         <thymeleaf-layout-dialect.version>3.2.1</thymeleaf-layout-dialect.version>
         <htmx-spring-boot-thymeleaf.version>2.0.0</htmx-spring-boot-thymeleaf.version>
         <webjars-locator.version>0.46</webjars-locator.version>
