@@ -34,6 +34,20 @@ daemon [here](https://github.com/lightninglabs/taproot-assets/blob/main/tapdb/sq
 
 ## What to do ?
 
+Allow people to add their universe server (as a request) to royllo (throw an add universe request).
+
+Create a batch that retrieve assets and proofs from others universe servers and add them to our database so people
+could search for them and their proofs. Royllo can display richer information, and make the data more accessible
+
+Then :
+
+- Implement all universe public methods so people could add royllo as a federation server. their daemon will
+  automatically sync stuff, and also push new things (right now just new assets, in the future also transactions) to
+  it. Instead of getting data from distant servers, the servers will push data to us.
+  s
+
+## What are the steps ?
+
 1 - Call universe/roots to get the list of assets the universe knows about:
 
 ```bash
@@ -43,20 +57,21 @@ curl https://testnet.universe.lightning.finance/v1/taproot-assets/universe/roots
 You can search for one with:
 
 ```bash
-curl `https://testnet.universe.lightning.finance/v1/taproot-assets/universe/roots/asset-id/f84238ffd7838b663f1800d8147c9338f15688b430f6e9d8d53f148049ef3bcb | jq`
+curl https://testnet.universe.lightning.finance/v1/taproot-assets/universe/roots/asset-id/f84238ffd7838b663f1800d8147c9338f15688b430f6e9d8d53f148049ef3bcb | jq`
 ```
 
 note : A UniverseKey is composed of the Universe ID (asset_id/group_key) and also a leaf key (outpoint || script_key)
 
-2 - Call asset leaves (the values in the Universe MS-SMT tree) for a given asset_id or group_key. These represents
-either asset issuance events (they have a genesis witness) or asset transfers that took place on chain. The leaves
-contain a normal Taproot Asset proof, as well as details for the asset.
+2 - Call asset leaves (the values in the Universe MS-SMT tree) for a each asset_id retrieved (or group_key). Those
+represents either asset issuance events (they have a genesis witness) or asset transfers that took place on chain. The
+leaves contain a normal Taproot Asset proof, as well as details for the asset.
 
 ```bash
 curl https://testnet.universe.lightning.finance/v1/taproot-assets/universe/leaves/asset-id/f84238ffd7838b663f1800d8147c9338f15688b430f6e9d8d53f148049ef3bcb |jq
 ```
 
-3 - Create an add proof request with the proof retrieved with the previous call.
+3 - Decode the proof retrieved in the previous step and it's ok, add the proof to our database throw an add proof
+request.
 
 ## Backup
 
