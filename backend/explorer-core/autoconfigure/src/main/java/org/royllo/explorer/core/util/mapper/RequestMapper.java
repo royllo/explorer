@@ -4,9 +4,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.royllo.explorer.core.domain.request.AddAssetMetaDataRequest;
 import org.royllo.explorer.core.domain.request.AddProof;
+import org.royllo.explorer.core.domain.request.AddUniverseServerRequest;
 import org.royllo.explorer.core.domain.request.Request;
 import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
+import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 
 import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
@@ -26,6 +28,9 @@ public interface RequestMapper {
         if (source instanceof AddAssetMetaDataRequest) {
             return mapToAddAssetMetaRequestDTO((AddAssetMetaDataRequest) source);
         }
+        if (source instanceof AddUniverseServerRequest) {
+            return mapToAddUniverseServerRequestDTO((AddUniverseServerRequest) source);
+        }
         return null;
     }
 
@@ -44,5 +49,13 @@ public interface RequestMapper {
     AddAssetMetaDataRequest mapToAddAssetMetaRequest(AddAssetMetaDataRequestDTO source);
 
     AddAssetMetaDataRequestDTO mapToAddAssetMetaRequestDTO(AddAssetMetaDataRequest source);
+
+    // =================================================================================================================
+    // Add universe server Mapper.
+    @Mapping(target = "createdOn", ignore = true)
+    @Mapping(target = "updatedOn", ignore = true)
+    AddUniverseServerRequest mapToAddUniverseServerRequest(AddUniverseServerRequestDTO source);
+
+    AddUniverseServerRequestDTO mapToAddUniverseServerRequestDTO(AddUniverseServerRequest source);
 
 }
