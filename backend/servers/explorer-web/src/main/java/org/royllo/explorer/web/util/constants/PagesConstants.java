@@ -33,6 +33,12 @@ public class PagesConstants {
     /** Asset proofs page fragment. */
     public static final String ASSET_PROOFS_PAGE_FRAGMENT = "asset/proof/list :: asset-proofs-list";
 
+    /** Choose request type page. */
+    public static final String CHOOSE_REQUEST_TYPE_PAGE = "request/choose_request_type";
+
+    /** Choose request type page. */
+    public static final String CHOOSE_REQUEST_TYPE_PAGE_FRAGMENT = "request/choose_request_type :: choose-request-type-view";
+
     /** Request page. */
     public static final String REQUEST_PAGE = "request/view";
 

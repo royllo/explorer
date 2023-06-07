@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{util/fragments/layouts/default_layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!--/* =========================================================================================================== */-->
+<div layout:fragment="content" th:fragment="choose-request-type-view">
+
+    <div class="text-center">
+        <img class="mx-auto h-12 w-12 text-gray-400" th:alt="folder" th:src="@{/svg/add_folder.svg}"/>
+        <h3 class="mt-2 text-sm font-semibold text-gray-900" th:text="#{request.addData}"></h3>
+        <!--/*
+                Buttons
+                flex            :   Utilities for controlling how flex items both grow and shrink.
+                flex-col        :   Use flex-col to position flex items vertically.
+                items-center    :   I use this or else buttons will take all length of the page.
+                space-y-3       :   Use space-y to add space between the buttons.
+            */-->
+        <div class="mt-6 flex flex-col items-center space-y-3">
+            <a class="defaultButton"
+               th:href="@{/request/proof/add}"
+               th:text="#{request.proof.add}">
+            </a>
+            <a class="defaultButton"
+               th:href="@{/}"
+               th:text="#{request.universeServer.add}">
+            </a>
+        </div>
+    </div>
+
+</div>
+<!-- =============================================================================================================== -->
+
+</html>

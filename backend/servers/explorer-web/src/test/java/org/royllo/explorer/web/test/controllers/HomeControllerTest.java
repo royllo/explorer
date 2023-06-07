@@ -20,9 +20,7 @@ import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.QUE
 import static org.royllo.explorer.web.util.constants.PagesConstants.HOME_PAGE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.HOME_PAGE_FRAGMENT;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @DisplayName("Home controller tests")
@@ -44,7 +42,7 @@ public class HomeControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(HOME_PAGE))
                 // Checking the button in the header is here.
-                .andExpect(content().string(containsString(environment.getProperty("request.proof.add"))))
+                .andExpect(content().string(containsString(environment.getProperty("request.addData"))))
                 // Checking the search form is here.
                 .andExpect(content().string(containsString("form")))
                 .andExpect(content().string(containsString("input")))
