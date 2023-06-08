@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.FORM_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_PROOF_REQUEST_FORM_PAGE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_PROOF_REQUEST_SUCCESS_PAGE;
+import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE;
+import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_UNIVERSE_SERVER_REQUEST_SUCCESS_PAGE;
 
 /**
- * Add proof request controller.
+ * Add universe server request controller.
  */
 @Controller
 @RequiredArgsConstructor
-public class AddProofRequestController {
+public class AddUniverseServerRequestController {
 
     /**
      * Request service.
@@ -28,37 +28,37 @@ public class AddProofRequestController {
     private final RequestService requestService;
 
     /**
-     * Requests - Add proof form.
+     * Requests - Add universe server form.
      *
      * @param model model
-     * @return proof form
+     * @return universe server form
      */
     @SuppressWarnings("SameReturnValue")
-    @GetMapping("/request/proof/add")
+    @GetMapping("/request/universe_server/add")
     public String displayForm(final Model model) {
-        model.addAttribute(FORM_ATTRIBUTE, new AddProofRequestForm());
-        return ADD_PROOF_REQUEST_FORM_PAGE;
+        model.addAttribute(FORM_ATTRIBUTE, new AddUniverseServerRequestForm());
+        return ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE;
     }
 
     /**
-     * Requests - Add proof post.
+     * Requests - Add universe server post.
      *
      * @param model         model
      * @param form          form
      * @param bindingResult binding result
      * @return proof success or error
      */
-    @PostMapping("/request/proof/add")
+    @PostMapping("/request/universe_server/add")
     public String saveForm(final Model model,
-                           @Valid @ModelAttribute(FORM_ATTRIBUTE) final AddProofRequestForm form,
+                           @Valid @ModelAttribute(FORM_ATTRIBUTE) final AddUniverseServerRequestForm form,
                            final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             // If we have errors in the form data validation.
-            return ADD_PROOF_REQUEST_FORM_PAGE;
+            return ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE;
         } else {
             // Calling the service to create the request.
-            model.addAttribute(RESULT_ATTRIBUTE, requestService.createAddProofRequest(form.getRawProof()));
-            return ADD_PROOF_REQUEST_SUCCESS_PAGE;
+            model.addAttribute(RESULT_ATTRIBUTE, requestService.createAddUniverseServerRequest(form.getServerAddress()));
+            return ADD_UNIVERSE_SERVER_REQUEST_SUCCESS_PAGE;
         }
     }
 

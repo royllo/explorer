@@ -2,7 +2,7 @@ package org.royllo.explorer.web.test.controllers;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
+import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,10 +30,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
-@DisplayName("Add proof request controller tests")
+@DisplayName("Add universe server request controller tests")
 @AutoConfigureMockMvc
 @PropertySource("classpath:messages.properties")
-public class AddProofRequestControllerTest {
+public class AddUniverseServerRequestControllerTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -42,68 +42,69 @@ public class AddProofRequestControllerTest {
     Environment environment;
 
     @Test
-    @DisplayName("Add proof request choice")
-    void addProofRequestChoice() throws Exception {
+    @DisplayName("Add universe server request choice")
+    void addUniverseServerRequestChoice() throws Exception {
         mockMvc.perform(get("/request/choose_request_type"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(CHOOSE_REQUEST_TYPE_PAGE))
                 // Error messages.
-                .andExpect(content().string(containsString(environment.getProperty("request.proof.add"))))
-                .andExpect(content().string(containsString("/request/proof/add")));
+                .andExpect(content().string(containsString(environment.getProperty("request.universeServer.add"))))
+                .andExpect(content().string(containsString("/request/universe_server/add")));
     }
 
+
     @Test
-    @DisplayName("Add proof request form test")
-    void addProofRequestFormTest() throws Exception {
-        mockMvc.perform(get("/request/proof/add"))
+    @DisplayName("Add universe server request form test")
+    void addUniverseServerRequestFormTest() throws Exception {
+        mockMvc.perform(get("/request/universe_server/add"))
                 .andExpect(status().isOk())
-                .andExpect(view().name(ADD_PROOF_REQUEST_FORM_PAGE))
+                .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE))
                 .andExpect(model().attributeExists(FORM_ATTRIBUTE))
                 // Error messages.
-                .andExpect(content().string(not(containsString(environment.getProperty("NotBlank.command.rawProof")))));
+                .andExpect(content().string(not(containsString(environment.getProperty("request.universeServer.serverAddress.error.invalidServerAddress")))));
+
+        mockMvc.perform(get("/request/universe_server/add")
+                        .param("serverAddress", "1.1.1.1")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                .andExpect(status().isOk())
+                .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE))
+                .andExpect(model().attributeExists(FORM_ATTRIBUTE))
+                // Error messages.
+                .andExpect(content().string(not(containsString(environment.getProperty("request.universeServer.serverAddress.error.invalidServerAddress")))));
     }
 
     @Test
-    @DisplayName("Add proof request form post test")
-    void addProofRequestFormPostTest() throws Exception {
-        // Empty form - raw proof not set.
-        mockMvc.perform(post("/request/proof/add")
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
-                .andExpect(status().isOk())
-                .andExpect(view().name(ADD_PROOF_REQUEST_FORM_PAGE))
-                .andExpect(model().hasErrors())
-                .andExpect(model().attributeErrorCount(FORM_ATTRIBUTE, 1))
-                .andExpect(content().string(containsString(environment.getProperty("NotBlank.command.rawProof"))));
-
+    @DisplayName("Add universe server request form post test")
+    void addUniverseServerRequestFormPostTest() throws Exception {
         // Test if everything is ok if we pass correct information to create a request.
-        AtomicReference<AddProofRequestDTO> proof = new AtomicReference<>();
-        mockMvc.perform(post("/request/proof/add")
-                        .param("rawProof", "simple raw proof")
+        AtomicReference<AddUniverseServerRequestDTO> request = new AtomicReference<>();
+        mockMvc.perform(post("/request/universe_server/add")
+                        .param("serverAddress", "1.1.1.1:8080")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
-                .andExpect(view().name(ADD_PROOF_REQUEST_SUCCESS_PAGE))
-                .andExpect(flash().attribute(FORM_ATTRIBUTE, hasProperty("rawProof", equalTo("simple raw proof").toString())))
+                .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_SUCCESS_PAGE))
+                .andExpect(flash().attribute(FORM_ATTRIBUTE, hasProperty("serverAddress", equalTo("1.1.1.1:8080").toString())))
                 .andExpect(model().attributeExists(RESULT_ATTRIBUTE))
                 .andExpect(model().hasNoErrors())
-                .andDo(result -> proof.set((AddProofRequestDTO) Objects.requireNonNull(result.getModelAndView()).getModelMap().get(RESULT_ATTRIBUTE)))
+                .andDo(result -> request.set((AddUniverseServerRequestDTO) Objects.requireNonNull(result.getModelAndView()).getModelMap().get(RESULT_ATTRIBUTE)))
                 // Check page content.
-                .andExpect(content().string(containsString(proof.get().getRequestId())))
+                .andExpect(content().string(containsString(request.get().getRequestId())))
                 .andExpect(content().string(containsString(environment.getProperty("request.creationMessage"))))
                 .andExpect(content().string(containsString(environment.getProperty("request.viewStatus"))))
-                .andExpect(content().string(containsString("/request/" + proof.get().getRequestId())))
+                .andExpect(content().string(containsString("/request/" + request.get().getRequestId())))
                 // Error messages.
-                .andExpect(content().string(not(containsString(environment.getProperty("NotBlank.command.rawProof")))));
+                .andExpect(content().string(not(containsString(environment.getProperty("request.universeServer.add")))));
 
         // We test the request created (we get it from the model).
-        assertNotNull(proof.get());
-        assertNotNull(proof.get().getId());
-        assertNotNull(proof.get().getRequestId());
-        assertEquals(ANONYMOUS_ID, proof.get().getCreator().getId());
-        assertEquals(ANONYMOUS_USER_USERNAME, proof.get().getCreator().getUsername());
-        assertEquals(OPENED, proof.get().getStatus());
-        assertNull(proof.get().getAsset());
-        assertNull(proof.get().getErrorMessage());
-        assertEquals("simple raw proof", proof.get().getRawProof());
+        assertNotNull(request.get());
+        assertNotNull(request.get().getId());
+        assertNotNull(request.get().getRequestId());
+        assertEquals(ANONYMOUS_ID, request.get().getCreator().getId());
+        assertEquals(ANONYMOUS_USER_USERNAME, request.get().getCreator().getUsername());
+        assertEquals(OPENED, request.get().getStatus());
+        assertNull(request.get().getAsset());
+        assertNull(request.get().getErrorMessage());
+        assertEquals("1.1.1.1:8080", request.get().getServerAddress());
     }
 
 }
