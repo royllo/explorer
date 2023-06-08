@@ -198,6 +198,7 @@
                         <param>src/main/resources/schema/request.graphqls</param>
                         <param>src/main/resources/schema/request-addProof.graphqls</param>
                         <param>src/main/resources/schema/request-addAssetMetaData.graphqls</param>
+                        <param>src/main/resources/schema/request-addUniverseServer.graphqls</param>
                         <!-- GraphQL queries -->
                         <param>src/main/resources/schema/query.graphqls</param>
                         <!-- GraphQL mutations -->

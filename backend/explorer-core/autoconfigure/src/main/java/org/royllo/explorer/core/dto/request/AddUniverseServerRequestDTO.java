@@ -14,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public class AddUniverseServerRequestDTO extends RequestDTO {
 
-    /** The server address typically consists of both an IP address and a port number. */
+    /** The universe server address (consists of both an IP address and a port number). */
     @NotBlank(message = "Server address is required")
     private String serverAddress;
 

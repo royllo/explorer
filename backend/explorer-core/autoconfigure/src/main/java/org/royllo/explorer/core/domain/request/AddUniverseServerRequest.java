@@ -23,7 +23,7 @@ import lombok.experimental.SuperBuilder;
 @DiscriminatorValue("ADD_UNIVERSE_SERVER")
 public class AddUniverseServerRequest extends Request {
 
-    /** The server address typically consists of both an IP address and a port number. */
+    /** The universe server address (consists of both an IP address and a port number). */
     @Column(name = "SERVER_ADDRESS", updatable = false)
     private String serverAddress;
 
