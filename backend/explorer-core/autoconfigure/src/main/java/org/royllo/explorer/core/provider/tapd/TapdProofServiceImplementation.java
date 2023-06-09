@@ -85,4 +85,30 @@ public class TapdProofServiceImplementation extends BaseMempoolService implement
                 .next();
     }
 
+    @Override
+    public final Mono<UniverseLeavesResponse> getUniverseLeaves(final String assetId) {
+        logger.info("Get universe leaves from tapd for asset {}", assetId);
+        HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
+
+//        final String temp = WebClient.builder()
+//                .clientConnector(new ReactorClientHttpConnector(httpClient))
+//                .baseUrl(tapdParameters.getApi().getBaseUrl())
+//                .build()
+//                .get()
+//                .uri("universe/leaves/asset-id/s" + assetId)
+//                .exchangeToFlux(response -> response.bodyToFlux(String.class))
+//                .blockFirst();
+//        System.out.printf("=====>" + temp);
+
+
+        return WebClient.builder()
+                .clientConnector(new ReactorClientHttpConnector(httpClient))
+                .baseUrl(tapdParameters.getApi().getBaseUrl())
+                .build()
+                .get()
+                .uri("universe/leaves/asset-id/" + assetId)
+                .exchangeToFlux(response -> response.bodyToFlux(UniverseLeavesResponse.class))
+                .next();
+    }
+
 }

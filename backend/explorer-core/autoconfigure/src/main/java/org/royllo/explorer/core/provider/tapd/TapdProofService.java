@@ -24,4 +24,12 @@ public interface TapdProofService {
      */
     Mono<UniverseRootsResponse> getUniverseRoots();
 
+    /**
+     * Get universe leaves.
+     *
+     * @param assetId asset ID
+     * @return universe leaves
+     */
+    Mono<UniverseLeavesResponse> getUniverseLeaves(String assetId);
+
 }
