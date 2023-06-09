@@ -51,7 +51,7 @@ public class TapdProofServiceImplementation extends BaseMempoolService implement
 
     @Override
     public final Mono<DecodedProofResponse> decode(final String rawProof, final long proofIndex) {
-        logger.info("Calling decode for proof n°{} with raw proof {}", proofIndex, rawProof);
+        logger.info("Calling decode for proof from tapd n°{} with raw proof {}", proofIndex, rawProof);
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
         return WebClient.builder()
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
@@ -67,6 +67,21 @@ public class TapdProofServiceImplementation extends BaseMempoolService implement
                         .build()
                 ))
                 .exchangeToFlux(response -> response.bodyToFlux(DecodedProofResponse.class))
+                .next();
+    }
+
+    @Override
+    public final Mono<UniverseRootsResponse> getUniverseRoots() {
+        logger.info("Get universe roots from tapd");
+        HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
+
+        return WebClient.builder()
+                .clientConnector(new ReactorClientHttpConnector(httpClient))
+                .baseUrl(tapdParameters.getApi().getBaseUrl())
+                .build()
+                .get()
+                .uri("universe/roots")
+                .exchangeToFlux(response -> response.bodyToFlux(UniverseRootsResponse.class))
                 .next();
     }
 

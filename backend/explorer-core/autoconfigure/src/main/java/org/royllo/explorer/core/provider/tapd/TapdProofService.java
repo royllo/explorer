@@ -17,4 +17,11 @@ public interface TapdProofService {
      */
     Mono<DecodedProofResponse> decode(String rawProof, long proofIndex);
 
+    /**
+     * Get universe roots.
+     *
+     * @return universe roots
+     */
+    Mono<UniverseRootsResponse> getUniverseRoots();
+
 }
