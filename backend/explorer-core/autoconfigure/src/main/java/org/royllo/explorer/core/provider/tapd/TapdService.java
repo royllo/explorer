@@ -3,10 +3,10 @@ package org.royllo.explorer.core.provider.tapd;
 import reactor.core.publisher.Mono;
 
 /**
- * TAPD proof service.
+ * TAPD service.
  * <a href="https://lightning.engineering/api-docs/api/taproot-assets/">TAPD API documentation</a>
  */
-public interface TapdProofService {
+public interface TapdService {
 
     /**
      * Decode proof.
@@ -20,16 +20,19 @@ public interface TapdProofService {
     /**
      * Get universe roots.
      *
+     * @param serverAddress server address
      * @return universe roots
      */
-    Mono<UniverseRootsResponse> getUniverseRoots();
+    Mono<UniverseRootsResponse> getUniverseRoots(String serverAddress);
 
     /**
      * Get universe leaves.
      *
-     * @param assetId asset ID
+     * @param serverAddress server address
+     * @param assetId       asset ID
      * @return universe leaves
      */
-    Mono<UniverseLeavesResponse> getUniverseLeaves(String assetId);
+    Mono<UniverseLeavesResponse> getUniverseLeaves(String serverAddress,
+                                                   String assetId);
 
 }

@@ -2,7 +2,7 @@ package org.royllo.explorer.core.test.integration.tapd;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.royllo.explorer.core.provider.tapd.TapdProofService;
+import org.royllo.explorer.core.provider.tapd.TapdService;
 import org.royllo.explorer.core.provider.tapd.UniverseLeavesResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,17 +10,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@SpringBootTest(properties = {"tapd.api.base-url=https://testnet.universe.lightning.finance/v1/taproot-assets/"})
+@SpringBootTest
 @DisplayName("TAPD Universe leaves service test")
 public class TapdUniverseLeavesServiceTest {
 
     @Autowired
-    private TapdProofService tapdProofService;
+    private TapdService tapdService;
 
     @Test
     @DisplayName("Calling getUniverseLeaves() on TAPD")
     public void getUniverseLeavesTest() {
-        UniverseLeavesResponse response = tapdProofService.getUniverseLeaves("f84238ffd7838b663f1800d8147c9338f15688b430f6e9d8d53f148049ef3bcb").block();
+        UniverseLeavesResponse response = tapdService.getUniverseLeaves("https://testnet.universe.lightning.finance/v1/taproot-assets/",
+                "f84238ffd7838b663f1800d8147c9338f15688b430f6e9d8d53f148049ef3bcb").block();
 
         // Testing the response.
         assertNotNull(response);
@@ -32,7 +33,8 @@ public class TapdUniverseLeavesServiceTest {
     @Test
     @DisplayName("Calling getUniverseLeaves() with wrong value on TAPD")
     public void getUniverseLeavesWithWrongValueTest() {
-        UniverseLeavesResponse response = tapdProofService.getUniverseLeaves("not-existing").block();
+        UniverseLeavesResponse response = tapdService.getUniverseLeaves("https://testnet.universe.lightning.finance/v1/taproot-assets/",
+                "not-existing").block();
 
         // Testing the response (error).
         assertNotNull(response);

@@ -2,7 +2,7 @@ package org.royllo.explorer.core.test.integration.tapd;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.royllo.explorer.core.provider.tapd.TapdProofService;
+import org.royllo.explorer.core.provider.tapd.TapdService;
 import org.royllo.explorer.core.provider.tapd.UniverseRootsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,17 +10,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringBootTest(properties = {"tapd.api.base-url=https://testnet.universe.lightning.finance/v1/taproot-assets/"})
+@SpringBootTest
 @DisplayName("TAPD Universe roots service test")
 public class TapdUniverseRootsServiceTest {
 
     @Autowired
-    private TapdProofService tapdProofService;
+    private TapdService tapdService;
 
     @Test
     @DisplayName("Calling getUniverseRoots() on TAPD")
     public void getUniverseRootsTest() {
-        UniverseRootsResponse response = tapdProofService.getUniverseRoots().block();
+        UniverseRootsResponse response = tapdService.getUniverseRoots("https://testnet.universe.lightning.finance/v1/taproot-assets/").block();
 
         // Testing all the value from the response.
         assertNotNull(response);

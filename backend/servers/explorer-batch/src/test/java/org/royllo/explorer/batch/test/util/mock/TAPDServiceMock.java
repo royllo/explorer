@@ -3,7 +3,8 @@ package org.royllo.explorer.batch.test.util.mock;
 import org.mockito.Mockito;
 import org.royllo.explorer.batch.test.util.BaseTest;
 import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
-import org.royllo.explorer.core.provider.tapd.TapdProofService;
+import org.royllo.explorer.core.provider.tapd.TapdService;
+import org.royllo.explorer.core.provider.tapd.UniverseRootsResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -12,21 +13,25 @@ import reactor.core.publisher.Mono;
 
 import java.math.BigInteger;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * {@link TapdProofService} mock.
+ * {@link TapdService} mock.
  */
 @Profile("tapdProofServiceMock")
 @Configuration
-public class TAPDProofServiceMock extends BaseTest {
+public class TAPDServiceMock extends BaseTest {
 
     @Bean
     @Primary
-    public TapdProofService tapdProofService() {
-        final TapdProofService mockedService = Mockito.mock(TapdProofService.class);
+    public TapdService tapdProofService() {
+        final TapdService mockedService = Mockito.mock(TapdService.class);
 
+        // =============================================================================================================
+        // Mock for mockedService.decode()
         // Exception test.
         Mockito.when(mockedService.decode("TIMEOUT_ERROR", 0)).thenThrow(new RuntimeException("Time out error"))
                 .thenReturn(Mono.just(getActiveRoylloCoinProof1()));
@@ -46,6 +51,29 @@ public class TAPDProofServiceMock extends BaseTest {
         Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF, 1)).thenReturn(Mono.just(getActiveRoylloCoinProof2Index1()));
         Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF, 0)).thenReturn(Mono.just(getActiveRoylloCoinProof3Index0()));
         Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF, 1)).thenReturn(Mono.just(getActiveRoylloCoinProof3Index1()));
+
+        // =============================================================================================================
+        // Mock for mockedService.()
+
+        // - 1.1.1.1: Server is responding.
+        UniverseRootsResponse universeRootsResponse = new UniverseRootsResponse();
+        UniverseRootsResponse.UniverseRoot universeRoot = new UniverseRootsResponse.UniverseRoot();
+        UniverseRootsResponse.ID id = new UniverseRootsResponse.ID();
+        id.setAssetId("asset1");
+        universeRoot.setId(id);
+        Map<String, UniverseRootsResponse.UniverseRoot> map = new HashMap<>();
+        map.put("asset1", universeRoot);
+        universeRootsResponse.setUniverseRoots(map);
+        Mockito.when(mockedService.getUniverseRoots("1.1.1.1:8080")).thenReturn(Mono.just(universeRootsResponse));
+
+        // - 1.1.1.2: Error code.
+        UniverseRootsResponse universeRootsResponse2 = new UniverseRootsResponse();
+        universeRootsResponse2.setErrorCode(1L);
+        universeRootsResponse2.setErrorMessage("Mocked error message");
+        Mockito.when(mockedService.getUniverseRoots("1.1.1.2:8080")).thenReturn(Mono.just(universeRootsResponse2));
+
+        // - 1.1.1.3: Exception.
+        Mockito.when(mockedService.getUniverseRoots("1.1.1.3:8080")).thenThrow(new RuntimeException("Mocked exception"));
 
         return mockedService;
     }

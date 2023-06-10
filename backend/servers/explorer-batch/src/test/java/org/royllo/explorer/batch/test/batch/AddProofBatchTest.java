@@ -47,6 +47,7 @@ public class AddProofBatchTest extends BaseTest {
     @Test
     @DisplayName("Add proof request processing")
     public void batch() {
+
         // =============================================================================================================
         // We add an invalid proof that can't be decoded ("INVALID_PROOF").
 

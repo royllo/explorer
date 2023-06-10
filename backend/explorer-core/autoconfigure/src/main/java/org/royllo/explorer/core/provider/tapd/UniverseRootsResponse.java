@@ -25,9 +25,11 @@ public class UniverseRootsResponse {
     /** Error code. */
     @JsonProperty("code")
     Long errorCode;
+
     /** Error code. */
     @JsonProperty("message")
     String errorMessage;
+
     /** Universe roots. */
     @JsonProperty("universe_roots")
     private Map<String, UniverseRoot> universeRoots;

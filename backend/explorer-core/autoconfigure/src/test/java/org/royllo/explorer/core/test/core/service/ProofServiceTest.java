@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.proof.ProofDTO;
 import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
-import org.royllo.explorer.core.provider.tapd.TapdProofService;
+import org.royllo.explorer.core.provider.tapd.TapdService;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.proof.ProofService;
 import org.royllo.explorer.core.test.util.BaseTest;
@@ -33,7 +33,7 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 public class ProofServiceTest extends BaseTest {
 
     @Autowired
-    private TapdProofService TAPDProofService;
+    private TapdService TAPDService;
 
     @Autowired
     private ProofService proofService;
@@ -46,7 +46,7 @@ public class ProofServiceTest extends BaseTest {
     public void addProof() {
         // =============================================================================================================
         // Unknown Royllo coin.
-        DecodedProofResponse unknownRoylloCoinDecodedProof = TAPDProofService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF, 0).block();
+        DecodedProofResponse unknownRoylloCoinDecodedProof = TAPDService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF, 0).block();
         assertNotNull(unknownRoylloCoinDecodedProof);
 
         // We add our proof but our an asset doesn't exist yet --> an error must occur.

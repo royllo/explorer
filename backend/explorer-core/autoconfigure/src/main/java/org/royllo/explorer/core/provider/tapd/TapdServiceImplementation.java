@@ -17,11 +17,11 @@ import reactor.netty.http.client.HttpClient;
 import javax.net.ssl.SSLException;
 
 /**
- * TAPD proof service implementation.
+ * TAPD service implementation.
  */
 @Service
 @RequiredArgsConstructor
-public class TapdProofServiceImplementation extends BaseMempoolService implements TapdProofService {
+public class TapdServiceImplementation extends BaseMempoolService implements TapdService {
 
     /** TAPD parameters. */
     private final TAPDParameters tapdParameters;
@@ -71,13 +71,13 @@ public class TapdProofServiceImplementation extends BaseMempoolService implement
     }
 
     @Override
-    public final Mono<UniverseRootsResponse> getUniverseRoots() {
+    public final Mono<UniverseRootsResponse> getUniverseRoots(final String serverAddress) {
         logger.info("Get universe roots from tapd");
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
 
         return WebClient.builder()
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
-                .baseUrl(tapdParameters.getApi().getBaseUrl())
+                .baseUrl(serverAddress)
                 .build()
                 .get()
                 .uri("universe/roots")
@@ -86,24 +86,14 @@ public class TapdProofServiceImplementation extends BaseMempoolService implement
     }
 
     @Override
-    public final Mono<UniverseLeavesResponse> getUniverseLeaves(final String assetId) {
+    public final Mono<UniverseLeavesResponse> getUniverseLeaves(final String serverAddress,
+                                                                final String assetId) {
         logger.info("Get universe leaves from tapd for asset {}", assetId);
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
 
-//        final String temp = WebClient.builder()
-//                .clientConnector(new ReactorClientHttpConnector(httpClient))
-//                .baseUrl(tapdParameters.getApi().getBaseUrl())
-//                .build()
-//                .get()
-//                .uri("universe/leaves/asset-id/s" + assetId)
-//                .exchangeToFlux(response -> response.bodyToFlux(String.class))
-//                .blockFirst();
-//        System.out.printf("=====>" + temp);
-
-
         return WebClient.builder()
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
-                .baseUrl(tapdParameters.getApi().getBaseUrl())
+                .baseUrl(serverAddress)
                 .build()
                 .get()
                 .uri("universe/leaves/asset-id/" + assetId)
