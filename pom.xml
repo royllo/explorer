@@ -90,7 +90,7 @@
         <htmx-spring-boot-thymeleaf.version>2.0.1</htmx-spring-boot-thymeleaf.version>
         <webjars-locator.version>0.46</webjars-locator.version>
         <htmx.version>1.9.2</htmx.version>
-        <alpinejs.version>3.12.1</alpinejs.version>
+        <alpinejs.version>3.12.2</alpinejs.version>
 
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
