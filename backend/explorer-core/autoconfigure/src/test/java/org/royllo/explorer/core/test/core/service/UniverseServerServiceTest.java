@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
@@ -76,6 +77,28 @@ public class UniverseServerServiceTest {
             assertEquals("1.1.1.1:8080 is already in our database", exception.getMessage());
         }
 
+    }
+
+    @Test
+    @DisplayName("getUniverseServerByServerAddress()")
+    public void getUniverseServerByServerAddress() {
+
+        // =============================================================================================================
+        // Checking if a universe exists before we create it.
+        assertTrue(universeServerService.getUniverseServerByServerAddress("test.royllo.org:8080").isEmpty());
+
+        // =============================================================================================================
+        // Adding a universe server with a valid value (hostname).
+        try {
+            universeServerService.addUniverseServer("test.royllo.org:8080");
+        } catch (UniverseServerCreationException exception) {
+            fail("An exception should not have been thrown");
+        }
+
+        // =============================================================================================================
+        // Checking if a universe exists before after create it.
+        assertTrue(universeServerService.getUniverseServerByServerAddress("test.royllo.org:8080").isPresent());
+        assertTrue(universeServerService.getUniverseServerByServerAddress(" test.royllo.org:8080 ").isPresent());
     }
 
 }

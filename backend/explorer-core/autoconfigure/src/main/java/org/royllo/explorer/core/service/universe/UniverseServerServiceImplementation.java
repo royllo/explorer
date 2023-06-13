@@ -1,5 +1,6 @@
 package org.royllo.explorer.core.service.universe;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.universe.UniverseServer;
 import org.royllo.explorer.core.dto.universe.UniverseServerDTO;
@@ -8,6 +9,7 @@ import org.royllo.explorer.core.util.base.BaseService;
 import org.royllo.explorer.core.util.exceptions.universe.UniverseServerCreationException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
@@ -58,6 +60,20 @@ public class UniverseServerServiceImplementation extends BaseService implements 
         final UniverseServerDTO universeServerDTO = UNIVERSE_SERVER_MAPPER.mapToUniverseServerDTO(universeServer);
         logger.info("Universe server created with id {} : {}", universeServerDTO.getId(), universeServerDTO);
         return universeServerDTO;
+    }
+
+    @Override
+    public Optional<UniverseServerDTO> getUniverseServerByServerAddress(@NonNull final String serverAddress) {
+        logger.info("Getting universe server by its server address address {}", serverAddress);
+
+        final Optional<UniverseServer> universeServer = universeServerRepository.findByServerAddress(serverAddress.trim());
+        if (universeServer.isEmpty()) {
+            logger.info("Universe server {} not found", serverAddress);
+            return Optional.empty();
+        } else {
+            logger.info("Universe server {} found: {}", serverAddress, universeServer.get());
+            return universeServer.map(UNIVERSE_SERVER_MAPPER::mapToUniverseServerDTO);
+        }
     }
 
 }
