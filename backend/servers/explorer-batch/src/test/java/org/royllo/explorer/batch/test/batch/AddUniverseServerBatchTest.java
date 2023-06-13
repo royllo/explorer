@@ -3,7 +3,7 @@ package org.royllo.explorer.batch.test.batch;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.royllo.explorer.batch.batch.AddUniverseServerBatch;
+import org.royllo.explorer.batch.batch.request.AddUniverseServerBatch;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.service.request.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;

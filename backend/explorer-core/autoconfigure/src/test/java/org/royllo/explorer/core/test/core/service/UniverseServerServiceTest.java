@@ -101,4 +101,23 @@ public class UniverseServerServiceTest {
         assertTrue(universeServerService.getUniverseServerByServerAddress(" test.royllo.org:8080 ").isPresent());
     }
 
+    @Test
+    @DisplayName("getAllUniverseServers()")
+    public void getAllUniverseServers() {
+
+        // =============================================================================================================
+        // Checking that there is not universe server.
+        int universeServersCount = universeServerService.getAllUniverseServers().size();
+
+        // =============================================================================================================
+        // Creating three universe servers.
+        universeServerService.addUniverseServer("1.royllo.org:8080");
+        universeServerService.addUniverseServer("2.royllo.org:8080");
+        universeServerService.addUniverseServer("3.royllo.org:8080");
+
+        // =============================================================================================================
+        // Checking that all servers are here.
+        assertEquals(universeServersCount + 3, universeServerService.getAllUniverseServers().size());
+    }
+
 }

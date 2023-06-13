@@ -2,6 +2,7 @@ package org.royllo.explorer.core.service.universe;
 
 import org.royllo.explorer.core.dto.universe.UniverseServerDTO;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -24,5 +25,12 @@ public interface UniverseServerService {
      * @return universe server
      */
     Optional<UniverseServerDTO> getUniverseServerByServerAddress(String serverAddress);
+
+    /**
+     * Get all universes.
+     *
+     * @return all universes
+     */
+    List<UniverseServerDTO> getAllUniverseServers();
 
 }

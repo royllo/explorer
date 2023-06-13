@@ -9,6 +9,7 @@ import org.royllo.explorer.core.util.base.BaseService;
 import org.royllo.explorer.core.util.exceptions.universe.UniverseServerCreationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -74,6 +75,15 @@ public class UniverseServerServiceImplementation extends BaseService implements 
             logger.info("Universe server {} found: {}", serverAddress, universeServer.get());
             return universeServer.map(UNIVERSE_SERVER_MAPPER::mapToUniverseServerDTO);
         }
+    }
+
+    @Override
+    public List<UniverseServerDTO> getAllUniverseServers() {
+        logger.info("Getting all universe servers");
+        return universeServerRepository.findAll()
+                .stream()
+                .map(UNIVERSE_SERVER_MAPPER::mapToUniverseServerDTO)
+                .toList();
     }
 
 }

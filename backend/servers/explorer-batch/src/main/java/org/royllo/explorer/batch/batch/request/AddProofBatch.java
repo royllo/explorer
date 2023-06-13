@@ -1,4 +1,4 @@
-package org.royllo.explorer.batch.batch;
+package org.royllo.explorer.batch.batch.request;
 
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.batch.util.base.BaseBatch;

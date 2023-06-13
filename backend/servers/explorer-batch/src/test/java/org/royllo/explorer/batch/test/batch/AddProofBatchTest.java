@@ -2,7 +2,7 @@ package org.royllo.explorer.batch.test.batch;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.royllo.explorer.batch.batch.AddProofBatch;
+import org.royllo.explorer.batch.batch.request.AddProofBatch;
 import org.royllo.explorer.batch.test.util.BaseTest;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
