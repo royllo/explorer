@@ -61,7 +61,7 @@ public class PurgeBatch extends BaseBatch {
                     });
             logger.info("{} failed requests purged", numberOfPurgeRequests.get());
         } else {
-            logger.info("{} existing failed requests - No need to be purge", allFailedRequests.size());
+            logger.info("{} existing failed requests - No need to purge", allFailedRequests.size());
         }
 
         // =============================================================================================================

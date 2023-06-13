@@ -7,6 +7,7 @@ import org.royllo.explorer.core.provider.tapd.TapdService;
 import org.royllo.explorer.core.provider.tapd.UniverseRootsResponse;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.service.request.RequestService;
+import org.royllo.explorer.core.service.universe.UniverseServerService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +34,9 @@ public class AddUniverseServerBatch extends BaseBatch {
     /** Request service. */
     private final RequestService requestService;
 
+    /** Universe server service. */
+    private final UniverseServerService universeServerService;
+
     /**
      * Recurrent calls to process requests.
      */
@@ -46,29 +50,38 @@ public class AddUniverseServerBatch extends BaseBatch {
                     .forEach(request -> {
                         logger.info("Processing request {}: {}", request.getId(), request);
 
-                        try {
-                            // Calling tapd service to see if the server response.
-                            final UniverseRootsResponse response = tapdService.getUniverseRoots(request.getServerAddress()).block();
+                        // If the universe server already exists, we set the request as failed.
+                        if (universeServerService.getUniverseServerByServerAddress(request.getServerAddress()).isPresent()) {
+                            logger.info("Universe server {} already exists", request.getServerAddress());
+                            request.failure("Universe server already exists");
+                        } else {
+                            // We make the call and check the result.
+                            try {
+                                // Calling tapd service to see if the server response.
+                                final UniverseRootsResponse response = tapdService.getUniverseRoots(request.getServerAddress()).block();
 
-                            // if the response is null.
-                            if (response == null) {
-                                logger.info("Universe roots response request {} is null", request.getId());
-                                request.failure("Universe roots response null");
-                            } else {
-                                // We check if we had an error deciding the response.
-                                if (response.getErrorCode() != null) {
-                                    logger.info("Universe server {} cannot be added because of this error: {}",
-                                            request.getServerAddress(),
-                                            response.getErrorMessage());
-                                    request.failure(response.getErrorMessage());
+                                // if the response is null.
+                                if (response == null) {
+                                    logger.info("Universe roots response request {} is null", request.getId());
+                                    request.failure("Universe roots response null");
                                 } else {
-                                    request.success();
+                                    // We check if we had an error deciding the response.
+                                    if (response.getErrorCode() != null) {
+                                        logger.info("Universe server {} cannot be added because of this error: {}",
+                                                request.getServerAddress(),
+                                                response.getErrorMessage());
+                                        request.failure(response.getErrorMessage());
+                                    } else {
+                                        // No error -  We create it.
+                                        universeServerService.addUniverseServer(request.getServerAddress());
+                                        request.success();
+                                    }
                                 }
+                            } catch (Throwable tapdError) {
+                                // We failed on calling tapd, but it's an exception; not a "valid" error.
+                                logger.error("Request {} has error: {}", request.getId(), tapdError.getMessage());
+                                request.failure("Error: " + tapdError.getMessage());
                             }
-                        } catch (Throwable tapdError) {
-                            // We failed on calling tapd, but it's an exception; not a "valid" error.
-                            logger.error("Request {} has error: {}", request.getId(), tapdError.getMessage());
-                            request.recoverableFailure("Recoverable error: " + tapdError.getMessage());
                         }
 
                         // We save the request.
