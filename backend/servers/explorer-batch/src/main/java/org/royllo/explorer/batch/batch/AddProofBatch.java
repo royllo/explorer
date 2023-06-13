@@ -96,7 +96,7 @@ public class AddProofBatch extends BaseBatch {
                         } catch (Throwable tapdError) {
                             // We failed on calling tapd, but it's an exception; not a "valid" error.
                             logger.error("Request {} has error: {}", request.getId(), tapdError.getMessage());
-                            request.recoverableFailure("Recoverable error: " + tapdError.getMessage());
+                            request.failure("Recoverable error: " + tapdError.getMessage());
                         }
 
                         // We save the request.

@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,14 +40,5 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
      * @return Requests with the corresponding status
      */
     Page<Request> findByStatusInOrderById(List<RequestStatus> status, Pageable pageable);
-
-    /**
-     * Find all requests with the corresponding status and older than the date.
-     *
-     * @param status    status
-     * @param createdOn date
-     * @return Requests with the corresponding status and older than the date
-     */
-    List<Request> findByStatusInAndCreatedOnBefore(List<RequestStatus> status, ZonedDateTime createdOn);
 
 }
