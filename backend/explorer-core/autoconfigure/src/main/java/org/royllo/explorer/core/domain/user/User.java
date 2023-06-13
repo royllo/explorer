@@ -39,7 +39,7 @@ public class User extends BaseDomain {
     private Long id;
 
     /** User UUID. */
-    @Column(name = "USER_ID")
+    @Column(name = "USER_ID", updatable = false)
     private String userId;
 
     /** Username. */

@@ -14,12 +14,14 @@
             </column>
 
             <!-- Table fields -->
-            <column name="FK_USER_CREATOR" type="BIGINT"
-                    remarks="The user who add this server"/>
+            <column name="UNIVERSE_SERVER_ID" type="VARCHAR(255)"
+                    remarks="Universe server UUID"/>
+            <column name="FK_USER_OWNER" type="BIGINT"
+                    remarks="The user who ows this universe server"/>
             <column name="SERVER_ADDRESS" type="VARCHAR(255)"
                     remarks="The server address typically consists of both an IP address and a port number"/>
-            <column name="LAST_SYNC" type="TIMESTAMP"
-                    remarks="When is the last time we synced with it ?"/>
+            <column name="LAST_SYNCHRONIZED_ON" type="TIMESTAMP"
+                    remarks="When is the last time we contact the server to synchronize"/>
 
             <!-- Technical fields -->
             <column name="CREATED_ON" type="TIMESTAMP"
@@ -35,13 +37,18 @@
                           columnDataType="BIGINT"
                           startWith="1"/>
 
-        <!-- Foreign key FK_USER_CREATOR > USERS.ID -->
-        <addForeignKeyConstraint constraintName="FK_UNIVERSE_SERVERS_USER_CREATOR"
-                                 baseColumnNames="FK_USER_CREATOR"
+        <!-- Foreign key FK_USER_OWNER > USERS.ID -->
+        <addForeignKeyConstraint constraintName="FK_UNIVERSE_SERVERS_USER_OWNER"
+                                 baseColumnNames="FK_USER_OWNER"
                                  baseTableName="UNIVERSE_SERVERS"
                                  referencedTableName="USERS"
                                  referencedColumnNames="ID"
                                  validate="true"/>
+
+        <!-- Adding a unique constraint on SERVER_ADDRESS -->
+        <addUniqueConstraint columnNames="SERVER_ADDRESS"
+                             constraintName="UNIVERSE_SERVERS_UNIQUE_SERVER_ADDRESS"
+                             tableName="UNIVERSE_SERVERS"/>
 
         <!-- Index on SERVER_ADDRESS -->
         <createIndex indexName="IDX_UNIVERSE_SERVERS_SERVER_ADDRESS"

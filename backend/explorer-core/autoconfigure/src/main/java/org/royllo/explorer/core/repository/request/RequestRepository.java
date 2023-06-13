@@ -18,7 +18,7 @@ import java.util.Optional;
 public interface RequestRepository extends JpaRepository<Request, Long> {
 
     /**
-     * FInd a request by its request id.
+     * Find a request by its request id.
      *
      * @param requestId request id
      * @return request

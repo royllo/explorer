@@ -81,7 +81,7 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
                     .rawProof(rawProof)
                     .build());
             final ProofDTO proofDTO = PROOF_MAPPER.mapToProofDTO(proof);
-            logger.info("Proof created with id {} : {}", proofDTO.getProofId(), proofDTO);
+            logger.info("Proof created with id {} : {}", proofDTO.getId(), proofDTO);
             return proofDTO;
         }
     }
