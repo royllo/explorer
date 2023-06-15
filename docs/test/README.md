@@ -1,56 +1,56 @@
 # Test organization
 
-## Test cases
-
-- Case 1: The coin and its proof exists in database - We add the same proof.
-- Case 2: The coin and its proof exists in database - We add a new proof.
-- Case 3: The coin does not exist in database - We add a proof to create it.
-- Case 4: The coin does not exist in database - We add two proofs.
-
-## Coin list
-
-| Coin name         | Found in                              | Test case                                               |
-|-------------------|---------------------------------------|---------------------------------------------------------|
-| myRoylloCoin      | Production initialization script      | Default example displayed on the search engine web page |
-| knownRoylloCoin   | Test script in explorer-core          | Case 1 & 2                                              |
-| unknownRoylloCoin | DecodedResponse mock in explorer-core | Case 3                                                  |
-| activeRoylloCoin  | DecodedResponse mock in explorer-core | Case 4                                                  |
-
-## How coins are created (docker)
+## How coins are created (with sashimi)
 
 ### Install and start lnd with taro
 
 ```
-git clone https://github.com/royllo/lnd-taro-with-docker.git
-cd lnd-taro-with-docker
+git clone https://github.com/davisv7/sashimi
+cd sashimi
 docker-compose up
 ```
 
 ### Asset creation
 
-To crate a new asset, first, we need to send BTC to our address `tb1q9ep90x63j3n5dqqyn3jjf8kmpzf65tttupudyg`, we use
-this [faucet](https://bitcoinfaucet.uo1.net/).
+To create a new asset, first, we need to send BTC to our address, we use this [faucet](https://bitcoinfaucet.uo1.net/).
 
 Then we run this command.
 
 ```bash
-docker exec -it lnd-taro-with-docker_taro_1 \
-                /bin/tarocli assets mint \
+docker exec -it -u tap e72a16604b0d \
+                tapcli assets mint \
                 --type normal \
                 --name myRoylloCoin \
                 --supply 999 \
-                --meta "Used by Royllo" \
-                --skip_batch
+                --meta_bytes "Used by Royllo" \
+                --enable_emission true
+```
+
+You will get this:
+
+```json
+{
+  "batch_key": "033f2778f288630a6eef31712144b0074be7a5d23a9ede527b5aac3f15e22aee2e"
+}
+```
+
+To emit the Bitcoin transaction creating our asset, run:
+
+```bash
+docker exec -it -u tap e72a16604b0d \
+                tapcli assets mint finalize
 ```
 
 ### View asset
 
 ```bash
-docker exec -it lnd-taro-with-docker_taro_1 \
-                /bin/tarocli assets list
+docker exec -it -u tap e72a16604b0d \
+                tapcli assets list
 ```
 
 Or, with curl:
+
+TODO: fix this.
 
 ```bash
 curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./admin.macaroon)" \
@@ -61,51 +61,60 @@ Result:
 
 ```json
 {
-  "version": 0,
-  "asset_genesis": {
-    "genesis_point": "ac7422f6dbdd2bc5acde81a1e3743627a72fb53790694e13d48dfef7d1b6d688:0",
-    "name": "myRoylloCoin",
-    "meta": "5573656420627920526f796c6c6f",
-    "asset_id": "18c4eaca8905cad3ae027494b8c70a085e9452226ddea8eacfdaf6cb88431c12",
-    "output_index": 0,
-    "genesis_bootstrap_info": "88d6b6d1f7fe8dd4134e699037b52fa7273674e3a181deacc52bdddbf62274ac000000000c6d79526f796c6c6f436f696e0e5573656420627920526f796c6c6f0000000000",
-    "version": 0
-  },
-  "asset_type": "NORMAL",
-  "amount": "999",
-  "lock_time": 0,
-  "relative_lock_time": 0,
-  "script_version": 0,
-  "script_key": "02102a7c269bf61b587c6278206d05433fa09b9fbe30d618a2cc61868622f5518f",
-  "asset_group": null,
-  "chain_anchor": {
-    "anchor_tx": "0200000000010188d6b6d1f7fe8dd4134e699037b52fa7273674e3a181deacc52bdddbf62274ac0000000000ffffffff02e80300000000000022512068b8ab655c6f3edfc0b241a3c560355146ed6bbf92514c09b10a0c86ac140e23910a000000000000160014c35088956d26c44af4c00dfc8bf10d9a4c79320e0247304402201829c56dba3c2ab1cd85de1fe3d7bfec8dffc2b2d4aac8c362cae25052a420290220506b92ca45a514a8b2daabb1eb8adf5283ab29b382d0331c9c884f8c89dd830f012103219e2594f427e338690c3f51409706439d8ab83fde02d18d0c28ec55c285801c00000000",
-    "anchor_txid": "57faede9e107f3af74bb93e730bc1dfd07f81b166a974068f823d30d9eb10111",
-    "anchor_block_hash": "0000000000000000000000000000000000000000000000000000000000000000",
-    "anchor_outpoint": "57faede9e107f3af74bb93e730bc1dfd07f81b166a974068f823d30d9eb10111:0",
-    "internal_key": "02bf9d0eac1be77456ced581721d9f8837b42346173556c418794e0347e08f8171"
-  },
-  "prev_witnesses": [
+  "assets": [
+    {
+      "version": 0,
+      "asset_genesis": {
+        "genesis_point": "90ad65d59493b0c355d2ee2332c4aef1b6f753bd5c8ec472ebc716c5ffd9017e:1",
+        "name": "myRoylloCoin",
+        "meta_hash": "7a884076ca7fda0748ea8910cfeb99a8a9c3a27a0a0db5b84fab0133099d3b74",
+        "asset_id": "4c172432b59d0209dae9516e7f62ca4f6fd492aee2cc27070569e684aedbbcc9",
+        "output_index": 0,
+        "version": 0
+      },
+      "asset_type": "NORMAL",
+      "amount": "999",
+      "lock_time": 0,
+      "relative_lock_time": 0,
+      "script_version": 0,
+      "script_key": "02a240542998fd2732ec1a31c77e0607daeea25558169c1c622ab403ff2a2b8bf9",
+      "script_key_is_local": true,
+      "asset_group": {
+        "raw_group_key": "02e481a92c187536f3c0b31933e65d095b880bbd4b015ad7ed6d522c0d13ce1cb6",
+        "tweaked_group_key": "0322dd3576f27252932878bbd130049284617eb710ed258147a2667e7d17688bcd",
+        "asset_id_sig": "4f573eb1a29fb5214e956a16ba15c5efaab4984561f0f3715a3fe71db14e16ee4878f8a7494029a77f8925a43d545c2d62cc1d6f730c5b067d734e373fe8e9db"
+      },
+      "chain_anchor": {
+        "anchor_tx": "020000000001017e01d9ffc516c7eb72c48e5cbd53f7b6f1aec43223eed255c3b09394d565ad900100000000ffffffff02e803000000000000225120ef6aec163307ea5da0044dba98375d9dd0dd1507d77d75fcc3a2d84236cc7eb00bec15000000000022512076c89cd62f417d2d31ea9ae44e118f6468a304236b20340b7c57d3d8ff478fd502473044022073a282ff6242a8a7d85dde6c36da6cdacea9edf8018ea3bf411f3be7c915984202203d4f65dc168ba654b0fcbcf8b8dcdc088b22c3631f2ae784403f111022177b9901210316fae9bca2b19ce1834d348e0cf3f5914c08d2e1299febaca2e1c51a84cfe73800000000",
+        "anchor_txid": "f7d73fc2350e2378320d56ae0f1c9ba92be73e92a2c67a47820184b82a54b714",
+        "anchor_block_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "anchor_outpoint": "f7d73fc2350e2378320d56ae0f1c9ba92be73e92a2c67a47820184b82a54b714:0",
+        "internal_key": "033f2778f288630a6eef31712144b0074be7a5d23a9ede527b5aac3f15e22aee2e",
+        "merkle_root": "c355ad391e2399ab0c9bccc06a8bc5278ecc1654f9fbe5c76087912b876f54b8",
+        "tapscript_sibling": null
+      },
+      "prev_witnesses": [
+      ],
+      "is_spent": false
+    }
   ]
 }
 ```
 
 ### Export proof
 
-**It may take time to be able to export a proof**
-
 ```bash
-docker exec -it lnd-taro-with-docker_taro_1 \
-                /bin/tarocli proofs \
-                export  --asset_id 18c4eaca8905cad3ae027494b8c70a085e9452226ddea8eacfdaf6cb88431c12 \
-                        --script_key 02102a7c269bf61b587c6278206d05433fa09b9fbe30d618a2cc61868622f5518f
+docker exec -it -u tap e72a16604b0d \
+                  tapcli proofs export \
+                  --asset_id 4c172432b59d0209dae9516e7f62ca4f6fd492aee2cc27070569e684aedbbcc9 \
+                  --script_key 02a240542998fd2732ec1a31c77e0607daeea25558169c1c622ab403ff2a2b8bf9
 ```
 
 Returns:
 
 ```
 {
-    "raw_proof": "0000000001fd03f1002488d6b6d1f7fe8dd4134e699037b52fa7273674e3a181deacc52bdddbf62274ac00000000015000000020dbc0a8738a77d0b1f29df61820e015784d87b13f508d07af1200000000000000e9a0e62808024419f29e12075ee7192283d45787ba4e510dcc4325c4f13e2da617252c64ffff001dee9af8c502ea0200000000010188d6b6d1f7fe8dd4134e699037b52fa7273674e3a181deacc52bdddbf62274ac0000000000ffffffff02e80300000000000022512068b8ab655c6f3edfc0b241a3c560355146ed6bbf92514c09b10a0c86ac140e23910a000000000000160014c35088956d26c44af4c00dfc8bf10d9a4c79320e0247304402201829c56dba3c2ab1cd85de1fe3d7bfec8dffc2b2d4aac8c362cae25052a420290220506b92ca45a514a8b2daabb1eb8adf5283ab29b382d0331c9c884f8c89dd830f012103219e2594f427e338690c3f51409706439d8ab83fde02d18d0c28ec55c285801c0000000003fd0102083c7c4198be914f1cab7319592f0249d727fa87890ec4185b8b7881d777158d0af976bfe9e708afddbef3616fe086f90e0879295f231ac2c6d5be387ba682903bc9f67bd23cff72af821bc6feb5995b83b603aba9074ce1c74a4e13a45f108713102ce2cdd7590df19cc6c9b0f631097a2dedec3e30c1633300ea02e179eea39ef366c1a3711657d6302e516e3218b8de4a0089ca0f92621a8a49a8790dc9a1deba788b11327b109130ca4dede1a29d6ac6c03a86454199c5bc6e8a74d32df7f93d7b24f5dec13ec57f232b95d712d5947b04785cac15d00e4ea9ae6e0ffd9b3361cab39effb1b072f0918fd3ea9e9e0ae35ee61ed51e9d09548c619f06d4caa8c104e4000100014588d6b6d1f7fe8dd4134e699037b52fa7273674e3a181deacc52bdddbf62274ac000000000c6d79526f796c6c6f436f696e0e5573656420627920526f796c6c6f00000000000201000303fd03e7066901670065000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008020000092102102a7c269bf61b587c6278206d05433fa09b9fbe30d618a2cc61868622f5518f059f000400000000012102bf9d0eac1be77456ced581721d9f8837b42346173556c418794e0347e08f817102740049000100012018c4eaca8905cad3ae027494b8c70a085e9452226ddea8eacfdaf6cb88431c1202220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff012700010001220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0ea5f7971d2fe0f27d8975f656332a5f6bf0176b998a52dedaedf2ffbaef922f",
+    "raw_proof": "0000000001fd047800247e01d9ffc516c7eb72c48e5cbd53f7b6f1aec43223eed255c3b09394d565ad90000000010150002092233f25f1b20e84e83e3f45bdd0ed0682c956f8144ecb46ebe51800000000000000ba401537b5c11a435a9e58f7f3b9223c46757ef437f11a59449314520eb26e9da1dc89647f5d211924c4a10102f6020000000001017e01d9ffc516c7eb72c48e5cbd53f7b6f1aec43223eed255c3b09394d565ad900100000000ffffffff02e803000000000000225120ef6aec163307ea5da0044dba98375d9dd0dd1507d77d75fcc3a2d84236cc7eb00bec15000000000022512076c89cd62f417d2d31ea9ae44e118f6468a304236b20340b7c57d3d8ff478fd502473044022073a282ff6242a8a7d85dde6c36da6cdacea9edf8018ea3bf411f3be7c915984202203d4f65dc168ba654b0fcbcf8b8dcdc088b22c3631f2ae784403f111022177b9901210316fae9bca2b19ce1834d348e0cf3f5914c08d2e1299febaca2e1c51a84cfe7380000000003c20676ed2844f16406098d6cca9b1bbc9ab75a3f93c286dc56fe1c066e59a875db2db7fd90e220f287f4a0a0dfcd20d08155eecd8a24800e576dd847cf3dc4ba501e0b4c7e0d89047bbc81982cf843d5bedf44a9fc224d24d5aac4be052f003c962d8639a175a69a6580ea1e78a9c63e8ffd08ddac38669ee88d1ce60ab035cf101faf2f1e0c55ac04b992baa3ee9308a7a155a939a3b5693b4162a4dc26691df0651ea91486fe70f7f3c5a93b11c4fcd714af87077e1850cbebb1164a098ca717d33904fd015800010001567e01d9ffc516c7eb72c48e5cbd53f7b6f1aec43223eed255c3b09394d565ad90000000010c6d79526f796c6c6f436f696e7a884076ca7fda0748ea8910cfeb99a8a9c3a27a0a0db5b84fab0133099d3b7400000000000201000303fd03e7066901670065000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008020000092102a240542998fd2732ec1a31c77e0607daeea25558169c1c622ab403ff2a2b8bf90a610322dd3576f27252932878bbd130049284617eb710ed258147a2667e7d17688bcd4f573eb1a29fb5214e956a16ba15c5efaab4984561f0f3715a3fe71db14e16ee4878f8a7494029a77f8925a43d545c2d62cc1d6f730c5b067d734e373fe8e9db059f0004000000000121033f2778f288630a6eef31712144b0074be7a5d23a9ede527b5aac3f15e22aee2e0274004900010001205c3abd547987f066a5fe9df9d1968d861d2c1999506c32ae52cd65e067229acb02220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff012700010001220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0630012e0004000000010121028cb368cf76d47b33984cdabf5d951d9d64226c020b9873e9d69bb1cd831cb4dd03030201010813000100010e5573656420627920526f796c6c6f1d1dde92cc4739e7280087bd0e9eebd3adcc2c9d599e64d0a5f0a9f982e50887",
     "genesis_point": ""
 }
 ```
@@ -113,12 +122,12 @@ Returns:
 To export to a file, execute this:
 
 ```bash
-docker exec -it lnd-taro-with-docker_taro_1 \
-                /bin/tarocli proofs \
-                export  --asset_id 18c4eaca8905cad3ae027494b8c70a085e9452226ddea8eacfdaf6cb88431c12 \
-                        --script_key 02102a7c269bf61b587c6278206d05433fa09b9fbe30d618a2cc61868622f5518f \
-                        --proof_file myRoylloCoinProof
-docker cp cc510ea50846:myRoylloCoinProof .
+docker exec -it -u tap e72a16604b0d \
+                  tapcli proofs export \
+                  --asset_id 4c172432b59d0209dae9516e7f62ca4f6fd492aee2cc27070569e684aedbbcc9 \
+                  --script_key 02a240542998fd2732ec1a31c77e0607daeea25558169c1c622ab403ff2a2b8bf9 \
+                  --proof_file /tmp/myRoylloCoinProof
+docker cp e72a16604b0d:/tmp/myRoylloCoinProof .
 ```
 
 You can use curl to decode the proof:
@@ -126,11 +135,12 @@ You can use curl to decode the proof:
 Take our proof file and decode it with `cat myRoylloCoinProof | base64 -w 0`, put the content of this file
 in `raw_proof` field of `raw_myRoylloCoinProof` file.
 
-```bash
+TODO: fix this.
 
+```bash
 curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./admin.macaroon)" \
         --data @raw_myRoylloCoinProof \
-        --insecure https://157.230.85.88:8089/v1/taro/proofs/decode
+        --insecure https://127.0.0.1:8089/v1/taproot-assets/proofs/decode
 ```
 
 ### Decode proof
