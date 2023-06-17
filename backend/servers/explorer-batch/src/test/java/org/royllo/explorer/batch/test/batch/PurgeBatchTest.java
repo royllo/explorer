@@ -36,7 +36,7 @@ public class PurgeBatchTest extends BaseTest {
 
     @Test
     @DisplayName("Purge failed requests")
-    public void purgeFailedRequests() {
+    public void batch() {
         // We start by erasing everything.
         requestRepository.deleteAll();
 
