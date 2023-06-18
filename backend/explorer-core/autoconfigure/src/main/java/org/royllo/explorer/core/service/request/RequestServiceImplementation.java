@@ -3,7 +3,7 @@ package org.royllo.explorer.core.service.request;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.request.AddAssetMetaDataRequest;
-import org.royllo.explorer.core.domain.request.AddProof;
+import org.royllo.explorer.core.domain.request.AddProofRequest;
 import org.royllo.explorer.core.domain.request.AddUniverseServerRequest;
 import org.royllo.explorer.core.domain.request.Request;
 import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
@@ -91,7 +91,7 @@ public class RequestServiceImplementation extends BaseService implements Request
         logger.info("Adding proof request with raw proof {}", rawProof);
 
         // Creating and saving the request.
-        AddProof request = AddProof.builder()
+        AddProofRequest request = AddProofRequest.builder()
                 .requestId(UUID.randomUUID().toString())
                 .creator(ANONYMOUS_USER)
                 .status(OPENED)

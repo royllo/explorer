@@ -29,7 +29,7 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 @DisplayName("Add proof batch test")
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles({"mempoolTransactionServiceMock", "tapdProofServiceMock", "scheduler-disabled"})
-public class AddProofBatchTest extends BaseTest {
+public class AddProofRequestBatchTest extends BaseTest {
 
     @Autowired
     RequestService requestService;

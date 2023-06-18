@@ -4,7 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.maintenance.PurgeBatch;
 import org.royllo.explorer.batch.test.util.BaseTest;
-import org.royllo.explorer.core.domain.request.AddProof;
+import org.royllo.explorer.core.domain.request.AddProofRequest;
 import org.royllo.explorer.core.domain.request.AddUniverseServerRequest;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +44,7 @@ public class PurgeBatchTest extends BaseTest {
         // Requests with "OPENED" status.
         // We create 10 000 "Add proof request" with "OPENED" status.
         for (int i = 1; i <= 10_000; i++) {
-            AddProof request = new AddProof();
+            AddProofRequest request = new AddProofRequest();
             request.setRequestId("ID_" + i);
             request.setCreator(ANONYMOUS_USER);
             request.setStatus(OPENED);
@@ -76,7 +76,7 @@ public class PurgeBatchTest extends BaseTest {
         // Requests with "FAILURE" status.
         // We create 10 000 "Add proof request" with "FAILURE" status.
         for (int i = 20_001; i <= 30_000; i++) {
-            AddProof request = new AddProof();
+            AddProofRequest request = new AddProofRequest();
             request.setRequestId("ID_" + i);
             request.setCreator(ANONYMOUS_USER);
             request.setStatus(FAILURE);
@@ -108,7 +108,7 @@ public class PurgeBatchTest extends BaseTest {
         // Requests with "SUCCESS" status.
         // We create 10 000 "Add proof request" with "SUCCESS" status.
         for (int i = 40_001; i <= 50_000; i++) {
-            AddProof request = new AddProof();
+            AddProofRequest request = new AddProofRequest();
             request.setRequestId("ID_" + i);
             request.setCreator(ANONYMOUS_USER);
             request.setStatus(SUCCESS);

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.domain.request.AddAssetMetaDataRequest;
-import org.royllo.explorer.core.domain.request.AddProof;
+import org.royllo.explorer.core.domain.request.AddProofRequest;
 import org.royllo.explorer.core.domain.request.Request;
 import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.repository.request.RequestRepository;
@@ -48,7 +48,7 @@ public class RequestRepositoryTest extends BaseTest {
 
         // =============================================================================================================
         // Creating request 1 (ADD_ASSET).
-        AddProof request1 = new AddProof();
+        AddProofRequest request1 = new AddProofRequest();
         request1.setRequestId(UUID.randomUUID().toString());
         request1.setCreator(user.get());
         request1.setStatus(OPENED);
@@ -58,12 +58,12 @@ public class RequestRepositoryTest extends BaseTest {
         // See what's in database with JPA.
         Optional<Request> request1FromJPA = requestRepository.findById(request1ID);
         assertTrue(request1FromJPA.isPresent());
-        AddProof addProof1FromJPA = (AddProof) request1FromJPA.get();
-        assertEquals(request1ID, addProof1FromJPA.getId());
-        Assertions.assertEquals("anonymous", addProof1FromJPA.getCreator().getUsername());
-        Assertions.assertEquals(OPENED, addProof1FromJPA.getStatus());
-        assertNull(addProof1FromJPA.getErrorMessage());
-        assertEquals("Proof1", addProof1FromJPA.getRawProof());
+        AddProofRequest addProofRequest1FromJPA = (AddProofRequest) request1FromJPA.get();
+        assertEquals(request1ID, addProofRequest1FromJPA.getId());
+        Assertions.assertEquals("anonymous", addProofRequest1FromJPA.getCreator().getUsername());
+        Assertions.assertEquals(OPENED, addProofRequest1FromJPA.getStatus());
+        assertNull(addProofRequest1FromJPA.getErrorMessage());
+        assertEquals("Proof1", addProofRequest1FromJPA.getRawProof());
 
         // See what's in database with JDBC.
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
@@ -102,7 +102,7 @@ public class RequestRepositoryTest extends BaseTest {
 
         // =============================================================================================================
         // Creating request 3 (ADD_ASSET).
-        AddProof request3 = new AddProof();
+        AddProofRequest request3 = new AddProofRequest();
         request3.setRequestId(UUID.randomUUID().toString());
         request3.setCreator(user.get());
         request3.setStatus(FAILURE);
@@ -112,12 +112,12 @@ public class RequestRepositoryTest extends BaseTest {
         // See what's in database with JPA.
         Optional<Request> request3FromJPA = requestRepository.findById(request3ID);
         assertTrue(request3FromJPA.isPresent());
-        AddProof addProof2FromJPA = (AddProof) request3FromJPA.get();
-        assertEquals(request3ID, addProof2FromJPA.getId());
-        Assertions.assertEquals("anonymous", addProof2FromJPA.getCreator().getUsername());
-        Assertions.assertEquals(FAILURE, addProof2FromJPA.getStatus());
-        assertNull(addProof2FromJPA.getErrorMessage());
-        assertEquals("Proof2", addProof2FromJPA.getRawProof());
+        AddProofRequest addProofRequest2FromJPA = (AddProofRequest) request3FromJPA.get();
+        assertEquals(request3ID, addProofRequest2FromJPA.getId());
+        Assertions.assertEquals("anonymous", addProofRequest2FromJPA.getCreator().getUsername());
+        Assertions.assertEquals(FAILURE, addProofRequest2FromJPA.getStatus());
+        assertNull(addProofRequest2FromJPA.getErrorMessage());
+        assertEquals("Proof2", addProofRequest2FromJPA.getRawProof());
 
         // See what's in database with JDBC.
         jdbcTemplate = new JdbcTemplate(dataSource);

@@ -3,7 +3,7 @@ package org.royllo.explorer.core.util.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.royllo.explorer.core.domain.request.AddAssetMetaDataRequest;
-import org.royllo.explorer.core.domain.request.AddProof;
+import org.royllo.explorer.core.domain.request.AddProofRequest;
 import org.royllo.explorer.core.domain.request.AddUniverseServerRequest;
 import org.royllo.explorer.core.domain.request.Request;
 import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
@@ -22,8 +22,8 @@ public interface RequestMapper {
     // =================================================================================================================
     // Generic mapper.
     default RequestDTO mapToRequestDTO(Request source) {
-        if (source instanceof AddProof) {
-            return mapToAddAssetRequestDTO((AddProof) source);
+        if (source instanceof AddProofRequest) {
+            return mapToAddAssetRequestDTO((AddProofRequest) source);
         }
         if (source instanceof AddAssetMetaDataRequest) {
             return mapToAddAssetMetaRequestDTO((AddAssetMetaDataRequest) source);
@@ -38,9 +38,9 @@ public interface RequestMapper {
     // Add asset Mapper.
     @Mapping(target = "createdOn", ignore = true)
     @Mapping(target = "updatedOn", ignore = true)
-    AddProof mapToAddAssetRequest(AddProofRequestDTO source);
+    AddProofRequest mapToAddAssetRequest(AddProofRequestDTO source);
 
-    AddProofRequestDTO mapToAddAssetRequestDTO(AddProof source);
+    AddProofRequestDTO mapToAddAssetRequestDTO(AddProofRequest source);
 
     // =================================================================================================================
     // Add asset meta Mapper.

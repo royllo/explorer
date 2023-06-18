@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.universe.UniverseExplorerBatch;
+import org.royllo.explorer.core.domain.request.AddProofRequest;
 import org.royllo.explorer.core.provider.tapd.TapdService;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,11 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
@@ -33,18 +37,42 @@ public class UniverseExplorerBatchTest {
 
     @Test
     @Disabled
-    @DisplayName("Mock test")
+    @DisplayName("Universe explorer batch test")
     public void batch() throws IOException {
+
         long count = requestRepository.count();
+        // We check that we don't have the request for the proofs find in universe servers
+        assertEquals(0, findAddProofRequestByRawProof("asset_id_1_proof").size());
+        assertEquals(0, findAddProofRequestByRawProof("asset_id_2_proof").size());
+        assertEquals(0, findAddProofRequestByRawProof("asset_id_3_proof").size());
+        assertEquals(0, findAddProofRequestByRawProof("asset_id_4_proof").size());
 
         // In database, we have two universe servers.
         // The first server lists three assets : asset_id_1, asset_id_2 and asset_id_3
         // The second server lists two assets : asset_id_4 and asset_id_1 (already defined by the first server).
         universeExplorerBatch.processUniverseServers();
 
-        // We should have 4 more requests in database.
-        assertEquals(count + 4, requestRepository.count());
+        // We should have 5 more requests in database.
+        assertEquals(count + 5, requestRepository.count());
+        assertEquals(2, findAddProofRequestByRawProof("asset_id_1_proof").size());
+        assertEquals(1, findAddProofRequestByRawProof("asset_id_2_proof").size());
+        assertEquals(1, findAddProofRequestByRawProof("asset_id_3_proof").size());
+        assertEquals(1, findAddProofRequestByRawProof("asset_id_4_proof").size());
+    }
 
+    /**
+     * Find an add proof request by its raw proof.
+     *
+     * @param rawProof the raw proof.
+     * @return an add proof request.
+     */
+    private List<AddProofRequest> findAddProofRequestByRawProof(final String rawProof) {
+        return requestRepository.findByStatusInOrderById(Collections.singletonList(OPENED))
+                .stream()
+                .filter(request -> request instanceof AddProofRequest)
+                .map(request -> (AddProofRequest) request)
+                .filter(request -> request.getRawProof().equals(rawProof))
+                .toList();
     }
 
 }
