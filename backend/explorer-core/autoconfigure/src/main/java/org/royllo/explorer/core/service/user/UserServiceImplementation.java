@@ -14,6 +14,7 @@ import java.util.Optional;
 /**
  * User service implementation.
  */
+@SuppressWarnings("unused")
 @Service
 @RequiredArgsConstructor
 public class UserServiceImplementation extends BaseService implements UserService {

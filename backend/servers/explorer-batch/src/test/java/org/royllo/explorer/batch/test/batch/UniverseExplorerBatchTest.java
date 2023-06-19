@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -45,7 +44,7 @@ public class UniverseExplorerBatchTest {
 
     @Test
     @DisplayName("Universe explorer batch test")
-    public void batch() throws IOException {
+    public void batch() {
 
         long count = requestRepository.count();
         // We check that the universe servers have never been contacted.

@@ -25,7 +25,7 @@ import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_US
  */
 @Service
 @RequiredArgsConstructor
-@SuppressWarnings("checkstyle:DesignForExtension")
+@SuppressWarnings({"checkstyle:DesignForExtension", "unused"})
 public class ProofServiceImplementation extends BaseService implements ProofService {
 
     /** Asset repository. */

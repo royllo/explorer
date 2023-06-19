@@ -10,6 +10,7 @@ import java.util.List;
  * {@link BitcoinTransactionOutput} repository.
  */
 @Repository
+@SuppressWarnings("unused")
 public interface BitcoinTransactionOutputRepository extends JpaRepository<BitcoinTransactionOutput, Long> {
 
     /**

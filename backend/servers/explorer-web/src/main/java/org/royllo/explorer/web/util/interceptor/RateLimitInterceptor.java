@@ -39,7 +39,7 @@ public final class RateLimitInterceptor implements HandlerInterceptor {
     @SuppressWarnings("checkstyle:MagicNumber")
     @Override
     public boolean preHandle(final HttpServletRequest request, @NotNull final HttpServletResponse response, @NotNull final Object handler) throws Exception {
-        // We check in the cache if the IP address is already present with a bucket).
+        // We check in the cache if the IP address is already present with a bucket.
         ConsumptionProbe probe = cache.get(request.getRemoteAddr()).tryConsumeAndReturnRemaining(1);
         if (probe.isConsumed()) {
             // If we can consume from the bucket, we add a header to indicate how many are left.

@@ -19,6 +19,7 @@ import javax.net.ssl.SSLException;
 /**
  * TAPD service implementation.
  */
+@SuppressWarnings("unused")
 @Service
 @RequiredArgsConstructor
 public class TapdServiceImplementation extends BaseMempoolService implements TapdService {
@@ -79,9 +80,7 @@ public class TapdServiceImplementation extends BaseMempoolService implements Tap
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
 
         return WebClient.builder()
-                .codecs(clientCodecConfigurer -> {
-                    clientCodecConfigurer.defaultCodecs().maxInMemorySize(CODE_MAXIMUM_SIZE);
-                })
+                .codecs(clientCodecConfigurer -> clientCodecConfigurer.defaultCodecs().maxInMemorySize(CODE_MAXIMUM_SIZE))
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
                 .baseUrl(serverAddress)
                 .build()
