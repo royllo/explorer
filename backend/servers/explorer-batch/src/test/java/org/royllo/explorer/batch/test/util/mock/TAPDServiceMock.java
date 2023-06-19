@@ -110,6 +110,10 @@ public class TAPDServiceMock extends BaseTest {
         final ClassPathResource classPathResourceUniverseLeaveAssetId1Bis = new ClassPathResource("tapd/universe-leaves-asset-id-1-for-testnet2-universe-lightning-finance.json");
         UniverseLeavesResponse asset1BisResponse = new ObjectMapper().readValue(classPathResourceUniverseLeaveAssetId1Bis.getInputStream(), UniverseLeavesResponse.class);
         Mockito.when(mockedService.getUniverseLeaves("testnet2.universe.lightning.finance", "asset_id_1")).thenReturn(Mono.just(asset1BisResponse));
+        // testnet2.universe.lightning.finance:asset_id_1
+        final ClassPathResource classPathResourceUniverseLeaveAssetId5 = new ClassPathResource("tapd/universe-leaves-asset-id-5-for-testnet2-universe-lightning-finance.json");
+        UniverseLeavesResponse asset5Response = new ObjectMapper().readValue(classPathResourceUniverseLeaveAssetId5.getInputStream(), UniverseLeavesResponse.class);
+        Mockito.when(mockedService.getUniverseLeaves("testnet2.universe.lightning.finance", "asset_id_5")).thenReturn(Mono.just(asset5Response));
 
         return mockedService;
     }

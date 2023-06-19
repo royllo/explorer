@@ -82,6 +82,7 @@ public class UniverseExplorerBatch extends BaseBatch {
                                 return;
                             }
 
+                            // We retrieve the proofs for each asset.
                             leaves.getLeaves()
                                     .stream()
                                     .map(UniverseLeavesResponse.Leaf::getIssuanceProof)

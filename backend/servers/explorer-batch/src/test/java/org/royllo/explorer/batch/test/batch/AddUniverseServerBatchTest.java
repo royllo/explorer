@@ -1,6 +1,5 @@
 package org.royllo.explorer.batch.test.batch;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.request.AddUniverseServerBatch;
@@ -33,7 +32,6 @@ public class AddUniverseServerBatchTest {
     AddUniverseServerBatch addUniverseServerBatch;
 
     @Test
-    @Disabled
     @DisplayName("Add universe server request processing")
     public void batch() {
 
