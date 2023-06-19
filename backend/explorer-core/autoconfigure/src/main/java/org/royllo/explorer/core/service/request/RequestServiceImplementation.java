@@ -28,7 +28,7 @@ import static org.royllo.explorer.core.util.enums.RequestStatus.openedStatus;
  */
 @Service
 @RequiredArgsConstructor
-@SuppressWarnings("checkstyle:DesignForExtension")
+@SuppressWarnings({"checkstyle:DesignForExtension", "unused"})
 public class RequestServiceImplementation extends BaseService implements RequestService {
 
     /** Request repository. */

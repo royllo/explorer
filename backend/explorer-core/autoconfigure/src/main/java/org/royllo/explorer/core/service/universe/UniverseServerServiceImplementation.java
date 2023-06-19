@@ -22,7 +22,7 @@ import static org.royllo.explorer.core.util.validator.ServerAddressValidator.IP_
  */
 @Service
 @RequiredArgsConstructor
-@SuppressWarnings("checkstyle:DesignForExtension")
+@SuppressWarnings({"checkstyle:DesignForExtension", "unused"})
 public class UniverseServerServiceImplementation extends BaseService implements UniverseServerService {
 
     /** Universe server repository. */

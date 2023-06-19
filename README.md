@@ -16,7 +16,7 @@ A live version is available here: [https://explorer.royllo.org/](https://explore
 
 <p align="center">
     <img    src="https://github.com/royllo/explorer/blob/development/docs/assets/images/screenshots/homepage.png?raw=true"
-            alt="Royllo explorer homepage"/>
+            alt="Royllo explorer homepage" title="Royllo explorer homepage"/>
 </p>
 
 ## How to run it ?

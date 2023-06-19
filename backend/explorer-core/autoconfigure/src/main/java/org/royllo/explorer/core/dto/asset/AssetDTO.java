@@ -32,7 +32,7 @@ public class AssetDTO {
 
     /** The version of the Taproot asset. */
     @NotNull(message = "The version of the Taproot asset is required")
-    int version;
+    Integer version;
 
     /** The first outpoint of the transaction that created the asset (txid:vout). */
     BitcoinTransactionOutputDTO genesisPoint;
@@ -51,7 +51,7 @@ public class AssetDTO {
 
     /** The index of the output that carries the unique Taproot asset commitment in the genesis transaction. */
     @NotNull(message = "Output index is required")
-    int outputIndex;
+    Integer outputIndex;
 
     /** The full genesis information encoded in a portable manner, so it can be easily copy/pasted for address creation. */
     @NotNull(message = "Genesis bootstrap information is required")
@@ -59,7 +59,7 @@ public class AssetDTO {
 
     /** The version of the Taproot asset commitment that created this asset. */
     @NotNull(message = "Genesis version is required")
-    int genesisVersion;
+    Integer genesisVersion;
 
     /** The type of the asset: normal or a collectible. */
     @NotNull(message = "Asset type is required")
@@ -71,15 +71,15 @@ public class AssetDTO {
 
     /** An optional lock time, as with Bitcoin transactions. */
     @NotNull(message = "Lock time is required")
-    int lockTime;
+    Integer lockTime;
 
     /** An optional relative lock time, as with Bitcoin transactions. */
     @NotNull(message = "Relative lock time is required")
-    int relativeLockTime;
+    Integer relativeLockTime;
 
     /** The version of the script, only version 0 is defined at present. */
     @NotNull(message = "Script version is required")
-    int scriptVersion;
+    Integer scriptVersion;
 
     /** The script key of the asset, which can be spent under Taproot semantics. */
     @NotNull(message = "Script key is required")

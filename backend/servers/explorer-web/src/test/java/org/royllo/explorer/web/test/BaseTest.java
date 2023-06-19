@@ -12,7 +12,7 @@ import static org.royllo.explorer.web.util.base.BaseController.HTMX_REQUEST;
 /**
  * Utility classes for tests.
  */
-@SuppressWarnings("SpellCheckingInspection")
+@SuppressWarnings({"SpellCheckingInspection", "unused"})
 public class BaseTest {
 
     /* ============================================================================================================== */
