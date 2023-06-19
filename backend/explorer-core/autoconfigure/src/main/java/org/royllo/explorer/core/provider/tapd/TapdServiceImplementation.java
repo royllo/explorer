@@ -23,6 +23,9 @@ import javax.net.ssl.SSLException;
 @RequiredArgsConstructor
 public class TapdServiceImplementation extends BaseMempoolService implements TapdService {
 
+    /** Webflux codec maximum size. */
+    public static final int CODE_MAXIMUM_SIZE = 16 * 1024 * 1024;
+
     /** TAPD parameters. */
     private final TAPDParameters tapdParameters;
 
@@ -76,6 +79,9 @@ public class TapdServiceImplementation extends BaseMempoolService implements Tap
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
 
         return WebClient.builder()
+                .codecs(clientCodecConfigurer -> {
+                    clientCodecConfigurer.defaultCodecs().maxInMemorySize(CODE_MAXIMUM_SIZE);
+                })
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
                 .baseUrl(serverAddress)
                 .build()
