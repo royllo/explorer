@@ -136,7 +136,7 @@ jobs:
       # ================================================================================================================
       # Using Qodana.
       - name: Qodana Scan
-        uses: JetBrains/qodana-action@v2023.1.0
+        uses: JetBrains/qodana-action@v2023.1.4
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
 
@@ -169,7 +169,7 @@ jobs:
 
       # ================================================================================================================
       - name: Docker Hub login
-        uses: docker/login-action@v2.1.0
+        uses: docker/login-action@v2.2.0
         with:
           username: ${{ secrets.EXPLORER_DOCKER_HUB_USERNAME }}
           password: ${{ secrets.EXPLORER_DOCKER_HUB_PASSWORD }}
@@ -216,7 +216,7 @@ jobs:
       # ================================================================================================================
       # Publish to Docker Hub.
       - name: Docker Hub login
-        uses: docker/login-action@v2.1.0
+        uses: docker/login-action@v2.2.0
         with:
           username: ${{ secrets.EXPLORER_DOCKER_HUB_USERNAME }}
           password: ${{ secrets.EXPLORER_DOCKER_HUB_PASSWORD }}
