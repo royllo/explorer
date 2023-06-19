@@ -2,7 +2,7 @@ package org.royllo.explorer.batch.test.batch;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.royllo.explorer.batch.batch.AddProofBatch;
+import org.royllo.explorer.batch.batch.request.AddProofBatch;
 import org.royllo.explorer.batch.test.util.BaseTest;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.enums.RequestStatus.FAILURE;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
-import static org.royllo.explorer.core.util.enums.RequestStatus.RECOVERABLE_FAILURE;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
@@ -30,7 +29,7 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 @DisplayName("Add proof batch test")
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles({"mempoolTransactionServiceMock", "tapdProofServiceMock", "scheduler-disabled"})
-public class AddProofBatchTest extends BaseTest {
+public class AddProofRequestBatchTest extends BaseTest {
 
     @Autowired
     RequestService requestService;
@@ -47,6 +46,7 @@ public class AddProofBatchTest extends BaseTest {
     @Test
     @DisplayName("Add proof request processing")
     public void batch() {
+
         // =============================================================================================================
         // We add an invalid proof that can't be decoded ("INVALID_PROOF").
 
@@ -168,31 +168,6 @@ public class AddProofBatchTest extends BaseTest {
         assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF_PROOF_ID).isPresent());
         assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF_PROOF_ID).isPresent());
         assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF_PROOF_ID).isPresent());
-    }
-
-    @Test
-    @DisplayName("Recoverable error management")
-    public void recoverableErrorManagement() {
-        // Add the proof - The mock will create reply with an exception.
-        AddProofRequestDTO invalidProofRequest = requestService.createAddProofRequest("TIMEOUT_ERROR");
-        assertNotNull(invalidProofRequest);
-        assertEquals(OPENED, invalidProofRequest.getStatus());
-
-        // Process the request with an exception being raised!
-        addProofBatch.processRequests();
-        Optional<RequestDTO> invalidProofRequestTreated = requestService.getRequest(invalidProofRequest.getId());
-        assertTrue(invalidProofRequestTreated.isPresent());
-        assertFalse(invalidProofRequestTreated.get().isSuccessful());
-        assertEquals(RECOVERABLE_FAILURE, invalidProofRequestTreated.get().getStatus());
-        assertTrue(invalidProofRequestTreated.get().getErrorMessage().startsWith("Recoverable error: "));
-
-        // On the second call, the mock will give a valid reply.
-        addProofBatch.processRequests();
-        invalidProofRequestTreated = requestService.getRequest(invalidProofRequest.getId());
-        assertTrue(invalidProofRequestTreated.isPresent());
-        assertTrue(invalidProofRequestTreated.get().isSuccessful());
-        assertEquals(SUCCESS, invalidProofRequestTreated.get().getStatus());
-        assertNotNull(invalidProofRequestTreated.get().getAsset());
     }
 
 }

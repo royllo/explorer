@@ -11,7 +11,7 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 /**
- * Request to add proof to royllo database.
+ * Request to add a royllo universe server to royllo database.
  */
 @Getter
 @Setter
@@ -19,12 +19,12 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @RequiredArgsConstructor
 @Entity
-@Table(name = "REQUESTS_ADD_PROOF")
-@DiscriminatorValue("ADD_PROOF")
-public class AddProof extends Request {
+@Table(name = "REQUESTS_ADD_UNIVERSE_SERVER")
+@DiscriminatorValue("ADD_UNIVERSE_SERVER")
+public class AddUniverseServerRequest extends Request {
 
-    /** Proof that validates the asset information. */
-    @Column(name = "RAW_PROOF", updatable = false)
-    private String rawProof;
+    /** The universe server address (consists of both an IP address and a port number). */
+    @Column(name = "SERVER_ADDRESS", updatable = false)
+    private String serverAddress;
 
 }

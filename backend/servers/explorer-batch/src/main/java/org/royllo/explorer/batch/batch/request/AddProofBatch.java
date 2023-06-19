@@ -1,11 +1,11 @@
-package org.royllo.explorer.batch.batch;
+package org.royllo.explorer.batch.batch.request;
 
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.batch.util.base.BaseBatch;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
-import org.royllo.explorer.core.provider.tapd.TapdProofService;
+import org.royllo.explorer.core.provider.tapd.TapdService;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.proof.ProofService;
@@ -31,7 +31,7 @@ public class AddProofBatch extends BaseBatch {
     private static final int DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS = 1_000;
 
     /** Taproot proof service. */
-    private final TapdProofService tapdProofService;
+    private final TapdService tapdService;
 
     /** Request repository. */
     private final RequestRepository requestRepository;
@@ -60,32 +60,32 @@ public class AddProofBatch extends BaseBatch {
 
                         // We try to decode the proof.
                         try {
-                            final DecodedProofResponse decodedProofResponse = tapdProofService.decode(request.getRawProof(), 0).block();
+                            final DecodedProofResponse response = tapdService.decode(request.getRawProof(), 0).block();
 
                             // We check if we have a decoded proof response.
-                            if (decodedProofResponse == null) {
+                            if (response == null) {
                                 logger.info("Decoded proof for request {} is null", request.getId());
                                 request.failure("Decoded proof is null");
                             } else {
                                 // We check if we had an error deciding the response.
-                                if (decodedProofResponse.getErrorCode() != null) {
+                                if (response.getErrorCode() != null) {
                                     logger.info("Request {} proof cannot be decoded because of this error: {}",
                                             request.getId(),
-                                            decodedProofResponse.getErrorMessage());
-                                    request.failure(decodedProofResponse.getErrorMessage());
+                                            response.getErrorMessage());
+                                    request.failure(response.getErrorMessage());
                                 } else {
                                     // We have the decoded proof, we check if the asset exists.
-                                    final String assetId = decodedProofResponse.getDecodedProof().getAsset().getAssetGenesis().getAssetId();
+                                    final String assetId = response.getDecodedProof().getAsset().getAssetGenesis().getAssetId();
                                     Optional<AssetDTO> assetDTO = assetService.getAssetByAssetId(assetId);
                                     if (assetDTO.isEmpty()) {
                                         // If it doesn't exist, we create it
                                         logger.info("Because of request {}, adding asset {}", request.getId(), assetId);
-                                        assetDTO = Optional.of(assetService.addAsset(ASSET_MAPPER.mapToAssetDTO(decodedProofResponse.getDecodedProof())));
+                                        assetDTO = Optional.of(assetService.addAsset(ASSET_MAPPER.mapToAssetDTO(response.getDecodedProof())));
                                     } else {
                                         logger.info("For request {}, asset {} already exists", request.getId(), assetId);
                                     }
                                     // We can now add the proof.
-                                    proofService.addProof(request.getRawProof(), decodedProofResponse);
+                                    proofService.addProof(request.getRawProof(), response);
                                     request.setAsset(assetDTO.get());
                                     request.success();
                                 }
@@ -96,11 +96,11 @@ public class AddProofBatch extends BaseBatch {
                         } catch (Throwable tapdError) {
                             // We failed on calling tapd, but it's an exception; not a "valid" error.
                             logger.error("Request {} has error: {}", request.getId(), tapdError.getMessage());
-                            request.recoverableFailure("Recoverable error: " + tapdError.getMessage());
+                            request.failure("Recoverable error: " + tapdError.getMessage());
                         }
 
                         // We save the request.
-                        logger.info("Proof {} added: {} ", request.getId(), request);
+                        logger.info("Proof {} added: {} ", request.getRawProof(), request);
                         requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(request));
                     });
         }

@@ -13,9 +13,6 @@ public enum RequestStatus {
     /** The request has been treated with success. */
     SUCCESS,
 
-    /** An error occurred, it's a failure, but it could work again if we retry. */
-    RECOVERABLE_FAILURE,
-
     /** An error occurred, it's a failure. */
     FAILURE;
 
@@ -25,7 +22,7 @@ public enum RequestStatus {
      * @return list of final status
      */
     public static List<RequestStatus> openedStatus() {
-        return List.of(OPENED, RECOVERABLE_FAILURE);
+        return List.of(OPENED);
     }
 
     /**

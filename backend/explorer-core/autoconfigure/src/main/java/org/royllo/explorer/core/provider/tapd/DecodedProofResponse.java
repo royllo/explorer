@@ -24,9 +24,11 @@ public class DecodedProofResponse {
     /** Decoded proof. */
     @JsonProperty("decoded_proof")
     DecodedProof decodedProof;
+
     /** Error code. */
     @JsonProperty("code")
     Long errorCode;
+
     /** Error code. */
     @JsonProperty("message")
     String errorMessage;

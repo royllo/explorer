@@ -10,12 +10,16 @@ import org.royllo.explorer.api.graphql.generated.client.CreateAddAssetMetaDataRe
 import org.royllo.explorer.api.graphql.generated.client.CreateAddAssetMetaDataRequestProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.client.CreateAddProofRequestGraphQLQuery;
 import org.royllo.explorer.api.graphql.generated.client.CreateAddProofRequestProjectionRoot;
+import org.royllo.explorer.api.graphql.generated.client.CreateAddUniverseServerRequestGraphQLQuery;
+import org.royllo.explorer.api.graphql.generated.client.CreateAddUniverseServerRequestProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.client.RequestByRequestIdGraphQLQuery;
 import org.royllo.explorer.api.graphql.generated.client.RequestByRequestIdProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.types.AddAssetMetaDataRequest;
 import org.royllo.explorer.api.graphql.generated.types.AddAssetMetaDataRequestInputs;
 import org.royllo.explorer.api.graphql.generated.types.AddProofRequest;
 import org.royllo.explorer.api.graphql.generated.types.AddProofRequestInputs;
+import org.royllo.explorer.api.graphql.generated.types.AddUniverseServerRequest;
+import org.royllo.explorer.api.graphql.generated.types.AddUniverseServerRequestInputs;
 import org.royllo.explorer.api.graphql.generated.types.Request;
 import org.royllo.explorer.core.util.constants.UserConstants;
 import org.royllo.explorer.core.util.enums.RequestStatus;
@@ -124,6 +128,37 @@ public class RequestDataFetcherTest {
         assertNull(requestCreated.getErrorMessage());
         assertEquals("AssetID1", requestCreated.getAssetId());
         assertEquals("MetaData01", requestCreated.getMetaData());
+    }
+
+    @Test
+    @DisplayName("createAddUniverseServerRequest()")
+    public void createAddUniverseServerRequest() {
+        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
+                CreateAddUniverseServerRequestGraphQLQuery.newRequest()
+                        .input(AddUniverseServerRequestInputs.newBuilder()
+                                .serverAddress("1.1.1.1:8080")
+                                .build())
+                        .build(),
+                new CreateAddUniverseServerRequestProjectionRoot<>()
+                        .requestId()
+                        .creator().userId().username().parent()
+                        .status().getParent()
+                        .errorMessage()
+                        .serverAddress());
+
+        AddUniverseServerRequest requestCreated = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+                graphQLQueryRequest.serialize(),
+                "data." + DgsConstants.MUTATION.CreateAddUniverseServerRequest,
+                new TypeRef<>() {
+                });
+
+        assertNotNull(requestCreated.getRequestId());
+        assertEquals(UserConstants.ANONYMOUS_USER_ID, requestCreated.getCreator().getUserId());
+        assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, requestCreated.getCreator().getUsername());
+        assertEquals(RequestStatus.OPENED.toString(), requestCreated.getStatus().toString());
+        assertNull(requestCreated.getErrorMessage());
+        // TODO Validate server address with the @serverAddress annotation.
+        assertEquals("1.1.1.1:8080", requestCreated.getServerAddress());
     }
 
 }

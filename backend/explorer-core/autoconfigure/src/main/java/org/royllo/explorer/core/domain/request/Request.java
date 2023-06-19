@@ -46,7 +46,7 @@ public abstract class Request extends BaseDomain {
     private Long id;
 
     /** Request UUID. */
-    @Column(name = "REQUEST_ID")
+    @Column(name = "REQUEST_ID", updatable = false)
     private String requestId;
 
     /** Request creator. */

@@ -22,11 +22,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.FORM_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_PROOF_REQUEST_FORM_PAGE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_PROOF_REQUEST_SUCCESS_PAGE;
+import static org.royllo.explorer.web.util.constants.PagesConstants.CHOOSE_REQUEST_TYPE_PAGE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -39,13 +41,24 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("Add proof request controller tests")
 @AutoConfigureMockMvc
 @PropertySource("classpath:messages.properties")
-public class AddProofRequestControllerTest {
+public class AddProofRequestRequestControllerTest {
 
     @Autowired
     MockMvc mockMvc;
 
     @Autowired
     Environment environment;
+
+    @Test
+    @DisplayName("Add proof request choice")
+    void addProofRequestChoice() throws Exception {
+        mockMvc.perform(get("/request/choose_request_type"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(CHOOSE_REQUEST_TYPE_PAGE))
+                // Error messages.
+                .andExpect(content().string(containsString(environment.getProperty("request.proof.add"))))
+                .andExpect(content().string(containsString("/request/proof/add")));
+    }
 
     @Test
     @DisplayName("Add proof request form test")
@@ -94,7 +107,7 @@ public class AddProofRequestControllerTest {
         assertNotNull(proof.get().getId());
         assertNotNull(proof.get().getRequestId());
         assertEquals(ANONYMOUS_ID, proof.get().getCreator().getId());
-        assertEquals("anonymous", proof.get().getCreator().getUsername());
+        assertEquals(ANONYMOUS_USER_USERNAME, proof.get().getCreator().getUsername());
         assertEquals(OPENED, proof.get().getStatus());
         assertNull(proof.get().getAsset());
         assertNull(proof.get().getErrorMessage());

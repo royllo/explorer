@@ -2,7 +2,7 @@ package org.royllo.explorer.core.test.util.mock;
 
 import org.mockito.Mockito;
 import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
-import org.royllo.explorer.core.provider.tapd.TapdProofService;
+import org.royllo.explorer.core.provider.tapd.TapdService;
 import org.royllo.explorer.core.test.util.BaseTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * {@link TapdProofService} mock.
+ * {@link TapdService} mock.
  */
 @Profile("tapdProofServiceMock")
 @Configuration
@@ -24,8 +24,8 @@ public class TAPDProofServiceMock extends BaseTest {
 
     @Bean
     @Primary
-    public TapdProofService tapdProofService() {
-        final TapdProofService mockedService = Mockito.mock(TapdProofService.class);
+    public TapdService tapdProofService() {
+        final TapdService mockedService = Mockito.mock(TapdService.class);
 
         // Non-existing proof.
         // Mockito.when(mockedService.decode(any(), 0)).thenReturn(Mono.empty());

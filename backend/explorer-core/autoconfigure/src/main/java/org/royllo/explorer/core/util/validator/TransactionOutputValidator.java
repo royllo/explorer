@@ -13,7 +13,8 @@ import static org.royllo.explorer.core.util.constants.BitcoinConstants.TX_ID_SIZ
 public class TransactionOutputValidator implements ConstraintValidator<TransactionOutput, String> {
 
     @Override
-    public final boolean isValid(final String value, final ConstraintValidatorContext constraintValidatorContext) {
+    public final boolean isValid(final String value,
+                                 final ConstraintValidatorContext constraintValidatorContext) {
         // First, we check if we have found a valid transaction format.
         // Format is txid:vout where ':' is mandatory, txid is 64 characters and vout is an int superior or equals to 0.
         return value != null // Transaction output cannot be null.

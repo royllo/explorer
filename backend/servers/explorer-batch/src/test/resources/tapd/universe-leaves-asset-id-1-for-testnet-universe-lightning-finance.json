@@ -1,0 +1,40 @@
+{
+  "leaves": [
+    {
+      "asset": {
+        "version": 0,
+        "asset_genesis": {
+          "genesis_point": "71c5e5e5b34ac1b15d9454397c90ad555b56c6695f22888b07e094020d0bc105:1",
+          "name": "tapsouvenir",
+          "meta_hash": "547890656ee96511c46e4352ccf6a056b242c041c737b2e42c34698955035b8f",
+          "asset_id": "f84238ffd7838b663f1800d8147c9338f15688b430f6e9d8d53f148049ef3bcb",
+          "output_index": 0,
+          "version": 0
+        },
+        "asset_type": "NORMAL",
+        "amount": "10000",
+        "lock_time": 0,
+        "relative_lock_time": 0,
+        "script_version": 0,
+        "script_key": "024cca4edcde1fa4f8219bbf55665e75211341d0b9a3bc69ce2a66caeffd813354",
+        "script_key_is_local": false,
+        "asset_group": null,
+        "chain_anchor": null,
+        "prev_witnesses": [
+          {
+            "prev_id": {
+              "anchor_point": "0000000000000000000000000000000000000000000000000000000000000000:0",
+              "asset_id": "0000000000000000000000000000000000000000000000000000000000000000",
+              "script_key": "000000000000000000000000000000000000000000000000000000000000000000",
+              "amount": "0"
+            },
+            "tx_witness": [],
+            "split_commitment": null
+          }
+        ],
+        "is_spent": false
+      },
+      "issuance_proof": "asset_id_1_proof"
+    }
+  ]
+}

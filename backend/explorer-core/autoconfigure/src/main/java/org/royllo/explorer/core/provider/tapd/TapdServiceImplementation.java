@@ -17,11 +17,14 @@ import reactor.netty.http.client.HttpClient;
 import javax.net.ssl.SSLException;
 
 /**
- * TAPD proof service implementation.
+ * TAPD service implementation.
  */
 @Service
 @RequiredArgsConstructor
-public class TapdProofServiceImplementation extends BaseMempoolService implements TapdProofService {
+public class TapdServiceImplementation extends BaseMempoolService implements TapdService {
+
+    /** Webflux codec maximum size. */
+    public static final int CODE_MAXIMUM_SIZE = 16 * 1024 * 1024;
 
     /** TAPD parameters. */
     private final TAPDParameters tapdParameters;
@@ -51,7 +54,7 @@ public class TapdProofServiceImplementation extends BaseMempoolService implement
 
     @Override
     public final Mono<DecodedProofResponse> decode(final String rawProof, final long proofIndex) {
-        logger.info("Calling decode for proof n°{} with raw proof {}", proofIndex, rawProof);
+        logger.info("Calling decode for proof from tapd n°{} with raw proof {}", proofIndex, rawProof);
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
         return WebClient.builder()
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
@@ -67,6 +70,40 @@ public class TapdProofServiceImplementation extends BaseMempoolService implement
                         .build()
                 ))
                 .exchangeToFlux(response -> response.bodyToFlux(DecodedProofResponse.class))
+                .next();
+    }
+
+    @Override
+    public final Mono<UniverseRootsResponse> getUniverseRoots(final String serverAddress) {
+        logger.info("Get universe roots from tapd");
+        HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
+
+        return WebClient.builder()
+                .codecs(clientCodecConfigurer -> {
+                    clientCodecConfigurer.defaultCodecs().maxInMemorySize(CODE_MAXIMUM_SIZE);
+                })
+                .clientConnector(new ReactorClientHttpConnector(httpClient))
+                .baseUrl(serverAddress)
+                .build()
+                .get()
+                .uri("universe/roots")
+                .exchangeToFlux(response -> response.bodyToFlux(UniverseRootsResponse.class))
+                .next();
+    }
+
+    @Override
+    public final Mono<UniverseLeavesResponse> getUniverseLeaves(final String serverAddress,
+                                                                final String assetId) {
+        logger.info("Get universe leaves from tapd for asset {}", assetId);
+        HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
+
+        return WebClient.builder()
+                .clientConnector(new ReactorClientHttpConnector(httpClient))
+                .baseUrl(serverAddress)
+                .build()
+                .get()
+                .uri("universe/leaves/asset-id/" + assetId)
+                .exchangeToFlux(response -> response.bodyToFlux(UniverseLeavesResponse.class))
                 .next();
     }
 

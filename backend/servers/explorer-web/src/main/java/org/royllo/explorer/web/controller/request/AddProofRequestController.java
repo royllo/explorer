@@ -16,13 +16,15 @@ import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_PROOF_RE
 import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_PROOF_REQUEST_SUCCESS_PAGE;
 
 /**
- * Add Proof request controller.
+ * Add proof request controller.
  */
 @Controller
 @RequiredArgsConstructor
 public class AddProofRequestController {
 
-    /** Request service. */
+    /**
+     * Request service.
+     */
     private final RequestService requestService;
 
     /**
@@ -54,7 +56,7 @@ public class AddProofRequestController {
             // If we have errors in the form data validation.
             return ADD_PROOF_REQUEST_FORM_PAGE;
         } else {
-            // Calling the service to create the proof.
+            // Calling the service to create the request.
             model.addAttribute(RESULT_ATTRIBUTE, requestService.createAddProofRequest(form.getRawProof()));
             return ADD_PROOF_REQUEST_SUCCESS_PAGE;
         }

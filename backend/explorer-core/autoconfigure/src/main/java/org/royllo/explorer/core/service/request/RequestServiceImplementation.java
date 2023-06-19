@@ -3,10 +3,12 @@ package org.royllo.explorer.core.service.request;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.request.AddAssetMetaDataRequest;
-import org.royllo.explorer.core.domain.request.AddProof;
+import org.royllo.explorer.core.domain.request.AddProofRequest;
+import org.royllo.explorer.core.domain.request.AddUniverseServerRequest;
 import org.royllo.explorer.core.domain.request.Request;
 import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
+import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.util.base.BaseService;
@@ -89,7 +91,7 @@ public class RequestServiceImplementation extends BaseService implements Request
         logger.info("Adding proof request with raw proof {}", rawProof);
 
         // Creating and saving the request.
-        AddProof request = AddProof.builder()
+        AddProofRequest request = AddProofRequest.builder()
                 .requestId(UUID.randomUUID().toString())
                 .creator(ANONYMOUS_USER)
                 .status(OPENED)
@@ -104,7 +106,7 @@ public class RequestServiceImplementation extends BaseService implements Request
     @Override
     public AddAssetMetaDataRequestDTO createAddAssetMetaDataRequest(@NonNull final String assetId,
                                                                     final String metaData) {
-        logger.info("createAddAssetMetaDataRequest - Adding metadata request for Taproot asset id {}", assetId);
+        logger.info("Adding metadata request for Taproot asset id {}", assetId);
 
         // Creating and saving the request.
         AddAssetMetaDataRequest request = AddAssetMetaDataRequest.builder()
@@ -116,8 +118,24 @@ public class RequestServiceImplementation extends BaseService implements Request
                 .build();
 
         AddAssetMetaDataRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetMetaRequestDTO(requestRepository.save(request));
-        logger.info("createAddAssetMetaDataRequest - Request {} saved", savedRequest);
+        logger.info("Request {} saved", savedRequest);
         return savedRequest;
     }
 
+    @Override
+    public AddUniverseServerRequestDTO createAddUniverseServerRequest(@NonNull final String serverAddress) {
+        logger.info("Adding universe server {}", serverAddress);
+
+        // Creating and saving the request.
+        AddUniverseServerRequest request = AddUniverseServerRequest.builder()
+                .requestId(UUID.randomUUID().toString())
+                .creator(ANONYMOUS_USER)
+                .status(OPENED)
+                .serverAddress(serverAddress)
+                .build();
+
+        AddUniverseServerRequestDTO savedRequest = REQUEST_MAPPER.mapToAddUniverseServerRequestDTO(requestRepository.save(request));
+        logger.info("Request {} saved", savedRequest);
+        return savedRequest;
+    }
 }

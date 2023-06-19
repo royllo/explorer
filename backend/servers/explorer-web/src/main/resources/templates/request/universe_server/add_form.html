@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{util/fragments/layouts/default_layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!--/* =========================================================================================================== */-->
+<div layout:fragment="content">
+
+    <!--/* ======================================================================================================= */-->
+    <!--/* Display form */-->
+    <div class="pt-12 w-2/5 mx-auto">
+        <form method="post" th:action="@{/request/universe_server/add}" th:object="${command}">
+
+            <!--/* Server address */-->
+            <label class="block text-sm font-semibold leading-6 text-gray-900" for="serverAddress"
+                   th:text="#{request.universeServer.serverAddress}"></label>
+            <div class="mt-2.5">
+                <input autocomplete="false"
+                       autofocus
+                       class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                       id="serverAddress"
+                       name="serverAddress"
+                       required
+                       th:field="*{serverAddress}"
+                       type="text">
+            </div>
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500" th:errors="*{serverAddress}"
+               th:if="${#fields.hasErrors('serverAddress')}"></p>
+            <br/>
+            <button class="defaultButton"
+                    th:text="#{request.universeServer.submit}"
+                    type="submit"></button>
+            <br/>
+            <br/>
+
+            <!--/* TODO, this should not be needed! */-->
+            <div class="my-12">&nbsp;</div>
+        </form>
+    </div>
+
+</div>
+<!--/* =========================================================================================================== */-->
+
+</html>
