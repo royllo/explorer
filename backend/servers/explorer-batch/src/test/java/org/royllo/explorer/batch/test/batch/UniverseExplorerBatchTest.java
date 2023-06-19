@@ -13,14 +13,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.io.IOException;
+import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+import static java.time.temporal.ChronoUnit.MONTHS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
@@ -44,7 +49,7 @@ public class UniverseExplorerBatchTest {
 
     @Test
     @DisplayName("Universe explorer batch test")
-    public void batch() {
+    public void batch() throws IOException {
 
         long count = requestRepository.count();
         // We check that the universe servers have never been contacted.
@@ -85,6 +90,71 @@ public class UniverseExplorerBatchTest {
         assertEquals(0, findAddProofRequestByRawProof("asset_id_5_proof").size());
     }
 
+    @Test
+    @DisplayName("Universe servers order")
+    public void universeServersOrder() throws IOException {
+        // We remove all universe servers.
+        universeServerRepository.deleteAll();
+
+        // We create 6 servers :
+        // Server 1 : lastSynchronizedOn = now - 1 day.
+        universeServerRepository.save(UniverseServer.builder()
+                .universeServerId("server1ID")
+                .owner(ANONYMOUS_USER)
+                .serverAddress("server1")
+                .lastSynchronizedOn(ZonedDateTime.now().minus(1, DAYS))
+                .build());
+        // Server 2 : lastSynchronizedOn = now - 3 days.
+        universeServerRepository.save(UniverseServer.builder()
+                .universeServerId("server2ID")
+                .owner(ANONYMOUS_USER)
+                .serverAddress("server2").lastSynchronizedOn(ZonedDateTime.now().minus(3, DAYS))
+                .build());
+        // server 3 : lastSynchronizedOn = now - 1 month.
+        universeServerRepository.save(UniverseServer.builder()
+                .universeServerId("server3ID")
+                .owner(ANONYMOUS_USER)
+                .serverAddress("server3").lastSynchronizedOn(ZonedDateTime.now().minus(1, MONTHS))
+                .build());
+        // server 4 : lastSynchronizedOn = null.
+        universeServerRepository.save(UniverseServer.builder()
+                .universeServerId("server4ID")
+                .owner(ANONYMOUS_USER)
+                .serverAddress("server4").lastSynchronizedOn(null)
+                .build());
+        // Server 5 : lastSynchronizedOn = now - 2 days.
+        universeServerRepository.save(UniverseServer.builder()
+                .universeServerId("server5ID")
+                .owner(ANONYMOUS_USER)
+                .serverAddress("server5").lastSynchronizedOn(ZonedDateTime.now().minus(2, DAYS))
+                .build());
+        // Server 6 : lastSynchronizedOn = null.
+        universeServerRepository.save(UniverseServer.builder()
+                .universeServerId("server6ID")
+                .owner(ANONYMOUS_USER)
+                .serverAddress("server6").lastSynchronizedOn(null)
+                .build());
+
+
+        // We process the universe servers - only 5 at a time, so we run it two times, so we should have this order:
+        // server4, server6, server3, server2, server5, server1.
+        universeExplorerBatch.processUniverseServers();
+        universeExplorerBatch.processUniverseServers();
+
+        final ZonedDateTime lastSynchronizedOnServer1 = getLastSynchronizeOfServer("server1");
+        final ZonedDateTime lastSynchronizedOnServer2 = getLastSynchronizeOfServer("server2");
+        final ZonedDateTime lastSynchronizedOnServer3 = getLastSynchronizeOfServer("server3");
+        final ZonedDateTime lastSynchronizedOnServer4 = getLastSynchronizeOfServer("server4");
+        final ZonedDateTime lastSynchronizedOnServer5 = getLastSynchronizeOfServer("server5");
+        final ZonedDateTime lastSynchronizedOnServer6 = getLastSynchronizeOfServer("server6");
+
+        assertTrue(lastSynchronizedOnServer4.isBefore(lastSynchronizedOnServer6));
+        assertTrue(lastSynchronizedOnServer6.isBefore(lastSynchronizedOnServer3));
+        assertTrue(lastSynchronizedOnServer3.isBefore(lastSynchronizedOnServer2));
+        assertTrue(lastSynchronizedOnServer2.isBefore(lastSynchronizedOnServer5));
+        assertTrue(lastSynchronizedOnServer5.isBefore(lastSynchronizedOnServer1));
+    }
+
     /**
      * Find an add proof request by its raw proof.
      *
@@ -98,6 +168,17 @@ public class UniverseExplorerBatchTest {
                 .map(request -> (AddProofRequest) request)
                 .filter(request -> request.getRawProof().equals(rawProof))
                 .toList();
+    }
+
+    /**
+     * Get the last synchronize date of a server.
+     *
+     * @param serverAddress server address
+     * @return the last synchronize date of a server.
+     */
+    private ZonedDateTime getLastSynchronizeOfServer(final String serverAddress) {
+        final Optional<UniverseServer> server = universeServerRepository.findByServerAddress(serverAddress);
+        return server.map(UniverseServer::getLastSynchronizedOn).orElse(null);
     }
 
 }

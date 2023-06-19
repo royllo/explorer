@@ -4,6 +4,7 @@ import org.royllo.explorer.core.domain.universe.UniverseServer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -19,5 +20,13 @@ public interface UniverseServerRepository extends JpaRepository<UniverseServer, 
      * @return server address
      */
     Optional<UniverseServer> findByServerAddress(String serverAddress);
+
+
+    /**
+     * Find the top 3 servers that have never been synchronized.
+     *
+     * @return top 3 servers to synchronize
+     */
+    List<UniverseServer> findTop3ByOrderByLastSynchronizedOnAsc();
 
 }

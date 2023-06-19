@@ -115,6 +115,17 @@ public class TAPDServiceMock extends BaseTest {
         UniverseLeavesResponse asset5Response = new ObjectMapper().readValue(classPathResourceUniverseLeaveAssetId5.getInputStream(), UniverseLeavesResponse.class);
         Mockito.when(mockedService.getUniverseLeaves("testnet2.universe.lightning.finance", "asset_id_5")).thenReturn(Mono.just(asset5Response));
 
+        // =============================================================================================================
+        // Empty response for lastSync field tests.
+        final ClassPathResource classPathResourceUniverseEmpty = new ClassPathResource("tapd/universe-roots-response-empty.json");
+        UniverseRootsResponse emptyLightningResponse = new ObjectMapper().readValue(classPathResourceUniverseEmpty.getInputStream(), UniverseRootsResponse.class);
+        Mockito.when(mockedService.getUniverseRoots("server1")).thenReturn(Mono.just(emptyLightningResponse));
+        Mockito.when(mockedService.getUniverseRoots("server2")).thenReturn(Mono.just(emptyLightningResponse));
+        Mockito.when(mockedService.getUniverseRoots("server3")).thenReturn(Mono.just(emptyLightningResponse));
+        Mockito.when(mockedService.getUniverseRoots("server4")).thenReturn(Mono.just(emptyLightningResponse));
+        Mockito.when(mockedService.getUniverseRoots("server5")).thenReturn(Mono.just(emptyLightningResponse));
+        Mockito.when(mockedService.getUniverseRoots("server6")).thenReturn(Mono.just(emptyLightningResponse));
+
         return mockedService;
     }
 

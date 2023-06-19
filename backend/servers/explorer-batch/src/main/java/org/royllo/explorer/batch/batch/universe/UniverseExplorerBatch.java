@@ -50,15 +50,13 @@ public class UniverseExplorerBatch extends BaseBatch {
     @Scheduled(initialDelay = START_DELAY_IN_MILLISECONDS, fixedDelay = DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS)
     public void processUniverseServers() {
         if (enabled.get()) {
-            universeServerService.getAllUniverseServers().forEach(universeServer -> {
+            universeServerRepository.findTop3ByOrderByLastSynchronizedOnAsc().forEach(universeServer -> {
                 // For each server we have in our databases.
                 logger.info("Processing universe server: {}", universeServer);
 
                 // We indicate that we are working on this universe server by updating its last sync date.
-                universeServerRepository.findById(universeServer.getId()).ifPresent(server -> {
-                    server.setLastSynchronizedOn(now());
-                    universeServerRepository.save(server);
-                });
+                universeServer.setLastSynchronizedOn(now());
+                universeServerRepository.save(universeServer);
 
                 // We retrieve the universe roots.
                 final UniverseRootsResponse universeRoots = tapdService.getUniverseRoots(universeServer.getServerAddress()).block();
