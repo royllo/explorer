@@ -64,7 +64,7 @@
 
         <!-- ======================================================================================================= -->
         <!-- Project libraries -->
-        <spring.version>3.1.0</spring.version>
+        <spring.version>3.1.1</spring.version>
         <reactor-core.version>3.5.7</reactor-core.version>
         <reactor-netty.version>1.1.8</reactor-netty.version>
 
