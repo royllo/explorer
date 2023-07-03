@@ -43,6 +43,7 @@ public class AssetServiceTest extends BaseTest {
     @Test
     @DisplayName("queryAssets()")
     public void queryAssets() {
+        // TODO Review this test
         // Test on two coins in database : "royllostar" and "myRoylloCoin"
 
         // Searching for an asset that doesn't exist.
@@ -114,6 +115,7 @@ public class AssetServiceTest extends BaseTest {
     @Test
     @DisplayName("addAsset()")
     public void addAsset() {
+        // TODO Review this test
         // =============================================================================================================
         // First test - Trying to save an existing asset.
         try {
@@ -240,6 +242,7 @@ public class AssetServiceTest extends BaseTest {
     @Test
     @DisplayName("getAsset()")
     public void getAsset() {
+        // TODO Review this test
         // Non-existing asset.
         Optional<AssetDTO> asset = assetService.getAsset(0);
         assertFalse(asset.isPresent());
@@ -278,6 +281,7 @@ public class AssetServiceTest extends BaseTest {
     @Test
     @DisplayName("getAssetByAssetId()")
     public void getAssetByAssetId() {
+        // TODO Review this test
         // Non-existing asset.
         Optional<AssetDTO> asset = assetService.getAssetByAssetId("NON-EXISTING");
         assertFalse(asset.isPresent());

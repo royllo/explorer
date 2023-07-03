@@ -18,16 +18,24 @@ import static org.codehaus.groovy.runtime.DefaultGroovyMethods.hasProperty;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.FORM_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.*;
+import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE;
+import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_UNIVERSE_SERVER_REQUEST_SUCCESS_PAGE;
+import static org.royllo.explorer.web.util.constants.PagesConstants.CHOOSE_REQUEST_TYPE_PAGE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @SpringBootTest
 @DisplayName("Add universe server request controller tests")
@@ -44,6 +52,7 @@ public class AddUniverseServerRequestControllerTest {
     @Test
     @DisplayName("Add universe server request choice")
     void addUniverseServerRequestChoice() throws Exception {
+        // TODO Review this test
         mockMvc.perform(get("/request/choose_request_type"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(CHOOSE_REQUEST_TYPE_PAGE))
@@ -52,10 +61,10 @@ public class AddUniverseServerRequestControllerTest {
                 .andExpect(content().string(containsString("/request/universe_server/add")));
     }
 
-
     @Test
     @DisplayName("Add universe server request form test")
     void addUniverseServerRequestFormTest() throws Exception {
+        // TODO Review this test
         mockMvc.perform(get("/request/universe_server/add"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE))
@@ -76,6 +85,7 @@ public class AddUniverseServerRequestControllerTest {
     @Test
     @DisplayName("Add universe server request form post test")
     void addUniverseServerRequestFormPostTest() throws Exception {
+        // TODO Review this test
         // Test if everything is ok if we pass correct information to create a request.
         AtomicReference<AddUniverseServerRequestDTO> request = new AtomicReference<>();
         mockMvc.perform(post("/request/universe_server/add")

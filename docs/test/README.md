@@ -1,12 +1,12 @@
 # Test organization
 
-## How coins are created (with sashimi)
+## How coins are created
 
 ### Install and start lnd with taro
 
 ```
-git clone https://github.com/davisv7/sashimi
-cd sashimi
+git clone https://github.com/royllo/tade
+cd tade
 docker-compose up
 ```
 
@@ -17,12 +17,12 @@ To create a new asset, first, we need to send BTC to our address, we use this [f
 Then we run this command.
 
 ```bash
-docker exec -it -u tap e72a16604b0d \
+docker exec -it -u tap <containder_id> \
                 tapcli assets mint \
                 --type normal \
-                --name myRoylloCoin \
+                --name roylloCoin \
                 --supply 999 \
-                --meta_bytes "Used by Royllo" \
+                --meta_bytes "Test by Royllo" \
                 --enable_emission true
 ```
 
@@ -37,14 +37,14 @@ You will get this:
 To emit the Bitcoin transaction creating our asset, run:
 
 ```bash
-docker exec -it -u tap e72a16604b0d \
+docker exec -it <containder_id> \
                 tapcli assets mint finalize
 ```
 
 ### View asset
 
 ```bash
-docker exec -it -u tap e72a16604b0d \
+docker exec -it <containder_id> \
                 tapcli assets list
 ```
 
@@ -54,67 +54,66 @@ TODO: fix this.
 
 ```bash
 curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./admin.macaroon)" \
-        --insecure https://157.230.85.88:8089/v1/taro/assets
+        --insecure https://157.230.85.88:8089/v1/taproot-assets/assets
 ```
 
 Result:
 
 ```json
 {
-  "assets": [
-    {
-      "version": 0,
-      "asset_genesis": {
-        "genesis_point": "90ad65d59493b0c355d2ee2332c4aef1b6f753bd5c8ec472ebc716c5ffd9017e:1",
-        "name": "myRoylloCoin",
-        "meta_hash": "7a884076ca7fda0748ea8910cfeb99a8a9c3a27a0a0db5b84fab0133099d3b74",
-        "asset_id": "4c172432b59d0209dae9516e7f62ca4f6fd492aee2cc27070569e684aedbbcc9",
-        "output_index": 0,
-        "version": 0
-      },
-      "asset_type": "NORMAL",
-      "amount": "999",
-      "lock_time": 0,
-      "relative_lock_time": 0,
-      "script_version": 0,
-      "script_key": "02a240542998fd2732ec1a31c77e0607daeea25558169c1c622ab403ff2a2b8bf9",
-      "script_key_is_local": true,
-      "asset_group": {
-        "raw_group_key": "02e481a92c187536f3c0b31933e65d095b880bbd4b015ad7ed6d522c0d13ce1cb6",
-        "tweaked_group_key": "0322dd3576f27252932878bbd130049284617eb710ed258147a2667e7d17688bcd",
-        "asset_id_sig": "4f573eb1a29fb5214e956a16ba15c5efaab4984561f0f3715a3fe71db14e16ee4878f8a7494029a77f8925a43d545c2d62cc1d6f730c5b067d734e373fe8e9db"
-      },
-      "chain_anchor": {
-        "anchor_tx": "020000000001017e01d9ffc516c7eb72c48e5cbd53f7b6f1aec43223eed255c3b09394d565ad900100000000ffffffff02e803000000000000225120ef6aec163307ea5da0044dba98375d9dd0dd1507d77d75fcc3a2d84236cc7eb00bec15000000000022512076c89cd62f417d2d31ea9ae44e118f6468a304236b20340b7c57d3d8ff478fd502473044022073a282ff6242a8a7d85dde6c36da6cdacea9edf8018ea3bf411f3be7c915984202203d4f65dc168ba654b0fcbcf8b8dcdc088b22c3631f2ae784403f111022177b9901210316fae9bca2b19ce1834d348e0cf3f5914c08d2e1299febaca2e1c51a84cfe73800000000",
-        "anchor_txid": "f7d73fc2350e2378320d56ae0f1c9ba92be73e92a2c67a47820184b82a54b714",
-        "anchor_block_hash": "0000000000000000000000000000000000000000000000000000000000000000",
-        "anchor_outpoint": "f7d73fc2350e2378320d56ae0f1c9ba92be73e92a2c67a47820184b82a54b714:0",
-        "internal_key": "033f2778f288630a6eef31712144b0074be7a5d23a9ede527b5aac3f15e22aee2e",
-        "merkle_root": "c355ad391e2399ab0c9bccc06a8bc5278ecc1654f9fbe5c76087912b876f54b8",
-        "tapscript_sibling": null
-      },
-      "prev_witnesses": [
-      ],
-      "is_spent": false
-    }
-  ]
+    "assets": [
+        {
+            "version": 0,
+            "asset_genesis": {
+                "genesis_point": "e8032ca32339e6a0b062ed3f810f8c26c7dc77bfa4c2023b833685b15c1e7d80:1",
+                "name": "roylloCoin",
+                "meta_hash": "1cda0bc24fc37cee8702a1b478c834854d74741158770b8b75fe213b61a914e9",
+                "asset_id": "313ef582138587c724400c9a6d1a9910d413a44a321f304802e147ab1cba8c39",
+                "output_index": 0,
+                "version": 0
+            },
+            "asset_type": "NORMAL",
+            "amount": "999",
+            "lock_time": 0,
+            "relative_lock_time": 0,
+            "script_version": 0,
+            "script_key": "025d615b377761a5bfcfe84f0f11afd35837a68f702dd8a0cac0a2a4052b20d211",
+            "script_key_is_local": true,
+            "asset_group": {
+                "raw_group_key": "033b8449aae83eb0ed04f7952108637d078836bb5d3353a33b6486248b401f60da",
+                "tweaked_group_key": "03bd07a72b305e74c1376937f15544e2f346c60bcfd304357bb877212c0ab3483f",
+                "asset_id_sig": "01085efdfe97853875e64e3da374328679addf47a851d9b5357606c445d0f25d0f45cb2182fcbd7f5e0a18f09a71a59acf303120f408fad154762179f4954d4e"
+            },
+            "chain_anchor": {
+                "anchor_tx": "02000000000101807d1e5cb18536833b02c2a4bf77dcc7268c0f813fed62b0a0e63923a32c03e80100000000ffffffff02e80300000000000022512070baf051d7372efa9091ee533213a850efdd288bd56e9348e46c951ed380cb7be614000000000000225120d7ab0deb6185088278a66f5599be41510db531fd7f2df39e3b8558e2d2b65b0602483045022100dc461ee1d34e0d4e662e1415fbd225f8b5cba3b59455891bffab6b2b9330386802202f96886cd40844d7a8cc7ceabb84962c6684f5092c829c95123099e4b6583411012103219e2594f427e338690c3f51409706439d8ab83fde02d18d0c28ec55c285801c00000000",
+                "anchor_txid": "5da79b7d8811cea2c008124deefb5b43319d29291b3a0985c68b3dbd74a3b107",
+                "anchor_block_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+                "anchor_outpoint": "5da79b7d8811cea2c008124deefb5b43319d29291b3a0985c68b3dbd74a3b107:0",
+                "internal_key": "026ad322cc8a05cf5723bf8aeb5c778c6462146e573af182ba20c6bed53ea29ae6",
+                "merkle_root": "fb4da5402db81c0f89e9d2c0be93f310a0bdfcf2ba420ef004d96b0a0ca5820c",
+                "tapscript_sibling": ""
+            },
+            "prev_witnesses": [],
+            "is_spent": false
+        }
+    ]
 }
 ```
 
 ### Export proof
 
 ```bash
-docker exec -it -u tap e72a16604b0d \
-                  tapcli proofs export \
-                  --asset_id 4c172432b59d0209dae9516e7f62ca4f6fd492aee2cc27070569e684aedbbcc9 \
-                  --script_key 02a240542998fd2732ec1a31c77e0607daeea25558169c1c622ab403ff2a2b8bf9
+docker exec -it <containder_id> \
+       tapcli proofs export \
+       --asset_id 313ef582138587c724400c9a6d1a9910d413a44a321f304802e147ab1cba8c39 \
+       --script_key 025d615b377761a5bfcfe84f0f11afd35837a68f702dd8a0cac0a2a4052b20d211
 ```
 
 Returns:
 
 ```
 {
-    "raw_proof": "0000000001fd047800247e01d9ffc516c7eb72c48e5cbd53f7b6f1aec43223eed255c3b09394d565ad90000000010150002092233f25f1b20e84e83e3f45bdd0ed0682c956f8144ecb46ebe51800000000000000ba401537b5c11a435a9e58f7f3b9223c46757ef437f11a59449314520eb26e9da1dc89647f5d211924c4a10102f6020000000001017e01d9ffc516c7eb72c48e5cbd53f7b6f1aec43223eed255c3b09394d565ad900100000000ffffffff02e803000000000000225120ef6aec163307ea5da0044dba98375d9dd0dd1507d77d75fcc3a2d84236cc7eb00bec15000000000022512076c89cd62f417d2d31ea9ae44e118f6468a304236b20340b7c57d3d8ff478fd502473044022073a282ff6242a8a7d85dde6c36da6cdacea9edf8018ea3bf411f3be7c915984202203d4f65dc168ba654b0fcbcf8b8dcdc088b22c3631f2ae784403f111022177b9901210316fae9bca2b19ce1834d348e0cf3f5914c08d2e1299febaca2e1c51a84cfe7380000000003c20676ed2844f16406098d6cca9b1bbc9ab75a3f93c286dc56fe1c066e59a875db2db7fd90e220f287f4a0a0dfcd20d08155eecd8a24800e576dd847cf3dc4ba501e0b4c7e0d89047bbc81982cf843d5bedf44a9fc224d24d5aac4be052f003c962d8639a175a69a6580ea1e78a9c63e8ffd08ddac38669ee88d1ce60ab035cf101faf2f1e0c55ac04b992baa3ee9308a7a155a939a3b5693b4162a4dc26691df0651ea91486fe70f7f3c5a93b11c4fcd714af87077e1850cbebb1164a098ca717d33904fd015800010001567e01d9ffc516c7eb72c48e5cbd53f7b6f1aec43223eed255c3b09394d565ad90000000010c6d79526f796c6c6f436f696e7a884076ca7fda0748ea8910cfeb99a8a9c3a27a0a0db5b84fab0133099d3b7400000000000201000303fd03e7066901670065000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008020000092102a240542998fd2732ec1a31c77e0607daeea25558169c1c622ab403ff2a2b8bf90a610322dd3576f27252932878bbd130049284617eb710ed258147a2667e7d17688bcd4f573eb1a29fb5214e956a16ba15c5efaab4984561f0f3715a3fe71db14e16ee4878f8a7494029a77f8925a43d545c2d62cc1d6f730c5b067d734e373fe8e9db059f0004000000000121033f2778f288630a6eef31712144b0074be7a5d23a9ede527b5aac3f15e22aee2e0274004900010001205c3abd547987f066a5fe9df9d1968d861d2c1999506c32ae52cd65e067229acb02220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff012700010001220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0630012e0004000000010121028cb368cf76d47b33984cdabf5d951d9d64226c020b9873e9d69bb1cd831cb4dd03030201010813000100010e5573656420627920526f796c6c6f1d1dde92cc4739e7280087bd0e9eebd3adcc2c9d599e64d0a5f0a9f982e50887",
+    "raw_proof": "0000000001fd04970024807d1e5cb18536833b02c2a4bf77dcc7268c0f813fed62b0a0e63923a32c03e80000000101500080bc2ea631156ad2573ad00af95299218160875b9c97c7969cdb29e4410000000000002720885b5798d576667ec09d4cd6c3a2c60851861e83ccbe14ce13c6aeea47e7b1e49e64facd241969929f7d02f702000000000101807d1e5cb18536833b02c2a4bf77dcc7268c0f813fed62b0a0e63923a32c03e80100000000ffffffff02e80300000000000022512070baf051d7372efa9091ee533213a850efdd288bd56e9348e46c951ed380cb7be614000000000000225120d7ab0deb6185088278a66f5599be41510db531fd7f2df39e3b8558e2d2b65b0602483045022100dc461ee1d34e0d4e662e1415fbd225f8b5cba3b59455891bffab6b2b9330386802202f96886cd40844d7a8cc7ceabb84962c6684f5092c829c95123099e4b6583411012103219e2594f427e338690c3f51409706439d8ab83fde02d18d0c28ec55c285801c0000000003e2072c60e5a4a177ad4dc4d39f6c2444aaae6d82deaad31c99d65d4828fa031d0aa19b733e5a09a1504ab3afaaff6a72f6971822193a14d0d880265c3ac4c0ac24fefd127fd2c993738f46e946898ff7d251ff92c176a6d0e560e0c966987a50be9e879be1119c78fe56b798390ece15a06dd96825fa15ec6d45c3f21fe8007450a12ac4bd7609fa94969eb8a23b0c62494b9a261c173c05abfadab08e5293a958a57408d183623e6e8ec0a40a17e6e37b4f44dab4110363e4c606539c637ca4c0aa416f709932e753f8c2778bf3d70bdb9b5cbe86a85cbff4b14672d7431d971a506304fd01560001000154807d1e5cb18536833b02c2a4bf77dcc7268c0f813fed62b0a0e63923a32c03e8000000010a726f796c6c6f436f696e1cda0bc24fc37cee8702a1b478c834854d74741158770b8b75fe213b61a914e900000000000201000303fd03e70669016700650000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080200000921025d615b377761a5bfcfe84f0f11afd35837a68f702dd8a0cac0a2a4052b20d2110a6103bd07a72b305e74c1376937f15544e2f346c60bcfd304357bb877212c0ab3483f01085efdfe97853875e64e3da374328679addf47a851d9b5357606c445d0f25d0f45cb2182fcbd7f5e0a18f09a71a59acf303120f408fad154762179f4954d4e059f0004000000000121026ad322cc8a05cf5723bf8aeb5c778c6462146e573af182ba20c6bed53ea29ae60274004900010001200ba7e896dcaae3f7af36933935427f80c59e6b59e3767bfd1ca91fe935e6ce6f02220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff012700010001220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0630012e00040000000101210264e26d9bcccf4e442e08a8bab1fc2a0b64fcb83b34cbba1fe4b0404c3fd1109803030201010813000100010e5465737420627920526f796c6c6fab0ea3caa0ac23c6f1c60b68f5420e8d07e9b0636691fea473539047c434a2e0",
     "genesis_point": ""
 }
 ```
@@ -122,12 +121,12 @@ Returns:
 To export to a file, execute this:
 
 ```bash
-docker exec -it -u tap e72a16604b0d \
+docker exec -it <containder_id> \
                   tapcli proofs export \
-                  --asset_id 4c172432b59d0209dae9516e7f62ca4f6fd492aee2cc27070569e684aedbbcc9 \
-                  --script_key 02a240542998fd2732ec1a31c77e0607daeea25558169c1c622ab403ff2a2b8bf9 \
-                  --proof_file /tmp/myRoylloCoinProof
-docker cp e72a16604b0d:/tmp/myRoylloCoinProof .
+                   --asset_id 313ef582138587c724400c9a6d1a9910d413a44a321f304802e147ab1cba8c39 \
+                   --script_key 025d615b377761a5bfcfe84f0f11afd35837a68f702dd8a0cac0a2a4052b20d211 \
+                  --proof_file /tmp/roylloCoin
+docker cp <containder_id>:/tmp/roylloCoin .
 ```
 
 You can use curl to decode the proof:

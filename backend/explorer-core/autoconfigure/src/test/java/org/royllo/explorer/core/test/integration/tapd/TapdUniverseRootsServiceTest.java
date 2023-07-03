@@ -20,6 +20,7 @@ public class TapdUniverseRootsServiceTest {
     @Test
     @DisplayName("Calling getUniverseRoots() on TAPD")
     public void getUniverseRootsTest() {
+        // TODO Review this test
         UniverseRootsResponse response = tapdService.getUniverseRoots("https://testnet.universe.lightning.finance/v1/taproot-assets/").block();
 
         // Testing all the value from the response.

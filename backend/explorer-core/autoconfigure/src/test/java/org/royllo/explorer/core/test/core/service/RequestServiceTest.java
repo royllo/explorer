@@ -40,6 +40,7 @@ public class RequestServiceTest {
     @Order(1)
     @DisplayName("getOpenedRequests()")
     public void getOpenedRequests() {
+        // TODO Review this test
         List<RequestDTO> openedRequests = requestService.getOpenedRequests();
         // 4 requests - request n°2 is closed
         assertEquals(3, openedRequests.size());
@@ -79,6 +80,7 @@ public class RequestServiceTest {
     @Order(2)
     @DisplayName("getRequestByRequestId()")
     public void getRequestByRequestId() {
+        // TODO Review this test
         // We should not find this string request id.
         assertTrue(requestService.getRequestByRequestId("NON_EXISTING_REQUEST_ID").isEmpty());
 
@@ -102,6 +104,7 @@ public class RequestServiceTest {
     @Order(3)
     @DisplayName("Add requests")
     public void addRequests() {
+        // TODO Review this test
         // =============================================================================================================
         // Testing data validation.
         try {

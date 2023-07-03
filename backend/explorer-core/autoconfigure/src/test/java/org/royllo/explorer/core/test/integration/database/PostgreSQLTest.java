@@ -23,6 +23,7 @@ public class PostgreSQLTest {
     @Test
     @DisplayName("Liquibase execution test")
     public void liquibaseExecutionTest() throws SQLException {
+        // TODO Review this test
         final ResultSet results = dataSource.getConnection()
                 .createStatement()
                 .executeQuery("""
@@ -37,6 +38,7 @@ public class PostgreSQLTest {
     @Test
     @DisplayName("LTree found in pg_extension")
     public void treeFoundInPGExtension() throws SQLException {
+        // TODO Review this test
         final ResultSet results = dataSource.getConnection()
                 .createStatement()
                 .executeQuery("""

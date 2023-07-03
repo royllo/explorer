@@ -20,7 +20,9 @@ import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.QUE
 import static org.royllo.explorer.web.util.constants.PagesConstants.HOME_PAGE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.HOME_PAGE_FRAGMENT;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @SpringBootTest
 @DisplayName("Home controller tests")
@@ -37,6 +39,7 @@ public class HomeControllerTest extends BaseTest {
     @Test
     @DisplayName("Display home page")
     void homePage() throws Exception {
+        // TODO Review this test
         // Web page.
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
@@ -63,6 +66,7 @@ public class HomeControllerTest extends BaseTest {
     @Test
     @DisplayName("Display partial home page")
     void partialHomePage() throws Exception {
+        // TODO Review this test
         final HttpHeaders htmxHeaders = new HttpHeaders();
         htmxHeaders.add(HTMX_REQUEST, "true");
 

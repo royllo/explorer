@@ -44,6 +44,7 @@ public class ProofServiceTest extends BaseTest {
     @Test
     @DisplayName("addProof()")
     public void addProof() {
+        // TODO Review this test
         // =============================================================================================================
         // Unknown Royllo coin.
         DecodedProofResponse unknownRoylloCoinDecodedProof = TAPDService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF, 0).block();
@@ -107,6 +108,7 @@ public class ProofServiceTest extends BaseTest {
     @Test
     @DisplayName("getProofsByAssetId()")
     public void getProofsByAssetId() {
+        // TODO Review this test
 
         // =============================================================================================================
         // First case: asset id not found in database.
@@ -170,6 +172,7 @@ public class ProofServiceTest extends BaseTest {
     @Test
     @DisplayName("getProofByProofId()")
     public void getProofByProofId() {
+        // TODO Review this test
         final Optional<ProofDTO> myRoylloCoinProof = proofService.getProofByProofId("19c7a8309fad48bdbdefe6983e93e2e98aaa367aa8c31fa4caf739abac503d69");
         assertTrue(myRoylloCoinProof.isPresent());
 

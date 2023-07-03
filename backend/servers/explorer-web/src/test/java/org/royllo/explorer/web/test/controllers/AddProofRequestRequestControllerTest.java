@@ -52,6 +52,7 @@ public class AddProofRequestRequestControllerTest {
     @Test
     @DisplayName("Add proof request choice")
     void addProofRequestChoice() throws Exception {
+        // TODO Review this test
         mockMvc.perform(get("/request/choose_request_type"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(CHOOSE_REQUEST_TYPE_PAGE))
@@ -63,6 +64,7 @@ public class AddProofRequestRequestControllerTest {
     @Test
     @DisplayName("Add proof request form test")
     void addProofRequestFormTest() throws Exception {
+        // TODO Review this test
         mockMvc.perform(get("/request/proof/add"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ADD_PROOF_REQUEST_FORM_PAGE))
@@ -74,6 +76,7 @@ public class AddProofRequestRequestControllerTest {
     @Test
     @DisplayName("Add proof request form post test")
     void addProofRequestFormPostTest() throws Exception {
+        // TODO Review this test
         // Empty form - raw proof not set.
         mockMvc.perform(post("/request/proof/add")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))

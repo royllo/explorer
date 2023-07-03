@@ -32,6 +32,7 @@ public class AssetDataFetcherTest extends BaseTest {
     @Test
     @DisplayName("queryAssets()")
     public void queryAssets() {
+        // TODO Review this test
         // Looking at page 1.
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(1).build(),
@@ -91,6 +92,7 @@ public class AssetDataFetcherTest extends BaseTest {
     @Test
     @DisplayName("queryAssets() with page size")
     public void queryAssetsWithPageSize() {
+        // TODO Review this test
         // Looking at page 1.
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(1).pageSize(4).build(),
@@ -175,6 +177,7 @@ public class AssetDataFetcherTest extends BaseTest {
     @Test
     @DisplayName("queryAssets() with invalid page size")
     public void queryAssetsWithInvalidPageSize() {
+        // TODO Review this test
         // Looking at page 1.
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").pageSize(MAXIMUM_PAGE_SIZE + 1).build(),
@@ -205,6 +208,7 @@ public class AssetDataFetcherTest extends BaseTest {
     @Test
     @DisplayName("queryAssets() without page number")
     public void queryAssetsWithoutPageNumber() {
+        // TODO Review this test
         // Looking at page 1.
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").build(),
@@ -237,6 +241,7 @@ public class AssetDataFetcherTest extends BaseTest {
     @Test
     @DisplayName("queryAssets() without negative number")
     public void queryAssetsWithNegativePageNumber() {
+        // TODO Review this test
         try {
             // Looking at page -1.
             GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
@@ -259,6 +264,7 @@ public class AssetDataFetcherTest extends BaseTest {
     @Test
     @DisplayName("assetByAssetId()")
     public void assetByAssetId() {
+        // TODO Review this test
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 AssetByAssetIdGraphQLQuery.newRequest().assetId(MY_ROYLLO_COIN_ASSET_ID).build(),
                 new AssetByAssetIdProjectionRoot<>()

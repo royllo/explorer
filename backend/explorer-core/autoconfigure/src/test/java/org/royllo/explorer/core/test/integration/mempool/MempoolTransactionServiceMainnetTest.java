@@ -25,6 +25,7 @@ public class MempoolTransactionServiceMainnetTest extends BaseTest {
     @Test
     @DisplayName("getTransaction() on mainnet")
     public void getTransactionTest() {
+        // TODO Review this test
         // =============================================================================================================
         // Getting a non-existing transaction.
         final GetTransactionResponse nonExistingTransaction = mempoolTransactionService.getTransaction(BITCOIN_TRANSACTION_NON_EXISTING).block();
