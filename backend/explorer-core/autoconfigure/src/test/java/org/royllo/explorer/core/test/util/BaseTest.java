@@ -38,7 +38,7 @@ public class BaseTest extends Base {
     protected static final String ROYLLO_COIN_GENESIS_POINT_TXID = "57faede9e107f3af74bb93e730bc1dfd07f81b166a974068f823d30d9eb10111";
     protected static final int ROYLLO_COIN_GENESIS_POINT_VOUT = 1;
     protected static final String ROYLLO_COIN_NAME = "roylloCoin";
-    protected static final String ROYLLO_COIN_META_DATA_HASH = "5573656420627920526f796c6c6f";
+    protected static final String ROYLLO_COIN_META_DATA_HASH = "0c482467dfb29000804e044c4c6044b487c0280082002d4611a8ba7f22703d63";
     protected static final String ROYLLO_COIN_ASSET_ID = "f9dd292bb211dae8493645150b36efa990841b11038d026577440d2616d1ec32";
     protected static final int ROYLLO_COIN_OUTPUT_INDEX = 0;
     protected static final int ROYLLO_COIN_GENESIS_VERSION = 0;
@@ -48,7 +48,7 @@ public class BaseTest extends Base {
     protected static final int ROYLLO_COIN_LOCK_TIME = 0;
     protected static final int ROYLLO_COIN_RELATIVE_LOCK_TIME = 0;
 
-    protected static final String ROYLLO_COIN_SCRIPT_KEY = "0251e05abec04e300351523e6cbdbceadae4332896ca59dbdad6801e2fc35c1e71";
+    protected static final String ROYLLO_COIN_SCRIPT_KEY = "025d615b377761a5bfcfe84f0f11afd35837a68f702dd8a0cac0a2a4052b20d211";
     protected static final int ROYLLO_COIN_SCRIPT_VERSION = 0;
 
     protected static final String ROYLLO_COIN_RAW_GROUP_KEY = "033b8449aae83eb0ed04f7952108637d078836bb5d3353a33b6486248b401f60da";
@@ -58,8 +58,8 @@ public class BaseTest extends Base {
 
     protected static final String ROYLLO_COIN_ANCHOR_TX = "020000000001021101b19e0dd323f86840976a161bf807fd1dbc30e793bb74aff307e1e9edfa570100000000ffffffffdc62e81401abfec546a45213c65c9910466f06ea1b831b017c13edfa71d775b10200000000ffffffff02e80300000000000022512040b3ddefc0df09b89fd1379a3bd246bf2827ed461506a5899dc230324d0aa158bc05000000000000225120d7ab0deb6185088278a66f5599be41510db531fd7f2df39e3b8558e2d2b65b0602473044022023f92ca5b7289d5cfb2ae415b91efa8bb9758d97b78b8ad17c81ce43fa9d262a02205c790874cbd4dae139f1d3e2b029bb97c4bf13bff0bc80127dacf9e917a37ed5012102cf948a447b6b49ccf83754b2455b7c6f77a9daeb1bb192f17ae34d3f52182a1a024630430220698a8f0543c97775ece1ad26a63f99d837ff9fd3b136e5c43cc984c37a75b3dd021f4d183f9811ac7a7cde904c795f68f96bda845efb5493a95582b60a93ca55c201210305c9ac7185c67621b7534e700d9592863f07ae5b9add38da9576e4a06a66c10000000000";
     protected static final String ROYLLO_COIN_ANCHOR_TX_ID = "0324ddf7ec79711a340a04e1ee3cee53005e046b4e0de31d498cc586ba9181c7";
-    protected static final String ROYLLO_COIN_ANCHOR_BLOCK_HASH = "0000000000000000000000000000000000000000000000000000000000000000";
-    protected static final String ROYLLO_COIN_ANCHOR_OUTPOINT = "0324ddf7ec79711a340a04e1ee3cee53005e046b4e0de31d498cc586ba9181c7";
+    protected static final String ROYLLO_COIN_ANCHOR_BLOCK_HASH = "0000000000006b8c5e2e1a5658a841d8a20f839ba710120ecc323c8d12b10632";
+    protected static final String ROYLLO_COIN_ANCHOR_OUTPOINT = "0324ddf7ec79711a340a04e1ee3cee53005e046b4e0de31d498cc586ba9181c7:0";
     protected static final String ROYLLO_COIN_INTERNAL_KEY = "026ad322cc8a05cf5723bf8aeb5c778c6462146e573af182ba20c6bed53ea29ae6";
     protected static final String ROYLLO_COIN_MERKLE_ROOT = "cd773bc1a59f3b641e819b51944d1bcf10e4676cba0620ebe3b064c5d0a777da";
     protected static final String ROYLLO_COIN_TAPSCRIPT_SIBLING = "";

@@ -103,6 +103,10 @@ public class DecodedProofResponse {
             @JsonProperty("script_key")
             String scriptKey;
 
+            /** Asset group. */
+            @JsonProperty("asset_group")
+            AssetGroup assetGroup;
+
             /** Chain anchor. */
             @JsonProperty("chain_anchor")
             ChainAnchor chainAnchor;
@@ -126,9 +130,9 @@ public class DecodedProofResponse {
                 @JsonProperty("name")
                 String name;
 
-                /** Meta. */
-                @JsonProperty("meta")
-                String meta;
+                /** Metadata hash. */
+                @JsonProperty("meta_hash")
+                String metaDataHash;
 
                 /** Asset id. */
                 @JsonProperty("asset_id")
@@ -138,13 +142,30 @@ public class DecodedProofResponse {
                 @JsonProperty("output_index")
                 long outputIndex;
 
-                /** Genesis bootstrap info. */
-                @JsonProperty("genesis_bootstrap_info")
-                String genesisBootstrapInfo;
-
                 /** Version. */
                 @JsonProperty("version")
                 int version;
+
+            }
+
+            @Getter
+            @Setter
+            @NoArgsConstructor
+            @ToString
+            @JsonIgnoreProperties(ignoreUnknown = true)
+            public static class AssetGroup {
+
+                /** The raw group key which is a normal public key. */
+                @JsonProperty("raw_group_key")
+                String rawGroupKey;
+
+                /** The tweaked group key, which is derived based on the genesis point and also asset type. */
+                @JsonProperty("tweaked_group_key")
+                String tweakedGroupKey;
+
+                /** A signature over the genesis point using the above key. */
+                @JsonProperty("asset_id_sig")
+                String assetIdSig;
 
             }
 
@@ -174,6 +195,14 @@ public class DecodedProofResponse {
                 /** Internal key. */
                 @JsonProperty("internal_key")
                 String internalKey;
+
+                /** The Taproot merkle root hash of the anchor output the asset was committed to. */
+                @JsonProperty("merkle_root")
+                String merkleRoot;
+
+                /** The serialized preimage of a Tapscript sibling, if there was one. */
+                @JsonProperty("tapscript_sibling")
+                String tapscriptSibling;
 
             }
 
