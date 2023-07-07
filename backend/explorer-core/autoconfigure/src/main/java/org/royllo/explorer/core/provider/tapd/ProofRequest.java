@@ -23,9 +23,15 @@ public class ProofRequest {
     String rawProof;
 
     /**
-     * Proof index.
+     * With prev witnesses.
      */
-    @JsonProperty("proof_at_depth")
-    long proofIndex;
+    @JsonProperty("with_prev_witnesses")
+    boolean withPrevWitnesses;
+
+    /**
+     * With meta reveal.
+     */
+    @JsonProperty("with_meta_reveal")
+    boolean withMetaReveal;
 
 }

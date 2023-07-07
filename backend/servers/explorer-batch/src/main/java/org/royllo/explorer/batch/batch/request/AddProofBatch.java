@@ -60,7 +60,7 @@ public class AddProofBatch extends BaseBatch {
 
                         // We try to decode the proof.
                         try {
-                            final DecodedProofResponse response = tapdService.decode(request.getRawProof(), 0).block();
+                            final DecodedProofResponse response = tapdService.decode(request.getRawProof()).block();
 
                             // We check if we have a decoded proof response.
                             if (response == null) {

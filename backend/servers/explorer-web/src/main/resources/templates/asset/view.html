@@ -64,7 +64,7 @@
                     <!--/* Metadata hash */-->
                     <div class="tableLine">
                         <dt class="tableLineDescription" th:text="#{field.asset.metaDataHash}"></dt>
-                        <dd class="tableLineValue" th:text="${result.metaData}"></dd>
+                        <dd class="tableLineValue" th:text="${result.getMetaDataHash}"></dd>
                     </div>
 
                     <!--/* Asset type */-->
@@ -113,7 +113,7 @@
                     </div>
                     <div class="tableLine">
                         <dt class="tableLineDescription" th:text="#{field.asset.anchorInternalKey}"></dt>
-                        <dd class="tableLineValue" th:text="${result.anchorInternalKey}"></dd>
+                        <dd class="tableLineValue" th:text="${result.getInternalKey}"></dd>
                     </div>
 
                 </dl>

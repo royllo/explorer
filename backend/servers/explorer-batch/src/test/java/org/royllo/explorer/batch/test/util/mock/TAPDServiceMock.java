@@ -37,24 +37,24 @@ public class TAPDServiceMock extends BaseTest {
         // =============================================================================================================
         // Mock for mockedService.decode()
         // Exception test.
-        Mockito.when(mockedService.decode("TIMEOUT_ERROR", 0)).thenThrow(new RuntimeException("Time out error"))
+        Mockito.when(mockedService.decode("TIMEOUT_ERROR")).thenThrow(new RuntimeException("Time out error"))
                 .thenReturn(Mono.just(getActiveRoylloCoinProof1()));
 
         // Non-existing proof.
-        Mockito.when(mockedService.decode("INVALID_PROOF", 0)).thenReturn(Mono.just(getError()));
+        Mockito.when(mockedService.decode("INVALID_PROOF")).thenReturn(Mono.just(getError()));
 
         // My Royllo coin.
-        Mockito.when(mockedService.decode(MY_ROYLLO_COIN_RAW_PROOF, 0)).thenReturn(Mono.just(getMyRoylloCoin()));
+        Mockito.when(mockedService.decode(MY_ROYLLO_COIN_RAW_PROOF)).thenReturn(Mono.just(getMyRoylloCoin()));
 
         // Unknown Royllo coin.
-        Mockito.when(mockedService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF, 0)).thenReturn(Mono.just(getUnknownRoylloCoin()));
+        Mockito.when(mockedService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF)).thenReturn(Mono.just(getUnknownRoylloCoin()));
 
         // Active Royllo coin.
-        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF, 0)).thenReturn(Mono.just(getActiveRoylloCoinProof1()));
-        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF, 0)).thenReturn(Mono.just(getActiveRoylloCoinProof2Index0()));
-        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF, 1)).thenReturn(Mono.just(getActiveRoylloCoinProof2Index1()));
-        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF, 0)).thenReturn(Mono.just(getActiveRoylloCoinProof3Index0()));
-        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF, 1)).thenReturn(Mono.just(getActiveRoylloCoinProof3Index1()));
+        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF)).thenReturn(Mono.just(getActiveRoylloCoinProof1()));
+        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF)).thenReturn(Mono.just(getActiveRoylloCoinProof2Index0()));
+        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF)).thenReturn(Mono.just(getActiveRoylloCoinProof2Index1()));
+        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF)).thenReturn(Mono.just(getActiveRoylloCoinProof3Index0()));
+        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF)).thenReturn(Mono.just(getActiveRoylloCoinProof3Index1()));
 
         // =============================================================================================================
         // Mock for universes.
@@ -176,7 +176,6 @@ public class TAPDServiceMock extends BaseTest {
         asset.setRelativeLockTime(MY_ROYLLO_COIN_RELATIVE_LOCK_TIME);
         asset.setScriptVersion(MY_ROYLLO_COIN_SCRIPT_VERSION);
         asset.setScriptKey(MY_ROYLLO_COIN_SCRIPT_KEY);
-        asset.setAssetGroup(null);
 
         // Chain anchor.
         DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchor = new DecodedProofResponse.DecodedProof.Asset.ChainAnchor();
@@ -234,7 +233,6 @@ public class TAPDServiceMock extends BaseTest {
         asset.setRelativeLockTime(UNKNOWN_ROYLLO_COIN_RELATIVE_LOCK_TIME);
         asset.setScriptVersion(UNKNOWN_ROYLLO_COIN_SCRIPT_VERSION);
         asset.setScriptKey(UNKNOWN_ROYLLO_COIN_SCRIPT_KEY);
-        asset.setAssetGroup(null);
 
         // Chain anchor.
         DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchor = new DecodedProofResponse.DecodedProof.Asset.ChainAnchor();
@@ -292,7 +290,6 @@ public class TAPDServiceMock extends BaseTest {
         asset.setRelativeLockTime(0);
         asset.setScriptVersion(0);
         asset.setScriptKey("024e9d77ff1df871af183419a6cfd308235f512717f13da57dbf045a4a8c2ca5cc");
-        asset.setAssetGroup(null);
 
         // Chain anchor.
         DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchor = new DecodedProofResponse.DecodedProof.Asset.ChainAnchor();
@@ -350,7 +347,6 @@ public class TAPDServiceMock extends BaseTest {
         asset.setRelativeLockTime(0);
         asset.setScriptVersion(0);
         asset.setScriptKey("024e9d77ff1df871af183419a6cfd308235f512717f13da57dbf045a4a8c2ca5cc");
-        asset.setAssetGroup(null);
 
         // Chain anchor.
         DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchor = new DecodedProofResponse.DecodedProof.Asset.ChainAnchor();
@@ -408,7 +404,6 @@ public class TAPDServiceMock extends BaseTest {
         asset.setRelativeLockTime(0);
         asset.setScriptVersion(0);
         asset.setScriptKey("024e9d77ff1df871af183419a6cfd308235f512717f13da57dbf045a4a8c2ca5cc");
-        asset.setAssetGroup(null);
 
         // Chain anchor.
         DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchor = new DecodedProofResponse.DecodedProof.Asset.ChainAnchor();
@@ -462,7 +457,6 @@ public class TAPDServiceMock extends BaseTest {
         asset.setRelativeLockTime(0);
         asset.setScriptVersion(0);
         asset.setScriptKey("024e9d77ff1df871af183419a6cfd308235f512717f13da57dbf045a4a8c2ca5cc");
-        asset.setAssetGroup(null);
 
         // Chain anchor.
         DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchor = new DecodedProofResponse.DecodedProof.Asset.ChainAnchor();
@@ -520,7 +514,6 @@ public class TAPDServiceMock extends BaseTest {
         asset.setRelativeLockTime(0);
         asset.setScriptVersion(0);
         asset.setScriptKey("024e9d77ff1df871af183419a6cfd308235f512717f13da57dbf045a4a8c2ca5cc");
-        asset.setAssetGroup(null);
 
         // Chain anchor.
         DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchor = new DecodedProofResponse.DecodedProof.Asset.ChainAnchor();

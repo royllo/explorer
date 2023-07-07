@@ -51,12 +51,15 @@ public class DecodedProofResponse {
         /** Asset. */
         @JsonProperty("asset")
         Asset asset;
+
         /** Transaction merkle proof. */
         @JsonProperty("tx_merkle_proof")
         String txMerkleProof;
+
         /** Inclusion proof. */
         @JsonProperty("inclusion_proof")
         String inclusionProof;
+
         /** Exclusion proofs. */
         @JsonProperty("exclusion_proofs")
         List<String> exclusionProofs;
@@ -75,30 +78,35 @@ public class DecodedProofResponse {
             /** Asset genesis. */
             @JsonProperty("asset_genesis")
             AssetGenesis assetGenesis;
+
             /** Asset type. */
             @JsonProperty("asset_type")
             String assetType;
+
             /** Amount. */
             @JsonProperty("amount")
             BigInteger amount;
+
             /** Lock time. */
             @JsonProperty("lock_time")
             long lockTime;
+
             /** Relative lock time. */
             @JsonProperty("relative_lock_time")
             long relativeLockTime;
+
             /** Script version. */
             @JsonProperty("script_version")
             int scriptVersion;
+
             /** Script key. */
             @JsonProperty("script_key")
             String scriptKey;
-            /** Asset group. */
-            @JsonProperty("asset_group")
-            String assetGroup;
+
             /** Chain anchor. */
             @JsonProperty("chain_anchor")
             ChainAnchor chainAnchor;
+
             /** Previous witnesses. */
             @JsonProperty("prev_witnesses")
             List<String> prevWitnesses;

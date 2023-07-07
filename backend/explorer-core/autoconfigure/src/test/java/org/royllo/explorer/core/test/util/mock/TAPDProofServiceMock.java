@@ -30,9 +30,9 @@ public class TAPDProofServiceMock extends BaseTest {
         // Non-existing proof.
         // Mockito.when(mockedService.decode(any(), 0)).thenReturn(Mono.empty());
 
-        Mockito.when(mockedService.decode("TIMEOUT_ERROR", 0)).thenThrow(new RuntimeException("Time out error"));
+        Mockito.when(mockedService.decode("TIMEOUT_ERROR")).thenThrow(new RuntimeException("Time out error"));
 
-        Mockito.when(mockedService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF, 0)).thenReturn(Mono.just(getUnknownRoylloCoin()));
+        Mockito.when(mockedService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF)).thenReturn(Mono.just(getUnknownRoylloCoin()));
 
         return mockedService;
     }
@@ -72,7 +72,6 @@ public class TAPDProofServiceMock extends BaseTest {
         asset.setRelativeLockTime(UNKNOWN_ROYLLO_COIN_RELATIVE_LOCK_TIME);
         asset.setScriptVersion(UNKNOWN_ROYLLO_COIN_SCRIPT_VERSION);
         asset.setScriptKey(UNKNOWN_ROYLLO_COIN_SCRIPT_KEY);
-        asset.setAssetGroup(null);
 
         // Chain anchor.
         DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchor = new DecodedProofResponse.DecodedProof.Asset.ChainAnchor();
@@ -131,7 +130,6 @@ public class TAPDProofServiceMock extends BaseTest {
         asset.setRelativeLockTime(0);
         asset.setScriptVersion(0);
         asset.setScriptKey("Ao9XAROi+fc/XqUXTlcCVUi72pjQMj8F9bVr5vvjQMTu");
-        asset.setAssetGroup(null);
 
         // Chain anchor.
         DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchor = new DecodedProofResponse.DecodedProof.Asset.ChainAnchor();

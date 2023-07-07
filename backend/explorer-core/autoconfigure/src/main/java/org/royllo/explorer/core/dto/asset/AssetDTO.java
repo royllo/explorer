@@ -41,9 +41,9 @@ public class AssetDTO {
     @NotBlank(message = "Asset name is required")
     String name;
 
-    /** The hashed metadata of the asset. */
+    /** The hash of the metadata for this genesis asset. */
     @NotBlank(message = "Hashed metadata is required")
-    String metaData;
+    String metaDataHash;
 
     /** The asset ID that uniquely identifies the asset. */
     @Column(name = "ASSET_ID", updatable = false)
@@ -52,10 +52,6 @@ public class AssetDTO {
     /** The index of the output that carries the unique Taproot asset commitment in the genesis transaction. */
     @NotNull(message = "Output index is required")
     Integer outputIndex;
-
-    /** The full genesis information encoded in a portable manner, so it can be easily copy/pasted for address creation. */
-    @NotNull(message = "Genesis bootstrap information is required")
-    String genesisBootstrapInformation;
 
     /** The version of the Taproot asset commitment that created this asset. */
     @NotNull(message = "Genesis version is required")
@@ -85,6 +81,16 @@ public class AssetDTO {
     @NotNull(message = "Script key is required")
     String scriptKey;
 
+    /** The raw group key which is a normal public key. */
+    String rawGroupKey;
+
+    /** The tweaked group key, which is derived based on the genesis point and also asset type. */
+    String tweakedGroupKey;
+
+    /** A signature over the genesis point using the above key. */
+    @Column(name = "ASSET_ID_SIG")
+    String assetIdSig;
+
     /** The transaction that anchors the Taproot asset commitment where the asset resides. */
     @NotNull(message = "Anchor transaction is required")
     String anchorTx;
@@ -103,6 +109,12 @@ public class AssetDTO {
 
     /** The raw internal key that was used to create the anchor Taproot output key. */
     @NotNull(message = "Anchor internal key is required")
-    String anchorInternalKey;
+    String internalKey;
+
+    /** The Taproot merkle root hash of the anchor output the asset was committed to. */
+    String merkleRoot;
+
+    /** The serialized preimage of a Tapscript sibling, if there was one. */
+    String tapscriptSibling;
 
 }

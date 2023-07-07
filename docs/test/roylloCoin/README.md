@@ -41,7 +41,7 @@ docker exec -it b350b286ccdf \
                 tapcli assets mint finalize
 ```
 
-### View asset
+### View assets
 
 ```bash
 docker exec -it b350b286ccdf \
@@ -49,8 +49,6 @@ docker exec -it b350b286ccdf \
 ```
 
 Or, with curl:
-
-TODO: fix this.
 
 ```bash
 curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./admin.macaroon)" \
