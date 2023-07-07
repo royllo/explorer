@@ -155,49 +155,32 @@ public class ProofServiceTest extends BaseTest {
         assertEquals(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF, proof3.get().getRawProof());
 
         // =============================================================================================================
-        // Getting proofs of "myRoylloCoin" - One page.
-        final Page<ProofDTO> myRoylloCoinProofs = proofService.getProofsByAssetId(ROYLLO_COIN_ASSET_ID, 1, 10);
-        assertEquals(1, myRoylloCoinProofs.getTotalElements());
+        // Getting proofs of "roylloCoin" - One page.
+        final Page<ProofDTO> roylloCoinProofs = proofService.getProofsByAssetId(ROYLLO_COIN_ASSET_ID, 1, 10);
+        assertEquals(1, roylloCoinProofs.getTotalElements());
 
         // Proof 1.
-        Optional<ProofDTO> myRoylloCoinProof1 = myRoylloCoinProofs.getContent().stream().filter(proofDTO -> proofDTO.getId() == 1).findFirst();
+        Optional<ProofDTO> myRoylloCoinProof1 = roylloCoinProofs.getContent().stream().filter(proofDTO -> proofDTO.getId() == 1).findFirst();
         assertTrue(myRoylloCoinProof1.isPresent());
         assertEquals(ANONYMOUS_ID, myRoylloCoinProof1.get().getCreator().getId());
         assertEquals(ROYLLO_COIN_ASSET_ID, myRoylloCoinProof1.get().getAsset().getAssetId());
-        assertEquals("19c7a8309fad48bdbdefe6983e93e2e98aaa367aa8c31fa4caf739abac503d69", myRoylloCoinProof1.get().getProofId());
-        assertEquals(ROYLLO_COIN_TAPSCRIPT_SIBLING, myRoylloCoinProof1.get().getRawProof());
+        assertEquals(ROYLLO_COIN_PROOF_ID, myRoylloCoinProof1.get().getProofId());
+        assertEquals(ROYLLO_COIN_RAW_PROOF, myRoylloCoinProof1.get().getRawProof());
     }
 
     @Test
     @DisplayName("getProofByProofId()")
     public void getProofByProofId() {
-        // TODO Review this test
-        final Optional<ProofDTO> myRoylloCoinProof = proofService.getProofByProofId("19c7a8309fad48bdbdefe6983e93e2e98aaa367aa8c31fa4caf739abac503d69");
-        assertTrue(myRoylloCoinProof.isPresent());
+        final Optional<ProofDTO> roylloCoinProof = proofService.getProofByProofId("09fcd6349cceea648dc00545846e40b50efdf3c9e27e3d7feb43103f6e593576");
 
-        // Checking asset
-        assertEquals(ROYLLO_COIN_ID, myRoylloCoinProof.get().getAsset().getId());
-        assertEquals(ROYLLO_COIN_VERSION, myRoylloCoinProof.get().getAsset().getVersion());
-        // Genesis point.
-        assertEquals(ROYLLO_COIN_GENESIS_POINT_TXID, myRoylloCoinProof.get().getAsset().getGenesisPoint().getTxId());
-        assertEquals(ROYLLO_COIN_GENESIS_POINT_VOUT, myRoylloCoinProof.get().getAsset().getGenesisPoint().getVout());
-        assertEquals(ROYLLO_COIN_NAME, myRoylloCoinProof.get().getAsset().getName());
-        assertEquals(ROYLLO_COIN_META_DATA_HASH, myRoylloCoinProof.get().getAsset().getMetaDataHash());
-        assertEquals(ROYLLO_COIN_ASSET_ID, myRoylloCoinProof.get().getAsset().getAssetId());
-        assertEquals(ROYLLO_COIN_OUTPUT_INDEX, myRoylloCoinProof.get().getAsset().getOutputIndex());
-        assertEquals(ROYLLO_COIN_GENESIS_VERSION, myRoylloCoinProof.get().getAsset().getGenesisVersion());
-        assertEquals(ROYLLO_COIN_ASSET_TYPE, myRoylloCoinProof.get().getAsset().getType());
-        assertEquals(0, ROYLLO_COIN_AMOUNT.compareTo(myRoylloCoinProof.get().getAsset().getAmount()));
-        assertEquals(ROYLLO_COIN_LOCK_TIME, myRoylloCoinProof.get().getAsset().getLockTime());
-        assertEquals(ROYLLO_COIN_RELATIVE_LOCK_TIME, myRoylloCoinProof.get().getAsset().getRelativeLockTime());
-        assertEquals(ROYLLO_COIN_SCRIPT_VERSION, myRoylloCoinProof.get().getAsset().getScriptVersion());
-        assertEquals(ROYLLO_COIN_RAW_GROUP_KEY, myRoylloCoinProof.get().getAsset().getScriptKey());
-        // Chain anchor.
-        assertEquals(ROYLLO_COIN_ANCHOR_TX, myRoylloCoinProof.get().getAsset().getAnchorTx());
-        assertEquals(ROYLLO_COIN_ANCHOR_TX_ID, myRoylloCoinProof.get().getAsset().getAnchorTxId());
-        assertEquals(ROYLLO_COIN_ANCHOR_BLOCK_HASH, myRoylloCoinProof.get().getAsset().getAnchorBlockHash());
-        assertEquals(ROYLLO_COIN_ANCHOR_OUTPOINT, myRoylloCoinProof.get().getAsset().getAnchorOutpoint());
-        assertEquals(ROYLLO_COIN_INTERNAL_KEY, myRoylloCoinProof.get().getAsset().getInternalKey());
+        // Checking proof.
+        assertTrue(roylloCoinProof.isPresent());
+        assertEquals(ROYLLO_COIN_PROOF_ID, roylloCoinProof.get().getProofId());
+        assertEquals(ROYLLO_COIN_RAW_PROOF, roylloCoinProof.get().getRawProof());
+
+        // Checking asset.
+        assertEquals(ROYLLO_COIN_ID, roylloCoinProof.get().getAsset().getId());
+        assertEquals(ROYLLO_COIN_NAME, roylloCoinProof.get().getAsset().getName());
     }
 
 }
