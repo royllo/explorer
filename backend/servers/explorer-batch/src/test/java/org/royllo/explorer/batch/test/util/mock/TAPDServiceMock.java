@@ -166,7 +166,6 @@ public class TAPDServiceMock extends BaseTest {
         assetGenesis.setMetaDataHash(MY_ROYLLO_COIN_META);
         assetGenesis.setAssetId(MY_ROYLLO_COIN_ASSET_ID);
         assetGenesis.setOutputIndex(MY_ROYLLO_COIN_OUTPUT_INDEX);
-        assetGenesis.setGenesisBootstrapInfo(MY_ROYLLO_COIN_GENESIS_BOOTSTRAP_INFORMATION);
         assetGenesis.setVersion(MY_ROYLLO_COIN_GENESIS_VERSION);
         asset.setAssetGenesis(assetGenesis);
 
@@ -223,7 +222,6 @@ public class TAPDServiceMock extends BaseTest {
         assetGenesis.setMetaDataHash(UNKNOWN_ROYLLO_COIN_META);
         assetGenesis.setAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID);
         assetGenesis.setOutputIndex(UNKNOWN_ROYLLO_COIN_OUTPUT_INDEX);
-        assetGenesis.setGenesisBootstrapInfo(UNKNOWN_ROYLLO_COIN_GENESIS_BOOTSTRAP_INFORMATION);
         assetGenesis.setVersion(UNKNOWN_ROYLLO_COIN_GENESIS_VERSION);
         asset.setAssetGenesis(assetGenesis);
 
@@ -280,7 +278,6 @@ public class TAPDServiceMock extends BaseTest {
         assetGenesis.setMetaDataHash("5573656420627920526f796c6c6f=");
         assetGenesis.setAssetId("1781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e5413");
         assetGenesis.setOutputIndex(1L);
-        assetGenesis.setGenesisBootstrapInfo("39481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0000000110616374697665526f796c6c6f436f696e0e5573656420627920526f796c6c6f0000000100");
         assetGenesis.setVersion(0);
         asset.setAssetGenesis(assetGenesis);
 
@@ -337,7 +334,6 @@ public class TAPDServiceMock extends BaseTest {
         assetGenesis.setMetaDataHash("5573656420627920526f796c6c6f=");
         assetGenesis.setAssetId("1781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e5413");
         assetGenesis.setOutputIndex(1L);
-        assetGenesis.setGenesisBootstrapInfo("39481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0000000110616374697665526f796c6c6f436f696e0e5573656420627920526f796c6c6f0000000100");
         assetGenesis.setVersion(0);
         asset.setAssetGenesis(assetGenesis);
 
@@ -394,7 +390,6 @@ public class TAPDServiceMock extends BaseTest {
         assetGenesis.setMetaDataHash("5573656420627920526f796c6c6f=");
         assetGenesis.setAssetId("1781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e5413");
         assetGenesis.setOutputIndex(1L);
-        assetGenesis.setGenesisBootstrapInfo("39481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0000000110616374697665526f796c6c6f436f696e0e5573656420627920526f796c6c6f0000000100");
         assetGenesis.setVersion(0);
         asset.setAssetGenesis(assetGenesis);
 
@@ -447,7 +442,6 @@ public class TAPDServiceMock extends BaseTest {
         assetGenesis.setMetaDataHash("5573656420627920526f796c6c6f=");
         assetGenesis.setAssetId("1781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e5413");
         assetGenesis.setOutputIndex(1L);
-        assetGenesis.setGenesisBootstrapInfo("39481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0000000110616374697665526f796c6c6f436f696e0e5573656420627920526f796c6c6f0000000100");
         assetGenesis.setVersion(0);
         asset.setAssetGenesis(assetGenesis);
 
@@ -504,7 +498,6 @@ public class TAPDServiceMock extends BaseTest {
         assetGenesis.setMetaDataHash("5573656420627920526f796c6c6f=");
         assetGenesis.setAssetId("1781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e5413");
         assetGenesis.setOutputIndex(1L);
-        assetGenesis.setGenesisBootstrapInfo("39481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0000000110616374697665526f796c6c6f436f696e0e5573656420627920526f796c6c6f0000000100");
         assetGenesis.setVersion(0);
         asset.setAssetGenesis(assetGenesis);
 
