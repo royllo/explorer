@@ -70,7 +70,7 @@ public class AddProofRequestBatchTest extends BaseTest {
         // If we add a request to add this proof, we should get an error because the proof already exists.
 
         // Add the proof
-        AddProofRequestDTO myRoylloCoinRequest = requestService.createAddProofRequest(MY_ROYLLO_COIN_RAW_PROOF);
+        AddProofRequestDTO myRoylloCoinRequest = requestService.createAddProofRequest(ROYLLO_COIN_RAW_PROOF);
         assertNotNull(myRoylloCoinRequest);
         assertEquals(OPENED, myRoylloCoinRequest.getStatus());
 
@@ -80,7 +80,7 @@ public class AddProofRequestBatchTest extends BaseTest {
         assertTrue(myRoylloCoinRequestTreated.isPresent());
         assertFalse(myRoylloCoinRequestTreated.get().isSuccessful());
         assertEquals(FAILURE, myRoylloCoinRequestTreated.get().getStatus());
-        assertEquals("This proof is already registered with proof id: " + MY_ROYLLO_COIN_PROOF_ID, myRoylloCoinRequestTreated.get().getErrorMessage());
+        assertEquals("This proof is already registered with proof id: " + ROYLLO_COIN_PROOF_ID, myRoylloCoinRequestTreated.get().getErrorMessage());
 
         // =============================================================================================================
         // "Unknown Royllo coin": The asset and the proof are not in our database.
@@ -161,6 +161,7 @@ public class AddProofRequestBatchTest extends BaseTest {
         addProofBatch.processRequests();
         Optional<RequestDTO> activeRoylloCoinRequest3Treated = requestService.getRequest(activeRoylloCoinRequest3.getId());
         assertTrue(activeRoylloCoinRequest3Treated.isPresent());
+        System.out.println("==> " + activeRoylloCoinRequest3Treated);
         assertTrue(activeRoylloCoinRequest3Treated.get().isSuccessful());
         assertEquals(SUCCESS, activeRoylloCoinRequest3Treated.get().getStatus());
 

@@ -60,7 +60,9 @@ public class AddProofBatch extends BaseBatch {
 
                         // We try to decode the proof.
                         try {
+                            System.out.println("===> Request : [" + request.getRawProof() + "]");
                             final DecodedProofResponse response = tapdService.decode(request.getRawProof()).block();
+                            System.out.println("===> Result : [" + request.getRawProof() + "] : " + response);
 
                             // We check if we have a decoded proof response.
                             if (response == null) {
@@ -95,8 +97,9 @@ public class AddProofBatch extends BaseBatch {
                             request.failure(exception.getMessage());
                         } catch (Throwable tapdError) {
                             // We failed on calling tapd, but it's an exception; not a "valid" error.
+                            tapdError.printStackTrace();
                             logger.error("Request {} has error: {}", request.getId(), tapdError.getMessage());
-                            request.failure("Recoverable error: " + tapdError.getMessage());
+                            request.failure("Error: " + tapdError.getMessage());
                         }
 
                         // We save the request.
