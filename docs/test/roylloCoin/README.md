@@ -1,4 +1,4 @@
-# Test organization
+# Royllo coin
 
 ## How coins are created
 
