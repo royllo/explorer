@@ -27,9 +27,7 @@ import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_US
 import static org.royllo.explorer.web.util.constants.PagesConstants.ASSET_PAGE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.ASSET_PROOFS_PAGE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @DisplayName("Asset controller tests")
@@ -53,68 +51,66 @@ public class AssetControllerTest extends BaseTest {
     @MethodSource("headers")
     @DisplayName("Asset page")
     void assetPage(final HttpHeaders headers) throws Exception {
-        mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID).headers(headers))
+        mockMvc.perform(get("/asset/" + ROYLLO_COIN_ASSET_ID).headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_PAGE)))
                 // Checking view proof link.
-                .andExpect(content().string(containsString("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs")))
+                .andExpect(content().string(containsString("/asset/" + ROYLLO_COIN_ASSET_ID + "/proofs")))
                 // Checking each field.
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_NAME + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ASSET_ID + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_NAME + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_ASSET_ID + "<")))
                 // Asset genesis.
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_GENESIS_POINT_TXID + ":" + MY_ROYLLO_COIN_GENESIS_POINT_VOUT + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_NAME + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_META + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ASSET_ID + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_OUTPUT_INDEX + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_GENESIS_BOOTSTRAP_INFORMATION + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_GENESIS_POINT_TXID + ":" + ROYLLO_COIN_GENESIS_POINT_VOUT + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_NAME + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_META_DATA_HASH + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_ASSET_ID + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_OUTPUT_INDEX + "<")))
                 // Other data.
                 .andExpect(content().string(containsString(">Normal<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_AMOUNT + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_SCRIPT_KEY + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_AMOUNT + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_SCRIPT_KEY + "<")))
                 // Anchor.
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_TX + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_TX_ID + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_BLOCK_HASH + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_OUTPOINT + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHRO_INTERNAL_KEY + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_TX + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_TX_ID + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_BLOCK_HASH + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_OUTPOINT + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_INTERNAL_KEY + "<")))
                 // Error messages.
                 .andExpect(content().string(not(containsString(environment.getProperty("asset.view.error.noAssetId")))))
                 .andExpect(content().string(not(containsString(Objects.requireNonNull(
                                 environment.getProperty("asset.view.error.assetNotFound"))
-                        .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
+                        .replace("\"{0}\"", "&quot;" + ROYLLO_COIN_ASSET_ID + "&quot;")))));
 
         // Trim test with spaces
-        mockMvc.perform(get("/asset/ " + MY_ROYLLO_COIN_ASSET_ID + " ").headers(headers))
+        mockMvc.perform(get("/asset/ " + ROYLLO_COIN_ASSET_ID + " ").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_PAGE)))
                 // Checking view proof link.
-                .andExpect(content().string(containsString("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs")))
+                .andExpect(content().string(containsString("/asset/" + ROYLLO_COIN_ASSET_ID + "/proofs")))
                 // Checking each field.
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_NAME + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ASSET_ID + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_NAME + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_ASSET_ID + "<")))
                 // Asset genesis.
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_GENESIS_POINT_TXID + ":" + MY_ROYLLO_COIN_GENESIS_POINT_VOUT + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_NAME + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_META + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ASSET_ID + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_OUTPUT_INDEX + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_GENESIS_BOOTSTRAP_INFORMATION + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_GENESIS_POINT_TXID + ":" + ROYLLO_COIN_GENESIS_POINT_VOUT + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_NAME + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_META_DATA_HASH + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_ASSET_ID + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_OUTPUT_INDEX + "<")))
                 // Other data.
                 .andExpect(content().string(containsString(">Normal<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_AMOUNT + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_SCRIPT_KEY + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_AMOUNT + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_SCRIPT_KEY + "<")))
                 // Anchor.
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_TX + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_TX_ID + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_BLOCK_HASH + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHOR_OUTPOINT + "<")))
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_ANCHRO_INTERNAL_KEY + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_TX + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_TX_ID + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_BLOCK_HASH + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_OUTPOINT + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_INTERNAL_KEY + "<")))
                 // Error messages.
                 .andExpect(content().string(not(containsString(environment.getProperty("asset.view.error.noAssetId")))))
                 .andExpect(content().string(not(containsString(Objects.requireNonNull(
                                 environment.getProperty("asset.view.error.assetNotFound"))
-                        .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
+                        .replace("\"{0}\"", "&quot;" + ROYLLO_COIN_ASSET_ID + "&quot;")))));
     }
 
     @ParameterizedTest
@@ -128,7 +124,7 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(containsString(environment.getProperty("asset.view.error.noAssetId"))))
                 .andExpect(content().string(not(containsString(Objects.requireNonNull(
                                 environment.getProperty("asset.view.error.assetNotFound"))
-                        .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
+                        .replace("\"{0}\"", "&quot;" + ROYLLO_COIN_ASSET_ID + "&quot;")))));
     }
 
     @ParameterizedTest
@@ -142,7 +138,7 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(containsString(environment.getProperty("asset.view.error.noAssetId"))))
                 .andExpect(content().string(not(containsString(Objects.requireNonNull(
                                 environment.getProperty("asset.view.error.assetNotFound"))
-                        .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
+                        .replace("\"{0}\"", "&quot;" + ROYLLO_COIN_ASSET_ID + "&quot;")))));
     }
 
     @ParameterizedTest
@@ -162,11 +158,11 @@ public class AssetControllerTest extends BaseTest {
     @DisplayName("Asset proofs page")
     void assetProofsPage(final HttpHeaders headers) throws Exception {
         // My royllo coin has only one proof.
-        mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs").headers(headers))
+        mockMvc.perform(get("/asset/" + ROYLLO_COIN_ASSET_ID + "/proofs").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_PROOFS_PAGE)))
                 // Checking proofs.
-                .andExpect(content().string(containsString(">" + MY_ROYLLO_COIN_RAW_PROOF + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_RAW_PROOF + "<")))
                 .andExpect(content().string(not(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF + "<"))))
                 .andExpect(content().string(not(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF + "<"))))
                 .andExpect(content().string(not(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF + "<"))))
@@ -174,14 +170,14 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(not(containsString(environment.getProperty("proof.view.error.invalidPage")))))
                 .andExpect(content().string(not(containsString(Objects.requireNonNull(
                                 environment.getProperty("proof.view.error.assetNotFound"))
-                        .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
+                        .replace("\"{0}\"", "&quot;" + ROYLLO_COIN_ASSET_ID + "&quot;")))));
 
         // Active royllo coin has several proofs.
         mockMvc.perform(get("/asset/" + ACTIVE_ROYLLO_COIN_ASSET_ID + "/proofs/").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_PROOFS_PAGE)))
                 // Checking proofs.
-                .andExpect(content().string(not(containsString(">" + MY_ROYLLO_COIN_RAW_PROOF + "<"))))
+                .andExpect(content().string(not(containsString(">" + ROYLLO_COIN_RAW_PROOF + "<"))))
                 .andExpect(content().string(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF + "<")))
                 .andExpect(content().string(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF + "<")))
                 .andExpect(content().string(containsString(">" + ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF + "<")))
@@ -189,7 +185,7 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(not(containsString(environment.getProperty("proof.view.error.invalidPage")))))
                 .andExpect(content().string(not(containsString(Objects.requireNonNull(
                                 environment.getProperty("proof.view.error.assetNotFound"))
-                        .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
+                        .replace("\"{0}\"", "&quot;" + ROYLLO_COIN_ASSET_ID + "&quot;")))));
     }
 
     @ParameterizedTest
@@ -198,12 +194,12 @@ public class AssetControllerTest extends BaseTest {
     void assetProofsPagePagination(final HttpHeaders headers) throws Exception {
         // Creating enough proofs to test pagination.
         // We purge data as the same test will be run with different headers.
-        proofRepository.findByAssetAssetIdOrderByCreatedOn(MY_ROYLLO_COIN_ASSET_ID, Pageable.ofSize(101))
+        proofRepository.findByAssetAssetIdOrderByCreatedOn(ROYLLO_COIN_ASSET_ID, Pageable.ofSize(101))
                 .stream()
-                .filter(proof -> !Objects.equals(proof.getRawProof(), MY_ROYLLO_COIN_RAW_PROOF))
+                .filter(proof -> !Objects.equals(proof.getRawProof(), ROYLLO_COIN_RAW_PROOF))
                 .forEach(proofRepository::delete);
-        final Optional<Asset> byAssetId = assetRepository.findByAssetId(MY_ROYLLO_COIN_ASSET_ID);
-        assertEquals(1, proofRepository.findByAssetAssetIdOrderByCreatedOn(MY_ROYLLO_COIN_ASSET_ID, Pageable.ofSize(1)).getTotalElements());
+        final Optional<Asset> byAssetId = assetRepository.findByAssetId(ROYLLO_COIN_ASSET_ID);
+        assertEquals(1, proofRepository.findByAssetAssetIdOrderByCreatedOn(ROYLLO_COIN_ASSET_ID, Pageable.ofSize(1)).getTotalElements());
         byAssetId.ifPresent(asset -> {
             for (int i = 0; i < 100; i++) {
                 proofRepository.save(Proof.builder()
@@ -214,10 +210,10 @@ public class AssetControllerTest extends BaseTest {
                         .build());
             }
         });
-        assertEquals(101, proofRepository.findByAssetAssetIdOrderByCreatedOn(MY_ROYLLO_COIN_ASSET_ID, Pageable.ofSize(1)).getTotalElements());
+        assertEquals(101, proofRepository.findByAssetAssetIdOrderByCreatedOn(ROYLLO_COIN_ASSET_ID, Pageable.ofSize(1)).getTotalElements());
 
         // Testing page 1 (without parameter).
-        mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs").headers(headers))
+        mockMvc.perform(get("/asset/" + ROYLLO_COIN_ASSET_ID + "/proofs").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_PROOFS_PAGE)))
                 // Checking proofs.
@@ -227,10 +223,10 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(not(containsString(environment.getProperty("proof.view.error.invalidPage")))))
                 .andExpect(content().string(not(containsString(Objects.requireNonNull(
                                 environment.getProperty("proof.view.error.assetNotFound"))
-                        .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
+                        .replace("\"{0}\"", "&quot;" + ROYLLO_COIN_ASSET_ID + "&quot;")))));
 
         // Testing page 1 (with parameter).
-        mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs?page=1").headers(headers))
+        mockMvc.perform(get("/asset/" + ROYLLO_COIN_ASSET_ID + "/proofs?page=1").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_PROOFS_PAGE)))
                 // Checking proofs.
@@ -240,10 +236,10 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(not(containsString(environment.getProperty("proof.view.error.invalidPage")))))
                 .andExpect(content().string(not(containsString(Objects.requireNonNull(
                                 environment.getProperty("proof.view.error.assetNotFound"))
-                        .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
+                        .replace("\"{0}\"", "&quot;" + ROYLLO_COIN_ASSET_ID + "&quot;")))));
 
         // Testing page 2 (with parameter).
-        mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs?page=2").headers(headers))
+        mockMvc.perform(get("/asset/" + ROYLLO_COIN_ASSET_ID + "/proofs?page=2").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_PROOFS_PAGE)))
                 // Checking proofs.
@@ -253,14 +249,14 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(not(containsString(environment.getProperty("proof.view.error.invalidPage")))))
                 .andExpect(content().string(not(containsString(Objects.requireNonNull(
                                 environment.getProperty("proof.view.error.assetNotFound"))
-                        .replace("\"{0}\"", "&quot;" + MY_ROYLLO_COIN_ASSET_ID + "&quot;")))));
+                        .replace("\"{0}\"", "&quot;" + ROYLLO_COIN_ASSET_ID + "&quot;")))));
     }
 
     @ParameterizedTest
     @MethodSource("headers")
     @DisplayName("Asset proofs page with invalid page number")
     void assetProofsPageWithInvalidPageNumber(final HttpHeaders headers) throws Exception {
-        mockMvc.perform(get("/asset/" + MY_ROYLLO_COIN_ASSET_ID + "/proofs?page=5").headers(headers))
+        mockMvc.perform(get("/asset/" + ROYLLO_COIN_ASSET_ID + "/proofs?page=5").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_PROOFS_PAGE)))
                 // Checking error message.
