@@ -27,7 +27,9 @@ import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_US
 import static org.royllo.explorer.web.util.constants.PagesConstants.ASSET_PAGE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.ASSET_PROOFS_PAGE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @SpringBootTest
 @DisplayName("Asset controller tests")
@@ -69,12 +71,18 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(containsString(">Normal<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_AMOUNT + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_SCRIPT_KEY + "<")))
+                // Group key.
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_RAW_GROUP_KEY + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_TWEAKED_GROUP_KEY + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_ASSET_ID_SIG + "<")))
                 // Anchor.
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_TX + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_TX_ID + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_BLOCK_HASH + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_OUTPOINT + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_INTERNAL_KEY + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_MERKLE_ROOT + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_TAPSCRIPT_SIBLING + "<")))
                 // Error messages.
                 .andExpect(content().string(not(containsString(environment.getProperty("asset.view.error.noAssetId")))))
                 .andExpect(content().string(not(containsString(Objects.requireNonNull(
@@ -100,12 +108,18 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(containsString(">Normal<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_AMOUNT + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_SCRIPT_KEY + "<")))
+                // Group key.
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_RAW_GROUP_KEY + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_TWEAKED_GROUP_KEY + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_ASSET_ID_SIG + "<")))
                 // Anchor.
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_TX + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_TX_ID + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_BLOCK_HASH + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_OUTPOINT + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_INTERNAL_KEY + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_MERKLE_ROOT + "<")))
+                .andExpect(content().string(containsString(">" + ROYLLO_COIN_TAPSCRIPT_SIBLING + "<")))
                 // Error messages.
                 .andExpect(content().string(not(containsString(environment.getProperty("asset.view.error.noAssetId")))))
                 .andExpect(content().string(not(containsString(Objects.requireNonNull(

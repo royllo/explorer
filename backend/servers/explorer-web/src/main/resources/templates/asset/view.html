@@ -43,12 +43,6 @@
                             th:text="${result.genesisPoint.txId} + ':' + ${result.genesisPoint.vout}"></dd>
                     </div>
 
-                    <!--/* Asset ID */-->
-                    <div class="tableLine">
-                        <dt class="tableLineDescription" th:text="#{field.asset.assetId}"></dt>
-                        <dd class="tableLineValue" th:text="${result.assetId}"></dd>
-                    </div>
-
                     <!--/* Asset name */-->
                     <div class="tableLine">
                         <dt class="tableLineDescription" th:text="#{field.asset.name}"></dt>
@@ -61,6 +55,18 @@
                         <dd class="tableLineValue" th:text="${result.getMetaDataHash}"></dd>
                     </div>
 
+                    <!--/* Asset ID */-->
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.assetId}"></dt>
+                        <dd class="tableLineValue" th:text="${result.assetId}"></dd>
+                    </div>
+
+                    <!--/* Taproot assets output index */-->
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.outputIndex}"></dt>
+                        <dd class="tableLineValue" th:text="${result.outputIndex}"></dd>
+                    </div>
+
                     <!--/* Asset type */-->
                     <div class="tableLine">
                         <dt class="tableLineDescription" th:text="#{field.asset.assetType}"></dt>
@@ -68,12 +74,6 @@
                             th:text="#{field.asset.assetType.normal}"></dd>
                         <dd class="tableLineValue" th:if="${#strings.equals(result.type, 'COLLECTIBLE')}"
                             th:text="#{field.asset.assetType.collectible}"></dd>
-                    </div>
-
-                    <!--/* Taproot assets output index */-->
-                    <div class="tableLine">
-                        <dt class="tableLineDescription" th:text="#{field.asset.outputIndex}"></dt>
-                        <dd class="tableLineValue" th:text="${result.outputIndex}"></dd>
                     </div>
 
                     <!--/* Asset amount */-->
@@ -87,8 +87,42 @@
                         <dt class="tableLineDescription" th:text="#{field.asset.scriptKey}"></dt>
                         <dd class="tableLineValue" th:text="${result.scriptKey}"></dd>
                     </div>
+                </dl>
+            </div>
+        </div>
 
-                    <!--/* Anchor */-->
+        <!--*/ Anchor */-->
+        <div class="overflow-hidden shadow sm:rounded-lg my-12">
+            <div class="px-4 py-6 sm:px-6">
+                <h3 class="tableHeadTitle" th:text="#{field.asset.assetGroup}"></h3>
+            </div>
+            <div class="border-t border-gray-100">
+                <dl class="divide-y divide-gray-100">
+
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.rawGroupKey}"></dt>
+                        <dd class="tableLineValue" th:text="${result.rawGroupKey}"></dd>
+                    </div>
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.tweakedGroupKey}"></dt>
+                        <dd class="tableLineValue" th:text="${result.tweakedGroupKey}"></dd>
+                    </div>
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.assetIdSig}"></dt>
+                        <dd class="tableLineValue" th:text="${result.assetIdSig}"></dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+
+        <!--*/ Anchor */-->
+        <div class="overflow-hidden shadow sm:rounded-lg my-12">
+            <div class="px-4 py-6 sm:px-6">
+                <h3 class="tableHeadTitle" th:text="#{field.asset.anchor}"></h3>
+            </div>
+            <div class="border-t border-gray-100">
+                <dl class="divide-y divide-gray-100">
+
                     <div class="tableLine">
                         <dt class="tableLineDescription" th:text="#{field.asset.anchorTx}"></dt>
                         <dd class="tableLineValue" th:text="${result.anchorTx}"></dd>
@@ -106,8 +140,16 @@
                         <dd class="tableLineValue" th:text="${result.anchorOutpoint}"></dd>
                     </div>
                     <div class="tableLine">
-                        <dt class="tableLineDescription" th:text="#{field.asset.anchorInternalKey}"></dt>
-                        <dd class="tableLineValue" th:text="${result.getInternalKey}"></dd>
+                        <dt class="tableLineDescription" th:text="#{field.asset.internalKey}"></dt>
+                        <dd class="tableLineValue" th:text="${result.internalKey}"></dd>
+                    </div>
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.merkleRoot}"></dt>
+                        <dd class="tableLineValue" th:text="${result.merkleRoot}"></dd>
+                    </div>
+                    <div class="tableLine">
+                        <dt class="tableLineDescription" th:text="#{field.asset.tapscriptSibling}"></dt>
+                        <dd class="tableLineValue" th:text="${result.tapscriptSibling}"></dd>
                     </div>
 
                 </dl>
@@ -115,7 +157,7 @@
         </div>
 
         <div class="my-12">
-            <!--/* View proofs*/-->
+            <!--/* View proofs */-->
             <a class="defaultButton"
                hx-push-url="true"
                hx:get="|/asset/${result.assetId}/proofs|"
