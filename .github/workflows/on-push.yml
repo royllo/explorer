@@ -88,7 +88,7 @@ jobs:
       - name: Retrieving the asset created by the request
         id: assetByAssetId
         run: |
-          genesisBootstrapInformation=$(curl -H "Content-Type: application/json" \
+          name=$(curl -H "Content-Type: application/json" \
               -d '{ "query": "{ assetByAssetId(assetId: \"${{ secrets.UNKNOWN_ROYLLO_COIN_ASSET_ID }}\") { name }}" }' \
               http://localhost:9090/graphql | jq -r '.data.assetByAssetId.name')
           echo "name=${name}" >> $GITHUB_OUTPUT
@@ -96,7 +96,7 @@ jobs:
       - name: Check if the asset has been created
         if: ${{ steps.assetByAssetId.outputs.name != 'unknownRoylloCoin' }}
         run: |
-          echo "Error - Asset not found ${{ steps.assetByAssetId.outputs.name }}"
+          echo "Error - Asset '${{ steps.assetByAssetId.outputs.name }}' not found"
           cat docker.logs
           exit 1
 
