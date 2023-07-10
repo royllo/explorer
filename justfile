@@ -15,8 +15,7 @@ run_web_server_backend:
     mvn spring-boot:run -Dspring-boot.run.profiles=dev -f backend/servers/explorer-web/pom.xml
 
 run_web_server_frontend:
-    cd backend/servers/explorer-web
-    npm run build && npm run watch
+    npm run --prefix backend/servers/explorer-web build && npm run --prefix backend/servers/explorer-web watch
 
 # ======================================================================================================================
 # Release
