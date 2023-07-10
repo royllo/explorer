@@ -58,9 +58,9 @@ public class Asset extends BaseDomain {
     @Column(name = "NAME", updatable = false)
     private String name;
 
-    /** The hashed metadata of the asset. */
-    @Column(name = "META_DATA", updatable = false)
-    private String metaData;
+    /** The hash of the metadata for this genesis asset. */
+    @Column(name = "META_DATA_HASH", updatable = false)
+    private String metaDataHash;
 
     /** The asset ID that uniquely identifies the asset. */
     @Column(name = "ASSET_ID", updatable = false)
@@ -69,10 +69,6 @@ public class Asset extends BaseDomain {
     /** The index of the output that carries the unique Taproot commitment in the genesis transaction. */
     @Column(name = "OUTPUT_INDEX", updatable = false)
     private int outputIndex;
-
-    /** The full genesis information encoded in a portable manner, so it can be easily copy/pasted for address creation. */
-    @Column(name = "GENESIS_BOOTSTRAP_INFORMATION", updatable = false)
-    private String genesisBootstrapInformation;
 
     /** The version of the Taproot asset commitment that created this asset. */
     @Column(name = "GENESIS_VERSION", updatable = false)
@@ -103,6 +99,18 @@ public class Asset extends BaseDomain {
     @Column(name = "SCRIPT_KEY")
     private String scriptKey;
 
+    /** The raw group key which is a normal public key. */
+    @Column(name = "RAW_GROUP_KEY")
+    private String rawGroupKey;
+
+    /** The tweaked group key, which is derived based on the genesis point and also asset type. */
+    @Column(name = "TWEAKED_GROUP_KEY")
+    private String tweakedGroupKey;
+
+    /** A signature over the genesis point using the above key. */
+    @Column(name = "ASSET_ID_SIG")
+    private String assetIdSig;
+
     /** The transaction that anchors the Taproot asset commitment where the asset resides. */
     @Column(name = "ANCHOR_TX")
     private String anchorTx;
@@ -119,8 +127,16 @@ public class Asset extends BaseDomain {
     @Column(name = "ANCHOR_OUTPOINT")
     private String anchorOutpoint;
 
-    /** The raw internal key that was used to create the anchor Taproot output key. */
-    @Column(name = "ANCHOR_INTERNAL_KEY")
-    private String anchorInternalKey;
+    /** The raw internal key that was used to create the anchor Taproot output ke. */
+    @Column(name = "INTERNAL_KEY")
+    private String internalKey;
+
+    /** The Taproot merkle root hash of the anchor output the asset was committed to. */
+    @Column(name = "MERKLE_ROOT")
+    private String merkleRoot;
+
+    /** The serialized preimage of a Tapscript sibling, if there was one. */
+    @Column(name = "TAPSCRIPT_SIBLING")
+    private String tapscriptSibling;
 
 }

@@ -37,24 +37,22 @@ public class TAPDServiceMock extends BaseTest {
         // =============================================================================================================
         // Mock for mockedService.decode()
         // Exception test.
-        Mockito.when(mockedService.decode("TIMEOUT_ERROR", 0)).thenThrow(new RuntimeException("Time out error"))
+        Mockito.when(mockedService.decode("TIMEOUT_ERROR")).thenThrow(new RuntimeException("Time out error"))
                 .thenReturn(Mono.just(getActiveRoylloCoinProof1()));
 
         // Non-existing proof.
-        Mockito.when(mockedService.decode("INVALID_PROOF", 0)).thenReturn(Mono.just(getError()));
+        Mockito.when(mockedService.decode("INVALID_PROOF")).thenReturn(Mono.just(getError()));
 
         // My Royllo coin.
-        Mockito.when(mockedService.decode(MY_ROYLLO_COIN_RAW_PROOF, 0)).thenReturn(Mono.just(getMyRoylloCoin()));
+        Mockito.when(mockedService.decode(ROYLLO_COIN_RAW_PROOF)).thenReturn(Mono.just(getMyRoylloCoin()));
 
         // Unknown Royllo coin.
-        Mockito.when(mockedService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF, 0)).thenReturn(Mono.just(getUnknownRoylloCoin()));
+        Mockito.when(mockedService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF)).thenReturn(Mono.just(getUnknownRoylloCoin()));
 
         // Active Royllo coin.
-        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF, 0)).thenReturn(Mono.just(getActiveRoylloCoinProof1()));
-        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF, 0)).thenReturn(Mono.just(getActiveRoylloCoinProof2Index0()));
-        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF, 1)).thenReturn(Mono.just(getActiveRoylloCoinProof2Index1()));
-        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF, 0)).thenReturn(Mono.just(getActiveRoylloCoinProof3Index0()));
-        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF, 1)).thenReturn(Mono.just(getActiveRoylloCoinProof3Index1()));
+        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF)).thenReturn(Mono.just(getActiveRoylloCoinProof1()));
+        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF)).thenReturn(Mono.just(getActiveRoylloCoinProof2()));
+        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF)).thenReturn(Mono.just(getActiveRoylloCoinProof3()));
 
         // =============================================================================================================
         // Mock for universes.
@@ -157,40 +155,36 @@ public class TAPDServiceMock extends BaseTest {
 
         // Asset.
         DecodedProofResponse.DecodedProof.Asset asset = new DecodedProofResponse.DecodedProof.Asset();
-        asset.setVersion(MY_ROYLLO_COIN_VERSION);
+        asset.setVersion(ROYLLO_COIN_VERSION);
 
         // Asset genesis.
         DecodedProofResponse.DecodedProof.Asset.AssetGenesis assetGenesis = new DecodedProofResponse.DecodedProof.Asset.AssetGenesis();
-        assetGenesis.setGenesisPoint(MY_ROYLLO_COIN_GENESIS_POINT_TXID + ":" + MY_ROYLLO_COIN_GENESIS_POINT_VOUT);
-        assetGenesis.setName(MY_ROYLLO_COIN_NAME);
-        assetGenesis.setMeta(MY_ROYLLO_COIN_META);
-        assetGenesis.setAssetId(MY_ROYLLO_COIN_ASSET_ID);
-        assetGenesis.setOutputIndex(MY_ROYLLO_COIN_OUTPUT_INDEX);
-        assetGenesis.setGenesisBootstrapInfo(MY_ROYLLO_COIN_GENESIS_BOOTSTRAP_INFORMATION);
-        assetGenesis.setVersion(MY_ROYLLO_COIN_GENESIS_VERSION);
+        assetGenesis.setGenesisPoint(ROYLLO_COIN_GENESIS_POINT_TXID + ":" + ROYLLO_COIN_GENESIS_POINT_VOUT);
+        assetGenesis.setName(ROYLLO_COIN_NAME);
+        assetGenesis.setMetaDataHash(ROYLLO_COIN_META_DATA_HASH);
+        assetGenesis.setAssetId(ROYLLO_COIN_ASSET_ID);
+        assetGenesis.setOutputIndex(ROYLLO_COIN_OUTPUT_INDEX);
+        assetGenesis.setVersion(ROYLLO_COIN_GENESIS_VERSION);
         asset.setAssetGenesis(assetGenesis);
 
-        asset.setAssetType(MY_ROYLLO_COIN_ASSET_TYPE.toString());
-        asset.setAmount(MY_ROYLLO_COIN_AMOUNT);
-        asset.setLockTime(MY_ROYLLO_COIN_LOCK_TIME);
-        asset.setRelativeLockTime(MY_ROYLLO_COIN_RELATIVE_LOCK_TIME);
-        asset.setScriptVersion(MY_ROYLLO_COIN_SCRIPT_VERSION);
-        asset.setScriptKey(MY_ROYLLO_COIN_SCRIPT_KEY);
-        asset.setAssetGroup(null);
+        asset.setAssetType(ROYLLO_COIN_ASSET_TYPE.toString());
+        asset.setAmount(ROYLLO_COIN_AMOUNT);
+        asset.setLockTime(ROYLLO_COIN_LOCK_TIME);
+        asset.setRelativeLockTime(ROYLLO_COIN_RELATIVE_LOCK_TIME);
+        asset.setScriptVersion(ROYLLO_COIN_SCRIPT_VERSION);
+        asset.setScriptKey(ROYLLO_COIN_SCRIPT_KEY);
 
         // Chain anchor.
         DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchor = new DecodedProofResponse.DecodedProof.Asset.ChainAnchor();
-        chainAnchor.setAnchorTx(MY_ROYLLO_COIN_ANCHOR_TX);
-        chainAnchor.setAnchorTxId(MY_ROYLLO_COIN_ANCHOR_TX_ID);
-        chainAnchor.setAnchorBlockHash(MY_ROYLLO_COIN_ANCHOR_BLOCK_HASH);
-        chainAnchor.setAnchorOutpoint(MY_ROYLLO_COIN_ANCHOR_OUTPOINT);
-        chainAnchor.setInternalKey(MY_ROYLLO_COIN_ANCHOR_INTERNAL_KEY);
+        chainAnchor.setAnchorTx(ROYLLO_COIN_ANCHOR_TX);
+        chainAnchor.setAnchorTxId(ROYLLO_COIN_ANCHOR_TX_ID);
+        chainAnchor.setAnchorBlockHash(ROYLLO_COIN_ANCHOR_BLOCK_HASH);
+        chainAnchor.setAnchorOutpoint(ROYLLO_COIN_ANCHOR_OUTPOINT);
+        chainAnchor.setInternalKey(ROYLLO_COIN_INTERNAL_KEY);
         asset.setChainAnchor(chainAnchor);
 
         asset.setPrevWitnesses(Collections.emptyList());
 
-        decodedProof.setTxMerkleProof(MY_ROYLLO_COIN_TX_MERKLE_PROOF);
-        decodedProof.setInclusionProof(MY_ROYLLO_COIN_INCLUSION_PROOF);
         decodedProof.setExclusionProofs(Collections.emptyList());
         decodedProofResponse.setDecodedProof(decodedProof);
 
@@ -221,10 +215,9 @@ public class TAPDServiceMock extends BaseTest {
         DecodedProofResponse.DecodedProof.Asset.AssetGenesis assetGenesis = new DecodedProofResponse.DecodedProof.Asset.AssetGenesis();
         assetGenesis.setGenesisPoint(UNKNOWN_ROYLLO_COIN_GENESIS_POINT_TXID + ":" + UNKNOWN_ROYLLO_COIN_GENESIS_POINT_VOUT);
         assetGenesis.setName(UNKNOWN_ROYLLO_COIN_NAME);
-        assetGenesis.setMeta(UNKNOWN_ROYLLO_COIN_META);
+        assetGenesis.setMetaDataHash(UNKNOWN_ROYLLO_COIN_META);
         assetGenesis.setAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID);
         assetGenesis.setOutputIndex(UNKNOWN_ROYLLO_COIN_OUTPUT_INDEX);
-        assetGenesis.setGenesisBootstrapInfo(UNKNOWN_ROYLLO_COIN_GENESIS_BOOTSTRAP_INFORMATION);
         assetGenesis.setVersion(UNKNOWN_ROYLLO_COIN_GENESIS_VERSION);
         asset.setAssetGenesis(assetGenesis);
 
@@ -234,7 +227,6 @@ public class TAPDServiceMock extends BaseTest {
         asset.setRelativeLockTime(UNKNOWN_ROYLLO_COIN_RELATIVE_LOCK_TIME);
         asset.setScriptVersion(UNKNOWN_ROYLLO_COIN_SCRIPT_VERSION);
         asset.setScriptKey(UNKNOWN_ROYLLO_COIN_SCRIPT_KEY);
-        asset.setAssetGroup(null);
 
         // Chain anchor.
         DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchor = new DecodedProofResponse.DecodedProof.Asset.ChainAnchor();
@@ -279,10 +271,9 @@ public class TAPDServiceMock extends BaseTest {
         DecodedProofResponse.DecodedProof.Asset.AssetGenesis assetGenesis = new DecodedProofResponse.DecodedProof.Asset.AssetGenesis();
         assetGenesis.setGenesisPoint("db848f3114a248aed35008febbf04505652cb296726d4e1a998d08ca351e4839:1");
         assetGenesis.setName("activeRoylloCoin");
-        assetGenesis.setMeta("5573656420627920526f796c6c6f=");
+        assetGenesis.setMetaDataHash("5573656420627920526f796c6c6f=");
         assetGenesis.setAssetId("1781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e5413");
         assetGenesis.setOutputIndex(1L);
-        assetGenesis.setGenesisBootstrapInfo("39481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0000000110616374697665526f796c6c6f436f696e0e5573656420627920526f796c6c6f0000000100");
         assetGenesis.setVersion(0);
         asset.setAssetGenesis(assetGenesis);
 
@@ -292,7 +283,6 @@ public class TAPDServiceMock extends BaseTest {
         asset.setRelativeLockTime(0);
         asset.setScriptVersion(0);
         asset.setScriptKey("024e9d77ff1df871af183419a6cfd308235f512717f13da57dbf045a4a8c2ca5cc");
-        asset.setAssetGroup(null);
 
         // Chain anchor.
         DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchor = new DecodedProofResponse.DecodedProof.Asset.ChainAnchor();
@@ -320,7 +310,7 @@ public class TAPDServiceMock extends BaseTest {
      *
      * @return active royllo coin 2 decoded proof
      */
-    private DecodedProofResponse getActiveRoylloCoinProof2Index0() {
+    private DecodedProofResponse getActiveRoylloCoinProof2() {
         // Decoded response.
         DecodedProofResponse decodedProofResponse = new DecodedProofResponse();
 
@@ -337,10 +327,9 @@ public class TAPDServiceMock extends BaseTest {
         DecodedProofResponse.DecodedProof.Asset.AssetGenesis assetGenesis = new DecodedProofResponse.DecodedProof.Asset.AssetGenesis();
         assetGenesis.setGenesisPoint("db848f3114a248aed35008febbf04505652cb296726d4e1a998d08ca351e4839:1");
         assetGenesis.setName("activeRoylloCoin");
-        assetGenesis.setMeta("5573656420627920526f796c6c6f=");
+        assetGenesis.setMetaDataHash("5573656420627920526f796c6c6f=");
         assetGenesis.setAssetId("1781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e5413");
         assetGenesis.setOutputIndex(1L);
-        assetGenesis.setGenesisBootstrapInfo("39481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0000000110616374697665526f796c6c6f436f696e0e5573656420627920526f796c6c6f0000000100");
         assetGenesis.setVersion(0);
         asset.setAssetGenesis(assetGenesis);
 
@@ -350,7 +339,6 @@ public class TAPDServiceMock extends BaseTest {
         asset.setRelativeLockTime(0);
         asset.setScriptVersion(0);
         asset.setScriptKey("024e9d77ff1df871af183419a6cfd308235f512717f13da57dbf045a4a8c2ca5cc");
-        asset.setAssetGroup(null);
 
         // Chain anchor.
         DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchor = new DecodedProofResponse.DecodedProof.Asset.ChainAnchor();
@@ -374,65 +362,11 @@ public class TAPDServiceMock extends BaseTest {
     }
 
     /**
-     * Returns active royllo coin 2 decoded proof - Index 1.
-     *
-     * @return active royllo coin 2 decoded proof
-     */
-    private DecodedProofResponse getActiveRoylloCoinProof2Index1() {
-        // Decoded response.
-        DecodedProofResponse decodedProofResponse = new DecodedProofResponse();
-
-        // Decoded proof.
-        DecodedProofResponse.DecodedProof decodedProof = new DecodedProofResponse.DecodedProof();
-        decodedProof.setProofAtDepth(1);
-        decodedProof.setNumberOfProofs(2);
-
-        // Asset.
-        DecodedProofResponse.DecodedProof.Asset asset = new DecodedProofResponse.DecodedProof.Asset();
-        asset.setVersion(0);
-
-        // Asset genesis.
-        DecodedProofResponse.DecodedProof.Asset.AssetGenesis assetGenesis = new DecodedProofResponse.DecodedProof.Asset.AssetGenesis();
-        assetGenesis.setGenesisPoint("db848f3114a248aed35008febbf04505652cb296726d4e1a998d08ca351e4839:1");
-        assetGenesis.setName("activeRoylloCoin");
-        assetGenesis.setMeta("5573656420627920526f796c6c6f=");
-        assetGenesis.setAssetId("1781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e5413");
-        assetGenesis.setOutputIndex(1L);
-        assetGenesis.setGenesisBootstrapInfo("39481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0000000110616374697665526f796c6c6f436f696e0e5573656420627920526f796c6c6f0000000100");
-        assetGenesis.setVersion(0);
-        asset.setAssetGenesis(assetGenesis);
-
-        asset.setAssetType("NORMAL");
-        asset.setAmount(BigInteger.valueOf(1003));
-        asset.setLockTime(0);
-        asset.setRelativeLockTime(0);
-        asset.setScriptVersion(0);
-        asset.setScriptKey("024e9d77ff1df871af183419a6cfd308235f512717f13da57dbf045a4a8c2ca5cc");
-        asset.setAssetGroup(null);
-
-        // Chain anchor.
-        DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchor = new DecodedProofResponse.DecodedProof.Asset.ChainAnchor();
-        chainAnchor.setAnchorTx("020000000001024186b51fb5050ce20332a18c940934faaf7b7f80874a9d9889b456a8927a20050200000000ffffffffd7bd7a50f78b9e6a0621c34175bc390b091070e3532908660ad19ad2061cb16001000000000000000003e8030000000000002251207d84b124b559f1a0ab396cec2677d5a27a140caaef680cfdbecd7a16a4593762e8030000000000002251209588124b01b2a1f00db66c22b3c5560d58a7f6f8c09a98878723e87ee6eb10a3c90c0000000000001600148cb54fe42666c5e008316c342aa58c0d803392ca0247304402203b09ac49a17faf2c1bed11faccba212cfcfb01eb962656b9fd28f4a60fdc81980220561c9053d536e8cdcb771c13ba5957497e421c5ac6456b0c5be76ef908fc60c8012103219e2594f427e338690c3f51409706439d8ab83fde02d18d0c28ec55c285801c01407eb8a1f6bf214a8471f72a894cc99e6fe756b8f2258a6c786cb825767fc2762d2e1320da2eecabaa92872fa03d584d52e5ff5c80056be1488f44cc0aeb50559c00000000");
-        chainAnchor.setAnchorTxId("b175d771faed137c011b831bea066f4610995cc61352a446c5feab0114e862dc");
-        chainAnchor.setAnchorBlockHash("00000000ff54cb2d9fba5814b6699b1e674857e6f7c2d0ab27559c69438e4a47");
-        chainAnchor.setAnchorOutpoint("b175d771faed137c011b831bea066f4610995cc61352a446c5feab0114e862dc");
-        chainAnchor.setInternalKey("02d180fa5fde1f070a9df166d1cc4c0ec8fd3ccd57da8744a4fed8a1a1578cf1ae");
-        asset.setChainAnchor(chainAnchor);
-
-        asset.setPrevWitnesses(Collections.emptyList());
-
-        decodedProof.setTxMerkleProof("07938006468f02d2d507be06a19e95dcb745c0c80d2f909b699b1e9be7d51ab20f013260064752b181c2b7211d73f34b6a898c7728eed82e4fa837d3032a0f9f940b660b9ab0110750f38696f8afb8c9e1efe82f134bb264ccb624d2a89afde4d9eb44c9b74161a524df3f8d0cee247be9984f6694ca31766d2a12470bfc4e0b5c33b2659a8b50f188deb330af74218788c0717f66f4f56832b2ec568e571e97dd0fc080ed0b6465878f8547163ddf71a6825290b08846484fab9ab9f84895feedd0ff6506a12b5c5e718cd7ee09f8474c852587b7a6c693819fd4add29752f67963");
-        decodedProof.setInclusionProof("000400000000012102d180fa5fde1f070a9df166d1cc4c0ec8fd3ccd57da8744a4fed8a1a1578cf1ae0274004900010001201781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e541302220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff012700010001220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        decodedProof.setExclusionProofs(Stream.of("0004000000010121030411db4d023a8d55607fedc562d519b1854af7752d9e1f00279213380d439e88029c007100010001201781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e5413024a000151f716888109ae4abf80fa5120d1eaca3e36ec8a2a45849e573001373de715170000000000000064ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffbf012700010001220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff").collect(Collectors.toList()));
-        return decodedProofResponse;
-    }
-
-    /**
      * Returns active royllo coin 3 decoded proof - Index 0.
      *
      * @return active royllo coin 3 decoded proof
      */
-    private DecodedProofResponse getActiveRoylloCoinProof3Index0() {
+    private DecodedProofResponse getActiveRoylloCoinProof3() {
         // Decoded response.
         DecodedProofResponse decodedProofResponse = new DecodedProofResponse();
 
@@ -449,10 +383,9 @@ public class TAPDServiceMock extends BaseTest {
         DecodedProofResponse.DecodedProof.Asset.AssetGenesis assetGenesis = new DecodedProofResponse.DecodedProof.Asset.AssetGenesis();
         assetGenesis.setGenesisPoint("db848f3114a248aed35008febbf04505652cb296726d4e1a998d08ca351e4839:1");
         assetGenesis.setName("activeRoylloCoin");
-        assetGenesis.setMeta("5573656420627920526f796c6c6f=");
+        assetGenesis.setMetaDataHash("5573656420627920526f796c6c6f=");
         assetGenesis.setAssetId("1781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e5413");
         assetGenesis.setOutputIndex(1L);
-        assetGenesis.setGenesisBootstrapInfo("39481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0000000110616374697665526f796c6c6f436f696e0e5573656420627920526f796c6c6f0000000100");
         assetGenesis.setVersion(0);
         asset.setAssetGenesis(assetGenesis);
 
@@ -462,7 +395,6 @@ public class TAPDServiceMock extends BaseTest {
         asset.setRelativeLockTime(0);
         asset.setScriptVersion(0);
         asset.setScriptKey("024e9d77ff1df871af183419a6cfd308235f512717f13da57dbf045a4a8c2ca5cc");
-        asset.setAssetGroup(null);
 
         // Chain anchor.
         DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchor = new DecodedProofResponse.DecodedProof.Asset.ChainAnchor();
@@ -478,64 +410,6 @@ public class TAPDServiceMock extends BaseTest {
         decodedProof.setTxMerkleProof("05e44c946dc58fca94bfc32e4c55b7f4aad4a3742246453617d4e56a314f9949c95cc123946cb7bc245bc43c8e0b3c29317c690504a0cfa7b2e0c790731184d0f5b7fb34b383e47b12e5335ef4e37d3dbe1eca30d9ba62805ac8344efee4871ff684af935b1aff57d8aef1dc0fed4862a2965529a0c9f8a7d3572d8fa513303c744f7ba713278679e08bb0fd955df359de9605b6e97b6e78cc44ce67bfc84c761511");
         decodedProof.setInclusionProof("000400000001012103bea9941963648cfaaa2981d68ebf209e20b3e68287d94371805832e9624014290274004900010001201781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e541302220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff012700010001220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         decodedProof.setExclusionProofs(Collections.emptyList());
-        decodedProofResponse.setDecodedProof(decodedProof);
-
-        decodedProof.setAsset(asset);
-
-        return decodedProofResponse;
-    }
-
-    /**
-     * Returns active royllo coin 3 decoded proof - Index 1.
-     *
-     * @return active royllo coin 3 decoded proof
-     */
-    private DecodedProofResponse getActiveRoylloCoinProof3Index1() {
-        // Decoded response.
-        DecodedProofResponse decodedProofResponse = new DecodedProofResponse();
-
-        // Decoded proof.
-        DecodedProofResponse.DecodedProof decodedProof = new DecodedProofResponse.DecodedProof();
-        decodedProof.setProofAtDepth(0);
-        decodedProof.setNumberOfProofs(1);
-
-        // Asset.
-        DecodedProofResponse.DecodedProof.Asset asset = new DecodedProofResponse.DecodedProof.Asset();
-        asset.setVersion(0);
-
-        // Asset genesis.
-        DecodedProofResponse.DecodedProof.Asset.AssetGenesis assetGenesis = new DecodedProofResponse.DecodedProof.Asset.AssetGenesis();
-        assetGenesis.setGenesisPoint("db848f3114a248aed35008febbf04505652cb296726d4e1a998d08ca351e4839:1");
-        assetGenesis.setName("activeRoylloCoin");
-        assetGenesis.setMeta("5573656420627920526f796c6c6f=");
-        assetGenesis.setAssetId("1781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e5413");
-        assetGenesis.setOutputIndex(1L);
-        assetGenesis.setGenesisBootstrapInfo("39481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0000000110616374697665526f796c6c6f436f696e0e5573656420627920526f796c6c6f0000000100");
-        assetGenesis.setVersion(0);
-        asset.setAssetGenesis(assetGenesis);
-
-        asset.setAssetType("NORMAL");
-        asset.setAmount(BigInteger.valueOf(1003));
-        asset.setLockTime(0);
-        asset.setRelativeLockTime(0);
-        asset.setScriptVersion(0);
-        asset.setScriptKey("024e9d77ff1df871af183419a6cfd308235f512717f13da57dbf045a4a8c2ca5cc");
-        asset.setAssetGroup(null);
-
-        // Chain anchor.
-        DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchor = new DecodedProofResponse.DecodedProof.Asset.ChainAnchor();
-        chainAnchor.setAnchorTx("020000000001024186b51fb5050ce20332a18c940934faaf7b7f80874a9d9889b456a8927a20050200000000ffffffffd7bd7a50f78b9e6a0621c34175bc390b091070e3532908660ad19ad2061cb16001000000000000000003e8030000000000002251207d84b124b559f1a0ab396cec2677d5a27a140caaef680cfdbecd7a16a4593762e8030000000000002251209588124b01b2a1f00db66c22b3c5560d58a7f6f8c09a98878723e87ee6eb10a3c90c0000000000001600148cb54fe42666c5e008316c342aa58c0d803392ca0247304402203b09ac49a17faf2c1bed11faccba212cfcfb01eb962656b9fd28f4a60fdc81980220561c9053d536e8cdcb771c13ba5957497e421c5ac6456b0c5be76ef908fc60c8012103219e2594f427e338690c3f51409706439d8ab83fde02d18d0c28ec55c285801c01407eb8a1f6bf214a8471f72a894cc99e6fe756b8f2258a6c786cb825767fc2762d2e1320da2eecabaa92872fa03d584d52e5ff5c80056be1488f44cc0aeb50559c00000000");
-        chainAnchor.setAnchorTxId("b175d771faed137c011b831bea066f4610995cc61352a446c5feab0114e862dc");
-        chainAnchor.setAnchorBlockHash("00000000ff54cb2d9fba5814b6699b1e674857e6f7c2d0ab27559c69438e4a47");
-        chainAnchor.setAnchorOutpoint("b175d771faed137c011b831bea066f4610995cc61352a446c5feab0114e862dc");
-        chainAnchor.setInternalKey("030411db4d023a8d55607fedc562d519b1854af7752d9e1f00279213380d439e88");
-        asset.setChainAnchor(chainAnchor);
-
-        asset.setPrevWitnesses(Collections.emptyList());
-
-        decodedProof.setTxMerkleProof("07938006468f02d2d507be06a19e95dcb745c0c80d2f909b699b1e9be7d51ab20f013260064752b181c2b7211d73f34b6a898c7728eed82e4fa837d3032a0f9f940b660b9ab0110750f38696f8afb8c9e1efe82f134bb264ccb624d2a89afde4d9eb44c9b74161a524df3f8d0cee247be9984f6694ca31766d2a12470bfc4e0b5c33b2659a8b50f188deb330af74218788c0717f66f4f56832b2ec568e571e97dd0fc080ed0b6465878f8547163ddf71a6825290b08846484fab9ab9f84895feedd0ff6506a12b5c5e718cd7ee09f8474c852587b7a6c693819fd4add29752f67963");
-        decodedProof.setInclusionProof("0004000000010121030411db4d023a8d55607fedc562d519b1854af7752d9e1f00279213380d439e880274004900010001201781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e541302220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff012700010001220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        decodedProof.setExclusionProofs(Stream.of("000400000000012102d180fa5fde1f070a9df166d1cc4c0ec8fd3ccd57da8744a4fed8a1a1578cf1ae029c007100010001201781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e5413024a00019fe1a55b2c9813569b7c7a3bf514bafc0cf43748d646a2bf39848870b06677a70000000000000387ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffbf012700010001220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff").collect(Collectors.toList()));
         decodedProofResponse.setDecodedProof(decodedProof);
 
         decodedProof.setAsset(asset);

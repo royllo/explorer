@@ -14,11 +14,9 @@
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="3"/>
             <column name="NAME" value="activeRoylloCoin"/>
-            <column name="META_DATA" value="5573656420627920526f796c6c6f"/>
+            <column name="META_DATA_HASH" value="5573656420627920526f796c6c6f"/>
             <column name="ASSET_ID" value="asset_id_5_proof"/>
             <column name="OUTPUT_INDEX" value="1"/>
-            <column name="GENESIS_BOOTSTRAP_INFORMATION"
-                    value="39481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0000000110616374697665526f796c6c6f436f696e0e5573656420627920526f796c6c6f0000000100"/>
             <column name="GENESIS_VERSION" value="0"/>
 
             <column name="ASSET_TYPE" value="NORMAL"/>
@@ -34,7 +32,7 @@
             <column name="ANCHOR_TXID" value="60b11c06d29ad10a66082953e37010090b39bc7541c321066a9e8bf7507abdd7"/>
             <column name="ANCHOR_BLOCK_HASH" value="000000000000002366fc3e4cc4074a94529e09858b6585004a0056e47e08c0c9"/>
             <column name="ANCHOR_OUTPOINT" value="60b11c06d29ad10a66082953e37010090b39bc7541c321066a9e8bf7507abdd7"/>
-            <column name="ANCHOR_INTERNAL_KEY"
+            <column name="INTERNAL_KEY"
                     value="03bea9941963648cfaaa2981d68ebf209e20b3e68287d94371805832e962401429"/>
         </insert>
 

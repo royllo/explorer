@@ -54,8 +54,8 @@ public class TapdServiceImplementation extends BaseMempoolService implements Tap
     }
 
     @Override
-    public final Mono<DecodedProofResponse> decode(final String rawProof, final long proofIndex) {
-        logger.info("Calling decode for proof from tapd n°{} with raw proof {}", proofIndex, rawProof);
+    public final Mono<DecodedProofResponse> decode(final String rawProof) {
+        logger.info("Calling decode for proof from tapd with raw proof {}", rawProof);
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
         return WebClient.builder()
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
@@ -67,7 +67,8 @@ public class TapdServiceImplementation extends BaseMempoolService implements Tap
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(ProofRequest.builder()
                         .rawProof(rawProof)
-                        .proofIndex(proofIndex)
+                        .withPrevWitnesses(false)
+                        .withMetaReveal(false)
                         .build()
                 ))
                 .exchangeToFlux(response -> response.bodyToFlux(DecodedProofResponse.class))

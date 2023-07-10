@@ -30,9 +30,9 @@ public class TAPDProofServiceMock extends BaseTest {
         // Non-existing proof.
         // Mockito.when(mockedService.decode(any(), 0)).thenReturn(Mono.empty());
 
-        Mockito.when(mockedService.decode("TIMEOUT_ERROR", 0)).thenThrow(new RuntimeException("Time out error"));
+        Mockito.when(mockedService.decode("TIMEOUT_ERROR")).thenThrow(new RuntimeException("Time out error"));
 
-        Mockito.when(mockedService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF, 0)).thenReturn(Mono.just(getUnknownRoylloCoin()));
+        Mockito.when(mockedService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF)).thenReturn(Mono.just(getUnknownRoylloCoin()));
 
         return mockedService;
     }
@@ -59,10 +59,9 @@ public class TAPDProofServiceMock extends BaseTest {
         DecodedProofResponse.DecodedProof.Asset.AssetGenesis assetGenesis = new DecodedProofResponse.DecodedProof.Asset.AssetGenesis();
         assetGenesis.setGenesisPoint(UNKNOWN_ROYLLO_COIN_GENESIS_POINT_TXID + ":" + UNKNOWN_ROYLLO_COIN_GENESIS_POINT_VOUT);
         assetGenesis.setName(UNKNOWN_ROYLLO_COIN_NAME);
-        assetGenesis.setMeta(UNKNOWN_ROYLLO_COIN_META);
+        assetGenesis.setMetaDataHash(UNKNOWN_ROYLLO_COIN_META);
         assetGenesis.setAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID);
         assetGenesis.setOutputIndex(UNKNOWN_ROYLLO_COIN_OUTPUT_INDEX);
-        assetGenesis.setGenesisBootstrapInfo(UNKNOWN_ROYLLO_COIN_GENESIS_BOOTSTRAP_INFORMATION);
         assetGenesis.setVersion(UNKNOWN_ROYLLO_COIN_GENESIS_VERSION);
         asset.setAssetGenesis(assetGenesis);
 
@@ -72,7 +71,6 @@ public class TAPDProofServiceMock extends BaseTest {
         asset.setRelativeLockTime(UNKNOWN_ROYLLO_COIN_RELATIVE_LOCK_TIME);
         asset.setScriptVersion(UNKNOWN_ROYLLO_COIN_SCRIPT_VERSION);
         asset.setScriptKey(UNKNOWN_ROYLLO_COIN_SCRIPT_KEY);
-        asset.setAssetGroup(null);
 
         // Chain anchor.
         DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchor = new DecodedProofResponse.DecodedProof.Asset.ChainAnchor();
@@ -118,10 +116,9 @@ public class TAPDProofServiceMock extends BaseTest {
         DecodedProofResponse.DecodedProof.Asset.AssetGenesis assetGenesis = new DecodedProofResponse.DecodedProof.Asset.AssetGenesis();
         assetGenesis.setGenesisPoint("2b572baa90ab27552c7577a4992b048689af30b8549379be83a5b576e3ebc210:0");
         assetGenesis.setName("habib_remote");
-        assetGenesis.setMeta("aGFiaWJ0YXJvLmNvbV9yZW1vdGU=");
+        assetGenesis.setMetaDataHash("aGFiaWJ0YXJvLmNvbV9yZW1vdGU=");
         assetGenesis.setAssetId("PgVFMqaoaedeG96KJeeUQXfWSKA0/lwUirf3dDU4zJ4=");
         assetGenesis.setOutputIndex(0L);
-        assetGenesis.setGenesisBootstrapInfo("EMLr43a1pYO+eZNUuDCviYYEK5mkd3UsVSerkKorVysAAAAAEGhhYmlidGFyb19yZW1vdGUUaGFiaWJ0YXJvLmNvbV9yZW1vdGUAAAAAAA==");
         assetGenesis.setVersion(0);
         asset.setAssetGenesis(assetGenesis);
 
@@ -131,7 +128,6 @@ public class TAPDProofServiceMock extends BaseTest {
         asset.setRelativeLockTime(0);
         asset.setScriptVersion(0);
         asset.setScriptKey("Ao9XAROi+fc/XqUXTlcCVUi72pjQMj8F9bVr5vvjQMTu");
-        asset.setAssetGroup(null);
 
         // Chain anchor.
         DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchor = new DecodedProofResponse.DecodedProof.Asset.ChainAnchor();

@@ -9,14 +9,19 @@ integration:
 install:
     mvn clean install -DskipTests=true
 
+build_docker:
+    mvn clean install -P release -Dmaven.test.skip
+    mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-batch/pom.xml
+    mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-api/pom.xml
+    mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-web/pom.xml
+
 # ======================================================================================================================
 # Run
 run_web_server_backend:
     mvn spring-boot:run -Dspring-boot.run.profiles=dev -f backend/servers/explorer-web/pom.xml
 
 run_web_server_frontend:
-    cd backend/servers/explorer-web
-    npm run build && npm run watch
+    npm run --prefix backend/servers/explorer-web build && npm run --prefix backend/servers/explorer-web watch
 
 # ======================================================================================================================
 # Release

@@ -11,11 +11,10 @@ public interface TapdService {
     /**
      * Decode proof.
      *
-     * @param rawProof   raw proof
-     * @param proofIndex proof index
+     * @param rawProof raw proof
      * @return decoded proof
      */
-    Mono<DecodedProofResponse> decode(String rawProof, long proofIndex);
+    Mono<DecodedProofResponse> decode(String rawProof);
 
     /**
      * Get universe roots.
