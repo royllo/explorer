@@ -45,6 +45,8 @@ public interface AssetMapper {
     @Mapping(source = "asset.chainAnchor.anchorBlockHash", target = "anchorBlockHash")
     @Mapping(source = "asset.chainAnchor.anchorOutpoint", target = "anchorOutpoint")
     @Mapping(source = "asset.chainAnchor.internalKey", target = "internalKey")
+    @Mapping(source = "asset.chainAnchor.merkleRoot", target = "merkleRoot")
+    @Mapping(source = "asset.chainAnchor.tapscriptSibling", target = "tapscriptSibling")
     AssetDTO mapToAssetDTO(DecodedProofResponse.DecodedProof source);
 
     default BitcoinTransactionOutputDTO mapToBitcoinTransactionOutputDTO(final String source) {

@@ -22,6 +22,7 @@
                        name="serverAddress"
                        required
                        th:field="*{serverAddress}"
+                       th:placeholder="#{request.universeServer.serverAddress.helper}"
                        type="text">
             </div>
             <p class="mt-2 text-sm text-red-600 dark:text-red-500" th:errors="*{serverAddress}"

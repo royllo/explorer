@@ -13,6 +13,8 @@ import org.royllo.explorer.core.service.universe.UniverseServerService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.TimeUnit;
+
 import static java.time.ZonedDateTime.now;
 
 /**
@@ -89,6 +91,13 @@ public class UniverseExplorerBatch extends BaseBatch {
                                         final AddProofRequestDTO addProofRequest = requestService.createAddProofRequest(proof);
                                         logger.info("Request created {} for asset: {}", addProofRequest.getId(), addProofRequest.getRawProof());
                                     });
+
+                            // TODO Replace with a bucket.
+                            try {
+                                TimeUnit.SECONDS.sleep(2);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
                         });
 
             });

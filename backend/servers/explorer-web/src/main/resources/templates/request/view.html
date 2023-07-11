@@ -70,7 +70,7 @@
         </div>
 
         <!--/* View asset */-->
-        <div class="my-12" th:if="${#strings.equals(result.status, 'SUCCESS')}">
+        <div class="my-12" th:if="${result.asset != null && #strings.equals(result.status, 'SUCCESS')}">
             <a class="defaultButton"
                th:href="@{'/asset/' + ${result.asset.assetId}}"
                th:text="#{request.button.asset.view}"></a>

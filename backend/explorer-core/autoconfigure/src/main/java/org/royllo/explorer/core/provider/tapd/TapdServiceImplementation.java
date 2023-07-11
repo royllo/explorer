@@ -62,7 +62,7 @@ public class TapdServiceImplementation extends BaseMempoolService implements Tap
                 .baseUrl(tapdParameters.getApi().getBaseUrl())
                 .build()
                 .post()
-                .uri("proofs/decode")
+                .uri("/v1/taproot-assets/proofs/decode")
                 .header("Grpc-Metadata-macaroon", tapdParameters.getApi().getMacaroon())
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(ProofRequest.builder()
@@ -77,16 +77,15 @@ public class TapdServiceImplementation extends BaseMempoolService implements Tap
 
     @Override
     public final Mono<UniverseRootsResponse> getUniverseRoots(final String serverAddress) {
-        logger.info("Get universe roots from tapd");
+        logger.info("Get universe roots from tapd server: {}", serverAddress);
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
-
         return WebClient.builder()
                 .codecs(clientCodecConfigurer -> clientCodecConfigurer.defaultCodecs().maxInMemorySize(CODE_MAXIMUM_SIZE))
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
                 .baseUrl(serverAddress)
                 .build()
                 .get()
-                .uri("universe/roots")
+                .uri("/v1/taproot-assets/universe/roots")
                 .exchangeToFlux(response -> response.bodyToFlux(UniverseRootsResponse.class))
                 .next();
     }
@@ -96,13 +95,12 @@ public class TapdServiceImplementation extends BaseMempoolService implements Tap
                                                                 final String assetId) {
         logger.info("Get universe leaves from tapd for asset {}", assetId);
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
-
         return WebClient.builder()
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
                 .baseUrl(serverAddress)
                 .build()
                 .get()
-                .uri("universe/leaves/asset-id/" + assetId)
+                .uri("/v1/taproot-assets/universe/leaves/asset-id/" + assetId)
                 .exchangeToFlux(response -> response.bodyToFlux(UniverseLeavesResponse.class))
                 .next();
     }

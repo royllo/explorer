@@ -7,6 +7,8 @@ import org.royllo.explorer.core.provider.tapd.UniverseRootsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -19,16 +21,33 @@ public class TapdUniverseRootsServiceTest {
 
     @Test
     @DisplayName("Calling getUniverseRoots() on TAPD")
-    public void getUniverseRootsTest() {
-        // TODO Review this test
-        UniverseRootsResponse response = tapdService.getUniverseRoots("https://testnet.universe.lightning.finance/v1/taproot-assets/").block();
+    public void getUniverseRootsTest() throws InterruptedException {
+        // List of servers to test.
+        String[] validServers = new String[]{
+                "testnet.universe.lightning.finance",
+                "testnet.universe.lightning.finance/",
+                "54.244.179.44",
+                "54.244.179.44/",
+                // With https in front.
+                "https://testnet.universe.lightning.finance",
+                "https://testnet.universe.lightning.finance/",
+                "https://54.244.179.44",
+                "https://54.244.179.44",
+        };
 
-        // Testing all the value from the response.
-        assertNotNull(response);
-        assertTrue(response.getUniverseRoots()
-                .values()
-                .stream()
-                .anyMatch(universeRoot -> "0a7d8e5b8e836f69b8210200fdfd4b6c06c7170e91bd45fe365f1e5a2be0e193".equals(universeRoot.getId().getAssetId())));
+        // Testing each server.
+        for (String serverAddress : validServers) {
+            // Testing the response of each server.
+            UniverseRootsResponse response = tapdService.getUniverseRoots(serverAddress).block();
+            assertNotNull(response);
+            assertTrue(response.getUniverseRoots()
+                    .values()
+                    .stream()
+                    .anyMatch(universeRoot -> "0a7d8e5b8e836f69b8210200fdfd4b6c06c7170e91bd45fe365f1e5a2be0e193".equals(universeRoot.getId().getAssetId())));
+
+            // Let the distant server rest for sometime.
+            TimeUnit.SECONDS.sleep(10);
+        }
     }
 
 }

@@ -44,7 +44,6 @@ Then :
 - Implement all universe public methods so people could add royllo as a federation server. their daemon will
   automatically sync stuff, and also push new things (right now just new assets, in the future also transactions) to
   it. Instead of getting data from distant servers, the servers will push data to us.
-  s
 
 ## What are the steps ?
 
@@ -73,8 +72,15 @@ curl https://testnet.universe.lightning.finance/v1/taproot-assets/universe/leave
 3 - Decode the proof retrieved in the previous step and it's ok, add the proof to our database throw an add proof
 request.
 
+```bash
+curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./admin.macaroon)" \
+        --data @REST-decode-parameter.json \
+        --insecure https://157.230.85.88:8089/v1/taproot-assets/proofs/decode
+```
+
 ## Backup
 
-curl https://testnet.universe.lightning.finance/v1/taproot-assets/universe/keys/asset-id/f84238ffd7838b663f1800d8147c9338f15688b430f6e9d8d53f148049ef3bcb | jq
+curl https://testnet.universe.lightning.finance/v1/taproot-assets/universe/keys/asset-id/f84238ffd7838b663f1800d8147c9338f15688b430f6e9d8d53f148049ef3bcb |
+jq
 
 

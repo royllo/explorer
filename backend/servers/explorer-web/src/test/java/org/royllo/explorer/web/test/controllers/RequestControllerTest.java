@@ -15,7 +15,9 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
 import static org.royllo.explorer.web.util.constants.PagesConstants.REQUEST_PAGE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @SpringBootTest
 @DisplayName("Request controller tests")
@@ -132,6 +134,12 @@ public class RequestControllerTest {
                 .andExpect(content().string(not(containsString(Objects.requireNonNull(
                                 environment.getProperty("request.view.error.requestNotFound"))
                         .replace("\"{0}\"", "&quot;&quot;")))));
+
+        // When a request concerns a universe server, asset id is null ! so it should not be displayed!
+        // REQUEST_ID_7
+        mockMvc.perform(get("/request/REQUEST_ID_7"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(REQUEST_PAGE));
     }
 
     @Test
