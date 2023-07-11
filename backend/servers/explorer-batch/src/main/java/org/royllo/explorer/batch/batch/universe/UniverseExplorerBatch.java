@@ -10,7 +10,6 @@ import org.royllo.explorer.core.repository.proof.ProofRepository;
 import org.royllo.explorer.core.repository.universe.UniverseServerRepository;
 import org.royllo.explorer.core.service.request.RequestService;
 import org.royllo.explorer.core.service.universe.UniverseServerService;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
@@ -49,7 +48,8 @@ public class UniverseExplorerBatch extends BaseBatch {
     /**
      * Retrieving all universe servers data.
      */
-    @Scheduled(initialDelay = START_DELAY_IN_MILLISECONDS, fixedDelay = DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS)
+    // TODO Reactivate when I can decode the proofs from the universe
+    // @Scheduled(initialDelay = START_DELAY_IN_MILLISECONDS, fixedDelay = DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS)
     public void processUniverseServers() {
         if (enabled.get()) {
             universeServerRepository.findTop3ByOrderByLastSynchronizedOnAsc().forEach(universeServer -> {
