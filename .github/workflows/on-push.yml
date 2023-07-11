@@ -6,9 +6,9 @@ on:
 jobs:
 
   # ====================================================================================================================
-  # Run java tests.
-  java_tests:
-    name: Java tests
+  # Run unit tests.
+  unit_tests:
+    name: Unit tests
     runs-on: ubuntu-latest
     steps:
       # ================================================================================================================
@@ -24,9 +24,28 @@ jobs:
 
       # ================================================================================================================
       - name: build and run tests
-        run: |
-          mvn clean test
-          mvn clean test -P integration
+        run: mvn clean test
+
+  # ====================================================================================================================
+  # Run integration tests.
+  integration_tests:
+    name: Integration tests
+    runs-on: ubuntu-latest
+    steps:
+      # ================================================================================================================
+      - name: Retrieve the sources
+        uses: actions/checkout@v3
+
+      # ================================================================================================================
+      - name: Java Setup
+        uses: actions/setup-java@v3.11.0
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # ================================================================================================================
+      - name: build and run tests
+        run: mvn clean test -P integration
 
   # ====================================================================================================================
   # Run docker tests.
@@ -145,7 +164,7 @@ jobs:
   docker_hub_push:
     name: Docker images push to docker hub
     runs-on: ubuntu-latest
-    needs: [ java_tests, docker_tests ]
+    needs: [ unit_tests, integration_tests, docker_tests ]
     if: github.ref == 'refs/heads/development'
     steps:
       # ================================================================================================================
@@ -186,7 +205,7 @@ jobs:
   production_push:
     name: Docker images push to production
     runs-on: ubuntu-latest
-    needs: [ java_tests, docker_tests ]
+    needs: [ unit_tests, integration_tests, docker_tests ]
     if: startsWith(github.ref, 'refs/tags/')
     steps:
       # ================================================================================================================
