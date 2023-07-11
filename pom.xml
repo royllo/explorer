@@ -65,10 +65,10 @@
         <!-- ======================================================================================================= -->
         <!-- Project libraries -->
         <spring.version>3.1.1</spring.version>
-        <reactor-core.version>3.5.7</reactor-core.version>
-        <reactor-netty.version>1.1.8</reactor-netty.version>
+        <reactor-core.version>3.5.8</reactor-core.version>
+        <reactor-netty.version>1.1.9</reactor-netty.version>
 
-        <graphql-dgs-platform-dependencies.version>7.2.0</graphql-dgs-platform-dependencies.version>
+        <graphql-dgs-platform-dependencies.version>7.3.2</graphql-dgs-platform-dependencies.version>
         <graphql-dgs-codegen-core.version>5.12.4</graphql-dgs-codegen-core.version>
         <graphql-dgs-codegen-client-core.version>5.1.17</graphql-dgs-codegen-client-core.version>
 
@@ -102,7 +102,7 @@
         <!-- Maven plugins -->
         <maven.gitflow.version>1.20.0</maven.gitflow.version>
         <maven.checkstyle.plugin.version>3.3.0</maven.checkstyle.plugin.version>
-        <maven.graphqlcodegen.plugin.version>1.38</maven.graphqlcodegen.plugin.version>
+        <maven.graphqlcodegen.plugin.version>1.39</maven.graphqlcodegen.plugin.version>
         <maven.puppycrawl.checkstyle.version>10.12.1</maven.puppycrawl.checkstyle.version>
         <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
 
