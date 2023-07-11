@@ -21,10 +21,10 @@ import static lombok.AccessLevel.PRIVATE;
 public class ProofDTO {
 
     /** Raw proof minimum size - Under this size, the raw proof is displayed without preview. */
-    public static final int RAW_PROOF_MINIMUM_SIZE = 6;
+    private static final int RAW_PROOF_MINIMUM_SIZE = 6;
 
     /** Raw proof preview size - The size of the preview on both ends. */
-    public static final int RAW_PROOF_PREVIEW_SIZE = 3;
+    private static final int RAW_PROOF_PREVIEW_SIZE = 3;
 
     /** Unique identifier. */
     Long id;
@@ -37,7 +37,7 @@ public class ProofDTO {
     @NotNull(message = "Target asset is required")
     AssetDTO asset;
 
-    /** Proof id  - sha256(rawProof). */
+    /** Proof id - sha256(rawProof). */
     @NotBlank(message = "Proof ID is required")
     String proofId;
 
