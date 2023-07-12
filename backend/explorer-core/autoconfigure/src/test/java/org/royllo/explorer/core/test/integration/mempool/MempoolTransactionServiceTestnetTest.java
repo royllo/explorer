@@ -24,6 +24,7 @@ public class MempoolTransactionServiceTestnetTest extends BaseTest {
     @DisplayName("getTransaction() on testnet")
     @SuppressWarnings("SpellCheckingInspection")
     public void getTransactionTest() {
+        // TODO Review this test
         // =============================================================================================================
         // Testing a taproot transaction.
         GetTransactionResponse taprootTransaction = mempoolTransactionService.getTransaction(BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID)

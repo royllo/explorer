@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
+import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.service.request.RequestService;
 import org.royllo.explorer.core.util.constants.UserConstants;
@@ -39,6 +40,7 @@ public class RequestServiceTest {
     @Order(1)
     @DisplayName("getOpenedRequests()")
     public void getOpenedRequests() {
+        // TODO Review this test
         List<RequestDTO> openedRequests = requestService.getOpenedRequests();
         // 4 requests - request n°2 is closed
         assertEquals(3, openedRequests.size());
@@ -78,6 +80,7 @@ public class RequestServiceTest {
     @Order(2)
     @DisplayName("getRequestByRequestId()")
     public void getRequestByRequestId() {
+        // TODO Review this test
         // We should not find this string request id.
         assertTrue(requestService.getRequestByRequestId("NON_EXISTING_REQUEST_ID").isEmpty());
 
@@ -101,6 +104,7 @@ public class RequestServiceTest {
     @Order(3)
     @DisplayName("Add requests")
     public void addRequests() {
+        // TODO Review this test
         // =============================================================================================================
         // Testing data validation.
         try {
@@ -116,7 +120,7 @@ public class RequestServiceTest {
         assertNotNull(request1DTO);
         long request1Id = request1DTO.getId();
 
-        // Use getRequest()
+        // Use getRequest().
         Optional<RequestDTO> request1 = requestService.getRequest(request1Id);
         assertTrue(request1.isPresent());
         assertTrue(request1.get() instanceof AddProofRequestDTO);
@@ -138,7 +142,7 @@ public class RequestServiceTest {
         assertNotNull(request2DTO);
         long request2Id = request2DTO.getId();
 
-        // Use getRequest()
+        // Use getRequest().
         Optional<RequestDTO> request2 = requestService.getRequest(request2Id);
         assertTrue(request2.isPresent());
         assertTrue(request2.get() instanceof AddAssetMetaDataRequestDTO);
@@ -161,7 +165,7 @@ public class RequestServiceTest {
         assertNotNull(request3DTO);
         long request3Id = request3DTO.getId();
 
-        // Use getRequest()
+        // Use getRequest().
         Optional<RequestDTO> request3 = requestService.getRequest(request3Id);
         assertTrue(request3.isPresent());
         assertTrue(request3.get() instanceof AddProofRequestDTO);
@@ -176,6 +180,29 @@ public class RequestServiceTest {
         assertEquals(RequestStatus.OPENED, request3Casted.getStatus());
         assertNull(request3Casted.getErrorMessage());
         assertEquals("proof2", request3Casted.getRawProof());
+
+
+        // =============================================================================================================
+        // Request 4 (AddUniverseServerRequest).
+        RequestDTO request4DTO = requestService.createAddUniverseServerRequest("1.1.1.1:8080");
+        assertNotNull(request4DTO);
+        long request4Id = request4DTO.getId();
+
+        // Use getRequest().
+        Optional<RequestDTO> request4 = requestService.getRequest(request4Id);
+        assertTrue(request4.isPresent());
+        assertTrue(request4.get() instanceof AddUniverseServerRequestDTO);
+
+        // We cast and check of all the data is here.
+        AddUniverseServerRequestDTO request4Casted = (AddUniverseServerRequestDTO) request4.get();
+        assertEquals(request4Id, request4Casted.getId());
+        assertNotNull(request4Casted.getRequestId());
+        assertEquals(UserConstants.ANONYMOUS_ID, request4Casted.getCreator().getId());
+        assertEquals(UserConstants.ANONYMOUS_USER_ID, request4Casted.getCreator().getUserId());
+        assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, request4Casted.getCreator().getUsername());
+        assertEquals(RequestStatus.OPENED, request4Casted.getStatus());
+        assertNull(request4Casted.getErrorMessage());
+        assertEquals("1.1.1.1:8080", request4Casted.getServerAddress());
     }
 
 }

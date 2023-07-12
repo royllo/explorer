@@ -8,6 +8,9 @@ type Mutation {
     "Creates a request to add an asset meta data"
     createAddAssetMetaDataRequest(input: AddAssetMetaDataRequestInputs!): AddAssetMetaDataRequest
 
+    "Creates a request to add a universe server"
+    createAddUniverseServerRequest(input: AddUniverseServerRequestInputs!): AddUniverseServerRequest
+
 }
 
 "Add proof request inputs"
@@ -22,4 +25,10 @@ input AddAssetMetaDataRequestInputs {
     assetId: String!
     "Metadata corresponding to the meta hash stored in the genesis information"
     metaData: String!
+}
+
+"Add universe server request inputs"
+input AddUniverseServerRequestInputs {
+    "The universe server address (consists of both an IP address and a port number)"
+    serverAddress: String!
 }

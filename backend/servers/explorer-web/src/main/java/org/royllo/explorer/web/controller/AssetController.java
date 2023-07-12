@@ -1,9 +1,11 @@
 package org.royllo.explorer.web.controller;
 
 import io.micrometer.common.util.StringUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.proof.ProofService;
+import org.royllo.explorer.web.util.base.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,14 +17,16 @@ import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASS
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PAGE_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.ASSET_PAGE;
+import static org.royllo.explorer.web.util.constants.PagesConstants.ASSET_PAGE_FRAGMENT;
 import static org.royllo.explorer.web.util.constants.PagesConstants.ASSET_PROOFS_PAGE;
+import static org.royllo.explorer.web.util.constants.PagesConstants.ASSET_PROOFS_PAGE_FRAGMENT;
 
 /**
  * Asset controller.
  */
 @Controller
 @RequiredArgsConstructor
-public class AssetController {
+public class AssetController extends BaseController {
 
     /** Asset service. */
     private final AssetService assetService;
@@ -34,12 +38,14 @@ public class AssetController {
      * Page displaying an asset.
      *
      * @param model   model
+     * @param request request
      * @param assetId asset id
      * @return view asset page
      */
     @SuppressWarnings("SameReturnValue")
     @GetMapping(value = {"/asset", "/asset/", "/asset/{assetId}"})
     public String getAssetByAssetId(final Model model,
+                                    final HttpServletRequest request,
                                     @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
         // If assetId is present, we retrieve it.
         if (StringUtils.isNotBlank(assetId)) {
@@ -48,6 +54,10 @@ public class AssetController {
             // We retrieve the asset to display it.
             assetService.getAssetByAssetId(assetId.trim()).ifPresent(asset -> model.addAttribute(RESULT_ATTRIBUTE, asset));
         }
+        // If it's an HTMX request, we return the fragment.
+        if (isHtmxRequest(request)) {
+            return ASSET_PAGE_FRAGMENT;
+        }
         return ASSET_PAGE;
     }
 
@@ -55,6 +65,7 @@ public class AssetController {
      * Page displaying the proofs of an asset.
      *
      * @param model   model
+     * @param request request
      * @param assetId asset id
      * @param page    page number
      * @return proofs
@@ -62,6 +73,7 @@ public class AssetController {
     @SuppressWarnings("SameReturnValue")
     @GetMapping(value = {"/asset/{assetId}/proofs", "/asset/{assetId}/proofs/"})
     public String getProofsByAssetId(final Model model,
+                                     final HttpServletRequest request,
                                      @PathVariable(name = ASSET_ID_ATTRIBUTE, required = false) final String assetId,
                                      @RequestParam(defaultValue = "1") final int page) {
         // If assetId is present, we retrieve it.
@@ -75,6 +87,10 @@ public class AssetController {
                     proofService.getProofsByAssetId(assetId.trim(),
                             page,
                             ASSET_PROOFS_DEFAULT_PAGE_SIZE)));
+        }
+        // If it's an HTMX request, we return the fragment.
+        if (isHtmxRequest(request)) {
+            return ASSET_PROOFS_PAGE_FRAGMENT;
         }
         return ASSET_PROOFS_PAGE;
     }

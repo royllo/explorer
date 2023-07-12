@@ -10,12 +10,10 @@ type Asset {
     genesisPoint: BitcoinTransactionOutput!
     "The name of the asset"
     name: String!
-    "The hashed metadata of the asset"
-    metaData: String!
+    "The hash of the metadata for this genesis asset"
+    metaDataHash: String!
     "The index of the output that carries the unique Taproot commitment in the genesis transaction"
     outputIndex: Int!
-    "The full genesis information encoded in a portable manner, so it can be easily copy/pasted for address creation"
-    genesisBootstrapInformation: String!
     "The version of the Taproot commitment that created this asset"
     genesisVersion: Int!
     "The type of the asset: normal or a collectible"
@@ -30,6 +28,12 @@ type Asset {
     scriptVersion: Int!
     "The script key of the asset, which can be spent under Taproot semantics"
     scriptKey: String!
+    "The raw group key which is a normal public key"
+    rawGroupKey: String
+    "The tweaked group key, which is derived based on the genesis point and also asset type"
+    tweakedGroupKey: String
+    "A signature over the genesis point using the above key"
+    assetIdSig: String
     "The transaction that anchors the Taproot commitment where the asset resides"
     anchorTx: String!
     "The txid of the anchor transaction"
@@ -39,7 +43,11 @@ type Asset {
     "Outpoint (txid:vout) that stores the Taproot commitment"
     anchorOutpoint: String!
     "The raw internal key that was used to create the anchor Taproot output key"
-    anchorInternalKey: String!
+    internalKey: String!
+    "The Taproot merkle root hash of the anchor output the asset was committed to"
+    merkleRoot: String
+    "The serialized preimage of a Tapscript sibling, if there was one"
+    tapscriptSibling: String
 }
 
 "Taproot asset page - Container used to return search asset results"

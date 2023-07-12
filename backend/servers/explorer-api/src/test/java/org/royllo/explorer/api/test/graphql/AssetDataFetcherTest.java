@@ -32,6 +32,7 @@ public class AssetDataFetcherTest extends BaseTest {
     @Test
     @DisplayName("queryAssets()")
     public void queryAssets() {
+        // TODO Review this test
         // Looking at page 1.
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(1).build(),
@@ -39,7 +40,7 @@ public class AssetDataFetcherTest extends BaseTest {
                         .creator().userId().username().getParent()
                         .genesisPoint().txId().vout().parent()
                         .name()
-                        .metaData()
+                        .metaDataHash()
                         .assetId()
                         .outputIndex()
                         .parent()
@@ -67,7 +68,7 @@ public class AssetDataFetcherTest extends BaseTest {
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
-                        .metaData()
+                        .metaDataHash()
                         .assetId()
                         .outputIndex()
                         .parent()
@@ -91,6 +92,7 @@ public class AssetDataFetcherTest extends BaseTest {
     @Test
     @DisplayName("queryAssets() with page size")
     public void queryAssetsWithPageSize() {
+        // TODO Review this test
         // Looking at page 1.
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(1).pageSize(4).build(),
@@ -98,7 +100,7 @@ public class AssetDataFetcherTest extends BaseTest {
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
-                        .metaData()
+                        .metaDataHash()
                         .assetId()
                         .outputIndex()
                         .parent()
@@ -125,7 +127,7 @@ public class AssetDataFetcherTest extends BaseTest {
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
-                        .metaData()
+                        .metaDataHash()
                         .assetId()
                         .outputIndex()
                         .parent()
@@ -153,7 +155,7 @@ public class AssetDataFetcherTest extends BaseTest {
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
-                        .metaData()
+                        .metaDataHash()
                         .assetId()
                         .outputIndex()
                         .parent()
@@ -175,6 +177,7 @@ public class AssetDataFetcherTest extends BaseTest {
     @Test
     @DisplayName("queryAssets() with invalid page size")
     public void queryAssetsWithInvalidPageSize() {
+        // TODO Review this test
         // Looking at page 1.
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").pageSize(MAXIMUM_PAGE_SIZE + 1).build(),
@@ -182,7 +185,7 @@ public class AssetDataFetcherTest extends BaseTest {
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
-                        .metaData()
+                        .metaDataHash()
                         .assetId()
                         .outputIndex()
                         .parent()
@@ -205,6 +208,7 @@ public class AssetDataFetcherTest extends BaseTest {
     @Test
     @DisplayName("queryAssets() without page number")
     public void queryAssetsWithoutPageNumber() {
+        // TODO Review this test
         // Looking at page 1.
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").build(),
@@ -212,7 +216,7 @@ public class AssetDataFetcherTest extends BaseTest {
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
-                        .metaData()
+                        .metaDataHash()
                         .assetId()
                         .outputIndex()
                         .parent()
@@ -237,6 +241,7 @@ public class AssetDataFetcherTest extends BaseTest {
     @Test
     @DisplayName("queryAssets() without negative number")
     public void queryAssetsWithNegativePageNumber() {
+        // TODO Review this test
         try {
             // Looking at page -1.
             GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
@@ -245,7 +250,7 @@ public class AssetDataFetcherTest extends BaseTest {
                             .creator().userId().username().parent()
                             .genesisPoint().txId().vout().parent()
                             .name()
-                            .metaData()
+                            .metaDataHash()
                             .assetId()
                             .outputIndex()
                             .parent()
@@ -260,16 +265,15 @@ public class AssetDataFetcherTest extends BaseTest {
     @DisplayName("assetByAssetId()")
     public void assetByAssetId() {
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                AssetByAssetIdGraphQLQuery.newRequest().assetId(MY_ROYLLO_COIN_ASSET_ID).build(),
+                AssetByAssetIdGraphQLQuery.newRequest().assetId(ROYLLO_COIN_ASSET_ID).build(),
                 new AssetByAssetIdProjectionRoot<>()
                         .version()
                         .creator().userId().username().parent()
                         .genesisPoint().txId().vout().parent()
                         .name()
-                        .metaData()
+                        .metaDataHash()
                         .assetId()
                         .outputIndex()
-                        .genesisBootstrapInformation()
                         .genesisVersion()
                         .type().parent()
                         .amount()
@@ -277,11 +281,16 @@ public class AssetDataFetcherTest extends BaseTest {
                         .relativeLockTime()
                         .scriptVersion()
                         .scriptKey()
+                        .rawGroupKey()
+                        .tweakedGroupKey()
+                        .assetIdSig()
                         .anchorTx()
                         .anchorTxId()
                         .anchorBlockHash()
                         .anchorOutpoint()
-                        .anchorInternalKey());
+                        .internalKey()
+                        .merkleRoot()
+                        .tapscriptSibling());
 
         Asset asset = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 graphQLQueryRequest.serialize(),
@@ -290,31 +299,40 @@ public class AssetDataFetcherTest extends BaseTest {
                 });
 
         assertNotNull(asset);
-        assertEquals(MY_ROYLLO_COIN_VERSION, asset.getVersion());
 
         // Genesis point.
-        assertEquals(MY_ROYLLO_COIN_GENESIS_POINT_TXID, asset.getGenesisPoint().getTxId());
-        assertEquals(MY_ROYLLO_COIN_GENESIS_POINT_VOUT, asset.getGenesisPoint().getVout());
-        assertEquals(MY_ROYLLO_COIN_NAME, asset.getName());
-        assertEquals(MY_ROYLLO_COIN_META, asset.getMetaData());
-        assertEquals(MY_ROYLLO_COIN_ASSET_ID, asset.getAssetId());
-        assertEquals(MY_ROYLLO_COIN_OUTPUT_INDEX, asset.getOutputIndex());
-        assertEquals(MY_ROYLLO_COIN_GENESIS_BOOTSTRAP_INFORMATION, asset.getGenesisBootstrapInformation());
-        assertEquals(MY_ROYLLO_COIN_GENESIS_VERSION, asset.getGenesisVersion());
+        assertEquals(ROYLLO_COIN_VERSION, asset.getVersion());
 
-        assertEquals(MY_ROYLLO_COIN_ASSET_TYPE.toString(), asset.getType().toString());
-        assertEquals(0, MY_ROYLLO_COIN_AMOUNT.compareTo(asset.getAmount()));
-        assertEquals(MY_ROYLLO_COIN_LOCK_TIME, asset.getLockTime());
-        assertEquals(MY_ROYLLO_COIN_RELATIVE_LOCK_TIME, asset.getRelativeLockTime());
-        assertEquals(MY_ROYLLO_COIN_SCRIPT_VERSION, asset.getScriptVersion());
-        assertEquals(MY_ROYLLO_COIN_SCRIPT_KEY, asset.getScriptKey());
+        // Genesis point.
+        assertEquals(ROYLLO_COIN_GENESIS_POINT_TXID, asset.getGenesisPoint().getTxId());
+        assertEquals(ROYLLO_COIN_GENESIS_POINT_VOUT, asset.getGenesisPoint().getVout());
+        assertEquals(ROYLLO_COIN_NAME, asset.getName());
+        assertEquals(ROYLLO_COIN_META_DATA_HASH, asset.getMetaDataHash());
+        assertEquals(ROYLLO_COIN_ASSET_ID, asset.getAssetId());
+        assertEquals(ROYLLO_COIN_OUTPUT_INDEX, asset.getOutputIndex());
+        assertEquals(ROYLLO_COIN_GENESIS_VERSION, asset.getGenesisVersion());
+
+        assertEquals(ROYLLO_COIN_ASSET_TYPE.toString(), asset.getType().toString());
+        assertEquals(0, ROYLLO_COIN_AMOUNT.compareTo(asset.getAmount()));
+        assertEquals(ROYLLO_COIN_LOCK_TIME, asset.getLockTime());
+        assertEquals(ROYLLO_COIN_RELATIVE_LOCK_TIME, asset.getRelativeLockTime());
+
+        assertEquals(ROYLLO_COIN_SCRIPT_KEY, asset.getScriptKey());
+        assertEquals(ROYLLO_COIN_SCRIPT_VERSION, asset.getScriptVersion());
+
+        // Asset group.
+        assertEquals(ROYLLO_COIN_RAW_GROUP_KEY, asset.getRawGroupKey());
+        assertEquals(ROYLLO_COIN_TWEAKED_GROUP_KEY, asset.getTweakedGroupKey());
+        assertEquals(ROYLLO_COIN_ASSET_ID_SIG, asset.getAssetIdSig());
 
         // Chain anchor.
-        assertEquals(MY_ROYLLO_COIN_ANCHOR_TX, asset.getAnchorTx());
-        assertEquals(MY_ROYLLO_COIN_ANCHOR_TX_ID, asset.getAnchorTxId());
-        assertEquals(MY_ROYLLO_COIN_ANCHOR_BLOCK_HASH, asset.getAnchorBlockHash());
-        assertEquals(MY_ROYLLO_COIN_ANCHOR_OUTPOINT, asset.getAnchorOutpoint());
-        assertEquals(MY_ROYLLO_COIN_ANCHRO_INTERNAL_KEY, asset.getAnchorInternalKey());
+        assertEquals(ROYLLO_COIN_ANCHOR_TX, asset.getAnchorTx());
+        assertEquals(ROYLLO_COIN_ANCHOR_TX_ID, asset.getAnchorTxId());
+        assertEquals(ROYLLO_COIN_ANCHOR_BLOCK_HASH, asset.getAnchorBlockHash());
+        assertEquals(ROYLLO_COIN_ANCHOR_OUTPOINT, asset.getAnchorOutpoint());
+        assertEquals(ROYLLO_COIN_INTERNAL_KEY, asset.getInternalKey());
+        assertEquals(ROYLLO_COIN_MERKLE_ROOT, asset.getMerkleRoot());
+        assertEquals(ROYLLO_COIN_TAPSCRIPT_SIBLING, asset.getTapscriptSibling());
     }
 
 }

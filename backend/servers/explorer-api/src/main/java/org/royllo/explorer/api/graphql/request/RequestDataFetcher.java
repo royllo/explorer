@@ -1,5 +1,6 @@
 package org.royllo.explorer.api.graphql.request;
 
+
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.DgsQuery;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.api.util.base.BaseDataFetcher;
 import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
+import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.service.request.RequestService;
 
@@ -35,6 +37,8 @@ public class RequestDataFetcher extends BaseDataFetcher {
             return "AddProofRequest";
         } else if (requestDTO instanceof AddAssetMetaDataRequestDTO) {
             return "AddAssetMetaDataRequest";
+        } else if (requestDTO instanceof AddUniverseServerRequestDTO) {
+            return "AddUniverseServerRequest";
         } else {
             throw new RuntimeException("Invalid type: " + requestDTO.getClass().getName() + " found in resolveRequest");
         }
@@ -71,6 +75,17 @@ public class RequestDataFetcher extends BaseDataFetcher {
     @DgsMutation
     public final AddAssetMetaDataRequestDTO createAddAssetMetaDataRequest(final @InputArgument AddAssetMetaDataRequestInputs input) {
         return requestService.createAddAssetMetaDataRequest(input.getAssetId(), input.getMetaData());
+    }
+
+    /**
+     * Creates a request to add a universe server.
+     *
+     * @param input add universe server request inputs
+     * @return request created
+     */
+    @DgsMutation
+    public final AddUniverseServerRequestDTO createAddUniverseServerRequest(final @InputArgument AddUniverseServerRequestInputs input) {
+        return requestService.createAddUniverseServerRequest(input.getServerAddress());
     }
 
 }

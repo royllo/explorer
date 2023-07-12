@@ -18,6 +18,16 @@ Here are some queries you can use:
 }
 ```
 
+You can call them with curl:
+
+```bash
+curl    -H "Content-Type: application/json" \
+        -i \
+        -X GET \
+        -d '{ "query": "{ userByUsername(username: \"anonymous\") { userId username } }" }' \
+        http://localhost:8080/graphql
+```
+
 ```
 {
   queryAssets(query: "coin") {

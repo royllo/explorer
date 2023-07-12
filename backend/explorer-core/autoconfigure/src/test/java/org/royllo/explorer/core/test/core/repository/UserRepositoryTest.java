@@ -26,6 +26,7 @@ public class UserRepositoryTest {
     @Test
     @DisplayName("Find anonymous user")
     public void findAnonymousUser() {
+        // TODO Review this test
         // Finding the user by its id.
         final Optional<User> anonymousUserById = userRepository.findById(ANONYMOUS_ID);
         assertTrue(anonymousUserById.isPresent());
@@ -51,6 +52,7 @@ public class UserRepositoryTest {
     @Test
     @DisplayName("Find non existing user")
     public void findNonExistingUser() {
+        // TODO Review this test
         assertFalse(userRepository.findById(99999999999L).isPresent());
         assertFalse(userRepository.findByUsernameIgnoreCase("NON_EXISTING_USER").isPresent());
     }
@@ -58,6 +60,7 @@ public class UserRepositoryTest {
     @Test
     @DisplayName("Find existing user")
     public void findExistingUser() {
+        // TODO Review this test
         final Optional<User> existingUser = userRepository.findByUsernameIgnoreCase("straumat");
         assertTrue(existingUser.isPresent());
         assertEquals(2, existingUser.get().getId().longValue());

@@ -39,6 +39,16 @@
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.bucket4j</groupId>
+            <artifactId>bucket4j-core</artifactId>
+            <version>${bucket4j-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>${caffeine.version}</version>
+        </dependency>
 
         <!-- DGS dependencies -->
         <dependency>
@@ -188,6 +198,7 @@
                         <param>src/main/resources/schema/request.graphqls</param>
                         <param>src/main/resources/schema/request-addProof.graphqls</param>
                         <param>src/main/resources/schema/request-addAssetMetaData.graphqls</param>
+                        <param>src/main/resources/schema/request-addUniverseServer.graphqls</param>
                         <!-- GraphQL queries -->
                         <param>src/main/resources/schema/query.graphqls</param>
                         <!-- GraphQL mutations -->
@@ -292,7 +303,7 @@
     <parent>
         <groupId>org.royllo.explorer</groupId>
         <artifactId>explorer</artifactId>
-        <version>0.0.13</version>
+        <version>0.0.14</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
     <!-- =========================================================================================================== -->

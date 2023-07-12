@@ -2,6 +2,7 @@ package org.royllo.explorer.core.service.request;
 
 import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
+import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 
 import java.util.List;
@@ -52,5 +53,13 @@ public interface RequestService {
      */
     AddAssetMetaDataRequestDTO createAddAssetMetaDataRequest(String assetId,
                                                              String metaData);
+
+    /**
+     * Creates a request to add a royllo universe server to royllo database.
+     *
+     * @param serverAddress server address
+     * @return id of the request created
+     */
+    AddUniverseServerRequestDTO createAddUniverseServerRequest(String serverAddress);
 
 }

@@ -48,11 +48,9 @@ services:
       - SPRING_DATASOURCE_USERNAME=royllo_explorer_username
       - SPRING_DATASOURCE_PASSWORD=Q5QnE5S%Y]qt7
       - MEMPOOL_API_BASE-URL=https://mempool.space/testnet/api
-      - TAPD_API_BASE-URL=https://157.230.85.88:8089/v1/taro/
-      - TAPD_API_MACAROON=0201047461726F026F030A1019534B065EDB75A2B6B3B9B9DB9BC77F1201301A180A09616464726573736573120472656164120577726974651A150A06617373657473120472656164120577726974651A0F0A066461656D6F6E120577726974651A150A0670726F6F66731204726561641205777269746500000620AC1665D5EBC90FAE3056387478495EF10FC981A96E3FFDEA7035803A89788D05
+      - TAPD_API_BASE-URL=https://157.230.85.88:8089
+      - TAPD_API_MACAROON=0201047461706402A301030A1027262B41D197A4078A6ED8F479F97D241201301A180A09616464726573736573120472656164120577726974651A150A06617373657473120472656164120577726974651A150A066461656D6F6E120472656164120577726974651A130A046D696E74120472656164120577726974651A150A0670726F6F6673120472656164120577726974651A170A08756E6976657273651204726561641205777269746500000620135544C0893F070EE07A0D797BC275B82A76777D092226D9416F0B705B05845B
       - SPRING_LIQUIBASE_ENABLED=true
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
 
   # ====================================================================================================================
   # Royllo explorer API server ( https://hub.docker.com/r/royllo/explorer-api ).
@@ -71,8 +69,6 @@ services:
       - SPRING_DATASOURCE_USERNAME=royllo_explorer_username
       - SPRING_DATASOURCE_PASSWORD=Q5QnE5S%Y]qt7
       - SPRING_LIQUIBASE_ENABLED=false
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
 
   # ====================================================================================================================
   # Royllo explorer web server ( https://hub.docker.com/r/royllo/explorer-web ).
@@ -91,43 +87,3 @@ services:
       - SPRING_DATASOURCE_USERNAME=royllo_explorer_username
       - SPRING_DATASOURCE_PASSWORD=Q5QnE5S%Y]qt7
       - SPRING_LIQUIBASE_ENABLED=false
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
-
-  # ====================================================================================================================
-  # Database backup ( https://hub.docker.com/r/prodrigestivill/postgres-backup-local ).
-  #  royllo-explorer-database-server-backup:
-  #    image: prodrigestivill/postgres-backup-local:15-alpine
-  #    depends_on:
-  #      - royllo-explorer-database-server
-  #    restart: always
-  #    networks:
-  #      - royllo-explorer-network
-  #    volumes:
-  #      - royllo-explorer-database-backup-volume:/backups
-  #    environment:
-  #      - TZ=Europe/Paris
-  #      - POSTGRES_HOST=royllo-explorer-database-server
-  #      - POSTGRES_DB=royllo_explorer_database
-  #      - POSTGRES_USER=royllo_explorer_username
-  #      - POSTGRES_PASSWORD=Q5QnE5S%Y]qt7
-  #      - POSTGRES_EXTRA_OPTS=--schema=public
-  #      - SCHEDULE=@hourly
-  #      - BACKUP_KEEP_DAYS=7
-  #      - BACKUP_KEEP_WEEKS=1
-  #      - BACKUP_KEEP_MONTHS=1
-  #      - HEALTHCHECK_PORT=8080
-
-  # ====================================================================================================================
-  # Watchtower to update royllo images automatically.
-#  watchtower:
-#    image: containrrr/watchtower:latest
-#    depends_on:
-#      - royllo-explorer-batch-server
-#      - royllo-explorer-api-server
-#      - royllo-explorer-web-server
-#    environment:
-#      - TZ=Europe/Paris
-#    volumes:
-#      - /var/run/docker.sock:/var/run/docker.sock
-#    command: --schedule "0 * * * *" --label-enable

@@ -14,10 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.xml.bind.DatatypeConverter;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -29,7 +25,7 @@ import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_US
  */
 @Service
 @RequiredArgsConstructor
-@SuppressWarnings("checkstyle:DesignForExtension")
+@SuppressWarnings({"checkstyle:DesignForExtension", "unused"})
 public class ProofServiceImplementation extends BaseService implements ProofService {
 
     /** Asset repository. */
@@ -37,22 +33,6 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
 
     /** Proof repository. */
     private final ProofRepository proofRepository;
-
-    /**
-     * Returns the sha256 value calculated with the parameter.
-     *
-     * @param value value
-     * @return sha256 of value
-     */
-    private static String sha256(@NonNull final String value) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] digest = md.digest(value.getBytes(StandardCharsets.UTF_8));
-            return DatatypeConverter.printHexBinary(digest).toLowerCase();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("SHA-256 is not available: " + e.getMessage());
-        }
-    }
 
     @Override
     public ProofDTO addProof(@NonNull final String rawProof,
@@ -81,7 +61,7 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
                     .rawProof(rawProof)
                     .build());
             final ProofDTO proofDTO = PROOF_MAPPER.mapToProofDTO(proof);
-            logger.info("Proof created with id {} : {}", proofDTO.getProofId(), proofDTO);
+            logger.info("Proof created with id {} : {}", proofDTO.getId(), proofDTO);
             return proofDTO;
         }
     }

@@ -4,20 +4,24 @@
         items-center    :   Use items-center to align items along the center of the container’s cross axis.
         justify-between :   Use justify-between to justify items along the container’s main axis such that there is an equal amount of space between each item
         px-4 py-4       :   To add horizontal padding, use the px-{size} utilities, py-{size} for vertical.
-    */-->
+*/-->
+<!--suppress ALL -->
 <header class="flex items-center justify-between px-4 py-4">
 
     <!--/* Left logo with link */-->
-    <a th:href="@{/}">
+    <a hx-push-url="true"
+       hx:get="|/|"
+       hx:target="|#content|"
+       th:href="@{/}">
         <img alt="Royllo Logo"
              height="52"
              th:src="@{/images/logo/royllo_logo_horizontal_with_title.png}"
              width="171"/>
     </a>
 
-    <!--/* Request - Add a proof button */-->
+    <!--/* Request - Add data button */-->
     <a class="defaultButton"
-       th:href="@{/request/proof/add}"
-       th:text="#{request.proof.add}"></a>
+       th:href="@{/request/choose_request_type}"
+       th:text="#{request.addData}"></a>
 
 </header>

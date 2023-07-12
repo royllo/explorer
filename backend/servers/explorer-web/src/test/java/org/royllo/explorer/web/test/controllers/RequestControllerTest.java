@@ -34,6 +34,7 @@ public class RequestControllerTest {
     @Test
     @DisplayName("View request test")
     void viewRequestTest() throws Exception {
+        // TODO Review this test
         // Request 1 - "Add proof" - OPENED - Anonymous.
         mockMvc.perform(get("/request/f5623bdf-9fa6-46cf-85df-request_p_01"))
                 .andExpect(status().isOk())
@@ -112,7 +113,7 @@ public class RequestControllerTest {
                 .andExpect(content().string(containsString(">Success<")))
                 // View asset.
                 .andExpect(content().string(containsString(environment.getProperty("request.button.asset.view"))))
-                .andExpect(content().string(containsString("\"/asset/692453c6d7d54f508adaf09df86573018579ac749501991f0853baedaa16faf9\"")))
+                .andExpect(content().string(containsString("\"/asset/f9dd292bb211dae8493645150b36efa990841b11038d026577440d2616d1ec32\"")))
                 // Error messages.
                 .andExpect(content().string(not(containsString(environment.getProperty("request.view.error.noRequestId")))))
                 .andExpect(content().string(not(containsString(Objects.requireNonNull(
@@ -133,11 +134,18 @@ public class RequestControllerTest {
                 .andExpect(content().string(not(containsString(Objects.requireNonNull(
                                 environment.getProperty("request.view.error.requestNotFound"))
                         .replace("\"{0}\"", "&quot;&quot;")))));
+
+        // When a request concerns a universe server, asset id is null ! so it should not be displayed!
+        // REQUEST_ID_7
+        mockMvc.perform(get("/request/REQUEST_ID_7"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(REQUEST_PAGE));
     }
 
     @Test
     @DisplayName("View request with invalid request id")
     void viewRequestWithInvalidRequestId() throws Exception {
+        // TODO Review this test
         mockMvc.perform(get("/request/INVALID_ID"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(REQUEST_PAGE))
@@ -151,6 +159,7 @@ public class RequestControllerTest {
     @Test
     @DisplayName("View request with invalid request id")
     void viewRequestWithoutRequestId() throws Exception {
+        // TODO Review this test
         // No request id.
         mockMvc.perform(get("/request/"))
                 .andExpect(status().isOk())

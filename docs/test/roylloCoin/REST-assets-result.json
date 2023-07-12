@@ -1,0 +1,38 @@
+{
+  "assets": [
+    {
+      "version": 0,
+      "asset_genesis": {
+        "genesis_point": "57faede9e107f3af74bb93e730bc1dfd07f81b166a974068f823d30d9eb10111:1",
+        "name": "roylloCoin",
+        "meta_hash": "0c482467dfb29000804e044c4c6044b487c0280082002d4611a8ba7f22703d63",
+        "asset_id": "f9dd292bb211dae8493645150b36efa990841b11038d026577440d2616d1ec32",
+        "output_index": 0,
+        "version": 0
+      },
+      "asset_type": "NORMAL",
+      "amount": "999",
+      "lock_time": 0,
+      "relative_lock_time": 0,
+      "script_version": 0,
+      "script_key": "025d615b377761a5bfcfe84f0f11afd35837a68f702dd8a0cac0a2a4052b20d211",
+      "script_key_is_local": true,
+      "asset_group": {
+        "raw_group_key": "033b8449aae83eb0ed04f7952108637d078836bb5d3353a33b6486248b401f60da",
+        "tweaked_group_key": "02260e9ffbe7fdabe746b4ba4c3b86c8f237d7946f116949e93db77d5e0357c13d",
+        "asset_id_sig": "d0d86f5c646fcca990b8ceaf7a480762c92900351ae84e8135740fa92a66c8c0a4e509c8d10df8913924a583d74e9cf25ccd56eb2552c3b92a8c3c9ebe8cca97"
+      },
+      "chain_anchor": {
+        "anchor_tx": "020000000001021101b19e0dd323f86840976a161bf807fd1dbc30e793bb74aff307e1e9edfa570100000000ffffffffdc62e81401abfec546a45213c65c9910466f06ea1b831b017c13edfa71d775b10200000000ffffffff02e80300000000000022512040b3ddefc0df09b89fd1379a3bd246bf2827ed461506a5899dc230324d0aa158bc05000000000000225120d7ab0deb6185088278a66f5599be41510db531fd7f2df39e3b8558e2d2b65b0602473044022023f92ca5b7289d5cfb2ae415b91efa8bb9758d97b78b8ad17c81ce43fa9d262a02205c790874cbd4dae139f1d3e2b029bb97c4bf13bff0bc80127dacf9e917a37ed5012102cf948a447b6b49ccf83754b2455b7c6f77a9daeb1bb192f17ae34d3f52182a1a024630430220698a8f0543c97775ece1ad26a63f99d837ff9fd3b136e5c43cc984c37a75b3dd021f4d183f9811ac7a7cde904c795f68f96bda845efb5493a95582b60a93ca55c201210305c9ac7185c67621b7534e700d9592863f07ae5b9add38da9576e4a06a66c10000000000",
+        "anchor_txid": "0324ddf7ec79711a340a04e1ee3cee53005e046b4e0de31d498cc586ba9181c7",
+        "anchor_block_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "anchor_outpoint": "0324ddf7ec79711a340a04e1ee3cee53005e046b4e0de31d498cc586ba9181c7:0",
+        "internal_key": "026ad322cc8a05cf5723bf8aeb5c778c6462146e573af182ba20c6bed53ea29ae6",
+        "merkle_root": "cd773bc1a59f3b641e819b51944d1bcf10e4676cba0620ebe3b064c5d0a777da",
+        "tapscript_sibling": ""
+      },
+      "prev_witnesses": [],
+      "is_spent": false
+    }
+  ]
+}

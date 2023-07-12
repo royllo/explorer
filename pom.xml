@@ -8,7 +8,7 @@
     <!-- Project information -->
     <groupId>org.royllo.explorer</groupId>
     <artifactId>explorer</artifactId>
-    <version>0.0.13</version>
+    <version>0.0.14</version>
     <name>Royllo - A Taproot asset explorer</name>
     <description>Royllo explorer allows you to search for Taproot assets created on the Bitcoin blockchain</description>
     <packaging>pom</packaging>
@@ -64,49 +64,56 @@
 
         <!-- ======================================================================================================= -->
         <!-- Project libraries -->
-        <spring.version>3.0.6</spring.version>
-        <reactor-core.version>3.5.6</reactor-core.version>
-        <reactor-netty.version>1.1.7</reactor-netty.version>
+        <spring.version>3.1.1</spring.version>
+        <reactor-core.version>3.5.8</reactor-core.version>
+        <reactor-netty.version>1.1.9</reactor-netty.version>
 
-        <graphql-dgs-platform-dependencies.version>6.0.0</graphql-dgs-platform-dependencies.version>
-        <graphql-dgs-codegen-core.version>5.8.0</graphql-dgs-codegen-core.version>
+        <graphql-dgs-platform-dependencies.version>7.3.2</graphql-dgs-platform-dependencies.version>
+        <graphql-dgs-codegen-core.version>5.12.4</graphql-dgs-codegen-core.version>
         <graphql-dgs-codegen-client-core.version>5.1.17</graphql-dgs-codegen-client-core.version>
 
-        <liquibase.version>4.22.0</liquibase.version>
-        <jdbc.driver.hsqldb.version>2.7.1</jdbc.driver.hsqldb.version>
+        <liquibase.version>4.23.0</liquibase.version>
+        <jdbc.driver.hsqldb.version>2.7.2</jdbc.driver.hsqldb.version>
         <jdbc.driver.postgresql.version>42.6.0</jdbc.driver.postgresql.version>
         <jdbc.driver.mysql.version>8.0.33</jdbc.driver.mysql.version>
 
-        <lombok.version>1.18.26</lombok.version>
+        <lombok.version>1.18.28</lombok.version>
         <lombok.mapstruct.version>0.2.0</lombok.mapstruct.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
 
         <!-- ======================================================================================================= -->
         <!-- Web libraries -->
+        <bucket4j-core.version>8.3.0</bucket4j-core.version>
+        <caffeine.version>3.1.6</caffeine.version>
+
         <thymeleaf-layout-dialect.version>3.2.1</thymeleaf-layout-dialect.version>
-        <webjars-locator.version>0.46</webjars-locator.version>
+        <htmx-spring-boot-thymeleaf.version>2.0.1</htmx-spring-boot-thymeleaf.version>
+        <webjars-locator.version>0.47</webjars-locator.version>
+        <htmx.version>1.9.2</htmx.version>
+        <alpinejs.version>3.12.2</alpinejs.version>
 
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
-        <testcontainers.version>1.18.1</testcontainers.version>
+        <testcontainers.version>1.18.3</testcontainers.version>
+        <mockito-core.version>5.4.0</mockito-core.version>
         <mockito-core.version>5.3.1</mockito-core.version>
 
         <!-- ======================================================================================================= -->
         <!-- Maven plugins -->
-        <maven.gitflow.version>1.19.0</maven.gitflow.version>
-        <maven.checkstyle.plugin.version>3.2.2</maven.checkstyle.plugin.version>
-        <maven.graphqlcodegen.plugin.version>1.32</maven.graphqlcodegen.plugin.version>
-        <maven.puppycrawl.checkstyle.version>10.11.0</maven.puppycrawl.checkstyle.version>
+        <maven.gitflow.version>1.20.0</maven.gitflow.version>
+        <maven.checkstyle.plugin.version>3.3.0</maven.checkstyle.plugin.version>
+        <maven.graphqlcodegen.plugin.version>1.39</maven.graphqlcodegen.plugin.version>
+        <maven.puppycrawl.checkstyle.version>10.12.1</maven.puppycrawl.checkstyle.version>
         <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
 
-        <maven.source.plugin.version>3.2.1</maven.source.plugin.version>
+        <maven.source.plugin.version>3.3.0</maven.source.plugin.version>
         <maven.javadoc.plugin.version>3.5.0</maven.javadoc.plugin.version>
         <maven.jar.plugin.version>3.3.0</maven.jar.plugin.version>
         <maven.archetype-packaging.version>3.2.1</maven.archetype-packaging.version>
 
-        <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
-        <frontend-maven-plugin.nodeVersion>v19.9.0</frontend-maven-plugin.nodeVersion>
-        <frontend-maven-plugin.npmVersion>9.6.5</frontend-maven-plugin.npmVersion>
+        <frontend-maven-plugin.version>1.13.4</frontend-maven-plugin.version>
+        <frontend-maven-plugin.nodeVersion>v20.3.0</frontend-maven-plugin.nodeVersion>
+        <frontend-maven-plugin.npmVersion>9.7.1</frontend-maven-plugin.npmVersion>
     </properties>
     <!-- =========================================================================================================== -->
 
@@ -157,7 +164,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.6</version>
+        <version>3.1.1</version>
         <relativePath/>
     </parent>
     <!-- =========================================================================================================== -->

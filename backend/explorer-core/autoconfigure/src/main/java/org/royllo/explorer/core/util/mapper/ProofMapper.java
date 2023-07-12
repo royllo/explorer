@@ -9,6 +9,7 @@ import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 /**
  * Proof related mapper.
  */
+@SuppressWarnings("unused")
 @Mapper(nullValuePropertyMappingStrategy = IGNORE, uses = {UserMapper.class, AssetMapper.class, BitcoinMapper.class})
 public interface ProofMapper {
 

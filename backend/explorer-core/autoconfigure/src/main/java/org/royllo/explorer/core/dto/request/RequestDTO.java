@@ -9,7 +9,6 @@ import org.royllo.explorer.core.dto.user.UserDTO;
 import org.royllo.explorer.core.util.enums.RequestStatus;
 
 import static org.royllo.explorer.core.util.enums.RequestStatus.FAILURE;
-import static org.royllo.explorer.core.util.enums.RequestStatus.RECOVERABLE_FAILURE;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 
 /**
@@ -56,20 +55,8 @@ public abstract class RequestDTO {
      * Set the request as success.
      */
     public void success() {
-        assert asset != null : "Your can't set this status if the asset request is not set";
         status = SUCCESS;
     }
-
-    /**
-     * Set the request as failure but recoverable.
-     *
-     * @param newErrorMessage new error message
-     */
-    public void recoverableFailure(final String newErrorMessage) {
-        errorMessage = newErrorMessage;
-        status = RECOVERABLE_FAILURE;
-    }
-
 
     /**
      * Set the request as failure.

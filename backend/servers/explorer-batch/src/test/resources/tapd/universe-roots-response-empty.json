@@ -1,0 +1,14 @@
+{
+  "universe_roots": {
+    "0016601853ca5d71f44c98588d4914c0ebb79930793b31ac96f1642c95067732": {
+      "id": {
+        "group_key": "5d2e216e029337d6d3d038bc44d29f577ac7678105c372d8d680b9cacb26a905"
+      },
+      "mssmt_root": {
+        "root_hash": "13ec4c67010508d0c5789080eb935637ba2ca2b55da1cc16ba7fbe94afa879aa",
+        "root_sum": "1"
+      },
+      "asset_name": "8e82e375b5820df_ground_floor"
+    }
+  }
+}
