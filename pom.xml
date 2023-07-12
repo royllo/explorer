@@ -8,7 +8,7 @@
     <!-- Project information -->
     <groupId>org.royllo.explorer</groupId>
     <artifactId>explorer</artifactId>
-    <version>0.0.14</version>
+    <version>0.0.15-SNAPSHOT</version>
     <name>Royllo - A Taproot asset explorer</name>
     <description>Royllo explorer allows you to search for Taproot assets created on the Bitcoin blockchain</description>
     <packaging>pom</packaging>
