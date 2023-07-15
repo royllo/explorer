@@ -161,7 +161,6 @@ public class AddProofRequestBatchTest extends BaseTest {
         addProofBatch.processRequests();
         Optional<RequestDTO> activeRoylloCoinRequest3Treated = requestService.getRequest(activeRoylloCoinRequest3.getId());
         assertTrue(activeRoylloCoinRequest3Treated.isPresent());
-        System.out.println("==> " + activeRoylloCoinRequest3Treated);
         assertTrue(activeRoylloCoinRequest3Treated.get().isSuccessful());
         assertEquals(SUCCESS, activeRoylloCoinRequest3Treated.get().getStatus());
 
