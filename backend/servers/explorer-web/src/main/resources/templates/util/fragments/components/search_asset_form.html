@@ -1,5 +1,5 @@
 <!--/* Search form */-->
-<form hx-push-url="true" th:action="@{/search}" th:method="GET">
+<form hx-push-url="true" hx-swap="outerHTML" th:action="@{/search}" th:method="GET">
 
     <div class="mx-auto max-w-xl">
         <div class="relative">
@@ -24,9 +24,5 @@
                    th:value="${query}">
         </div>
     </div>
-
-    <!--/* Useless */-->
-    <!--/* TODO without this input, HTMX is not used and the page is completely reloaded */-->
-    <label><input name="useless"></label>
 
 </form>
