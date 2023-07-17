@@ -57,7 +57,7 @@
                     remarks="A signature over the genesis point using the above key"/>
 
             <!-- Chain anchor - Describes where in the chain the asset is currently anchored -->
-            <column name="ANCHOR_TX" type="VARCHAR(1000)"
+            <column name="ANCHOR_TX" type="TEXT"
                     remarks="The transaction that anchors the Taproot commitment where the asset resides"/>
             <column name="ANCHOR_TXID" type="VARCHAR(255)"
                     remarks="The txid of the above transaction"/>

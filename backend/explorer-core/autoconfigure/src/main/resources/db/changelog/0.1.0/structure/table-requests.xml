@@ -26,7 +26,7 @@
                     remarks="Request status"/>
             <column name="FK_ASSET" type="BIGINT"
                     remarks="The asset created/updated by this request"/>
-            <column name="ERROR_MESSAGE" type="VARCHAR(255)"
+            <column name="ERROR_MESSAGE" type="TEXT"
                     remarks="Error message - Not empty if status is equals to ERROR"/>
 
             <!-- Technical fields -->
