@@ -46,7 +46,8 @@ public class UniverseExplorerBatch extends BaseBatch {
     /**
      * Retrieving all universe servers data.
      */
-    // TODO Reactivate when I can decode the proofs from the universe
+    //  TODO Reactivate when I can decode the proofs from the universe
+    // Waiting for issue https://github.com/lightninglabs/taproot-assets/issues/401 to be fixed.
     // @Scheduled(initialDelay = START_DELAY_IN_MILLISECONDS, fixedDelay = DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS)
     public void processUniverseServers() {
         if (enabled.get()) {
