@@ -27,7 +27,6 @@ public class UserDataFetcherTest {
     @Test
     @DisplayName("getUserByUserId()")
     public void getUserByUserId() {
-        // TODO Review this test
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 UserByUserIdGraphQLQuery.newRequest().userId("11111111-1111-1111-1111-111111111111").build(),
                 new UserByUserIdProjectionRoot<>().userId().username());
@@ -46,7 +45,6 @@ public class UserDataFetcherTest {
     @Test
     @DisplayName("getUserByUsername()")
     public void getUserByUsername() {
-        // TODO Review this test
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 UserByUsernameGraphQLQuery.newRequest().username("straumat").build(),
                 new UserByUsernameProjectionRoot<>().userId().username());

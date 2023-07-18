@@ -20,7 +20,6 @@ public class TapdUniverseLeavesServiceTest {
     @Test
     @DisplayName("Calling getUniverseLeaves() on TAPD")
     public void getUniverseLeavesTest() {
-        // TODO Review this test
         UniverseLeavesResponse response = tapdService.getUniverseLeaves("https://testnet.universe.lightning.finance",
                 "f84238ffd7838b663f1800d8147c9338f15688b430f6e9d8d53f148049ef3bcb").block();
 
@@ -34,7 +33,6 @@ public class TapdUniverseLeavesServiceTest {
     @Test
     @DisplayName("Calling getUniverseLeaves() with wrong value on TAPD")
     public void getUniverseLeavesWithWrongValueTest() {
-        // TODO Review this test
         UniverseLeavesResponse response = tapdService.getUniverseLeaves("https://testnet.universe.lightning.finance",
                 "not-existing").block();
 

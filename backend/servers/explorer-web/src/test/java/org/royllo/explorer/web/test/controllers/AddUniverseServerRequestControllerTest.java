@@ -83,7 +83,6 @@ public class AddUniverseServerRequestControllerTest {
     @Test
     @DisplayName("Add universe server request form post test")
     void addUniverseServerRequestFormPostTest() throws Exception {
-        // TODO Review this test
         // Test if everything is ok if we pass correct information to create a request.
         AtomicReference<AddUniverseServerRequestDTO> request = new AtomicReference<>();
         mockMvc.perform(post("/request/universe_server/add")

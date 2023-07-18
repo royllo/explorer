@@ -45,7 +45,6 @@ public class PurgeBatchTest extends BaseTest {
     @Test
     @DisplayName("Purge failed requests")
     public void batch() throws SQLException {
-        // TODO Review this test
         // We start by erasing everything.
         requestRepository.deleteAll();
 

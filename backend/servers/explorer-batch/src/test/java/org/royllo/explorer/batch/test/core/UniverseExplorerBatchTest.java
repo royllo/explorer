@@ -46,8 +46,6 @@ public class UniverseExplorerBatchTest {
     @Test
     @DisplayName("Universe explorer batch test")
     public void batch() throws IOException {
-        // TODO Review this test
-
         long count = requestRepository.count();
         // We check that the universe servers have never been contacted.
         Optional<UniverseServer> server1 = universeServerRepository.findByServerAddress("testnet.universe.lightning.finance");

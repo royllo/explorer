@@ -39,7 +39,6 @@ public class HomeControllerTest extends BaseTest {
     @Test
     @DisplayName("Display home page")
     void homePage() throws Exception {
-        // TODO Review this test
         // Web page.
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
@@ -66,7 +65,6 @@ public class HomeControllerTest extends BaseTest {
     @Test
     @DisplayName("Display partial home page")
     void partialHomePage() throws Exception {
-        // TODO Review this test
         final HttpHeaders htmxHeaders = new HttpHeaders();
         htmxHeaders.add(HTMX_REQUEST, "true");
 
