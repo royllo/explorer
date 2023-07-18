@@ -52,7 +52,6 @@ public class AddUniverseServerRequestControllerTest {
     @Test
     @DisplayName("Add universe server request choice")
     void addUniverseServerRequestChoice() throws Exception {
-        // TODO Review this test
         mockMvc.perform(get("/request/choose_request_type"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(CHOOSE_REQUEST_TYPE_PAGE))
@@ -64,7 +63,6 @@ public class AddUniverseServerRequestControllerTest {
     @Test
     @DisplayName("Add universe server request form test")
     void addUniverseServerRequestFormTest() throws Exception {
-        // TODO Review this test
         mockMvc.perform(get("/request/universe_server/add"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE))

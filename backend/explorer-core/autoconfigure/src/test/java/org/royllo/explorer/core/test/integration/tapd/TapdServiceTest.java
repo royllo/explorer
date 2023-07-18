@@ -51,6 +51,7 @@ public class TapdServiceTest extends BaseTest {
         // Asset group.
         final DecodedProofResponse.DecodedProof.Asset.AssetGroup assetGroup = response.getDecodedProof().getAsset().getAssetGroup();
         // TODO Seems there is a bug in the tapd service, the raw group key is not returned.
+        // Waiting for issue https://github.com/lightninglabs/taproot-assets/issues/407 to be fixed.
         assertEquals("", assetGroup.getRawGroupKey());
         assertEquals(ROYLLO_COIN_TWEAKED_GROUP_KEY, assetGroup.getTweakedGroupKey());
         assertEquals(ROYLLO_COIN_ASSET_ID_SIG, assetGroup.getAssetIdSig());
@@ -63,6 +64,7 @@ public class TapdServiceTest extends BaseTest {
         assertEquals(ROYLLO_COIN_ANCHOR_OUTPOINT, chainAnchor.getAnchorOutpoint());
         assertEquals(ROYLLO_COIN_INTERNAL_KEY, chainAnchor.getInternalKey());
         // TODO Seems there is a bug in the tapd service, the merkle root is not returned.
+        // Waiting for issue https://github.com/lightninglabs/taproot-assets/issues/407 to be fixed.
         assertEquals("", chainAnchor.getMerkleRoot());
         assertEquals(ROYLLO_COIN_TAPSCRIPT_SIBLING, chainAnchor.getTapscriptSibling());
         // Errors.
