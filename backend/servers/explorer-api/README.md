@@ -38,3 +38,16 @@ curl    -H "Content-Type: application/json" \
   }
 }
 ```
+
+You can also use this to test quotas:
+
+```bash
+seq 1 1000 | xargs -n1 -I -P5  curl -H "Content-Type: application/json" \
+        --parallel --parallel-immediate --parallel-max 10 \
+        -i \
+        -X GET \
+        -d '{ "query": "{ userByUsername(username: \"anonymous\") { userId username } }" }' \
+        http://localhost:8080/graphql
+```  
+
+ 
