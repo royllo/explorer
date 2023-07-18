@@ -112,7 +112,6 @@ public class AddUniverseServerRequestControllerTest {
         assertEquals(ANONYMOUS_ID, request.get().getCreator().getId());
         assertEquals(ANONYMOUS_USER_USERNAME, request.get().getCreator().getUsername());
         assertEquals(OPENED, request.get().getStatus());
-        assertNull(request.get().getAsset());
         assertNull(request.get().getErrorMessage());
         assertEquals("1.1.1.1:8080", request.get().getServerAddress());
     }

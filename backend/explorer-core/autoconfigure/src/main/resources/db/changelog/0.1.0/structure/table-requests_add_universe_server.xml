@@ -14,7 +14,7 @@
             </column>
 
             <!-- Table fields -->
-            <column name="SERVER_ADDRESS" type="VARCHAR(255)"
+            <column name="SERVER_ADDRESS" type="TEXT"
                     remarks="The server address typically consists of both an IP address and a port number"/>
 
             <!-- Technical fields -->

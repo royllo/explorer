@@ -1,4 +1,4 @@
-package org.royllo.explorer.batch.test.batch;
+package org.royllo.explorer.batch.test.core;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

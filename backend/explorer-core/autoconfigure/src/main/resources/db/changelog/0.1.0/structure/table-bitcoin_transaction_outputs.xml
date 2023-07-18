@@ -21,13 +21,13 @@
             <column name="VOUT" type="INTEGER"
                     remarks="Output index (starts at 0)"/>
             <!-- Output data -->
-            <column name="SCRIPTPUBKEY" type="VARCHAR(255)"
+            <column name="SCRIPTPUBKEY" type="TEXT"
                     remarks="ScriptPubKey is the script which controls how bitcoin can be spent"/>
-            <column name="SCRIPTPUBKEY_ASM" type="VARCHAR(255)"
+            <column name="SCRIPTPUBKEY_ASM" type="TEXT"
                     remarks="ScriptPubKey asm is the symbolic representation of the Bitcoin's Script language op-codes"/>
-            <column name="SCRIPTPUBKEY_TYPE" type="VARCHAR(255)"
+            <column name="SCRIPTPUBKEY_TYPE" type="TEXT"
                     remarks="ScriptPubKey type (p2pkh, p2wsh...)"/>
-            <column name="SCRIPTPUBKEY_ADDRESS" type="VARCHAR(255)"
+            <column name="SCRIPTPUBKEY_ADDRESS" type="TEXT"
                     remarks="ScriptPubKey address"/>
             <column name="VALUE" type="BIGINT"
                     remarks="Value is the number of Satoshi (1 BTC = 100,000,000 Satoshi)"/>

@@ -18,7 +18,7 @@
                     remarks="User UUID"/>
             <column name="USERNAME" type="VARCHAR(255)"
                     remarks="Username"/>
-            <column name="ROLE" type="VARCHAR(255)"
+            <column name="ROLE" type="TEXT"
                     remarks="User role"/>
 
             <!-- Technical fields -->
