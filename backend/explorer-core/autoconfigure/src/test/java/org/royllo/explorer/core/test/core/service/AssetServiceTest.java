@@ -55,7 +55,6 @@ public class AssetServiceTest extends BaseTest {
 
         // Searching for an asset with its partial name (activeRoylloCoin) - only 1 result.
         results = assetService.queryAssets("veR", 1, 5);
-        results.getContent().forEach(assetDTO -> System.out.println(assetDTO.getName()));
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
         assertEquals(ACTIVE_ROYLLO_COIN_ID, results.getContent().get(0).getId());

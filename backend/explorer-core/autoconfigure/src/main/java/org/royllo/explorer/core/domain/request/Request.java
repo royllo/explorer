@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import org.royllo.explorer.core.domain.asset.Asset;
 import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.util.base.BaseDomain;
 import org.royllo.explorer.core.util.enums.RequestStatus;
@@ -58,11 +57,6 @@ public abstract class Request extends BaseDomain {
     @Enumerated(STRING)
     @Column(name = "STATUS")
     private RequestStatus status;
-
-    /** The asset created/updated by this request. */
-    @ManyToOne(fetch = EAGER)
-    @JoinColumn(name = "FK_ASSET")
-    private Asset asset;
 
     /** Error message - Not empty if status is equals to ERROR. */
     @Column(name = "ERROR_MESSAGE")

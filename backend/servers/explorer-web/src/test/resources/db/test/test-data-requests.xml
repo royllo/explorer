@@ -52,11 +52,11 @@
             <column name="TYPE" value="ADD_PROOF"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="STATUS" value="SUCCESS"/>
-            <column name="FK_ASSET" value="1"/>
         </insert>
         <insert tableName="REQUESTS_ADD_PROOF">
             <column name="ID" value="4"/>
             <column name="RAW_PROOF" value="P4"/>
+            <column name="FK_ASSET" value="1"/>
         </insert>
 
         <!-- ======================================================================================================= -->

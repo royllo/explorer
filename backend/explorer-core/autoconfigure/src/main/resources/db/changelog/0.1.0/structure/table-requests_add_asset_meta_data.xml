@@ -14,10 +14,12 @@
             </column>
 
             <!-- Table fields -->
-            <column name="ASSET_ID" type="VARCHAR(255)"
+            <column name="ASSET_ID" type="TEXT"
                     remarks="The asset ID that uniquely identifies the asset"/>
-            <column name="META_DATA" type="VARCHAR(255)"
+            <column name="META_DATA" type="TEXT"
                     remarks="Asset meta data"/>
+            <column name="FK_ASSET" type="BIGINT"
+                    remarks="The asset created/updated by this request"/>
 
             <!-- Technical fields -->
             <column name="CREATED_ON" type="TIMESTAMP"
@@ -32,6 +34,18 @@
                                  baseColumnNames="ID"
                                  baseTableName="REQUESTS_ADD_ASSET_META_DATA"
                                  referencedTableName="REQUESTS"
+                                 referencedColumnNames="ID"
+                                 validate="true"/>
+
+        <!-- Foreign key FK_ASSET > ASSETS.ID -->
+        <addForeignKeyConstraint constraintName="FK_REQUESTS_ADD_ASSET_META_DATA_ASSETS_ID"
+                                 baseColumnNames="FK_ASSET"
+                                 baseTableName="REQUESTS_ADD_ASSET_META_DATA"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedTableName="ASSETS"
                                  referencedColumnNames="ID"
                                  validate="true"/>
 

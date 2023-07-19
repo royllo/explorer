@@ -2,6 +2,7 @@ package org.royllo.explorer.core.configuration;
 
 import org.royllo.explorer.core.util.parameters.IncomingRateLimitsParameters;
 import org.royllo.explorer.core.util.parameters.MempoolParameters;
+import org.royllo.explorer.core.util.parameters.OutgoingRateLimitsParameters;
 import org.royllo.explorer.core.util.parameters.TAPDParameters;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +21,8 @@ import org.springframework.context.annotation.Configuration;
         // Rate limit configuration.
         IncomingRateLimitsParameters.class,
         IncomingRateLimitsParameters.Cache.class,
-        IncomingRateLimitsParameters.Bandwidth.class
+        IncomingRateLimitsParameters.Bandwidth.class,
+        OutgoingRateLimitsParameters.class
 })
 public class ParametersConfiguration {
 }

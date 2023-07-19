@@ -34,7 +34,6 @@ public class RequestControllerTest {
     @Test
     @DisplayName("View request test")
     void viewRequestTest() throws Exception {
-        // TODO Review this test
         // Request 1 - "Add proof" - OPENED - Anonymous.
         mockMvc.perform(get("/request/f5623bdf-9fa6-46cf-85df-request_p_01"))
                 .andExpect(status().isOk())
@@ -145,7 +144,6 @@ public class RequestControllerTest {
     @Test
     @DisplayName("View request with invalid request id")
     void viewRequestWithInvalidRequestId() throws Exception {
-        // TODO Review this test
         mockMvc.perform(get("/request/INVALID_ID"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(REQUEST_PAGE))
@@ -159,7 +157,6 @@ public class RequestControllerTest {
     @Test
     @DisplayName("View request with invalid request id")
     void viewRequestWithoutRequestId() throws Exception {
-        // TODO Review this test
         // No request id.
         mockMvc.perform(get("/request/"))
                 .andExpect(status().isOk())

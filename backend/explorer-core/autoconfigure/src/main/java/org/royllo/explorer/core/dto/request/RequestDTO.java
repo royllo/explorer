@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.user.UserDTO;
 import org.royllo.explorer.core.util.enums.RequestStatus;
 
@@ -35,21 +34,8 @@ public abstract class RequestDTO {
     @NotNull(message = "Request status is mandatory")
     RequestStatus status;
 
-    /** The asset created/updated by this request. */
-    AssetDTO asset;
-
     /** Error message - Not empty if status is equals to ERROR. */
     String errorMessage;
-
-    /**
-     * Set the asset created/updated by this request (Cannot be used to update the asset).
-     *
-     * @param newAsset new asset
-     */
-    public void setAsset(final AssetDTO newAsset) {
-        assert asset == null : "You can't update the target asset, it's already set";
-        asset = newAsset;
-    }
 
     /**
      * Set the request as success.

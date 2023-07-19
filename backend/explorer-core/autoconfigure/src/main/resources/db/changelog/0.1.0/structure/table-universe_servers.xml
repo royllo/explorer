@@ -14,7 +14,7 @@
             </column>
 
             <!-- Table fields -->
-            <column name="UNIVERSE_SERVER_ID" type="VARCHAR(255)"
+            <column name="UNIVERSE_SERVER_ID" type="TEXT"
                     remarks="Universe server UUID"/>
             <column name="FK_USER_OWNER" type="BIGINT"
                     remarks="The user who ows this universe server"/>

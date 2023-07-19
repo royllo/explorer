@@ -32,7 +32,6 @@ public class BitcoinServiceTest extends BaseTest {
     @Test
     @DisplayName("getBitcoinTransactionOutput()")
     public void getBitcoinTransactionOutputTest() {
-        // TODO Review this test
         Optional<BitcoinTransactionOutputDTO> bto;
 
         // =============================================================================================================

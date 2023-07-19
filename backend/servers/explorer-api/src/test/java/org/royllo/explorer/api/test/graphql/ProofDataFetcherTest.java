@@ -30,8 +30,6 @@ public class ProofDataFetcherTest extends BaseTest {
     @Test
     @DisplayName("proofsByAssetId()")
     public void proofsByAssetId() {
-        // TODO Review this test
-        // Checking all results.
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 ProofsByAssetIdGraphQLQuery.newRequest().assetId(ACTIVE_ROYLLO_COIN_ASSET_ID).page(1).pageSize(10).build(),
                 new ProofsByAssetIdProjectionRoot<>().content()

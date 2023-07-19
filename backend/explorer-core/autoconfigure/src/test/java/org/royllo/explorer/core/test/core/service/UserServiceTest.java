@@ -26,7 +26,6 @@ public class UserServiceTest {
     @Test
     @DisplayName("getAnonymousUser()")
     public void getAnonymousUserTest() {
-        // TODO Review this test
         final UserDTO anonymousUser = userService.getAnonymousUser();
         assertNotNull(anonymousUser);
         assertEquals(ANONYMOUS_ID, anonymousUser.getId().longValue());
@@ -37,7 +36,6 @@ public class UserServiceTest {
     @Test
     @DisplayName("getUserByUsername()")
     public void getUserByUsernameTest() {
-        // TODO Review this test
         // Non-existing user.
         final Optional<UserDTO> nonExistingUser = userService.getUserByUsername("NON_EXISTING_USER");
         assertFalse(nonExistingUser.isPresent());

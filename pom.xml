@@ -8,7 +8,7 @@
     <!-- Project information -->
     <groupId>org.royllo.explorer</groupId>
     <artifactId>explorer</artifactId>
-    <version>0.0.14</version>
+    <version>0.0.15</version>
     <name>Royllo - A Taproot asset explorer</name>
     <description>Royllo explorer allows you to search for Taproot assets created on the Bitcoin blockchain</description>
     <packaging>pom</packaging>
@@ -89,8 +89,8 @@
         <thymeleaf-layout-dialect.version>3.2.1</thymeleaf-layout-dialect.version>
         <htmx-spring-boot-thymeleaf.version>2.0.1</htmx-spring-boot-thymeleaf.version>
         <webjars-locator.version>0.47</webjars-locator.version>
-        <htmx.version>1.9.2</htmx.version>
-        <alpinejs.version>3.12.2</alpinejs.version>
+        <htmx.version>1.9.3</htmx.version>
+        <alpinejs.version>3.12.3</alpinejs.version>
 
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->

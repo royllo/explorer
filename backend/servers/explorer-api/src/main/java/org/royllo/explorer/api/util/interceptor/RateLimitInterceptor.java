@@ -32,13 +32,15 @@ public final class RateLimitInterceptor implements HandlerInterceptor {
                 .expireAfterWrite(incomingRateLimitsParameters.getCache().getExpireAfterWrite())
                 .build(key -> Bucket.builder()
                         .addLimit(Bandwidth.classic(incomingRateLimitsParameters.getBandwidth().getCapacity(),
-                                Refill.greedy(1, incomingRateLimitsParameters.getBandwidth().getRefillPeriod())))
+                                Refill.intervally(1, incomingRateLimitsParameters.getBandwidth().getRefillPeriod())))
                         .build());
     }
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @Override
-    public boolean preHandle(final HttpServletRequest request, final @NotNull HttpServletResponse response, final @NotNull Object handler) throws Exception {
+    public boolean preHandle(final HttpServletRequest request,
+                             final @NotNull HttpServletResponse response,
+                             final @NotNull Object handler) throws Exception {
         // We check in the cache if the IP address is already present with a bucket.
         ConsumptionProbe probe = cache.get(request.getRemoteAddr()).tryConsumeAndReturnRemaining(1);
         if (probe.isConsumed()) {
@@ -47,9 +49,8 @@ public final class RateLimitInterceptor implements HandlerInterceptor {
             return true;
         } else {
             // If we cannot consume from the bucket, we return an error.
-            response.sendError(HttpStatus.TOO_MANY_REQUESTS.value(), "You have exhausted your API Request Quota");
-            // TODO - This is not working, the error is in the header but not the following header.
             response.addHeader("X-Rate-Limit-Retry-After-Milliseconds", Long.toString(probe.getNanosToWaitForRefill() / 1_000_000));
+            response.sendError(HttpStatus.TOO_MANY_REQUESTS.value(), "You have exhausted your API Request Quota");
             return false;
         }
     }

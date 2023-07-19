@@ -1,4 +1,4 @@
-package org.royllo.explorer.batch.test.batch;
+package org.royllo.explorer.batch.test.core;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,8 +34,6 @@ public class AddUniverseServerBatchTest {
     @Test
     @DisplayName("Add universe server request processing")
     public void batch() {
-        // TODO Review this test
-
         // =============================================================================================================
         // We create several requests to be processed by the batch.
         // - 1.1.1.1: Server is responding.

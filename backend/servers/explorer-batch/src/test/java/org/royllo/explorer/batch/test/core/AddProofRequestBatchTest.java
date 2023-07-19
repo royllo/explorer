@@ -1,4 +1,4 @@
-package org.royllo.explorer.batch.test.batch;
+package org.royllo.explorer.batch.test.core;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -46,8 +46,6 @@ public class AddProofRequestBatchTest extends BaseTest {
     @Test
     @DisplayName("Add proof request processing")
     public void batch() {
-        // TODO Review this test
-
         // =============================================================================================================
         // We add an invalid proof that can't be decoded ("INVALID_PROOF").
 
@@ -101,8 +99,8 @@ public class AddProofRequestBatchTest extends BaseTest {
         assertTrue(unknownRoylloCoinRequestTreated.isPresent());
         assertTrue(unknownRoylloCoinRequestTreated.get().isSuccessful());
         assertEquals(SUCCESS, unknownRoylloCoinRequestTreated.get().getStatus());
-        assertNotNull(unknownRoylloCoinRequestTreated.get().getAsset());
-        assertEquals(UNKNOWN_ROYLLO_COIN_ASSET_ID, unknownRoylloCoinRequestTreated.get().getAsset().getAssetId());
+        assertNotNull(((AddProofRequestDTO) unknownRoylloCoinRequestTreated.get()).getAsset());
+        assertEquals(UNKNOWN_ROYLLO_COIN_ASSET_ID, ((AddProofRequestDTO) unknownRoylloCoinRequestTreated.get()).getAsset().getAssetId());
 
         // Check that the asset and the proof now exists.
         assertTrue(assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
@@ -161,7 +159,6 @@ public class AddProofRequestBatchTest extends BaseTest {
         addProofBatch.processRequests();
         Optional<RequestDTO> activeRoylloCoinRequest3Treated = requestService.getRequest(activeRoylloCoinRequest3.getId());
         assertTrue(activeRoylloCoinRequest3Treated.isPresent());
-        System.out.println("==> " + activeRoylloCoinRequest3Treated);
         assertTrue(activeRoylloCoinRequest3Treated.get().isSuccessful());
         assertEquals(SUCCESS, activeRoylloCoinRequest3Treated.get().getStatus());
 

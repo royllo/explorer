@@ -2,15 +2,15 @@
 
 ## What is it ?
 
-Royllo explorer is like "Google"
-for [Taproot Assets](https://docs.lightning.engineering/the-lightning-network/taproot-assets).
+Royllo Explorer is an open source search engine for Taproot Assets living on the Bitcoin blockchain. Think of it as a "
+Google" for Taproot Assets, providing you with a web interface and an API to search and discover these assets with ease.
 
-Once deployed:
+The Key features for users include:
 
-- Anyone can search for Taproot assets by name, asset id or description with the web interface.
-- Anyone can view an asset, its description and all its proofs.
-- Anyone can add proofs to Royllo explorer. They will be validated and added to the Royllo database.
-- Anyone can do the things above by using the GraphQL API.
+- Search for Taproot assets and proofs using our user-friendly web interface.
+- Add your proofs to our database to let the world discover and learn about your assets.
+- Add universe servers to let us discover new data automatically (Work in progress).
+- Build new applications, services, and tools effortlessly using our GraphQL API
 
 A live version is available here: [https://explorer.royllo.org/](https://explorer.royllo.org/)
 

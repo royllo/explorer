@@ -1,6 +1,6 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet author="straumat" id="test-data-assets">
 
@@ -14,11 +14,9 @@
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="NAME" value="activeRoylloCoin"/>
-            <column name="META_DATA" value="5573656420627920526f796c6c6f"/>
+            <column name="META_DATA_HASH" value="5573656420627920526f796c6c6f"/>
             <column name="ASSET_ID" value="1781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e5413"/>
             <column name="OUTPUT_INDEX" value="1"/>
-            <column name="GENESIS_BOOTSTRAP_INFORMATION"
-                    value="39481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0000000110616374697665526f796c6c6f436f696e0e5573656420627920526f796c6c6f0000000100"/>
             <column name="GENESIS_VERSION" value="0"/>
 
             <column name="ASSET_TYPE" value="NORMAL"/>
@@ -34,7 +32,7 @@
             <column name="ANCHOR_TXID" value="60b11c06d29ad10a66082953e37010090b39bc7541c321066a9e8bf7507abdd7"/>
             <column name="ANCHOR_BLOCK_HASH" value="000000000000002366fc3e4cc4074a94529e09858b6585004a0056e47e08c0c9"/>
             <column name="ANCHOR_OUTPOINT" value="60b11c06d29ad10a66082953e37010090b39bc7541c321066a9e8bf7507abdd7"/>
-            <column name="ANCHOR_INTERNAL_KEY"
+            <column name="INTERNAL_KEY"
                     value="03bea9941963648cfaaa2981d68ebf209e20b3e68287d94371805832e962401429"/>
         </insert>
 
@@ -48,10 +46,9 @@
 
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="NAME" value="TestPaginationCoin1"/>
-            <column name="META_DATA" value="meta_data_1"/>
+            <column name="META_DATA_HASH" value="META_DATA_HASH_1"/>
             <column name="ASSET_ID" value="asset_id_1"/>
             <column name="OUTPUT_INDEX" value="0"/>
-            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_1"/>
             <column name="GENESIS_VERSION" value="1"/>
 
             <column name="ASSET_TYPE" value="NORMAL"/>
@@ -66,7 +63,7 @@
             <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
-            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 1"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 1"/>
         </insert>
 
         <insert tableName="ASSETS">
@@ -78,11 +75,10 @@
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="NAME" value="TestPaginationCoin2"/>
-            <column name="META_DATA" value="meta_data_2"/>
+            <column name="META_DATA_HASH" value="META_DATA_HASH_2"/>
             <column name="ASSET_ID" value="asset_id_2"/>
             <column name="OUTPUT_INDEX" value="0"/>
 
-            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_2"/>
             <column name="GENESIS_VERSION" value="2"/>
 
             <column name="ASSET_TYPE" value="NORMAL"/>
@@ -97,7 +93,7 @@
             <column name="ANCHOR_TXID" value="Anchor tx id 2"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 2"/>
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 2"/>
-            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 2"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 2"/>
         </insert>
 
         <insert tableName="ASSETS">
@@ -109,10 +105,9 @@
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="NAME" value="TestPaginationCoin3"/>
-            <column name="META_DATA" value="meta_data_3"/>
+            <column name="META_DATA_HASH" value="META_DATA_HASH_3"/>
             <column name="ASSET_ID" value="asset_id_3"/>
             <column name="OUTPUT_INDEX" value="0"/>
-            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_3"/>
             <column name="GENESIS_VERSION" value="3"/>
 
             <column name="ASSET_TYPE" value="NORMAL"/>
@@ -127,7 +122,7 @@
             <column name="ANCHOR_TXID" value="Anchor tx id 3"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 3"/>
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 3"/>
-            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 3"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 3"/>
         </insert>
 
         <insert tableName="ASSETS">
@@ -139,10 +134,9 @@
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="NAME" value="TestPaginationCoin4"/>
-            <column name="META_DATA" value="meta_data_4"/>
+            <column name="META_DATA_HASH" value="META_DATA_HASH_4"/>
             <column name="ASSET_ID" value="asset_id_4"/>
             <column name="OUTPUT_INDEX" value="0"/>
-            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_4"/>
             <column name="GENESIS_VERSION" value="3"/>
 
             <column name="ASSET_TYPE" value="NORMAL"/>
@@ -157,7 +151,7 @@
             <column name="ANCHOR_TXID" value="Anchor tx id 4"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 4"/>
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 4"/>
-            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 4"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 4"/>
         </insert>
 
         <insert tableName="ASSETS">
@@ -169,10 +163,9 @@
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="NAME" value="TestPaginationCoin5"/>
-            <column name="META_DATA" value="meta_data_5"/>
+            <column name="META_DATA_HASH" value="META_DATA_HASH_5"/>
             <column name="ASSET_ID" value="asset_id_5"/>
             <column name="OUTPUT_INDEX" value="0"/>
-            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_5"/>
             <column name="GENESIS_VERSION" value="4"/>
 
             <column name="ASSET_TYPE" value="NORMAL"/>
@@ -187,7 +180,7 @@
             <column name="ANCHOR_TXID" value="Anchor tx id 5"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 5"/>
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 5"/>
-            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 5"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 5"/>
         </insert>
 
         <insert tableName="ASSETS">
@@ -199,10 +192,9 @@
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="NAME" value="TestPaginationCoin6"/>
-            <column name="META_DATA" value="meta_data_6"/>
+            <column name="META_DATA_HASH" value="META_DATA_HASH_6"/>
             <column name="ASSET_ID" value="asset_id_6"/>
             <column name="OUTPUT_INDEX" value="0"/>
-            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_6"/>
             <column name="GENESIS_VERSION" value="6"/>
 
             <column name="ASSET_TYPE" value="NORMAL"/>
@@ -217,7 +209,7 @@
             <column name="ANCHOR_TXID" value="Anchor tx id 5"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 5"/>
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 5"/>
-            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 5"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 5"/>
         </insert>
 
         <insert tableName="ASSETS">
@@ -229,10 +221,9 @@
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="NAME" value="TestPaginationCoin7"/>
-            <column name="META_DATA" value="meta_data_7"/>
+            <column name="META_DATA_HASH" value="META_DATA_HASH_7"/>
             <column name="ASSET_ID" value="asset_id_7"/>
             <column name="OUTPUT_INDEX" value="0"/>
-            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_7"/>
             <column name="GENESIS_VERSION" value="7"/>
 
             <column name="ASSET_TYPE" value="NORMAL"/>
@@ -247,7 +238,7 @@
             <column name="ANCHOR_TXID" value="Anchor tx id 7"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 7"/>
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 7"/>
-            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 7"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 7"/>
         </insert>
 
         <insert tableName="ASSETS">
@@ -259,10 +250,9 @@
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="NAME" value="TestPaginationCoin8"/>
-            <column name="META_DATA" value="meta_data_8"/>
+            <column name="META_DATA_HASH" value="META_DATA_HASH_8"/>
             <column name="ASSET_ID" value="asset_id_8"/>
             <column name="OUTPUT_INDEX" value="0"/>
-            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_8"/>
             <column name="GENESIS_VERSION" value="8"/>
 
             <column name="ASSET_TYPE" value="NORMAL"/>
@@ -277,7 +267,7 @@
             <column name="ANCHOR_TXID" value="Anchor tx id 8"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 8"/>
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 8"/>
-            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 8"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 8"/>
         </insert>
 
         <insert tableName="ASSETS">
@@ -289,10 +279,9 @@
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="NAME" value="TestPaginationCoin0"/>
-            <column name="META_DATA" value="meta_data_0"/>
+            <column name="META_DATA_HASH" value="META_DATA_HASH_0"/>
             <column name="ASSET_ID" value="asset_id_0"/>
             <column name="OUTPUT_INDEX" value="0"/>
-            <column name="GENESIS_BOOTSTRAP_INFORMATION" value="genesis_bootstrap_information_9"/>
             <column name="GENESIS_VERSION" value="9"/>
 
             <column name="ASSET_TYPE" value="NORMAL"/>
@@ -307,7 +296,7 @@
             <column name="ANCHOR_TXID" value="Anchor tx id 9"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 9"/>
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 9"/>
-            <column name="ANCHOR_INTERNAL_KEY" value="Anchor internal key 9"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 9"/>
         </insert>
 
     </changeSet>

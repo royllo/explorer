@@ -17,6 +17,9 @@ build_docker:
 
 # ======================================================================================================================
 # Run
+run_api_server:
+    mvn spring-boot:run -Dspring-boot.run.profiles=dev -f backend/servers/explorer-api/pom.xml
+
 run_web_server_backend:
     mvn spring-boot:run -Dspring-boot.run.profiles=dev -f backend/servers/explorer-web/pom.xml
 

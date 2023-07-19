@@ -1,4 +1,4 @@
-package org.royllo.explorer.batch.test.batch;
+package org.royllo.explorer.batch.test.integration;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
+import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,11 +25,16 @@ import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
-@SpringBootTest
 @DisplayName("Purge batch test")
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
-@ActiveProfiles({"mempoolTransactionServiceMock", "tapdProofServiceMock", "scheduler-disabled"})
+@ActiveProfiles("scheduler-disabled")
+@Testcontainers
+@SpringBootTest(properties = {"spring.datasource.url=jdbc:tc:postgresql:15:///explorer",
+        "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver"})
 public class PurgeBatchTest extends BaseTest {
+
+    @Autowired
+    private DataSource dataSource;
 
     @Autowired
     private RequestRepository requestRepository;
@@ -36,8 +44,7 @@ public class PurgeBatchTest extends BaseTest {
 
     @Test
     @DisplayName("Purge failed requests")
-    public void batch() {
-        // TODO Review this test
+    public void batch() throws SQLException {
         // We start by erasing everything.
         requestRepository.deleteAll();
 
@@ -49,7 +56,7 @@ public class PurgeBatchTest extends BaseTest {
             request.setRequestId("ID_" + i);
             request.setCreator(ANONYMOUS_USER);
             request.setStatus(OPENED);
-            request.setRawProof("Add proof request n°" + i);
+            request.setRawProof("Request n°" + i);
             requestRepository.save(request);
         }
         // We should have 10 000 requests.
@@ -64,7 +71,7 @@ public class PurgeBatchTest extends BaseTest {
             request.setRequestId("ID_" + i);
             request.setCreator(ANONYMOUS_USER);
             request.setStatus(OPENED);
-            request.setServerAddress("Add proof request n°" + i);
+            request.setServerAddress("Request n°" + i);
             requestRepository.save(request);
         }
         // We should have 20 000 requests.
@@ -81,7 +88,7 @@ public class PurgeBatchTest extends BaseTest {
             request.setRequestId("ID_" + i);
             request.setCreator(ANONYMOUS_USER);
             request.setStatus(FAILURE);
-            request.setRawProof("Add proof request n°" + i);
+            request.setRawProof("Request n°" + i);
             requestRepository.save(request);
         }
         // We should have 30 000 requests.
@@ -96,7 +103,7 @@ public class PurgeBatchTest extends BaseTest {
             request.setRequestId("ID_" + i);
             request.setCreator(ANONYMOUS_USER);
             request.setStatus(FAILURE);
-            request.setServerAddress("Add proof request n°" + i);
+            request.setServerAddress("Request n°" + i);
             requestRepository.save(request);
         }
         // We should have 20 000 requests.
@@ -113,7 +120,7 @@ public class PurgeBatchTest extends BaseTest {
             request.setRequestId("ID_" + i);
             request.setCreator(ANONYMOUS_USER);
             request.setStatus(SUCCESS);
-            request.setRawProof("Add proof request n°" + i);
+            request.setRawProof("Request n°" + i);
             requestRepository.save(request);
         }
         // We should have 30 000 requests.
@@ -128,7 +135,7 @@ public class PurgeBatchTest extends BaseTest {
             request.setRequestId("ID_" + i);
             request.setCreator(ANONYMOUS_USER);
             request.setStatus(SUCCESS);
-            request.setServerAddress("Add proof request n°" + i);
+            request.setServerAddress("Request n°" + i);
             requestRepository.save(request);
         }
         // We should have 20 000 requests.

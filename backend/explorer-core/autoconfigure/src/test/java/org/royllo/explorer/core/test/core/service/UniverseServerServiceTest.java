@@ -24,8 +24,6 @@ public class UniverseServerServiceTest {
     @Test
     @DisplayName("addUniverseServer()")
     public void addUniverseServer() {
-        // TODO Review this test
-
         // =============================================================================================================
         // Adding a universe server with a null value.
         try {
@@ -83,8 +81,6 @@ public class UniverseServerServiceTest {
     @Test
     @DisplayName("getUniverseServerByServerAddress()")
     public void getUniverseServerByServerAddress() {
-        // TODO Review this test
-
         // =============================================================================================================
         // Checking if a universe exists before we create it.
         assertTrue(universeServerService.getUniverseServerByServerAddress("test.royllo.org:8080").isEmpty());
@@ -106,8 +102,6 @@ public class UniverseServerServiceTest {
     @Test
     @DisplayName("getAllUniverseServers()")
     public void getAllUniverseServers() {
-        // TODO Review this test
-
         // =============================================================================================================
         // Checking that there is not universe server.
         int universeServersCount = universeServerService.getAllUniverseServers().size();
