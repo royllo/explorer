@@ -64,7 +64,7 @@
 
         <!-- ======================================================================================================= -->
         <!-- Project libraries -->
-        <spring.version>3.1.1</spring.version>
+        <spring.version>3.1.2</spring.version>
         <reactor-core.version>3.5.8</reactor-core.version>
         <reactor-netty.version>1.1.9</reactor-netty.version>
 
@@ -75,7 +75,7 @@
         <liquibase.version>4.23.0</liquibase.version>
         <jdbc.driver.hsqldb.version>2.7.2</jdbc.driver.hsqldb.version>
         <jdbc.driver.postgresql.version>42.6.0</jdbc.driver.postgresql.version>
-        <jdbc.driver.mysql.version>8.0.33</jdbc.driver.mysql.version>
+        <jdbc.driver.mysql.version>8.1.0</jdbc.driver.mysql.version>
 
         <lombok.version>1.18.28</lombok.version>
         <lombok.mapstruct.version>0.2.0</lombok.mapstruct.version>
@@ -87,7 +87,7 @@
         <caffeine.version>3.1.6</caffeine.version>
 
         <thymeleaf-layout-dialect.version>3.2.1</thymeleaf-layout-dialect.version>
-        <htmx-spring-boot-thymeleaf.version>2.0.1</htmx-spring-boot-thymeleaf.version>
+        <htmx-spring-boot-thymeleaf.version>2.1.0</htmx-spring-boot-thymeleaf.version>
         <webjars-locator.version>0.47</webjars-locator.version>
         <htmx.version>1.9.3</htmx.version>
         <alpinejs.version>3.12.3</alpinejs.version>
@@ -164,7 +164,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.1</version>
+        <version>3.1.2</version>
         <relativePath/>
     </parent>
     <!-- =========================================================================================================== -->
