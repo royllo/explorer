@@ -68,7 +68,7 @@
         <reactor-core.version>3.5.8</reactor-core.version>
         <reactor-netty.version>1.1.9</reactor-netty.version>
 
-        <graphql-dgs-platform-dependencies.version>7.3.2</graphql-dgs-platform-dependencies.version>
+        <graphql-dgs-platform-dependencies.version>7.3.6</graphql-dgs-platform-dependencies.version>
         <graphql-dgs-codegen-core.version>5.12.4</graphql-dgs-codegen-core.version>
         <graphql-dgs-codegen-client-core.version>5.1.17</graphql-dgs-codegen-client-core.version>
 
