@@ -34,7 +34,7 @@ Header :
 - Asset id
 - Type.
 
-Tab `Asset`:
+Tab `Asset genesis`:
 
 - Asset id.
 - Genesis point.

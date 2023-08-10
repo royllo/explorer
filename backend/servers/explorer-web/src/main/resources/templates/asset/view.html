@@ -56,31 +56,132 @@
 
         <!--/* =================================================================================================== */-->
         <!--*/ Tabs navigation */-->
-        <div class="border-b border-gray-200" x-data="{ activeTab: 0 }">
+        <div class="border-b border-gray-200" x-data="{ activeTab: 1 }">
+
+            <!--/* =============================================================================================== */-->
+            <!--*/ Tabs navigation */-->
             <nav aria-label="Tabs" class="-mb-px flex space-x-8">
-                <label :class="{ 'selectedTab': activeTab === 0 }"
-                       @click="activeTab = 0"
-                       class="tab">My Account</label>
                 <label :class="{ 'selectedTab': activeTab === 1 }"
                        @click="activeTab = 1"
-                       class="tab">Company</label>
+                       class="tab" th:text="#{asset.view.tabs.assetGenesis}"></label>
                 <label :class="{ 'selectedTab': activeTab === 2 }"
                        @click="activeTab = 2"
-                       class="tab">Team member</label>
+                       class="tab" th:text="#{asset.view.tabs.owner}">></label>
+                <label :class="{ 'selectedTab': activeTab === 3 }"
+                       @click="activeTab = 3"
+                       class="tab" th:text="#{asset.view.tabs.assetGroup}">></label>
+                <label :class="{ 'selectedTab': activeTab === 4 }"
+                       @click="activeTab = 4"
+                       class="tab" th:text="#{asset.view.tabs.chainAnchors}">></label>
+                <label :class="{ 'selectedTab': activeTab === 5 }"
+                       @click="activeTab = 5"
+                       class="tab" th:text="#{asset.view.tabs.proofs}">></label>
             </nav>
+            <!--/* =============================================================================================== */-->
 
-            <div :class="{ 'active': activeTab === 0 }" class="px-6 py-4"
-                 x-show="activeTab === 0">
-                <p>This is the example content of the first tab.</p>
-            </div>
+            <!--/* =============================================================================================== */-->
+            <!--*/ Asset genesis tab */-->
             <div :class="{ 'active': activeTab === 1 }" class="px-6 py-4"
                  x-show="activeTab === 1">
-                <p>The second tab’s example content.</p>
+                <div class="overflow-hidden shadow sm:rounded-lg">
+                    <div class="border-t border-gray-100">
+                        <dl class="divide-y divide-gray-100">
+
+                            <!--/* Asset ID */-->
+                            <div class="tableLine">
+                                <dt class="tableLineDescription" th:text="#{field.asset.assetId}"></dt>
+                                <dd class="tableLineValue" th:text="${result.assetId}"></dd>
+                            </div>
+
+                            <!--/* Asset name */-->
+                            <div class="tableLine">
+                                <dt class="tableLineDescription" th:text="#{field.asset.name}"></dt>
+                                <dd class="tableLineValue" th:text="${result.name}"></dd>
+                            </div>
+
+                            <!--/* Genesis point */-->
+                            <div class="tableLine">
+                                <dt class="tableLineDescription" th:text="#{field.asset.genesisPoint}"></dt>
+                                <dd class="tableLineValue"
+                                    th:text="${result.genesisPoint.txId} + ':' + ${result.genesisPoint.vout}"></dd>
+                            </div>
+
+                            <!--/* Metadata hash */-->
+                            <div class="tableLine">
+                                <dt class="tableLineDescription" th:text="#{field.asset.metaDataHash}"></dt>
+                                <dd class="tableLineValue" th:text="${result.getMetaDataHash}"></dd>
+                            </div>
+
+                            <!--/* Taproot assets output index */-->
+                            <div class="tableLine">
+                                <dt class="tableLineDescription" th:text="#{field.asset.outputIndex}"></dt>
+                                <dd class="tableLineValue" th:text="${result.outputIndex}"></dd>
+                            </div>
+
+                            <!--/* Asset type */-->
+                            <div class="tableLine">
+                                <dt class="tableLineDescription" th:text="#{field.asset.assetType}"></dt>
+                                <dd class="tableLineValue" th:if="${#strings.equals(result.type, 'NORMAL')}"
+                                    th:text="#{field.asset.assetType.normal}"></dd>
+                                <dd class="tableLineValue" th:if="${#strings.equals(result.type, 'COLLECTIBLE')}"
+                                    th:text="#{field.asset.assetType.collectible}"></dd>
+                            </div>
+
+                        </dl>
+                    </div>
+                </div>
             </div>
+            <!--/* =============================================================================================== */-->
+
+            <!--/* =============================================================================================== */-->
+            <!--*/ Owner tab */-->
             <div :class="{ 'active': activeTab === 2 }" class="px-6 py-4"
                  x-show="activeTab === 2">
-                <p>The content of the third and final tab in this set.</p>
+                <p th:text="#{asset.view.tabs.owner.explanation}"></p>
             </div>
+            <!--/* =============================================================================================== */-->
+
+            <!--/* =============================================================================================== */-->
+            <!--*/ Asset group tab */-->
+            <div :class="{ 'active': activeTab === 3 }" class="px-6 py-4"
+                 x-show="activeTab === 3">
+                <div class="overflow-hidden shadow sm:rounded-lg">
+                    <div class="border-t border-gray-100">
+                        <dl class="divide-y divide-gray-100">
+
+                            <div class="tableLine">
+                                <dt class="tableLineDescription" th:text="#{field.asset.rawGroupKey}"></dt>
+                                <dd class="tableLineValue" th:text="${result.rawGroupKey}"></dd>
+                            </div>
+                            <div class="tableLine">
+                                <dt class="tableLineDescription" th:text="#{field.asset.tweakedGroupKey}"></dt>
+                                <dd class="tableLineValue" th:text="${result.tweakedGroupKey}"></dd>
+                            </div>
+                            <div class="tableLine">
+                                <dt class="tableLineDescription" th:text="#{field.asset.assetIdSig}"></dt>
+                                <dd class="tableLineValue" th:text="${result.assetIdSig}"></dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <!--/* =============================================================================================== */-->
+
+            <!--/* =============================================================================================== */-->
+            <!--*/ Chain anchors tab */-->
+            <div :class="{ 'active': activeTab === 4 }" class="px-6 py-4"
+                 x-show="activeTab === 4">
+                <p>Chain anchors tab.</p>
+            </div>
+            <!--/* =============================================================================================== */-->
+
+            <!--/* =============================================================================================== */-->
+            <!--*/ Proofs tab */-->
+            <div :class="{ 'active': activeTab === 5 }" class="px-6 py-4"
+                 x-show="activeTab === 5">
+                <p>Proofs tab.</p>
+            </div>
+            <!--/* =============================================================================================== */-->
         </div>
 
     </div>
