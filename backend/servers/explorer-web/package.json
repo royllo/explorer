@@ -19,7 +19,7 @@
     "watch:serve": "browser-sync start --no-inject-changes --proxy localhost:8080 --files 'target/classes/templates' 'target/classes/static'"
   },
   "devDependencies": {
-    "@babel/cli": "^7.22.9",
+    "@babel/cli": "^7.22.10",
     "autoprefixer": "^10.4.14",
     "browser-sync": "^2.29.3",
     "cssnano": "^6.0.1",
