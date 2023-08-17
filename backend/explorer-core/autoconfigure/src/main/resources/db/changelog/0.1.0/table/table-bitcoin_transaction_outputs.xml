@@ -46,11 +46,6 @@
                           columnDataType="BIGINT"
                           startWith="2"/>
 
-        <!-- Adding a unique constraint on TXID + VOUT -->
-        <addUniqueConstraint columnNames="TXID, VOUT"
-                             constraintName="UNIQUE_BITCOIN_TRANSACTION_OUTPUTS_UNIQUE_TXID_VOUT"
-                             tableName="BITCOIN_TRANSACTION_OUTPUTS"/>
-
         <!-- Index on TXID -->
         <createIndex indexName="IDX_BITCOIN_TRANSACTION_OUTPUTS_TXID"
                      tableName="BITCOIN_TRANSACTION_OUTPUTS">

@@ -1,6 +1,5 @@
 package org.royllo.explorer.core.dto.asset;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -46,7 +45,7 @@ public class AssetDTO {
     String metaDataHash;
 
     /** The asset ID that uniquely identifies the asset. */
-    @Column(name = "ASSET_ID", updatable = false)
+    @NotBlank(message = "Asset id is required")
     String assetId;
 
     /** The index of the output that carries the unique Taproot asset commitment in the genesis transaction. */
@@ -81,40 +80,13 @@ public class AssetDTO {
     @NotNull(message = "Script key is required")
     String scriptKey;
 
-    /** The raw group key which is a normal public key. */
+    /** Asset group: The raw group key which is a normal public key. */
     String rawGroupKey;
 
-    /** The tweaked group key, which is derived based on the genesis point and also asset type. */
+    /** Asset group: The tweaked group key, which is derived based on the genesis point and also asset type. */
     String tweakedGroupKey;
 
-    /** A signature over the genesis point using the above key. */
-    @Column(name = "ASSET_ID_SIG")
+    /** Asset group: A signature over the genesis point using the above key. */
     String assetIdSig;
-
-    /** The transaction that anchors the Taproot asset commitment where the asset resides. */
-    @NotNull(message = "Anchor transaction is required")
-    String anchorTx;
-
-    /** The txid of the anchor transaction. */
-    @NotNull(message = "Anchor transaction id is required")
-    String anchorTxId;
-
-    /** The block hash the contains the anchor transaction above. */
-    @NotNull(message = "Anchor block hash is required")
-    String anchorBlockHash;
-
-    /** Outpoint (txid:vout) that stores the Taproot asset commitment. */
-    @NotNull(message = "Anchor outpoint is required")
-    String anchorOutpoint;
-
-    /** The raw internal key that was used to create the anchor Taproot output key. */
-    @NotNull(message = "Anchor internal key is required")
-    String internalKey;
-
-    /** The Taproot merkle root hash of the anchor output the asset was committed to. */
-    String merkleRoot;
-
-    /** The serialized preimage of a Tapscript sibling, if there was one. */
-    String tapscriptSibling;
 
 }

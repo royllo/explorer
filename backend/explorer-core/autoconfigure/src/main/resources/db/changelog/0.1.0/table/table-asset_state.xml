@@ -1,0 +1,62 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="0.1.0-table-asset_state">
+
+        <createTable tableName="ASSET_STATE"
+                     remarks="Taproot asset state">
+
+            <!-- Unique identifier -->
+            <column name="ID" type="BIGINT"
+                    remarks="Unique identifier">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ASSET_STATE"/>
+            </column>
+
+            <!-- Table fields -->
+            <column name="FK_ASSET" type="BIGINT"
+                    remarks="The asset linked to this asset state"/>
+            <column name="FK_PROOF" type="BIGINT"
+                    remarks="The proof that created to this chain anchor"/>
+
+            <!-- Chain anchor - Describes where in the chain the asset is currently anchored -->
+            <column name="ANCHOR_TX" type="TEXT"
+                    remarks="The transaction that anchors the Taproot commitment where the asset resides"/>
+            <column name="ANCHOR_TXID" type="TEXT"
+                    remarks="The txid of the above transaction"/>
+            <column name="ANCHOR_BLOCK_HASH" type="TEXT"
+                    remarks="The block hash the contains the anchor transaction above"/>
+            <column name="ANCHOR_OUTPOINT" type="TEXT"
+                    remarks="The outpoint (txid:vout) that stores the Taproot commitment"/>
+            <column name="INTERNAL_KEY" type="TEXT"
+                    remarks="The raw internal key that was used to create the anchor Taproot output key"/>
+            <column name="MERKLE_ROOT" type="TEXT"
+                    remarks="The Taproot merkle root hash of the anchor output the asset was committed to. If there is no Tapscript sibling, this is equal to the Taproot Asset root commitment hash"/>
+            <column name="TAPSCRIPT_SIBLING" type="TEXT"
+                    remarks="The serialized preimage of a Tapscript sibling, if there was one. If this is empty, then the merkle_root hash is equal to the Taproot root hash of the anchor output"/>
+
+            <!-- State data -->
+
+
+            <!-- Technical fields -->
+            <column name="CREATED_ON" type="TIMESTAMP"
+                    remarks="Data created on"/>
+            <column name="UPDATED_ON" type="TIMESTAMP"
+                    remarks="Data updated on"/>
+
+        </createTable>
+
+        <!-- Auto increment on the unique identifier -->
+        <addAutoIncrement tableName="ASSETS_CHAIN_ANCHORS"
+                          columnName="ID"
+                          columnDataType="BIGINT"
+                          startWith="2"/>
+
+        <!-- Index on ASSET_ID -->
+        <createIndex indexName="IDX_ASSETS_CHAIN_ANCHORS_ASSET_ID"
+                     tableName="ASSETS_CHAIN_ANCHORS">
+            <column name="ASSET_ID"/>
+        </createIndex>
+
+    </changeSet>
+</databaseChangeLog>

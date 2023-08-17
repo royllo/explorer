@@ -27,25 +27,5 @@
 
         </createTable>
 
-        <!-- Foreign key REQUESTS_ADD_ASSET.ID > REQUESTS.ID -->
-        <addForeignKeyConstraint constraintName="FK_REQUESTS_ADD_PROOF_REQUESTS_ID"
-                                 baseColumnNames="ID"
-                                 baseTableName="REQUESTS_ADD_PROOF"
-                                 referencedTableName="REQUESTS"
-                                 referencedColumnNames="ID"
-                                 validate="true"/>
-
-        <!-- Foreign key FK_ASSET > ASSETS.ID -->
-        <addForeignKeyConstraint constraintName="FK_REQUESTS_ADD_PROOF_ASSETS_ID"
-                                 baseColumnNames="FK_ASSET"
-                                 baseTableName="REQUESTS_ADD_PROOF"
-                                 deferrable="false"
-                                 initiallyDeferred="false"
-                                 onDelete="NO ACTION"
-                                 onUpdate="NO ACTION"
-                                 referencedTableName="ASSETS"
-                                 referencedColumnNames="ID"
-                                 validate="true"/>
-
     </changeSet>
 </databaseChangeLog>

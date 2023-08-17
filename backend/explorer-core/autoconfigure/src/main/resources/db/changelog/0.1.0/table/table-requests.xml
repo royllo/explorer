@@ -41,19 +41,6 @@
                           columnDataType="BIGINT"
                           startWith="1"/>
 
-        <!-- Adding a unique constraint on REQUEST_ID -->
-        <addUniqueConstraint columnNames="REQUEST_ID"
-                             constraintName="REQUESTS_UNIQUE_REQUEST_ID"
-                             tableName="REQUESTS"/>
-
-        <!-- Foreign key FK_USER_CREATOR > USERS.ID -->
-        <addForeignKeyConstraint constraintName="FK_REQUESTS_USER_CREATOR"
-                                 baseColumnNames="FK_USER_CREATOR"
-                                 baseTableName="REQUESTS"
-                                 referencedTableName="USERS"
-                                 referencedColumnNames="ID"
-                                 validate="true"/>
-
         <!-- Index on STATUS -->
         <createIndex indexName="IDX_REQUESTS_STATUS"
                      tableName="REQUESTS">

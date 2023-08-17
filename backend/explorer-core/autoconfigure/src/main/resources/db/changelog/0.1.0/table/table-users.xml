@@ -35,16 +35,6 @@
                           columnDataType="BIGINT"
                           startWith="2"/>
 
-        <!-- Adding a unique constraint on USER_ID -->
-        <addUniqueConstraint columnNames="USER_ID"
-                             constraintName="USERS_UNIQUE_USER_ID"
-                             tableName="USERS"/>
-
-        <!-- Adding a unique constraint on USERNAME -->
-        <addUniqueConstraint columnNames="USERNAME"
-                             constraintName="USERS_UNIQUE_USERNAME"
-                             tableName="USERS"/>
-
         <!-- Index on USERNAME -->
         <createIndex indexName="IDX_USERS_USERNAME"
                      tableName="USERS">

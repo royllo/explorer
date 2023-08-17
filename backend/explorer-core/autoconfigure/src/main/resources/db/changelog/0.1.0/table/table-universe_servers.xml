@@ -2,7 +2,7 @@
 <databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
-    <changeSet author="straumat" id="0.1.0-data-universe_servers">
+    <changeSet author="straumat" id="0.1.0-table-universe_servers">
 
         <createTable tableName="UNIVERSE_SERVERS"
                      remarks="Universe servers">
@@ -36,19 +36,6 @@
                           columnName="ID"
                           columnDataType="BIGINT"
                           startWith="1"/>
-
-        <!-- Foreign key FK_USER_OWNER > USERS.ID -->
-        <addForeignKeyConstraint constraintName="FK_UNIVERSE_SERVERS_USER_OWNER"
-                                 baseColumnNames="FK_USER_OWNER"
-                                 baseTableName="UNIVERSE_SERVERS"
-                                 referencedTableName="USERS"
-                                 referencedColumnNames="ID"
-                                 validate="true"/>
-
-        <!-- Adding a unique constraint on SERVER_ADDRESS -->
-        <addUniqueConstraint columnNames="SERVER_ADDRESS"
-                             constraintName="UNIVERSE_SERVERS_UNIQUE_SERVER_ADDRESS"
-                             tableName="UNIVERSE_SERVERS"/>
 
         <!-- Index on SERVER_ADDRESS -->
         <createIndex indexName="IDX_UNIVERSE_SERVERS_SERVER_ADDRESS"

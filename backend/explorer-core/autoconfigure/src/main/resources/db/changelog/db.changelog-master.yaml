@@ -1,26 +1,67 @@
 databaseChangeLog:
 
   # ====================================================================================================================
-  # 0.1.0 database structure
-  - include:
-      file: /db/changelog/0.1.0/structure/table-bitcoin_transaction_outputs.xml
-  - include:
-      file: /db/changelog/0.1.0/structure/table-users.xml
-  - include:
-      file: /db/changelog/0.1.0/structure/table-assets.xml
-  - include:
-      file: /db/changelog/0.1.0/structure/table-universe_servers.xml
-  - include:
-      file: /db/changelog/0.1.0/structure/table-requests.xml
-  - include:
-      file: /db/changelog/0.1.0/structure/table-requests_add_proof.xml
-  - include:
-      file: /db/changelog/0.1.0/structure/table-requests_add_asset_meta_data.xml
-  - include:
-      file: /db/changelog/0.1.0/structure/table-requests_add_universe_server.xml
-  - include:
-      file: /db/changelog/0.1.0/structure/table-proofs.xml
+  # 0.1.0 Table definition
 
+  # Assets.
+  - include:
+      file: /db/changelog/0.1.0/table/table-asset.xml
+  - include:
+      file: /db/changelog/0.1.0/table/table-asset_group.xml
+  - include:
+      file: /db/changelog/0.1.0/table/table-asset_state.xml
+
+
+  - include:
+      file: /db/changelog/0.1.0/table/table-bitcoin_transaction_outputs.xml
+  - include:
+      file: /db/changelog/0.1.0/table/table-users.xml
+
+  - include:
+      file: /db/changelog/0.1.0/table/table-universe_servers.xml
+  - include:
+      file: /db/changelog/0.1.0/table/table-requests.xml
+  - include:
+      file: /db/changelog/0.1.0/table/table-requests_add_proof.xml
+  - include:
+      file: /db/changelog/0.1.0/table/table-requests_add_asset_meta_data.xml
+  - include:
+      file: /db/changelog/0.1.0/table/table-requests_add_universe_server.xml
+  - include:
+      file: /db/changelog/0.1.0/table/table-proofs.xml
+
+  # ====================================================================================================================
+  # 0.1.0 Table constraints definition
+
+  # Assets.
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-asset.xml
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-asset_group.xml
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-asset_state.xml
+
+
+
+
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-bitcoin_transaction_outputs.xml
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-users.xml
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-assets.xml
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-universe_servers.xml
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-requests.xml
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-requests_add_proof.xml
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-requests_add_asset_meta_data.xml
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-requests_add_universe_server.xml
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-proofs.xml
 
   # ====================================================================================================================
   # 0.1.0 database data

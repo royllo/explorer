@@ -1,0 +1,16 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="0.1.0-table-constraints-requests_add_universe_server">
+
+        <!-- Foreign key REQUESTS_ADD_UNIVERSE_SERVER.ID > REQUESTS.ID -->
+        <addForeignKeyConstraint constraintName="FK_REQUESTS_ADD_UNIVERSE_SERVER_REQUESTS_ID"
+                                 baseColumnNames="ID"
+                                 baseTableName="REQUESTS_ADD_UNIVERSE_SERVER"
+                                 referencedTableName="REQUESTS"
+                                 referencedColumnNames="ID"
+                                 validate="true"/>
+
+    </changeSet>
+</databaseChangeLog>

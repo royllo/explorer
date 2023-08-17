@@ -39,27 +39,6 @@
                           columnDataType="BIGINT"
                           startWith="2"/>
 
-        <!-- Adding a unique constraint on PROOF_ID -->
-        <addUniqueConstraint columnNames="PROOF_ID"
-                             constraintName="PROOFS_UNIQUE_PROOF_ID"
-                             tableName="PROOFS"/>
-
-        <!-- Foreign key FK_USER_CREATOR > USERS.ID -->
-        <addForeignKeyConstraint constraintName="FK_PROOFS_USER_CREATOR"
-                                 baseColumnNames="FK_USER_CREATOR"
-                                 baseTableName="PROOFS"
-                                 referencedTableName="USERS"
-                                 referencedColumnNames="ID"
-                                 validate="true"/>
-
-        <!-- Foreign key FK_ASSET > ASSETS.ID -->
-        <addForeignKeyConstraint constraintName="FK_PROOFS_ASSET"
-                                 baseColumnNames="FK_ASSET"
-                                 baseTableName="PROOFS"
-                                 referencedTableName="ASSETS"
-                                 referencedColumnNames="ID"
-                                 validate="true"/>
-
         <!-- Index on PROOF_ID -->
         <createIndex indexName="IDX_PROOFS_PROOF_ID"
                      tableName="PROOFS">

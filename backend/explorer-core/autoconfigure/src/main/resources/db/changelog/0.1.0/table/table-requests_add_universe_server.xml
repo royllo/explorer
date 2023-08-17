@@ -25,13 +25,5 @@
 
         </createTable>
 
-        <!-- Foreign key REQUESTS_ADD_UNIVERSE_SERVER.ID > REQUESTS.ID -->
-        <addForeignKeyConstraint constraintName="FK_REQUESTS_ADD_UNIVERSE_SERVER_REQUESTS_ID"
-                                 baseColumnNames="ID"
-                                 baseTableName="REQUESTS_ADD_UNIVERSE_SERVER"
-                                 referencedTableName="REQUESTS"
-                                 referencedColumnNames="ID"
-                                 validate="true"/>
-
     </changeSet>
 </databaseChangeLog>
