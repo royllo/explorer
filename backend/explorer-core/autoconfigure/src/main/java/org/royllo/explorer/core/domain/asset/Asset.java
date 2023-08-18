@@ -47,7 +47,7 @@ public class Asset extends BaseDomain {
 
     /** Asset group. */
     @ManyToOne(fetch = EAGER)
-    @JoinColumn(name = "FK_ASSET_GROUP", nullable = false)
+    @JoinColumn(name = "FK_ASSET_GROUP")
     private AssetGroup assetGroup;
 
     /** Asset genesis: The asset ID that uniquely identifies the asset. */

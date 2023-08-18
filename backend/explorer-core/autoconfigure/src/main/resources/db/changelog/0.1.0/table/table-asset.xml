@@ -59,5 +59,7 @@
             <column name="ASSET_ID"/>
         </createIndex>
 
+        <!-- TODO Add index on FK_ASSET_GROUP ? -->
+
     </changeSet>
 </databaseChangeLog>

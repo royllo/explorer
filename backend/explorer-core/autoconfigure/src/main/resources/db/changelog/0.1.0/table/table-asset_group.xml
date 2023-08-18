@@ -16,8 +16,6 @@
             <!-- Link to other tables -->
             <column name="FK_USER_CREATOR" type="BIGINT"
                     remarks="The user who created this asset"/>
-            <column name="FK_ASSET_GROUP" type="BIGINT"
-                    remarks="The asset group of this asset"/>
 
             <!-- Table fields -->
             <column name="ASSET_ID_SIG" type="TEXT"
@@ -32,6 +30,8 @@
                     remarks="Data created on"/>
             <column name="UPDATED_ON" type="TIMESTAMP"
                     remarks="Data updated on"/>
+
+            <!-- TODO Add index (On raw group key ?) -->
 
         </createTable>
 

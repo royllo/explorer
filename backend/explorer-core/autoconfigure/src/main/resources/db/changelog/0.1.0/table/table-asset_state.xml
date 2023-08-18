@@ -14,20 +14,20 @@
             </column>
 
             <!-- Table fields -->
+            <column name="FK_USER_CREATOR" type="BIGINT"
+                    remarks="The user who created this asset state"/>
             <column name="FK_ASSET" type="BIGINT"
                     remarks="The asset linked to this asset state"/>
-            <column name="FK_PROOF" type="BIGINT"
-                    remarks="The proof that created to this chain anchor"/>
 
             <!-- Chain anchor - Describes where in the chain the asset is currently anchored -->
-            <column name="ANCHOR_TX" type="TEXT"
-                    remarks="The transaction that anchors the Taproot commitment where the asset resides"/>
-            <column name="ANCHOR_TXID" type="TEXT"
-                    remarks="The txid of the above transaction"/>
             <column name="ANCHOR_BLOCK_HASH" type="TEXT"
                     remarks="The block hash the contains the anchor transaction above"/>
             <column name="ANCHOR_OUTPOINT" type="TEXT"
                     remarks="The outpoint (txid:vout) that stores the Taproot commitment"/>
+            <column name="ANCHOR_TX" type="TEXT"
+                    remarks="The transaction that anchors the Taproot commitment where the asset resides"/>
+            <column name="ANCHOR_TXID" type="TEXT"
+                    remarks="The txid of the above transaction"/>
             <column name="INTERNAL_KEY" type="TEXT"
                     remarks="The raw internal key that was used to create the anchor Taproot output key"/>
             <column name="MERKLE_ROOT" type="TEXT"
@@ -36,6 +36,10 @@
                     remarks="The serialized preimage of a Tapscript sibling, if there was one. If this is empty, then the merkle_root hash is equal to the Taproot root hash of the anchor output"/>
 
             <!-- State data -->
+            <column name="SCRIPT_VERSION" type="INTEGER"
+                    remarks="The version of the script, only version 0 is defined at present"/>
+            <column name="SCRIPT_KEY" type="TEXT"
+                    remarks="The script key of the asset, which can be spent under Taproot semantics"/>
 
 
             <!-- Technical fields -->
@@ -47,15 +51,15 @@
         </createTable>
 
         <!-- Auto increment on the unique identifier -->
-        <addAutoIncrement tableName="ASSETS_CHAIN_ANCHORS"
+        <addAutoIncrement tableName="ASSET_STATE"
                           columnName="ID"
                           columnDataType="BIGINT"
                           startWith="2"/>
 
-        <!-- Index on ASSET_ID -->
-        <createIndex indexName="IDX_ASSETS_CHAIN_ANCHORS_ASSET_ID"
-                     tableName="ASSETS_CHAIN_ANCHORS">
-            <column name="ASSET_ID"/>
+        <!-- Index on FK_ASSET -->
+        <createIndex indexName="IDX_ASSET_STATE_FK_ASSET"
+                     tableName="ASSET_STATE">
+            <column name="FK_ASSET"/>
         </createIndex>
 
     </changeSet>

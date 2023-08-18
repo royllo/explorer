@@ -4,16 +4,20 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.util.base.BaseDomain;
 
 import java.util.Set;
 
+import static jakarta.persistence.FetchType.EAGER;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 /**
@@ -32,6 +36,11 @@ public class AssetGroup extends BaseDomain {
     @Column(name = "ID")
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
+
+    /** Asset creator. */
+    @ManyToOne(fetch = EAGER)
+    @JoinColumn(name = "FK_USER_CREATOR", nullable = false)
+    private User creator;
 
     /** A signature over the genesis point using the above key. */
     @Column(name = "ASSET_ID_SIG")

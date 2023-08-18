@@ -6,17 +6,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.royllo.explorer.core.domain.proof.Proof;
+import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.util.base.BaseDomain;
 
 import static jakarta.persistence.FetchType.EAGER;
-import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 /**
@@ -36,15 +34,15 @@ public class AssetState extends BaseDomain {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
+    /** Asset state creator. */
+    @ManyToOne(fetch = EAGER)
+    @JoinColumn(name = "FK_USER_CREATOR", nullable = false)
+    private User creator;
+
     /** Asset. */
     @ManyToOne(fetch = EAGER)
     @JoinColumn(name = "FK_ASSET", nullable = false)
     private Asset asset;
-
-    /** Asset. */
-    @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "FK_PROOF", nullable = false)
-    private Proof proof;
 
     /** The block hash the contains the anchor transaction above. */
     @Column(name = "ANCHOR_BLOCK_HASH")
@@ -74,11 +72,16 @@ public class AssetState extends BaseDomain {
     @Column(name = "TAPSCRIPT_SIBLING")
     private String tapscriptSibling;
 
-    /** The script key of the asset, which can be spent under Taproot semantics. */
-    @Column(name = "SCRIPT_KEY")
-    private String scriptKey;
+    /** The version of the Taproot asset. */
+    @Column(name = "VERSION", updatable = false)
+    private int version;
 
     /** The version of the script, only version 0 is defined at present. */
     @Column(name = "SCRIPT_VERSION")
     private int scriptVersion;
+
+    /** The script key of the asset, which can be spent under Taproot semantics. */
+    @Column(name = "SCRIPT_KEY")
+    private String scriptKey;
+
 }
