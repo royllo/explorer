@@ -35,11 +35,11 @@ databaseChangeLog:
 
   # Assets.
   - include:
-      file: /db/changelog/0.1.0/table-constraints/table-asset.xml
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-asset.xml
   - include:
-      file: /db/changelog/0.1.0/table-constraints/table-asset_group.xml
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-asset_group.xml
   - include:
-      file: /db/changelog/0.1.0/table-constraints/table-asset_state.xml
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-asset_state.xml
 
 
 
@@ -48,8 +48,6 @@ databaseChangeLog:
       file: /db/changelog/0.1.0/table-constraints/table-constraints-bitcoin_transaction_outputs.xml
   - include:
       file: /db/changelog/0.1.0/table-constraints/table-constraints-users.xml
-  - include:
-      file: /db/changelog/0.1.0/table-constraints/table-constraints-assets.xml
   - include:
       file: /db/changelog/0.1.0/table-constraints/table-constraints-universe_servers.xml
   - include:
@@ -66,13 +64,17 @@ databaseChangeLog:
   # ====================================================================================================================
   # 0.1.0 database data
   - include:
-      file: /db/changelog/0.1.0/data/data-users.xml
+      file: /db/changelog/0.1.0/data/data-user.xml
   - include:
-      file: /db/changelog/0.1.0/data/data-bitcoin_transaction_outputs.xml
+      file: /db/changelog/0.1.0/data/data-bitcoin_transaction_output.xml
   - include:
-      file: /db/changelog/0.1.0/data/data-assets.xml
+      file: /db/changelog/0.1.0/data/data-asset_group.xml
   - include:
-      file: /db/changelog/0.1.0/data/data-proofs.xml
+      file: /db/changelog/0.1.0/data/data-asset.xml
+  - include:
+      file: /db/changelog/0.1.0/data/data-asset_state.xml
+  - include:
+      file: /db/changelog/0.1.0/data/data-proof.xml
 
   # ====================================================================================================================
   # 0.1.0 database specific

@@ -1,25 +1,29 @@
 package org.royllo.explorer.core.dto.asset;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
+import org.royllo.explorer.core.dto.user.UserDTO;
 
 import static lombok.AccessLevel.PRIVATE;
 
 /**
- * Taproot asset chain anchor.
+ * Taproot asset state.
  */
 @Value
 @Builder
 @AllArgsConstructor(access = PRIVATE)
 @SuppressWarnings("checkstyle:VisibilityModifier")
-public class ChainAnchorDTO {
-
-    // TODO Add a link to a bitcoin transaction output DTO
+public class AssetStateDTO {
 
     /** Unique identifier. */
     Long id;
+
+    /** The asset creator. */
+    @NotNull(message = "Asset creator is required")
+    UserDTO creator;
 
     /** The block hash the contains the anchor transaction above. */
     @NotNull(message = "Anchor block hash is required")
@@ -46,5 +50,17 @@ public class ChainAnchorDTO {
 
     /** The serialized preimage of a Tapscript sibling, if there was one. */
     String tapscriptSibling;
+
+    /** The version of the script, only version 0 is defined at present. */
+    @NotNull(message = "Script version is required")
+    Integer scriptVersion;
+
+    /** The script key of the asset, which can be spent under Taproot semantics. */
+    @NotNull(message = "Script key is required")
+    String scriptKey;
+
+    /** Asset genesis: The version of the Taproot asset commitment that created this asset. */
+    @Column(name = "VERSION", updatable = false)
+    int version;
 
 }

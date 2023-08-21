@@ -4,19 +4,19 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet author="straumat" id="0.1.0-table-constraints-asset_state">
 
-        <!-- Foreign key FK_ASSET > ASSETS_CHAIN_ANCHORS.ID -->
-        <addForeignKeyConstraint constraintName="FK_ASSETS_CHAIN_ANCHORS_ASSET"
-                                 baseColumnNames="FK_ASSET"
-                                 baseTableName="ASSETS_CHAIN_ANCHORS"
-                                 referencedTableName="ASSET"
+        <!-- Foreign key FK_USER_CREATOR > USERS.ID -->
+        <addForeignKeyConstraint constraintName="FK_ASSET_STATE_USER_CREATOR"
+                                 baseColumnNames="FK_USER_CREATOR"
+                                 baseTableName="ASSET_STATE"
+                                 referencedTableName="USERS"
                                  referencedColumnNames="ID"
                                  validate="true"/>
 
-        <!-- Foreign key FK_PROOF > ASSETS_CHAIN_ANCHORS.ID -->
-        <addForeignKeyConstraint constraintName="FK_ASSETS_CHAIN_ANCHORS_PROOF"
-                                 baseColumnNames="FK_PROOF"
-                                 baseTableName="ASSETS_CHAIN_ANCHORS"
-                                 referencedTableName="PROOFS"
+        <!-- Foreign key FK_ASSET > ASSET.ID -->
+        <addForeignKeyConstraint constraintName="FK_ASSET_STATE_ASSET"
+                                 baseColumnNames="FK_ASSET"
+                                 baseTableName="ASSET_STATE"
+                                 referencedTableName="ASSET"
                                  referencedColumnNames="ID"
                                  validate="true"/>
 

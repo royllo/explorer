@@ -4,5 +4,13 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet author="straumat" id="0.1.0-table-constraints-asset_group">
 
+        <!-- Foreign key FK_USER_CREATOR > USERS.ID -->
+        <addForeignKeyConstraint constraintName="FK_ASSET_GROUP_USER_CREATOR"
+                                 baseColumnNames="FK_USER_CREATOR"
+                                 baseTableName="ASSET_GROUP"
+                                 referencedTableName="USERS"
+                                 referencedColumnNames="ID"
+                                 validate="true"/>
+
     </changeSet>
 </databaseChangeLog>

@@ -25,7 +25,7 @@ public interface AssetService {
     /**
      * Add an asset.
      *
-     * @param newAsset asset to createL
+     * @param newAsset asset to create
      * @return asset created
      */
     AssetDTO addAsset(AssetDTO newAsset);

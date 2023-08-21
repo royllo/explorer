@@ -56,6 +56,7 @@ public class AssetState extends BaseDomain {
     @Column(name = "ANCHOR_TX")
     private String anchorTx;
 
+    // TODO There should be a link a bitcoin transaction output.
     /** The txid of the anchor transaction. */
     @Column(name = "ANCHOR_TXID")
     private String anchorTxId;

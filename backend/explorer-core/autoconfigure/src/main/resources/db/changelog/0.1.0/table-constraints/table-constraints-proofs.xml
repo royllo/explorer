@@ -21,7 +21,7 @@
         <addForeignKeyConstraint constraintName="FK_PROOFS_ASSET"
                                  baseColumnNames="FK_ASSET"
                                  baseTableName="PROOFS"
-                                 referencedTableName="ASSETS"
+                                 referencedTableName="ASSET"
                                  referencedColumnNames="ID"
                                  validate="true"/>
 

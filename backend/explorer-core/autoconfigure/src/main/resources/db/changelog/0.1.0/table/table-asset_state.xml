@@ -41,7 +41,6 @@
             <column name="SCRIPT_KEY" type="TEXT"
                     remarks="The script key of the asset, which can be spent under Taproot semantics"/>
 
-
             <!-- Technical fields -->
             <column name="CREATED_ON" type="TIMESTAMP"
                     remarks="Data created on"/>

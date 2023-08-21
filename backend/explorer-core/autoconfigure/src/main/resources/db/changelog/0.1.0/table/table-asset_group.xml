@@ -31,9 +31,15 @@
             <column name="UPDATED_ON" type="TIMESTAMP"
                     remarks="Data updated on"/>
 
-            <!-- TODO Add index (On raw group key ?) -->
-
         </createTable>
+
+        <!-- Auto increment on the unique identifier -->
+        <addAutoIncrement tableName="ASSET_GROUP"
+                          columnName="ID"
+                          columnDataType="BIGINT"
+                          startWith="2"/>
+
+        <!-- TODO Add index (On raw group key ?) -->
 
     </changeSet>
 </databaseChangeLog>
