@@ -104,7 +104,7 @@ public class AssetServiceTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("addAsset()")
+    @DisplayName("addAssetDTO()")
     public void addAsset() {
         // =============================================================================================================
         // First test - Trying to save an existing asset.
@@ -132,7 +132,7 @@ public class AssetServiceTest extends BaseTest {
 
 /*        // TODO Make this test work.
         try {
-            assetService.addAsset(AssetDTO.builder()
+            assetService.addAssetDTO(AssetDTO.builder()
                     .creator(ANONYMOUS_USER_DTO)
                     .version(0)
                     .genesisPoint(bto.get())
@@ -159,7 +159,7 @@ public class AssetServiceTest extends BaseTest {
 
         // =============================================================================================================
         // Now adding a real asset - WE DIT NOT SEARCH FOR THE TRANSACTION OUTPUT IN DATABASE.
-        final AssetDTO asset1 = assetService.addAsset(AssetDTO.builder()
+        final AssetDTO asset1 = assetService.addAssetDTO(AssetDTO.builder()
                 .creator(ANONYMOUS_USER_DTO)
                 .version(0)
                 // Genesis.
@@ -239,7 +239,7 @@ public class AssetServiceTest extends BaseTest {
 
         // =============================================================================================================
         // Now adding a real asset with an existing transaction output.
-        final AssetDTO asset2 = assetService.addAsset(AssetDTO.builder()
+        final AssetDTO asset2 = assetService.addAssetDTO(AssetDTO.builder()
                 .genesisPoint(bto.get())
                 .name("testCoin2")
                 .metaDataHash("metaData2")

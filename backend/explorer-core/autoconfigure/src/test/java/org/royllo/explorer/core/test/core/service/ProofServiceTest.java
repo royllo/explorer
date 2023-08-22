@@ -59,7 +59,7 @@ public class ProofServiceTest extends BaseTest {
 
 /*        // TODO Make this test work.
         // We add the asset of our proof, and then, our proof --> No error, proof should be added.
-        final AssetDTO unknownRoylloCoin = assetService.addAsset(ASSET_MAPPER.mapToAssetDTO(unknownRoylloCoinDecodedProof.getDecodedProof()));
+        final AssetDTO unknownRoylloCoin = assetService.addAssetDTO(ASSET_MAPPER.mapToAssetDTO(unknownRoylloCoinDecodedProof.getDecodedProof()));
         assertNotNull(unknownRoylloCoin);
         assertNotNull(unknownRoylloCoin.getId());
         assertNotNull(unknownRoylloCoin.getCreator());

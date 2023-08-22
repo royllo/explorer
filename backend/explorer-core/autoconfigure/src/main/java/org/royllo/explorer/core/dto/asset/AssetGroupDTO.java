@@ -2,6 +2,7 @@ package org.royllo.explorer.core.dto.asset;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.ToString;
 import lombok.Value;
 import org.royllo.explorer.core.domain.user.User;
 
@@ -36,6 +37,7 @@ public class AssetGroupDTO {
     String tweakedGroupKey;
 
     /** Assets in this group. */
+    @ToString.Exclude
     Set<AssetDTO> assets;
 
 }

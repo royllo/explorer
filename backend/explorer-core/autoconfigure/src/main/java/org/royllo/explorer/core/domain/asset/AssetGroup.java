@@ -55,7 +55,18 @@ public class AssetGroup extends BaseDomain {
     private String tweakedGroupKey;
 
     /** Assets in this group. */
-    @OneToMany(mappedBy = "assetGroup")
+    @ToString.Exclude
+    @OneToMany(mappedBy = "assetGroup", fetch = EAGER)
     private Set<Asset> assets;
+
+    /**
+     * Add an asset to this group of asset (Method called by the mapper).
+     *
+     * @param asset The asset to add
+     */
+    public void addAsset(Asset asset) {
+        assets.add(asset);
+        asset.setAssetGroup(this);
+    }
 
 }
