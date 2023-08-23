@@ -39,7 +39,7 @@ public class TapdServiceTest extends BaseTest {
         assertEquals(ROYLLO_COIN_GENESIS_VERSION, assetGenesis.getVersion());
 
         final DecodedProofResponse.DecodedProof.Asset asset = response.getDecodedProof().getAsset();
-        assertEquals(ROYLLO_COIN_ASSET_TYPE.toString(), response.getDecodedProof().getAsset().getAssetType());
+        assertEquals(ROYLLO_COIN_TYPE.toString(), response.getDecodedProof().getAsset().getAssetType());
         assertEquals(0, ROYLLO_COIN_AMOUNT.compareTo(asset.getAmount()));
         assertEquals(ROYLLO_COIN_LOCK_TIME, asset.getLockTime());
         assertEquals(ROYLLO_COIN_RELATIVE_LOCK_TIME, asset.getRelativeLockTime());

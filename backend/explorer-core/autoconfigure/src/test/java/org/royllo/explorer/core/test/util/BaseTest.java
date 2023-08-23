@@ -43,7 +43,7 @@ public class BaseTest extends Base {
     protected static final int ROYLLO_COIN_OUTPUT_INDEX = 0;
     protected static final int ROYLLO_COIN_GENESIS_VERSION = 0;
 
-    protected static final AssetType ROYLLO_COIN_ASSET_TYPE = NORMAL;
+    protected static final AssetType ROYLLO_COIN_TYPE = NORMAL;
     protected static final BigInteger ROYLLO_COIN_AMOUNT = BigInteger.valueOf(999L);
     protected static final int ROYLLO_COIN_LOCK_TIME = 0;
     protected static final int ROYLLO_COIN_RELATIVE_LOCK_TIME = 0;
