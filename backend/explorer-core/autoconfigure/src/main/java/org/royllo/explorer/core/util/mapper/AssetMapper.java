@@ -10,24 +10,23 @@ import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.royllo.explorer.core.util.enums.AssetType;
 
-import static org.mapstruct.CollectionMappingStrategy.ADDER_PREFERRED;
 import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 
 /**
  * Asset mapper.
  */
 @Mapper(nullValuePropertyMappingStrategy = IGNORE,
-        collectionMappingStrategy = ADDER_PREFERRED,
         uses = {BitcoinMapper.class, UserMapper.class})
 public interface AssetMapper {
 
     @Mapping(target = "createdOn", ignore = true)
     @Mapping(target = "updatedOn", ignore = true)
-    @Mapping(target = "assetGroup", ignore = true)
     Asset mapToAsset(AssetDTO source);
 
-    @Mapping(target = "assetGroup", ignore = true)
     AssetDTO mapToAssetDTO(Asset source);
+
+    // =================================================================================================================
+    // Below are the mappings for the decoded proof response.
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "creator", ignore = true)

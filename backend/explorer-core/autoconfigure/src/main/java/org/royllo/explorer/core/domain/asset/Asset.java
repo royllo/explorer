@@ -84,4 +84,6 @@ public class Asset extends BaseDomain {
     @Column(name = "AMOUNT")
     private BigInteger amount;
 
+    // TODO Add a link to the genesis state ?
+
 }

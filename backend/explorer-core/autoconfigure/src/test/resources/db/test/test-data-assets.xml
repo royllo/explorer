@@ -387,7 +387,7 @@
             <column name="ASSET_ID" value="asset_id_9"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="META_DATA_HASH" value="meta_data_9"/>
-            <column name="NAME" value="TestPaginationCoin9"/>
+            <column name="NAME" value="TestPaginationCoin0"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
 

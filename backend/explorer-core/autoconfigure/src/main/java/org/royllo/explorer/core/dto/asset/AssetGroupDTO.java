@@ -1,12 +1,10 @@
 package org.royllo.explorer.core.dto.asset;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.ToString;
 import lombok.Value;
 import org.royllo.explorer.core.domain.user.User;
-
-import java.util.Set;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -25,6 +23,7 @@ public class AssetGroupDTO {
     Long id;
 
     /** Asset creator. */
+    @NotNull(message = "Asset group creator is required")
     User creator;
 
     /** A signature over the genesis point using the above key. */
@@ -35,9 +34,5 @@ public class AssetGroupDTO {
 
     /** The tweaked group key, which is derived based on the genesis point and also asset type. */
     String tweakedGroupKey;
-
-    /** Assets in this group. */
-    @ToString.Exclude
-    Set<AssetDTO> assets;
 
 }

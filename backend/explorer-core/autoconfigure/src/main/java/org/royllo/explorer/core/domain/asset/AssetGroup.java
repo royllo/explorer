@@ -6,7 +6,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +13,6 @@ import lombok.Setter;
 import lombok.ToString;
 import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.util.base.BaseDomain;
-
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 import static jakarta.persistence.FetchType.EAGER;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -54,20 +50,5 @@ public class AssetGroup extends BaseDomain {
     /** The tweaked group key, which is derived based on the genesis point and also asset type. */
     @Column(name = "TWEAKED_GROUP_KEY")
     private String tweakedGroupKey;
-
-    /** Assets in this group. */
-    @ToString.Exclude
-    @OneToMany(mappedBy = "assetGroup", fetch = EAGER)
-    private Set<Asset> assets = new LinkedHashSet<>();
-
-    /**
-     * Add an asset to this group of asset (Method called by the mapper).
-     *
-     * @param asset The asset to add
-     */
-    public void addAsset(Asset asset) {
-        assets.add(asset);
-        asset.setAssetGroup(this);
-    }
 
 }

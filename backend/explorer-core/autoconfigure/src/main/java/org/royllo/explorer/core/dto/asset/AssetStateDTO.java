@@ -22,7 +22,7 @@ public class AssetStateDTO {
     Long id;
 
     /** The asset creator. */
-    @NotNull(message = "Asset creator is required")
+    @NotNull(message = "Asset state creator is required")
     UserDTO creator;
 
     /** The block hash the contains the anchor transaction above. */
