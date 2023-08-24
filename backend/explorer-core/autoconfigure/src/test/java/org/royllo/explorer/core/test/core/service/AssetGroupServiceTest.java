@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.LinkedHashSet;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,6 +32,56 @@ public class AssetGroupServiceTest extends BaseTest {
     private AssetGroupService assetGroupService;
 
     @Test
+    @DisplayName("addAssetGroup()")
+    public void addAssetGroup() {
+        // =============================================================================================================
+        // First constraint test - Trying to save an asset group with an ID.
+        try {
+            assetGroupService.addAssetGroup(AssetGroupDTO.builder()
+                    .id(1L)
+                    .build());
+        } catch (AssertionError e) {
+            assertEquals("Asset group id must be null", e.getMessage());
+        }
+
+        // =============================================================================================================
+        // Second constraint test - Asset group key id is required.
+        try {
+            assetGroupService.addAssetGroup(AssetGroupDTO.builder()
+                    .build());
+        } catch (AssertionError e) {
+            assertEquals("Asset group key id is required", e.getMessage());
+        }
+
+        // =============================================================================================================
+        // Third constraint test - Asset group key already registered.
+        try {
+            assetGroupService.addAssetGroup(AssetGroupDTO.builder()
+                    .rawGroupKey(ROYLLO_COIN_RAW_GROUP_KEY)
+                    .build());
+        } catch (AssertionError e) {
+            assertEquals("Asset group key already registered", e.getMessage());
+        }
+
+        // =============================================================================================================
+        // Now creating a real asset group.
+        AssetGroupDTO assetGroupDTO = assetGroupService.addAssetGroup(AssetGroupDTO.builder()
+                .assetIdSig("NEW-ASSET-ID-SIG")
+                .rawGroupKey("NEW-ASSET-GROUP-KEY")
+                .tweakedGroupKey("NEW-ASSET-GROUP-KEY-TWEAKED")
+                // TODO I should now have to manually instantiate the Set. Maybe use @Singular ?
+                .assets(new LinkedHashSet<>())
+                .build());
+
+        assertNotNull(assetGroupDTO);
+        assertNotNull(assetGroupDTO.getId());
+        assertEquals("NEW-ASSET-ID-SIG", assetGroupDTO.getAssetIdSig());
+        assertEquals("NEW-ASSET-GROUP-KEY", assetGroupDTO.getRawGroupKey());
+        assertEquals("NEW-ASSET-GROUP-KEY-TWEAKED", assetGroupDTO.getTweakedGroupKey());
+        assertEquals(0, assetGroupDTO.getAssets().size());
+    }
+
+    @Test
     @DisplayName("getAssetGroupByRawGroupKey()")
     public void getAssetGroupByRawGroupKey() {
         // =============================================================================================================
@@ -43,9 +94,9 @@ public class AssetGroupServiceTest extends BaseTest {
         assetGroupDTO = assetGroupService.getAssetGroupByRawGroupKey(ROYLLO_COIN_RAW_GROUP_KEY);
         assertTrue(assetGroupDTO.isPresent());
         assertEquals(1L, assetGroupDTO.get().getId());
+        assertEquals(ROYLLO_COIN_ASSET_ID_SIG, assetGroupDTO.get().getAssetIdSig());
         assertEquals(ROYLLO_COIN_RAW_GROUP_KEY, assetGroupDTO.get().getRawGroupKey());
         assertEquals(ROYLLO_COIN_TWEAKED_GROUP_KEY, assetGroupDTO.get().getTweakedGroupKey());
-        assertEquals(ROYLLO_COIN_ASSET_ID_SIG, assetGroupDTO.get().getAssetIdSig());
         assertEquals(1, assetGroupDTO.get().getAssets().size());
 
         // =============================================================================================================
@@ -62,9 +113,9 @@ public class AssetGroupServiceTest extends BaseTest {
         // Asset group.
         assertNotNull(assetDTO.getAssetGroup());
         assertEquals(1L, assetDTO.getAssetGroup().getId());
+        assertEquals(ROYLLO_COIN_ASSET_ID_SIG, assetDTO.getAssetGroup().getAssetIdSig());
         assertEquals(ROYLLO_COIN_RAW_GROUP_KEY, assetDTO.getAssetGroup().getRawGroupKey());
         assertEquals(ROYLLO_COIN_TWEAKED_GROUP_KEY, assetDTO.getAssetGroup().getTweakedGroupKey());
-        assertEquals(ROYLLO_COIN_ASSET_ID_SIG, assetDTO.getAssetGroup().getAssetIdSig());
 
         // Asset fields values.
         assertEquals(ROYLLO_COIN_ASSET_ID, assetDTO.getAssetId());

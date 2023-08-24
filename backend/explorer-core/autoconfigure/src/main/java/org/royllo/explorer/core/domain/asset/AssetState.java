@@ -85,4 +85,6 @@ public class AssetState extends BaseDomain {
     @Column(name = "SCRIPT_KEY")
     private String scriptKey;
 
+    // TODO Add a link to the genesis state.
+
 }

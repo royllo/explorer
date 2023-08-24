@@ -15,6 +15,7 @@ import lombok.ToString;
 import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.util.base.BaseDomain;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import static jakarta.persistence.FetchType.EAGER;
@@ -57,7 +58,7 @@ public class AssetGroup extends BaseDomain {
     /** Assets in this group. */
     @ToString.Exclude
     @OneToMany(mappedBy = "assetGroup", fetch = EAGER)
-    private Set<Asset> assets;
+    private Set<Asset> assets = new LinkedHashSet<>();
 
     /**
      * Add an asset to this group of asset (Method called by the mapper).

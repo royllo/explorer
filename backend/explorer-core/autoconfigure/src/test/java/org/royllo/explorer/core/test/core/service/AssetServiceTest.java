@@ -104,7 +104,7 @@ public class AssetServiceTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("addAssetDTO()")
+    @DisplayName("addAsset()")
     public void addAsset() {
         // =============================================================================================================
         // First test - Trying to save an existing asset.

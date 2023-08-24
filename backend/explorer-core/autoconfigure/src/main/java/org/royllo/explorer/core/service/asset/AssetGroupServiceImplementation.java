@@ -1,5 +1,7 @@
 package org.royllo.explorer.core.service.asset;
 
+import io.micrometer.common.util.StringUtils;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.asset.AssetGroup;
 import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
@@ -23,8 +25,21 @@ public class AssetGroupServiceImplementation extends BaseService implements Asse
     private final AssetGroupRepository assetGroupRepository;
 
     @Override
-    public AssetGroupDTO addAssetGroup(AssetGroupDTO newAssetGroup) {
-        return null;
+    public AssetGroupDTO addAssetGroup(@NotNull AssetGroupDTO newAssetGroup) {
+        logger.info("Adding asset group {}", newAssetGroup);
+
+        // Checking constraints.
+        assert newAssetGroup.getId() == null : "Asset group id must be null";
+        assert StringUtils.isNotBlank(newAssetGroup.getRawGroupKey()) : "Asset group key id is required";
+        assert assetGroupRepository.findByRawGroupKey(newAssetGroup.getRawGroupKey()).isEmpty() : "Asset group key already registered";
+
+        // Saving asset group.
+        final AssetGroup assetGroupToCreate = ASSET_GROUP_MAPPER.mapToAssetGroup(newAssetGroup);
+        final AssetGroupDTO assetGroupCreated = ASSET_GROUP_MAPPER.mapToAssetGroupDTO(assetGroupRepository.save(assetGroupToCreate));
+
+        // We return the value.
+        logger.info("Asset group created: {}", assetGroupCreated);
+        return assetGroupCreated;
     }
 
     @Override
