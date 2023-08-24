@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
@@ -36,6 +37,7 @@ public class AssetGroupServiceTest extends BaseTest {
             assetGroupService.addAssetGroup(AssetGroupDTO.builder()
                     .id(1L)
                     .build());
+            fail("Should have thrown an exception");
         } catch (AssertionError e) {
             assertEquals("Asset group id must be null", e.getMessage());
         }
@@ -45,6 +47,7 @@ public class AssetGroupServiceTest extends BaseTest {
         try {
             assetGroupService.addAssetGroup(AssetGroupDTO.builder()
                     .build());
+            fail("Should have thrown an exception");
         } catch (AssertionError e) {
             assertEquals("Asset group key id is required", e.getMessage());
         }
@@ -55,6 +58,7 @@ public class AssetGroupServiceTest extends BaseTest {
             assetGroupService.addAssetGroup(AssetGroupDTO.builder()
                     .rawGroupKey(ROYLLO_COIN_RAW_GROUP_KEY)
                     .build());
+            fail("Should have thrown an exception");
         } catch (AssertionError e) {
             assertEquals("Asset group key already registered", e.getMessage());
         }

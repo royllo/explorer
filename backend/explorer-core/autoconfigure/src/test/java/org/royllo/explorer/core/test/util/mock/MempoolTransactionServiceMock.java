@@ -157,7 +157,27 @@ public class MempoolTransactionServiceMock extends BaseTest {
         response.getVout().add(vout1);
         Mockito.when(mockedService.getTransaction(BITCOIN_TAPROOT_TRANSACTION_2_TXID)).thenReturn(Mono.just(response));
 
+        // =============================================================================================================
+        // ROYLLO_COIN_ANCHOR_OUTPOINT - Taproot transaction NOT in our database, but IN the blockchain.
+        // curl -ssL https://mempool.space/api/tx/0324ddf7ec79711a340a04e1ee3cee53005e046b4e0de31d498cc586ba9181c7 | jq
+
+        status = new GetTransactionResponse.Status();
+        status.setBlockHeight(2440694);
+
+        vout1 = new GetTransactionResponse.VOut();
+        vout1.setScriptPubKey("512040b3ddefc0df09b89fd1379a3bd246bf2827ed461506a5899dc230324d0aa158");
+        vout1.setScriptPubKeyAsm("OP_PUSHNUM_1 OP_PUSHBYTES_32 40b3ddefc0df09b89fd1379a3bd246bf2827ed461506a5899dc230324d0aa158");
+        vout1.setScriptPubKeyType("v1_p2tr");
+        vout1.setScriptPubKeyAddress("tb1pgzeamm7qmuym3873x7drh5jxhu5z0m2xz5r2tzvacgcryng259vqp9vs54");
+        vout1.setValue(new BigDecimal("1000"));
+
+        response = new GetTransactionResponse();
+        response.setStatus(status);
+        response.getVout().add(vout1);
+        Mockito.when(mockedService.getTransaction(ROYLLO_COIN_ANCHOR_TX_ID)).thenReturn(Mono.just(response));
+
         return mockedService;
+
     }
 
 }

@@ -33,6 +33,8 @@ public class BaseTest extends Base {
     /* ============================================================================================================== */
     /* royllo coin - Asset aleady existing in our database and on testnet (data-assets.xml) */
     protected static final int ROYLLO_COIN_ID = 1;
+    protected static final int ROYLLO_COIN_GROUP_ID = 1;
+    protected static final int ROYLLO_COIN_STATE_ID = 1;
     protected static final int ROYLLO_COIN_VERSION = 0;
 
     protected static final String ROYLLO_COIN_GENESIS_POINT_TXID = "57faede9e107f3af74bb93e730bc1dfd07f81b166a974068f823d30d9eb10111";
@@ -54,7 +56,6 @@ public class BaseTest extends Base {
     protected static final String ROYLLO_COIN_RAW_GROUP_KEY = "033b8449aae83eb0ed04f7952108637d078836bb5d3353a33b6486248b401f60da";
     protected static final String ROYLLO_COIN_TWEAKED_GROUP_KEY = "02260e9ffbe7fdabe746b4ba4c3b86c8f237d7946f116949e93db77d5e0357c13d";
     protected static final String ROYLLO_COIN_ASSET_ID_SIG = "d0d86f5c646fcca990b8ceaf7a480762c92900351ae84e8135740fa92a66c8c0a4e509c8d10df8913924a583d74e9cf25ccd56eb2552c3b92a8c3c9ebe8cca97";
-
 
     protected static final String ROYLLO_COIN_ANCHOR_TX = "020000000001021101b19e0dd323f86840976a161bf807fd1dbc30e793bb74aff307e1e9edfa570100000000ffffffffdc62e81401abfec546a45213c65c9910466f06ea1b831b017c13edfa71d775b10200000000ffffffff02e80300000000000022512040b3ddefc0df09b89fd1379a3bd246bf2827ed461506a5899dc230324d0aa158bc05000000000000225120d7ab0deb6185088278a66f5599be41510db531fd7f2df39e3b8558e2d2b65b0602473044022023f92ca5b7289d5cfb2ae415b91efa8bb9758d97b78b8ad17c81ce43fa9d262a02205c790874cbd4dae139f1d3e2b029bb97c4bf13bff0bc80127dacf9e917a37ed5012102cf948a447b6b49ccf83754b2455b7c6f77a9daeb1bb192f17ae34d3f52182a1a024630430220698a8f0543c97775ece1ad26a63f99d837ff9fd3b136e5c43cc984c37a75b3dd021f4d183f9811ac7a7cde904c795f68f96bda845efb5493a95582b60a93ca55c201210305c9ac7185c67621b7534e700d9592863f07ae5b9add38da9576e4a06a66c10000000000";
     protected static final String ROYLLO_COIN_ANCHOR_TX_ID = "0324ddf7ec79711a340a04e1ee3cee53005e046b4e0de31d498cc586ba9181c7";

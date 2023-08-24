@@ -120,9 +120,8 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
             }
         }
 
+        // We save and return the value.
         final AssetDTO assetCreated = ASSET_MAPPER.mapToAssetDTO(assetRepository.save(assetToCreate));
-
-        // We return the value.
         logger.info("Asset created with id {} : {}", assetCreated.getId(), assetCreated);
         return assetCreated;
     }

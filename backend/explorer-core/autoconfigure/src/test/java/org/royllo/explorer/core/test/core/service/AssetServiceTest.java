@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
@@ -127,6 +128,7 @@ public class AssetServiceTest extends BaseTest {
             assetService.addAsset(AssetDTO.builder()
                     .id(1L)
                     .build());
+            fail("Should have thrown an exception");
         } catch (AssertionError e) {
             assertEquals("Asset already exists", e.getMessage());
         }
@@ -136,6 +138,7 @@ public class AssetServiceTest extends BaseTest {
         try {
             assetService.addAsset(AssetDTO.builder()
                     .build());
+            fail("Should have thrown an exception");
         } catch (AssertionError e) {
             assertEquals("Bitcoin transaction is required", e.getMessage());
         }
@@ -154,6 +157,7 @@ public class AssetServiceTest extends BaseTest {
                     .type(NORMAL)
                     .amount(BigInteger.ONE)
                     .build());
+            fail("Should have thrown an exception");
         } catch (AssertionError e) {
             assertTrue(e.getMessage().endsWith("already registered"));
         }
@@ -287,6 +291,8 @@ public class AssetServiceTest extends BaseTest {
         assertTrue(asset.isPresent());
         // Genesis point.
         assertEquals(ROYLLO_COIN_ASSET_ID, asset.get().getAssetId());
+        assertNotNull(asset.get().getCreator());
+        assertEquals(ANONYMOUS_USER_DTO.getId(), asset.get().getCreator().getId());
         assertEquals(ROYLLO_COIN_GENESIS_POINT_TXID, asset.get().getGenesisPoint().getTxId());
         assertEquals(ROYLLO_COIN_GENESIS_POINT_VOUT, asset.get().getGenesisPoint().getVout());
         assertEquals(ROYLLO_COIN_META_DATA_HASH, asset.get().getMetaDataHash());
@@ -315,6 +321,8 @@ public class AssetServiceTest extends BaseTest {
         assertTrue(asset.isPresent());
         // Genesis point.
         assertEquals(ROYLLO_COIN_ASSET_ID, asset.get().getAssetId());
+        assertNotNull(asset.get().getCreator());
+        assertEquals(ANONYMOUS_USER_DTO.getId(), asset.get().getCreator().getId());
         assertEquals(ROYLLO_COIN_GENESIS_POINT_TXID, asset.get().getGenesisPoint().getTxId());
         assertEquals(ROYLLO_COIN_GENESIS_POINT_VOUT, asset.get().getGenesisPoint().getVout());
         assertEquals(ROYLLO_COIN_META_DATA_HASH, asset.get().getMetaDataHash());

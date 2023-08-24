@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.royllo.explorer.core.domain.bitcoin.BitcoinTransactionOutput;
 import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.util.base.BaseDomain;
 
@@ -49,14 +50,14 @@ public class AssetState extends BaseDomain {
     private String anchorBlockHash;
 
     /** Outpoint (txid:vout) that stores the Taproot asset commitment. */
-    @Column(name = "ANCHOR_OUTPOINT")
-    private String anchorOutpoint;
+    @ManyToOne(fetch = EAGER)
+    @JoinColumn(name = "FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT", updatable = false)
+    private BitcoinTransactionOutput anchorOutpoint;
 
     /** The transaction that anchors the Taproot asset commitment where the asset resides. */
     @Column(name = "ANCHOR_TX")
     private String anchorTx;
 
-    // TODO There should be a link a bitcoin transaction output.
     /** The txid of the anchor transaction. */
     @Column(name = "ANCHOR_TXID")
     private String anchorTxId;

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
+import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.dto.user.UserDTO;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -25,13 +26,16 @@ public class AssetStateDTO {
     @NotNull(message = "Asset state creator is required")
     UserDTO creator;
 
+    @NotNull(message = "Linked asset is required")
+    AssetDTO asset;
+
     /** The block hash the contains the anchor transaction above. */
     @NotNull(message = "Anchor block hash is required")
     String anchorBlockHash;
 
     /** Outpoint (txid:vout) that stores the Taproot asset commitment. */
     @NotNull(message = "Anchor outpoint is required")
-    String anchorOutpoint;
+    BitcoinTransactionOutputDTO anchorOutpoint;
 
     /** The transaction that anchors the Taproot asset commitment where the asset resides. */
     @NotNull(message = "Anchor transaction is required")
