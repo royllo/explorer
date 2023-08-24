@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 /**
- * Asset group service implementation.
+ * {@link AssetGroupService} implementation.
  */
 @Service
 @RequiredArgsConstructor

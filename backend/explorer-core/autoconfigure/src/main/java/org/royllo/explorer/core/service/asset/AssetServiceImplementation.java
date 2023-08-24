@@ -23,7 +23,7 @@ import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASS
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 
 /**
- * Asset service implementation.
+ * {@link AssetService} implementation.
  */
 @Service
 @RequiredArgsConstructor

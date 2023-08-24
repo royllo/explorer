@@ -21,7 +21,7 @@ import static java.util.stream.Collectors.joining;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
 
 /**
- * Proof implementation service.
+ * {@link ProofService} implementation.
  */
 @Service
 @RequiredArgsConstructor
