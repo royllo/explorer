@@ -19,10 +19,13 @@
             <column name="FK_ASSET" type="BIGINT"
                     remarks="The asset linked to this asset state"/>
 
+            <column name="ASSET_STATE_ID" type="VARCHAR(64)"
+                    remarks="The asset state ID that uniquely identifies the asset stat (calculated by Royllo)"/>
+
             <!-- Chain anchor - Describes where in the chain the asset is currently anchored -->
             <column name="ANCHOR_BLOCK_HASH" type="TEXT"
                     remarks="The block hash the contains the anchor transaction above"/>
-            <column name="ANCHOR_OUTPOINT" type="TEXT"
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" type="BIGINT"
                     remarks="The outpoint (txid:vout) that stores the Taproot commitment"/>
             <column name="ANCHOR_TX" type="TEXT"
                     remarks="The transaction that anchors the Taproot commitment where the asset resides"/>

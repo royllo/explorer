@@ -44,7 +44,7 @@
         <addAutoIncrement tableName="BITCOIN_TRANSACTION_OUTPUTS"
                           columnName="ID"
                           columnDataType="BIGINT"
-                          startWith="2"/>
+                          startWith="3"/>
 
         <!-- Index on TXID -->
         <createIndex indexName="IDX_BITCOIN_TRANSACTION_OUTPUTS_TXID"

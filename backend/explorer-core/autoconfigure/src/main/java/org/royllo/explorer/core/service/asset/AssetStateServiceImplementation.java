@@ -57,8 +57,17 @@ public class AssetStateServiceImplementation extends BaseService implements Asse
     }
 
     @Override
-    public Optional<AssetStateDTO> getAssetStateByAnchorOutpoint(String anchorOutpoint) {
-        return Optional.empty();
+    public Optional<AssetStateDTO> getAssetStateByAssetStateId(String assetStateId) {
+        logger.info("Getting asset state with asset state id {}", assetStateId);
+
+        final Optional<AssetState> assetState = assetStateRepository.findByAssetStateId(assetStateId);
+        if (assetState.isEmpty()) {
+            logger.info("Asset state with asset state id {} not found", assetStateId);
+            return Optional.empty();
+        } else {
+            logger.info("Asset state with asset state id {} found: {}", assetStateId, assetState.get());
+            return assetState.map(ASSET_STATE_MAPPER::mapToAsseStateDTO);
+        }
     }
 
 }

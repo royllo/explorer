@@ -17,8 +17,6 @@ import static lombok.AccessLevel.PRIVATE;
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public class AssetGroupDTO {
 
-    // TODO Add a link to a bitcoin transaction output DTO
-
     /** Unique identifier. */
     Long id;
 

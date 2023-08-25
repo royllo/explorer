@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.NonFinal;
 import org.royllo.explorer.core.domain.bitcoin.BitcoinTransactionOutput;
 import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.util.base.BaseDomain;
@@ -39,6 +40,11 @@ public class AssetState extends BaseDomain {
     @ManyToOne(fetch = EAGER)
     @JoinColumn(name = "FK_USER_CREATOR", nullable = false)
     private User creator;
+
+    /** The asset state ID that uniquely identifies the asset stat (calculated by Royllo). */
+    @NonFinal
+    @Column(name = "ASSET_STATE_ID", updatable = false)
+    private String assetStateId;
 
     /** Asset. */
     @ManyToOne(fetch = EAGER)
@@ -73,10 +79,6 @@ public class AssetState extends BaseDomain {
     /** The serialized preimage of a Tapscript sibling, if there was one. */
     @Column(name = "TAPSCRIPT_SIBLING")
     private String tapscriptSibling;
-
-    /** The version of the Taproot asset. */
-    @Column(name = "VERSION", updatable = false)
-    private int version;
 
     /** The version of the script, only version 0 is defined at present. */
     @Column(name = "SCRIPT_VERSION")

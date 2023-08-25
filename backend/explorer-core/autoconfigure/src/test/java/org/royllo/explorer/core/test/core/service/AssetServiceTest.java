@@ -234,7 +234,7 @@ public class AssetServiceTest extends BaseTest {
         assertEquals("assetId2", asset2.getAssetId());
         // Genesis.
         assertNotNull(asset2.getGenesisPoint());
-        assertEquals(5, asset2.getGenesisPoint().getId());
+        assertEquals(6, asset2.getGenesisPoint().getId());
         // Asset value data.
         assertEquals("metaData2", asset2.getMetaDataHash());
         assertEquals("testCoin2", asset2.getName());

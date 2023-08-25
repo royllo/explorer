@@ -1,6 +1,6 @@
 package org.royllo.explorer.core.dto.asset;
 
-import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +25,10 @@ public class AssetStateDTO {
     /** The asset creator. */
     @NotNull(message = "Asset state creator is required")
     UserDTO creator;
+
+    /** The asset state ID that uniquely identifies the asset stat (calculated by Royllo). */
+    @NotBlank(message = "Asset state id is required")
+    String assetStateId;
 
     @NotNull(message = "Linked asset is required")
     AssetDTO asset;
@@ -62,9 +66,5 @@ public class AssetStateDTO {
     /** The script key of the asset, which can be spent under Taproot semantics. */
     @NotNull(message = "Script key is required")
     String scriptKey;
-
-    /** Asset genesis: The version of the Taproot asset commitment that created this asset. */
-    @Column(name = "VERSION", updatable = false)
-    int version;
 
 }

@@ -59,7 +59,6 @@ public interface AssetMapper {
     @Mapping(source = "asset.chainAnchor.tapscriptSibling", target = "tapscriptSibling")
     @Mapping(source = "asset.scriptVersion", target = "scriptVersion")
     @Mapping(source = "asset.scriptKey", target = "scriptKey")
-    @Mapping(source = "asset.version", target = "version")
     AssetStateDTO mapToAssetStateDTO(DecodedProofResponse.DecodedProof source);
 
     default BitcoinTransactionOutputDTO mapToBitcoinTransactionOutputDTO(final String source) {

@@ -18,11 +18,11 @@ public interface AssetStateService {
     AssetStateDTO addAssetState(AssetStateDTO newAssetState);
 
     /**
-     * Get an asset state by its anchor outpoint.
+     * Get an asset state by its asset state.
      *
-     * @param anchorOutpoint anchor outpoint
+     * @param assetStateId asset state id
      * @return asset state
      */
-    Optional<AssetStateDTO> getAssetStateByAnchorOutpoint(String anchorOutpoint);
+    Optional<AssetStateDTO> getAssetStateByAssetStateId(String assetStateId);
 
 }

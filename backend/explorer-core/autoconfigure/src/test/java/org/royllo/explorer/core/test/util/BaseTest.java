@@ -33,15 +33,18 @@ public class BaseTest extends Base {
     /* ============================================================================================================== */
     /* royllo coin - Asset aleady existing in our database and on testnet (data-assets.xml) */
     protected static final int ROYLLO_COIN_ID = 1;
+    protected static final String ROYLLO_COIN_ASSET_ID = "f9dd292bb211dae8493645150b36efa990841b11038d026577440d2616d1ec32";
     protected static final int ROYLLO_COIN_GROUP_ID = 1;
-    protected static final int ROYLLO_COIN_STATE_ID = 1;
-    protected static final int ROYLLO_COIN_VERSION = 0;
 
+    protected static final int ROYLLO_COIN_STATE_ID = 1;
+    protected static final String ROYLLO_COIN_ASSET_STATE_ID = "CALCULATED_ASSET_STATE_ID_FOR_ROYLLO_COIN";
+
+    protected static final int ROYLLO_COIN_VERSION = 0;
     protected static final String ROYLLO_COIN_GENESIS_POINT_TXID = "57faede9e107f3af74bb93e730bc1dfd07f81b166a974068f823d30d9eb10111";
     protected static final int ROYLLO_COIN_GENESIS_POINT_VOUT = 1;
     protected static final String ROYLLO_COIN_NAME = "roylloCoin";
     protected static final String ROYLLO_COIN_META_DATA_HASH = "0c482467dfb29000804e044c4c6044b487c0280082002d4611a8ba7f22703d63";
-    protected static final String ROYLLO_COIN_ASSET_ID = "f9dd292bb211dae8493645150b36efa990841b11038d026577440d2616d1ec32";
+
     protected static final int ROYLLO_COIN_OUTPUT_INDEX = 0;
     protected static final int ROYLLO_COIN_GENESIS_VERSION = 0;
 

@@ -16,6 +16,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
@@ -67,17 +68,19 @@ public class AssetStateServiceTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("getAssetStateByAnchorOutpoint()")
-    public void getAssetStateByAnchorOutpoint() {
+    @DisplayName("getAssetStateByAssetStateId()")
+    public void getAssetStateByAssetStateId() {
         // =============================================================================================================
         // Non-existing asset group.
-        Optional<AssetStateDTO> assetState = assetStateService.getAssetStateByAnchorOutpoint("NON-EXISTING");
+        Optional<AssetStateDTO> assetState = assetStateService.getAssetStateByAssetStateId("NON-EXISTING");
         assertFalse(assetState.isPresent());
 
         // =============================================================================================================
         // Existing asset state on testnet and in our database initialization script ("roylloCoin") .
-        // assetState = assetStateService.getAssetStateByAnchorOutpoint(ROYLLO_COIN_ANCHOR_OUTPOINT);
+        assetState = assetStateService.getAssetStateByAssetStateId(ROYLLO_COIN_ASSET_STATE_ID);
+        assertTrue(assetState.isPresent());
         assertEquals(ROYLLO_COIN_STATE_ID, assetState.get().getId());
+        assertEquals(ROYLLO_COIN_ASSET_STATE_ID, assetState.get().getAssetStateId());
         // User.
         assertNotNull(assetState.get().getCreator());
         assertEquals(ANONYMOUS_USER_DTO.getId(), assetState.get().getCreator().getId());
@@ -91,11 +94,11 @@ public class AssetStateServiceTest extends BaseTest {
         assertEquals(ROYLLO_COIN_RAW_GROUP_KEY, assetState.get().getAsset().getAssetGroup().getRawGroupKey());
         // Asset state data.
         assertEquals(ROYLLO_COIN_ANCHOR_BLOCK_HASH, assetState.get().getAnchorBlockHash());
-        assertEquals(ROYLLO_COIN_ANCHOR_OUTPOINT, assetState.get().getAnchorOutpoint().getTxId() + "/" + assetState.get().getAnchorOutpoint().getVout());
+        assertEquals(ROYLLO_COIN_ANCHOR_OUTPOINT, assetState.get().getAnchorOutpoint().getTxId() + ":" + assetState.get().getAnchorOutpoint().getVout());
         assertEquals(ROYLLO_COIN_ANCHOR_TX, assetState.get().getAnchorTx());
         assertEquals(ROYLLO_COIN_ANCHOR_TX_ID, assetState.get().getAnchorTxId());
-        assertEquals(UNKNOWN_ROYLLO_COIN_ANCHOR_INTERNAL_KEY, assetState.get().getInternalKey());
-        assertEquals(UNKNOWN_ROYLLO_COIN_TX_MERKLE_PROOF, assetState.get().getMerkleRoot());
+        assertEquals(ROYLLO_COIN_INTERNAL_KEY, assetState.get().getInternalKey());
+        assertEquals(ROYLLO_COIN_MERKLE_ROOT, assetState.get().getMerkleRoot());
         assertEquals(ROYLLO_COIN_TAPSCRIPT_SIBLING, assetState.get().getTapscriptSibling());
         assertEquals(ROYLLO_COIN_SCRIPT_VERSION, assetState.get().getScriptVersion());
         assertEquals(ROYLLO_COIN_SCRIPT_KEY, assetState.get().getScriptKey());
