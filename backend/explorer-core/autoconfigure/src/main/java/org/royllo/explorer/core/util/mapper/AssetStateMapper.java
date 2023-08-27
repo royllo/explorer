@@ -17,7 +17,6 @@ public interface AssetStateMapper {
 
     @Mapping(target = "createdOn", ignore = true)
     @Mapping(target = "updatedOn", ignore = true)
-    @Mapping(target = "asset", ignore = true)
     AssetState mapToAssetState(AssetStateDTO source);
 
     AssetStateDTO mapToAsseStateDTO(AssetState source);

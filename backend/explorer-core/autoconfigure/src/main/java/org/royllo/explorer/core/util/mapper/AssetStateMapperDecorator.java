@@ -37,11 +37,10 @@ public abstract class AssetStateMapperDecorator implements AssetStateMapper {
         if (assetState.getAssetStateId() == null) {
             // We calculate the asset state id here.
             String uniqueValue = source.getAsset().getAssetId()
-                    + FIELD_SEPARATOR + source.getAnchorOutpoint()
+                    + FIELD_SEPARATOR + source.getAnchorOutpoint().getTxId() + ":" + source.getAnchorOutpoint().getVout()
                     + FIELD_SEPARATOR + source.getScriptKey();
-            MessageDigest md;
             try {
-                md = MessageDigest.getInstance("SHA-256");
+                MessageDigest md = MessageDigest.getInstance("SHA-256");
                 byte[] digest = md.digest(uniqueValue.getBytes(StandardCharsets.UTF_8));
                 assetState.setAssetStateId(DatatypeConverter.printHexBinary(digest).toLowerCase());
             } catch (NoSuchAlgorithmException e) {
