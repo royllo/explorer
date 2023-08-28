@@ -211,6 +211,13 @@ public class TAPDServiceMock extends BaseTest {
         DecodedProofResponse.DecodedProof.Asset asset = new DecodedProofResponse.DecodedProof.Asset();
         asset.setVersion(UNKNOWN_ROYLLO_COIN_VERSION);
 
+        // Asset group
+        DecodedProofResponse.DecodedProof.Asset.AssetGroup assetGroup = new DecodedProofResponse.DecodedProof.Asset.AssetGroup();
+        assetGroup.setAssetIdSig(UNKNOWN_ROYLLO_COIN_ASSET_ID_SIG);
+        assetGroup.setRawGroupKey(UNKNOWN_ROYLLO_COIN_RAW_GROUP_KEY);
+        assetGroup.setTweakedGroupKey(UNKNOWN_ROYLLO_COIN_TWEAKED_GROUP_KEY);
+        asset.setAssetGroup(assetGroup);
+
         // Asset genesis.
         DecodedProofResponse.DecodedProof.Asset.AssetGenesis assetGenesis = new DecodedProofResponse.DecodedProof.Asset.AssetGenesis();
         assetGenesis.setGenesisPoint(UNKNOWN_ROYLLO_COIN_GENESIS_POINT_TXID + ":" + UNKNOWN_ROYLLO_COIN_GENESIS_POINT_VOUT);
@@ -235,11 +242,13 @@ public class TAPDServiceMock extends BaseTest {
         chainAnchor.setAnchorBlockHash(UNKNOWN_ROYLLO_COIN_ANCHOR_BLOCK_HASH);
         chainAnchor.setAnchorOutpoint(UNKNOWN_ROYLLO_COIN_ANCHOR_OUTPOINT);
         chainAnchor.setInternalKey(UNKNOWN_ROYLLO_COIN_ANCHOR_INTERNAL_KEY);
+        chainAnchor.setMerkleRoot(UNKNOWN_ROYLLO_COIN_TX_MERKLE_ROOT);
+        chainAnchor.setTapscriptSibling(UNKNOWN_ROYLLO_COIN_TX_TAPSCRIPT_SIBLING);
         asset.setChainAnchor(chainAnchor);
 
         asset.setPrevWitnesses(Collections.emptyList());
 
-        decodedProof.setTxMerkleProof(UNKNOWN_ROYLLO_COIN_TX_MERKLE_PROOF);
+        decodedProof.setTxMerkleProof(UNKNOWN_ROYLLO_COIN_TX_MERKLE_ROOT);
         decodedProof.setInclusionProof(UNKNOWN_ROYLLO_COIN_INCLUSION_PROOF);
         decodedProof.setExclusionProofs(Collections.emptyList());
         decodedProofResponse.setDecodedProof(decodedProof);

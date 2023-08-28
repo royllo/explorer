@@ -47,8 +47,6 @@ public class AssetStateServiceImplementation extends BaseService implements Asse
         assert newAssetState.getAsset() != null : "Linked asset is required";
         assert StringUtils.isNotBlank(newAssetState.getAsset().getAssetId()) : "Asset id is required";
         assert newAssetState.getAnchorOutpoint() != null : "Bitcoin transaction is required";
-        // TODO Test this constraint.
-        assert newAssetState.getAssetStateId() == null : "Asset state id should not be set, it will be calculated";
 
         // =============================================================================================================
         // We update and save the asset state.
@@ -79,7 +77,7 @@ public class AssetStateServiceImplementation extends BaseService implements Asse
         }
 
         // We save and return the value.
-        final AssetStateDTO assetStateCreated = ASSET_STATE_MAPPER.mapToAsseStateDTO(assetStateRepository.save(assetStateToCreate));
+        final AssetStateDTO assetStateCreated = ASSET_STATE_MAPPER.mapToAssetStateDTO(assetStateRepository.save(assetStateToCreate));
         logger.info("Asset state created with id {} : {}", assetStateCreated.getId(), assetStateCreated);
         return assetStateCreated;
     }
@@ -94,7 +92,7 @@ public class AssetStateServiceImplementation extends BaseService implements Asse
             return Optional.empty();
         } else {
             logger.info("Asset state with asset state id {} found: {}", assetStateId, assetState.get());
-            return assetState.map(ASSET_STATE_MAPPER::mapToAsseStateDTO);
+            return assetState.map(ASSET_STATE_MAPPER::mapToAssetStateDTO);
         }
     }
 

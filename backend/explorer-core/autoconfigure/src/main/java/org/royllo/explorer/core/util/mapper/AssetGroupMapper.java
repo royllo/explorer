@@ -20,4 +20,7 @@ public interface AssetGroupMapper {
 
     AssetGroupDTO mapToAssetGroupDTO(AssetGroup source);
 
+    // =================================================================================================================
+    // Below are the mappings for the decoded proof response.
+
 }

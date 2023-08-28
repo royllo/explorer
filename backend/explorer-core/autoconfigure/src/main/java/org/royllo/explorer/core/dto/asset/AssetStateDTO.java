@@ -4,7 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Setter;
 import lombok.Value;
+import lombok.experimental.NonFinal;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.dto.user.UserDTO;
 
@@ -25,10 +27,6 @@ public class AssetStateDTO {
     /** The asset creator. */
     @NotNull(message = "Asset state creator is required")
     UserDTO creator;
-
-    /** The asset state ID that uniquely identifies the asset stat (calculated by Royllo). */
-    @NotBlank(message = "Asset state id is required")
-    String assetStateId;
 
     /** The asset that is being anchored. */
     @NotNull(message = "Linked asset is required")
@@ -67,5 +65,11 @@ public class AssetStateDTO {
     /** The script key of the asset, which can be spent under Taproot semantics. */
     @NotNull(message = "Script key is required")
     String scriptKey;
+
+    /** The asset state ID that uniquely identifies the asset stat (calculated by Royllo). */
+    @Setter
+    @NonFinal
+    @NotBlank(message = "Asset state id is required")
+    String assetStateId;
 
 }

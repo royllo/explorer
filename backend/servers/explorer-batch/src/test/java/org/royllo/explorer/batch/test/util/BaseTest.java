@@ -13,6 +13,9 @@ import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
 @SuppressWarnings("SpellCheckingInspection")
 public class BaseTest extends Base {
 
+    /* ============================================================================================================== */
+    /* Bitcoin transactions used for tests. */
+
     /** Non existing database. */
     protected static final String BITCOIN_TRANSACTION_NON_EXISTING = "non_existing";
     /** txid of the first bitcoin transaction in database - one output. */
@@ -23,7 +26,6 @@ public class BaseTest extends Base {
     protected static final String BITCOIN_TRANSACTION_3_TXID = "117ad75a79af2e7fdb2908baee9171fde4d6fb80c7322dcb895a2429f84f4d4a";
     /** txid of a taproot transaction NOT in our database, but IN the blockchain. */
     protected static final String BITCOIN_TAPROOT_TRANSACTION_2_TXID = "d61a4957e5e756a7631246b1a00d685e4854f98f8c2835bafafed8b1d1e26be5";
-
 
     /* ============================================================================================================== */
     /* royllo coin - Asset aleady existing in our database and on testnet (data-assets.xml) */
@@ -64,6 +66,10 @@ public class BaseTest extends Base {
 
     /* ============================================================================================================== */
     /* Unknown Royllo coin (living on testnet). */
+
+    // This field is calculated.
+    protected static final String UKNOWN_ROYLLO_COIN_ASSET_STATE_ID = "ae09cc535746392c856e0e82db423f70474556c45be4bb6bb9062dc907d951b1";
+
     protected static final String UNKNOWN_ROYLLO_COIN_RAW_PROOF = "0000000001fd03d40024750e110bb206b6de993ff90cfe9936b112e42b9f5c0afe2db929c07df18572b90000000101500000002080b8233c36f756820bca031a1af25171256708b74db796fc090000000000000051ccbb70dd4f539ee43aa2497b2e574fe933cd6f8e99bdeefc7a14fb903de073c77bff63ffff001db224071402ea02000000000101750e110bb206b6de993ff90cfe9936b112e42b9f5c0afe2db929c07df18572b90100000000ffffffff02e80300000000000022512074381d0361b8bb274bbec7ae6ef19578e2c9c6b789d9f6a390920bbb6a816bc9890700000000000016001443e6aa57dd19692fdb4ed0d2fe4395f9073ac9d00247304402200312366d908deb99e44849b1ad34ad2066436a657475ff4a304dc9d6c494635b0220544a9154e234f0deb5456775b5b5e253e93edb359703705ead13434147d91abf012102b959655e63ecfe92589f45672305ab3b9842fabb893679cb49677b40965ac20c0000000003e2072ad5e87840f0f77f575d97a52ea6ac07304878255c1cd7bd43ad800cb136aa45cc4fb6dd4cc8ca29cd961f77f55996c56c3b9b7bcae769c8b9d31fb5ae0e0cd0371ab880257eebe8e1d1ea875c5a4e836c8cf080f30a446ced8c74dae02bce211172847e5bdeba4c82491400fe18532579f4a10322e10232bc391a914e3ad7485857253f4a648a88ab5cae518c73a763e13580405f3077dd1e2b665eb6002f33e78b44907726edcf4c8ab9c658598b24910a70a2fd65a9c92638898d84a3b49e3d5a6c6da1cc2df751b03f72190aeac38fc855462e2dfa897ac00d57083bdf044b04e9000100014a750e110bb206b6de993ff90cfe9936b112e42b9f5c0afe2db929c07df18572b90000000111756e6b6e6f776e526f796c6c6f436f696e0e5573656420627920526f796c6c6f00000000000201000303fd03ea066901670065000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008020000092102bd5b831d6980ce7a1c342953d97fe73f7d150667b05e39d0466ba66efda380dc059f000400000000012103153c70ab08b260e17ad3d52d517544d4168041257dba377ca1b4cfc3a2de7e850274004900010001209eaee900fc3948eda143238f220372a61b535c6b1b984b6b26acd4c014537c1502220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff012700010001220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff9c221f59e840166a09cd365da351d907b18febc8f71fa2656b7bb60da8c00bbd";
     protected static final String UNKNOWN_ROYLLO_COIN_RAW_PROOF_PROOF_ID = "a6cde389a35fcb8582fbbf1515f0f43ed3dc7b78dc4537c01d2505ddc25036de";
     protected static final int UNKNOWN_ROYLLO_COIN_VERSION = 0;
@@ -73,20 +79,26 @@ public class BaseTest extends Base {
     protected static final String UNKNOWN_ROYLLO_COIN_META = "5573656420627920526f796c6c6f";
     protected static final String UNKNOWN_ROYLLO_COIN_ASSET_ID = "9eaee900fc3948eda143238f220372a61b535c6b1b984b6b26acd4c014537c15";
     protected static final int UNKNOWN_ROYLLO_COIN_OUTPUT_INDEX = 0;
-    protected static final String UNKNOWN_ROYLLO_COIN_GENESIS_BOOTSTRAP_INFORMATION = "750e110bb206b6de993ff90cfe9936b112e42b9f5c0afe2db929c07df18572b90000000111756e6b6e6f776e526f796c6c6f436f696e0e5573656420627920526f796c6c6f0000000000";
     protected static final int UNKNOWN_ROYLLO_COIN_GENESIS_VERSION = 0;
     protected static final AssetType UNKNOWN_ROYLLO_COIN_ASSET_TYPE = AssetType.NORMAL;
     protected static final BigInteger UNKNOWN_ROYLLO_COIN_AMOUNT = BigInteger.valueOf(1002);
     protected static final int UNKNOWN_ROYLLO_COIN_LOCK_TIME = 0;
     protected static final int UNKNOWN_ROYLLO_COIN_RELATIVE_LOCK_TIME = 0;
     protected static final int UNKNOWN_ROYLLO_COIN_SCRIPT_VERSION = 0;
+
+
+    protected static final String UNKNOWN_ROYLLO_COIN_ASSET_ID_SIG = "2c3f92006f40226157229fe7e29a917d9c7dcdf826b1af396ff7416d9947ac189ef25c34be098411c2e6cae1a2c7a9846b61b499c5b4bbfca2daf73bac7858d3";
+    protected static final String UNKNOWN_ROYLLO_COIN_RAW_GROUP_KEY = "024770265b019cec9aa59ed5161cbe975d94c801b881a47e88c7019f4aa43103ea";
+    protected static final String UNKNOWN_ROYLLO_COIN_TWEAKED_GROUP_KEY = "024770265b019cec9aa59ed5161cbe975d94c801b881a47e88c7019f4aa43103ea";
+
     protected static final String UNKNOWN_ROYLLO_COIN_SCRIPT_KEY = "02bd5b831d6980ce7a1c342953d97fe73f7d150667b05e39d0466ba66efda380dc";
     protected static final String UNKNOWN_ROYLLO_COIN_ANCHOR_TX = "02000000000101750e110bb206b6de993ff90cfe9936b112e42b9f5c0afe2db929c07df18572b90100000000ffffffff02e80300000000000022512074381d0361b8bb274bbec7ae6ef19578e2c9c6b789d9f6a390920bbb6a816bc9890700000000000016001443e6aa57dd19692fdb4ed0d2fe4395f9073ac9d00247304402200312366d908deb99e44849b1ad34ad2066436a657475ff4a304dc9d6c494635b0220544a9154e234f0deb5456775b5b5e253e93edb359703705ead13434147d91abf012102b959655e63ecfe92589f45672305ab3b9842fabb893679cb49677b40965ac20c00000000";
     protected static final String UNKNOWN_ROYLLO_COIN_ANCHOR_TX_ID = "db848f3114a248aed35008febbf04505652cb296726d4e1a998d08ca351e4839";
     protected static final String UNKNOWN_ROYLLO_COIN_ANCHOR_BLOCK_HASH = "0000000062f2e314fb8ff7cf691a6ac31a4525920234045d3b50c0f2d406efe7";
-    protected static final String UNKNOWN_ROYLLO_COIN_ANCHOR_OUTPOINT = "db848f3114a248aed35008febbf04505652cb296726d4e1a998d08ca351e4839";
+    protected static final String UNKNOWN_ROYLLO_COIN_ANCHOR_OUTPOINT = "db848f3114a248aed35008febbf04505652cb296726d4e1a998d08ca351e4839:1";
     protected static final String UNKNOWN_ROYLLO_COIN_ANCHOR_INTERNAL_KEY = "03153c70ab08b260e17ad3d52d517544d4168041257dba377ca1b4cfc3a2de7e85";
-    protected static final String UNKNOWN_ROYLLO_COIN_TX_MERKLE_PROOF = "072ad5e87840f0f77f575d97a52ea6ac07304878255c1cd7bd43ad800cb136aa45cc4fb6dd4cc8ca29cd961f77f55996c56c3b9b7bcae769c8b9d31fb5ae0e0cd0371ab880257eebe8e1d1ea875c5a4e836c8cf080f30a446ced8c74dae02bce211172847e5bdeba4c82491400fe18532579f4a10322e10232bc391a914e3ad7485857253f4a648a88ab5cae518c73a763e13580405f3077dd1e2b665eb6002f33e78b44907726edcf4c8ab9c658598b24910a70a2fd65a9c92638898d84a3b49e3d5a6c6da1cc2df751b03f72190aeac38fc855462e2dfa897ac00d57083bdf044b";
+    protected static final String UNKNOWN_ROYLLO_COIN_TX_MERKLE_ROOT = "072ad5e87840f0f77f575d97a52ea6ac07304878255c1cd7bd43ad800cb136aa45cc4fb6dd4cc8ca29cd961f77f55996c56c3b9b7bcae769c8b9d31fb5ae0e0cd0371ab880257eebe8e1d1ea875c5a4e836c8cf080f30a446ced8c74dae02bce211172847e5bdeba4c82491400fe18532579f4a10322e10232bc391a914e3ad7485857253f4a648a88ab5cae518c73a763e13580405f3077dd1e2b665eb6002f33e78b44907726edcf4c8ab9c658598b24910a70a2fd65a9c92638898d84a3b49e3d5a6c6da1cc2df751b03f72190aeac38fc855462e2dfa897ac00d57083bdf044b";
+    protected static final String UNKNOWN_ROYLLO_COIN_TX_TAPSCRIPT_SIBLING = "-";
     protected static final String UNKNOWN_ROYLLO_COIN_INCLUSION_PROOF = "000400000000012103153c70ab08b260e17ad3d52d517544d4168041257dba377ca1b4cfc3a2de7e850274004900010001209eaee900fc3948eda143238f220372a61b535c6b1b984b6b26acd4c014537c1502220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff012700010001220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
 
     /* ============================================================================================================== */

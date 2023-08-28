@@ -2,12 +2,14 @@ package org.royllo.explorer.batch.batch.request;
 
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.batch.util.base.BaseBatch;
-import org.royllo.explorer.core.dto.asset.AssetDTO;
+import org.royllo.explorer.core.dto.asset.AssetStateDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.royllo.explorer.core.provider.tapd.TapdService;
 import org.royllo.explorer.core.repository.request.RequestRepository;
+import org.royllo.explorer.core.service.asset.AssetGroupService;
 import org.royllo.explorer.core.service.asset.AssetService;
+import org.royllo.explorer.core.service.asset.AssetStateService;
 import org.royllo.explorer.core.service.proof.ProofService;
 import org.royllo.explorer.core.service.request.RequestService;
 import org.royllo.explorer.core.util.exceptions.proof.ProofCreationException;
@@ -39,8 +41,14 @@ public class AddProofBatch extends BaseBatch {
     /** Request service. */
     private final RequestService requestService;
 
+    /** Asset group service. */
+    private final AssetGroupService assetGroupService;
+
     /** Asset service. */
     private final AssetService assetService;
+
+    /** Asset state service. */
+    private final AssetStateService assetStateService;
 
     /** Proof service. */
     private final ProofService proofService;
@@ -74,28 +82,33 @@ public class AddProofBatch extends BaseBatch {
                                             response.getErrorMessage());
                                     request.failure(response.getErrorMessage());
                                 } else {
-                                    // We have the decoded proof, we check if the asset exists.
-                                    final String assetId = response.getDecodedProof().getAsset().getAssetGenesis().getAssetId();
-                                    Optional<AssetDTO> assetDTO = assetService.getAssetByAssetId(assetId);
-                                    if (assetDTO.isEmpty()) {
+                                    // Now we have the decoded proof.
+                                    AssetStateDTO assetStateToCreate = ASSET_STATE_MAPPER.mapToAssetStateDTO(response.getDecodedProof());
+
+                                    // We check if the asset state already exists - If not, we create it.
+                                    // Not that addAssetState() should create the asset and the asset group if they don't exists.
+                                    Optional<AssetStateDTO> assetStateCreated = assetStateService.getAssetStateByAssetStateId(assetStateToCreate.getAssetStateId());
+                                    if (assetStateCreated.isEmpty()) {
                                         // If it doesn't exist, we create it
-                                        logger.info("Because of request {}, adding asset {}", request.getId(), assetId);
-                                        assetDTO = Optional.of(assetService.addAsset(ASSET_MAPPER.mapToAssetDTO(response.getDecodedProof())));
+                                        logger.info("Request {}, adding asset state {}", request.getId(), assetStateToCreate.getAssetStateId());
+                                        assetStateCreated = Optional.of(assetStateService.addAssetState(assetStateToCreate));
                                     } else {
-                                        logger.info("For request {}, asset {} already exists", request.getId(), assetId);
+                                        logger.info("For request {}, asset state {} already exists", request.getId(), assetStateToCreate.getAssetStateId());
                                     }
+
                                     // We can now add the proof.
                                     proofService.addProof(request.getRawProof(), response);
-                                    request.setAsset(assetDTO.get());
+                                    request.setAsset(assetStateCreated.get().getAsset());
                                     request.success();
                                 }
                             }
                         } catch (ProofCreationException exception) {
-                            logger.error("Request {} has error: {}", request.getId(), exception.getMessage());
+                            logger.error("Request {} encountered an error:  {}", request.getId(), exception.getMessage());
                             request.failure(exception.getMessage());
                         } catch (Throwable tapdError) {
                             // We failed on calling tapd, but it's an exception; not a "valid" error.
-                            logger.error("Request {} has error: {}", request.getId(), tapdError.getMessage());
+                            tapdError.printStackTrace();
+                            logger.error("Request {} encountered an error with Tapd: {}", request.getId(), tapdError.getMessage());
                             request.failure("Error: " + tapdError.getMessage());
                         }
 
