@@ -39,7 +39,7 @@ public class AssetStateServiceImplementation extends BaseService implements Asse
     private final BitcoinService bitcoinService;
 
     @Override
-    public AssetStateDTO addAssetState(@NonNull AssetStateDTO newAssetState) {
+    public AssetStateDTO addAssetState(final @NonNull AssetStateDTO newAssetState) {
         logger.info("Adding asset state {}", newAssetState);
 
         // Checking constraints.
@@ -85,7 +85,7 @@ public class AssetStateServiceImplementation extends BaseService implements Asse
     }
 
     @Override
-    public Optional<AssetStateDTO> getAssetStateByAssetStateId(String assetStateId) {
+    public Optional<AssetStateDTO> getAssetStateByAssetStateId(final String assetStateId) {
         logger.info("Getting asset state with asset state id {}", assetStateId);
 
         final Optional<AssetState> assetState = assetStateRepository.findByAssetStateId(assetStateId);

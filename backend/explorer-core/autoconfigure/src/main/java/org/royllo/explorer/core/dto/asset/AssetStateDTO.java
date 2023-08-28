@@ -30,6 +30,7 @@ public class AssetStateDTO {
     @NotBlank(message = "Asset state id is required")
     String assetStateId;
 
+    /** The asset that is being anchored. */
     @NotNull(message = "Linked asset is required")
     AssetDTO asset;
 

@@ -25,7 +25,7 @@ public class AssetGroupServiceImplementation extends BaseService implements Asse
     private final AssetGroupRepository assetGroupRepository;
 
     @Override
-    public AssetGroupDTO addAssetGroup(@NotNull AssetGroupDTO newAssetGroup) {
+    public AssetGroupDTO addAssetGroup(final @NotNull AssetGroupDTO newAssetGroup) {
         logger.info("Adding asset group {}", newAssetGroup);
 
         // Checking constraints.
@@ -43,7 +43,7 @@ public class AssetGroupServiceImplementation extends BaseService implements Asse
     }
 
     @Override
-    public Optional<AssetGroupDTO> getAssetGroupByRawGroupKey(String rawGroupKey) {
+    public Optional<AssetGroupDTO> getAssetGroupByRawGroupKey(final String rawGroupKey) {
         logger.info("Getting asset group with raw group key {}", rawGroupKey);
 
         final Optional<AssetGroup> assetGroup = assetGroupRepository.findByRawGroupKey(rawGroupKey);

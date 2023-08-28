@@ -25,12 +25,12 @@ public abstract class AssetStateMapperDecorator implements AssetStateMapper {
      *
      * @param newDelegate delegate
      */
-    public AssetStateMapperDecorator(AssetStateMapper newDelegate) {
+    public AssetStateMapperDecorator(final AssetStateMapper newDelegate) {
         this.delegate = newDelegate;
     }
 
     @Override
-    public AssetState mapToAssetState(AssetStateDTO source) {
+    public final AssetState mapToAssetState(final AssetStateDTO source) {
         AssetState assetState = delegate.mapToAssetState(source);
 
         // If we are in an asset state creation, asset state id is null, so we calculate it.
