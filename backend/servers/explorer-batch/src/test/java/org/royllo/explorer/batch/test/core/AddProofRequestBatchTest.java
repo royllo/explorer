@@ -1,5 +1,6 @@
 package org.royllo.explorer.batch.test.core;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.request.AddProofBatch;
@@ -8,6 +9,10 @@ import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.asset.AssetStateDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
+import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
+import org.royllo.explorer.core.repository.asset.AssetGroupRepository;
+import org.royllo.explorer.core.repository.asset.AssetRepository;
+import org.royllo.explorer.core.repository.asset.AssetStateRepository;
 import org.royllo.explorer.core.service.asset.AssetGroupService;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.asset.AssetStateService;
@@ -15,16 +20,21 @@ import org.royllo.explorer.core.service.proof.ProofService;
 import org.royllo.explorer.core.service.request.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
 import static org.royllo.explorer.core.util.enums.RequestStatus.FAILURE;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
@@ -35,6 +45,15 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles({"mempoolTransactionServiceMock", "tapdProofServiceMock", "scheduler-disabled"})
 public class AddProofRequestBatchTest extends BaseTest {
+
+    @Autowired
+    AssetGroupRepository assetGroupRepository;
+
+    @Autowired
+    AssetRepository assetRepository;
+
+    @Autowired
+    AssetStateRepository assetStateRepository;
 
     @Autowired
     RequestService requestService;
@@ -230,6 +249,107 @@ public class AddProofRequestBatchTest extends BaseTest {
         assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF_PROOF_ID).isPresent());
         assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF_PROOF_ID).isPresent());
         assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF_PROOF_ID).isPresent());
+    }
+
+    @Test
+    @DisplayName("Integrating TestCoin in order")
+    public void testCoinInOrder() throws IOException {
+
+        // =============================================================================================================
+        // We retrieve the value to compare it with our DTO.
+        final ClassPathResource testCoinDecodeProof1 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-1.json");
+        final ClassPathResource testCoinDecodeProof2 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-2.json");
+        final ClassPathResource testCoinDecodeProof3 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-3.json");
+        DecodedProofResponse testCoinDecodedProof1 = new ObjectMapper().readValue(testCoinDecodeProof1.getInputStream(), DecodedProofResponse.class);
+        DecodedProofResponse testCoinDecodedProof2 = new ObjectMapper().readValue(testCoinDecodeProof2.getInputStream(), DecodedProofResponse.class);
+        DecodedProofResponse testCoinDecodedProof3 = new ObjectMapper().readValue(testCoinDecodeProof3.getInputStream(), DecodedProofResponse.class);
+
+        // =============================================================================================================
+        // We retrieve the number of asset groups, assets and asset states before starting the test.
+        long assetGroups = assetGroupRepository.count();
+        long assets = assetRepository.count();
+        long assetStates = assetStateRepository.count();
+
+        // =============================================================================================================
+        // Check that the asset and the proofs does not exist.
+        assertFalse(assetService.getAssetByAssetId(TESTCOIN_ASSET_ID).isPresent());
+        assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_1_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_2_ANCHOR_TXID).isPresent());
+        assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_3_ANCHOR_TXID).isPresent());
+
+        // =============================================================================================================
+        // We now import the first proof.
+        AddProofRequestDTO testCoinProof1 = requestService.createAddProofRequest(TESTCOIN_RAW_PROOF_1);
+        addProofBatch.processRequests();
+        Optional<RequestDTO> testCoinProof1Request1Treated = requestService.getRequest(testCoinProof1.getId());
+        assertTrue(testCoinProof1Request1Treated.isPresent());
+        assertTrue(testCoinProof1Request1Treated.get().isSuccessful());
+        assertEquals(SUCCESS, testCoinProof1Request1Treated.get().getStatus());
+
+        // Check what has been created.
+        assertEquals(assetGroups, assetGroupRepository.count());
+        assertEquals(assets + 1, assetRepository.count());
+        assertEquals(assetStates + 1, assetStateRepository.count());
+        assertTrue(assetService.getAssetByAssetId(TESTCOIN_ASSET_ID).isPresent());
+        assertTrue(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_1_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_2_ANCHOR_TXID).isPresent());
+        assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_3_ANCHOR_TXID).isPresent());
+
+        // Check the proof1 data.
+        // assetId + "_" + outpointTxId + ":" + outpointVout + "_" + scriptKey;
+        final Optional<AssetStateDTO> testCoinProof1AssetState = assetStateService.getAssetStateByAssetStateId(TESTCOIN_ASSET_STATE_ID_1);
+        assertTrue(testCoinProof1AssetState.isPresent());
+        assertNotNull(testCoinProof1AssetState.get().getId());
+        assertEquals(TESTCOIN_ASSET_STATE_ID_1, testCoinProof1AssetState.get().getAssetStateId());
+        // User.
+        assertNotNull(testCoinProof1AssetState.get().getCreator());
+        assertEquals(ANONYMOUS_ID, testCoinProof1AssetState.get().getCreator().getId());
+        assertEquals(ANONYMOUS_USER_ID, testCoinProof1AssetState.get().getCreator().getUserId());
+        assertEquals(ANONYMOUS_USER_USERNAME, testCoinProof1AssetState.get().getCreator().getUsername());
+        // Asset.
+        assertNotNull(testCoinProof1AssetState.get().getAsset());
+        assertNotNull(testCoinProof1AssetState.get().getCreator());
+        assertEquals(ANONYMOUS_ID, testCoinProof1AssetState.get().getAsset().getCreator().getId());
+        assertEquals(ANONYMOUS_USER_ID, testCoinProof1AssetState.get().getAsset().getCreator().getUserId());
+        assertEquals(ANONYMOUS_USER_USERNAME, testCoinProof1AssetState.get().getAsset().getCreator().getUsername());
+        assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getAssetGenesis().getAssetId(),
+                testCoinProof1AssetState.get().getAsset().getAssetId());
+        assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getAssetGenesis().getGenesisPoint(),
+                testCoinProof1AssetState.get().getAsset().getGenesisPoint().getTxId() + ":" + testCoinProof1AssetState.get().getAsset().getGenesisPoint().getVout());
+        assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getAssetGenesis().getMetaDataHash(),
+                testCoinProof1AssetState.get().getAsset().getMetaDataHash());
+        assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getAssetGenesis().getName(),
+                testCoinProof1AssetState.get().getAsset().getName());
+        assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getAssetGenesis().getOutputIndex(),
+                testCoinProof1AssetState.get().getAsset().getOutputIndex().longValue());
+        assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getAssetGenesis().getVersion(),
+                testCoinProof1AssetState.get().getAsset().getVersion().longValue());
+        assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getAssetType(),
+                testCoinProof1AssetState.get().getAsset().getType().toString());
+        assertEquals(0, testCoinDecodedProof1.getDecodedProof().getAsset().getAmount().compareTo(testCoinProof1AssetState.get().getAsset().getAmount()));
+        // Assert group.
+        assertNull(testCoinProof1AssetState.get().getAsset().getAssetGroup());
+        // Asset state.
+        assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getChainAnchor().getAnchorBlockHash(),
+                testCoinProof1AssetState.get().getAnchorBlockHash());
+        assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getChainAnchor().getAnchorOutpoint(),
+                testCoinProof1AssetState.get().getAnchorOutpoint().getTxId() + ":" + testCoinProof1AssetState.get().getAnchorOutpoint().getVout());
+        assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getChainAnchor().getAnchorTx(),
+                testCoinProof1AssetState.get().getAnchorTx());
+        assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getChainAnchor().getAnchorTxId(),
+                testCoinProof1AssetState.get().getAnchorTxId());
+        assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getChainAnchor().getInternalKey(),
+                testCoinProof1AssetState.get().getInternalKey());
+        assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getChainAnchor().getMerkleRoot(),
+                testCoinProof1AssetState.get().getMerkleRoot());
+        assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getChainAnchor().getTapscriptSibling(),
+                testCoinProof1AssetState.get().getTapscriptSibling());
+        assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getScriptVersion(),
+                testCoinProof1AssetState.get().getScriptVersion().longValue());
+        assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getScriptKey(),
+                testCoinProof1AssetState.get().getScriptKey());
+
+
     }
 
 }

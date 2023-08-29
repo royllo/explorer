@@ -54,6 +54,17 @@ public class TAPDServiceMock extends BaseTest {
         Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF)).thenReturn(Mono.just(getActiveRoylloCoinProof2()));
         Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF)).thenReturn(Mono.just(getActiveRoylloCoinProof3()));
 
+        // TestCoin.
+        final ClassPathResource testCoinDecodeProof1 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-1.json");
+        final ClassPathResource testCoinDecodeProof2 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-2.json");
+        final ClassPathResource testCoinDecodeProof3 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-3.json");
+        DecodedProofResponse TestCoinDecodedProof1 = new ObjectMapper().readValue(testCoinDecodeProof1.getInputStream(), DecodedProofResponse.class);
+        DecodedProofResponse TestCoinDecodedProof2 = new ObjectMapper().readValue(testCoinDecodeProof2.getInputStream(), DecodedProofResponse.class);
+        DecodedProofResponse TestCoinDecodedProof3 = new ObjectMapper().readValue(testCoinDecodeProof3.getInputStream(), DecodedProofResponse.class);
+        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_1)).thenReturn(Mono.just(TestCoinDecodedProof1));
+        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_2)).thenReturn(Mono.just(TestCoinDecodedProof2));
+        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_3)).thenReturn(Mono.just(TestCoinDecodedProof3));
+
         // =============================================================================================================
         // Mock for universes.
 

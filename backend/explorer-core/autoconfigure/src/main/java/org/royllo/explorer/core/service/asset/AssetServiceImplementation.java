@@ -1,5 +1,6 @@
 package org.royllo.explorer.core.service.asset;
 
+import io.micrometer.common.util.StringUtils;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.asset.Asset;
@@ -108,7 +109,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         }
 
         // We check if an asset group is set.
-        if (newAsset.getAssetGroup() != null) {
+        if (newAsset.getAssetGroup() != null && !StringUtils.isEmpty(newAsset.getAssetGroup().getRawGroupKey())) {
             // If the asset exists in database, we retrieve and set it.
             final Optional<AssetGroupDTO> assetGroup = assetGroupService.getAssetGroupByRawGroupKey(newAsset.getAssetGroup().getRawGroupKey());
             if (assetGroup.isPresent()) {
@@ -118,6 +119,11 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
                 final AssetGroupDTO assetGroupCreated = assetGroupService.addAssetGroup(newAsset.getAssetGroup());
                 assetToCreate.setAssetGroup(ASSET_GROUP_MAPPER.mapToAssetGroup(assetGroupCreated));
             }
+        }
+
+        // If the asset group is not set, we set it to null.
+        if (newAsset.getAssetGroup() != null && StringUtils.isEmpty(newAsset.getAssetGroup().getRawGroupKey())) {
+            assetToCreate.setAssetGroup(null);
         }
 
         // We save and return the value.
