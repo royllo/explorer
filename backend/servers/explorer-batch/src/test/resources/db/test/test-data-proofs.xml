@@ -6,14 +6,6 @@
 
         <!-- ======================================================================================================= -->
 
-        <!-- Proof 1 -->
-        <insert tableName="PROOFS">
-            <column name="ID" value="10001"/>
-            <column name="PROOF_ID" value="71b20582c41455abfc9a15cf8b2e819c38d3b2d39e14d0cb214d2cd597eee7ff"/>
-            <column name="FK_USER_CREATOR" value="1"/>
-            <column name="FK_ASSET" value="10000"/>
-            <column name="RAW_PROOF" value="asset_id_5_proof"/>
-        </insert>
 
         <!-- ======================================================================================================= -->
 

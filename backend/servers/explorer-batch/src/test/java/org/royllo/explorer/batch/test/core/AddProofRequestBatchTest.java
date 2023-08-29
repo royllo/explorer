@@ -183,53 +183,53 @@ public class AddProofRequestBatchTest extends BaseTest {
         // After processing the request, the asset and the proof must be present in database.
         // We should be able to add two other proofs for the same asset.
 
-//        // Check that the asset and the proofs does not exist.
-//        assertFalse(assetService.getAssetByAssetId(ACTIVE_ROYLLO_COIN_ASSET_ID).isPresent());
-//        assertFalse(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF_PROOF_ID).isPresent());
-//        assertFalse(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF_PROOF_ID).isPresent());
-//        assertFalse(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF_PROOF_ID).isPresent());
-//
-//        // Add the request for proof 1 and process it.
-//        AddProofRequestDTO activeRoylloCoinRequest1 = requestService.createAddProofRequest(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF);
-//        addProofBatch.processRequests();
-//        Optional<RequestDTO> activeRoylloCoinRequest1Treated = requestService.getRequest(activeRoylloCoinRequest1.getId());
-//        assertTrue(activeRoylloCoinRequest1Treated.isPresent());
-//        assertTrue(activeRoylloCoinRequest1Treated.get().isSuccessful());
-//        assertEquals(SUCCESS, activeRoylloCoinRequest1Treated.get().getStatus());
-//
-//        // Check the asset and the proofs.
-//        assertTrue(assetService.getAssetByAssetId(ACTIVE_ROYLLO_COIN_ASSET_ID).isPresent());
-//        assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF_PROOF_ID).isPresent());
-//        assertFalse(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF_PROOF_ID).isPresent());
-//        assertFalse(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF_PROOF_ID).isPresent());
-//
-//        // Add the request for proof 3 and process it.
-//        AddProofRequestDTO activeRoylloCoinRequest2 = requestService.createAddProofRequest(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF);
-//        addProofBatch.processRequests();
-//        Optional<RequestDTO> activeRoylloCoinRequest2Treated = requestService.getRequest(activeRoylloCoinRequest2.getId());
-//        assertTrue(activeRoylloCoinRequest2Treated.isPresent());
-//        assertTrue(activeRoylloCoinRequest2Treated.get().isSuccessful());
-//        assertEquals(SUCCESS, activeRoylloCoinRequest2Treated.get().getStatus());
-//
-//        // Check the asset and the proofs.
-//        assertTrue(assetService.getAssetByAssetId(ACTIVE_ROYLLO_COIN_ASSET_ID).isPresent());
-//        assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF_PROOF_ID).isPresent());
-//        assertFalse(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF_PROOF_ID).isPresent());
-//        assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF_PROOF_ID).isPresent());
-//
-//        // Add the request for proof 2 and process it.
-//        AddProofRequestDTO activeRoylloCoinRequest3 = requestService.createAddProofRequest(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF);
-//        addProofBatch.processRequests();
-//        Optional<RequestDTO> activeRoylloCoinRequest3Treated = requestService.getRequest(activeRoylloCoinRequest3.getId());
-//        assertTrue(activeRoylloCoinRequest3Treated.isPresent());
-//        assertTrue(activeRoylloCoinRequest3Treated.get().isSuccessful());
-//        assertEquals(SUCCESS, activeRoylloCoinRequest3Treated.get().getStatus());
-//
-//        // Check the asset and the proofs.
-//        assertTrue(assetService.getAssetByAssetId(ACTIVE_ROYLLO_COIN_ASSET_ID).isPresent());
-//        assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF_PROOF_ID).isPresent());
-//        assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF_PROOF_ID).isPresent());
-//        assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF_PROOF_ID).isPresent());
+        // Check that the asset and the proofs does not exist.
+        assertFalse(assetService.getAssetByAssetId(ACTIVE_ROYLLO_COIN_ASSET_ID).isPresent());
+        assertFalse(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF_PROOF_ID).isPresent());
+
+        // Add the request for proof 1 and process it.
+        AddProofRequestDTO activeRoylloCoinRequest1 = requestService.createAddProofRequest(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF);
+        addProofBatch.processRequests();
+        Optional<RequestDTO> activeRoylloCoinRequest1Treated = requestService.getRequest(activeRoylloCoinRequest1.getId());
+        assertTrue(activeRoylloCoinRequest1Treated.isPresent());
+        assertTrue(activeRoylloCoinRequest1Treated.get().isSuccessful());
+        assertEquals(SUCCESS, activeRoylloCoinRequest1Treated.get().getStatus());
+
+        // Check the asset and the proofs.
+        assertTrue(assetService.getAssetByAssetId(ACTIVE_ROYLLO_COIN_ASSET_ID).isPresent());
+        assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF_PROOF_ID).isPresent());
+
+        // Add the request for proof 3 and process it.
+        AddProofRequestDTO activeRoylloCoinRequest2 = requestService.createAddProofRequest(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF);
+        addProofBatch.processRequests();
+        Optional<RequestDTO> activeRoylloCoinRequest2Treated = requestService.getRequest(activeRoylloCoinRequest2.getId());
+        assertTrue(activeRoylloCoinRequest2Treated.isPresent());
+        assertTrue(activeRoylloCoinRequest2Treated.get().isSuccessful());
+        assertEquals(SUCCESS, activeRoylloCoinRequest2Treated.get().getStatus());
+
+        // Check the asset and the proofs.
+        assertTrue(assetService.getAssetByAssetId(ACTIVE_ROYLLO_COIN_ASSET_ID).isPresent());
+        assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF_PROOF_ID).isPresent());
+
+        // Add the request for proof 2 and process it.
+        AddProofRequestDTO activeRoylloCoinRequest3 = requestService.createAddProofRequest(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF);
+        addProofBatch.processRequests();
+        Optional<RequestDTO> activeRoylloCoinRequest3Treated = requestService.getRequest(activeRoylloCoinRequest3.getId());
+        assertTrue(activeRoylloCoinRequest3Treated.isPresent());
+        assertTrue(activeRoylloCoinRequest3Treated.get().isSuccessful());
+        assertEquals(SUCCESS, activeRoylloCoinRequest3Treated.get().getStatus());
+
+        // Check the asset and the proofs.
+        assertTrue(assetService.getAssetByAssetId(ACTIVE_ROYLLO_COIN_ASSET_ID).isPresent());
+        assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF_PROOF_ID).isPresent());
     }
 
 }
