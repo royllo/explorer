@@ -10,11 +10,22 @@ public interface TapdService {
 
     /**
      * Decode proof.
+     * If there are several proofs, is the latest proof is returned.
      *
      * @param rawProof raw proof
      * @return decoded proof
      */
     Mono<DecodedProofResponse> decode(String rawProof);
+
+    /**
+     * Decode proof at a certain depth.
+     * If there are several proofs, is the latest proof is returned.
+     *
+     * @param rawProof     raw proof
+     * @param proofAtDepth proof at depth
+     * @return decoded proof
+     */
+    Mono<DecodedProofResponse> decode(String rawProof, int proofAtDepth);
 
     /**
      * Get universe roots.

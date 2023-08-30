@@ -23,6 +23,12 @@ public class ProofRequest {
     String rawProof;
 
     /**
+     * The index depth of the decoded proof, with 0 being the latest proof.
+     */
+    @JsonProperty("proof_at_depth")
+    int proofAtDepth;
+
+    /**
      * With prev witnesses.
      */
     @JsonProperty("with_prev_witnesses")

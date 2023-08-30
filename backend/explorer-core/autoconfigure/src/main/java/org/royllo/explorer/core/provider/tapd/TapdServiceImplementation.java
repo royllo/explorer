@@ -71,7 +71,13 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
 
     @Override
     public final Mono<DecodedProofResponse> decode(final String rawProof) {
-        logger.info("Calling decode for proof from tapd with raw proof {}", rawProof);
+        // The index depth of the decoded proof, with 0 being the latest proof.
+        return decode(rawProof, 0);
+    }
+
+    @Override
+    public Mono<DecodedProofResponse> decode(final String rawProof, final int proofAtDepth) {
+        logger.info("Calling decode for proof from tapd with raw proof {} at {} depth", rawProof, proofAtDepth);
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
 
         // Consume a token from the token bucket.
@@ -92,6 +98,7 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(ProofRequest.builder()
                         .rawProof(rawProof)
+                        .proofAtDepth(proofAtDepth)
                         .withPrevWitnesses(false)
                         .withMetaReveal(false)
                         .build()
