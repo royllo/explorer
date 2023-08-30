@@ -274,11 +274,11 @@ public class AddProofRequestBatchTest extends BaseTest {
         // Check that the asset and the proofs does not exist.
         assertFalse(assetService.getAssetByAssetId(TESTCOIN_ASSET_ID).isPresent());
         assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_1_PROOF_ID).isPresent());
-        assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_2_ANCHOR_TXID).isPresent());
-        assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_3_ANCHOR_TXID).isPresent());
+        assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_2_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_3_PROOF_ID).isPresent());
 
         // =============================================================================================================
-        // We now import the first proof.
+        // We import the first proof.
         AddProofRequestDTO testCoinProof1 = requestService.createAddProofRequest(TESTCOIN_RAW_PROOF_1);
         addProofBatch.processRequests();
         Optional<RequestDTO> testCoinProof1Request1Treated = requestService.getRequest(testCoinProof1.getId());
@@ -292,8 +292,8 @@ public class AddProofRequestBatchTest extends BaseTest {
         assertEquals(assetStates + 1, assetStateRepository.count());
         assertTrue(assetService.getAssetByAssetId(TESTCOIN_ASSET_ID).isPresent());
         assertTrue(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_1_PROOF_ID).isPresent());
-        assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_2_ANCHOR_TXID).isPresent());
-        assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_3_ANCHOR_TXID).isPresent());
+        assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_2_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_3_PROOF_ID).isPresent());
 
         // Check the proof1 data.
         // assetId + "_" + outpointTxId + ":" + outpointVout + "_" + scriptKey;
@@ -349,6 +349,153 @@ public class AddProofRequestBatchTest extends BaseTest {
         assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getScriptKey(),
                 testCoinProof1AssetState.get().getScriptKey());
 
+        // =============================================================================================================
+        // We import a second proof.
+        AddProofRequestDTO testCoinProof2 = requestService.createAddProofRequest(TESTCOIN_RAW_PROOF_2);
+        addProofBatch.processRequests();
+        Optional<RequestDTO> testCoinProof2Request2created = requestService.getRequest(testCoinProof2.getId());
+        assertTrue(testCoinProof2Request2created.isPresent());
+        assertTrue(testCoinProof2Request2created.get().isSuccessful());
+        assertEquals(SUCCESS, testCoinProof2Request2created.get().getStatus());
+
+        // Check what has been created.
+        assertEquals(assetGroups, assetGroupRepository.count());
+        assertEquals(assets + 1, assetRepository.count());
+        assertEquals(assetStates + 2, assetStateRepository.count());
+        assertTrue(assetService.getAssetByAssetId(TESTCOIN_ASSET_ID).isPresent());
+        assertTrue(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_1_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_2_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_3_PROOF_ID).isPresent());
+
+        // Check the proof1 data.
+        final Optional<AssetStateDTO> testCoinProof2AssetState = assetStateService.getAssetStateByAssetStateId(TESTCOIN_ASSET_STATE_ID_2);
+        assertTrue(testCoinProof2AssetState.isPresent());
+        assertNotNull(testCoinProof2AssetState.get().getId());
+        assertEquals(TESTCOIN_ASSET_STATE_ID_2, testCoinProof2AssetState.get().getAssetStateId());
+        // User.
+        assertNotNull(testCoinProof2AssetState.get().getCreator());
+        assertEquals(ANONYMOUS_ID, testCoinProof2AssetState.get().getCreator().getId());
+        assertEquals(ANONYMOUS_USER_ID, testCoinProof2AssetState.get().getCreator().getUserId());
+        assertEquals(ANONYMOUS_USER_USERNAME, testCoinProof2AssetState.get().getCreator().getUsername());
+        // Asset.
+        assertNotNull(testCoinProof2AssetState.get().getAsset());
+        assertNotNull(testCoinProof2AssetState.get().getCreator());
+        assertEquals(ANONYMOUS_ID, testCoinProof2AssetState.get().getAsset().getCreator().getId());
+        assertEquals(ANONYMOUS_USER_ID, testCoinProof2AssetState.get().getAsset().getCreator().getUserId());
+        assertEquals(ANONYMOUS_USER_USERNAME, testCoinProof2AssetState.get().getAsset().getCreator().getUsername());
+        assertEquals(testCoinDecodedProof2.getDecodedProof().getAsset().getAssetGenesis().getAssetId(),
+                testCoinProof2AssetState.get().getAsset().getAssetId());
+        assertEquals(testCoinDecodedProof2.getDecodedProof().getAsset().getAssetGenesis().getGenesisPoint(),
+                testCoinProof2AssetState.get().getAsset().getGenesisPoint().getTxId() + ":" + testCoinProof2AssetState.get().getAsset().getGenesisPoint().getVout());
+        assertEquals(testCoinDecodedProof2.getDecodedProof().getAsset().getAssetGenesis().getMetaDataHash(),
+                testCoinProof2AssetState.get().getAsset().getMetaDataHash());
+        assertEquals(testCoinDecodedProof2.getDecodedProof().getAsset().getAssetGenesis().getName(),
+                testCoinProof2AssetState.get().getAsset().getName());
+        assertEquals(testCoinDecodedProof2.getDecodedProof().getAsset().getAssetGenesis().getOutputIndex(),
+                testCoinProof2AssetState.get().getAsset().getOutputIndex().longValue());
+        assertEquals(testCoinDecodedProof2.getDecodedProof().getAsset().getAssetGenesis().getVersion(),
+                testCoinProof2AssetState.get().getAsset().getVersion().longValue());
+        assertEquals(testCoinDecodedProof2.getDecodedProof().getAsset().getAssetType(),
+                testCoinProof2AssetState.get().getAsset().getType().toString());
+        // TODO The problem here is that different proofs has different amount value. The amount of asset should be set with the first proof.
+        // System.out.println("=> " + testCoinDecodedProof2.getDecodedProof().getAsset().getAmount());
+        // System.out.println("=> " + testCoinProof2AssetState.get().getAsset().getAmount());
+        // assertEquals(0, testCoinDecodedProof2.getDecodedProof().getAsset().getAmount().compareTo(testCoinProof2AssetState.get().getAsset().getAmount()));
+        // Assert group.
+        assertNull(testCoinProof2AssetState.get().getAsset().getAssetGroup());
+        // Asset state.
+        assertEquals(testCoinDecodedProof2.getDecodedProof().getAsset().getChainAnchor().getAnchorBlockHash(),
+                testCoinProof2AssetState.get().getAnchorBlockHash());
+        assertEquals(testCoinDecodedProof2.getDecodedProof().getAsset().getChainAnchor().getAnchorOutpoint(),
+                testCoinProof2AssetState.get().getAnchorOutpoint().getTxId() + ":" + testCoinProof2AssetState.get().getAnchorOutpoint().getVout());
+        assertEquals(testCoinDecodedProof2.getDecodedProof().getAsset().getChainAnchor().getAnchorTx(),
+                testCoinProof2AssetState.get().getAnchorTx());
+        assertEquals(testCoinDecodedProof2.getDecodedProof().getAsset().getChainAnchor().getAnchorTxId(),
+                testCoinProof2AssetState.get().getAnchorTxId());
+        assertEquals(testCoinDecodedProof2.getDecodedProof().getAsset().getChainAnchor().getInternalKey(),
+                testCoinProof2AssetState.get().getInternalKey());
+        assertEquals(testCoinDecodedProof2.getDecodedProof().getAsset().getChainAnchor().getMerkleRoot(),
+                testCoinProof2AssetState.get().getMerkleRoot());
+        assertEquals(testCoinDecodedProof2.getDecodedProof().getAsset().getChainAnchor().getTapscriptSibling(),
+                testCoinProof2AssetState.get().getTapscriptSibling());
+        assertEquals(testCoinDecodedProof2.getDecodedProof().getAsset().getScriptVersion(),
+                testCoinProof2AssetState.get().getScriptVersion().longValue());
+        assertEquals(testCoinDecodedProof2.getDecodedProof().getAsset().getScriptKey(),
+                testCoinProof2AssetState.get().getScriptKey());
+
+        // =============================================================================================================
+        // We import the last proof.
+        AddProofRequestDTO testCoinProof3 = requestService.createAddProofRequest(TESTCOIN_RAW_PROOF_3);
+        addProofBatch.processRequests();
+        Optional<RequestDTO> testCoinProof3Request3created = requestService.getRequest(testCoinProof3.getId());
+        assertTrue(testCoinProof3Request3created.isPresent());
+        assertTrue(testCoinProof3Request3created.get().isSuccessful());
+        assertEquals(SUCCESS, testCoinProof3Request3created.get().getStatus());
+
+        // Check what has been created.
+        assertEquals(assetGroups, assetGroupRepository.count());
+        assertEquals(assets + 1, assetRepository.count());
+        assertEquals(assetStates + 3, assetStateRepository.count());
+        assertTrue(assetService.getAssetByAssetId(TESTCOIN_ASSET_ID).isPresent());
+        assertTrue(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_1_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_2_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_3_PROOF_ID).isPresent());
+
+        // Check the proof1 data.
+        final Optional<AssetStateDTO> testCoinProof3AssetState = assetStateService.getAssetStateByAssetStateId(TESTCOIN_ASSET_STATE_ID_3);
+        assertTrue(testCoinProof3AssetState.isPresent());
+        assertNotNull(testCoinProof3AssetState.get().getId());
+        assertEquals(TESTCOIN_ASSET_STATE_ID_3, testCoinProof3AssetState.get().getAssetStateId());
+        // User.
+        assertNotNull(testCoinProof3AssetState.get().getCreator());
+        assertEquals(ANONYMOUS_ID, testCoinProof3AssetState.get().getCreator().getId());
+        assertEquals(ANONYMOUS_USER_ID, testCoinProof3AssetState.get().getCreator().getUserId());
+        assertEquals(ANONYMOUS_USER_USERNAME, testCoinProof3AssetState.get().getCreator().getUsername());
+        // Asset.
+        assertNotNull(testCoinProof3AssetState.get().getAsset());
+        assertNotNull(testCoinProof3AssetState.get().getCreator());
+        assertEquals(ANONYMOUS_ID, testCoinProof3AssetState.get().getAsset().getCreator().getId());
+        assertEquals(ANONYMOUS_USER_ID, testCoinProof3AssetState.get().getAsset().getCreator().getUserId());
+        assertEquals(ANONYMOUS_USER_USERNAME, testCoinProof3AssetState.get().getAsset().getCreator().getUsername());
+        assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getAssetGenesis().getAssetId(),
+                testCoinProof3AssetState.get().getAsset().getAssetId());
+        assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getAssetGenesis().getGenesisPoint(),
+                testCoinProof3AssetState.get().getAsset().getGenesisPoint().getTxId() + ":" + testCoinProof3AssetState.get().getAsset().getGenesisPoint().getVout());
+        assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getAssetGenesis().getMetaDataHash(),
+                testCoinProof3AssetState.get().getAsset().getMetaDataHash());
+        assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getAssetGenesis().getName(),
+                testCoinProof3AssetState.get().getAsset().getName());
+        assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getAssetGenesis().getOutputIndex(),
+                testCoinProof3AssetState.get().getAsset().getOutputIndex().longValue());
+        assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getAssetGenesis().getVersion(),
+                testCoinProof3AssetState.get().getAsset().getVersion().longValue());
+        assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getAssetType(),
+                testCoinProof3AssetState.get().getAsset().getType().toString());
+        // TODO The problem here is that different proofs has different amount value. The amount of asset should be set with the first proof.
+        // System.out.println("=> " + testCoinDecodedProof3.getDecodedProof().getAsset().getAmount());
+        // System.out.println("=> " + testCoinProof3AssetState.get().getAsset().getAmount());
+        // assertEquals(0, testCoinDecodedProof3.getDecodedProof().getAsset().getAmount().compareTo(testCoinProof3AssetState.get().getAsset().getAmount()));
+        // Assert group.
+        assertNull(testCoinProof3AssetState.get().getAsset().getAssetGroup());
+        // Asset state.
+        assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getChainAnchor().getAnchorBlockHash(),
+                testCoinProof3AssetState.get().getAnchorBlockHash());
+        assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getChainAnchor().getAnchorOutpoint(),
+                testCoinProof3AssetState.get().getAnchorOutpoint().getTxId() + ":" + testCoinProof3AssetState.get().getAnchorOutpoint().getVout());
+        assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getChainAnchor().getAnchorTx(),
+                testCoinProof3AssetState.get().getAnchorTx());
+        assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getChainAnchor().getAnchorTxId(),
+                testCoinProof3AssetState.get().getAnchorTxId());
+        assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getChainAnchor().getInternalKey(),
+                testCoinProof3AssetState.get().getInternalKey());
+        assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getChainAnchor().getMerkleRoot(),
+                testCoinProof3AssetState.get().getMerkleRoot());
+        assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getChainAnchor().getTapscriptSibling(),
+                testCoinProof3AssetState.get().getTapscriptSibling());
+        assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getScriptVersion(),
+                testCoinProof3AssetState.get().getScriptVersion().longValue());
+        assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getScriptKey(),
+                testCoinProof3AssetState.get().getScriptKey());
 
     }
 
