@@ -76,7 +76,7 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
     }
 
     @Override
-    public Mono<DecodedProofResponse> decode(final String rawProof, final int proofAtDepth) {
+    public final Mono<DecodedProofResponse> decode(final String rawProof, final long proofAtDepth) {
         logger.info("Calling decode for proof from tapd with raw proof {} at {} depth", rawProof, proofAtDepth);
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
 

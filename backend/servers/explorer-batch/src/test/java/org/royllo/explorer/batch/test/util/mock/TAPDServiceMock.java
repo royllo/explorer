@@ -42,28 +42,47 @@ public class TAPDServiceMock extends BaseTest {
 
         // Non-existing proof.
         Mockito.when(mockedService.decode("INVALID_PROOF")).thenReturn(Mono.just(getError()));
+        Mockito.when(mockedService.decode("INVALID_PROOF", 0)).thenReturn(Mono.just(getError()));
 
         // My Royllo coin.
         Mockito.when(mockedService.decode(ROYLLO_COIN_RAW_PROOF)).thenReturn(Mono.just(getMyRoylloCoin()));
+        Mockito.when(mockedService.decode(ROYLLO_COIN_RAW_PROOF, 0)).thenReturn(Mono.just(getMyRoylloCoin()));
 
         // Unknown Royllo coin.
         Mockito.when(mockedService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF)).thenReturn(Mono.just(getUnknownRoylloCoin()));
+        Mockito.when(mockedService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF, 0)).thenReturn(Mono.just(getUnknownRoylloCoin()));
 
         // Active Royllo coin.
         Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF)).thenReturn(Mono.just(getActiveRoylloCoinProof1()));
+        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF, 0)).thenReturn(Mono.just(getActiveRoylloCoinProof1()));
         Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF)).thenReturn(Mono.just(getActiveRoylloCoinProof2()));
+        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF, 0)).thenReturn(Mono.just(getActiveRoylloCoinProof2()));
         Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF)).thenReturn(Mono.just(getActiveRoylloCoinProof3()));
+        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF, 0)).thenReturn(Mono.just(getActiveRoylloCoinProof3()));
 
         // TestCoin.
         final ClassPathResource testCoinDecodeProof1 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-1.json");
-        final ClassPathResource testCoinDecodeProof2 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-2.json");
-        final ClassPathResource testCoinDecodeProof3 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-3.json");
-        DecodedProofResponse TestCoinDecodedProof1 = new ObjectMapper().readValue(testCoinDecodeProof1.getInputStream(), DecodedProofResponse.class);
-        DecodedProofResponse TestCoinDecodedProof2 = new ObjectMapper().readValue(testCoinDecodeProof2.getInputStream(), DecodedProofResponse.class);
-        DecodedProofResponse TestCoinDecodedProof3 = new ObjectMapper().readValue(testCoinDecodeProof3.getInputStream(), DecodedProofResponse.class);
-        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_1)).thenReturn(Mono.just(TestCoinDecodedProof1));
-        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_2)).thenReturn(Mono.just(TestCoinDecodedProof2));
-        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_3)).thenReturn(Mono.just(TestCoinDecodedProof3));
+        final ClassPathResource testCoinDecodeProof2 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-2-depth-0.json");
+        final ClassPathResource testCoinDecodeProof2Depth0 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-2-depth-0.json");
+        final ClassPathResource testCoinDecodeProof2Depth1 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-2-depth-1.json");
+        final ClassPathResource testCoinDecodeProof3 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-3-depth-0.json");
+        final ClassPathResource testCoinDecodeProof3Depth0 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-3-depth-0.json");
+        final ClassPathResource testCoinDecodeProof3Depth1 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-3-depth-1.json");
+        DecodedProofResponse testCoinDecodedProof1 = new ObjectMapper().readValue(testCoinDecodeProof1.getInputStream(), DecodedProofResponse.class);
+        DecodedProofResponse testCoinDecodedProof2 = new ObjectMapper().readValue(testCoinDecodeProof2.getInputStream(), DecodedProofResponse.class);
+        DecodedProofResponse testCoinDecodedProof2Depth0 = new ObjectMapper().readValue(testCoinDecodeProof2Depth0.getInputStream(), DecodedProofResponse.class);
+        DecodedProofResponse testCoinDecodedProof2Depth1 = new ObjectMapper().readValue(testCoinDecodeProof2Depth1.getInputStream(), DecodedProofResponse.class);
+        DecodedProofResponse testCoinDecodedProof3 = new ObjectMapper().readValue(testCoinDecodeProof3.getInputStream(), DecodedProofResponse.class);
+        DecodedProofResponse testCoinDecodedProof3Depth0 = new ObjectMapper().readValue(testCoinDecodeProof3Depth0.getInputStream(), DecodedProofResponse.class);
+        DecodedProofResponse testCoinDecodedProof3Depth1 = new ObjectMapper().readValue(testCoinDecodeProof3Depth1.getInputStream(), DecodedProofResponse.class);
+        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_1)).thenReturn(Mono.just(testCoinDecodedProof1));
+        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_1, 0)).thenReturn(Mono.just(testCoinDecodedProof1));
+        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_2)).thenReturn(Mono.just(testCoinDecodedProof2));
+        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_2, 0)).thenReturn(Mono.just(testCoinDecodedProof2Depth0));
+        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_2, 1)).thenReturn(Mono.just(testCoinDecodedProof2Depth1));
+        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_3)).thenReturn(Mono.just(testCoinDecodedProof3));
+        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_3, 0)).thenReturn(Mono.just(testCoinDecodedProof3Depth0));
+        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_3, 1)).thenReturn(Mono.just(testCoinDecodedProof3Depth1));
 
         // =============================================================================================================
         // Mock for universes.
@@ -337,7 +356,7 @@ public class TAPDServiceMock extends BaseTest {
         // Decoded proof.
         DecodedProofResponse.DecodedProof decodedProof = new DecodedProofResponse.DecodedProof();
         decodedProof.setProofAtDepth(0);
-        decodedProof.setNumberOfProofs(2);
+        decodedProof.setNumberOfProofs(1);
 
         // Asset.
         DecodedProofResponse.DecodedProof.Asset asset = new DecodedProofResponse.DecodedProof.Asset();

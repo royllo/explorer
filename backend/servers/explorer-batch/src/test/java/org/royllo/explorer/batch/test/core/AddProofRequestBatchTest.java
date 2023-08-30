@@ -258,8 +258,10 @@ public class AddProofRequestBatchTest extends BaseTest {
         // =============================================================================================================
         // We retrieve the value to compare it with our DTO.
         final ClassPathResource testCoinDecodeProof1 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-1.json");
-        final ClassPathResource testCoinDecodeProof2 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-2.json");
-        final ClassPathResource testCoinDecodeProof3 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-3.json");
+        final ClassPathResource testCoinDecodeProof2 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-2-depth-0.json");
+        final ClassPathResource testCoinDecodeProof2Depth0 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-2-depth-0.json");
+        final ClassPathResource testCoinDecodeProof2Depth1 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-2-depth-1.json");
+        final ClassPathResource testCoinDecodeProof3 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-3-depth-0.json");
         DecodedProofResponse testCoinDecodedProof1 = new ObjectMapper().readValue(testCoinDecodeProof1.getInputStream(), DecodedProofResponse.class);
         DecodedProofResponse testCoinDecodedProof2 = new ObjectMapper().readValue(testCoinDecodeProof2.getInputStream(), DecodedProofResponse.class);
         DecodedProofResponse testCoinDecodedProof3 = new ObjectMapper().readValue(testCoinDecodeProof3.getInputStream(), DecodedProofResponse.class);
@@ -283,6 +285,7 @@ public class AddProofRequestBatchTest extends BaseTest {
         addProofBatch.processRequests();
         Optional<RequestDTO> testCoinProof1Request1Treated = requestService.getRequest(testCoinProof1.getId());
         assertTrue(testCoinProof1Request1Treated.isPresent());
+        System.out.println("==> " + testCoinProof1Request1Treated.get().getErrorMessage());
         assertTrue(testCoinProof1Request1Treated.get().isSuccessful());
         assertEquals(SUCCESS, testCoinProof1Request1Treated.get().getStatus());
 
@@ -355,6 +358,7 @@ public class AddProofRequestBatchTest extends BaseTest {
         addProofBatch.processRequests();
         Optional<RequestDTO> testCoinProof2Request2created = requestService.getRequest(testCoinProof2.getId());
         assertTrue(testCoinProof2Request2created.isPresent());
+        System.out.println(testCoinProof2Request2created.get().getErrorMessage());
         assertTrue(testCoinProof2Request2created.get().isSuccessful());
         assertEquals(SUCCESS, testCoinProof2Request2created.get().getStatus());
 

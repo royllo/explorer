@@ -66,48 +66,74 @@ public class AddProofBatch extends BaseBatch {
                     .forEach(request -> {
                         logger.info("Processing request {}: {}", request.getId(), request);
 
-                        // We try to decode the proof.
                         try {
-                            final DecodedProofResponse response = tapdService.decode(request.getRawProof()).block();
-
-                            // We check if we have a decoded proof response.
+                            // =========================================================================================
+                            // First step, we call decode to see how many proofs are inside the file.
+                            long numberOfProofs = 0;
+                            DecodedProofResponse response = tapdService.decode(request.getRawProof()).block();
                             if (response == null) {
                                 logger.info("Decoded proof for request {} is null", request.getId());
                                 request.failure("Decoded proof is null");
                             } else {
-                                // We check if we had an error deciding the response.
                                 if (response.getErrorCode() != null) {
                                     logger.info("Request {} proof cannot be decoded because of this error: {}",
                                             request.getId(),
                                             response.getErrorMessage());
                                     request.failure(response.getErrorMessage());
                                 } else {
-                                    // Now we have the decoded proof.
-                                    AssetStateDTO assetStateToCreate = ASSET_STATE_MAPPER.mapToAssetStateDTO(response.getDecodedProof());
-
-                                    // We check if the asset state already exists - If not, we create it.
-                                    // Not that addAssetState() should create the asset and the asset group if they don't exists.
-                                    Optional<AssetStateDTO> assetStateCreated = assetStateService.getAssetStateByAssetStateId(assetStateToCreate.getAssetStateId());
-                                    if (assetStateCreated.isEmpty()) {
-                                        // If it doesn't exist, we create it
-                                        logger.info("Request {}, adding asset state {}", request.getId(), assetStateToCreate.getAssetStateId());
-                                        assetStateCreated = Optional.of(assetStateService.addAssetState(assetStateToCreate));
-                                    } else {
-                                        logger.info("For request {}, asset state {} already exists", request.getId(), assetStateToCreate.getAssetStateId());
-                                    }
-
-                                    // We can now add the proof.
-                                    proofService.addProof(request.getRawProof(), response);
-                                    request.setAsset(assetStateCreated.get().getAsset());
-                                    request.success();
+                                    numberOfProofs = response.getDecodedProof().getNumberOfProofs();
+                                    logger.info("Request {} has {} proofs", request.getId(), numberOfProofs);
                                 }
                             }
+
+                            // =========================================================================================
+                            // Now, we decode all proofs, one by one, starting by the oldest (issuance proof).
+                            boolean proofAdded = false;
+                            for (long i = numberOfProofs; i > 0; i--) {
+                                response = tapdService.decode(request.getRawProof(), i - 1).block();
+
+                                // We check if we have a decoded proof response.
+                                if (response == null) {
+                                    logger.info("Decoded proof for request {} is null", request.getId());
+                                    request.failure("Decoded proof is null");
+                                } else {
+                                    // We check if we had an error deciding the response.
+                                    if (response.getErrorCode() != null) {
+                                        logger.info("Request {} proof cannot be decoded because of this error: {}",
+                                                request.getId(),
+                                                response.getErrorMessage());
+                                        request.failure(response.getErrorMessage());
+                                    } else {
+                                        // Now we have the decoded proof.
+                                        AssetStateDTO assetStateToCreate = ASSET_STATE_MAPPER.mapToAssetStateDTO(response.getDecodedProof());
+
+                                        // We check if the asset state already exists - If not, we create it.
+                                        // Note that addAssetState() should create the asset and the asset group if they don't exist.
+                                        Optional<AssetStateDTO> assetStateCreated = assetStateService.getAssetStateByAssetStateId(assetStateToCreate.getAssetStateId());
+                                        if (assetStateCreated.isEmpty()) {
+                                            // If it doesn't exist, we create it
+                                            logger.info("Request {}, adding asset state {}", request.getId(), assetStateToCreate.getAssetStateId());
+                                            assetStateCreated = Optional.of(assetStateService.addAssetState(assetStateToCreate));
+                                        } else {
+                                            logger.info("For request {}, asset state {} already exists", request.getId(), assetStateToCreate.getAssetStateId());
+                                        }
+
+                                        // If not already added, we add the proof.
+                                        if (!proofAdded) {
+                                            proofService.addProof(request.getRawProof(), response);
+                                            request.setAsset(assetStateCreated.get().getAsset());
+                                            proofAdded = true;
+                                        }
+                                        request.success();
+                                    }
+                                }
+                            }
+
                         } catch (ProofCreationException exception) {
                             logger.error("Request {} encountered an error:  {}", request.getId(), exception.getMessage());
                             request.failure(exception.getMessage());
                         } catch (Throwable tapdError) {
                             // We failed on calling tapd, but it's an exception; not a "valid" error.
-                            tapdError.printStackTrace();
                             logger.error("Request {} encountered an error with Tapd: {}", request.getId(), tapdError.getMessage());
                             request.failure("Error: " + tapdError.getMessage());
                         }

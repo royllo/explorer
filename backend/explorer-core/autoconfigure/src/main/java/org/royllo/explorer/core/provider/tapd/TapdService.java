@@ -25,7 +25,7 @@ public interface TapdService {
      * @param proofAtDepth proof at depth
      * @return decoded proof
      */
-    Mono<DecodedProofResponse> decode(String rawProof, int proofAtDepth);
+    Mono<DecodedProofResponse> decode(String rawProof, long proofAtDepth);
 
     /**
      * Get universe roots.

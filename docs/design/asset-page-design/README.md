@@ -19,7 +19,7 @@ curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./admin.macaroon)
 
 ### testCoinProof2
 
-Here, our proof files contains two proof (`proof_at_depth`: 1, `number_of_proofs`: 2).
+Here, our proof file contains two proof (`proof_at_depth`: 1, `number_of_proofs`: 2).
 
 Proof 1:
 
@@ -39,9 +39,17 @@ curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./admin.macaroon)
 
 ### testCoinProof3
 
+Here, our proof file contains two proof (`proof_at_depth`: 1, `number_of_proofs`: 2).
+
 ```bash
 curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./admin.macaroon)" \
-        --data @REST-decode-testCoin-proof3.json \
+        --data @REST-decode-testCoin-proof3-0.json \
+        --insecure https://157.230.85.88:8089/v1/taproot-assets/proofs/decode | jq
+```
+
+```bash
+curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./admin.macaroon)" \
+        --data @REST-decode-testCoin-proof3-1.json \
         --insecure https://157.230.85.88:8089/v1/taproot-assets/proofs/decode | jq
 ```
 
