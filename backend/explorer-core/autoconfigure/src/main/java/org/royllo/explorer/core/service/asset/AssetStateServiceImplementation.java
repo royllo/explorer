@@ -12,6 +12,8 @@ import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.repository.asset.AssetStateRepository;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 import org.royllo.explorer.core.util.base.BaseService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -26,6 +28,9 @@ import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_US
 @SuppressWarnings({"checkstyle:DesignForExtension", "unused"})
 public class AssetStateServiceImplementation extends BaseService implements AssetStateService {
 
+    /** Search parameter for asset id. */
+    public static final String SEARCH_PARAMETER_ASSET_ID = "assetId:";
+
     /** Assert repository. */
     private final AssetRepository assetRepository;
 
@@ -37,6 +42,32 @@ public class AssetStateServiceImplementation extends BaseService implements Asse
 
     /** Bitcoin service. */
     private final BitcoinService bitcoinService;
+
+    @Override
+    public Page<AssetStateDTO> queryAssetStates(@NonNull final String query,
+                                                final int page,
+                                                final int pageSize) {
+        logger.info("Searching for {}", query);
+
+        // For the moment, we only support a "assetId:value" query.
+        assert query.contains(SEARCH_PARAMETER_ASSET_ID) : "Only assetId:value query is supported";
+
+        // Checking constraints.
+        assert page >= 1 : "Page number starts at page 1";
+
+        // Results that will be returned.
+        Page<AssetStateDTO> results = Page.empty();
+
+        // If the query parameter contains "assetId:value", retrieve the value
+        // and search for all the asset states of this asset.
+        if (query.contains(SEARCH_PARAMETER_ASSET_ID)) {
+            final String assetId = query.trim().split(SEARCH_PARAMETER_ASSET_ID)[1];
+            results = assetStateRepository.findByAsset_AssetId(assetId, PageRequest.of(page - 1, pageSize))
+                    .map(ASSET_STATE_MAPPER::mapToAssetStateDTO);
+        }
+
+        return results;
+    }
 
     @Override
     public AssetStateDTO addAssetState(final @NonNull AssetStateDTO newAssetState) {

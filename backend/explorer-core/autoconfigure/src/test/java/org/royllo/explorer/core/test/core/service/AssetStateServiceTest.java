@@ -14,6 +14,7 @@ import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 import org.royllo.explorer.core.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -25,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.royllo.explorer.core.service.asset.AssetStateServiceImplementation.SEARCH_PARAMETER_ASSET_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
@@ -54,12 +56,34 @@ public class AssetStateServiceTest extends BaseTest {
     private AssetStateService assetStateService;
 
     @Test
+    @DisplayName("queryAssetStates()")
+    public void queryAssetStates() {
+        // Search for asset states without specifying the SEARCH_PARAMETER_ASSET_ID parameter.
+        try {
+            assetStateService.queryAssetStates("dezded", 1, 5);
+            fail("An exception should have been raised");
+        } catch (AssertionError e) {
+            assertEquals("Only assetId:value query is supported", e.getMessage());
+        }
+
+        // Searching for asset states for an asset id that doesn't exist.
+        Page<AssetStateDTO> results = assetStateService.queryAssetStates(SEARCH_PARAMETER_ASSET_ID + "NON-EXISTING", 1, 5);
+        assertEquals(0, results.getTotalElements());
+        assertEquals(0, results.getTotalPages());
+
+        // Searching for the asset states of an existing asset.
+        results = assetStateService.queryAssetStates(SEARCH_PARAMETER_ASSET_ID + "asset_id_9", 1, 5);
+        assertEquals(3, results.getTotalElements());
+        assertEquals(5, results.getSize());
+        assertEquals(1, results.getTotalPages());
+    }
+
+    @Test
     @DisplayName("addAssetState()")
     public void addAssetState() {
         // We retrieve a bitcoin transaction output from database for our test.
         final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(BITCOIN_TRANSACTION_1_TXID, 0);
         assertTrue(bto.isPresent());
-
 
         // =============================================================================================================
         // First constraint test - Trying to save an asset state with an ID.

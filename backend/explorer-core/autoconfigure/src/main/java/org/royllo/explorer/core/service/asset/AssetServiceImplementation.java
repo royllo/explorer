@@ -15,7 +15,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -50,7 +49,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         assert page >= 1 : "Page number starts at page 1";
 
         // Results.
-        Page<AssetDTO> results = new PageImpl<>(List.of());
+        Page<AssetDTO> results = Page.empty();
 
         // If the "query" parameter has a size equals to ASSET_ID_SIZE,
         // we search if there is this asset in database with this exact assetId.

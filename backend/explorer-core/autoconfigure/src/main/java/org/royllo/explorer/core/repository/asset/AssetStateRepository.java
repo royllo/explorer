@@ -1,6 +1,8 @@
 package org.royllo.explorer.core.repository.asset;
 
 import org.royllo.explorer.core.domain.asset.AssetState;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,5 +21,16 @@ public interface AssetStateRepository extends JpaRepository<AssetState, Long> {
      * @return asset state
      */
     Optional<AssetState> findByAssetStateId(String assetStateId);
+
+    /**
+     * Find all the asset states for a given asset.
+     * TODO Add an order when we will know how to order them.
+     *
+     * @param assetId  asset id
+     * @param pageable page parameters
+     * @return asset states
+     */
+    @SuppressWarnings("checkstyle:MethodName")
+    Page<AssetState> findByAsset_AssetId(String assetId, Pageable pageable);
 
 }
