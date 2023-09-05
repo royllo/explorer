@@ -41,7 +41,7 @@ public class AssetState extends BaseDomain {
     @JoinColumn(name = "FK_USER_CREATOR", nullable = false)
     private User creator;
 
-    /** The asset state ID that uniquely identifies the asset stat (calculated by Royllo). */
+    /** The asset state ID that uniquely identifies the asset state (calculated by Royllo). */
     @NonFinal
     @Column(name = "ASSET_STATE_ID", updatable = false)
     private String assetStateId;

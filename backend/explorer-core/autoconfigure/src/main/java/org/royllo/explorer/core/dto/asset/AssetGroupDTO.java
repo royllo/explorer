@@ -9,7 +9,7 @@ import org.royllo.explorer.core.domain.user.User;
 import static lombok.AccessLevel.PRIVATE;
 
 /**
- * Taproot asset chain anchor.
+ * Taproot asset group.
  */
 @Value
 @Builder

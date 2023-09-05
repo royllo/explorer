@@ -4,7 +4,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet author="straumat" id="test-data-users">
 
-        <!-- Anonymous user -->
+        <!-- Straumat user -->
         <insert tableName="USERS">
             <column name="ID" value="2"/>
             <column name="USER_ID" value="22222222-2222-2222-2222-222222222222"/>
