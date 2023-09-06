@@ -238,11 +238,11 @@ public class AssetDataFetcherTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("queryAssets() without negative number")
+    @DisplayName("queryAssets() with negative number")
     public void queryAssetsWithNegativePageNumber() {
         try {
             // Looking at page -1.
-            GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
+            new GraphQLQueryRequest(
                     QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(-1).build(),
                     new QueryAssetsProjectionRoot<>().content()
                             .creator().userId().username().parent()

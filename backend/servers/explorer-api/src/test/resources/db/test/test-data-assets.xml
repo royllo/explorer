@@ -399,6 +399,7 @@
         </insert>
         <insert tableName="ASSET_STATE">
             <column name="ID" value="10091"/>
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10091"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1009"/>
 
@@ -415,6 +416,7 @@
         </insert>
         <insert tableName="ASSET_STATE">
             <column name="ID" value="10092"/>
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10092"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1009"/>
 
@@ -431,6 +433,7 @@
         </insert>
         <insert tableName="ASSET_STATE">
             <column name="ID" value="10093"/>
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10093"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1009"/>
 
