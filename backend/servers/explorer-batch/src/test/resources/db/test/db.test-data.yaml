@@ -11,7 +11,7 @@ databaseChangeLog:
   - include:
       file: /db/test/test-data-asset.xml
   - include:
-      file: /db/test/test-data-proofs.xml
+      file: /db/test/test-data-proof_file.xml
   - include:
       file: /db/test/test-data-request.xml
   - include:

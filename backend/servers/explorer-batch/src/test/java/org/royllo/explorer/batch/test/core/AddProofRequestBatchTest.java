@@ -109,7 +109,7 @@ public class AddProofRequestBatchTest extends BaseTest {
         assertTrue(myRoylloCoinRequestTreated.isPresent());
         assertFalse(myRoylloCoinRequestTreated.get().isSuccessful());
         assertEquals(FAILURE, myRoylloCoinRequestTreated.get().getStatus());
-        assertEquals("This proof is already registered with proof id: " + ROYLLO_COIN_PROOF_ID, myRoylloCoinRequestTreated.get().getErrorMessage());
+        assertEquals("This proof file is already registered with proof id: " + ROYLLO_COIN_PROOF_ID, myRoylloCoinRequestTreated.get().getErrorMessage());
 
         // =============================================================================================================
         // "Unknown Royllo coin": The asset and the proof are not in our database.
@@ -195,7 +195,7 @@ public class AddProofRequestBatchTest extends BaseTest {
         assertTrue(myRoylloCoinRequestTreatedBis.isPresent());
         assertFalse(myRoylloCoinRequestTreatedBis.get().isSuccessful());
         assertEquals(FAILURE, myRoylloCoinRequestTreatedBis.get().getStatus());
-        assertEquals("This proof is already registered with proof id: " + UNKNOWN_ROYLLO_COIN_RAW_PROOF_PROOF_ID, myRoylloCoinRequestTreatedBis.get().getErrorMessage());
+        assertEquals("This proof file is already registered with proof id: " + UNKNOWN_ROYLLO_COIN_RAW_PROOF_PROOF_ID, myRoylloCoinRequestTreatedBis.get().getErrorMessage());
 
         // =============================================================================================================
         // "Active Royllo coin" : The asset and the proofs are not in our database.
