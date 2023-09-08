@@ -56,26 +56,26 @@
 
         <!--/* =================================================================================================== */-->
         <!--*/ Tabs navigation */-->
-        <div class="border-b border-gray-200" x-data="{ activeTab: 1 }">
+        <div x-data="{ activeTab: 1 }">
 
             <!--/* =============================================================================================== */-->
             <!--*/ Tabs navigation */-->
             <nav aria-label="Tabs" class="-mb-px flex space-x-8">
                 <label :class="{ 'selectedTab': activeTab === 1 }"
                        @click="activeTab = 1"
-                       class="tab" th:text="#{asset.view.tabs.assetGenesis}"></label>
+                       class="tab" th:text="#{asset.view.tabs.asset}"></label>
                 <label :class="{ 'selectedTab': activeTab === 2 }"
                        @click="activeTab = 2"
-                       class="tab" th:text="#{asset.view.tabs.owner}">></label>
+                       class="tab" th:text="#{asset.view.tabs.assetGroup}"></label>
                 <label :class="{ 'selectedTab': activeTab === 3 }"
                        @click="activeTab = 3"
-                       class="tab" th:text="#{asset.view.tabs.assetGroup}">></label>
+                       class="tab" th:text="#{asset.view.tabs.assetStates}"></label>
                 <label :class="{ 'selectedTab': activeTab === 4 }"
                        @click="activeTab = 4"
-                       class="tab" th:text="#{asset.view.tabs.chainAnchors}">></label>
+                       class="tab" th:text="#{asset.view.tabs.owner}"></label>
                 <label :class="{ 'selectedTab': activeTab === 5 }"
                        @click="activeTab = 5"
-                       class="tab" th:text="#{asset.view.tabs.proofs}">></label>
+                       class="tab" th:text="#{asset.view.tabs.proofs}"></label>
             </nav>
             <!--/* =============================================================================================== */-->
 
@@ -93,23 +93,22 @@
                                 <dd class="tableLineValue" th:text="${result.assetId}"></dd>
                             </div>
 
-                            <!--/* Asset name */-->
-                            <div class="tableLine">
-                                <dt class="tableLineDescription" th:text="#{field.asset.name}"></dt>
-                                <dd class="tableLineValue" th:text="${result.name}"></dd>
-                            </div>
-
                             <!--/* Genesis point */-->
                             <div class="tableLine">
                                 <dt class="tableLineDescription" th:text="#{field.asset.genesisPoint}"></dt>
-                                <dd class="tableLineValue"
-                                    th:text="${result.genesisPoint.txId} + ':' + ${result.genesisPoint.vout}"></dd>
+                                <dd class="tableLineValue" th:text="${result.getGenesisPoint().toString()}"></dd>
                             </div>
 
                             <!--/* Metadata hash */-->
                             <div class="tableLine">
                                 <dt class="tableLineDescription" th:text="#{field.asset.metaDataHash}"></dt>
-                                <dd class="tableLineValue" th:text="${result.getMetaDataHash}"></dd>
+                                <dd class="tableLineValue" th:text="${result.metaDataHash}">></dd>
+                            </div>
+
+                            <!--/* Asset name */-->
+                            <div class="tableLine">
+                                <dt class="tableLineDescription" th:text="#{field.asset.name}"></dt>
+                                <dd class="tableLineValue" th:text="${result.name}"></dd>
                             </div>
 
                             <!--/* Taproot assets output index */-->
@@ -127,6 +126,12 @@
                                     th:text="#{field.asset.assetType.collectible}"></dd>
                             </div>
 
+                            <!--/* Amount */-->
+                            <div class="tableLine">
+                                <dt class="tableLineDescription" th:text="#{field.asset.amount}"></dt>
+                                <dd class="tableLineValue" th:text="${result.amount}"></dd>
+                            </div>
+
                         </dl>
                     </div>
                 </div>
@@ -134,32 +139,25 @@
             <!--/* =============================================================================================== */-->
 
             <!--/* =============================================================================================== */-->
-            <!--*/ Owner tab */-->
-            <div :class="{ 'active': activeTab === 2 }" class="px-6 py-4"
+            <!--*/ Asset group tab (if not null) */-->
+            <div :class="{ 'active': activeTab === 2 }" class="px-6 py-4" th:if="${result.assetGroup != null}"
                  x-show="activeTab === 2">
-                <p th:text="#{asset.view.tabs.owner.explanation}"></p>
-            </div>
-            <!--/* =============================================================================================== */-->
 
-            <!--/* =============================================================================================== */-->
-            <!--*/ Asset group tab */-->
-            <div :class="{ 'active': activeTab === 3 }" class="px-6 py-4"
-                 x-show="activeTab === 3">
                 <div class="overflow-hidden shadow sm:rounded-lg">
                     <div class="border-t border-gray-100">
                         <dl class="divide-y divide-gray-100">
 
                             <div class="tableLine">
+                                <dt class="tableLineDescription" th:text="#{field.asset.assetIdSig}"></dt>
+                                <dd class="tableLineValue" th:text="${result.assetGroup.assetIdSig}"></dd>
+                            </div>
+                            <div class="tableLine">
                                 <dt class="tableLineDescription" th:text="#{field.asset.rawGroupKey}"></dt>
-                                <dd class="tableLineValue" th:text="${result.rawGroupKey}"></dd>
+                                <dd class="tableLineValue" th:text="${result.assetGroup.rawGroupKey}"></dd>
                             </div>
                             <div class="tableLine">
                                 <dt class="tableLineDescription" th:text="#{field.asset.tweakedGroupKey}"></dt>
-                                <dd class="tableLineValue" th:text="${result.tweakedGroupKey}"></dd>
-                            </div>
-                            <div class="tableLine">
-                                <dt class="tableLineDescription" th:text="#{field.asset.assetIdSig}"></dt>
-                                <dd class="tableLineValue" th:text="${result.assetIdSig}"></dd>
+                                <dd class="tableLineValue" th:text="${result.assetGroup.tweakedGroupKey}"></dd>
                             </div>
                         </dl>
                     </div>
@@ -168,10 +166,71 @@
             <!--/* =============================================================================================== */-->
 
             <!--/* =============================================================================================== */-->
-            <!--*/ Chain anchors tab */-->
+            <!--*/ Asset states */-->
+            <div :class="{ 'active': activeTab === 3 }" class="px-6 py-4"
+                 x-show="activeTab === 3">
+
+                <div class="overflow-hidden shadow sm:rounded-lg mb-4" th:each="assetState: ${assetStatesList}">
+                    <div class="border-t border-gray-100">
+
+                        <dl class="divide-y divide-gray-100">
+                            <div class="tableLineGray">
+                                <dt class="tableLineDescription" th:text="#{field.asset.anchorOutpoint}"></dt>
+                                <dd class="tableLineValue" th:text="${assetState.anchorOutpoint.toString()}"></dd>
+                            </div>
+                            <div class="tableLineGray">
+                                <dt class="tableLineDescription" th:text="#{field.asset.scriptKey}"></dt>
+                                <dd class="tableLineValue" th:text="${assetState.scriptKey}"></dd>
+                            </div>
+                            <div class="tableLine">
+                                <dt class="tableLineDescription" th:text="#{field.asset.anchorBlockHash}"></dt>
+                                <dd class="tableLineValue" th:text="${assetState.anchorBlockHash}"></dd>
+                            </div>
+                            <div class="tableLine">
+                                <dt class="tableLineDescription" th:text="#{field.asset.anchorTx}"></dt>
+                                <dd class="tableLineValue" th:text="${assetState.anchorTx}"></dd>
+                            </div>
+                            <div class="tableLine">
+                                <dt class="tableLineDescription" th:text="#{field.asset.internalKey}"></dt>
+                                <dd class="tableLineValue" th:text="${assetState.internalKey}"></dd>
+                            </div>
+                            <div class="tableLine">
+                                <dt class="tableLineDescription" th:text="#{field.asset.merkleRoot}"></dt>
+                                <dd class="tableLineValue" th:text="${assetState.merkleRoot}"></dd>
+                            </div>
+                            <div class="tableLine">
+                                <dt class="tableLineDescription" th:text="#{field.asset.tapscriptSibling}"></dt>
+                                <dd class="tableLineValue" th:text="${assetState.tapscriptSibling}"></dd>
+                            </div>
+                        </dl>
+
+                    </div>
+                </div>
+
+            </div>
+            <!--/* =============================================================================================== */-->
+
+            <!--/* =============================================================================================== */-->
+            <!--*/ Owner tab */-->
             <div :class="{ 'active': activeTab === 4 }" class="px-6 py-4"
                  x-show="activeTab === 4">
-                <p>Chain anchors tab.</p>
+                <div class="overflow-hidden shadow sm:rounded-lg">
+                    <div class="border-t border-gray-100">
+                        <dl class="divide-y divide-gray-100">
+                            <!--/* User */-->
+                            <div class="tableLine">
+                                <dt class="tableLineDescription" th:text="#{field.asset.creator.userId}"></dt>
+                                <dd class="tableLineValue" th:text="${result.creator.getUserId()}"></dd>
+                            </div>
+                            <div class="tableLine">
+                                <dt class="tableLineDescription" th:text="#{field.asset.creator.username}"></dt>
+                                <dd class="tableLineValue" th:text="${result.creator.username}"></dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+                <br><br>
+                <p class="text-center" th:text="#{asset.view.tabs.owner.explanation}"></p>
             </div>
             <!--/* =============================================================================================== */-->
 

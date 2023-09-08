@@ -62,8 +62,16 @@
         @apply px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6
     }
 
+    .tableLineGray {
+        @apply px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 bg-gray-400
+    }
+
     .tableLineDescription {
         @apply text-sm font-medium text-gray-900
+    }
+
+    .tableLineDescriptionGray {
+        @apply text-sm font-medium text-gray-900 bg-gray
     }
 
     .tableLineValue {

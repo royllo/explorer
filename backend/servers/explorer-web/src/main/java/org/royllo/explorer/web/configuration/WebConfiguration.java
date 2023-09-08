@@ -19,6 +19,9 @@ public class WebConfiguration implements WebMvcConfigurer {
     /** Assets search results default page size. */
     public static final int ASSET_SEARCH_DEFAULT_PAGE_SIZE = 10;
 
+    /** Asset states default page size. */
+    public static final int ASSET_STATES_DEFAULT_PAGE_SIZE = 100;
+
     /** Asset's proofs default page size. */
     public static final int ASSET_PROOFS_DEFAULT_PAGE_SIZE = 100;
 

@@ -77,7 +77,6 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_ASSET_ID_SIG + "<")))
                 // Anchor.
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_TX + "<")))
-                .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_TX_ID + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_BLOCK_HASH + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_OUTPOINT + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_INTERNAL_KEY + "<")))
@@ -98,7 +97,7 @@ public class AssetControllerTest extends BaseTest {
                 // Checking each field.
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_NAME + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_ASSET_ID + "<")))
-                // Asset genesis.
+                // Asset.
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_GENESIS_POINT_TXID + ":" + ROYLLO_COIN_GENESIS_POINT_VOUT + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_NAME + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_META_DATA_HASH + "<")))
@@ -108,13 +107,12 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(containsString(">Normal<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_AMOUNT + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_SCRIPT_KEY + "<")))
-                // Group key.
+                // Asset group.
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_RAW_GROUP_KEY + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_TWEAKED_GROUP_KEY + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_ASSET_ID_SIG + "<")))
-                // Anchor.
+                // Asset state.
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_TX + "<")))
-                .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_TX_ID + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_BLOCK_HASH + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_ANCHOR_OUTPOINT + "<")))
                 .andExpect(content().string(containsString(">" + ROYLLO_COIN_INTERNAL_KEY + "<")))

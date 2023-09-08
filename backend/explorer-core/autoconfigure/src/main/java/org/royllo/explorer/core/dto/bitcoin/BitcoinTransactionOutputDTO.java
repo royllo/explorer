@@ -62,7 +62,7 @@ public class BitcoinTransactionOutputDTO {
      */
     @Override
     public String toString() {
-        return txId + '-' + vout;
+        return txId + ':' + vout;
     }
 
 }

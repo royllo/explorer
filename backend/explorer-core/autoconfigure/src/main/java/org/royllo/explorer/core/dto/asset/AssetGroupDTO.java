@@ -20,7 +20,7 @@ public class AssetGroupDTO {
     /** Unique identifier. */
     Long id;
 
-    /** Asset creator. */
+    /** Asset creator. TODO Maybe this field is useless ? or should not be in assetDTO ? */
     @NotNull(message = "Asset group creator is required")
     User creator;
 
