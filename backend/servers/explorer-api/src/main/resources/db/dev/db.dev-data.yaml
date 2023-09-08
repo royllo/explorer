@@ -11,6 +11,6 @@ databaseChangeLog:
   - include:
       file: /db/dev/dev-data-asset.xml
   - include:
-      file: /db/dev/dev-data-proofs.xml
+      file: /db/dev/dev-data-proof_file.xml
   - include:
       file: /db/dev/dev-data-request.xml

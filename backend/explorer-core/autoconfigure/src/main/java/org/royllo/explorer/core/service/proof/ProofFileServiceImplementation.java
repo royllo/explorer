@@ -3,11 +3,11 @@ package org.royllo.explorer.core.service.proof;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.asset.Asset;
-import org.royllo.explorer.core.domain.proof.Proof;
-import org.royllo.explorer.core.dto.proof.ProofDTO;
+import org.royllo.explorer.core.domain.proof.ProofFile;
+import org.royllo.explorer.core.dto.proof.ProofFileDTO;
 import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
-import org.royllo.explorer.core.repository.proof.ProofRepository;
+import org.royllo.explorer.core.repository.proof.ProofFileRepository;
 import org.royllo.explorer.core.util.base.BaseService;
 import org.royllo.explorer.core.util.exceptions.proof.ProofCreationException;
 import org.springframework.data.domain.Page;
@@ -21,28 +21,28 @@ import static java.util.stream.Collectors.joining;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
 
 /**
- * {@link ProofService} implementation.
+ * {@link ProofFileService} implementation.
  */
 @Service
 @RequiredArgsConstructor
 @SuppressWarnings({"checkstyle:DesignForExtension", "unused"})
-public class ProofServiceImplementation extends BaseService implements ProofService {
+public class ProofFileServiceImplementation extends BaseService implements ProofFileService {
 
     /** Asset repository. */
     private final AssetRepository assetRepository;
 
     /** Proof repository. */
-    private final ProofRepository proofRepository;
+    private final ProofFileRepository proofFileRepository;
 
     @Override
-    public ProofDTO addProof(@NonNull final String rawProof,
-                             @NonNull final DecodedProofResponse decodedProof) {
+    public ProofFileDTO addProof(@NonNull final String rawProof,
+                                 @NonNull final DecodedProofResponse decodedProof) {
         logger.info("Adding {} with {}", rawProof, decodedProof);
 
         // We check that the proof is not in our database.
-        proofRepository.findByProofId(sha256(rawProof)).ifPresent(proof -> {
-            logger.info("Proof {} is already registered", rawProof);
-            throw new ProofCreationException("This proof is already registered with proof id: " + proof.getProofId());
+        proofFileRepository.findByProofFileId(sha256(rawProof)).ifPresent(proof -> {
+            logger.info("Proof file {} is already registered", rawProof);
+            throw new ProofCreationException("This proof file is already registered with proof id: " + proof.getProofFileId());
         });
 
         // We check that the asset exists in our database.
@@ -54,56 +54,56 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
             throw new ProofCreationException("Asset " + assetId + " is not registered in our database");
         } else {
             // Asset exists, we create the proof.
-            final Proof proof = proofRepository.save(Proof.builder()
-                    .proofId(sha256(rawProof))
+            final ProofFile proofFile = proofFileRepository.save(ProofFile.builder()
+                    .proofFileId(sha256(rawProof))
                     .creator(ANONYMOUS_USER)
                     .asset(asset.get())
                     .rawProof(rawProof)
                     .build());
-            final ProofDTO proofDTO = PROOF_MAPPER.mapToProofDTO(proof);
-            logger.info("Proof created with id {} : {}", proofDTO.getId(), proofDTO);
-            return proofDTO;
+            final ProofFileDTO proofFileDTO = PROOF_FILE_MAPPER.mapToProofFileDTO(proofFile);
+            logger.info("Proof file created with id {} : {}", proofFileDTO.getId(), proofFileDTO);
+            return proofFileDTO;
         }
     }
 
     @Override
-    public Optional<ProofDTO> getProofByProofId(@NonNull final String proofId) {
-        logger.info("Getting proof with proofId {}", proofId);
+    public Optional<ProofFileDTO> getProofFileByProofFileId(@NonNull final String proofFileId) {
+        logger.info("Getting proof file with proofFileId {}", proofFileId);
 
-        final Optional<Proof> proof = proofRepository.findByProofId(proofId);
+        final Optional<ProofFile> proof = proofFileRepository.findByProofFileId(proofFileId);
         if (proof.isEmpty()) {
-            logger.info("Proof with proofId {} not found", proofId);
+            logger.info("Proof file with proofFileId {} not found", proofFileId);
             return Optional.empty();
         } else {
-            logger.info("Proof with proofId {} found: {}", proofId, proof.get());
-            return proof.map(PROOF_MAPPER::mapToProofDTO);
+            logger.info("Proof file with proofFileId {} found: {}", proofFileId, proof.get());
+            return proof.map(PROOF_FILE_MAPPER::mapToProofFileDTO);
         }
     }
 
     @Override
-    public Page<ProofDTO> getProofsByAssetId(@NonNull final String assetId,
-                                             final int page,
-                                             final int pageSize) {
-        logger.info("Getting proofs for assetId {}", assetId);
+    public Page<ProofFileDTO> getProofFilesByAssetId(@NonNull final String assetId,
+                                                     final int page,
+                                                     final int pageSize) {
+        logger.info("Getting proof files for assetId {}", assetId);
 
         // Checking constraints.
         assert page >= 1 : "Page number starts at page 1";
         assert assetRepository.findByAssetId(assetId).isPresent() : "Asset ID not found";
 
         // Getting results.
-        final Page<ProofDTO> results = proofRepository.findByAssetAssetIdOrderByCreatedOn(assetId,
+        final Page<ProofFileDTO> results = proofFileRepository.findByAssetAssetIdOrderByCreatedOn(assetId,
                         PageRequest.of(page - 1, pageSize))
-                .map(PROOF_MAPPER::mapToProofDTO);
+                .map(PROOF_FILE_MAPPER::mapToProofFileDTO);
 
         // Displaying logs.
         if (results.isEmpty()) {
-            logger.info("For assetId '{}', there is no proof", assetId);
+            logger.info("For assetId '{}', there is no proof file", assetId);
         } else {
-            logger.info("For assetId '{}', there are {} proofs(s): {}",
+            logger.info("For assetId '{}', there are {} proof file(s): {}",
                     assetId,
                     results.getTotalElements(),
                     results.stream()
-                            .map(ProofDTO::getId)
+                            .map(ProofFileDTO::getId)
                             .map(Objects::toString)
                             .collect(joining(", ")));
         }

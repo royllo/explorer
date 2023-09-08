@@ -10,7 +10,7 @@ import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.service.asset.AssetGroupService;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.asset.AssetStateService;
-import org.royllo.explorer.core.service.proof.ProofService;
+import org.royllo.explorer.core.service.proof.ProofFileService;
 import org.royllo.explorer.core.service.request.RequestService;
 import org.royllo.explorer.core.util.exceptions.proof.ProofCreationException;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -51,7 +51,7 @@ public class AddProofBatch extends BaseBatch {
     private final AssetStateService assetStateService;
 
     /** Proof service. */
-    private final ProofService proofService;
+    private final ProofFileService proofService;
 
     /**
      * Recurrent calls to process requests.

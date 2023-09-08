@@ -16,7 +16,7 @@ import org.royllo.explorer.core.repository.asset.AssetStateRepository;
 import org.royllo.explorer.core.service.asset.AssetGroupService;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.asset.AssetStateService;
-import org.royllo.explorer.core.service.proof.ProofService;
+import org.royllo.explorer.core.service.proof.ProofFileService;
 import org.royllo.explorer.core.service.request.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -68,7 +68,7 @@ public class AddProofRequestBatchTest extends BaseTest {
     AssetStateService assetStateService;
 
     @Autowired
-    ProofService proofService;
+    ProofFileService proofService;
 
     @Autowired
     AddProofBatch addProofBatch;
@@ -120,7 +120,7 @@ public class AddProofRequestBatchTest extends BaseTest {
         assertFalse(assetGroupService.getAssetGroupByRawGroupKey(UNKNOWN_ROYLLO_COIN_RAW_GROUP_KEY).isPresent());
         assertFalse(assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
         assertFalse(assetStateService.getAssetStateByAssetStateId(UKNOWN_ROYLLO_COIN_ASSET_STATE_ID).isPresent());
-        assertFalse(proofService.getProofByProofId(UNKNOWN_ROYLLO_COIN_RAW_PROOF_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofFileByProofFileId(UNKNOWN_ROYLLO_COIN_RAW_PROOF_PROOF_ID).isPresent());
 
         // Add the request
         AddProofRequestDTO unknownRoylloCoinRequest = requestService.createAddProofRequest(UNKNOWN_ROYLLO_COIN_RAW_PROOF);
@@ -139,7 +139,7 @@ public class AddProofRequestBatchTest extends BaseTest {
         assertTrue(assetGroupService.getAssetGroupByRawGroupKey(UNKNOWN_ROYLLO_COIN_RAW_GROUP_KEY).isPresent());
         assertTrue(assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
         assertTrue(assetStateService.getAssetStateByAssetStateId(UKNOWN_ROYLLO_COIN_ASSET_STATE_ID).isPresent());
-        assertTrue(proofService.getProofByProofId(UNKNOWN_ROYLLO_COIN_RAW_PROOF_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofFileByProofFileId(UNKNOWN_ROYLLO_COIN_RAW_PROOF_PROOF_ID).isPresent());
 
         // We will now check the data created for Uknown royllo coin.
         final Optional<AssetStateDTO> unknownRoylloCoin = assetStateService.getAssetStateByAssetStateId(UKNOWN_ROYLLO_COIN_ASSET_STATE_ID);
@@ -204,9 +204,9 @@ public class AddProofRequestBatchTest extends BaseTest {
 
         // Check that the asset and the proofs does not exist.
         assertFalse(assetService.getAssetByAssetId(ACTIVE_ROYLLO_COIN_ASSET_ID).isPresent());
-        assertFalse(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF_PROOF_ID).isPresent());
-        assertFalse(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF_PROOF_ID).isPresent());
-        assertFalse(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofFileByProofFileId(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofFileByProofFileId(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofFileByProofFileId(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF_PROOF_ID).isPresent());
 
         // Add the request for proof 1 and process it.
         AddProofRequestDTO activeRoylloCoinRequest1 = requestService.createAddProofRequest(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF);
@@ -218,9 +218,9 @@ public class AddProofRequestBatchTest extends BaseTest {
 
         // Check the asset and the proofs.
         assertTrue(assetService.getAssetByAssetId(ACTIVE_ROYLLO_COIN_ASSET_ID).isPresent());
-        assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF_PROOF_ID).isPresent());
-        assertFalse(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF_PROOF_ID).isPresent());
-        assertFalse(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofFileByProofFileId(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofFileByProofFileId(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofFileByProofFileId(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF_PROOF_ID).isPresent());
 
         // Add the request for proof 3 and process it.
         AddProofRequestDTO activeRoylloCoinRequest2 = requestService.createAddProofRequest(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF);
@@ -232,9 +232,9 @@ public class AddProofRequestBatchTest extends BaseTest {
 
         // Check the asset and the proofs.
         assertTrue(assetService.getAssetByAssetId(ACTIVE_ROYLLO_COIN_ASSET_ID).isPresent());
-        assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF_PROOF_ID).isPresent());
-        assertFalse(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF_PROOF_ID).isPresent());
-        assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofFileByProofFileId(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofFileByProofFileId(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofFileByProofFileId(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF_PROOF_ID).isPresent());
 
         // Add the request for proof 2 and process it.
         AddProofRequestDTO activeRoylloCoinRequest3 = requestService.createAddProofRequest(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF);
@@ -246,9 +246,9 @@ public class AddProofRequestBatchTest extends BaseTest {
 
         // Check the asset and the proofs.
         assertTrue(assetService.getAssetByAssetId(ACTIVE_ROYLLO_COIN_ASSET_ID).isPresent());
-        assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF_PROOF_ID).isPresent());
-        assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF_PROOF_ID).isPresent());
-        assertTrue(proofService.getProofByProofId(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofFileByProofFileId(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofFileByProofFileId(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofFileByProofFileId(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF_PROOF_ID).isPresent());
     }
 
     @Test
@@ -275,9 +275,9 @@ public class AddProofRequestBatchTest extends BaseTest {
         // =============================================================================================================
         // Check that the asset and the proofs does not exist.
         assertFalse(assetService.getAssetByAssetId(TESTCOIN_ASSET_ID).isPresent());
-        assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_1_PROOF_ID).isPresent());
-        assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_2_PROOF_ID).isPresent());
-        assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_3_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofFileByProofFileId(TESTCOIN_RAW_PROOF_1_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofFileByProofFileId(TESTCOIN_RAW_PROOF_2_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofFileByProofFileId(TESTCOIN_RAW_PROOF_3_PROOF_ID).isPresent());
 
         // =============================================================================================================
         // We import the first proof.
@@ -294,9 +294,9 @@ public class AddProofRequestBatchTest extends BaseTest {
         assertEquals(assets + 1, assetRepository.count());
         assertEquals(assetStates + 1, assetStateRepository.count());
         assertTrue(assetService.getAssetByAssetId(TESTCOIN_ASSET_ID).isPresent());
-        assertTrue(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_1_PROOF_ID).isPresent());
-        assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_2_PROOF_ID).isPresent());
-        assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_3_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofFileByProofFileId(TESTCOIN_RAW_PROOF_1_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofFileByProofFileId(TESTCOIN_RAW_PROOF_2_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofFileByProofFileId(TESTCOIN_RAW_PROOF_3_PROOF_ID).isPresent());
 
         // Check the proof1 data.
         // assetId + "_" + outpointTxId + ":" + outpointVout + "_" + scriptKey;
@@ -367,9 +367,9 @@ public class AddProofRequestBatchTest extends BaseTest {
         assertEquals(assets + 1, assetRepository.count());
         assertEquals(assetStates + 2, assetStateRepository.count());
         assertTrue(assetService.getAssetByAssetId(TESTCOIN_ASSET_ID).isPresent());
-        assertTrue(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_1_PROOF_ID).isPresent());
-        assertTrue(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_2_PROOF_ID).isPresent());
-        assertFalse(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_3_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofFileByProofFileId(TESTCOIN_RAW_PROOF_1_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofFileByProofFileId(TESTCOIN_RAW_PROOF_2_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofFileByProofFileId(TESTCOIN_RAW_PROOF_3_PROOF_ID).isPresent());
 
         // Check the proof1 data.
         final Optional<AssetStateDTO> testCoinProof2AssetState = assetStateService.getAssetStateByAssetStateId(TESTCOIN_ASSET_STATE_ID_2);
@@ -441,9 +441,9 @@ public class AddProofRequestBatchTest extends BaseTest {
         assertEquals(assets + 1, assetRepository.count());
         assertEquals(assetStates + 3, assetStateRepository.count());
         assertTrue(assetService.getAssetByAssetId(TESTCOIN_ASSET_ID).isPresent());
-        assertTrue(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_1_PROOF_ID).isPresent());
-        assertTrue(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_2_PROOF_ID).isPresent());
-        assertTrue(proofService.getProofByProofId(TESTCOIN_RAW_PROOF_3_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofFileByProofFileId(TESTCOIN_RAW_PROOF_1_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofFileByProofFileId(TESTCOIN_RAW_PROOF_2_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofFileByProofFileId(TESTCOIN_RAW_PROOF_3_PROOF_ID).isPresent());
 
         // Check the proof1 data.
         final Optional<AssetStateDTO> testCoinProof3AssetState = assetStateService.getAssetStateByAssetStateId(TESTCOIN_ASSET_STATE_ID_3);

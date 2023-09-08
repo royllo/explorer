@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.dto.asset.AssetStateDTO;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.asset.AssetStateService;
-import org.royllo.explorer.core.service.proof.ProofService;
+import org.royllo.explorer.core.service.proof.ProofFileService;
 import org.royllo.explorer.web.util.base.BaseController;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -41,7 +41,7 @@ public class AssetController extends BaseController {
     private final AssetStateService assetStateService;
 
     /** Proof file service. */
-    private final ProofService proofService;
+    private final ProofFileService proofFileService;
 
     /**
      * Page displaying an asset.
@@ -101,7 +101,7 @@ public class AssetController extends BaseController {
 
             // We retrieve the proofs to display them IF the asset is found.
             assetService.getAssetByAssetId(assetId.trim()).ifPresent(assetDTO -> model.addAttribute(RESULT_ATTRIBUTE,
-                    proofService.getProofsByAssetId(assetId.trim(),
+                    proofFileService.getProofFilesByAssetId(assetId.trim(),
                             page,
                             ASSET_PROOFS_DEFAULT_PAGE_SIZE)));
         }

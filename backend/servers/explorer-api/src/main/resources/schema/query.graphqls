@@ -13,8 +13,8 @@ type Query {
 
     # ==================================================================================================================
     # Proofs API
-    "Returns the proofs of the asset id"
-    proofsByAssetId(assetId: ID!, page: Int, pageSize: Int): ProofPage
+    "Returns the proof files of the asset id"
+    proofFilesByAssetId(assetId: ID!, page: Int, pageSize: Int): ProofFilePage
 
     # ==================================================================================================================
     # Requests API

@@ -4,9 +4,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.royllo.explorer.core.domain.asset.Asset;
-import org.royllo.explorer.core.domain.proof.Proof;
+import org.royllo.explorer.core.domain.proof.ProofFile;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
-import org.royllo.explorer.core.repository.proof.ProofRepository;
+import org.royllo.explorer.core.repository.proof.ProofFileRepository;
 import org.royllo.explorer.web.test.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -41,7 +41,7 @@ public class AssetControllerTest extends BaseTest {
     AssetRepository assetRepository;
 
     @Autowired
-    ProofRepository proofRepository;
+    ProofFileRepository proofFileRepository;
 
     @Autowired
     MockMvc mockMvc;
@@ -206,23 +206,23 @@ public class AssetControllerTest extends BaseTest {
     void assetProofsPagePagination(final HttpHeaders headers) throws Exception {
         // Creating enough proofs to test pagination.
         // We purge data as the same test will be run with different headers.
-        proofRepository.findByAssetAssetIdOrderByCreatedOn(ROYLLO_COIN_ASSET_ID, Pageable.ofSize(101))
+        proofFileRepository.findByAssetAssetIdOrderByCreatedOn(ROYLLO_COIN_ASSET_ID, Pageable.ofSize(101))
                 .stream()
                 .filter(proof -> !Objects.equals(proof.getRawProof(), ROYLLO_COIN_RAW_PROOF))
-                .forEach(proofRepository::delete);
+                .forEach(proofFileRepository::delete);
         final Optional<Asset> byAssetId = assetRepository.findByAssetId(ROYLLO_COIN_ASSET_ID);
-        assertEquals(1, proofRepository.findByAssetAssetIdOrderByCreatedOn(ROYLLO_COIN_ASSET_ID, Pageable.ofSize(1)).getTotalElements());
+        assertEquals(1, proofFileRepository.findByAssetAssetIdOrderByCreatedOn(ROYLLO_COIN_ASSET_ID, Pageable.ofSize(1)).getTotalElements());
         byAssetId.ifPresent(asset -> {
             for (int i = 0; i < 100; i++) {
-                proofRepository.save(Proof.builder()
-                        .proofId("proof-id-" + i)
+                proofFileRepository.save(ProofFile.builder()
+                        .proofFileId("proof-id-" + i)
                         .asset(asset)
                         .rawProof("raw-proof-" + i)
                         .creator(ANONYMOUS_USER)
                         .build());
             }
         });
-        assertEquals(101, proofRepository.findByAssetAssetIdOrderByCreatedOn(ROYLLO_COIN_ASSET_ID, Pageable.ofSize(1)).getTotalElements());
+        assertEquals(101, proofFileRepository.findByAssetAssetIdOrderByCreatedOn(ROYLLO_COIN_ASSET_ID, Pageable.ofSize(1)).getTotalElements());
 
         // Testing page 1 (without parameter).
         mockMvc.perform(get("/asset/" + ROYLLO_COIN_ASSET_ID + "/proofs").headers(headers))

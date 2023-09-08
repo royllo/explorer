@@ -12,13 +12,13 @@ import org.royllo.explorer.core.dto.user.UserDTO;
 import static lombok.AccessLevel.PRIVATE;
 
 /**
- * Taproot proof.
+ * Taproot asset proof file.
  */
 @Value
 @Builder
 @AllArgsConstructor(access = PRIVATE)
 @SuppressWarnings("checkstyle:VisibilityModifier")
-public class ProofDTO {
+public class ProofFileDTO {
 
     /** Raw proof minimum size - Under this size, the raw proof is displayed without preview. */
     private static final int RAW_PROOF_MINIMUM_SIZE = 6;
@@ -37,9 +37,9 @@ public class ProofDTO {
     @NotNull(message = "Target asset is required")
     AssetDTO asset;
 
-    /** Proof id - sha256(rawProof). */
-    @NotBlank(message = "Proof ID is required")
-    String proofId;
+    /** Proof file id - sha256(rawProof). */
+    @NotBlank(message = "Proof file ID is required")
+    String proofFileId;
 
     /** Raw proof. */
     @ToString.Exclude

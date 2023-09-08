@@ -22,7 +22,7 @@ import static jakarta.persistence.FetchType.EAGER;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 /**
- * Taproot asset Proof.
+ * Taproot asset proof file.
  */
 @Getter
 @Setter
@@ -31,8 +31,8 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Builder
 @Entity
-@Table(name = "PROOFS")
-public class Proof extends BaseDomain {
+@Table(name = "PROOF_FILE")
+public class ProofFile extends BaseDomain {
 
     /** Unique identifier. */
     @Id
@@ -50,9 +50,9 @@ public class Proof extends BaseDomain {
     @JoinColumn(name = "FK_ASSET", nullable = false)
     private Asset asset;
 
-    /** The proof ID that uniquely identifies the proof - sha256(rawProof). */
-    @Column(name = "PROOF_ID", updatable = false)
-    private String proofId;
+    /** The proof file ID that uniquely identifies the proof - sha256(rawProof). */
+    @Column(name = "PROOF_FILE_ID", updatable = false)
+    private String proofFileId;
 
     /** Raw proof. */
     @Column(name = "RAW_PROOF", updatable = false)

@@ -2,16 +2,16 @@
 <databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
-    <changeSet author="straumat" id="0.1.0-data-proofs">
+    <changeSet author="straumat" id="0.1.0-data-proof_file">
 
         <!--
         roylloCoin - Testnet (More info in docs/test/roylloCoin/README.md)
         The bitcoin transaction output is already in the database.
         The asset is already in the database.
         -->
-        <insert tableName="PROOFS">
+        <insert tableName="PROOF_FILE">
             <column name="ID" value="1"/>
-            <column name="PROOF_ID" value="09fcd6349cceea648dc00545846e40b50efdf3c9e27e3d7feb43103f6e593576"/>
+            <column name="PROOF_FILE_ID" value="09fcd6349cceea648dc00545846e40b50efdf3c9e27e3d7feb43103f6e593576"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET" value="1"/>
             <column name="RAW_PROOF"
