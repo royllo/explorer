@@ -2,13 +2,13 @@
 <databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
-    <changeSet author="straumat" id="0.1.0-table-constraints-asset_group">
+    <changeSet author="straumat" id="0.1.0-table-constraints-request_add_universe_server">
 
-        <!-- Foreign key FK_USER_CREATOR > USER.ID -->
-        <addForeignKeyConstraint constraintName="FK_ASSET_GROUP_USER_CREATOR"
-                                 baseColumnNames="FK_USER_CREATOR"
-                                 baseTableName="ASSET_GROUP"
-                                 referencedTableName="USER"
+        <!-- Foreign key REQUEST_ADD_UNIVERSE_SERVER.ID > REQUEST.ID -->
+        <addForeignKeyConstraint constraintName="FK_REQUEST_ADD_UNIVERSE_SERVER_REQUEST_ID"
+                                 baseColumnNames="ID"
+                                 baseTableName="REQUEST_ADD_UNIVERSE_SERVER"
+                                 referencedTableName="REQUEST"
                                  referencedColumnNames="ID"
                                  validate="true"/>
 

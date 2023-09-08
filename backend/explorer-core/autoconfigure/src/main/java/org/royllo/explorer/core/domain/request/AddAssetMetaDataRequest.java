@@ -24,7 +24,7 @@ import static jakarta.persistence.FetchType.EAGER;
 @SuperBuilder
 @RequiredArgsConstructor
 @Entity
-@Table(name = "REQUESTS_ADD_ASSET_META_DATA")
+@Table(name = "REQUEST_ADD_ASSET_META_DATA")
 @DiscriminatorValue("ADD_ASSET_META_DATA")
 public class AddAssetMetaDataRequest extends Request {
 

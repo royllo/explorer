@@ -5,14 +5,14 @@ databaseChangeLog:
   # ====================================================================================================================
   # Tests data.
   - include:
-      file: /db/test/test-data-bitcoin_transaction_outputs.xml
+      file: /db/test/test-data-bitcoin_transaction_output.xml
   - include:
-      file: /db/test/test-data-users.xml
+      file: /db/test/test-data-user.xml
   - include:
-      file: /db/test/test-data-assets.xml
+      file: /db/test/test-data-asset.xml
   - include:
       file: /db/test/test-data-proofs.xml
   - include:
-      file: /db/test/test-data-requests.xml
+      file: /db/test/test-data-request.xml
   - include:
-      file: /db/test/test-data-universe_servers.xml
+      file: /db/test/test-data-universe_server.xml

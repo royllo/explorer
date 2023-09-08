@@ -10,23 +10,26 @@ databaseChangeLog:
       file: /db/changelog/0.1.0/table/table-asset_group.xml
   - include:
       file: /db/changelog/0.1.0/table/table-asset_state.xml
+  - include:
+      file: /db/changelog/0.1.0/table/table-bitcoin_transaction_output.xml
 
+  # Users.
+  - include:
+      file: /db/changelog/0.1.0/table/table-user.xml
 
+  # Universe servers.
   - include:
-      file: /db/changelog/0.1.0/table/table-bitcoin_transaction_outputs.xml
-  - include:
-      file: /db/changelog/0.1.0/table/table-users.xml
+      file: /db/changelog/0.1.0/table/table-universe_server.xml
 
+  # Requests.
   - include:
-      file: /db/changelog/0.1.0/table/table-universe_servers.xml
+      file: /db/changelog/0.1.0/table/table-request.xml
   - include:
-      file: /db/changelog/0.1.0/table/table-requests.xml
+      file: /db/changelog/0.1.0/table/table-request_add_proof.xml
   - include:
-      file: /db/changelog/0.1.0/table/table-requests_add_proof.xml
+      file: /db/changelog/0.1.0/table/table-request_add_asset_meta_data.xml
   - include:
-      file: /db/changelog/0.1.0/table/table-requests_add_asset_meta_data.xml
-  - include:
-      file: /db/changelog/0.1.0/table/table-requests_add_universe_server.xml
+      file: /db/changelog/0.1.0/table/table-request_add_universe_server.xml
   - include:
       file: /db/changelog/0.1.0/table/table-proofs.xml
 
@@ -40,24 +43,20 @@ databaseChangeLog:
       file: /db/changelog/0.1.0/table-constraints/table-constraints-asset_group.xml
   - include:
       file: /db/changelog/0.1.0/table-constraints/table-constraints-asset_state.xml
-
-
-
-
   - include:
-      file: /db/changelog/0.1.0/table-constraints/table-constraints-bitcoin_transaction_outputs.xml
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-bitcoin_transaction_output.xml
   - include:
-      file: /db/changelog/0.1.0/table-constraints/table-constraints-users.xml
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-user.xml
   - include:
-      file: /db/changelog/0.1.0/table-constraints/table-constraints-universe_servers.xml
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-universe_server.xml
   - include:
-      file: /db/changelog/0.1.0/table-constraints/table-constraints-requests.xml
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-request.xml
   - include:
-      file: /db/changelog/0.1.0/table-constraints/table-constraints-requests_add_proof.xml
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-request_add_proof.xml
   - include:
-      file: /db/changelog/0.1.0/table-constraints/table-constraints-requests_add_asset_meta_data.xml
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-request_add_asset_meta_data.xml
   - include:
-      file: /db/changelog/0.1.0/table-constraints/table-constraints-requests_add_universe_server.xml
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-request_add_universe_server.xml
   - include:
       file: /db/changelog/0.1.0/table-constraints/table-constraints-proofs.xml
 

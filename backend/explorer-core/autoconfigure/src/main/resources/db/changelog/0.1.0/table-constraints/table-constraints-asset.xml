@@ -17,11 +17,11 @@
                                  referencedColumnNames="ID"
                                  validate="true"/>
 
-        <!-- Foreign key FK_USER_CREATOR > USERS.ID -->
+        <!-- Foreign key FK_USER_CREATOR > USER.ID -->
         <addForeignKeyConstraint constraintName="FK_ASSET_USER_CREATOR"
                                  baseColumnNames="FK_USER_CREATOR"
                                  baseTableName="ASSET"
-                                 referencedTableName="USERS"
+                                 referencedTableName="USER"
                                  referencedColumnNames="ID"
                                  validate="true"/>
 
@@ -29,7 +29,7 @@
         <addForeignKeyConstraint constraintName="FK_ASSET_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT"
                                  baseColumnNames="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT"
                                  baseTableName="ASSET"
-                                 referencedTableName="BITCOIN_TRANSACTION_OUTPUTS"
+                                 referencedTableName="BITCOIN_TRANSACTION_OUTPUT"
                                  referencedColumnNames="ID"
                                  validate="true"/>
 

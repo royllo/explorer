@@ -2,25 +2,20 @@
 <databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
-    <changeSet author="straumat" id="0.1.0-table-constraints-proofs">
+    <changeSet author="straumat" id="0.1.0-table-constraints-request_add_request_meta_data">
 
-        <!-- Adding a unique constraint on PROOF_ID -->
-        <addUniqueConstraint columnNames="PROOF_ID"
-                             constraintName="PROOFS_UNIQUE_PROOF_ID"
-                             tableName="PROOFS"/>
-
-        <!-- Foreign key FK_USER_CREATOR > USER.ID -->
-        <addForeignKeyConstraint constraintName="FK_PROOFS_USER_CREATOR"
-                                 baseColumnNames="FK_USER_CREATOR"
-                                 baseTableName="PROOFS"
-                                 referencedTableName="USER"
+        <!-- Foreign key REQUEST_ADD_ASSET_META_DATA.ID > REQUEST.ID -->
+        <addForeignKeyConstraint constraintName="FK_REQUEST_ADD_ASSET_META_DATA_REQUEST_ID"
+                                 baseColumnNames="ID"
+                                 baseTableName="REQUEST_ADD_ASSET_META_DATA"
+                                 referencedTableName="REQUEST"
                                  referencedColumnNames="ID"
                                  validate="true"/>
 
         <!-- Foreign key FK_ASSET > ASSETS.ID -->
-        <addForeignKeyConstraint constraintName="FK_PROOFS_ASSET"
+        <addForeignKeyConstraint constraintName="FK_REQUEST_ADD_ASSET_META_DATA_ASSET_ID"
                                  baseColumnNames="FK_ASSET"
-                                 baseTableName="PROOFS"
+                                 baseTableName="REQUEST_ADD_ASSET_META_DATA"
                                  referencedTableName="ASSET"
                                  referencedColumnNames="ID"
                                  validate="true"/>

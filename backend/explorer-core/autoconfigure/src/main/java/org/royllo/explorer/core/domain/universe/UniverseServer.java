@@ -29,7 +29,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @SuperBuilder
 @RequiredArgsConstructor
 @Entity
-@Table(name = "UNIVERSE_SERVERS")
+@Table(name = "UNIVERSE_SERVER")
 public class UniverseServer extends BaseDomain {
 
     /** Unique identifier. */
