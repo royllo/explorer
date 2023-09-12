@@ -5,12 +5,12 @@ databaseChangeLog:
   # ====================================================================================================================
   # Tests data.
   - include:
-      file: /db/dev/test-data-bitcoin_transaction_output.xml
+      file: /db/dev/dev-data-bitcoin_transaction_output.xml
   - include:
-      file: /db/dev/test-data-user.xml
+      file: /db/dev/dev-data-user.xml
   - include:
-      file: /db/dev/test-data-asset.xml
+      file: /db/dev/dev-data-asset.xml
   - include:
-      file: /db/dev/test-data-proofs.xml
+      file: /db/dev/dev-data-proof_file.xml
   - include:
-      file: /db/dev/test-data-request.xml
+      file: /db/dev/dev-data-request.xml

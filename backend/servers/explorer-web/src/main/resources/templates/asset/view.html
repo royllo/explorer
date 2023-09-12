@@ -25,7 +25,7 @@
 
     <!--/* ======================================================================================================= */-->
     <!--/* Display result */-->
-    <div class="pt-12 w-4/5 mx-auto" th:if="${result != null}">
+    <div class="py-12 w-4/5 mx-auto" th:if="${result != null}">
 
         <!--/* =================================================================================================== */-->
         <!--*/ Header showing asset name and asset id */-->
@@ -45,12 +45,7 @@
                 </div>
             </div>
             <div class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-3 sm:space-y-0 sm:space-x-reverse md:mt-0 md:flex-row md:space-x-3">
-                <a class="whiteButton"
-                   hx-push-url="true"
-                   hx:get="|/asset/${result.assetId}/proofs|"
-                   hx:target="|#content|"
-                   th:href="@{'/asset/' + ${result.assetId} + '/proofs'}"
-                   th:text="#{asset.view.proofs}"></a>
+                <!--*/ Can be used to add a button next to the asset name/logo */-->
             </div>
         </div>
 
@@ -142,7 +137,6 @@
             <!--*/ Asset group tab (if not null) */-->
             <div :class="{ 'active': activeTab === 2 }" class="px-6 py-4" th:if="${result.assetGroup != null}"
                  x-show="activeTab === 2">
-
                 <div class="overflow-hidden shadow sm:rounded-lg">
                     <div class="border-t border-gray-100">
                         <dl class="divide-y divide-gray-100">
@@ -159,6 +153,7 @@
                                 <dt class="tableLineDescription" th:text="#{field.asset.tweakedGroupKey}"></dt>
                                 <dd class="tableLineValue" th:text="${result.assetGroup.tweakedGroupKey}"></dd>
                             </div>
+
                         </dl>
                     </div>
                 </div>
@@ -169,7 +164,6 @@
             <!--*/ Asset states */-->
             <div :class="{ 'active': activeTab === 3 }" class="px-6 py-4"
                  x-show="activeTab === 3">
-
                 <div class="overflow-hidden shadow sm:rounded-lg mb-4" th:each="assetState: ${assetStatesList}">
                     <div class="border-t border-gray-100">
 
@@ -206,7 +200,6 @@
 
                     </div>
                 </div>
-
             </div>
             <!--/* =============================================================================================== */-->
 
@@ -217,6 +210,7 @@
                 <div class="overflow-hidden shadow sm:rounded-lg">
                     <div class="border-t border-gray-100">
                         <dl class="divide-y divide-gray-100">
+
                             <!--/* User */-->
                             <div class="tableLine">
                                 <dt class="tableLineDescription" th:text="#{field.asset.creator.userId}"></dt>
@@ -226,6 +220,7 @@
                                 <dt class="tableLineDescription" th:text="#{field.asset.creator.username}"></dt>
                                 <dd class="tableLineValue" th:text="${result.creator.username}"></dd>
                             </div>
+
                         </dl>
                     </div>
                 </div>
@@ -235,10 +230,24 @@
             <!--/* =============================================================================================== */-->
 
             <!--/* =============================================================================================== */-->
-            <!--*/ Proofs tab */-->
+            <!--*/ Proof files tab */-->
             <div :class="{ 'active': activeTab === 5 }" class="px-6 py-4"
                  x-show="activeTab === 5">
-                <p>Proofs tab.</p>
+                <div class="overflow-hidden shadow sm:rounded-lg mb-4" th:each="proofFile: ${proofFilesList}">
+
+                    <div class="border-t border-gray-100">
+                        <dl class="divide-y divide-gray-100">
+                            <div class="tableLine">
+                                <dt class="tableLineDescription" th:text="#{proofFile.view.proof}"></dt>
+                                <dd class="tableLineValue">
+                                    <a th:href="@{'/asset/' + ${assetId} + '/proof_file/' + ${proofFile.getProofFileId()}}"
+                                       th:text="${proofFile.getRawProof()}"></a>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+
+                </div>
             </div>
             <!--/* =============================================================================================== */-->
         </div>

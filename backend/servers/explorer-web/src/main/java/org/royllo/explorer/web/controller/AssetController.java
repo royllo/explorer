@@ -3,29 +3,35 @@ package org.royllo.explorer.web.controller;
 import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.asset.AssetStateDTO;
+import org.royllo.explorer.core.dto.proof.ProofFileDTO;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.asset.AssetStateService;
 import org.royllo.explorer.core.service.proof.ProofFileService;
 import org.royllo.explorer.web.util.base.BaseController;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Optional;
 
 import static org.royllo.explorer.core.service.asset.AssetStateServiceImplementation.SEARCH_PARAMETER_ASSET_ID;
 import static org.royllo.explorer.web.configuration.WebConfiguration.ASSET_PROOFS_DEFAULT_PAGE_SIZE;
 import static org.royllo.explorer.web.configuration.WebConfiguration.ASSET_STATES_DEFAULT_PAGE_SIZE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_ID_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_STATES_LIST_ATTRIBUTE;
-import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PAGE_ATTRIBUTE;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PROOF_FILES_LIST_ATTRIBUTE;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PROOF_FILE_ID_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.ASSET_PAGE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.ASSET_PAGE_FRAGMENT;
-import static org.royllo.explorer.web.util.constants.PagesConstants.ASSET_PROOFS_PAGE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.ASSET_PROOFS_PAGE_FRAGMENT;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 /**
  * Asset controller.
@@ -62,15 +68,26 @@ public class AssetController extends BaseController {
 
             // =========================================================================================================
             // We retrieve the asset and the assert group.
-            assetService.getAssetByAssetId(assetId.trim()).ifPresent(asset -> model.addAttribute(RESULT_ATTRIBUTE, asset));
+            final Optional<AssetDTO> asset = assetService.getAssetByAssetId(assetId.trim());
+            if (asset.isPresent()) {
+                model.addAttribute(RESULT_ATTRIBUTE, asset.get());
 
-            // =========================================================================================================
-            // We retrieve the asset states.
-            final Page<AssetStateDTO> assetStates = assetStateService.queryAssetStates(SEARCH_PARAMETER_ASSET_ID + assetId.trim(),
-                    1,
-                    ASSET_STATES_DEFAULT_PAGE_SIZE);
-            model.addAttribute(ASSET_STATES_LIST_ATTRIBUTE, assetStates.getContent());
+                // =========================================================================================================
+                // We retrieve the asset states.
+                final Page<AssetStateDTO> assetStates = assetStateService.queryAssetStates(SEARCH_PARAMETER_ASSET_ID + assetId.trim(),
+                        1,
+                        ASSET_STATES_DEFAULT_PAGE_SIZE);
+                model.addAttribute(ASSET_STATES_LIST_ATTRIBUTE, assetStates.getContent());
+
+                // =========================================================================================================
+                // We retrieve the proof files.
+                model.addAttribute(PROOF_FILES_LIST_ATTRIBUTE,
+                        proofFileService.getProofFilesByAssetId(assetId.trim(),
+                                1,
+                                ASSET_PROOFS_DEFAULT_PAGE_SIZE));
+            }
         }
+
         // If it's an HTMX request, we return the fragment.
         if (isHtmxRequest(request)) {
             return ASSET_PAGE_FRAGMENT;
@@ -79,37 +96,20 @@ public class AssetController extends BaseController {
     }
 
     /**
-     * Page displaying the proofs of an asset.
+     * Returns a proof file.
      *
-     * @param model   model
-     * @param request request
-     * @param assetId asset id
-     * @param page    page number
-     * @return proofs
+     * @param proofFileId proof file id
+     * @return proof file
      */
-    @SuppressWarnings("SameReturnValue")
-    @GetMapping(value = {"/asset/{assetId}/proofs", "/asset/{assetId}/proofs/"})
-    public String getProofsByAssetId(final Model model,
-                                     final HttpServletRequest request,
-                                     @PathVariable(name = ASSET_ID_ATTRIBUTE, required = false) final String assetId,
-                                     @RequestParam(defaultValue = "1") final int page) {
-        // If assetId is present, we retrieve it.
-        if (StringUtils.isNotBlank(assetId)) {
-            // Value the user asked for.
-            model.addAttribute(ASSET_ID_ATTRIBUTE, assetId.trim());
-            model.addAttribute(PAGE_ATTRIBUTE, page);
-
-            // We retrieve the proofs to display them IF the asset is found.
-            assetService.getAssetByAssetId(assetId.trim()).ifPresent(assetDTO -> model.addAttribute(RESULT_ATTRIBUTE,
-                    proofFileService.getProofFilesByAssetId(assetId.trim(),
-                            page,
-                            ASSET_PROOFS_DEFAULT_PAGE_SIZE)));
+    @GetMapping(value = "/asset/{assetId}/proof_file/{proofFileId}",
+            produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public @ResponseBody byte[] getProofFile(@PathVariable(value = PROOF_FILE_ID_ATTRIBUTE) final String proofFileId) {
+        final Optional<ProofFileDTO> proofFile = proofFileService.getProofFileByProofFileId(proofFileId);
+        if (proofFile.isPresent()) {
+            return proofFile.get().getRawProof().getBytes();
+        } else {
+            throw new ResponseStatusException(NOT_FOUND, "Proof file not found");
         }
-        // If it's an HTMX request, we return the fragment.
-        if (isHtmxRequest(request)) {
-            return ASSET_PROOFS_PAGE_FRAGMENT;
-        }
-        return ASSET_PROOFS_PAGE;
     }
 
 }
