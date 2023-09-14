@@ -7,7 +7,7 @@ databaseChangeLog:
   - include:
       file: /db/dev/test-data-bitcoin_transaction_output.xml
   - include:
-      file: /db/dev/test-data-user.xml
+      file: /db/dev/test-data-application_user.xml
   - include:
       file: /db/dev/test-data-asset.xml
   - include:

@@ -17,11 +17,11 @@
                                  referencedColumnNames="ID"
                                  validate="true"/>
 
-        <!-- Foreign key FK_USER_CREATOR > USER.ID -->
-        <addForeignKeyConstraint constraintName="FK_ASSET_USER_CREATOR"
+        <!-- Foreign key FK_APPLICATION_USER_CREATOR > USER.ID -->
+        <addForeignKeyConstraint constraintName="FK_ASSET_APPLICATION_USER_CREATOR"
                                  baseColumnNames="FK_USER_CREATOR"
                                  baseTableName="ASSET"
-                                 referencedTableName="USER"
+                                 referencedTableName="APPLICATION_USER"
                                  referencedColumnNames="ID"
                                  validate="true"/>
 

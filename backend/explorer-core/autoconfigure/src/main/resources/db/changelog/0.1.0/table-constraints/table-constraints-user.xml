@@ -2,17 +2,17 @@
 <databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
-    <changeSet author="straumat" id="0.1.0-table-constraints-user">
+    <changeSet author="straumat" id="0.1.0-table-constraints-application_user">
 
         <!-- Adding a unique constraint on USER_ID -->
         <addUniqueConstraint columnNames="USER_ID"
-                             constraintName="USER_UNIQUE_USER_ID"
-                             tableName="USER"/>
+                             constraintName="APPLICATION_USER_UNIQUE_USER_ID"
+                             tableName="APPLICATION_USER"/>
 
         <!-- Adding a unique constraint on USERNAME -->
         <addUniqueConstraint columnNames="USERNAME"
-                             constraintName="USER_UNIQUE_USERNAME"
-                             tableName="USER"/>
+                             constraintName="APPLICATION_USER_UNIQUE_USERNAME"
+                             tableName="APPLICATION_USER"/>
 
     </changeSet>
 </databaseChangeLog>

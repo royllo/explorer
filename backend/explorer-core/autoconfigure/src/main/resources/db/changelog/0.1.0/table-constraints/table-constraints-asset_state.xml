@@ -10,10 +10,10 @@
                              columnNames="ASSET_STATE_ID"/>
 
         <!-- Foreign key FK_USER_CREATOR > USER.ID -->
-        <addForeignKeyConstraint constraintName="FK_ASSET_STATE_USER_CREATOR"
+        <addForeignKeyConstraint constraintName="FK_ASSET_STATE_APPLICATION_USER_CREATOR"
                                  baseColumnNames="FK_USER_CREATOR"
                                  baseTableName="ASSET_STATE"
-                                 referencedTableName="USER"
+                                 referencedTableName="APPLICATION_USER"
                                  referencedColumnNames="ID"
                                  validate="true"/>
 

@@ -10,10 +10,10 @@
                              tableName="UNIVERSE_SERVER"/>
 
         <!-- Foreign key FK_USER_OWNER > USER.ID -->
-        <addForeignKeyConstraint constraintName="FK_UNIVERSE_SERVER_USER_OWNER"
+        <addForeignKeyConstraint constraintName="FK_UNIVERSE_SERVER_APPLICATION_USER_OWNER"
                                  baseColumnNames="FK_USER_OWNER"
                                  baseTableName="UNIVERSE_SERVER"
-                                 referencedTableName="USER"
+                                 referencedTableName="APPLICATION_USER"
                                  referencedColumnNames="ID"
                                  validate="true"/>
 

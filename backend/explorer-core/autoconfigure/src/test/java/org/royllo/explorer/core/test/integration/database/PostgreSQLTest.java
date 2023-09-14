@@ -27,7 +27,7 @@ public class PostgreSQLTest {
                 .createStatement()
                 .executeQuery("""
                         SELECT  count(*) as USER_COUNT
-                        FROM    USER
+                        FROM    APPLICATION_USER
                         WHERE   USERNAME = 'anonymous'
                         """);
         results.next();
