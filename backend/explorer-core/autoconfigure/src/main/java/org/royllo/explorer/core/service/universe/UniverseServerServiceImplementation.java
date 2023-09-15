@@ -18,7 +18,7 @@ import static org.royllo.explorer.core.util.validator.ServerAddressValidator.HOS
 import static org.royllo.explorer.core.util.validator.ServerAddressValidator.IP_ADDRESS_PATTERN;
 
 /**
- * Universe server service implementation.
+ * {@link UniverseServerService} implementation.
  */
 @Service
 @RequiredArgsConstructor

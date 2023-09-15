@@ -1,0 +1,11 @@
+"Taproot asset group"
+type AssetGroup {
+    "The asset group creator"
+    creator: User!
+    "A signature over the genesis point using the above key"
+    assetIdSig: String
+    "The raw group key which is a normal public key"
+    rawGroupKey: String
+    "The tweaked group key, which is derived based on the genesis point and also asset type"
+    tweakedGroupKey: String
+}

@@ -4,6 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.royllo.explorer.core.domain.asset.Asset;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
+import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.royllo.explorer.core.util.enums.AssetType;
@@ -11,9 +12,10 @@ import org.royllo.explorer.core.util.enums.AssetType;
 import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 
 /**
- * Asset related mapper.
+ * Asset mapper.
  */
-@Mapper(nullValuePropertyMappingStrategy = IGNORE, uses = {BitcoinMapper.class, UserMapper.class})
+@Mapper(nullValuePropertyMappingStrategy = IGNORE,
+        uses = {BitcoinMapper.class, UserMapper.class})
 public interface AssetMapper {
 
     @Mapping(target = "createdOn", ignore = true)
@@ -22,31 +24,27 @@ public interface AssetMapper {
 
     AssetDTO mapToAssetDTO(Asset source);
 
+    // =================================================================================================================
+    // Below are the mappings for the decoded proof response.
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "creator", ignore = true)
-    @Mapping(source = "asset.version", target = "version")
-    @Mapping(source = "asset.assetGenesis.genesisPoint", target = "genesisPoint")
-    @Mapping(source = "asset.assetGenesis.name", target = "name")
-    @Mapping(source = "asset.assetGenesis.metaDataHash", target = "metaDataHash")
+    @Mapping(source = "assetIdSig", target = "assetIdSig")
+    @Mapping(source = "rawGroupKey", target = "rawGroupKey")
+    @Mapping(source = "tweakedGroupKey", target = "tweakedGroupKey")
+    AssetGroupDTO mapToAssetGroupDTO(DecodedProofResponse.DecodedProof.Asset.AssetGroup source);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "creator", ignore = true)
+    @Mapping(source = "asset.assetGroup", target = "assetGroup")
     @Mapping(source = "asset.assetGenesis.assetId", target = "assetId")
+    @Mapping(source = "asset.assetGenesis.genesisPoint", target = "genesisPoint")
+    @Mapping(source = "asset.assetGenesis.metaDataHash", target = "metaDataHash")
+    @Mapping(source = "asset.assetGenesis.name", target = "name")
     @Mapping(source = "asset.assetGenesis.outputIndex", target = "outputIndex")
-    @Mapping(source = "asset.assetGenesis.version", target = "genesisVersion")
+    @Mapping(source = "asset.assetGenesis.version", target = "version")
     @Mapping(source = "asset.assetType", target = "type")
     @Mapping(source = "asset.amount", target = "amount")
-    @Mapping(source = "asset.lockTime", target = "lockTime")
-    @Mapping(source = "asset.relativeLockTime", target = "relativeLockTime")
-    @Mapping(source = "asset.scriptVersion", target = "scriptVersion")
-    @Mapping(source = "asset.scriptKey", target = "scriptKey")
-    @Mapping(source = "asset.assetGroup.rawGroupKey", target = "rawGroupKey")
-    @Mapping(source = "asset.assetGroup.tweakedGroupKey", target = "tweakedGroupKey")
-    @Mapping(source = "asset.assetGroup.assetIdSig", target = "assetIdSig")
-    @Mapping(source = "asset.chainAnchor.anchorTx", target = "anchorTx")
-    @Mapping(source = "asset.chainAnchor.anchorTxId", target = "anchorTxId")
-    @Mapping(source = "asset.chainAnchor.anchorBlockHash", target = "anchorBlockHash")
-    @Mapping(source = "asset.chainAnchor.anchorOutpoint", target = "anchorOutpoint")
-    @Mapping(source = "asset.chainAnchor.internalKey", target = "internalKey")
-    @Mapping(source = "asset.chainAnchor.merkleRoot", target = "merkleRoot")
-    @Mapping(source = "asset.chainAnchor.tapscriptSibling", target = "tapscriptSibling")
     AssetDTO mapToAssetDTO(DecodedProofResponse.DecodedProof source);
 
     default BitcoinTransactionOutputDTO mapToBitcoinTransactionOutputDTO(final String source) {

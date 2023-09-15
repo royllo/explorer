@@ -33,7 +33,7 @@ import static jakarta.persistence.InheritanceType.JOINED;
 @SuperBuilder
 @RequiredArgsConstructor
 @Entity
-@Table(name = "REQUESTS")
+@Table(name = "REQUEST")
 @Inheritance(strategy = JOINED)
 @DiscriminatorColumn(name = "TYPE")
 public abstract class Request extends BaseDomain {

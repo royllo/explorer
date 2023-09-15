@@ -1,4 +1,4 @@
-"A request to add proof to royllo explorer"
+"A request to add proofFile to royllo explorer"
 type AddProofRequest implements Request {
     "Request ID in database"
     requestId: ID!

@@ -42,17 +42,47 @@ public class TAPDServiceMock extends BaseTest {
 
         // Non-existing proof.
         Mockito.when(mockedService.decode("INVALID_PROOF")).thenReturn(Mono.just(getError()));
+        Mockito.when(mockedService.decode("INVALID_PROOF", 0)).thenReturn(Mono.just(getError()));
 
         // My Royllo coin.
         Mockito.when(mockedService.decode(ROYLLO_COIN_RAW_PROOF)).thenReturn(Mono.just(getMyRoylloCoin()));
+        Mockito.when(mockedService.decode(ROYLLO_COIN_RAW_PROOF, 0)).thenReturn(Mono.just(getMyRoylloCoin()));
 
         // Unknown Royllo coin.
         Mockito.when(mockedService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF)).thenReturn(Mono.just(getUnknownRoylloCoin()));
+        Mockito.when(mockedService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF, 0)).thenReturn(Mono.just(getUnknownRoylloCoin()));
 
         // Active Royllo coin.
         Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF)).thenReturn(Mono.just(getActiveRoylloCoinProof1()));
+        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF, 0)).thenReturn(Mono.just(getActiveRoylloCoinProof1()));
         Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF)).thenReturn(Mono.just(getActiveRoylloCoinProof2()));
+        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF, 0)).thenReturn(Mono.just(getActiveRoylloCoinProof2()));
         Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF)).thenReturn(Mono.just(getActiveRoylloCoinProof3()));
+        Mockito.when(mockedService.decode(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF, 0)).thenReturn(Mono.just(getActiveRoylloCoinProof3()));
+
+        // TestCoin.
+        final ClassPathResource testCoinDecodeProof1 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-1.json");
+        final ClassPathResource testCoinDecodeProof2 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-2-depth-0.json");
+        final ClassPathResource testCoinDecodeProof2Depth0 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-2-depth-0.json");
+        final ClassPathResource testCoinDecodeProof2Depth1 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-2-depth-1.json");
+        final ClassPathResource testCoinDecodeProof3 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-3-depth-0.json");
+        final ClassPathResource testCoinDecodeProof3Depth0 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-3-depth-0.json");
+        final ClassPathResource testCoinDecodeProof3Depth1 = new ClassPathResource("tapd/TestCoin/TestCoin-decode-proof-3-depth-1.json");
+        DecodedProofResponse testCoinDecodedProof1 = new ObjectMapper().readValue(testCoinDecodeProof1.getInputStream(), DecodedProofResponse.class);
+        DecodedProofResponse testCoinDecodedProof2 = new ObjectMapper().readValue(testCoinDecodeProof2.getInputStream(), DecodedProofResponse.class);
+        DecodedProofResponse testCoinDecodedProof2Depth0 = new ObjectMapper().readValue(testCoinDecodeProof2Depth0.getInputStream(), DecodedProofResponse.class);
+        DecodedProofResponse testCoinDecodedProof2Depth1 = new ObjectMapper().readValue(testCoinDecodeProof2Depth1.getInputStream(), DecodedProofResponse.class);
+        DecodedProofResponse testCoinDecodedProof3 = new ObjectMapper().readValue(testCoinDecodeProof3.getInputStream(), DecodedProofResponse.class);
+        DecodedProofResponse testCoinDecodedProof3Depth0 = new ObjectMapper().readValue(testCoinDecodeProof3Depth0.getInputStream(), DecodedProofResponse.class);
+        DecodedProofResponse testCoinDecodedProof3Depth1 = new ObjectMapper().readValue(testCoinDecodeProof3Depth1.getInputStream(), DecodedProofResponse.class);
+        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_1)).thenReturn(Mono.just(testCoinDecodedProof1));
+        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_1, 0)).thenReturn(Mono.just(testCoinDecodedProof1));
+        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_2)).thenReturn(Mono.just(testCoinDecodedProof2));
+        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_2, 0)).thenReturn(Mono.just(testCoinDecodedProof2Depth0));
+        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_2, 1)).thenReturn(Mono.just(testCoinDecodedProof2Depth1));
+        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_3)).thenReturn(Mono.just(testCoinDecodedProof3));
+        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_3, 0)).thenReturn(Mono.just(testCoinDecodedProof3Depth0));
+        Mockito.when(mockedService.decode(TESTCOIN_RAW_PROOF_3, 1)).thenReturn(Mono.just(testCoinDecodedProof3Depth1));
 
         // =============================================================================================================
         // Mock for universes.
@@ -211,6 +241,13 @@ public class TAPDServiceMock extends BaseTest {
         DecodedProofResponse.DecodedProof.Asset asset = new DecodedProofResponse.DecodedProof.Asset();
         asset.setVersion(UNKNOWN_ROYLLO_COIN_VERSION);
 
+        // Asset group
+        DecodedProofResponse.DecodedProof.Asset.AssetGroup assetGroup = new DecodedProofResponse.DecodedProof.Asset.AssetGroup();
+        assetGroup.setAssetIdSig(UNKNOWN_ROYLLO_COIN_ASSET_ID_SIG);
+        assetGroup.setRawGroupKey(UNKNOWN_ROYLLO_COIN_RAW_GROUP_KEY);
+        assetGroup.setTweakedGroupKey(UNKNOWN_ROYLLO_COIN_TWEAKED_GROUP_KEY);
+        asset.setAssetGroup(assetGroup);
+
         // Asset genesis.
         DecodedProofResponse.DecodedProof.Asset.AssetGenesis assetGenesis = new DecodedProofResponse.DecodedProof.Asset.AssetGenesis();
         assetGenesis.setGenesisPoint(UNKNOWN_ROYLLO_COIN_GENESIS_POINT_TXID + ":" + UNKNOWN_ROYLLO_COIN_GENESIS_POINT_VOUT);
@@ -235,11 +272,13 @@ public class TAPDServiceMock extends BaseTest {
         chainAnchor.setAnchorBlockHash(UNKNOWN_ROYLLO_COIN_ANCHOR_BLOCK_HASH);
         chainAnchor.setAnchorOutpoint(UNKNOWN_ROYLLO_COIN_ANCHOR_OUTPOINT);
         chainAnchor.setInternalKey(UNKNOWN_ROYLLO_COIN_ANCHOR_INTERNAL_KEY);
+        chainAnchor.setMerkleRoot(UNKNOWN_ROYLLO_COIN_TX_MERKLE_ROOT);
+        chainAnchor.setTapscriptSibling(UNKNOWN_ROYLLO_COIN_TX_TAPSCRIPT_SIBLING);
         asset.setChainAnchor(chainAnchor);
 
         asset.setPrevWitnesses(Collections.emptyList());
 
-        decodedProof.setTxMerkleProof(UNKNOWN_ROYLLO_COIN_TX_MERKLE_PROOF);
+        decodedProof.setTxMerkleProof(UNKNOWN_ROYLLO_COIN_TX_MERKLE_ROOT);
         decodedProof.setInclusionProof(UNKNOWN_ROYLLO_COIN_INCLUSION_PROOF);
         decodedProof.setExclusionProofs(Collections.emptyList());
         decodedProofResponse.setDecodedProof(decodedProof);
@@ -289,7 +328,7 @@ public class TAPDServiceMock extends BaseTest {
         chainAnchor.setAnchorTx("0200000000010139481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0100000000ffffffff026f02000000000000160014b3cb6391af7e94b41475cb925e1eafed57c318cae803000000000000225120541c599eae0b80c2c7c5c7a17b75b147a0fe20663277bbbd49247e87b9b1c1370247304402204afb9a04135bc36e9062e8e0cafad11a58fc2e13f6dcf01447938faced44b53e02202492dc504f6b5577d4add1ea550fad8f7357f7c7215a7d5ec21e14269f270a5e0121027ebfbaf2f6612b4819b188f3b80386d5ddf3d4c55c5f4af8c688d97b8984b0d600000000");
         chainAnchor.setAnchorTxId("60b11c06d29ad10a66082953e37010090b39bc7541c321066a9e8bf7507abdd7");
         chainAnchor.setAnchorBlockHash("000000000000002366fc3e4cc4074a94529e09858b6585004a0056e47e08c0c9");
-        chainAnchor.setAnchorOutpoint("60b11c06d29ad10a66082953e37010090b39bc7541c321066a9e8bf7507abdd7");
+        chainAnchor.setAnchorOutpoint("db848f3114a248aed35008febbf04505652cb296726d4e1a998d08ca351e4839:1");
         chainAnchor.setInternalKey("03bea9941963648cfaaa2981d68ebf209e20b3e68287d94371805832e962401429");
         asset.setChainAnchor(chainAnchor);
 
@@ -317,7 +356,7 @@ public class TAPDServiceMock extends BaseTest {
         // Decoded proof.
         DecodedProofResponse.DecodedProof decodedProof = new DecodedProofResponse.DecodedProof();
         decodedProof.setProofAtDepth(0);
-        decodedProof.setNumberOfProofs(2);
+        decodedProof.setNumberOfProofs(1);
 
         // Asset.
         DecodedProofResponse.DecodedProof.Asset asset = new DecodedProofResponse.DecodedProof.Asset();
@@ -345,7 +384,7 @@ public class TAPDServiceMock extends BaseTest {
         chainAnchor.setAnchorTx("0200000000010139481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0100000000ffffffff026f02000000000000160014b3cb6391af7e94b41475cb925e1eafed57c318cae803000000000000225120541c599eae0b80c2c7c5c7a17b75b147a0fe20663277bbbd49247e87b9b1c1370247304402204afb9a04135bc36e9062e8e0cafad11a58fc2e13f6dcf01447938faced44b53e02202492dc504f6b5577d4add1ea550fad8f7357f7c7215a7d5ec21e14269f270a5e0121027ebfbaf2f6612b4819b188f3b80386d5ddf3d4c55c5f4af8c688d97b8984b0d600000000");
         chainAnchor.setAnchorTxId("60b11c06d29ad10a66082953e37010090b39bc7541c321066a9e8bf7507abdd7");
         chainAnchor.setAnchorBlockHash("000000000000002366fc3e4cc4074a94529e09858b6585004a0056e47e08c0c9");
-        chainAnchor.setAnchorOutpoint("60b11c06d29ad10a66082953e37010090b39bc7541c321066a9e8bf7507abdd7");
+        chainAnchor.setAnchorOutpoint("db848f3114a248aed35008febbf04505652cb296726d4e1a998d08ca351e4839:1");
         chainAnchor.setInternalKey("03bea9941963648cfaaa2981d68ebf209e20b3e68287d94371805832e962401429");
         asset.setChainAnchor(chainAnchor);
 
@@ -401,7 +440,7 @@ public class TAPDServiceMock extends BaseTest {
         chainAnchor.setAnchorTx("0200000000010139481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0100000000ffffffff026f02000000000000160014b3cb6391af7e94b41475cb925e1eafed57c318cae803000000000000225120541c599eae0b80c2c7c5c7a17b75b147a0fe20663277bbbd49247e87b9b1c1370247304402204afb9a04135bc36e9062e8e0cafad11a58fc2e13f6dcf01447938faced44b53e02202492dc504f6b5577d4add1ea550fad8f7357f7c7215a7d5ec21e14269f270a5e0121027ebfbaf2f6612b4819b188f3b80386d5ddf3d4c55c5f4af8c688d97b8984b0d600000000");
         chainAnchor.setAnchorTxId("60b11c06d29ad10a66082953e37010090b39bc7541c321066a9e8bf7507abdd7");
         chainAnchor.setAnchorBlockHash("000000000000002366fc3e4cc4074a94529e09858b6585004a0056e47e08c0c9");
-        chainAnchor.setAnchorOutpoint("60b11c06d29ad10a66082953e37010090b39bc7541c321066a9e8bf7507abdd7");
+        chainAnchor.setAnchorOutpoint("db848f3114a248aed35008febbf04505652cb296726d4e1a998d08ca351e4839:1");
         chainAnchor.setInternalKey("03bea9941963648cfaaa2981d68ebf209e20b3e68287d94371805832e962401429");
         asset.setChainAnchor(chainAnchor);
 

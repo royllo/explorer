@@ -13,7 +13,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.Collections;
 
@@ -32,9 +31,6 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 @SpringBootTest(properties = {"spring.datasource.url=jdbc:tc:postgresql:15:///explorer",
         "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver"})
 public class PurgeBatchTest extends BaseTest {
-
-    @Autowired
-    private DataSource dataSource;
 
     @Autowired
     private RequestRepository requestRepository;

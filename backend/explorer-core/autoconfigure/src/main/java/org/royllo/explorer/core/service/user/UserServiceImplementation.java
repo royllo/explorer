@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 /**
- * User service implementation.
+ * {@link UserService} implementation.
  */
 @SuppressWarnings("unused")
 @Service

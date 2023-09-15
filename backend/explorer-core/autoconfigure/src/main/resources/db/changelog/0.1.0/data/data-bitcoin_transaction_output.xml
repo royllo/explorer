@@ -1,0 +1,46 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="0.1.0-data-bitcoin_transaction_output">
+
+        <!--
+        roylloCoin - Testnet (More info in docs/test/roylloCoin/README.md)
+        Asset id : f9dd292bb211dae8493645150b36efa990841b11038d026577440d2616d1ec32
+        Block 2427358 / Transaction 57faede9e107f3af74bb93e730bc1dfd07f81b166a974068f823d30d9eb10111 / Output 1
+        curl -sL "https://mempool.space/testnet/api/tx/57faede9e107f3af74bb93e730bc1dfd07f81b166a974068f823d30d9eb10111"
+        -->
+        <insert tableName="BITCOIN_TRANSACTION_OUTPUT">
+            <column name="ID" value="1"/>
+            <column name="BLOCK_HEIGHT" value="2427358"/>
+            <column name="TXID" value="57faede9e107f3af74bb93e730bc1dfd07f81b166a974068f823d30d9eb10111"/>
+            <column name="VOUT" value="1"/>
+            <column name="SCRIPTPUBKEY" value="0014c35088956d26c44af4c00dfc8bf10d9a4c79320e"/>
+            <column name="SCRIPTPUBKEY_ASM" value="OP_0 OP_PUSHBYTES_20 c35088956d26c44af4c00dfc8bf10d9a4c79320e"/>
+            <column name="SCRIPTPUBKEY_TYPE" value="v0_p2wpkh"/>
+            <column name="SCRIPTPUBKEY_ADDRESS" value="tb1qcdgg39tdymzy4axqph7ghugdnfx8jvswazkums"/>
+            <column name="VALUE" value="2705"/>
+        </insert>
+
+        <!--
+        roylloCoin - Testnet (More info in docs/test/roylloCoin/README.md)
+        Asset id : f9dd292bb211dae8493645150b36efa990841b11038d026577440d2616d1ec32
+        This is the first asset state
+        Block 2427358 / Transaction 0324ddf7ec79711a340a04e1ee3cee53005e046b4e0de31d498cc586ba9181c7 / Output 0
+        curl -sL "https://mempool.space/testnet/api/tx/0324ddf7ec79711a340a04e1ee3cee53005e046b4e0de31d498cc586ba9181c7"
+        -->
+        <insert tableName="BITCOIN_TRANSACTION_OUTPUT">
+            <column name="ID" value="2"/>
+            <column name="BLOCK_HEIGHT" value="2440694"/>
+            <column name="TXID" value="0324ddf7ec79711a340a04e1ee3cee53005e046b4e0de31d498cc586ba9181c7"/>
+            <column name="VOUT" value="0"/>
+            <column name="SCRIPTPUBKEY" value="512040b3ddefc0df09b89fd1379a3bd246bf2827ed461506a5899dc230324d0aa158"/>
+            <column name="SCRIPTPUBKEY_ASM"
+                    value="OP_PUSHNUM_1 OP_PUSHBYTES_32 40b3ddefc0df09b89fd1379a3bd246bf2827ed461506a5899dc230324d0aa158"/>
+            <column name="SCRIPTPUBKEY_TYPE" value="v0_p2wpkh"/>
+            <column name="SCRIPTPUBKEY_ADDRESS" value="tb1pgzeamm7qmuym3873x7drh5jxhu5z0m2xz5r2tzvacgcryng259vqp9vs54"/>
+            <column name="VALUE" value="1000"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

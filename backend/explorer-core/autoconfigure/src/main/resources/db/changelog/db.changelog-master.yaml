@@ -1,37 +1,79 @@
 databaseChangeLog:
 
   # ====================================================================================================================
-  # 0.1.0 database structure
-  - include:
-      file: /db/changelog/0.1.0/structure/table-bitcoin_transaction_outputs.xml
-  - include:
-      file: /db/changelog/0.1.0/structure/table-users.xml
-  - include:
-      file: /db/changelog/0.1.0/structure/table-assets.xml
-  - include:
-      file: /db/changelog/0.1.0/structure/table-universe_servers.xml
-  - include:
-      file: /db/changelog/0.1.0/structure/table-requests.xml
-  - include:
-      file: /db/changelog/0.1.0/structure/table-requests_add_proof.xml
-  - include:
-      file: /db/changelog/0.1.0/structure/table-requests_add_asset_meta_data.xml
-  - include:
-      file: /db/changelog/0.1.0/structure/table-requests_add_universe_server.xml
-  - include:
-      file: /db/changelog/0.1.0/structure/table-proofs.xml
+  # 0.1.0 Table definition
 
+  # Assets.
+  - include:
+      file: /db/changelog/0.1.0/table/table-asset.xml
+  - include:
+      file: /db/changelog/0.1.0/table/table-asset_group.xml
+  - include:
+      file: /db/changelog/0.1.0/table/table-asset_state.xml
+  - include:
+      file: /db/changelog/0.1.0/table/table-bitcoin_transaction_output.xml
+
+  # Users.
+  - include:
+      file: /db/changelog/0.1.0/table/table-application_user.xml
+
+  # Universe servers.
+  - include:
+      file: /db/changelog/0.1.0/table/table-universe_server.xml
+
+  # Requests.
+  - include:
+      file: /db/changelog/0.1.0/table/table-request.xml
+  - include:
+      file: /db/changelog/0.1.0/table/table-request_add_proof.xml
+  - include:
+      file: /db/changelog/0.1.0/table/table-request_add_asset_meta_data.xml
+  - include:
+      file: /db/changelog/0.1.0/table/table-request_add_universe_server.xml
+  - include:
+      file: /db/changelog/0.1.0/table/table-proof_file.xml
+
+  # ====================================================================================================================
+  # 0.1.0 Table constraints definition
+
+  # Assets.
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-asset.xml
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-asset_group.xml
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-asset_state.xml
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-bitcoin_transaction_output.xml
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-user.xml
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-universe_server.xml
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-request.xml
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-request_add_proof.xml
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-request_add_asset_meta_data.xml
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-request_add_universe_server.xml
+  - include:
+      file: /db/changelog/0.1.0/table-constraints/table-constraints-proof_file.xml
 
   # ====================================================================================================================
   # 0.1.0 database data
   - include:
-      file: /db/changelog/0.1.0/data/data-users.xml
+      file: /db/changelog/0.1.0/data/data-application_user.xml
   - include:
-      file: /db/changelog/0.1.0/data/data-bitcoin_transaction_outputs.xml
+      file: /db/changelog/0.1.0/data/data-bitcoin_transaction_output.xml
   - include:
-      file: /db/changelog/0.1.0/data/data-assets.xml
+      file: /db/changelog/0.1.0/data/data-asset_group.xml
   - include:
-      file: /db/changelog/0.1.0/data/data-proofs.xml
+      file: /db/changelog/0.1.0/data/data-asset.xml
+  - include:
+      file: /db/changelog/0.1.0/data/data-asset_state.xml
+  - include:
+      file: /db/changelog/0.1.0/data/data-proof_file.xml
 
   # ====================================================================================================================
   # 0.1.0 database specific

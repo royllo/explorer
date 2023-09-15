@@ -1,0 +1,75 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="test-data-bitcoin_transaction_output">
+
+        <!--
+        Block 766 / Transaction 46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946 / Output 0
+        curl -sSL "https://mempool.space/api/tx/46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946"
+        -->
+        <insert tableName="BITCOIN_TRANSACTION_OUTPUT">
+            <column name="ID" value="3"/>
+            <column name="BLOCK_HEIGHT" value="766"/>
+            <column name="TXID" value="46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946"/>
+            <column name="VOUT" value="0"/>
+            <column name="SCRIPTPUBKEY" value="76a914607c727d45ba97358a3fa06be04a514cfb12f4dd88ac"/>
+            <column name="SCRIPTPUBKEY_ASM"
+                    value="OP_DUP OP_HASH160 OP_PUSHBYTES_20 607c727d45ba97358a3fa06be04a514cfb12f4dd OP_EQUALVERIFY OP_CHECKSIG"/>
+            <column name="SCRIPTPUBKEY_TYPE" value="p2pkh"/>
+            <column name="SCRIPTPUBKEY_ADDRESS" value="19oAxAJhAKmEFb2pcA9qiX8sV8hxKeXjzd"/>
+            <column name="VALUE" value="10000000"/>
+        </insert>
+
+        <!--
+        Block 766 / Transaction 46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946 / Output 1
+        curl -sSL "https://mempool.space/api/tx/46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946"
+        -->
+        <insert tableName="BITCOIN_TRANSACTION_OUTPUT">
+            <column name="ID" value="4"/>
+            <column name="BLOCK_HEIGHT" value="766"/>
+            <column name="TXID" value="46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946"/>
+            <column name="VOUT" value="1"/>
+            <column name="SCRIPTPUBKEY" value="0020701a8d401c84fb13e6baf169d59684e17abd9fa216c8cc5b9fc63d622ff8c58d"/>
+            <column name="SCRIPTPUBKEY_ASM"
+                    value="OP_0 OP_PUSHBYTES_32 701a8d401c84fb13e6baf169d59684e17abd9fa216c8cc5b9fc63d622ff8c58d"/>
+            <column name="SCRIPTPUBKEY_TYPE" value="v0_p2wsh"/>
+            <column name="SCRIPTPUBKEY_ADDRESS" value="bc1qwqdg6squsna38e46795at95yu9atm8azzmyvckulcc7kytlcckxswvvzej"/>
+            <column name="VALUE" value="47765975"/>
+        </insert>
+
+        <!--
+            Transaction on testnet corresponding to asset n°1
+        -->
+        <insert tableName="BITCOIN_TRANSACTION_OUTPUT">
+            <column name="ID" value="5"/>
+            <column name="BLOCK_HEIGHT" value="2348688"/>
+            <column name="TXID" value="d8a8016095b9fcd1f63c57342d375026ecbc72c885a54b676c6e62b216e15365"/>
+            <column name="VOUT" value="1"/>
+            <column name="SCRIPTPUBKEY" value="00147fafce6a7ea1541dc33f99ab673dc525ed3a27b3"/>
+            <column name="SCRIPTPUBKEY_ASM" value="OP_0 OP_PUSHBYTES_20 7fafce6a7ea1541dc33f99ab673dc525ed3a27b3"/>
+            <column name="SCRIPTPUBKEY_TYPE" value="V0_P2WPKH"/>
+            <column name="SCRIPTPUBKEY_ADDRESS" value="tb1q07huu6n7592pmselnx4kw0w9yhkn5fan74dze9"/>
+            <column name="VALUE" value="1699422"/>
+        </insert>
+
+        <!--
+        Block 720 / Transaction 2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea / Output 0
+        curl -sSL "https://mempool.space/api/tx/2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea"
+        -->
+        <insert tableName="BITCOIN_TRANSACTION_OUTPUT">
+            <column name="ID" value="6"/>
+            <column name="BLOCK_HEIGHT" value="720"/>
+            <column name="TXID" value="2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea"/>
+            <column name="VOUT" value="0"/>
+            <column name="SCRIPTPUBKEY"
+                    value="410415ca91c387efac4ea86f0196b2a1d831f75a488f115055636f0022c51df508197ad4fc31f553d48052b05b0a3b6030a84a0441adae97734129bb8ea0ddfd4004ac"/>
+            <column name="SCRIPTPUBKEY_ASM"
+                    value="OP_PUSHBYTES_65 0415ca91c387efac4ea86f0196b2a1d831f75a488f115055636f0022c51df508197ad4fc31f553d48052b05b0a3b6030a84a0441adae97734129bb8ea0ddfd4004 OP_CHECKSIG"/>
+            <column name="SCRIPTPUBKEY_TYPE" value="p2pk"/>
+            <column name="SCRIPTPUBKEY_ADDRESS" value="19oAxAJhAKmEFb2pcA9qiX8sV8hxKeXjzd"/>
+            <column name="VALUE" value="5000000000"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

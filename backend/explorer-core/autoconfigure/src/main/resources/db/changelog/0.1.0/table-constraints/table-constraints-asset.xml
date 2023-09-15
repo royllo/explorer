@@ -1,0 +1,37 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="0.1.0-table-constraints-asset">
+
+        <!-- Adding a unique constraint on ASSET_ID -->
+        <addUniqueConstraint constraintName="ASSET_UNIQUE_ASSET_ID"
+                             tableName="ASSET"
+                             columnNames="ASSET_ID"/>
+
+        <!-- Foreign key FK_ASSET_GROUP > ASSET_GROUP.ID -->
+        <addForeignKeyConstraint constraintName="FK_ASSET_ASSET_GROUP"
+                                 baseColumnNames="FK_ASSET_GROUP"
+                                 baseTableName="ASSET"
+                                 referencedTableName="ASSET_GROUP"
+                                 referencedColumnNames="ID"
+                                 validate="true"/>
+
+        <!-- Foreign key FK_APPLICATION_USER_CREATOR > USER.ID -->
+        <addForeignKeyConstraint constraintName="FK_ASSET_APPLICATION_USER_CREATOR"
+                                 baseColumnNames="FK_USER_CREATOR"
+                                 baseTableName="ASSET"
+                                 referencedTableName="APPLICATION_USER"
+                                 referencedColumnNames="ID"
+                                 validate="true"/>
+
+        <!-- Foreign key FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT > BITCOIN_TRANSACTION_OUTPUT.ID -->
+        <addForeignKeyConstraint constraintName="FK_ASSET_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT"
+                                 baseColumnNames="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT"
+                                 baseTableName="ASSET"
+                                 referencedTableName="BITCOIN_TRANSACTION_OUTPUT"
+                                 referencedColumnNames="ID"
+                                 validate="true"/>
+
+    </changeSet>
+</databaseChangeLog>

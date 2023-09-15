@@ -1,0 +1,32 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="0.1.0-data-asset">
+
+        <!--
+        roylloCoin - Testnet (More info in docs/test/roylloCoin/README.md)
+        Asset id : f9dd292bb211dae8493645150b36efa990841b11038d026577440d2616d1ec32
+        Block 2427358 / Transaction 57faede9e107f3af74bb93e730bc1dfd07f81b166a974068f823d30d9eb10111 / Output 1
+        -->
+        <insert tableName="ASSET">
+            <column name="ID" value="1"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1"/>
+
+            <!-- Asset genesis -->
+            <column name="ASSET_ID" value="f9dd292bb211dae8493645150b36efa990841b11038d026577440d2616d1ec32"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="1"/>
+            <column name="META_DATA_HASH" value="0c482467dfb29000804e044c4c6044b487c0280082002d4611a8ba7f22703d63"/>
+            <column name="NAME" value="roylloCoin"/>
+            <column name="OUTPUT_INDEX" value="0"/>
+            <column name="VERSION" value="0"/>
+
+            <!-- Asset characteristics -->
+            <column name="ASSET_TYPE" value="NORMAL"/>
+            <column name="AMOUNT" value="999"/>
+
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

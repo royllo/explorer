@@ -1,0 +1,17 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="test-data-application_user">
+
+        <!-- straumat user -->
+        <insert tableName="APPLICATION_USER">
+            <column name="ID" value="2"/>
+            <column name="USERNAME" value="straumat"/>
+            <column name="ROLE" value="ADMINISTRATOR"/>
+            <column name="CREATED_ON"/>
+            <column name="UPDATED_ON"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

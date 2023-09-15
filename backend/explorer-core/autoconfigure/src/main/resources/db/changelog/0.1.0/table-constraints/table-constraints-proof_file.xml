@@ -1,0 +1,29 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="0.1.0-table-constraints-proof_file">
+
+        <!-- Adding a unique constraint on PROOF_FILE_ID -->
+        <addUniqueConstraint columnNames="PROOF_FILE_ID"
+                             constraintName="PROOF_FILE_UNIQUE_PROOF_FILE_ID"
+                             tableName="PROOF_FILE"/>
+
+        <!-- Foreign key FK_USER_CREATOR > USER.ID -->
+        <addForeignKeyConstraint constraintName="FK_PROOF_FILE_APPLICATION_USER_CREATOR"
+                                 baseColumnNames="FK_USER_CREATOR"
+                                 baseTableName="PROOF_FILE"
+                                 referencedTableName="APPLICATION_USER"
+                                 referencedColumnNames="ID"
+                                 validate="true"/>
+
+        <!-- Foreign key FK_ASSET > ASSETS.ID -->
+        <addForeignKeyConstraint constraintName="FK_PROOF_FILE_ASSET"
+                                 baseColumnNames="FK_ASSET"
+                                 baseTableName="PROOF_FILE"
+                                 referencedTableName="ASSET"
+                                 referencedColumnNames="ID"
+                                 validate="true"/>
+
+    </changeSet>
+</databaseChangeLog>

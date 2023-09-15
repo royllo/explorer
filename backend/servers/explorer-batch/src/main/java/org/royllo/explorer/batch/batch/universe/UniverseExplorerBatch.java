@@ -6,7 +6,7 @@ import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.provider.tapd.TapdService;
 import org.royllo.explorer.core.provider.tapd.UniverseLeavesResponse;
 import org.royllo.explorer.core.provider.tapd.UniverseRootsResponse;
-import org.royllo.explorer.core.repository.proof.ProofRepository;
+import org.royllo.explorer.core.repository.proof.ProofFileRepository;
 import org.royllo.explorer.core.repository.universe.UniverseServerRepository;
 import org.royllo.explorer.core.service.request.RequestService;
 import org.royllo.explorer.core.service.universe.UniverseServerService;
@@ -29,7 +29,7 @@ public class UniverseExplorerBatch extends BaseBatch {
     private static final int DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS = 10_000;
 
     /** Proof repository. */
-    private final ProofRepository proofRepository;
+    private final ProofFileRepository proofFileRepository;
 
     /** Universe server repository. */
     private final UniverseServerRepository universeServerRepository;
@@ -84,7 +84,7 @@ public class UniverseExplorerBatch extends BaseBatch {
                             leaves.getLeaves()
                                     .stream()
                                     .map(UniverseLeavesResponse.Leaf::getIssuanceProof)
-                                    .filter(proof -> proofRepository.findByProofId(sha256(proof)).isEmpty())
+                                    .filter(proof -> proofFileRepository.findByProofFileId(sha256(proof)).isEmpty())
                                     .forEach(proof -> {
                                         final AddProofRequestDTO addProofRequest = requestService.createAddProofRequest(proof);
                                         logger.info("Request created {} for asset: {}", addProofRequest.getId(), addProofRequest.getRawProof());

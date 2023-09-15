@@ -1,0 +1,49 @@
+{
+  "decoded_proof": {
+    "proof_at_depth": 0,
+    "number_of_proofs": 2,
+    "asset": {
+      "version": 0,
+      "asset_genesis": {
+        "genesis_point": "45d5846bfcce2a3232cbe018d98ede66f49db738389dc5186abda57ad5480677:1",
+        "name": "TestCoin",
+        "meta_hash": "0b1f5ce77088e8206cb68efc2e287c9cea8a08f456656fe4aa0934cc81954364",
+        "asset_id": "981dd27089b3bebc0ea0cd17e78e69ca8d582e7b9695ac53f97ea10723a852f8",
+        "output_index": 0,
+        "version": 0
+      },
+      "asset_type": "NORMAL",
+      "amount": "1000",
+      "lock_time": 0,
+      "relative_lock_time": 0,
+      "script_version": 0,
+      "script_key": "02f02cc84b9f38f9596afd32542439d87fb8cd44e73ac4d94445044bb5e98331b1",
+      "script_key_is_local": false,
+      "asset_group": {
+        "raw_group_key": "",
+        "tweaked_group_key": "0237ba39f4f3690a5c71de17ddad915afa8cd124f09bfc984de11546c2a76b07e3",
+        "asset_id_sig": "5a81224467702a3565efe912c3dcdf6442fa2ea778dd548b7d97cc794183cbcb7a9801bee4583c2bad0f1e2135c22005fcc8570eebb3a0e1b5b2c6b3115f0fd6"
+      },
+      "chain_anchor": {
+        "anchor_tx": "02000000000101770648d57aa5bd6a18c59d3838b79df466de8ed918e0cb32322acefc6b84d5450100000000ffffffff02e803000000000000225120ee35cfe3ea75e18ab3aa6087a677eaa31542c4471c84122d8fb6af2653953b73bd3d0f000000000022512029b8b09e22b88adfd4cfd28bb84d74924dc79ab2976e68b00f4edcd4ce5afdc801406ec217f3617a537a5af6f5ac2cc01178f287c73f4ca02ab957bef59d7a393c844defa2a2122814d9e5c55c0b00bc92a615e7b8797407e15b522a904d5d1f4e1100000000",
+        "anchor_txid": "cb12bb112c0211e3610300b2a93c1a2d0228b54ed49c58ca637ccb2ea0dc6f7d",
+        "anchor_block_hash": "000000000000002a807adf76df054f797a240ad36048b6f2885f2fa51e523cff",
+        "anchor_outpoint": "cb12bb112c0211e3610300b2a93c1a2d0228b54ed49c58ca637ccb2ea0dc6f7d:0",
+        "internal_key": "0276105ab591188bfc5858d9fc83d45fbd54e598633397016fec096f53143d8757",
+        "merkle_root": "",
+        "tapscript_sibling": ""
+      },
+      "prev_witnesses": [],
+      "is_spent": false
+    },
+    "meta_reveal": null,
+    "tx_merkle_proof": "05a837e0fe9b6f90589ef170fc1025a820e3f32b78e8347e3dc507c7c1226231d622b41784c177d3a97900e3839cc7976033d4f5545d54cd6a17329316c4d5bbf290a98f08f654abde40622c2ccedba986c601f466121a6793578b3cde49ab989f6bfac818d524bc7beb5e4f44b77600722c26de4adabae0fcf02662e160a644cee0b205748fb69ed87a846059c3567e573fff5693e4b0926e2034265b010ad09105",
+    "inclusion_proof": "00040000000001210276105ab591188bfc5858d9fc83d45fbd54e598633397016fec096f53143d8757027400490001000120be80c63c3b4523e0d068d9eb3692d9a41ab11a4da731d3493d0f4a77b3c246c702220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff012700010001220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "exclusion_proofs": [
+      "0004000000010121028b171ac2d9857bcd250183f8122694dd881ce2e6b778a45ddc4afb676a99e1ac0303020101"
+    ],
+    "split_root_proof": "",
+    "num_additional_inputs": 0,
+    "challenge_witness": []
+  }
+}

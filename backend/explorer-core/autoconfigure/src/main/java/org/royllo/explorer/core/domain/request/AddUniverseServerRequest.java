@@ -19,7 +19,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @RequiredArgsConstructor
 @Entity
-@Table(name = "REQUESTS_ADD_UNIVERSE_SERVER")
+@Table(name = "REQUEST_ADD_UNIVERSE_SERVER")
 @DiscriminatorValue("ADD_UNIVERSE_SERVER")
 public class AddUniverseServerRequest extends Request {
 

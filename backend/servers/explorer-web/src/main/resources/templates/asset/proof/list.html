@@ -13,12 +13,12 @@
 
         <!--/* We have the "assetId" parameter but the asset was not found */-->
         <div th:if="${!#strings.isEmpty(assetId) && result == null}"
-             th:insert="~{util/fragments/components/error_message :: error_message(#{proof.view.error.assetNotFound(${assetId})})}">
+             th:insert="~{util/fragments/components/error_message :: error_message(#{proofFile.view.error.assetNotFound(${assetId})})}">
         </div>
 
         <!--/* There is results but not for the page they asked for */-->
         <div th:if="${result != null && result.getTotalElements() > 0 && result.getContent().isEmpty()}"
-             th:insert="~{util/fragments/components/error_message :: error_message(#{proof.view.error.invalidPage})}">
+             th:insert="~{util/fragments/components/error_message :: error_message(#{proofFile.view.error.invalidPage})}">
         </div>
 
     </div>
@@ -30,26 +30,26 @@
 
         <div class="overflow-hidden shadow sm:rounded-lg">
             <div class="px-4 py-6 sm:px-6">
-                <h3 class="tableHeadTitle" th:text="#{proof.view.title(${assetId})}"></h3>
+                <h3 class="tableHeadTitle" th:text="#{proofFile.view.title(${assetId})}"></h3>
             </div>
         </div>
 
         <!--*/ Proof viewer */-->
         <ul class="divide-y divide-gray-100 mx-auto" role="list">
-            <li class="" th:each="proof, iStat: ${result.content}">
+            <li class="" th:each="proofFile, iStat: ${result.content}">
                 <div class="mx-auto">
                     <div class="flex flex-col space-y-1 col-span-full mt-2 ml-2 mr-2 mb-2">
-                        <label th:for="@{'proof-' + ${iStat.index}}" th:text="@{'N°' + ${iStat.index+1}}"></label>
+                        <label th:for="@{'proofFile-' + ${iStat.index}}" th:text="@{'N°' + ${iStat.index+1}}"></label>
                         <textarea
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 disabled="disabled"
                                 rows="10"
-                                th:id="@{'proof-' + ${iStat.index}}"
-                                th:text="${proof.rawProof}"></textarea>
+                                th:id="@{'proofFile-' + ${iStat.index}}"
+                                th:text="${proofFile.rawProof}"></textarea>
                         <a class="defaultButton"
-                           th:name="@{'Copy proof n°' + ${iStat.index}}"
-                           th:onClick="@{'copy(\'proof-' + ${iStat.index} + '\');'}"
-                           th:text="#{proof.view.copyProof}"></a>
+                           th:name="@{'Copy proofFile n°' + ${iStat.index}}"
+                           th:onClick="@{'copy(\'proofFile-' + ${iStat.index} + '\');'}"
+                           th:text="#{proofFile.view.copyProof}"></a>
                     </div>
                 </div>
             </li>
