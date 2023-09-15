@@ -307,6 +307,11 @@ public class AssetServiceTest extends BaseTest {
         assertEquals(ROYLLO_COIN_RAW_GROUP_KEY, asset.get().getAssetGroup().getRawGroupKey());
         assertEquals(ROYLLO_COIN_TWEAKED_GROUP_KEY, asset.get().getAssetGroup().getTweakedGroupKey());
         assertEquals(ROYLLO_COIN_ASSET_ID_SIG, asset.get().getAssetGroup().getAssetIdSig());
+
+        // getAsset() on an asset that has no asset group
+        asset = assetService.getAsset(999);
+        assertTrue(asset.isPresent());
+        assertNull(asset.get().getAssetGroup());
     }
 
     @Test
@@ -337,6 +342,12 @@ public class AssetServiceTest extends BaseTest {
         assertEquals(ROYLLO_COIN_RAW_GROUP_KEY, asset.get().getAssetGroup().getRawGroupKey());
         assertEquals(ROYLLO_COIN_TWEAKED_GROUP_KEY, asset.get().getAssetGroup().getTweakedGroupKey());
         assertEquals(ROYLLO_COIN_ASSET_ID_SIG, asset.get().getAssetGroup().getAssetIdSig());
+
+        // getAssetByAssetId() on an asset that has no asset group
+        asset = assetService.getAssetByAssetId("NO_GROUP_ASSET_ASSET_ID");
+        assertTrue(asset.isPresent());
+        assertEquals(999, asset.get().getId());
+        assertNull(asset.get().getAssetGroup());
     }
 
 }

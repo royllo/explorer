@@ -149,6 +149,18 @@ public class AssetControllerTest extends BaseTest {
                         .replace("\"{0}\"", "&quot;" + ROYLLO_COIN_ASSET_ID + "&quot;")))));
     }
 
+    @ParameterizedTest
+    @MethodSource("headers")
+    @DisplayName("Asset page with an empty group asset")
+    void assetPageWithEmptyGroupAsset(final HttpHeaders headers) throws Exception {
+        mockMvc.perform(get("/asset/NO_GROUP_ASSET_ASSET_ID").headers(headers))
+                .andExpect(status().isOk())
+                .andExpect(view().name(containsString(ASSET_PAGE)))
+                // Should display asset but not the asset group tab.
+                .andExpect(content().string(containsString(">NoGroupAsset<")))
+                .andExpect(content().string(not(containsString(environment.getProperty("asset.view.tabs.assetGroup")))));
+    }
+
     @Test
     @DisplayName("Download proof file")
     void downloadProofFile() throws Exception {

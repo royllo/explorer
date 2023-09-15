@@ -17,6 +17,7 @@ import org.royllo.explorer.api.test.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static graphql.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -307,6 +308,23 @@ public class AssetDataFetcherTest extends BaseTest {
         assertEquals(ROYLLO_COIN_ASSET_ID_SIG, asset.getAssetGroup().getAssetIdSig());
         assertEquals(ROYLLO_COIN_RAW_GROUP_KEY, asset.getAssetGroup().getRawGroupKey());
         assertEquals(ROYLLO_COIN_TWEAKED_GROUP_KEY, asset.getAssetGroup().getTweakedGroupKey());
+
+        // get asset when asset group is empty
+        graphQLQueryRequest = new GraphQLQueryRequest(
+                AssetByAssetIdGraphQLQuery.newRequest().assetId("NO_GROUP_ASSET_ASSET_ID").build(),
+                new AssetByAssetIdProjectionRoot<>()
+                        .assetId()
+                        .assetGroup()
+                        .assetIdSig()
+                        .rawGroupKey()
+                        .tweakedGroupKey());
+        asset = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+                graphQLQueryRequest.serialize(),
+                "data." + DgsConstants.QUERY.AssetByAssetId,
+                new TypeRef<>() {
+                });
+        assertNotNull(asset);
+        assertNull(asset.getAssetGroup());
     }
 
 }

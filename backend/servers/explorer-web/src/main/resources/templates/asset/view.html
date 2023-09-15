@@ -28,7 +28,7 @@
     <div class="py-12 w-4/5 mx-auto" th:if="${result != null}">
 
         <!--/* =================================================================================================== */-->
-        <!--*/ Header showing asset name and asset id */-->
+        <!--/* Header showing asset name and asset id */-->
         <div class="md:flex md:items-center md:justify-between md:space-x-5">
             <div class="flex items-start space-x-5">
                 <div class="flex-shrink-0">
@@ -45,23 +45,24 @@
                 </div>
             </div>
             <div class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-3 sm:space-y-0 sm:space-x-reverse md:mt-0 md:flex-row md:space-x-3">
-                <!--*/ Can be used to add a button next to the asset name/logo */-->
+                <!--/* Can be used to add a button next to the asset name/logo */-->
             </div>
         </div>
 
         <!--/* =================================================================================================== */-->
-        <!--*/ Tabs navigation */-->
+        <!--/* Tabs navigation */-->
         <div x-data="{ activeTab: 1 }">
 
             <!--/* =============================================================================================== */-->
-            <!--*/ Tabs navigation */-->
+            <!--/* Tabs navigation */-->
             <nav aria-label="Tabs" class="-mb-px flex space-x-8">
                 <label :class="{ 'selectedTab': activeTab === 1 }"
                        @click="activeTab = 1"
                        class="tab" th:text="#{asset.view.tabs.asset}"></label>
                 <label :class="{ 'selectedTab': activeTab === 2 }"
                        @click="activeTab = 2"
-                       class="tab" th:text="#{asset.view.tabs.assetGroup}"></label>
+                       class="tab" th:if="${result.assetGroup != null}"
+                       th:text="#{asset.view.tabs.assetGroup}"></label>
                 <label :class="{ 'selectedTab': activeTab === 3 }"
                        @click="activeTab = 3"
                        class="tab" th:text="#{asset.view.tabs.assetStates}"></label>
@@ -75,7 +76,7 @@
             <!--/* =============================================================================================== */-->
 
             <!--/* =============================================================================================== */-->
-            <!--*/ Asset genesis tab */-->
+            <!--/* Asset tab */-->
             <div :class="{ 'active': activeTab === 1 }" class="px-6 py-4"
                  x-show="activeTab === 1">
                 <div class="overflow-hidden shadow sm:rounded-lg">
@@ -134,7 +135,7 @@
             <!--/* =============================================================================================== */-->
 
             <!--/* =============================================================================================== */-->
-            <!--*/ Asset group tab (if not null) */-->
+            <!--/* Asset group tab (if not null) */-->
             <div :class="{ 'active': activeTab === 2 }" class="px-6 py-4" th:if="${result.assetGroup != null}"
                  x-show="activeTab === 2">
                 <div class="overflow-hidden shadow sm:rounded-lg">
@@ -161,7 +162,7 @@
             <!--/* =============================================================================================== */-->
 
             <!--/* =============================================================================================== */-->
-            <!--*/ Asset states */-->
+            <!--/* Asset states */-->
             <div :class="{ 'active': activeTab === 3 }" class="px-6 py-4"
                  x-show="activeTab === 3">
                 <div class="overflow-hidden shadow sm:rounded-lg mb-4" th:each="assetState: ${assetStatesList}">
@@ -204,7 +205,7 @@
             <!--/* =============================================================================================== */-->
 
             <!--/* =============================================================================================== */-->
-            <!--*/ Owner tab */-->
+            <!--/* Owner tab */-->
             <div :class="{ 'active': activeTab === 4 }" class="px-6 py-4"
                  x-show="activeTab === 4">
                 <div class="overflow-hidden shadow sm:rounded-lg">
@@ -230,7 +231,7 @@
             <!--/* =============================================================================================== */-->
 
             <!--/* =============================================================================================== */-->
-            <!--*/ Proof files tab */-->
+            <!--/* Proof files tab */-->
             <div :class="{ 'active': activeTab === 5 }" class="px-6 py-4"
                  x-show="activeTab === 5">
                 <div class="overflow-hidden shadow sm:rounded-lg mb-4" th:each="proofFile: ${proofFilesList}">
