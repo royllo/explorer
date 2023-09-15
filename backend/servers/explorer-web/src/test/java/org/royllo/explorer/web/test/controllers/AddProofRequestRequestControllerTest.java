@@ -57,7 +57,7 @@ public class AddProofRequestRequestControllerTest {
                 .andExpect(view().name(CHOOSE_REQUEST_TYPE_PAGE))
                 // Error messages.
                 .andExpect(content().string(containsString(environment.getProperty("request.proofFile.add"))))
-                .andExpect(content().string(containsString("/request/proofFile/add")));
+                .andExpect(content().string(containsString("/request/proof/add")));
     }
 
     @Test
