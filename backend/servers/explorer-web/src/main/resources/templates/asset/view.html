@@ -39,9 +39,13 @@
                         <span aria-hidden="true" class="absolute inset-0 rounded-full shadow-inner"></span>
                     </div>
                 </div>
-                <div class="pt-1.5">
+                <div class="pt-1.5 hidden sm:block">
                     <h1 class="text-2xl font-bold text-gray-900" th:text="${result.name}"></h1>
                     <p class="text-sm font-medium text-gray-500" th:text="${result.assetId}"></p>
+                </div>
+                <div class="pt-1.5 md:hidden">
+                    <h1 class="text-2xl font-bold text-gray-900" th:text="${result.name}"></h1>
+                    <p class="text-sm font-medium text-gray-500" th:text="${result.name}"></p>
                 </div>
             </div>
             <div class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-3 sm:space-y-0 sm:space-x-reverse md:mt-0 md:flex-row md:space-x-3">
