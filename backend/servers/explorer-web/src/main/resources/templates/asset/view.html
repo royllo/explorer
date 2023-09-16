@@ -51,34 +51,51 @@
 
         <!--/* =================================================================================================== */-->
         <!--/* Tabs navigation */-->
-        <div x-data="{ activeTab: 1 }">
+        <div x-data="{ activeTab: 'asset' }">
 
             <!--/* =============================================================================================== */-->
             <!--/* Tabs navigation */-->
-            <nav aria-label="Tabs" class="-mb-px flex space-x-8">
-                <label :class="{ 'selectedTab': activeTab === 1 }"
-                       @click="activeTab = 1"
-                       class="tab" th:text="#{asset.view.tabs.asset}"></label>
-                <label :class="{ 'selectedTab': activeTab === 2 }"
-                       @click="activeTab = 2"
-                       class="tab" th:if="${result.assetGroup != null}"
-                       th:text="#{asset.view.tabs.assetGroup}"></label>
-                <label :class="{ 'selectedTab': activeTab === 3 }"
-                       @click="activeTab = 3"
-                       class="tab" th:text="#{asset.view.tabs.assetStates}"></label>
-                <label :class="{ 'selectedTab': activeTab === 4 }"
-                       @click="activeTab = 4"
-                       class="tab" th:text="#{asset.view.tabs.owner}"></label>
-                <label :class="{ 'selectedTab': activeTab === 5 }"
-                       @click="activeTab = 5"
-                       class="tab" th:text="#{asset.view.tabs.proofs}"></label>
-            </nav>
+            <div class="sm:hidden">
+                <label class="sr-only" for="tabs">Select a tab</label>
+                <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+                <select class="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                        id="tabs"
+                        name="tabs"
+                        x-model="activeTab">
+                    <option th:text="#{asset.view.tabs.asset}" value="asset"></option>
+                    <option th:if="${result.assetGroup != null}" th:text="#{asset.view.tabs.assetGroup}"
+                            value="assetGroup"></option>
+                    <option th:text="#{asset.view.tabs.assetStates}" value="assetStates"></option>
+                    <option th:text="#{asset.view.tabs.owner}" value="owner"></option>
+                    <option th:text="#{asset.view.tabs.proofs}" value="proofFiles"></option>
+                </select>
+            </div>
+            <div class="hidden sm:block">
+                <nav aria-label="Tabs" class="-mb-px flex space-x-8">
+                    <label :class="{ 'selectedTab': activeTab === 'asset' }"
+                           @click="activeTab = 'asset'"
+                           class="tab" th:text="#{asset.view.tabs.asset}"></label>
+                    <label :class="{ 'selectedTab': activeTab === 'assetGroup' }"
+                           @click="activeTab = 'assetGroup'"
+                           class="tab" th:if="${result.assetGroup != null}"
+                           th:text="#{asset.view.tabs.assetGroup}"></label>
+                    <label :class="{ 'selectedTab': activeTab === 'assetStates' }"
+                           @click="activeTab = 'assetStates'"
+                           class="tab" th:text="#{asset.view.tabs.assetStates}"></label>
+                    <label :class="{ 'selectedTab': activeTab === 'owner' }"
+                           @click="activeTab = 'owner'"
+                           class="tab" th:text="#{asset.view.tabs.owner}"></label>
+                    <label :class="{ 'selectedTab': activeTab === 'proofFiles' }"
+                           @click="activeTab = 'proofFiles'"
+                           class="tab" th:text="#{asset.view.tabs.proofs}"></label>
+                </nav>
+            </div>
             <!--/* =============================================================================================== */-->
 
             <!--/* =============================================================================================== */-->
             <!--/* Asset tab */-->
-            <div :class="{ 'active': activeTab === 1 }" class="px-6 py-4"
-                 x-show="activeTab === 1">
+            <div :class="{ 'active': activeTab === 'asset' }" class="px-6 py-4"
+                 x-show="activeTab === 'asset'">
                 <div class="overflow-hidden shadow sm:rounded-lg">
                     <div class="border-t border-gray-100">
                         <dl class="divide-y divide-gray-100">
@@ -136,8 +153,9 @@
 
             <!--/* =============================================================================================== */-->
             <!--/* Asset group tab (if not null) */-->
-            <div :class="{ 'active': activeTab === 2 }" class="px-6 py-4" th:if="${result.assetGroup != null}"
-                 x-show="activeTab === 2">
+            <div :class="{ 'active': activeTab === 'assetGroup' }" class="px-6 py-4"
+                 th:if="${result.assetGroup != null}"
+                 x-show="activeTab === 'assetGroup'">
                 <div class="overflow-hidden shadow sm:rounded-lg">
                     <div class="border-t border-gray-100">
                         <dl class="divide-y divide-gray-100">
@@ -163,8 +181,8 @@
 
             <!--/* =============================================================================================== */-->
             <!--/* Asset states */-->
-            <div :class="{ 'active': activeTab === 3 }" class="px-6 py-4"
-                 x-show="activeTab === 3">
+            <div :class="{ 'active': activeTab === 'assetStates' }" class="px-6 py-4"
+                 x-show="activeTab === 'assetStates'">
                 <div class="overflow-hidden shadow sm:rounded-lg mb-4" th:each="assetState: ${assetStatesList}">
                     <div class="border-t border-gray-100">
 
@@ -206,8 +224,8 @@
 
             <!--/* =============================================================================================== */-->
             <!--/* Owner tab */-->
-            <div :class="{ 'active': activeTab === 4 }" class="px-6 py-4"
-                 x-show="activeTab === 4">
+            <div :class="{ 'active': activeTab === 'owner' }" class="px-6 py-4"
+                 x-show="activeTab === 'owner'">
                 <div class="overflow-hidden shadow sm:rounded-lg">
                     <div class="border-t border-gray-100">
                         <dl class="divide-y divide-gray-100">
@@ -232,8 +250,8 @@
 
             <!--/* =============================================================================================== */-->
             <!--/* Proof files tab */-->
-            <div :class="{ 'active': activeTab === 5 }" class="px-6 py-4"
-                 x-show="activeTab === 5">
+            <div :class="{ 'active': activeTab === 'proofFiles' }" class="px-6 py-4"
+                 x-show="activeTab === 'proofFiles'">
                 <div class="overflow-hidden shadow sm:rounded-lg mb-4" th:each="proofFile: ${proofFilesList}">
 
                     <div class="border-t border-gray-100">
