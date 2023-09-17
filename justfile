@@ -17,13 +17,13 @@ build_docker:
 
 # ======================================================================================================================
 # Run
-run_api_server:
+api:
     mvn spring-boot:run -Dspring-boot.run.profiles=dev -f backend/servers/explorer-api/pom.xml
 
-run_web_server_backend:
+web_backend:
     mvn spring-boot:run -Dspring-boot.run.profiles=dev -f backend/servers/explorer-web/pom.xml
 
-run_web_server_frontend:
+web_frontend:
     npm run --prefix backend/servers/explorer-web build && npm run --prefix backend/servers/explorer-web watch
 
 # ======================================================================================================================
@@ -41,11 +41,11 @@ finish_release:
 # ======================================================================================================================
 # Utils
 remove_docker_content:
-    docker stop `docker ps -qa`
-    docker rm `docker ps -qa`
-    docker rmi -f `docker images -qa `
-    docker volume rm $(docker volume ls -qf)
-    docker network rm `docker network ls -q`
+    docker stop $(docker ps -qa)
+    docker rm $(docker ps -qa)
+    docker rmi -f $(docker images -qa)
+    docker volume rm $(docker volume ls -q)
+    docker network rm $(docker network ls -q)
 
 download_dependencies:
     mvn dependency:sources dependency:resolve -Dclassifier=javadoc
