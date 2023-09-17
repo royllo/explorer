@@ -31,7 +31,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @ToString
 @RequiredArgsConstructor
 @Entity
-@Table(name = "ASSETS")
+@Table(name = "ASSET")
 public class Asset extends BaseDomain {
 
     /** Unique identifier. */
@@ -45,34 +45,35 @@ public class Asset extends BaseDomain {
     @JoinColumn(name = "FK_USER_CREATOR", nullable = false)
     private User creator;
 
-    /** The version of the Taproot asset. */
-    @Column(name = "VERSION", updatable = false)
-    private int version;
+    /** Asset group. */
+    @ManyToOne(fetch = EAGER)
+    @JoinColumn(name = "FK_ASSET_GROUP")
+    private AssetGroup assetGroup;
 
-    /** The first outpoint of the transaction that created the asset (txid:vout). */
+    /** Asset genesis: The asset ID that uniquely identifies the asset. */
+    @Column(name = "ASSET_ID", updatable = false)
+    private String assetId;
+
+    /** Asset genesis: The first outpoint of the transaction that created the asset (txid:vout). */
     @ManyToOne(fetch = EAGER)
     @JoinColumn(name = "FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT", updatable = false)
     private BitcoinTransactionOutput genesisPoint;
 
-    /** The name of the asset. */
-    @Column(name = "NAME", updatable = false)
-    private String name;
-
-    /** The hash of the metadata for this genesis asset. */
+    /** Asset genesis: The hash of the metadata for this genesis asset. */
     @Column(name = "META_DATA_HASH", updatable = false)
     private String metaDataHash;
 
-    /** The asset ID that uniquely identifies the asset. */
-    @Column(name = "ASSET_ID", updatable = false)
-    private String assetId;
+    /** Asset genesis: The name of the asset. */
+    @Column(name = "NAME", updatable = false)
+    private String name;
 
-    /** The index of the output that carries the unique Taproot commitment in the genesis transaction. */
+    /** Asset genesis: The index of the output that carries the unique Taproot commitment in the genesis transaction. */
     @Column(name = "OUTPUT_INDEX", updatable = false)
     private int outputIndex;
 
-    /** The version of the Taproot asset commitment that created this asset. */
-    @Column(name = "GENESIS_VERSION", updatable = false)
-    private int genesisVersion;
+    /** Asset genesis: The version of the Taproot asset commitment that created this asset. */
+    @Column(name = "VERSION", updatable = false)
+    private int version;
 
     /** The type of the asset: normal or a collectible. */
     @Enumerated(STRING)
@@ -83,60 +84,6 @@ public class Asset extends BaseDomain {
     @Column(name = "AMOUNT")
     private BigInteger amount;
 
-    /** An optional lock time, as with Bitcoin transactions. */
-    @Column(name = "LOCK_TIME")
-    private int lockTime;
-
-    /** An optional relative lock time, as with Bitcoin transactions. */
-    @Column(name = "RELATIVE_LOCK_TIME")
-    private int relativeLockTime;
-
-    /** The version of the script, only version 0 is defined at present. */
-    @Column(name = "SCRIPT_VERSION")
-    private int scriptVersion;
-
-    /** The script key of the asset, which can be spent under Taproot semantics. */
-    @Column(name = "SCRIPT_KEY")
-    private String scriptKey;
-
-    /** The raw group key which is a normal public key. */
-    @Column(name = "RAW_GROUP_KEY")
-    private String rawGroupKey;
-
-    /** The tweaked group key, which is derived based on the genesis point and also asset type. */
-    @Column(name = "TWEAKED_GROUP_KEY")
-    private String tweakedGroupKey;
-
-    /** A signature over the genesis point using the above key. */
-    @Column(name = "ASSET_ID_SIG")
-    private String assetIdSig;
-
-    /** The transaction that anchors the Taproot asset commitment where the asset resides. */
-    @Column(name = "ANCHOR_TX")
-    private String anchorTx;
-
-    /** The txid of the anchor transaction. */
-    @Column(name = "ANCHOR_TXID")
-    private String anchorTxId;
-
-    /** The block hash the contains the anchor transaction above. */
-    @Column(name = "ANCHOR_BLOCK_HASH")
-    private String anchorBlockHash;
-
-    /** Outpoint (txid:vout) that stores the Taproot asset commitment. */
-    @Column(name = "ANCHOR_OUTPOINT")
-    private String anchorOutpoint;
-
-    /** The raw internal key that was used to create the anchor Taproot output ke. */
-    @Column(name = "INTERNAL_KEY")
-    private String internalKey;
-
-    /** The Taproot merkle root hash of the anchor output the asset was committed to. */
-    @Column(name = "MERKLE_ROOT")
-    private String merkleRoot;
-
-    /** The serialized preimage of a Tapscript sibling, if there was one. */
-    @Column(name = "TAPSCRIPT_SIBLING")
-    private String tapscriptSibling;
+    // TODO Add a link to the genesis state ?
 
 }

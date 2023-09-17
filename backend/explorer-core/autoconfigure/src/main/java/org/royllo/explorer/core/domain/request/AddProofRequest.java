@@ -24,7 +24,7 @@ import static jakarta.persistence.FetchType.EAGER;
 @SuperBuilder
 @RequiredArgsConstructor
 @Entity
-@Table(name = "REQUESTS_ADD_PROOF")
+@Table(name = "REQUEST_ADD_PROOF")
 @DiscriminatorValue("ADD_PROOF")
 public class AddProofRequest extends Request {
 

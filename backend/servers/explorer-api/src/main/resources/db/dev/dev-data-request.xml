@@ -1,0 +1,61 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="test-data-request">
+
+        <!-- Add proofFile request n°1 ( Opened add proofFile ) -->
+        <insert tableName="REQUEST">
+            <column name="ID" value="1"/>
+            <column name="REQUEST_ID" value="f5623bdf-9fa6-46cf-85df-request_p_01"/>
+            <column name="TYPE" value="ADD_PROOF"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="STATUS" value="OPENED"/>
+        </insert>
+        <insert tableName="REQUEST_ADD_PROOF">
+            <column name="ID" value="1"/>
+            <column name="RAW_PROOF" value="P1"/>
+        </insert>
+
+        <!-- Add proofFile request n°2 ( Closed add proofFile ) -->
+        <insert tableName="REQUEST">
+            <column name="ID" value="2"/>
+            <column name="REQUEST_ID" value="91425ba6-8b16-46a8-baa6-request_p_02"/>
+            <column name="TYPE" value="ADD_PROOF"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="STATUS" value="FAILURE"/>
+        </insert>
+        <insert tableName="REQUEST_ADD_PROOF">
+            <column name="ID" value="2"/>
+            <column name="RAW_PROOF" value="P2"/>
+        </insert>
+
+        <!-- Add asset request n°3 ( Opened addAssetMetaData GI3/P3 ) -->
+        <insert tableName="REQUEST">
+            <column name="ID" value="3"/>
+            <column name="REQUEST_ID" value="91425ba6-8b16-46a8-baa6-request_m_01"/>
+            <column name="TYPE" value="ADD_ASSET_META_DATA"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="STATUS" value="OPENED"/>
+        </insert>
+        <insert tableName="REQUEST_ADD_ASSET_META_DATA">
+            <column name="ID" value="3"/>
+            <column name="ASSET_ID" value="AI2"/>
+            <column name="META_DATA" value="MD2"/>
+        </insert>
+
+        <!-- Add proofFile request n°4 ( Opened proofFile GI4/P4 ) -->
+        <insert tableName="REQUEST">
+            <column name="ID" value="4"/>
+            <column name="REQUEST_ID" value="91425ba6-8b16-46a8-baa6-request_p_03"/>
+            <column name="TYPE" value="ADD_PROOF"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="STATUS" value="OPENED"/>
+        </insert>
+        <insert tableName="REQUEST_ADD_PROOF">
+            <column name="ID" value="4"/>
+            <column name="RAW_PROOF" value="P4"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

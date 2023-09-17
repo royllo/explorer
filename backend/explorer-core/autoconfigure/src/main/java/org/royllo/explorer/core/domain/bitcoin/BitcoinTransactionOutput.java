@@ -23,7 +23,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @ToString
 @RequiredArgsConstructor
 @Entity
-@Table(name = "BITCOIN_TRANSACTION_OUTPUTS")
+@Table(name = "BITCOIN_TRANSACTION_OUTPUT")
 public class BitcoinTransactionOutput extends BaseDomain {
 
     /** Unique identifier. */

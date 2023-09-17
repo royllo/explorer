@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Bitcoin service implementation.
+ * {@link BitcoinService} implementation.
  */
 @Service
 @RequiredArgsConstructor

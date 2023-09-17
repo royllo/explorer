@@ -29,7 +29,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Builder
 @Entity
-@Table(name = "USERS")
+@Table(name = "APPLICATION_USER")
 public class User extends BaseDomain {
 
     /** Unique identifier. */

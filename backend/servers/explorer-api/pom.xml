@@ -193,8 +193,10 @@
                         <!-- GraphQL types -->
                         <param>src/main/resources/schema/bitcoinTransactionOutput.graphqls</param>
                         <param>src/main/resources/schema/user.graphqls</param>
+                        <param>src/main/resources/schema/assetGroup.graphqls</param>
                         <param>src/main/resources/schema/asset.graphqls</param>
-                        <param>src/main/resources/schema/proof.graphqls</param>
+                        <param>src/main/resources/schema/assetState.graphqls</param>
+                        <param>src/main/resources/schema/proof_file.graphqls</param>
                         <param>src/main/resources/schema/request.graphqls</param>
                         <param>src/main/resources/schema/request-addProof.graphqls</param>
                         <param>src/main/resources/schema/request-addAssetMetaData.graphqls</param>
@@ -303,7 +305,7 @@
     <parent>
         <groupId>org.royllo.explorer</groupId>
         <artifactId>explorer</artifactId>
-        <version>0.0.15</version>
+        <version>0.0.16</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
     <!-- =========================================================================================================== -->

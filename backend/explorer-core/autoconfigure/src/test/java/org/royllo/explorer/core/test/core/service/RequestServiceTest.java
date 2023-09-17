@@ -112,7 +112,7 @@ public class RequestServiceTest {
         }
 
         // =============================================================================================================
-        // Request 1 (addAsset).
+        // Request 1 (addAssetDTO).
         RequestDTO request1DTO = requestService.createAddProofRequest("proof1");
         assertNotNull(request1DTO);
         long request1Id = request1DTO.getId();
@@ -157,7 +157,7 @@ public class RequestServiceTest {
         assertEquals("meta1", request2Casted.getMetaData());
 
         // =============================================================================================================
-        // Request 3 (addAsset).
+        // Request 3 (addAssetDTO).
         RequestDTO request3DTO = requestService.createAddProofRequest("proof2");
         assertNotNull(request3DTO);
         long request3Id = request3DTO.getId();

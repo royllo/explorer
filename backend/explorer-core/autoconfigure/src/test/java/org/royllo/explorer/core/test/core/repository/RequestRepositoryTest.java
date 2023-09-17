@@ -67,9 +67,9 @@ public class RequestRepositoryTest extends BaseTest {
 
         // See what's in database with JDBC.
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        Long request1IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUESTS", Long.class);
+        Long request1IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUEST", Long.class);
         assertEquals(request1ID, request1IDFromJDBC);
-        Long addAssetRequest1IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUESTS_ADD_PROOF", Long.class);
+        Long addAssetRequest1IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUEST_ADD_PROOF", Long.class);
         assertEquals(request1ID, addAssetRequest1IDFromJDBC);
 
         // =============================================================================================================
@@ -95,9 +95,9 @@ public class RequestRepositoryTest extends BaseTest {
 
         // See what's in database with JDBC.
         jdbcTemplate = new JdbcTemplate(dataSource);
-        Long request2IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUESTS", Long.class);
+        Long request2IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUEST", Long.class);
         assertEquals(request2ID, request2IDFromJDBC);
-        Long addAssetRequest2IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUESTS_ADD_ASSET_META_DATA", Long.class);
+        Long addAssetRequest2IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUEST_ADD_ASSET_META_DATA", Long.class);
         assertEquals(request2ID, addAssetRequest2IDFromJDBC);
 
         // =============================================================================================================
@@ -121,9 +121,9 @@ public class RequestRepositoryTest extends BaseTest {
 
         // See what's in database with JDBC.
         jdbcTemplate = new JdbcTemplate(dataSource);
-        Long request3IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUESTS", Long.class);
+        Long request3IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUEST", Long.class);
         assertEquals(request3ID, request3IDFromJDBC);
-        Long addAssetRequest3IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUESTS_ADD_PROOF", Long.class);
+        Long addAssetRequest3IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUEST_ADD_PROOF", Long.class);
         assertEquals(request3ID, addAssetRequest3IDFromJDBC);
     }
 

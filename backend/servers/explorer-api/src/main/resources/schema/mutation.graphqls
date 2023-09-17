@@ -2,7 +2,7 @@ type Mutation {
 
     # ==================================================================================================================
     # Requests API
-    "Creates a request to add a proof"
+    "Creates a request to add a proofFile"
     createAddProofRequest(input: AddProofRequestInputs!): AddProofRequest
 
     "Creates a request to add an asset meta data"
@@ -13,7 +13,7 @@ type Mutation {
 
 }
 
-"Add proof request inputs"
+"Add proofFile request inputs"
 input AddProofRequestInputs {
     "Proof that validates the asset information"
     rawProof: String!

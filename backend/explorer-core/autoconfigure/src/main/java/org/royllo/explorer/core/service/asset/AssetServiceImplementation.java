@@ -1,9 +1,11 @@
 package org.royllo.explorer.core.service.asset;
 
+import io.micrometer.common.util.StringUtils;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.asset.Asset;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
+import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
@@ -13,7 +15,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -22,21 +23,20 @@ import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASS
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 
 /**
- * Asset service implementation.
+ * {@link AssetService} implementation.
  */
 @Service
 @RequiredArgsConstructor
 @SuppressWarnings({"checkstyle:DesignForExtension", "unused"})
 public class AssetServiceImplementation extends BaseService implements AssetService {
 
-    /**
-     * Assert repository.
-     */
+    /** Assert repository. */
     private final AssetRepository assetRepository;
 
-    /**
-     * Bitcoin service.
-     */
+    /** Asset group service. */
+    private final AssetGroupService assetGroupService;
+
+    /** Bitcoin service. */
     private final BitcoinService bitcoinService;
 
     @Override
@@ -49,7 +49,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         assert page >= 1 : "Page number starts at page 1";
 
         // Results.
-        Page<AssetDTO> results = new PageImpl<>(List.of());
+        Page<AssetDTO> results = Page.empty();
 
         // If the "query" parameter has a size equals to ASSET_ID_SIZE,
         // we search if there is this asset in database with this exact assetId.
@@ -93,19 +93,40 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         assert newAsset.getGenesisPoint() != null : "Bitcoin transaction is required";
         assert assetRepository.findByAssetId(newAsset.getAssetId()).isEmpty() : newAsset.getAssetId() + " already registered";
 
+        // =============================================================================================================
         // We update and save the asset.
         final Asset assetToCreate = ASSET_MAPPER.mapToAsset(newAsset);
+
         // Setting the creator.
         assetToCreate.setCreator(USER_MAPPER.mapToUser(ANONYMOUS_USER_DTO));
+
         // Setting the bitcoin transaction output ID if not already set.
         if (newAsset.getGenesisPoint().getId() == null) {
             final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(newAsset.getGenesisPoint().getTxId(), newAsset.getGenesisPoint().getVout());
             assert bto.isPresent() : "UTXO " + newAsset.getGenesisPoint().getTxId() + "/" + newAsset.getGenesisPoint().getVout() + " Not found";
             assetToCreate.setGenesisPoint(BITCOIN_MAPPER.mapToBitcoinTransactionOutput(bto.get()));
         }
-        final AssetDTO assetCreated = ASSET_MAPPER.mapToAssetDTO(assetRepository.save(assetToCreate));
 
-        // We return the value.
+        // We check if an asset group is set.
+        if (newAsset.getAssetGroup() != null && !StringUtils.isEmpty(newAsset.getAssetGroup().getRawGroupKey())) {
+            // If the asset exists in database, we retrieve and set it.
+            final Optional<AssetGroupDTO> assetGroup = assetGroupService.getAssetGroupByRawGroupKey(newAsset.getAssetGroup().getRawGroupKey());
+            if (assetGroup.isPresent()) {
+                assetToCreate.setAssetGroup(ASSET_GROUP_MAPPER.mapToAssetGroup(assetGroup.get()));
+            } else {
+                // If the asset group does not exist in database, we create it and set it.
+                final AssetGroupDTO assetGroupCreated = assetGroupService.addAssetGroup(newAsset.getAssetGroup());
+                assetToCreate.setAssetGroup(ASSET_GROUP_MAPPER.mapToAssetGroup(assetGroupCreated));
+            }
+        }
+
+        // If the asset group is not set, we set it to null.
+        if (newAsset.getAssetGroup() != null && StringUtils.isEmpty(newAsset.getAssetGroup().getRawGroupKey())) {
+            assetToCreate.setAssetGroup(null);
+        }
+
+        // We save and return the value.
+        final AssetDTO assetCreated = ASSET_MAPPER.mapToAssetDTO(assetRepository.save(assetToCreate));
         logger.info("Asset created with id {} : {}", assetCreated.getId(), assetCreated);
         return assetCreated;
     }

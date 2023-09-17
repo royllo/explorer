@@ -1,0 +1,55 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="0.1.0-table-proof_file">
+
+        <createTable tableName="PROOF_FILE"
+                     remarks="Taproot assets proof file">
+
+            <!-- Unique identifier -->
+            <column name="ID" type="BIGINT"
+                    remarks="Unique identifier">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PROOF_FILE"/>
+            </column>
+
+            <!-- Foreign keys -->
+            <column name="FK_USER_CREATOR" type="BIGINT"
+                    remarks="The user who created this proofFile"/>
+            <column name="FK_ASSET" type="BIGINT"
+                    remarks="The asset linked to this proofFile"/>
+
+            <!-- Table fields -->
+            <column name="PROOF_FILE_ID" type="VARCHAR(255)"
+                    remarks="Calculated value : sha256(Raw proofFile)"/>
+            <column name="RAW_PROOF" type="TEXT"
+                    remarks="Raw proofFile"/>
+
+            <!-- Technical fields -->
+            <column name="CREATED_ON" type="TIMESTAMP"
+                    remarks="Data created on"/>
+            <column name="UPDATED_ON" type="TIMESTAMP"
+                    remarks="Data updated on"/>
+
+        </createTable>
+
+        <!-- Auto increment on the unique identifier -->
+        <addAutoIncrement tableName="PROOF_FILE"
+                          columnName="ID"
+                          columnDataType="BIGINT"
+                          startWith="2"/>
+
+        <!-- Index on PROOF_FILE_ID -->
+        <createIndex indexName="IDX_PROOF_FILE_PROOF_ID"
+                     tableName="PROOF_FILE">
+            <column name="PROOF_FILE_ID"/>
+        </createIndex>
+
+        <!-- Index on FK_ASSET -->
+        <createIndex indexName="IDX_PROOF_FILE_FK_ASSET"
+                     tableName="PROOF_FILE">
+            <column name="FK_ASSET"/>
+        </createIndex>
+
+    </changeSet>
+</databaseChangeLog>

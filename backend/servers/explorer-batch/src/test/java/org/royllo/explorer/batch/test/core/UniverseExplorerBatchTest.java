@@ -64,7 +64,6 @@ public class UniverseExplorerBatchTest {
         // In database, we have two universe servers.
         // The first server lists three assets : asset_id_1, asset_id_2 and asset_id_3
         // The second server lists two assets : asset_id_4, asset_id_1 (already defined by the first server)
-        // and asset_id_5 (proof already in database);
         universeExplorerBatch.processUniverseServers();
         universeExplorerBatch.processUniverseServers();
 
@@ -77,13 +76,12 @@ public class UniverseExplorerBatchTest {
         assertNotNull(server2.get().getLastSynchronizedOn());
 
         // We should have 5 more requests in database.
-        assertEquals(count + 5, requestRepository.count());
+        assertEquals(count + 6, requestRepository.count());
         assertEquals(2, findAddProofRequestByRawProof("asset_id_1_proof").size());
         assertEquals(1, findAddProofRequestByRawProof("asset_id_2_proof").size());
         assertEquals(1, findAddProofRequestByRawProof("asset_id_3_proof").size());
         assertEquals(1, findAddProofRequestByRawProof("asset_id_4_proof").size());
-        // We do not create a request for "asset_id_5_proof" because the proof is already in database.
-        assertEquals(0, findAddProofRequestByRawProof("asset_id_5_proof").size());
+        assertEquals(1, findAddProofRequestByRawProof("asset_id_5_proof").size());
     }
 
     /**

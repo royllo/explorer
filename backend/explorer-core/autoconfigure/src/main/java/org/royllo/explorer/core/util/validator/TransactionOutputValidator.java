@@ -20,7 +20,7 @@ public class TransactionOutputValidator implements ConstraintValidator<Transacti
         return value != null // Transaction output cannot be null.
                 && value.contains(":") // Transaction output has a ':' to separate tx id and vout.
                 && value.substring(0, value.indexOf(":")).length() == TX_ID_SIZE // Transaction id size is 64 characters.
-                && value.substring(value.indexOf(":") + 1).length() > 0 // Transaction vout is mandatory.
+                && !value.substring(value.indexOf(":") + 1).isEmpty() // Transaction vout is mandatory.
                 && Pattern.matches("[0-9]+[.]?[0-9]*", (value.substring(value.indexOf(":") + 1))) // Transaction vout must be a number
                 && Integer.parseInt(value.substring(value.indexOf(":") + 1)) >= 0; // Transaction vout must be superior to zero.
     }

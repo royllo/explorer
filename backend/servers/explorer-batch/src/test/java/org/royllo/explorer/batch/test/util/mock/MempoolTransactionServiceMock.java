@@ -1,5 +1,6 @@
 package org.royllo.explorer.batch.test.util.mock;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mockito.Mockito;
 import org.royllo.explorer.batch.test.util.BaseTest;
 import org.royllo.explorer.core.provider.mempool.GetTransactionResponse;
@@ -8,8 +9,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.io.ClassPathResource;
 import reactor.core.publisher.Mono;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 
 /**
@@ -21,7 +24,7 @@ public class MempoolTransactionServiceMock extends BaseTest {
 
     @Bean
     @Primary
-    public MempoolTransactionService mempoolTransactionService() {
+    public MempoolTransactionService mempoolTransactionService() throws IOException {
         final MempoolTransactionService mockedService = Mockito.mock(MempoolTransactionService.class);
 
         GetTransactionResponse.Status status;
@@ -182,6 +185,20 @@ public class MempoolTransactionServiceMock extends BaseTest {
         response.getVout().add(vout1);
         response.getVout().add(vout2);
         Mockito.when(mockedService.getTransaction(ACTIVE_ROYLLO_COIN_GENESIS_POINT_TXID)).thenReturn(Mono.just(response));
+
+        // Test coin
+        final ClassPathResource testCoinGenesisPointTransaction = new ClassPathResource("tapd/TestCoin/TestCoin-mempool-genesis-point.json");
+        final ClassPathResource testCoinProof1AnchorTransaction = new ClassPathResource("tapd/TestCoin/TestCoin-mempool-proof-1-anchor.json");
+        final ClassPathResource testCoinProof2AnchorTransaction = new ClassPathResource("tapd/TestCoin/TestCoin-mempool-proof-2-anchor.json");
+        final ClassPathResource testCoinProof3AnchorTransaction = new ClassPathResource("tapd/TestCoin/TestCoin-mempool-proof-3-anchor.json");
+        GetTransactionResponse testCoinGenesisPointResponse = new ObjectMapper().readValue(testCoinGenesisPointTransaction.getInputStream(), GetTransactionResponse.class);
+        GetTransactionResponse testCoinProof1AnchorResponse = new ObjectMapper().readValue(testCoinProof1AnchorTransaction.getInputStream(), GetTransactionResponse.class);
+        GetTransactionResponse testCoinProof2AnchorResponse = new ObjectMapper().readValue(testCoinProof2AnchorTransaction.getInputStream(), GetTransactionResponse.class);
+        GetTransactionResponse testCoinProof3AnchorResponse = new ObjectMapper().readValue(testCoinProof3AnchorTransaction.getInputStream(), GetTransactionResponse.class);
+        Mockito.when(mockedService.getTransaction(TESTCOIN_GENESIS_POINT_TXID)).thenReturn(Mono.just(testCoinGenesisPointResponse));
+        Mockito.when(mockedService.getTransaction(TESTCOIN_RAW_PROOF_1_ANCHOR_TXID)).thenReturn(Mono.just(testCoinProof1AnchorResponse));
+        Mockito.when(mockedService.getTransaction(TESTCOIN_RAW_PROOF_2_ANCHOR_TXID)).thenReturn(Mono.just(testCoinProof2AnchorResponse));
+        Mockito.when(mockedService.getTransaction(TESTCOIN_RAW_PROOF_3_ANCHOR_TXID)).thenReturn(Mono.just(testCoinProof3AnchorResponse));
 
         return mockedService;
     }

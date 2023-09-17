@@ -24,7 +24,7 @@ import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.openedStatus;
 
 /**
- * Request service implementation.
+ * {@link RequestService} implementation.
  */
 @Service
 @RequiredArgsConstructor

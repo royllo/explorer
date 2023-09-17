@@ -1,0 +1,37 @@
+"Taproot asset state"
+type AssetState {
+    "The asset state ID that uniquely identifies the asset state (calculated by Royllo)"
+    assetStateId: ID!
+    "The asset state creator"
+    creator: User!
+    "The asset"
+    asset: Asset!
+    "The block hash the contains the anchor transaction above"
+    anchorBlockHash: String!
+    "Outpoint (txid:vout) that stores the Taproot asset commitment"
+    anchorOutpoint: BitcoinTransactionOutput!
+    "The transaction that anchors the Taproot commitment where the asset resides"
+    anchorTx: String!
+    "The txid of the anchor transaction"
+    anchorTxId: String!
+    "The raw internal key that was used to create the anchor Taproot output key"
+    internalKey: String!
+    "The Taproot merkle root hash of the anchor output the asset was committed to"
+    merkleRoot: String
+    "The serialized preimage of a Tapscript sibling, if there was one"
+    tapscriptSibling: String
+    "The version of the script, only version 0 is defined at present"
+    scriptVersion: Int!
+    "The script key of the asset, which can be spent under Taproot semantics"
+    scriptKey: String!
+}
+
+"Taproot asset state page - Container used to return search asset state results"
+type AssetStatePage {
+    "Asset states returned for a specific page number"
+    content: [AssetState]
+    "Total number of elements returned for the search"
+    totalElements: Int!
+    "Total number of pages returned for the search"
+    totalPages: Int!
+}

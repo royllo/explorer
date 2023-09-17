@@ -26,12 +26,12 @@ public class PostgreSQLTest {
         final ResultSet results = dataSource.getConnection()
                 .createStatement()
                 .executeQuery("""
-                        SELECT  count(*) as USERS_COUNT
-                        FROM    USERS
+                        SELECT  count(*) as USER_COUNT
+                        FROM    APPLICATION_USER
                         WHERE   USERNAME = 'anonymous'
                         """);
         results.next();
-        Assertions.assertEquals(1, results.getInt("USERS_COUNT"));
+        Assertions.assertEquals(1, results.getInt("USER_COUNT"));
     }
 
     @Test

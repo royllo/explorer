@@ -1,0 +1,29 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="0.1.0-table-constraints-asset_state">
+
+        <!-- Adding a unique constraint on ASSET_ID -->
+        <addUniqueConstraint constraintName="ASSET_STATE_UNIQUE_ASSET_STATE_ID"
+                             tableName="ASSET_STATE"
+                             columnNames="ASSET_STATE_ID"/>
+
+        <!-- Foreign key FK_USER_CREATOR > USER.ID -->
+        <addForeignKeyConstraint constraintName="FK_ASSET_STATE_APPLICATION_USER_CREATOR"
+                                 baseColumnNames="FK_USER_CREATOR"
+                                 baseTableName="ASSET_STATE"
+                                 referencedTableName="APPLICATION_USER"
+                                 referencedColumnNames="ID"
+                                 validate="true"/>
+
+        <!-- Foreign key FK_ASSET > ASSET.ID -->
+        <addForeignKeyConstraint constraintName="FK_ASSET_STATE_ASSET"
+                                 baseColumnNames="FK_ASSET"
+                                 baseTableName="ASSET_STATE"
+                                 referencedTableName="ASSET"
+                                 referencedColumnNames="ID"
+                                 validate="true"/>
+
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,45 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="0.1.0-table-asset_group">
+
+        <createTable tableName="ASSET_GROUP"
+                     remarks="Taproot asset group">
+
+            <!-- Unique identifier -->
+            <column name="ID" type="BIGINT"
+                    remarks="Unique identifier">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ASSET_GROUP"/>
+            </column>
+
+            <!-- Link to other tables -->
+            <column name="FK_USER_CREATOR" type="BIGINT"
+                    remarks="The user who created this asset"/>
+
+            <!-- Table fields -->
+            <column name="ASSET_ID_SIG" type="TEXT"
+                    remarks="A signature over the genesis point using the above key"/>
+            <column name="RAW_GROUP_KEY" type="TEXT"
+                    remarks="The raw group key which is a normal public key"/>
+            <column name="TWEAKED_GROUP_KEY" type="TEXT"
+                    remarks="The tweaked group key, which is derived based on the genesis point and also asset type"/>
+
+            <!-- Technical fields -->
+            <column name="CREATED_ON" type="TIMESTAMP"
+                    remarks="Data created on"/>
+            <column name="UPDATED_ON" type="TIMESTAMP"
+                    remarks="Data updated on"/>
+
+        </createTable>
+
+        <!-- Auto increment on the unique identifier -->
+        <addAutoIncrement tableName="ASSET_GROUP"
+                          columnName="ID"
+                          columnDataType="BIGINT"
+                          startWith="2"/>
+
+        <!-- TODO Add index (On raw group key ?) -->
+
+    </changeSet>
+</databaseChangeLog>

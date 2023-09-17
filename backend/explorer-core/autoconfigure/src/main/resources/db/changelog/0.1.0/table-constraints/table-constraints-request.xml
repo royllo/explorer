@@ -1,0 +1,21 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="0.1.0-table-constraints-request">
+
+        <!-- Adding a unique constraint on REQUEST_ID -->
+        <addUniqueConstraint columnNames="REQUEST_ID"
+                             constraintName="REQUEST_UNIQUE_REQUEST_ID"
+                             tableName="REQUEST"/>
+
+        <!-- Foreign key FK_USER_CREATOR > USER.ID -->
+        <addForeignKeyConstraint constraintName="FK_REQUEST_APPLICATION_USER_CREATOR"
+                                 baseColumnNames="FK_USER_CREATOR"
+                                 baseTableName="REQUEST"
+                                 referencedTableName="APPLICATION_USER"
+                                 referencedColumnNames="ID"
+                                 validate="true"/>
+
+    </changeSet>
+</databaseChangeLog>
