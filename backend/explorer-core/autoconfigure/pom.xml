@@ -119,6 +119,12 @@
             <version>8.4.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.royllo.test</groupId>
+            <artifactId>common-test</artifactId>
+            <version>0.0.16-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

@@ -119,11 +119,19 @@
     <!-- =========================================================================================================== -->
     <!-- Modules -->
     <modules>
+
+        <!-- Libraries -->
+        <module>util/test/common-test</module>
+
+        <!-- Core services -->
         <module>backend/explorer-core/autoconfigure</module>
         <module>backend/explorer-core/starter</module>
+
+        <!-- Servers -->
         <module>backend/servers/explorer-batch</module>
         <module>backend/servers/explorer-api</module>
         <module>backend/servers/explorer-web</module>
+
     </modules>
     <!-- =========================================================================================================== -->
 

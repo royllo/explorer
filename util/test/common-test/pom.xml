@@ -6,33 +6,60 @@
 
     <!-- =========================================================================================================== -->
     <!-- Project information -->
-    <groupId>org.royllo.mock</groupId>
-    <artifactId>mempool-mock-server</artifactId>
+    <groupId>org.royllo.test</groupId>
+    <artifactId>common-test</artifactId>
     <packaging>jar</packaging>
     <version>0.0.16-SNAPSHOT</version>
-    <name>mempool-mock-server</name>
+    <name>Common test library</name>
+    <description>Test library for all projects</description>
     <!-- =========================================================================================================== -->
+
+    <!-- =========================================================================================================== -->
+    <!-- Project configuration -->
+    <properties>
+        <!-- ======================================================================================================= -->
+        <!-- Java build configuration -->
+        <java.version>17</java.version>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
 
     <!-- =========================================================================================================== -->
     <!-- Dependencies -->
     <dependencies>
         <dependency>
-            <groupId>org.mock-server</groupId>
-            <artifactId>mockserver-netty</artifactId>
-            <version>5.15.0</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.15.2</version>
         </dependency>
         <dependency>
-            <groupId>org.mock-server</groupId>
-            <artifactId>mockserver-client-java-no-dependencies</artifactId>
-            <version>5.15.0</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.28</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.10.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.15.2</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
     <!-- =========================================================================================================== -->
 
@@ -63,7 +90,7 @@
                     <excludes>**/mapper/**/*</excludes>
                     <excludes>**/generated-sources/**</excludes>
                     <consoleOutput>true</consoleOutput>
-                    <configLocation>../../checkstyle.xml</configLocation>
+                    <configLocation>../../../checkstyle.xml</configLocation>
                     <failOnViolation>true</failOnViolation>
                     <violationSeverity>warning</violationSeverity>
                 </configuration>
@@ -72,13 +99,22 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
                 <configuration>
                     <compilerArgument>-Xlint:unchecked</compilerArgument>
                     <source>17</source>
                     <target>17</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.22</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
         </plugins>
     </build>
     <!-- =========================================================================================================== -->
+
 </project>
