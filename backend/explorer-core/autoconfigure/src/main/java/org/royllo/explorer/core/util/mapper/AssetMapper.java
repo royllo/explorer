@@ -15,7 +15,7 @@ import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
  * Asset mapper.
  */
 @Mapper(nullValuePropertyMappingStrategy = IGNORE,
-        uses = {BitcoinMapper.class, UserMapper.class})
+        uses = {AssetGroupMapper.class, BitcoinMapper.class, UserMapper.class})
 public interface AssetMapper {
 
     @Mapping(target = "createdOn", ignore = true)

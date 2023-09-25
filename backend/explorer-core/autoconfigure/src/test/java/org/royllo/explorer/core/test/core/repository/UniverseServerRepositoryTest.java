@@ -18,14 +18,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
 
 @SpringBootTest
-@DisplayName("RequestRepository tests")
+@DisplayName("UniverseServerRepository tests")
 public class UniverseServerRepositoryTest extends BaseTest {
 
     @Autowired
     private UniverseServerRepository universeServerRepository;
 
     @Test
-    @DisplayName("Find the next server to synchronise")
+    @DisplayName("findFirstByOrderByLastSynchronizedOnAsc()")
     public void findFirstByOrderByLastSynchronizedOnAsc() {
         // We remove all universe servers.
         universeServerRepository.deleteAll();

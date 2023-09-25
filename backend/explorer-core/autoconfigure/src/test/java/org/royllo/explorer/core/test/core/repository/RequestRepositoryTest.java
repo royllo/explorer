@@ -10,7 +10,6 @@ import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.repository.user.UserRepository;
 import org.royllo.explorer.core.test.util.BaseTest;
-import org.royllo.explorer.core.util.constants.UserConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,6 +21,8 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
 import static org.royllo.explorer.core.util.enums.RequestStatus.FAILURE;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
@@ -43,7 +44,7 @@ public class RequestRepositoryTest extends BaseTest {
     @DisplayName("Create requests")
     public void createRequests() {
         // This test is specifically designed to test the table inheritance.
-        Optional<User> user = userRepository.findById(UserConstants.ANONYMOUS_ID);
+        Optional<User> user = userRepository.findById(ANONYMOUS_ID);
         assertTrue(user.isPresent());
 
         // =============================================================================================================
@@ -60,7 +61,7 @@ public class RequestRepositoryTest extends BaseTest {
         assertTrue(request1FromJPA.isPresent());
         AddProofRequest addProofRequest1FromJPA = (AddProofRequest) request1FromJPA.get();
         assertEquals(request1ID, addProofRequest1FromJPA.getId());
-        Assertions.assertEquals("anonymous", addProofRequest1FromJPA.getCreator().getUsername());
+        Assertions.assertEquals(ANONYMOUS_USER_USERNAME, addProofRequest1FromJPA.getCreator().getUsername());
         Assertions.assertEquals(OPENED, addProofRequest1FromJPA.getStatus());
         assertNull(addProofRequest1FromJPA.getErrorMessage());
         assertEquals("Proof1", addProofRequest1FromJPA.getRawProof());
@@ -87,7 +88,7 @@ public class RequestRepositoryTest extends BaseTest {
         assertTrue(request2FromJPA.isPresent());
         AddAssetMetaDataRequest addAssetMeatRequest2FromJPA = (AddAssetMetaDataRequest) request2FromJPA.get();
         assertEquals(request2ID, addAssetMeatRequest2FromJPA.getId());
-        Assertions.assertEquals("anonymous", addAssetMeatRequest2FromJPA.getCreator().getUsername());
+        Assertions.assertEquals(ANONYMOUS_USER_USERNAME, addAssetMeatRequest2FromJPA.getCreator().getUsername());
         Assertions.assertEquals(SUCCESS, addAssetMeatRequest2FromJPA.getStatus());
         assertNull(addAssetMeatRequest2FromJPA.getErrorMessage());
         assertEquals("TaprootAssetId1", addAssetMeatRequest2FromJPA.getAssetId());
@@ -114,7 +115,7 @@ public class RequestRepositoryTest extends BaseTest {
         assertTrue(request3FromJPA.isPresent());
         AddProofRequest addProofRequest2FromJPA = (AddProofRequest) request3FromJPA.get();
         assertEquals(request3ID, addProofRequest2FromJPA.getId());
-        Assertions.assertEquals("anonymous", addProofRequest2FromJPA.getCreator().getUsername());
+        Assertions.assertEquals(ANONYMOUS_USER_USERNAME, addProofRequest2FromJPA.getCreator().getUsername());
         Assertions.assertEquals(FAILURE, addProofRequest2FromJPA.getStatus());
         assertNull(addProofRequest2FromJPA.getErrorMessage());
         assertEquals("Proof2", addProofRequest2FromJPA.getRawProof());

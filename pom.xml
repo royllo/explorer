@@ -64,11 +64,11 @@
 
         <!-- ======================================================================================================= -->
         <!-- Project libraries -->
-        <spring.version>3.1.3</spring.version>
+        <spring.version>3.1.4</spring.version>
         <reactor-core.version>3.5.10</reactor-core.version>
         <reactor-netty.version>1.1.11</reactor-netty.version>
 
-        <graphql-dgs-platform-dependencies.version>7.5.1</graphql-dgs-platform-dependencies.version>
+        <graphql-dgs-platform-dependencies.version>7.5.3</graphql-dgs-platform-dependencies.version>
         <graphql-dgs-codegen-core.version>6.0.2</graphql-dgs-codegen-core.version>
         <graphql-dgs-codegen-client-core.version>5.1.17</graphql-dgs-codegen-client-core.version>
 
@@ -77,7 +77,7 @@
         <jdbc.driver.postgresql.version>42.6.0</jdbc.driver.postgresql.version>
         <jdbc.driver.mysql.version>8.1.0</jdbc.driver.mysql.version>
 
-        <lombok.version>1.18.28</lombok.version>
+        <lombok.version>1.18.30</lombok.version>
         <lombok.mapstruct.version>0.2.0</lombok.mapstruct.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
 
@@ -86,10 +86,10 @@
         <bucket4j-core.version>8.4.0</bucket4j-core.version>
         <caffeine.version>3.1.8</caffeine.version>
 
-        <thymeleaf-layout-dialect.version>3.2.1</thymeleaf-layout-dialect.version>
+        <thymeleaf-layout-dialect.version>3.3.0</thymeleaf-layout-dialect.version>
         <htmx-spring-boot-thymeleaf.version>3.0.0</htmx-spring-boot-thymeleaf.version>
         <webjars-locator.version>0.47</webjars-locator.version>
-        <htmx.version>1.9.5</htmx.version>
+        <htmx.version>1.9.6</htmx.version>
         <alpinejs.version>3.13.0</alpinejs.version>
 
         <!-- ======================================================================================================= -->
@@ -101,7 +101,7 @@
         <!-- Maven plugins -->
         <maven.gitflow.version>1.20.0</maven.gitflow.version>
         <maven.checkstyle.plugin.version>3.3.0</maven.checkstyle.plugin.version>
-        <maven.graphqlcodegen.plugin.version>1.39</maven.graphqlcodegen.plugin.version>
+        <maven.graphqlcodegen.plugin.version>1.50</maven.graphqlcodegen.plugin.version>
         <maven.puppycrawl.checkstyle.version>10.12.3</maven.puppycrawl.checkstyle.version>
         <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
 
@@ -171,7 +171,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.3</version>
+        <version>3.1.4</version>
         <relativePath/>
     </parent>
     <!-- =========================================================================================================== -->

@@ -219,7 +219,7 @@ public class AssetStateServiceTest extends BaseTest {
         assertEquals(assetStateCount + 1, assetStateRepository.findAll().size());
 
         // =============================================================================================================
-        // We create a second asset state from scratch (on the asset we created previously.
+        // We create a second asset state from scratch (on the asset we created previously).
         assetStateService.addAssetState(AssetStateDTO.builder()
                 .creator(ANONYMOUS_USER_DTO)
                 .asset(AssetDTO.builder()

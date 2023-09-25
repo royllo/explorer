@@ -27,7 +27,7 @@ public class AssetStateRepositoryTest {
         assertEquals(2, results.getSize());
         assertEquals(2, results.getTotalPages());
 
-        // We change the number of elements by page
+        // We change the number of elements by page.
         results = assetStateRepository.findByAsset_AssetId("asset_id_9", Pageable.ofSize(5));
         assertEquals(3, results.getTotalElements());
         assertEquals(5, results.getSize());

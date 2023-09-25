@@ -19,7 +19,7 @@ import java.util.List;
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 @SuppressWarnings("checkstyle:VisibilityModifier")
-public class DecodedProofResponseValue {
+public class DecodedProofValueResponse {
 
     /** Decoded proof. */
     @JsonProperty("decoded_proof")

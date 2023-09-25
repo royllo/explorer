@@ -16,14 +16,14 @@
     "watch:serve": "browser-sync start --no-inject-changes --proxy localhost:8080 --files 'target/classes/templates' 'target/classes/static'"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.15",
+    "autoprefixer": "^10.4.16",
     "browser-sync": "^2.29.3",
     "cssnano": "^6.0.1",
     "mkdirp": "^3.0.1",
     "ncp": "^2.0.0",
     "npm-run-all": "^4.1.5",
     "onchange": "^7.1.0",
-    "postcss": "^8.4.29",
+    "postcss": "^8.4.30",
     "postcss-cli": "^10.1.0",
     "tailwindcss": "^3.3.3"
   },

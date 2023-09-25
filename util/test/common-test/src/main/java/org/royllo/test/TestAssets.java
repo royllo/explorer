@@ -2,9 +2,9 @@ package org.royllo.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.royllo.test.dto.tapd.AssetValue;
-import org.royllo.test.dto.tapd.DecodedProofRequestValue;
-import org.royllo.test.dto.tapd.DecodedProofResponseValue;
 import org.royllo.test.dto.tapd.DecodedProofValue;
+import org.royllo.test.dto.tapd.DecodedProofValueRequest;
+import org.royllo.test.dto.tapd.DecodedProofValueResponse;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,9 +26,7 @@ public class TestAssets {
     /** Test coin asset id (several proof files). */
     public static final String TEST_COIN_ASSET_ID = "981dd27089b3bebc0ea0cd17e78e69ca8d582e7b9695ac53f97ea10723a852f8";
 
-    /**
-     * Contains all assets and contains decoded proofs (request and response).
-     */
+    /** Contains all assets and contains decoded proofs (request and response). */
     private static final Map<String, AssetValue> ASSETS = new LinkedHashMap<>();
 
     static {
@@ -95,9 +93,9 @@ public class TestAssets {
      * @return proof request
      * @throws IOException file not found
      */
-    private static DecodedProofRequestValue getDecodedProofRequestFromFile(final String filePath) throws IOException {
+    private static DecodedProofValueRequest getDecodedProofRequestFromFile(final String filePath) throws IOException {
         InputStream inputStream = TestAssets.class.getResourceAsStream(filePath);
-        return new ObjectMapper().readValue(inputStream, DecodedProofRequestValue.class);
+        return new ObjectMapper().readValue(inputStream, DecodedProofValueRequest.class);
     }
 
     /**
@@ -107,9 +105,9 @@ public class TestAssets {
      * @return decoded proof
      * @throws IOException file not found
      */
-    private static DecodedProofResponseValue getDecodedProofResponseFromFile(final String filePath) throws IOException {
+    private static DecodedProofValueResponse getDecodedProofResponseFromFile(final String filePath) throws IOException {
         InputStream inputStream = TestAssets.class.getResourceAsStream(filePath);
-        return new ObjectMapper().readValue(inputStream, DecodedProofResponseValue.class);
+        return new ObjectMapper().readValue(inputStream, DecodedProofValueResponse.class);
     }
 
 }

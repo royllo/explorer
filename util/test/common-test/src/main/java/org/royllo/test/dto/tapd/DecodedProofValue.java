@@ -15,10 +15,10 @@ import java.security.NoSuchAlgorithmException;
 public class DecodedProofValue {
 
     /** Decoded proof request. */
-    DecodedProofRequestValue request;
+    DecodedProofValueRequest request;
 
     /** Decoded proof response. */
-    DecodedProofResponseValue response;
+    DecodedProofValueResponse response;
 
     /** Raw proof sha256. */
     String rawProofSha256;
@@ -32,8 +32,8 @@ public class DecodedProofValue {
      * @param newRequest  decoded proof request
      * @param newResponse decoded proof response
      */
-    public DecodedProofValue(final DecodedProofRequestValue newRequest,
-                             final DecodedProofResponseValue newResponse) {
+    public DecodedProofValue(final DecodedProofValueRequest newRequest,
+                             final DecodedProofValueResponse newResponse) {
         this.request = newRequest;
         this.response = newResponse;
         // "Calculated field".
@@ -67,7 +67,7 @@ public class DecodedProofValue {
      * @return sha256 of input
      */
     private String sha256(final String input) {
-        MessageDigest digest = null;
+        MessageDigest digest;
         try {
             digest = MessageDigest.getInstance("SHA-256");
         } catch (NoSuchAlgorithmException e) {

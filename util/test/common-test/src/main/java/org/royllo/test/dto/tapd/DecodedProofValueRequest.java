@@ -12,7 +12,7 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Jacksonized
 @SuppressWarnings({"checkstyle:VisibilityModifier", "unused"})
-public class DecodedProofRequestValue {
+public class DecodedProofValueRequest {
 
     /**
      * Raw proof.

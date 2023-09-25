@@ -99,6 +99,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.royllo.test</groupId>
+            <artifactId>common-test</artifactId>
+            <version>0.0.16-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <!-- =========================================================================================================== -->
 
