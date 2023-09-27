@@ -1,6 +1,7 @@
 package org.royllo.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.mockserver.integration.ClientAndServer;
 import org.royllo.test.mempool.GetTransactionValueResponse;
 import org.royllo.test.mempool.TransactionValue;
 
@@ -8,6 +9,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import static org.mockserver.integration.ClientAndServer.startClientAndServer;
+import static org.mockserver.model.HttpRequest.request;
+import static org.mockserver.model.HttpResponse.response;
 
 /**
  * Test transactions data.
@@ -33,6 +38,9 @@ public class TestTransactions {
     /** txid of a taproot transaction containing a Taproot asset on the testnet (output 1). */
     public static final String BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID = "d8a8016095b9fcd1f63c57342d375026ecbc72c885a54b676c6e62b216e15365";
 
+    /** Mock server port. */
+    public static final int MEMPOOL_MOCK_SERVER_PORT = 9091;
+
     /** Contains all transactions. */
     private static final Map<String, TransactionValue> TRANSACTIONS = new LinkedHashMap<>();
 
@@ -47,6 +55,21 @@ public class TestTransactions {
         } catch (IOException e) {
             throw new RuntimeException("TestTransactions loading error: " + e);
         }
+    }
+
+    /**
+     * Returns the mock server.
+     *
+     * @return mempool mock server
+     */
+    public static ClientAndServer getMockServer() {
+        ClientAndServer mockServer = startClientAndServer(MEMPOOL_MOCK_SERVER_PORT);
+        for (Map.Entry<String, TransactionValue> entry : TRANSACTIONS.entrySet()) {
+            // Mock the request.
+            mockServer.when(request().withPath(".*/api/tx/" + entry.getKey() + ".*"))
+                    .respond(response().withBody(entry.getValue().getJSONResponse()));
+        }
+        return mockServer;
     }
 
     /**

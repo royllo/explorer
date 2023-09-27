@@ -14,11 +14,8 @@ import static org.royllo.test.TestAssets.ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TestAssets.TEST_COIN_ASSET_ID;
 import static org.royllo.test.TestAssets.UNKNOWN_ROYLLO_COIN_ASSET_ID;
 
-/**
- * Test for test assets.
- */
 @DisplayName("Test asset tests")
-public class TestAssetsTestData {
+public class TestAssetsData {
 
     @Test
     @DisplayName("findAssetValueByAssetId()")

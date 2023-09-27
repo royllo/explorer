@@ -9,12 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.royllo.test.TestTransactions.BITCOIN_TRANSACTION_3_TXID;
 
-/**
- * Test for test transactions.
- */
 @DisplayName("Test asset tests")
 public class TestTransactionsData {
-
 
     @Test
     @DisplayName("findTransactionByTransactionId()")
