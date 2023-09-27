@@ -1,10 +1,10 @@
 package org.royllo.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.royllo.test.dto.tapd.AssetValue;
-import org.royllo.test.dto.tapd.DecodedProofValue;
-import org.royllo.test.dto.tapd.DecodedProofValueRequest;
-import org.royllo.test.dto.tapd.DecodedProofValueResponse;
+import org.royllo.test.tapd.AssetValue;
+import org.royllo.test.tapd.DecodedProofValue;
+import org.royllo.test.tapd.DecodedProofValueRequest;
+import org.royllo.test.tapd.DecodedProofValueResponse;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -87,7 +87,7 @@ public class TestAssets {
     }
 
     /**
-     * Returns a * proof request loaded from a file.
+     * Returns a proof request loaded from a file.
      *
      * @param filePath file path
      * @return proof request

@@ -1,0 +1,54 @@
+{
+  "txid": "d61a4957e5e756a7631246b1a00d685e4854f98f8c2835bafafed8b1d1e26be5",
+  "version": 1,
+  "locktime": 0,
+  "vin": [
+    {
+      "txid": "f9b532bf1d76cb2970968a300fea34e2b03d6b6c1e882c8b402df6fe70d47b25",
+      "vout": 0,
+      "prevout": {
+        "scriptpubkey": "00208a97f0d6189d70b264660715875d27ea09148010b386fa90180aeeaa370feb7f",
+        "scriptpubkey_asm": "OP_0 OP_PUSHBYTES_32 8a97f0d6189d70b264660715875d27ea09148010b386fa90180aeeaa370feb7f",
+        "scriptpubkey_type": "v0_p2wsh",
+        "scriptpubkey_address": "bc1q32tlp4scn4ctyerxqu2cwhf8agy3fqqskwr04yqcpth25dc0adls9aat2c",
+        "value": 43224668265
+      },
+      "scriptsig": "",
+      "scriptsig_asm": "",
+      "witness": [
+        "",
+        "30440220313c9971af64e53beaabdecefb9fc0b2663f46b268489cb9b2a36be06ebf5732022064ea350d824637a85e6d5b1f47d83da5a8fc9d62b518ca4fba525d62bf402c5501",
+        "304402202b4f63a2fc3ed93c0cbc26614f147b105265c75ad68254cb04e69dd3ca4655820220242aad67cf3eb827ac874cb735318b33bf3e5921ce8daae580f66edee50a52c501",
+        "5221037ae2c789472c71012a216533303de6a0afb0c50299e98323cf83f6f6dd4962bb21025a81f311cc461f2e579349e884c197373dcfe03faec78a87ac4872f89e94edca52ae"
+      ],
+      "is_coinbase": false,
+      "sequence": 4294967295,
+      "inner_witnessscript_asm": "OP_PUSHNUM_2 OP_PUSHBYTES_33 037ae2c789472c71012a216533303de6a0afb0c50299e98323cf83f6f6dd4962bb OP_PUSHBYTES_33 025a81f311cc461f2e579349e884c197373dcfe03faec78a87ac4872f89e94edca OP_PUSHNUM_2 OP_CHECKMULTISIG"
+    }
+  ],
+  "vout": [
+    {
+      "scriptpubkey": "5120b037c6aa6784da1cfb00a5b0caaafd70556aa832cb6b67ba5e934f483d6a7f23",
+      "scriptpubkey_asm": "OP_PUSHNUM_1 OP_PUSHBYTES_32 b037c6aa6784da1cfb00a5b0caaafd70556aa832cb6b67ba5e934f483d6a7f23",
+      "scriptpubkey_type": "v1_p2tr",
+      "scriptpubkey_address": "bc1pkqmud2n8sndpe7cq5kcv42hawp2k42pjed4k0wj7jd85s0t20u3srt7l2r",
+      "value": 43124666573
+    },
+    {
+      "scriptpubkey": "0014fa6034ddab6e72ac8c34d09ae998482318707013",
+      "scriptpubkey_asm": "OP_0 OP_PUSHBYTES_20 fa6034ddab6e72ac8c34d09ae998482318707013",
+      "scriptpubkey_type": "v0_p2wpkh",
+      "scriptpubkey_address": "bc1qlfsrfhdtdee2erp56zdwnxzgyvv8quqng0y42c",
+      "value": 100000000
+    }
+  ],
+  "size": 345,
+  "weight": 720,
+  "fee": 1692,
+  "status": {
+    "confirmed": true,
+    "block_height": 742158,
+    "block_hash": "00000000000000000007b3a2fe45401f65ebfe113278092282f68b07789002a9",
+    "block_time": 1656093866
+  }
+}

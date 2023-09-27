@@ -2,8 +2,8 @@ package org.royllo.test;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.royllo.test.dto.tapd.AssetValue;
-import org.royllo.test.dto.tapd.DecodedProofValue;
+import org.royllo.test.tapd.AssetValue;
+import org.royllo.test.tapd.DecodedProofValue;
 
 import java.util.List;
 
