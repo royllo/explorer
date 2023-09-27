@@ -1,6 +1,7 @@
 package org.royllo.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
 import org.mockserver.integration.ClientAndServer;
 import org.royllo.test.mempool.GetTransactionValueResponse;
 import org.royllo.test.mempool.TransactionValue;
@@ -13,11 +14,12 @@ import java.util.Map;
 import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
+import static org.mockserver.model.MediaType.APPLICATION_JSON;
 
 /**
  * Test transactions data.
  */
-@SuppressWarnings("checkstyle:HideUtilityClassConstructor")
+@SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "checkstyle:MagicNumber"})
 public class TestTransactions {
 
     /** Royllo genesis point tx id. */
@@ -41,35 +43,34 @@ public class TestTransactions {
     /** Mock server port. */
     public static final int MEMPOOL_MOCK_SERVER_PORT = 9091;
 
+    /** Mock server. */
+    @Getter
+    private static final ClientAndServer MOCK_SERVER = startClientAndServer(MEMPOOL_MOCK_SERVER_PORT);
+
     /** Contains all transactions. */
     private static final Map<String, TransactionValue> TRANSACTIONS = new LinkedHashMap<>();
 
     static {
         try {
+            // Adding all transactions.
             TRANSACTIONS.put(ROYLLO_COIN_GENESIS_POINT_TXID, getTransactionValueFromFile(ROYLLO_COIN_GENESIS_POINT_TXID));
             TRANSACTIONS.put(BITCOIN_TRANSACTION_1_TXID, getTransactionValueFromFile(BITCOIN_TRANSACTION_1_TXID));
             TRANSACTIONS.put(BITCOIN_TRANSACTION_2_TXID, getTransactionValueFromFile(BITCOIN_TRANSACTION_2_TXID));
             TRANSACTIONS.put(BITCOIN_TRANSACTION_3_TXID, getTransactionValueFromFile(BITCOIN_TRANSACTION_3_TXID));
             TRANSACTIONS.put(BITCOIN_TAPROOT_TRANSACTION_2_TXID, getTransactionValueFromFile(BITCOIN_TAPROOT_TRANSACTION_2_TXID));
             TRANSACTIONS.put(BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID, getTransactionValueFromFile(BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID));
+
+            // Adding all transactions to the mock server.
+            for (Map.Entry<String, TransactionValue> entry : TRANSACTIONS.entrySet()) {
+                // Mock the request.
+                MOCK_SERVER.when(request().withPath(".*/api/tx/" + entry.getKey() + ".*"))
+                        .respond(response().withStatusCode(200)
+                                .withContentType(APPLICATION_JSON)
+                                .withBody(entry.getValue().getJSONResponse()));
+            }
         } catch (IOException e) {
             throw new RuntimeException("TestTransactions loading error: " + e);
         }
-    }
-
-    /**
-     * Returns the mock server.
-     *
-     * @return mempool mock server
-     */
-    public static ClientAndServer getMockServer() {
-        ClientAndServer mockServer = startClientAndServer(MEMPOOL_MOCK_SERVER_PORT);
-        for (Map.Entry<String, TransactionValue> entry : TRANSACTIONS.entrySet()) {
-            // Mock the request.
-            mockServer.when(request().withPath(".*/api/tx/" + entry.getKey() + ".*"))
-                    .respond(response().withBody(entry.getValue().getJSONResponse()));
-        }
-        return mockServer;
     }
 
     /**

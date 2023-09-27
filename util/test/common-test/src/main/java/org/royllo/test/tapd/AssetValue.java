@@ -13,7 +13,7 @@ import java.util.List;
 public class AssetValue {
 
     /** Decoded proof value. */
-    List<DecodedProofValue> decodedProofValue = new LinkedList<>();
+    List<DecodedProofValue> decodedProofValues = new LinkedList<>();
 
     /** Asset id. */
     private String assetId;
@@ -27,7 +27,7 @@ public class AssetValue {
         if (assetId == null) {
             assetId = newDecodedProofValue.getResponse().getDecodedProof().getAsset().getAssetGenesis().getAssetId();
         }
-        this.decodedProofValue.add(newDecodedProofValue);
+        this.decodedProofValues.add(newDecodedProofValue);
     }
 
 }

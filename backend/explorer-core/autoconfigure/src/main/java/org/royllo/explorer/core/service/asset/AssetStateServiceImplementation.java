@@ -86,7 +86,7 @@ public class AssetStateServiceImplementation extends BaseService implements Asse
         // We check that the asset state does not already exist.
         assert assetStateRepository.findByAssetStateId(assetStateToCreate.getAssetStateId()).isEmpty() : "Asset state already exists";
 
-        // Setting the creator.
+        // Setting the creator. TODO Why map ?
         assetStateToCreate.setCreator(USER_MAPPER.mapToUser(ANONYMOUS_USER_DTO));
 
         // Setting the asset of this asset state. We check in database if we can find it with its assetId. If not, we set it.

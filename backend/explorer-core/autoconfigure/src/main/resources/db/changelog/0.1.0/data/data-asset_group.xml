@@ -13,7 +13,7 @@
             <column name="ID" value="1"/>
             <column name="FK_USER_CREATOR" value="1"/>
 
-            <column name="RAW_GROUP_KEY" value="033b8449aae83eb0ed04f7952108637d078836bb5d3353a33b6486248b401f60da"/>
+            <column name="RAW_GROUP_KEY" value=""/>
             <column name="TWEAKED_GROUP_KEY"
                     value="02260e9ffbe7fdabe746b4ba4c3b86c8f237d7946f116949e93db77d5e0357c13d"/>
             <column name="ASSET_ID_SIG"

@@ -27,7 +27,7 @@ public class TestAssetsData {
         // Royllo coin.
         final AssetValue roylloCoin = TestAssets.findAssetValueByAssetId(ROYLLO_COIN_ASSET_ID);
         assertNotNull(roylloCoin);
-        final List<DecodedProofValue> decodedProofValue = roylloCoin.getDecodedProofValue();
+        final List<DecodedProofValue> decodedProofValue = roylloCoin.getDecodedProofValues();
         assertEquals(1, decodedProofValue.size());
         // Decoded proof 1.
         final DecodedProofValue decodedProofValue1 = decodedProofValue.get(0);
@@ -45,7 +45,7 @@ public class TestAssetsData {
         // Test coin.
         final AssetValue testCoin = TestAssets.findAssetValueByAssetId(TEST_COIN_ASSET_ID);
         assertNotNull(testCoin);
-        assertEquals(5, testCoin.getDecodedProofValue().size());
+        assertEquals(5, testCoin.getDecodedProofValues().size());
     }
 
 }

@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 
@@ -24,8 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.royllo.explorer.core.service.asset.AssetStateServiceImplementation.SEARCH_PARAMETER_ASSET_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
@@ -33,7 +32,6 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 
 @SpringBootTest
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
-@ActiveProfiles("mempoolTransactionServiceMock")
 @DisplayName("AssetStateService tests")
 public class AssetStateServiceTest extends BaseTest {
 
@@ -59,12 +57,8 @@ public class AssetStateServiceTest extends BaseTest {
     @DisplayName("queryAssetStates()")
     public void queryAssetStates() {
         // Search for asset states without specifying the SEARCH_PARAMETER_ASSET_ID parameter.
-        try {
-            assetStateService.queryAssetStates("dezded", 1, 5);
-            fail("An exception should have been raised");
-        } catch (AssertionError e) {
-            assertEquals("Only assetId:value query is supported", e.getMessage());
-        }
+        AssertionError e = assertThrows(AssertionError.class, () -> assetStateService.queryAssetStates("dezded", 1, 5));
+        assertEquals("Only assetId:value query is supported", e.getMessage());
 
         // Searching for asset states for an asset id that doesn't exist.
         Page<AssetStateDTO> results = assetStateService.queryAssetStates(SEARCH_PARAMETER_ASSET_ID + "NON-EXISTING", 1, 5);
@@ -87,48 +81,25 @@ public class AssetStateServiceTest extends BaseTest {
 
         // =============================================================================================================
         // First constraint test - Trying to save an asset state with an ID.
-        try {
-            assetStateService.addAssetState(AssetStateDTO.builder()
-                    .id(1L)
-                    .build());
-            fail("Should have thrown an exception");
-        } catch (AssertionError e) {
-            assertEquals("Asset state already exists", e.getMessage());
-        }
+        AssertionError e = assertThrows(AssertionError.class, () -> assetStateService.addAssetState(AssetStateDTO.builder().id(1L).build()));
+        assertEquals("Asset state already exists", e.getMessage());
 
         // =============================================================================================================
         // Second constraint test - Trying to save an asset state without an asset.
-        try {
-            assetStateService.addAssetState(AssetStateDTO.builder()
-                    .build());
-            fail("Should have thrown an exception");
-        } catch (AssertionError e) {
-            assertEquals("Linked asset is required", e.getMessage());
-        }
+        e = assertThrows(AssertionError.class, () -> assetStateService.addAssetState(AssetStateDTO.builder().build()));
+        assertEquals("Linked asset is required", e.getMessage());
 
         // =============================================================================================================
         // Third constraint test - Asset id is required.
-        try {
-            assetStateService.addAssetState(AssetStateDTO.builder()
-                    .asset(AssetDTO.builder().build())
-                    .build());
-            fail("Should have thrown an exception");
-        } catch (AssertionError e) {
-            assertEquals("Asset id is required", e.getMessage());
-        }
+        e = assertThrows(AssertionError.class, () -> assetStateService.addAssetState(AssetStateDTO.builder().asset(AssetDTO.builder().build()).build()));
+        assertEquals("Asset id is required", e.getMessage());
 
         // =============================================================================================================
         // Fourth constraint test - Asset id is required.
-        try {
-            assetStateService.addAssetState(AssetStateDTO.builder()
-                    .asset(AssetDTO.builder()
-                            .assetId("TEST")
-                            .build())
-                    .build());
-            fail("Should have thrown an exception");
-        } catch (AssertionError e) {
-            assertEquals("Bitcoin transaction is required", e.getMessage());
-        }
+        e = assertThrows(AssertionError.class, () -> assetStateService.addAssetState(AssetStateDTO.builder()
+                .asset(AssetDTO.builder().assetId("TEST").build())
+                .build()));
+        assertEquals("Bitcoin transaction is required", e.getMessage());
 
         // =============================================================================================================
         // We create an asset state from scratch (The asset doesn't exist in database).
@@ -191,27 +162,23 @@ public class AssetStateServiceTest extends BaseTest {
 
         // =============================================================================================================
         // We try to create the same asset state again.
-        try {
-            assetStateService.addAssetState(AssetStateDTO.builder()
-                    .creator(ANONYMOUS_USER_DTO)
-                    .asset(AssetDTO.builder()
-                            .assetId("TEST_COIN_ASSET_ID")
-                            .genesisPoint(bto.get())
-                            .build())
-                    .anchorBlockHash("TEST_ANCHOR_BLOCK_HASH")
-                    .anchorOutpoint(bto.get())
-                    .anchorTx("TEST_ANCHOR_TX")
-                    .anchorTxId("TEST_ANCHOR_TX_ID")
-                    .internalKey("TEST_INTERNAL_KEY")
-                    .merkleRoot("TEST_MERKLE_ROOT")
-                    .tapscriptSibling("TEST_TAPSCRIPT_SIBLING")
-                    .scriptVersion(0)
-                    .scriptKey("TEST_SCRIPT_KEY")
-                    .build());
-            fail("Should have thrown an exception");
-        } catch (AssertionError e) {
-            assertEquals("Asset state already exists", e.getMessage());
-        }
+        e = assertThrows(AssertionError.class, () -> assetStateService.addAssetState(AssetStateDTO.builder()
+                .creator(ANONYMOUS_USER_DTO)
+                .asset(AssetDTO.builder()
+                        .assetId("TEST_COIN_ASSET_ID")
+                        .genesisPoint(bto.get())
+                        .build())
+                .anchorBlockHash("TEST_ANCHOR_BLOCK_HASH")
+                .anchorOutpoint(bto.get())
+                .anchorTx("TEST_ANCHOR_TX")
+                .anchorTxId("TEST_ANCHOR_TX_ID")
+                .internalKey("TEST_INTERNAL_KEY")
+                .merkleRoot("TEST_MERKLE_ROOT")
+                .tapscriptSibling("TEST_TAPSCRIPT_SIBLING")
+                .scriptVersion(0)
+                .scriptKey("TEST_SCRIPT_KEY")
+                .build()));
+        assertEquals("Asset state already exists", e.getMessage());
 
         // We check that nothing has been created.
         assertEquals(assetGroupCount, assetGroupRepository.findAll().size());
@@ -269,7 +236,6 @@ public class AssetStateServiceTest extends BaseTest {
         assertEquals("TEST_TAPSCRIPT_SIBLING_2", secondAssetStateCreated.get().getTapscriptSibling());
         assertEquals(1, secondAssetStateCreated.get().getScriptVersion());
         assertEquals("TEST_SCRIPT_KEY_2", secondAssetStateCreated.get().getScriptKey());
-
     }
 
     @Test
@@ -289,15 +255,15 @@ public class AssetStateServiceTest extends BaseTest {
         // User.
         assertNotNull(assetState.get().getCreator());
         assertEquals(ANONYMOUS_USER_DTO.getId(), assetState.get().getCreator().getId());
-        // Asset.
-        assertNotNull(assetState.get().getAsset());
-        assertEquals(ROYLLO_COIN_ID, assetState.get().getAsset().getId());
-        assertEquals(ROYLLO_COIN_ASSET_ID, assetState.get().getAsset().getAssetId());
-        // Asset group.
-        assertNotNull(assetState.get().getAsset().getAssetGroup());
-        assertEquals(ROYLLO_COIN_GROUP_ID, assetState.get().getAsset().getAssetGroup().getId());
-        assertEquals(ROYLLO_COIN_RAW_GROUP_KEY, assetState.get().getAsset().getAssetGroup().getRawGroupKey());
+        // Asset & asset group
+        verifyAsset(assetState.get().getAsset(), ROYLLO_COIN_ASSET_ID);
         // Asset state data.
+        verifyAssetState(assetState.get(),
+                ROYLLO_COIN_ASSET_STATE_ID,
+                assetState.get().getAnchorOutpoint().getTxId(),
+                assetState.get().getAnchorOutpoint().getVout(),
+                assetState.get().getScriptKey());
+
         assertEquals(ROYLLO_COIN_ANCHOR_BLOCK_HASH, assetState.get().getAnchorBlockHash());
         assertEquals(ROYLLO_COIN_ANCHOR_OUTPOINT, assetState.get().getAnchorOutpoint().getTxId() + ":" + assetState.get().getAnchorOutpoint().getVout());
         assertEquals(ROYLLO_COIN_ANCHOR_TX, assetState.get().getAnchorTx());

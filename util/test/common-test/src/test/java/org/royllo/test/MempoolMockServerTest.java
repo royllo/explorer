@@ -21,7 +21,7 @@ public class MempoolMockServerTest {
     @Test
     @DisplayName("Mock server data")
     public void mockServerData() {
-        final ClientAndServer mockServer = TestTransactions.getMockServer();
+        final ClientAndServer mockServer = TestTransactions.getMOCK_SERVER();
         var client = new OkHttpClient();
 
         // Testing a transaction existing on the bitcoin mainnet.

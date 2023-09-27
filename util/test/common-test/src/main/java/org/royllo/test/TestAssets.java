@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Test assets data.
@@ -84,6 +85,21 @@ public class TestAssets {
      */
     public static AssetValue findAssetValueByAssetId(final String assetId) {
         return ASSETS.get(assetId);
+    }
+
+    /**
+     * Returns an asset state by raw proof sha256.
+     *
+     * @param rawProofSha256 raw proof sha256
+     * @return asset state
+     */
+    public static Optional<DecodedProofValueResponse.DecodedProof> findAssetStateByRawProofSha256(final String rawProofSha256) {
+        return ASSETS.values().stream()
+                .flatMap(assetValue -> assetValue.getDecodedProofValues().stream())
+                .filter(decodedProofValue -> decodedProofValue.getRawProofSha256().equals(rawProofSha256))
+                .map(DecodedProofValue::getResponse)
+                .map(DecodedProofValueResponse::getDecodedProof)
+                .findFirst();
     }
 
     /**
