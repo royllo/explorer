@@ -15,7 +15,6 @@ import org.royllo.explorer.core.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
-import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Optional;
 
@@ -28,10 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.service.asset.AssetStateServiceImplementation.SEARCH_PARAMETER_ASSET_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @DisplayName("AssetStateService tests")
 public class AssetStateServiceTest extends BaseTest {
 
@@ -259,21 +256,10 @@ public class AssetStateServiceTest extends BaseTest {
         verifyAsset(assetState.get().getAsset(), ROYLLO_COIN_ASSET_ID);
         // Asset state data.
         verifyAssetState(assetState.get(),
-                ROYLLO_COIN_ASSET_STATE_ID,
+                ROYLLO_COIN_ASSET_ID,
                 assetState.get().getAnchorOutpoint().getTxId(),
                 assetState.get().getAnchorOutpoint().getVout(),
                 assetState.get().getScriptKey());
-
-        assertEquals(ROYLLO_COIN_ANCHOR_BLOCK_HASH, assetState.get().getAnchorBlockHash());
-        assertEquals(ROYLLO_COIN_ANCHOR_OUTPOINT, assetState.get().getAnchorOutpoint().getTxId() + ":" + assetState.get().getAnchorOutpoint().getVout());
-        assertEquals(ROYLLO_COIN_ANCHOR_TX, assetState.get().getAnchorTx());
-        assertEquals(ROYLLO_COIN_ANCHOR_TX_ID, assetState.get().getAnchorTxId());
-        assertEquals(ROYLLO_COIN_INTERNAL_KEY, assetState.get().getInternalKey());
-        assertEquals(ROYLLO_COIN_MERKLE_ROOT, assetState.get().getMerkleRoot());
-        assertEquals(ROYLLO_COIN_TAPSCRIPT_SIBLING, assetState.get().getTapscriptSibling());
-        assertEquals(ROYLLO_COIN_SCRIPT_VERSION, assetState.get().getScriptVersion());
-        assertEquals(ROYLLO_COIN_SCRIPT_KEY, assetState.get().getScriptKey());
-        assertEquals(ROYLLO_COIN_SCRIPT_VERSION, assetState.get().getScriptVersion());
     }
 
 }

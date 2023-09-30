@@ -31,7 +31,7 @@ public class TestAssetsData {
         assertEquals(1, decodedProofValue.size());
         // Decoded proof 1.
         final DecodedProofValue decodedProofValue1 = decodedProofValue.get(0);
-        assertNotNull(decodedProofValue1.getRawProofSha256());
+        assertNotNull(decodedProofValue1.getAssetStateId());
         assertNotNull(decodedProofValue1.getRequest());
         assertNotNull(decodedProofValue1.getRequest().getRawProof());
         assertNotNull(decodedProofValue1.getResponse());

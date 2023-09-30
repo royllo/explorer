@@ -285,7 +285,6 @@ public class AddProofRequestBatchTest extends BaseTest {
         addProofBatch.processRequests();
         Optional<RequestDTO> testCoinProof1Request1Treated = requestService.getRequest(testCoinProof1.getId());
         assertTrue(testCoinProof1Request1Treated.isPresent());
-        System.out.println("==> " + testCoinProof1Request1Treated.get().getErrorMessage());
         assertTrue(testCoinProof1Request1Treated.get().isSuccessful());
         assertEquals(SUCCESS, testCoinProof1Request1Treated.get().getStatus());
 
@@ -358,7 +357,6 @@ public class AddProofRequestBatchTest extends BaseTest {
         addProofBatch.processRequests();
         Optional<RequestDTO> testCoinProof2Request2created = requestService.getRequest(testCoinProof2.getId());
         assertTrue(testCoinProof2Request2created.isPresent());
-        System.out.println(testCoinProof2Request2created.get().getErrorMessage());
         assertTrue(testCoinProof2Request2created.get().isSuccessful());
         assertEquals(SUCCESS, testCoinProof2Request2created.get().getStatus());
 

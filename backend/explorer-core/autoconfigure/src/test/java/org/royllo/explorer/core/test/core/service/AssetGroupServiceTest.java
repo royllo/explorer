@@ -8,7 +8,6 @@ import org.royllo.explorer.core.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 
@@ -21,7 +20,6 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 
 @SpringBootTest
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
-@ActiveProfiles("mempoolTransactionServiceMock")
 @DisplayName("AssetGroupService tests")
 public class AssetGroupServiceTest extends BaseTest {
 
@@ -43,7 +41,7 @@ public class AssetGroupServiceTest extends BaseTest {
 
         // =============================================================================================================
         // Third constraint test - Asset group key already registered.
-        e = assertThrows(AssertionError.class, () -> assetGroupService.addAssetGroup(AssetGroupDTO.builder().rawGroupKey(ROYLLO_COIN_RAW_GROUP_KEY).build()));
+        e = assertThrows(AssertionError.class, () -> assetGroupService.addAssetGroup(AssetGroupDTO.builder().rawGroupKey("RAW_GROUP_KEY_10000").build()));
         assertEquals("Asset group key already registered", e.getMessage());
 
         // =============================================================================================================
@@ -71,12 +69,12 @@ public class AssetGroupServiceTest extends BaseTest {
 
         // =============================================================================================================
         // Existing asset group on testnet and in our database initialization script ("roylloCoin") .
-        assetGroup = assetGroupService.getAssetGroupByRawGroupKey(ROYLLO_COIN_RAW_GROUP_KEY);
+        assetGroup = assetGroupService.getAssetGroupByRawGroupKey("RAW_GROUP_KEY_10000");
         assertTrue(assetGroup.isPresent());
-        assertEquals(1L, assetGroup.get().getId());
-        assertEquals(ROYLLO_COIN_ASSET_ID_SIG, assetGroup.get().getAssetIdSig());
-        assertEquals(ROYLLO_COIN_RAW_GROUP_KEY, assetGroup.get().getRawGroupKey());
-        assertEquals(ROYLLO_COIN_TWEAKED_GROUP_KEY, assetGroup.get().getTweakedGroupKey());
+        assertEquals(10000, assetGroup.get().getId());
+        assertEquals("ASSET_ID_SIG_10000", assetGroup.get().getAssetIdSig());
+        assertEquals("RAW_GROUP_KEY_10000", assetGroup.get().getRawGroupKey());
+        assertEquals("TWEAKED_GROUP_KEY_10000", assetGroup.get().getTweakedGroupKey());
     }
 
 }

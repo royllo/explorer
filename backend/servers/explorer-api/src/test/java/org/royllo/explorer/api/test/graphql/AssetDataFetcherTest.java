@@ -228,7 +228,6 @@ public class AssetDataFetcherTest extends BaseTest {
                 new TypeRef<>() {
                 });
 
-        assetPage.getContent().forEach(asset -> System.out.println("Asset: " + asset.getName()));
         assertEquals(9, assetPage.getTotalElements());
         assertEquals(2, assetPage.getTotalPages());
         assertEquals("asset_id_0", assetPage.getContent().get(0).getAssetId());

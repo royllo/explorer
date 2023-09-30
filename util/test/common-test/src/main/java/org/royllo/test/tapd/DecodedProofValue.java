@@ -1,5 +1,7 @@
 package org.royllo.test.tapd;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Value;
 
 import java.nio.charset.StandardCharsets;
@@ -20,8 +22,8 @@ public class DecodedProofValue {
     /** Decoded proof response. */
     DecodedProofValueResponse response;
 
-    /** Raw proof sha256. */
-    String rawProofSha256;
+    /** Asset state id. */
+    String assetStateId;
 
     /** Proof at depth. */
     long proofAtDepth;
@@ -37,7 +39,10 @@ public class DecodedProofValue {
         this.request = newRequest;
         this.response = newResponse;
         // "Calculated field".
-        this.rawProofSha256 = sha256(newRequest.getRawProof());
+        String uniqueValue = newResponse.getDecodedProof().getAsset().getAssetGenesis().getAssetId()
+                + "_" + newResponse.getDecodedProof().getAsset().getChainAnchor().getAnchorOutpoint()
+                + "_" + newResponse.getDecodedProof().getAsset().getScriptKey();
+        this.assetStateId = sha256(uniqueValue);
         this.proofAtDepth = newRequest.getProofAtDepth();
     }
 
@@ -58,6 +63,32 @@ public class DecodedProofValue {
             hexString.append(hex);
         }
         return hexString.toString();
+    }
+
+    /**
+     * Returns the request in JSON.
+     *
+     * @return json request
+     */
+    public String getJSONRequest() {
+        try {
+            return new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(request);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Impossible to transform to JSON" + e);
+        }
+    }
+
+    /**
+     * Returns the response in JSON.
+     *
+     * @return json response
+     */
+    public String getJSONResponse() {
+        try {
+            return new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(response);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Impossible to transform to JSON" + e);
+        }
     }
 
     /**

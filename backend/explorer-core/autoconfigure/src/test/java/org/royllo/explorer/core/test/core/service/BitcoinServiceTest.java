@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -22,7 +21,6 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
-@ActiveProfiles("mempoolTransactionServiceMock")
 @DisplayName("BitcoinService tests")
 public class BitcoinServiceTest extends BaseTest {
 
@@ -33,6 +31,7 @@ public class BitcoinServiceTest extends BaseTest {
     @DisplayName("getBitcoinTransactionOutput()")
     public void getBitcoinTransactionOutputTest() {
         Optional<BitcoinTransactionOutputDTO> bto;
+        // TODO Replace with values from TestTransactions.
 
         // =============================================================================================================
         // Getting a transaction output already in our database.
@@ -129,7 +128,6 @@ public class BitcoinServiceTest extends BaseTest {
         assertTrue(bitcoinService.getBitcoinTransactionOutput(BITCOIN_TRANSACTION_3_TXID, 2).isPresent());
         assertTrue(bitcoinService.getBitcoinTransactionOutput(BITCOIN_TRANSACTION_3_TXID, 3).isEmpty());
         assertTrue(bitcoinService.getBitcoinTransactionOutput(BITCOIN_TRANSACTION_3_TXID, 4).isEmpty());
-
     }
 
 }

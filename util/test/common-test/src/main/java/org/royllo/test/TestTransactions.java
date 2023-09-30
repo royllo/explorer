@@ -1,7 +1,6 @@
 package org.royllo.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Getter;
 import org.mockserver.integration.ClientAndServer;
 import org.royllo.test.mempool.GetTransactionValueResponse;
 import org.royllo.test.mempool.TransactionValue;
@@ -11,7 +10,6 @@ import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 import static org.mockserver.model.MediaType.APPLICATION_JSON;
@@ -40,13 +38,6 @@ public class TestTransactions {
     /** txid of a taproot transaction containing a Taproot asset on the testnet (output 1). */
     public static final String BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID = "d8a8016095b9fcd1f63c57342d375026ecbc72c885a54b676c6e62b216e15365";
 
-    /** Mock server port. */
-    public static final int MEMPOOL_MOCK_SERVER_PORT = 9091;
-
-    /** Mock server. */
-    @Getter
-    private static final ClientAndServer MOCK_SERVER = startClientAndServer(MEMPOOL_MOCK_SERVER_PORT);
-
     /** Contains all transactions. */
     private static final Map<String, TransactionValue> TRANSACTIONS = new LinkedHashMap<>();
 
@@ -59,15 +50,6 @@ public class TestTransactions {
             TRANSACTIONS.put(BITCOIN_TRANSACTION_3_TXID, getTransactionValueFromFile(BITCOIN_TRANSACTION_3_TXID));
             TRANSACTIONS.put(BITCOIN_TAPROOT_TRANSACTION_2_TXID, getTransactionValueFromFile(BITCOIN_TAPROOT_TRANSACTION_2_TXID));
             TRANSACTIONS.put(BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID, getTransactionValueFromFile(BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID));
-
-            // Adding all transactions to the mock server.
-            for (Map.Entry<String, TransactionValue> entry : TRANSACTIONS.entrySet()) {
-                // Mock the request.
-                MOCK_SERVER.when(request().withPath(".*/api/tx/" + entry.getKey() + ".*"))
-                        .respond(response().withStatusCode(200)
-                                .withContentType(APPLICATION_JSON)
-                                .withBody(entry.getValue().getJSONResponse()));
-            }
         } catch (IOException e) {
             throw new RuntimeException("TestTransactions loading error: " + e);
         }
@@ -81,6 +63,22 @@ public class TestTransactions {
      */
     public static TransactionValue findTransactionByTransactionId(final String transactionId) {
         return TRANSACTIONS.get(transactionId);
+    }
+
+    /**
+     * Set mock server rules.
+     *
+     * @param mockServer mock server
+     */
+    public static void setMockServerRules(final ClientAndServer mockServer) {
+        // Adding all transactions to the mock server.
+        for (Map.Entry<String, TransactionValue> entry : TRANSACTIONS.entrySet()) {
+            // Mock the request.
+            mockServer.when(request().withPath(".*/api/tx/" + entry.getKey() + ".*"))
+                    .respond(response().withStatusCode(200)
+                            .withContentType(APPLICATION_JSON)
+                            .withBody(entry.getValue().getJSONResponse()));
+        }
     }
 
     /**

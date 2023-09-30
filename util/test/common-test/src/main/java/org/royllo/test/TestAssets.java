@@ -1,6 +1,8 @@
 package org.royllo.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.mockserver.integration.ClientAndServer;
+import org.mockserver.model.RegexBody;
 import org.royllo.test.tapd.AssetValue;
 import org.royllo.test.tapd.DecodedProofValue;
 import org.royllo.test.tapd.DecodedProofValueRequest;
@@ -11,6 +13,11 @@ import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static org.mockserver.model.HttpRequest.request;
+import static org.mockserver.model.HttpResponse.response;
+import static org.mockserver.model.MediaType.APPLICATION_JSON;
 
 /**
  * Test assets data.
@@ -88,18 +95,46 @@ public class TestAssets {
     }
 
     /**
-     * Returns an asset state by raw proof sha256.
+     * Returns an asset state by asset state id.
      *
-     * @param rawProofSha256 raw proof sha256
+     * @param assetStateId asset state id
      * @return asset state
      */
-    public static Optional<DecodedProofValueResponse.DecodedProof> findAssetStateByRawProofSha256(final String rawProofSha256) {
+    public static Optional<DecodedProofValueResponse.DecodedProof> findAssetStateByAssetStateId(final String assetStateId) {
         return ASSETS.values().stream()
                 .flatMap(assetValue -> assetValue.getDecodedProofValues().stream())
-                .filter(decodedProofValue -> decodedProofValue.getRawProofSha256().equals(rawProofSha256))
+                .filter(decodedProofValue -> decodedProofValue.getAssetStateId().equals(assetStateId))
                 .map(DecodedProofValue::getResponse)
                 .map(DecodedProofValueResponse::getDecodedProof)
                 .findFirst();
+    }
+
+    /**
+     * Set mock server rules.
+     *
+     * @param mockServer mock server
+     */
+    @SuppressWarnings("checkstyle:MagicNumber")
+    public static void setMockServerRules(final ClientAndServer mockServer) {
+        // Adding all assets to the mock server.
+        for (Map.Entry<String, AssetValue> entry : ASSETS.entrySet()) {
+            // For each decoded proof values, we mock the request.
+            AtomicInteger i = new AtomicInteger(0);
+            entry.getValue().getDecodedProofValues().forEach(decodedProofValue -> {
+                int index = i.getAndIncrement();
+
+//                System.out.println("===========================================");
+//                System.out.println("Asset => " + entry.getValue().getDecodedProofValues().get(index).getResponse().getDecodedProof().getAsset().getAssetGenesis().getName());
+//                System.out.println("i => " + index);
+//                System.out.println("Request " + entry.getValue().getDecodedProofValues().get(index).getRequest().getRawProof());
+//                System.out.println("Response " + entry.getValue().getDecodedProofValues().get(index).getJSONResponse());
+
+                mockServer.when(request().withBody(RegexBody.regex(".*\"raw_proof\" : \"" + entry.getValue().getDecodedProofValues().get(index).getRequest().getRawProof() + "\".*")))
+                        .respond(response().withStatusCode(200)
+                                .withContentType(APPLICATION_JSON)
+                                .withBody(entry.getValue().getDecodedProofValues().get(index).getJSONResponse()));
+            });
+        }
     }
 
     /**
