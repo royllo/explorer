@@ -15,7 +15,6 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 import static org.royllo.test.TestAssets.ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TestAssets.TEST_COIN_ASSET_ID;
 
@@ -31,7 +30,7 @@ public class TapdMockServerTest {
     @Test
     @DisplayName("Mock server data")
     public void mockServerData() {
-        final ClientAndServer tapdMockServer = startClientAndServer(MOCK_SERVER_PORT);
+        final ClientAndServer tapdMockServer = ClientAndServer.startClientAndServer(MOCK_SERVER_PORT);
         TestAssets.setMockServerRules(tapdMockServer);
         var client = new OkHttpClient();
 
@@ -56,8 +55,7 @@ public class TapdMockServerTest {
                 .post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), testCoin.getDecodedProofValues().get(2).getJSONRequest()))
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            System.out.println(">>>>>> " + response.body().string());
-            // assertTrue(response.body().string().contains("\"script_key\" : \"02f02cc84b9f38f9596afd32542439d87fb8cd44e73ac4d94445044bb5e98331b1\""));
+            assertTrue(response.body().string().contains("\"script_key\" : \"02f02cc84b9f38f9596afd32542439d87fb8cd44e73ac4d94445044bb5e98331b1\""));
         } catch (IOException e) {
             fail("Error while calling the mock server");
         }

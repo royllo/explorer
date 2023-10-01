@@ -2,7 +2,8 @@ package org.royllo.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mockserver.integration.ClientAndServer;
-import org.mockserver.model.RegexBody;
+import org.mockserver.matchers.MatchType;
+import org.mockserver.model.JsonBody;
 import org.royllo.test.tapd.AssetValue;
 import org.royllo.test.tapd.DecodedProofValue;
 import org.royllo.test.tapd.DecodedProofValueRequest;
@@ -126,10 +127,22 @@ public class TestAssets {
 //                System.out.println("===========================================");
 //                System.out.println("Asset => " + entry.getValue().getDecodedProofValues().get(index).getResponse().getDecodedProof().getAsset().getAssetGenesis().getName());
 //                System.out.println("i => " + index);
-//                System.out.println("Request " + entry.getValue().getDecodedProofValues().get(index).getRequest().getRawProof());
-//                System.out.println("Response " + entry.getValue().getDecodedProofValues().get(index).getJSONResponse());
+//                System.out.println("Raw proof: " + entry.getValue().getDecodedProofValues().get(index).getRequest().getRawProof());
+//                System.out.println("Raw proof at depth => " + entry.getValue().getDecodedProofValues().get(index).getRequest().getProofAtDepth());
+//                System.out.println("Response: " + entry.getValue().getDecodedProofValues().get(index).getJSONResponse());
 
-                mockServer.when(request().withBody(RegexBody.regex(".*\"raw_proof\" : \"" + entry.getValue().getDecodedProofValues().get(index).getRequest().getRawProof() + "\".*")))
+                //System.out.println("Returns: " + entry.getValue().getDecodedProofValues().get(index).getJSONResponse());
+
+
+                mockServer.when(request().withBody(
+                                JsonBody.json(
+                                        "{"
+                                                + "\"raw_proof\" : \"" + entry.getValue().getDecodedProofValues().get(index).getRequest().getRawProof() + "\","
+                                                + "\"proof_at_depth\" : " + entry.getValue().getDecodedProofValues().get(index).getRequest().getProofAtDepth()
+                                                + "}",
+                                        MatchType.ONLY_MATCHING_FIELDS
+                                )
+                        ))
                         .respond(response().withStatusCode(200)
                                 .withContentType(APPLICATION_JSON)
                                 .withBody(entry.getValue().getDecodedProofValues().get(index).getJSONResponse()));

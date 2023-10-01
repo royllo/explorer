@@ -38,12 +38,17 @@ public class DecodedProofValue {
                              final DecodedProofValueResponse newResponse) {
         this.request = newRequest;
         this.response = newResponse;
+
+        // TODO Temporary solution because of proof at depth is not well made.
+        response.getDecodedProof().setProofAtDepth(request.getProofAtDepth());
+        this.proofAtDepth = request.getProofAtDepth();
+
         // "Calculated field".
         String uniqueValue = newResponse.getDecodedProof().getAsset().getAssetGenesis().getAssetId()
                 + "_" + newResponse.getDecodedProof().getAsset().getChainAnchor().getAnchorOutpoint()
                 + "_" + newResponse.getDecodedProof().getAsset().getScriptKey();
         this.assetStateId = sha256(uniqueValue);
-        this.proofAtDepth = newRequest.getProofAtDepth();
+
     }
 
     /**
