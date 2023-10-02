@@ -8,9 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
@@ -26,56 +27,31 @@ public class UniverseServerServiceTest {
     public void addUniverseServer() {
         // =============================================================================================================
         // Adding a universe server with a null value.
-        try {
-            universeServerService.addUniverseServer(null);
-            fail("An exception should have been thrown");
-        } catch (UniverseServerCreationException exception) {
-            assertEquals("Server address cannot be null", exception.getMessage());
-        }
+        UniverseServerCreationException e = assertThrows(UniverseServerCreationException.class, () -> universeServerService.addUniverseServer(null));
+        assertEquals("Server address cannot be null", e.getMessage());
 
         // =============================================================================================================
         // Adding a universe server with an invalid value.
-        try {
-            universeServerService.addUniverseServer("invalid");
-            fail("An exception should have been thrown");
-        } catch (UniverseServerCreationException exception) {
-            assertEquals("Invalid server address invalid", exception.getMessage());
-        }
+        e = assertThrows(UniverseServerCreationException.class, () -> universeServerService.addUniverseServer("invalid"));
+        assertEquals("Invalid server address invalid", e.getMessage());
 
         // =============================================================================================================
         // Adding a universe server with a valid value (hostname).
-        try {
-            universeServerService.addUniverseServer("universe.royllo.org:8080");
-        } catch (UniverseServerCreationException exception) {
-            fail("An exception should not have been thrown");
-        }
+        assertDoesNotThrow(() -> universeServerService.addUniverseServer("universe.royllo.org:8080"));
 
         // =============================================================================================================
         // Adding a universe server with a valid value (hostname).
-        try {
-            universeServerService.addUniverseServer("1.1.1.1:8080");
-        } catch (UniverseServerCreationException exception) {
-            fail("An exception should not have been thrown");
-        }
+        assertDoesNotThrow(() -> universeServerService.addUniverseServer("1.1.1.1:8080"));
 
         // =============================================================================================================
         // Trying to add a duplicated value in universe server.
-        try {
-            universeServerService.addUniverseServer("1.1.1.1:8080");
-            fail("An exception should have been thrown");
-        } catch (UniverseServerCreationException exception) {
-            assertEquals("1.1.1.1:8080 is already in our database", exception.getMessage());
-        }
+        e = assertThrows(UniverseServerCreationException.class, () -> universeServerService.addUniverseServer("1.1.1.1:8080"));
+        assertEquals("1.1.1.1:8080 is already in our database", e.getMessage());
 
         // =============================================================================================================
         // Trying to add a duplicated value in universe server (with space around).
-        try {
-            universeServerService.addUniverseServer("1.1.1.1:8080");
-            fail("An exception should have been thrown");
-        } catch (UniverseServerCreationException exception) {
-            assertEquals("1.1.1.1:8080 is already in our database", exception.getMessage());
-        }
-
+        e = assertThrows(UniverseServerCreationException.class, () -> universeServerService.addUniverseServer("1.1.1.1:8080"));
+        assertEquals("1.1.1.1:8080 is already in our database", e.getMessage());
     }
 
     @Test
@@ -87,11 +63,7 @@ public class UniverseServerServiceTest {
 
         // =============================================================================================================
         // Adding a universe server with a valid value (hostname).
-        try {
-            universeServerService.addUniverseServer("test.royllo.org:8080");
-        } catch (UniverseServerCreationException exception) {
-            fail("An exception should not have been thrown");
-        }
+        assertDoesNotThrow(() -> universeServerService.addUniverseServer("test.royllo.org:8080"));
 
         // =============================================================================================================
         // Checking if a universe exists before after create it.
