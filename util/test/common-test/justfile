@@ -57,3 +57,6 @@ generate_mempool_data:
 
     curl    https://mempool.space/api/tx/2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea | \
             jq > src/main/resources/mempool/2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea-response.json
+
+    curl    https://mempool.space/testnet/api/tx/4155275d5468dc2f116e3ea4aaddc4783a559933c7bef08fd3029fde40daf26d | \
+            jq > src/main/resources/mempool/4155275d5468dc2f116e3ea4aaddc4783a559933c7bef08fd3029fde40daf26d-response.json

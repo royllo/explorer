@@ -2,6 +2,7 @@ package org.royllo.explorer.core.test.core.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.proof.ProofFileDTO;
 import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.royllo.explorer.core.provider.tapd.TapdService;
@@ -13,21 +14,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Fail.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
-@ActiveProfiles({"tapdProofServiceMock", "mempoolTransactionServiceMock"})
 @DisplayName("ProofService tests")
 public class ProofFileServiceTest extends BaseTest {
 
@@ -50,57 +49,26 @@ public class ProofFileServiceTest extends BaseTest {
 
         // We add our proof but our an asset doesn't exist yet --> an error must occur.
         assertFalse(assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
-        try {
-            proofFileService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, unknownRoylloCoinDecodedProof);
-            fail("An exception should have occurred");
-        } catch (ProofCreationException e) {
-            assertEquals(e.getMessage(), "Asset " + UNKNOWN_ROYLLO_COIN_ASSET_ID + " is not registered in our database");
-        }
+        ProofCreationException e = assertThrows(ProofCreationException.class, () -> proofFileService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, unknownRoylloCoinDecodedProof));
+        assertEquals(e.getMessage(), "Asset " + UNKNOWN_ROYLLO_COIN_ASSET_ID + " is not registered in our database");
 
-/*        // TODO Make this test work.
-        // We add the asset of our proof, and then, our proof --> No error, proof should be added.
-        final AssetDTO unknownRoylloCoin = assetService.addAssetDTO(ASSET_MAPPER.mapToAssetDTO(unknownRoylloCoinDecodedProof.getDecodedProof()));
+        // We add the asset of our proof, and then, our proof --> No error and proof should be added.
+        final AssetDTO unknownRoylloCoin = assetService.addAsset(ASSET_MAPPER.mapToAssetDTO(unknownRoylloCoinDecodedProof.getDecodedProof()));
         assertNotNull(unknownRoylloCoin);
-        assertNotNull(unknownRoylloCoin.getId());
-        assertNotNull(unknownRoylloCoin.getCreator());
-        assertEquals(ANONYMOUS_ID, unknownRoylloCoin.getCreator().getId());
-        assertEquals(0, unknownRoylloCoin.getVersion());
-        assertEquals(UNKNOWN_ROYLLO_COIN_GENESIS_POINT_TXID, unknownRoylloCoin.getGenesisPoint().getTxId());
-        assertEquals(UNKNOWN_ROYLLO_COIN_GENESIS_POINT_VOUT, unknownRoylloCoin.getGenesisPoint().getVout());
-        assertEquals(UNKNOWN_ROYLLO_COIN_NAME, unknownRoylloCoin.getName());
-        assertEquals(UNKNOWN_ROYLLO_COIN_META, unknownRoylloCoin.getMetaDataHash());
-        assertEquals(UNKNOWN_ROYLLO_COIN_ASSET_ID, unknownRoylloCoin.getAssetId());
-        assertEquals(UNKNOWN_ROYLLO_COIN_OUTPUT_INDEX, unknownRoylloCoin.getOutputIndex());
-        assertEquals(UNKNOWN_ROYLLO_COIN_GENESIS_VERSION, unknownRoylloCoin*//**//*.getGenesisVersion());
-        assertEquals(UNKNOWN_ROYLLO_COIN_ASSET_TYPE, unknownRoylloCoin.getType());
-        assertEquals(0, unknownRoylloCoin.getAmount().compareTo(UNKNOWN_ROYLLO_COIN_AMOUNT));
-        assertEquals(UNKNOWN_ROYLLO_COIN_LOCK_TIME, unknownRoylloCoin.getLockTime());
-        assertEquals(UNKNOWN_ROYLLO_COIN_RELATIVE_LOCK_TIME, unknownRoylloCoin.getRelativeLockTime());
-        assertEquals(UNKNOWN_ROYLLO_COIN_SCRIPT_VERSION, unknownRoylloCoin.getScriptVersion());
-        assertEquals(UNKNOWN_ROYLLO_COIN_SCRIPT_KEY, unknownRoylloCoin.getScriptKey());
-        assertEquals(UNKNOWN_ROYLLO_COIN_ANCHOR_TX, unknownRoylloCoin.getAnchorTx());
-        assertEquals(UNKNOWN_ROYLLO_COIN_ANCHOR_TX_ID, unknownRoylloCoin.getAnchorTxId());
-        assertEquals(UNKNOWN_ROYLLO_COIN_ANCHOR_BLOCK_HASH, unknownRoylloCoin.getAnchorBlockHash());
-        assertEquals(UNKNOWN_ROYLLO_COIN_ANCHOR_OUTPOINT, unknownRoylloCoin.getAnchorOutpoint());
-        assertEquals(UNKNOWN_ROYLLO_COIN_ANCHOR_INTERNAL_KEY, unknownRoylloCoin.getInternalKey());
-        assertTrue(assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
+        verifyAsset(unknownRoylloCoin, UNKNOWN_ROYLLO_COIN_ASSET_ID);
 
         // Then, our proof that should be added without any problem.
-        final ProofDTO proofAdded = proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, unknownRoylloCoinDecodedProof);
+        final ProofFileDTO proofAdded = proofFileService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, unknownRoylloCoinDecodedProof);
         assertNotNull(proofAdded);
         assertNotNull(proofAdded.getId());
-        assertEquals("a6cde389a35fcb8582fbbf1515f0f43ed3dc7b78dc4537c01d2505ddc25036de", proofAdded.getProofId());
+        assertEquals("882416c100923250bf3d9a6947227c309fdd8f348900b42cd02c5904bfa15f52", proofAdded.getProofFileId());
         assertEquals(UNKNOWN_ROYLLO_COIN_ASSET_ID, proofAdded.getAsset().getAssetId());
         assertEquals(ANONYMOUS_ID, proofAdded.getCreator().getId());
         assertEquals(UNKNOWN_ROYLLO_COIN_RAW_PROOF, proofAdded.getRawProof());
 
         // We add again our proof as it's already in our database --> an error must occur.
-        try {
-            proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, unknownRoylloCoinDecodedProof);
-            fail("An exception should have occurred");
-        } catch (ProofCreationException e) {
-            assertEquals(e.getMessage(), "This proof is already registered with proof id: a6cde389a35fcb8582fbbf1515f0f43ed3dc7b78dc4537c01d2505ddc25036de");
-        }*/
+        e = assertThrows(ProofCreationException.class, () -> proofFileService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, unknownRoylloCoinDecodedProof));
+        assertEquals(e.getMessage(), "This proof file is already registered with proof id: 882416c100923250bf3d9a6947227c309fdd8f348900b42cd02c5904bfa15f52");
     }
 
     @Test
@@ -108,19 +76,13 @@ public class ProofFileServiceTest extends BaseTest {
     public void getProofsByAssetId() {
         // =============================================================================================================
         // First case: asset id not found in database.
-        try {
-            proofFileService.getProofFilesByAssetId(ROYLLO_COIN_ASSET_ID, 0, 1);
-        } catch (AssertionError e) {
-            assertEquals(e.getMessage(), "Page number starts at page 1");
-        }
+        AssertionError e = assertThrows(AssertionError.class, () -> proofFileService.getProofFilesByAssetId(ROYLLO_COIN_ASSET_ID, 0, 1));
+        assertEquals(e.getMessage(), "Page number starts at page 1");
 
         // =============================================================================================================
         // Second case: asset id not found in database.
-        try {
-            proofFileService.getProofFilesByAssetId("NON_EXISTING_ASSET_ID", 1, 1);
-        } catch (AssertionError e) {
-            assertEquals(e.getMessage(), "Asset ID not found");
-        }
+        e = assertThrows(AssertionError.class, () -> proofFileService.getProofFilesByAssetId("NON_EXISTING_ASSET_ID", 1, 1));
+        assertEquals(e.getMessage(), "Asset ID not found");
 
         // =============================================================================================================
         // Getting proofs of "activeRoylloCoin" - One page.

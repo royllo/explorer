@@ -38,6 +38,9 @@ public class TestTransactions {
     /** txid of a taproot transaction containing a Taproot asset on the testnet (output 1). */
     public static final String BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID = "d8a8016095b9fcd1f63c57342d375026ecbc72c885a54b676c6e62b216e15365";
 
+    /** Transaction used by unknown royllo coin. */
+    public static final String BITCOIN_TRANSACTION_FOR_UNKNOWN_ROYLLO_COIN = "4155275d5468dc2f116e3ea4aaddc4783a559933c7bef08fd3029fde40daf26d";
+
     /** Contains all transactions. */
     private static final Map<String, TransactionValue> TRANSACTIONS = new LinkedHashMap<>();
 
@@ -50,6 +53,7 @@ public class TestTransactions {
             TRANSACTIONS.put(BITCOIN_TRANSACTION_3_TXID, getTransactionValueFromFile(BITCOIN_TRANSACTION_3_TXID));
             TRANSACTIONS.put(BITCOIN_TAPROOT_TRANSACTION_2_TXID, getTransactionValueFromFile(BITCOIN_TAPROOT_TRANSACTION_2_TXID));
             TRANSACTIONS.put(BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID, getTransactionValueFromFile(BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID));
+            TRANSACTIONS.put(BITCOIN_TRANSACTION_FOR_UNKNOWN_ROYLLO_COIN, getTransactionValueFromFile(BITCOIN_TRANSACTION_FOR_UNKNOWN_ROYLLO_COIN));
         } catch (IOException e) {
             throw new RuntimeException("TestTransactions loading error: " + e);
         }
