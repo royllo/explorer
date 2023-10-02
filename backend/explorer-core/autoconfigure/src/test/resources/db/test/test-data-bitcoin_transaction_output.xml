@@ -27,7 +27,7 @@
         -->
         <insert tableName="BITCOIN_TRANSACTION_OUTPUT">
             <column name="ID" value="4"/>
-            <column name="BLOCK_HEIGHT" value="766"/>
+            <column name="BLOCK_HEIGHT" value="754059"/>
             <column name="TXID" value="46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946"/>
             <column name="VOUT" value="1"/>
             <column name="SCRIPTPUBKEY" value="0020701a8d401c84fb13e6baf169d59684e17abd9fa216c8cc5b9fc63d622ff8c58d"/>
@@ -67,7 +67,7 @@
             <column name="SCRIPTPUBKEY_ASM"
                     value="OP_PUSHBYTES_65 0415ca91c387efac4ea86f0196b2a1d831f75a488f115055636f0022c51df508197ad4fc31f553d48052b05b0a3b6030a84a0441adae97734129bb8ea0ddfd4004 OP_CHECKSIG"/>
             <column name="SCRIPTPUBKEY_TYPE" value="p2pk"/>
-            <column name="SCRIPTPUBKEY_ADDRESS" value="19oAxAJhAKmEFb2pcA9qiX8sV8hxKeXjzd"/>
+            <column name="SCRIPTPUBKEY_ADDRESS"/>
             <column name="VALUE" value="5000000000"/>
         </insert>
 
