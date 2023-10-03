@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@SpringBootTest
+@SpringBootTest(properties = {"tapd.api.base-url=https://157.230.85.88:8089"})
 @DisplayName("TAPD Universe leaves service test")
 public class TapdUniverseLeavesServiceTest {
 

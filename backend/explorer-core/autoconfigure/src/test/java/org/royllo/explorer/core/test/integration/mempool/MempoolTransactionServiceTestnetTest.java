@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.provider.mempool.GetTransactionResponse;
 import org.royllo.explorer.core.provider.mempool.MempoolTransactionService;
-import org.royllo.explorer.core.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -12,10 +11,11 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.royllo.test.TestTransactions.BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID;
 
 @SpringBootTest(properties = {"mempool.api.base-url=https://mempool.space/testnet/api"})
 @DisplayName("Mempool transaction service testnet test")
-public class MempoolTransactionServiceTestnetTest extends BaseTest {
+public class MempoolTransactionServiceTestnetTest {
 
     @Autowired
     private MempoolTransactionService mempoolTransactionService;
@@ -26,9 +26,7 @@ public class MempoolTransactionServiceTestnetTest extends BaseTest {
     public void getTransactionTest() {
         // =============================================================================================================
         // Testing a taproot transaction.
-        GetTransactionResponse taprootTransaction = mempoolTransactionService.getTransaction(BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID)
-                .doOnError(throwable -> logger.error("Error getting transaction from mempool: {}", throwable.getMessage()))
-                .block();
+        GetTransactionResponse taprootTransaction = mempoolTransactionService.getTransaction(BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID).block();
         assertNotNull(taprootTransaction);
         assertEquals(2348688, taprootTransaction.getStatus().getBlockHeight().intValue());
         assertEquals(2, taprootTransaction.getVout().size());

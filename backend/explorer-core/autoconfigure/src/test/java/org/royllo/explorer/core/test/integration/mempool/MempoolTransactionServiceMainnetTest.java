@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.provider.mempool.GetTransactionResponse;
 import org.royllo.explorer.core.provider.mempool.MempoolTransactionService;
-import org.royllo.explorer.core.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -14,10 +13,13 @@ import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.royllo.explorer.core.test.util.BaseTest.BITCOIN_TRANSACTION_NON_EXISTING;
+import static org.royllo.test.TestTransactions.BITCOIN_TAPROOT_TRANSACTION_2_TXID;
+import static org.royllo.test.TestTransactions.BITCOIN_TRANSACTION_2_TXID;
 
 @SpringBootTest(properties = {"mempool.api.base-url=https://mempool.space/api"})
 @DisplayName("Mempool transaction service test on mainnet")
-public class MempoolTransactionServiceMainnetTest extends BaseTest {
+public class MempoolTransactionServiceMainnetTest {
 
     @Autowired
     private MempoolTransactionService mempoolTransactionService;
@@ -32,9 +34,7 @@ public class MempoolTransactionServiceMainnetTest extends BaseTest {
 
         // =============================================================================================================
         // Getting a transaction and checking the results.
-        GetTransactionResponse normalTransaction = mempoolTransactionService.getTransaction(BITCOIN_TRANSACTION_2_TXID)
-                .doOnError(throwable -> logger.error("Error getting transaction from mempool: {}", throwable.getMessage()))
-                .block();
+        GetTransactionResponse normalTransaction = mempoolTransactionService.getTransaction(BITCOIN_TRANSACTION_2_TXID).block();
         assertNotNull(normalTransaction);
         assertEquals(754059, normalTransaction.getStatus().getBlockHeight().intValue());
         assertEquals(2, normalTransaction.getVout().size());
@@ -58,9 +58,7 @@ public class MempoolTransactionServiceMainnetTest extends BaseTest {
 
         // =============================================================================================================
         // Testing a taproot transaction.
-        GetTransactionResponse taprootTransaction = mempoolTransactionService.getTransaction(BITCOIN_TAPROOT_TRANSACTION_2_TXID)
-                .doOnError(throwable -> logger.error("Error getting transaction from mempool: {}", throwable.getMessage()))
-                .block();
+        GetTransactionResponse taprootTransaction = mempoolTransactionService.getTransaction(BITCOIN_TAPROOT_TRANSACTION_2_TXID).block();
         assertNotNull(taprootTransaction);
         assertEquals(742158, taprootTransaction.getStatus().getBlockHeight().intValue());
         assertEquals(2, taprootTransaction.getVout().size());

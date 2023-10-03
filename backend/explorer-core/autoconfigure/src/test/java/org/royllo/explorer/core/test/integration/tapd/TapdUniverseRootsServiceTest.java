@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringBootTest
+@SpringBootTest(properties = {"tapd.api.base-url=https://157.230.85.88:8089"})
 @DisplayName("TAPD Universe roots service test")
 public class TapdUniverseRootsServiceTest {
 

@@ -4,17 +4,38 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.royllo.explorer.core.provider.tapd.TapdService;
-import org.royllo.explorer.core.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.royllo.explorer.core.test.util.BaseTest.ROYLLO_COIN_AMOUNT;
+import static org.royllo.explorer.core.test.util.BaseTest.ROYLLO_COIN_ANCHOR_BLOCK_HASH;
+import static org.royllo.explorer.core.test.util.BaseTest.ROYLLO_COIN_ANCHOR_OUTPOINT;
+import static org.royllo.explorer.core.test.util.BaseTest.ROYLLO_COIN_ANCHOR_TX;
+import static org.royllo.explorer.core.test.util.BaseTest.ROYLLO_COIN_ANCHOR_TX_ID;
+import static org.royllo.explorer.core.test.util.BaseTest.ROYLLO_COIN_ASSET_ID_SIG;
+import static org.royllo.explorer.core.test.util.BaseTest.ROYLLO_COIN_GENESIS_POINT_VOUT;
+import static org.royllo.explorer.core.test.util.BaseTest.ROYLLO_COIN_GENESIS_VERSION;
+import static org.royllo.explorer.core.test.util.BaseTest.ROYLLO_COIN_INTERNAL_KEY;
+import static org.royllo.explorer.core.test.util.BaseTest.ROYLLO_COIN_LOCK_TIME;
+import static org.royllo.explorer.core.test.util.BaseTest.ROYLLO_COIN_META_DATA_HASH;
+import static org.royllo.explorer.core.test.util.BaseTest.ROYLLO_COIN_NAME;
+import static org.royllo.explorer.core.test.util.BaseTest.ROYLLO_COIN_OUTPUT_INDEX;
+import static org.royllo.explorer.core.test.util.BaseTest.ROYLLO_COIN_RELATIVE_LOCK_TIME;
+import static org.royllo.explorer.core.test.util.BaseTest.ROYLLO_COIN_SCRIPT_KEY;
+import static org.royllo.explorer.core.test.util.BaseTest.ROYLLO_COIN_SCRIPT_VERSION;
+import static org.royllo.explorer.core.test.util.BaseTest.ROYLLO_COIN_TAPSCRIPT_SIBLING;
+import static org.royllo.explorer.core.test.util.BaseTest.ROYLLO_COIN_TWEAKED_GROUP_KEY;
+import static org.royllo.explorer.core.test.util.BaseTest.ROYLLO_COIN_TYPE;
+import static org.royllo.explorer.core.test.util.BaseTest.ROYLLO_COIN_VERSION;
+import static org.royllo.test.TestAssets.ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TestTransactions.ROYLLO_COIN_GENESIS_POINT_TXID;
 
-@SpringBootTest
+@SpringBootTest(properties = {"tapd.api.base-url=https://157.230.85.88:8089"})
 @DisplayName("TAPD proof service test")
-public class TapdDecodeServiceTest extends BaseTest {
+public class TapdDecodeServiceTest {
 
     @Autowired
     private TapdService tapdService;
