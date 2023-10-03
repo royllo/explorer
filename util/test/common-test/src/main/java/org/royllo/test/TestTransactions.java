@@ -46,6 +46,8 @@ public class TestTransactions {
 
     static {
         try {
+            // TODO find files automatically instead of specifying them manually.
+
             // Adding all transactions.
             TRANSACTIONS.put(ROYLLO_COIN_GENESIS_POINT_TXID, getTransactionValueFromFile(ROYLLO_COIN_GENESIS_POINT_TXID));
             TRANSACTIONS.put(BITCOIN_TRANSACTION_1_TXID, getTransactionValueFromFile(BITCOIN_TRANSACTION_1_TXID));

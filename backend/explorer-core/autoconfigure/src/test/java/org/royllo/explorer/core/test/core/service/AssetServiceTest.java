@@ -8,11 +8,10 @@ import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.repository.asset.AssetGroupRepository;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
-import org.royllo.explorer.core.test.util.BaseTest;
+import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
-import org.springframework.test.annotation.DirtiesContext;
 
 import java.math.BigInteger;
 import java.util.Optional;
@@ -27,12 +26,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
+import static org.royllo.test.TestAssets.ACTIVE_ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TestAssets.ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TestTransactions.BITCOIN_TRANSACTION_1_TXID;
+import static org.royllo.test.TestTransactions.BITCOIN_TRANSACTION_3_TXID;
 
 @SpringBootTest
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @DisplayName("AssetService tests")
-public class AssetServiceTest extends BaseTest {
+public class AssetServiceTest extends TestWithMockServers {
 
     @Autowired
     private BitcoinService bitcoinService;
@@ -61,13 +62,13 @@ public class AssetServiceTest extends BaseTest {
         results = assetService.queryAssets("veR", 1, 5);
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
-        assertEquals(ACTIVE_ROYLLO_COIN_ID, results.getContent().get(0).getId());
+        assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, results.getContent().get(0).getAssetId());
 
         // Searching for an asset with its partial name uppercase (activeRoylloCoin) - only 1 result.
         results = assetService.queryAssets("VER", 1, 5);
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
-        assertEquals(ACTIVE_ROYLLO_COIN_ID, results.getContent().get(0).getId());
+        assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, results.getContent().get(0).getAssetId());
 
         // Searching for an asset with its partial name corresponding to two assets.
         // The last coin we insert in database has "TestPaginationCoin0" as name, so it appears first in results.
@@ -264,7 +265,8 @@ public class AssetServiceTest extends BaseTest {
         assertFalse(asset.isPresent());
 
         // Existing asset on testnet and in our database initialization script ("My Royllo coin") .
-        asset = assetService.getAsset(ROYLLO_COIN_ID);
+        // Asset id is 1 as My Royllo Coin is the only coin inserted in default database.
+        asset = assetService.getAsset(1);
         assertTrue(asset.isPresent());
         assertEquals(ROYLLO_COIN_ASSET_ID, asset.get().getAssetId());
         assertNotNull(asset.get().getCreator());
@@ -285,7 +287,7 @@ public class AssetServiceTest extends BaseTest {
         assertFalse(asset.isPresent());
 
         // Existing asset on testnet and in our database initialization script ("My Royllo coin") .
-        asset = assetService.getAsset(ROYLLO_COIN_ID);
+        asset = assetService.getAsset(1);
         assertTrue(asset.isPresent());
         assertEquals(ROYLLO_COIN_ASSET_ID, asset.get().getAssetId());
         assertNotNull(asset.get().getCreator());

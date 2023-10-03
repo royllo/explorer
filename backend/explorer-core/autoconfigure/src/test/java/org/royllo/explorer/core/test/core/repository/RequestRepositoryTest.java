@@ -6,7 +6,7 @@ import org.royllo.explorer.core.domain.request.AddAssetMetaDataRequest;
 import org.royllo.explorer.core.domain.request.AddProofRequest;
 import org.royllo.explorer.core.domain.request.Request;
 import org.royllo.explorer.core.repository.request.RequestRepository;
-import org.royllo.explorer.core.test.util.BaseTest;
+import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -26,7 +26,7 @@ import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 
 @SpringBootTest
 @DisplayName("RequestRepository tests")
-public class RequestRepositoryTest extends BaseTest {
+public class RequestRepositoryTest extends TestWithMockServers {
 
     @Autowired
     private DataSource dataSource;

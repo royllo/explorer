@@ -11,7 +11,7 @@ import org.royllo.explorer.core.repository.asset.AssetStateRepository;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.asset.AssetStateService;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
-import org.royllo.explorer.core.test.util.BaseTest;
+import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
@@ -27,10 +27,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.service.asset.AssetStateServiceImplementation.SEARCH_PARAMETER_ASSET_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
+import static org.royllo.test.TestAssets.ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TestAssets.ROYLLO_COIN_ASSET_STATE_ID;
+import static org.royllo.test.TestTransactions.BITCOIN_TRANSACTION_1_TXID;
 
 @SpringBootTest
 @DisplayName("AssetStateService tests")
-public class AssetStateServiceTest extends BaseTest {
+public class AssetStateServiceTest extends TestWithMockServers {
 
     @Autowired
     private AssetGroupRepository assetGroupRepository;
@@ -240,14 +243,14 @@ public class AssetStateServiceTest extends BaseTest {
     public void getAssetStateByAssetStateId() {
         // =============================================================================================================
         // Non-existing asset group.
-        Optional<AssetStateDTO> assetState = assetStateService.getAssetStateByAssetStateId("NON-EXISTING");
+        Optional<AssetStateDTO> assetState = assetStateService.getAssetStateByAssetStateId("NON-EXISTING-ASSET-STATE");
         assertFalse(assetState.isPresent());
 
         // =============================================================================================================
         // Existing asset state on testnet and in our database initialization script ("roylloCoin") .
         assetState = assetStateService.getAssetStateByAssetStateId(ROYLLO_COIN_ASSET_STATE_ID);
         assertTrue(assetState.isPresent());
-        assertEquals(ROYLLO_COIN_STATE_ID, assetState.get().getId());
+        assertEquals(1, assetState.get().getId());
         assertEquals(ROYLLO_COIN_ASSET_STATE_ID, assetState.get().getAssetStateId());
         // User.
         assertNotNull(assetState.get().getCreator());

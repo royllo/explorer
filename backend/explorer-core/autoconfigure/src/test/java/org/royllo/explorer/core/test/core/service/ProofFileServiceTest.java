@@ -8,12 +8,11 @@ import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.royllo.explorer.core.provider.tapd.TapdService;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.proof.ProofFileService;
-import org.royllo.explorer.core.test.util.BaseTest;
+import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.royllo.explorer.core.util.exceptions.proof.ProofCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
-import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Optional;
 
@@ -23,12 +22,19 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
+import static org.royllo.test.TestAssets.ACTIVE_ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TestAssets.ACTIVE_ROYLLO_COIN_PROOF_1_RAW_PROOF;
+import static org.royllo.test.TestAssets.ACTIVE_ROYLLO_COIN_PROOF_2_RAW_PROOF;
+import static org.royllo.test.TestAssets.ACTIVE_ROYLLO_COIN_PROOF_3_RAW_PROOF;
+import static org.royllo.test.TestAssets.ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TestAssets.ROYLLO_COIN_PROOF_ID;
+import static org.royllo.test.TestAssets.ROYLLO_COIN_RAW_PROOF;
+import static org.royllo.test.TestAssets.UNKNOWN_ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TestAssets.UNKNOWN_ROYLLO_COIN_RAW_PROOF;
 
 @SpringBootTest
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @DisplayName("ProofService tests")
-public class ProofFileServiceTest extends BaseTest {
+public class ProofFileServiceTest extends TestWithMockServers {
 
     @Autowired
     private TapdService TAPDService;
@@ -95,7 +101,7 @@ public class ProofFileServiceTest extends BaseTest {
         assertEquals(ANONYMOUS_ID, proof1.get().getCreator().getId());
         assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, proof1.get().getAsset().getAssetId());
         assertEquals("14e2075827c687217bede3f703cfbc94345717213f4fd34d83b68f8268040691", proof1.get().getProofFileId());
-        assertEquals(ACTIVE_ROYLLO_COIN_PROOF_1_RAWPROOF, proof1.get().getRawProof());
+        assertEquals(ACTIVE_ROYLLO_COIN_PROOF_1_RAW_PROOF, proof1.get().getRawProof());
 
         // Proof 2.
         Optional<ProofFileDTO> proof2 = activeRoylloCoinProofs.getContent().stream().filter(proofDTO -> proofDTO.getId() == 10002).findFirst();
@@ -103,7 +109,7 @@ public class ProofFileServiceTest extends BaseTest {
         assertEquals(ANONYMOUS_ID, proof2.get().getCreator().getId());
         assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, proof2.get().getAsset().getAssetId());
         assertEquals("23a6c9e1db87a8993490c7578c7ae6d85fee3bc16b9fc7d3c4c756f7452262e1", proof2.get().getProofFileId());
-        assertEquals(ACTIVE_ROYLLO_COIN_PROOF_2_RAWPROOF, proof2.get().getRawProof());
+        assertEquals(ACTIVE_ROYLLO_COIN_PROOF_2_RAW_PROOF, proof2.get().getRawProof());
 
         // Proof 3.
         Optional<ProofFileDTO> proof3 = activeRoylloCoinProofs.getContent().stream().filter(proofDTO -> proofDTO.getId() == 10003).findFirst();
@@ -111,7 +117,7 @@ public class ProofFileServiceTest extends BaseTest {
         assertEquals(ANONYMOUS_ID, proof3.get().getCreator().getId());
         assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, proof3.get().getAsset().getAssetId());
         assertEquals("e537eddf83dcb34723121860b49579eb4e766ace01bbb81fc7fec233835f2e1e", proof3.get().getProofFileId());
-        assertEquals(ACTIVE_ROYLLO_COIN_PROOF_3_RAWPROOF, proof3.get().getRawProof());
+        assertEquals(ACTIVE_ROYLLO_COIN_PROOF_3_RAW_PROOF, proof3.get().getRawProof());
 
         // =============================================================================================================
         // Getting proofs of "roylloCoin" - One page.
@@ -138,8 +144,8 @@ public class ProofFileServiceTest extends BaseTest {
         assertEquals(ROYLLO_COIN_RAW_PROOF, roylloCoinProof.get().getRawProof());
 
         // Checking asset.
-        assertEquals(ROYLLO_COIN_ID, roylloCoinProof.get().getAsset().getId());
-        assertEquals(ROYLLO_COIN_NAME, roylloCoinProof.get().getAsset().getName());
+        assertEquals(1, roylloCoinProof.get().getAsset().getId());
+        verifyAsset(roylloCoinProof.get().getAsset(), ROYLLO_COIN_ASSET_ID);
     }
 
 }

@@ -4,24 +4,25 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
-import org.royllo.explorer.core.test.util.BaseTest;
+import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
+import static org.royllo.test.TestTransactions.BITCOIN_TAPROOT_TRANSACTION_2_TXID;
+import static org.royllo.test.TestTransactions.BITCOIN_TRANSACTION_1_TXID;
+import static org.royllo.test.TestTransactions.BITCOIN_TRANSACTION_2_TXID;
+import static org.royllo.test.TestTransactions.BITCOIN_TRANSACTION_3_TXID;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @DisplayName("BitcoinService tests")
-public class BitcoinServiceTest extends BaseTest {
+public class BitcoinServiceTest extends TestWithMockServers {
 
     @Autowired
     private BitcoinService bitcoinService;
@@ -52,7 +53,7 @@ public class BitcoinServiceTest extends BaseTest {
 
         // =============================================================================================================
         // Getting a transaction that doesn't exist in our database or in the blockchain.
-        assertFalse(bitcoinService.getBitcoinTransactionOutput(BITCOIN_TRANSACTION_NON_EXISTING, 0).isPresent());
+        assertFalse(bitcoinService.getBitcoinTransactionOutput("NON-EXISTING-TRANSACTION", 0).isPresent());
 
         // =============================================================================================================
         // Getting a transaction that doesn't exist in our database but exists in the blockchain (index 1).

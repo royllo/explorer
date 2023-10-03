@@ -13,7 +13,6 @@ import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.royllo.explorer.core.test.util.BaseTest.BITCOIN_TRANSACTION_NON_EXISTING;
 import static org.royllo.test.TestTransactions.BITCOIN_TAPROOT_TRANSACTION_2_TXID;
 import static org.royllo.test.TestTransactions.BITCOIN_TRANSACTION_2_TXID;
 
@@ -29,7 +28,7 @@ public class MempoolTransactionServiceMainnetTest {
     public void getTransactionTest() {
         // =============================================================================================================
         // Getting a non-existing transaction.
-        final GetTransactionResponse nonExistingTransaction = mempoolTransactionService.getTransaction(BITCOIN_TRANSACTION_NON_EXISTING).block();
+        final GetTransactionResponse nonExistingTransaction = mempoolTransactionService.getTransaction("NON-EXISTING-TRANSACTION").block();
         assertNull(nonExistingTransaction);
 
         // =============================================================================================================

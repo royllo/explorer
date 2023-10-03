@@ -4,7 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.domain.universe.UniverseServer;
 import org.royllo.explorer.core.repository.universe.UniverseServerRepository;
-import org.royllo.explorer.core.test.util.BaseTest;
+import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -17,7 +17,7 @@ import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_US
 
 @SpringBootTest
 @DisplayName("UniverseServerRepository tests")
-public class UniverseServerRepositoryTest extends BaseTest {
+public class UniverseServerRepositoryTest extends TestWithMockServers {
 
     @Autowired
     private UniverseServerRepository universeServerRepository;
