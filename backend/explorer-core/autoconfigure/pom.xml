@@ -199,6 +199,60 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+            <!-- Plugin used to select the test classes to include in our test library -->
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven.resources.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>copy-test-resource</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/royllo-test-util</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/test/java</directory>
+                                    <includes>
+                                        <include>**/TestWithMockServers.*</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Plugin to create the two jars (one is only for tests) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven.jar.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>default-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                    <!-- This is your test JAR configuration -->
+                    <execution>
+                        <id>royllo-test-util</id>
+                        <phase>package</phase>
+                        <configuration>
+                            <includes>
+                                <include>${project.build.directory}/royllo-test-util</include>
+                            </includes>
+                            <classifier>test</classifier>
+                        </configuration>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <!-- Surefire -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

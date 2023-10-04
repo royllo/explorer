@@ -73,7 +73,15 @@
         <dependency>
             <groupId>org.royllo.test</groupId>
             <artifactId>common-test</artifactId>
-            <version>0.0.16-SNAPSHOT</version>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.royllo.explorer</groupId>
+            <artifactId>explorer-core-spring-boot-autoconfigure</artifactId>
+            <classifier>test</classifier>
+            <type>test-jar</type>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

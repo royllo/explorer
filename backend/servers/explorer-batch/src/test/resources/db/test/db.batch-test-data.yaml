@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - include:
+      file: /db/changelog/db.changelog-master.yaml
+
+  # ====================================================================================================================
+  # Tests data.
+  - include:
+      file: /db/test/batch-test-data-bitcoin_transaction_output.xml
+  - include:
+      file: /db/test/batch-test-data-application_user.xml
+  - include:
+      file: /db/test/batch-test-data-asset.xml
+  - include:
+      file: /db/test/batch-test-data-proof_file.xml
+  - include:
+      file: /db/test/batch-test-data-request.xml
+  - include:
+      file: /db/test/batch-test-data-universe_server.xml
