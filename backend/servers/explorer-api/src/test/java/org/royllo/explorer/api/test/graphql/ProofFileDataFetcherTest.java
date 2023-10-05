@@ -10,7 +10,6 @@ import org.royllo.explorer.api.graphql.generated.client.ProofFilesByAssetIdGraph
 import org.royllo.explorer.api.graphql.generated.client.ProofFilesByAssetIdProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.types.ProofFile;
 import org.royllo.explorer.api.graphql.generated.types.ProofFilePage;
-import org.royllo.explorer.api.test.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -19,10 +18,17 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
+import static org.royllo.test.TestAssets.ACTIVE_ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TestAssets.ACTIVE_ROYLLO_COIN_PROOF_1_PROOF_ID;
+import static org.royllo.test.TestAssets.ACTIVE_ROYLLO_COIN_PROOF_1_RAW_PROOF;
+import static org.royllo.test.TestAssets.ACTIVE_ROYLLO_COIN_PROOF_2_PROOF_ID;
+import static org.royllo.test.TestAssets.ACTIVE_ROYLLO_COIN_PROOF_2_RAW_PROOF;
+import static org.royllo.test.TestAssets.ACTIVE_ROYLLO_COIN_PROOF_3_PROOF_ID;
+import static org.royllo.test.TestAssets.ACTIVE_ROYLLO_COIN_PROOF_3_RAW_PROOF;
 
 @SpringBootTest
 @DisplayName("ProofFileDataFetcher tests")
-public class ProofFileDataFetcherTest extends BaseTest {
+public class ProofFileDataFetcherTest {
 
     @Autowired
     DgsQueryExecutor dgsQueryExecutor;
@@ -30,27 +36,28 @@ public class ProofFileDataFetcherTest extends BaseTest {
     @Test
     @DisplayName("proofFilesByAssetId()")
     public void proofFilesByAssetId() {
-        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                ProofFilesByAssetIdGraphQLQuery.newRequest().assetId(ACTIVE_ROYLLO_COIN_ASSET_ID).page(1).pageSize(10).build(),
-                new ProofFilesByAssetIdProjectionRoot<>().content()
-                        .creator().userId().username().parent()
-                        .asset().assetId().parent()
-                        .proofFileId()
-                        .rawProof()
-                        .parent()
-                        .totalElements()
-                        .totalPages());
-
+        // Retrieving active royllo coin proof (page 1 of 10 elements).
         ProofFilePage proofPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
-                graphQLQueryRequest.serialize(),
+                new GraphQLQueryRequest(
+                        ProofFilesByAssetIdGraphQLQuery.newRequest().assetId(ACTIVE_ROYLLO_COIN_ASSET_ID).page(1).pageSize(10).build(),
+                        new ProofFilesByAssetIdProjectionRoot<>().content()
+                                .creator().userId().username().parent()
+                                .asset().assetId().parent()
+                                .proofFileId()
+                                .rawProof()
+                                .parent()
+                                .totalElements()
+                                .totalPages()
+                ).serialize(),
                 "data." + DgsConstants.QUERY.ProofFilesByAssetId,
                 new TypeRef<>() {
                 });
 
+        // Testing the results.
         assertEquals(3, proofPage.getTotalElements());
         assertEquals(1, proofPage.getTotalPages());
 
-        // Proof 1.
+        // Testing proof 1.
         final Optional<ProofFile> proof1 = proofPage.getContent()
                 .stream()
                 .filter(proof -> proof.getProofFileId().equals(ACTIVE_ROYLLO_COIN_PROOF_1_PROOF_ID))
@@ -60,7 +67,7 @@ public class ProofFileDataFetcherTest extends BaseTest {
         assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, proof1.get().getAsset().getAssetId());
         assertEquals(ACTIVE_ROYLLO_COIN_PROOF_1_RAW_PROOF, proof1.get().getRawProof());
 
-        // Proof 2.
+        // Testing proof 2.
         final Optional<ProofFile> proof2 = proofPage.getContent().stream()
                 .filter(proof -> proof.getProofFileId().equals(ACTIVE_ROYLLO_COIN_PROOF_2_PROOF_ID))
                 .findFirst();
@@ -69,7 +76,7 @@ public class ProofFileDataFetcherTest extends BaseTest {
         assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, proof2.get().getAsset().getAssetId());
         assertEquals(ACTIVE_ROYLLO_COIN_PROOF_2_RAW_PROOF, proof2.get().getRawProof());
 
-        // Proof 3.
+        // Testing proof 3.
         final Optional<ProofFile> proof3 = proofPage.getContent().stream()
                 .filter(proof -> proof.getProofFileId().equals(ACTIVE_ROYLLO_COIN_PROOF_3_PROOF_ID))
                 .findFirst();
@@ -79,23 +86,23 @@ public class ProofFileDataFetcherTest extends BaseTest {
         assertEquals(ACTIVE_ROYLLO_COIN_PROOF_3_RAW_PROOF, proof3.get().getRawProof());
 
         // Checking page management results.
-        graphQLQueryRequest = new GraphQLQueryRequest(
-                ProofFilesByAssetIdGraphQLQuery.newRequest().assetId(ACTIVE_ROYLLO_COIN_ASSET_ID).page(1).pageSize(1).build(),
-                new ProofFilesByAssetIdProjectionRoot<>().content()
-                        .creator().userId().username().parent()
-                        .asset().assetId().parent()
-                        .proofFileId()
-                        .rawProof()
-                        .parent()
-                        .totalElements()
-                        .totalPages());
-
         proofPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
-                graphQLQueryRequest.serialize(),
+                new GraphQLQueryRequest(
+                        ProofFilesByAssetIdGraphQLQuery.newRequest().assetId(ACTIVE_ROYLLO_COIN_ASSET_ID).page(1).pageSize(1).build(),
+                        new ProofFilesByAssetIdProjectionRoot<>().content()
+                                .creator().userId().username().parent()
+                                .asset().assetId().parent()
+                                .proofFileId()
+                                .rawProof()
+                                .parent()
+                                .totalElements()
+                                .totalPages()
+                ).serialize(),
                 "data." + DgsConstants.QUERY.ProofFilesByAssetId,
                 new TypeRef<>() {
                 });
 
+        // Testing results.
         assertEquals(3, proofPage.getTotalElements());
         assertEquals(3, proofPage.getTotalPages());
     }

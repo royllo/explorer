@@ -21,8 +21,6 @@ import org.royllo.explorer.api.graphql.generated.types.AddProofRequestInputs;
 import org.royllo.explorer.api.graphql.generated.types.AddUniverseServerRequest;
 import org.royllo.explorer.api.graphql.generated.types.AddUniverseServerRequestInputs;
 import org.royllo.explorer.api.graphql.generated.types.Request;
-import org.royllo.explorer.core.util.constants.UserConstants;
-import org.royllo.explorer.core.util.enums.RequestStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
@@ -30,6 +28,9 @@ import org.springframework.test.annotation.DirtiesContext;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
+import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
@@ -43,27 +44,28 @@ public class RequestDataFetcherTest {
     @Test
     @DisplayName("requestByRequestId()")
     public void requestByRequestId() {
-        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                RequestByRequestIdGraphQLQuery.newRequest().requestId("91425ba6-8b16-46a8-baa6-request_p_03").build(),
-                new RequestByRequestIdProjectionRoot<>()
-                        .requestId()
-                        .creator().userId().username().parent()
-                        .status().getParent()
-                        .errorMessage()
-                        .onAddProofRequest().rawProof().parent()
-                        .onAddAssetMetaDataRequest().assetId().metaData());
-
+        // Getting a specific request.
         Request request = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
-                graphQLQueryRequest.serialize(),
+                new GraphQLQueryRequest(
+                        RequestByRequestIdGraphQLQuery.newRequest().requestId("91425ba6-8b16-46a8-baa6-request_p_03").build(),
+                        new RequestByRequestIdProjectionRoot<>()
+                                .requestId()
+                                .creator().userId().username().parent()
+                                .status().getParent()
+                                .errorMessage()
+                                .onAddProofRequest().rawProof().parent()
+                                .onAddAssetMetaDataRequest().assetId().metaData()
+                ).serialize(),
                 "data." + DgsConstants.QUERY.RequestByRequestId,
                 new TypeRef<>() {
                 });
 
+        // Testing the results.
         AddProofRequest addAssetRequest = (AddProofRequest) request;
         assertEquals("91425ba6-8b16-46a8-baa6-request_p_03", addAssetRequest.getRequestId());
-        assertEquals(UserConstants.ANONYMOUS_USER_ID, addAssetRequest.getCreator().getUserId());
-        assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, addAssetRequest.getCreator().getUsername());
-        assertEquals(RequestStatus.OPENED.toString(), addAssetRequest.getStatus().toString());
+        assertEquals(ANONYMOUS_USER_ID, addAssetRequest.getCreator().getUserId());
+        assertEquals(ANONYMOUS_USER_USERNAME, addAssetRequest.getCreator().getUsername());
+        assertEquals(OPENED.toString(), addAssetRequest.getStatus().toString());
         assertNull(addAssetRequest.getErrorMessage());
         assertEquals("P4", addAssetRequest.getRawProof());
     }
@@ -71,28 +73,29 @@ public class RequestDataFetcherTest {
     @Test
     @DisplayName("createAddProofRequest()")
     public void createAddProofRequest() {
-        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                CreateAddProofRequestGraphQLQuery.newRequest()
-                        .input(AddProofRequestInputs.newBuilder()
-                                .rawProof("6")
-                                .build())
-                        .build(),
-                new CreateAddProofRequestProjectionRoot<>()
-                        .requestId()
-                        .creator().userId().username().parent()
-                        .status().getParent()
-                        .errorMessage().rawProof());
-
+        // Creating a new request to add proof.
         AddProofRequest requestCreated = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
-                graphQLQueryRequest.serialize(),
+                new GraphQLQueryRequest(
+                        CreateAddProofRequestGraphQLQuery.newRequest()
+                                .input(AddProofRequestInputs.newBuilder()
+                                        .rawProof("6")
+                                        .build())
+                                .build(),
+                        new CreateAddProofRequestProjectionRoot<>()
+                                .requestId()
+                                .creator().userId().username().parent()
+                                .status().getParent()
+                                .errorMessage().rawProof()
+                ).serialize(),
                 "data." + DgsConstants.MUTATION.CreateAddProofRequest,
                 new TypeRef<>() {
                 });
 
+        // Testing results.
         assertNotNull(requestCreated.getRequestId());
-        assertEquals(UserConstants.ANONYMOUS_USER_ID, requestCreated.getCreator().getUserId());
-        assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, requestCreated.getCreator().getUsername());
-        assertEquals(RequestStatus.OPENED.toString(), requestCreated.getStatus().toString());
+        assertEquals(ANONYMOUS_USER_ID, requestCreated.getCreator().getUserId());
+        assertEquals(ANONYMOUS_USER_USERNAME, requestCreated.getCreator().getUsername());
+        assertEquals(OPENED.toString(), requestCreated.getStatus().toString());
         assertNull(requestCreated.getErrorMessage());
         assertEquals("6", requestCreated.getRawProof());
     }
@@ -100,31 +103,32 @@ public class RequestDataFetcherTest {
     @Test
     @DisplayName("createAddAssetMetaDataRequest()")
     public void createAddAssetMetaDataRequest() {
-        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                CreateAddAssetMetaDataRequestGraphQLQuery.newRequest()
-                        .input(AddAssetMetaDataRequestInputs.newBuilder()
-                                .assetId("AssetID1")
-                                .metaData("MetaData01")
-                                .build())
-                        .build(),
-                new CreateAddAssetMetaDataRequestProjectionRoot<>()
-                        .requestId()
-                        .creator().userId().username().parent()
-                        .status().getParent()
-                        .errorMessage()
-                        .assetId()
-                        .metaData());
-
+        // Creating a new request to add meta data.
         AddAssetMetaDataRequest requestCreated = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
-                graphQLQueryRequest.serialize(),
+                new GraphQLQueryRequest(
+                        CreateAddAssetMetaDataRequestGraphQLQuery.newRequest()
+                                .input(AddAssetMetaDataRequestInputs.newBuilder()
+                                        .assetId("AssetID1")
+                                        .metaData("MetaData01")
+                                        .build())
+                                .build(),
+                        new CreateAddAssetMetaDataRequestProjectionRoot<>()
+                                .requestId()
+                                .creator().userId().username().parent()
+                                .status().getParent()
+                                .errorMessage()
+                                .assetId()
+                                .metaData()
+                ).serialize(),
                 "data." + DgsConstants.MUTATION.CreateAddAssetMetaDataRequest,
                 new TypeRef<>() {
                 });
 
+        // Testing results.
         assertNotNull(requestCreated.getRequestId());
-        assertEquals(UserConstants.ANONYMOUS_USER_ID, requestCreated.getCreator().getUserId());
-        assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, requestCreated.getCreator().getUsername());
-        assertEquals(RequestStatus.OPENED.toString(), requestCreated.getStatus().toString());
+        assertEquals(ANONYMOUS_USER_ID, requestCreated.getCreator().getUserId());
+        assertEquals(ANONYMOUS_USER_USERNAME, requestCreated.getCreator().getUsername());
+        assertEquals(OPENED.toString(), requestCreated.getStatus().toString());
         assertNull(requestCreated.getErrorMessage());
         assertEquals("AssetID1", requestCreated.getAssetId());
         assertEquals("MetaData01", requestCreated.getMetaData());
@@ -133,29 +137,30 @@ public class RequestDataFetcherTest {
     @Test
     @DisplayName("createAddUniverseServerRequest()")
     public void createAddUniverseServerRequest() {
-        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                CreateAddUniverseServerRequestGraphQLQuery.newRequest()
-                        .input(AddUniverseServerRequestInputs.newBuilder()
-                                .serverAddress("1.1.1.1:8080")
-                                .build())
-                        .build(),
-                new CreateAddUniverseServerRequestProjectionRoot<>()
-                        .requestId()
-                        .creator().userId().username().parent()
-                        .status().getParent()
-                        .errorMessage()
-                        .serverAddress());
-
+        // Creating a new request to add a universe server.
         AddUniverseServerRequest requestCreated = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
-                graphQLQueryRequest.serialize(),
+                new GraphQLQueryRequest(
+                        CreateAddUniverseServerRequestGraphQLQuery.newRequest()
+                                .input(AddUniverseServerRequestInputs.newBuilder()
+                                        .serverAddress("1.1.1.1:8080")
+                                        .build())
+                                .build(),
+                        new CreateAddUniverseServerRequestProjectionRoot<>()
+                                .requestId()
+                                .creator().userId().username().parent()
+                                .status().getParent()
+                                .errorMessage()
+                                .serverAddress()
+                ).serialize(),
                 "data." + DgsConstants.MUTATION.CreateAddUniverseServerRequest,
                 new TypeRef<>() {
                 });
 
+        // Testing results.
         assertNotNull(requestCreated.getRequestId());
-        assertEquals(UserConstants.ANONYMOUS_USER_ID, requestCreated.getCreator().getUserId());
-        assertEquals(UserConstants.ANONYMOUS_USER_USERNAME, requestCreated.getCreator().getUsername());
-        assertEquals(RequestStatus.OPENED.toString(), requestCreated.getStatus().toString());
+        assertEquals(ANONYMOUS_USER_ID, requestCreated.getCreator().getUserId());
+        assertEquals(ANONYMOUS_USER_USERNAME, requestCreated.getCreator().getUsername());
+        assertEquals(OPENED.toString(), requestCreated.getStatus().toString());
         assertNull(requestCreated.getErrorMessage());
         assertEquals("1.1.1.1:8080", requestCreated.getServerAddress());
     }

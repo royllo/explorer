@@ -96,7 +96,7 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
                 .uri("/v1/taproot-assets/proofs/decode")
                 .header("Grpc-Metadata-macaroon", tapdParameters.getApi().getMacaroon())
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromValue(ProofRequest.builder()
+                .body(BodyInserters.fromValue(DecodedProofRequest.builder()
                         .rawProof(rawProof)
                         .proofAtDepth(proofAtDepth)
                         .withPrevWitnesses(false)

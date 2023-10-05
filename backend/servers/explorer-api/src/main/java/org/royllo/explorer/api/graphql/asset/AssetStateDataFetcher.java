@@ -30,16 +30,22 @@ public class AssetStateDataFetcher extends BaseDataFetcher {
     public final Page<AssetStateDTO> queryAssetStates(final @InputArgument String query,
                                                       final @InputArgument Integer page,
                                                       final @InputArgument Integer pageSize) {
-        // Checking maximum page size.
-        // Note : page size validation (> 0) is done by the service layer.
-        if (Objects.requireNonNullElse(pageSize, DEFAULT_PAGE_SIZE) > MAXIMUM_PAGE_SIZE) {
+        // Value we will use.
+        final int finalPage = Objects.requireNonNullElse(page, FIRST_PAGE);
+        final int finalPageSize = Objects.requireNonNullElse(pageSize, DEFAULT_PAGE_SIZE);
+
+        // Checking page parameters.
+        if (finalPageSize > MAXIMUM_PAGE_SIZE) {
             throw new DgsInvalidInputArgumentException("Page size can't be superior to " + MAXIMUM_PAGE_SIZE, null);
+        }
+        if (finalPage < FIRST_PAGE) {
+            throw new DgsInvalidInputArgumentException("Page number starts at page " + FIRST_PAGE, null);
         }
 
         // Return the results.
         return assetStateService.queryAssetStates(query,
-                Objects.requireNonNullElse(page, FIRST_PAGE),
-                Objects.requireNonNullElse(pageSize, DEFAULT_PAGE_SIZE));
+                finalPage,
+                finalPageSize);
     }
 
 }

@@ -25,8 +25,10 @@ public class UniverseLeavesResponse {
     /** Error code. */
     @JsonProperty("code")
     Long errorCode;
+
     /** Error code. */
     @JsonProperty("message")
+
     String errorMessage;
     /** Leaves. */
     @JsonProperty("leaves")
