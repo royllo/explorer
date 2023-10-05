@@ -73,7 +73,7 @@
         <dependency>
             <groupId>org.royllo.test</groupId>
             <artifactId>common-test</artifactId>
-            <version>${project.version}</version>
+            <version>0.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>

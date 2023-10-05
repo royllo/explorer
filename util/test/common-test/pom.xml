@@ -9,7 +9,7 @@
     <groupId>org.royllo.test</groupId>
     <artifactId>common-test</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.16-SNAPSHOT</version>
+    <version>0.1</version>
     <name>Common test library</name>
     <description>Test library for all projects</description>
     <!-- =========================================================================================================== -->

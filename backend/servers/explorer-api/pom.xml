@@ -109,7 +109,7 @@
         <dependency>
             <groupId>org.royllo.test</groupId>
             <artifactId>common-test</artifactId>
-            <version>0.0.16-SNAPSHOT</version>
+            <version>0.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
