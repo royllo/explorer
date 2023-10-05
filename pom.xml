@@ -113,8 +113,8 @@
         <maven.archetype-packaging.version>3.2.1</maven.archetype-packaging.version>
 
         <frontend-maven-plugin.version>1.14.0</frontend-maven-plugin.version>
-        <frontend-maven-plugin.nodeVersion>v20.3.0</frontend-maven-plugin.nodeVersion>
-        <frontend-maven-plugin.npmVersion>9.7.1</frontend-maven-plugin.npmVersion>
+        <frontend-maven-plugin.nodeVersion>v20.8.0</frontend-maven-plugin.nodeVersion>
+        <frontend-maven-plugin.npmVersion>10.2.0</frontend-maven-plugin.npmVersion>
     </properties>
     <!-- =========================================================================================================== -->
 
