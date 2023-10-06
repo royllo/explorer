@@ -248,7 +248,7 @@
                             <classifier>test</classifier>
                         </configuration>
                         <goals>
-                            <goal>test-jar</goal>
+                            <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
