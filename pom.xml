@@ -94,7 +94,7 @@
 
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
-        <testcontainers.version>1.19.0</testcontainers.version>
+        <testcontainers.version>1.19.1</testcontainers.version>
         <!-- TODO Remove this when the mock servers will be used in all projects. -->
         <mockito-core.version>5.6.0</mockito-core.version>
 
