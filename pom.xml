@@ -69,10 +69,10 @@
         <reactor-netty.version>1.1.11</reactor-netty.version>
 
         <graphql-dgs-platform-dependencies.version>7.5.3</graphql-dgs-platform-dependencies.version>
-        <graphql-dgs-codegen-core.version>6.0.2</graphql-dgs-codegen-core.version>
+        <graphql-dgs-codegen-core.version>6.0.3</graphql-dgs-codegen-core.version>
         <graphql-dgs-codegen-client-core.version>5.1.17</graphql-dgs-codegen-client-core.version>
 
-        <liquibase.version>4.23.2</liquibase.version>
+        <liquibase.version>4.24.0</liquibase.version>
         <jdbc.driver.hsqldb.version>2.7.2</jdbc.driver.hsqldb.version>
         <jdbc.driver.postgresql.version>42.6.0</jdbc.driver.postgresql.version>
         <jdbc.driver.mysql.version>8.1.0</jdbc.driver.mysql.version>
@@ -83,7 +83,7 @@
 
         <!-- ======================================================================================================= -->
         <!-- Web libraries -->
-        <bucket4j-core.version>8.4.0</bucket4j-core.version>
+        <bucket4j-core.version>8.5.0</bucket4j-core.version>
         <caffeine.version>3.1.8</caffeine.version>
 
         <thymeleaf-layout-dialect.version>3.3.0</thymeleaf-layout-dialect.version>
@@ -94,16 +94,16 @@
 
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
-        <testcontainers.version>1.19.0</testcontainers.version>
+        <testcontainers.version>1.19.1</testcontainers.version>
         <!-- TODO Remove this when the mock servers will be used in all projects. -->
-        <mockito-core.version>5.5.0</mockito-core.version>
+        <mockito-core.version>5.6.0</mockito-core.version>
 
         <!-- ======================================================================================================= -->
         <!-- Maven plugins -->
         <maven.gitflow.version>1.20.0</maven.gitflow.version>
         <maven.checkstyle.plugin.version>3.3.0</maven.checkstyle.plugin.version>
         <maven.graphqlcodegen.plugin.version>1.50</maven.graphqlcodegen.plugin.version>
-        <maven.puppycrawl.checkstyle.version>10.12.3</maven.puppycrawl.checkstyle.version>
+        <maven.puppycrawl.checkstyle.version>10.12.4</maven.puppycrawl.checkstyle.version>
         <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
 
         <maven.source.plugin.version>3.3.0</maven.source.plugin.version>
