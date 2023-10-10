@@ -30,6 +30,7 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 
 /**
  * Utility classes for tests.
+ * TODO Create an annotation to start required mock servers
  */
 @SuppressWarnings("SpellCheckingInspection")
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)

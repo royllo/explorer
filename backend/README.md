@@ -2,7 +2,7 @@
 
 ## Core
 
-Contains Royllo core (database, domain, dto, repository, services...). It will be included in all servers.
+Contains Royllo core (database, domain, dto, repository, services...) is used by all servers.
 
 ## Servers
 

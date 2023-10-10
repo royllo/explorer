@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
 import static org.royllo.test.TestAssets.ACTIVE_ROYLLO_COIN_ASSET_ID;
@@ -270,7 +271,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertTrue(asset.isPresent());
         assertEquals(ROYLLO_COIN_ASSET_ID, asset.get().getAssetId());
         assertNotNull(asset.get().getCreator());
-        assertEquals(ANONYMOUS_USER_DTO.getId(), asset.get().getCreator().getId());
+        assertEquals(ANONYMOUS_ID, asset.get().getCreator().getId());
         verifyAsset(asset.get(), ROYLLO_COIN_ASSET_ID);
 
         // getAsset() on an asset that has no asset group
@@ -291,7 +292,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertTrue(asset.isPresent());
         assertEquals(ROYLLO_COIN_ASSET_ID, asset.get().getAssetId());
         assertNotNull(asset.get().getCreator());
-        assertEquals(ANONYMOUS_USER_DTO.getId(), asset.get().getCreator().getId());
+        assertEquals(ANONYMOUS_ID, asset.get().getCreator().getId());
         verifyAsset(asset.get(), ROYLLO_COIN_ASSET_ID);
 
         // getAsset() on an asset that has no asset group

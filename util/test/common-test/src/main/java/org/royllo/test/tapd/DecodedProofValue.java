@@ -48,7 +48,6 @@ public class DecodedProofValue {
                 + "_" + newResponse.getDecodedProof().getAsset().getChainAnchor().getAnchorOutpoint()
                 + "_" + newResponse.getDecodedProof().getAsset().getScriptKey();
         this.assetStateId = sha256(uniqueValue);
-
     }
 
     /**

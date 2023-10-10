@@ -16,6 +16,7 @@ import static org.mockserver.model.MediaType.APPLICATION_JSON;
 
 /**
  * Test transactions data.
+ * TODO Refactor transaction names.
  */
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "checkstyle:MagicNumber"})
 public class TestTransactions {
@@ -41,8 +42,21 @@ public class TestTransactions {
     /** Transaction used by unknown royllo coin. */
     public static final String BITCOIN_TRANSACTION_FOR_UNKNOWN_ROYLLO_COIN = "4155275d5468dc2f116e3ea4aaddc4783a559933c7bef08fd3029fde40daf26d";
 
+    /** Transaction for unknown royllo. */
+    private static final String UNKNOWN_ROYLLO_COIN_1 = "6b16776eb0a23a473b89f050fae17d07c2a4c437b0f3edaf2f0f0316f5e72d6b";
+
+    /** Transaction used by test coin. */
+    private static final String TX_FOR_TEST_COIN_1 = "45d5846bfcce2a3232cbe018d98ede66f49db738389dc5186abda57ad5480677";
+
+    /** Transaction used by test coin. */
+    private static final String TX_FOR_TEST_COIN_2 = "cb12bb112c0211e3610300b2a93c1a2d0228b54ed49c58ca637ccb2ea0dc6f7d";
+
+    /** Transaction used by test coin. */
+    private static final String TX_FOR_TEST_COIN_3 = "db5c1530de5943a8f9e0f29cb2a0989cca2a3edea508dd1332d44d529e8b1408";
+
     /** Contains all transactions. */
     private static final Map<String, TransactionValue> TRANSACTIONS = new LinkedHashMap<>();
+
 
     static {
         try {
@@ -56,6 +70,10 @@ public class TestTransactions {
             TRANSACTIONS.put(BITCOIN_TAPROOT_TRANSACTION_2_TXID, getTransactionValueFromFile(BITCOIN_TAPROOT_TRANSACTION_2_TXID));
             TRANSACTIONS.put(BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID, getTransactionValueFromFile(BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID));
             TRANSACTIONS.put(BITCOIN_TRANSACTION_FOR_UNKNOWN_ROYLLO_COIN, getTransactionValueFromFile(BITCOIN_TRANSACTION_FOR_UNKNOWN_ROYLLO_COIN));
+            TRANSACTIONS.put(UNKNOWN_ROYLLO_COIN_1, getTransactionValueFromFile(UNKNOWN_ROYLLO_COIN_1));
+            TRANSACTIONS.put(TX_FOR_TEST_COIN_1, getTransactionValueFromFile(TX_FOR_TEST_COIN_1));
+            TRANSACTIONS.put(TX_FOR_TEST_COIN_2, getTransactionValueFromFile(TX_FOR_TEST_COIN_2));
+            TRANSACTIONS.put(TX_FOR_TEST_COIN_3, getTransactionValueFromFile(TX_FOR_TEST_COIN_3));
         } catch (IOException e) {
             throw new RuntimeException("TestTransactions loading error: " + e);
         }

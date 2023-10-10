@@ -31,6 +31,7 @@ import static org.royllo.test.TestAssets.ROYLLO_COIN_PROOF_ID;
 import static org.royllo.test.TestAssets.ROYLLO_COIN_RAW_PROOF;
 import static org.royllo.test.TestAssets.UNKNOWN_ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TestAssets.UNKNOWN_ROYLLO_COIN_RAW_PROOF;
+import static org.royllo.test.TestAssets.UNKNOWN_ROYLLO_COIN_RAW_PROOF_PROOF_ID;
 
 @SpringBootTest
 @DisplayName("ProofService tests")
@@ -67,10 +68,10 @@ public class ProofFileServiceTest extends TestWithMockServers {
         final ProofFileDTO proofAdded = proofFileService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, unknownRoylloCoinDecodedProof);
         assertNotNull(proofAdded);
         assertNotNull(proofAdded.getId());
-        assertEquals("882416c100923250bf3d9a6947227c309fdd8f348900b42cd02c5904bfa15f52", proofAdded.getProofFileId());
+        assertEquals(UNKNOWN_ROYLLO_COIN_RAW_PROOF_PROOF_ID, proofAdded.getProofFileId());
+        assertEquals(UNKNOWN_ROYLLO_COIN_RAW_PROOF, proofAdded.getRawProof());
         assertEquals(UNKNOWN_ROYLLO_COIN_ASSET_ID, proofAdded.getAsset().getAssetId());
         assertEquals(ANONYMOUS_ID, proofAdded.getCreator().getId());
-        assertEquals(UNKNOWN_ROYLLO_COIN_RAW_PROOF, proofAdded.getRawProof());
 
         // We add again our proof as it's already in our database --> an error must occur.
         e = assertThrows(ProofCreationException.class, () -> proofFileService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, unknownRoylloCoinDecodedProof));
