@@ -27,10 +27,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
-import static org.royllo.test.TestAssets.ACTIVE_ROYLLO_COIN_ASSET_ID;
-import static org.royllo.test.TestAssets.ROYLLO_COIN_ASSET_ID;
-import static org.royllo.test.TestTransactions.BITCOIN_TRANSACTION_1_TXID;
-import static org.royllo.test.TestTransactions.BITCOIN_TRANSACTION_3_TXID;
+import static org.royllo.test.MempoolData.BITCOIN_TRANSACTION_1_TXID;
+import static org.royllo.test.MempoolData.BITCOIN_TRANSACTION_3_TXID;
+import static org.royllo.test.TapdData.ACTIVE_ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
 
 @SpringBootTest
 @DisplayName("AssetService tests")

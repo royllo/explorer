@@ -1,4 +1,4 @@
-package org.royllo.explorer.core.provider.tapd;
+package org.royllo.test.tapd.universe;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

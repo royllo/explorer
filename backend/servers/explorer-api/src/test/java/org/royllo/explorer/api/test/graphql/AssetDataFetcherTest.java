@@ -13,8 +13,8 @@ import org.royllo.explorer.api.graphql.generated.client.QueryAssetsGraphQLQuery;
 import org.royllo.explorer.api.graphql.generated.client.QueryAssetsProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.types.Asset;
 import org.royllo.explorer.api.graphql.generated.types.AssetPage;
-import org.royllo.test.TestAssets;
-import org.royllo.test.tapd.DecodedProofValueResponse;
+import org.royllo.test.TapdData;
+import org.royllo.test.tapd.asset.DecodedProofValueResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.royllo.explorer.api.configuration.APIConfiguration.MAXIMUM_PAGE_SIZE;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
-import static org.royllo.test.TestAssets.ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
 
 @SpringBootTest
 @DisplayName("AssetDataFetcher tests")
@@ -286,7 +286,7 @@ public class AssetDataFetcherTest {
 
         // Testing results.
         assertNotNull(asset);
-        final DecodedProofValueResponse.DecodedProof assetFromTestData = TestAssets.findAssetValueByAssetId(ROYLLO_COIN_ASSET_ID).getDecodedProof(0);
+        final DecodedProofValueResponse.DecodedProof assetFromTestData = TapdData.findAssetValueByAssetId(ROYLLO_COIN_ASSET_ID).getDecodedProof(0);
 
         // Asset.
         assertEquals(ANONYMOUS_USER_ID, asset.getCreator().getUserId());

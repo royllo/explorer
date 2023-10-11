@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.royllo.test.TestTransactions.BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID;
+import static org.royllo.test.MempoolData.BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID;
 
 @SpringBootTest(properties = {"mempool.api.base-url=https://mempool.space/testnet/api"})
 @DisplayName("Mempool transaction service testnet test")

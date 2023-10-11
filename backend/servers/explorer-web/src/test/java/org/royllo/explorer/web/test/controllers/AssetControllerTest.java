@@ -7,8 +7,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.repository.proof.ProofFileRepository;
 import org.royllo.explorer.web.test.util.BaseTest;
-import org.royllo.test.TestAssets;
-import org.royllo.test.tapd.DecodedProofValueResponse;
+import org.royllo.test.TapdData;
+import org.royllo.test.tapd.asset.DecodedProofValueResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,9 +24,9 @@ import static org.hamcrest.Matchers.containsString;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
 import static org.royllo.explorer.web.util.constants.PagesConstants.ASSET_PAGE;
-import static org.royllo.test.TestAssets.ROYLLO_COIN_ASSET_ID;
-import static org.royllo.test.TestAssets.ROYLLO_COIN_PROOF_ID;
-import static org.royllo.test.TestAssets.ROYLLO_COIN_RAW_PROOF;
+import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.ROYLLO_COIN_PROOF_ID;
+import static org.royllo.test.TapdData.ROYLLO_COIN_RAW_PROOF;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -55,7 +55,7 @@ public class AssetControllerTest extends BaseTest {
     @DisplayName("Asset page")
     void assetPage(final HttpHeaders headers) throws Exception {
         // Retrieving asset data from test values.
-        final DecodedProofValueResponse.DecodedProof assetFromTestData = TestAssets.findAssetValueByAssetId(ROYLLO_COIN_ASSET_ID).getDecodedProof(0);
+        final DecodedProofValueResponse.DecodedProof assetFromTestData = TapdData.findAssetValueByAssetId(ROYLLO_COIN_ASSET_ID).getDecodedProof(0);
 
         mockMvc.perform(get("/asset/" + ROYLLO_COIN_ASSET_ID).headers(headers))
                 .andExpect(status().isOk())

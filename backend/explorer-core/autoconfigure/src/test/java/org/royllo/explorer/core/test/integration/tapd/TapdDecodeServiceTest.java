@@ -4,16 +4,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.royllo.explorer.core.provider.tapd.TapdService;
-import org.royllo.test.TestAssets;
-import org.royllo.test.tapd.DecodedProofValue;
-import org.royllo.test.tapd.DecodedProofValueResponse;
+import org.royllo.test.TapdData;
+import org.royllo.test.tapd.asset.DecodedProofValue;
+import org.royllo.test.tapd.asset.DecodedProofValueResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.royllo.test.TestAssets.ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
 
 @SpringBootTest(properties = {"tapd.api.base-url=https://157.230.85.88:8089"})
 @DisplayName("TAPD proof service test")
@@ -31,7 +31,7 @@ public class TapdDecodeServiceTest {
         assertNotNull(response);
 
         // Value coming from our test data.
-        final DecodedProofValue decodedProofValueFromTest = TestAssets.findAssetValueByAssetId(ROYLLO_COIN_ASSET_ID).getDecodedProofValues().get(0);
+        final DecodedProofValue decodedProofValueFromTest = TapdData.findAssetValueByAssetId(ROYLLO_COIN_ASSET_ID).getDecodedProofValues().get(0);
         assertNotNull(decodedProofValueFromTest);
 
         // =============================================================================================================

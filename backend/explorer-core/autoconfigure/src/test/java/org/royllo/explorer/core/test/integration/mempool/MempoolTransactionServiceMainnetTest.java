@@ -13,8 +13,8 @@ import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.royllo.test.TestTransactions.BITCOIN_TAPROOT_TRANSACTION_2_TXID;
-import static org.royllo.test.TestTransactions.BITCOIN_TRANSACTION_2_TXID;
+import static org.royllo.test.MempoolData.BITCOIN_TAPROOT_TRANSACTION_2_TXID;
+import static org.royllo.test.MempoolData.BITCOIN_TRANSACTION_2_TXID;
 
 @SpringBootTest(properties = {"mempool.api.base-url=https://mempool.space/api"})
 @DisplayName("Mempool transaction service test on mainnet")

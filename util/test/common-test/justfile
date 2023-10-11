@@ -95,3 +95,7 @@ generate_mempool_data:
 
     curl    https://mempool.space/testnet/api/tx/6b16776eb0a23a473b89f050fae17d07c2a4c437b0f3edaf2f0f0316f5e72d6b | \
             jq > src/main/resources/mempool/6b16776eb0a23a473b89f050fae17d07c2a4c437b0f3edaf2f0f0316f5e72d6b-response.json
+
+generate_universe_data:
+    curl    https://testnet.universe.lightning.finance/v1/taproot-assets/universe/roots | \
+            jq > src/main/resources/tapd/universe/universe-roots-response.json

@@ -18,8 +18,8 @@ import org.royllo.explorer.core.service.asset.AssetStateService;
 import org.royllo.explorer.core.service.proof.ProofFileService;
 import org.royllo.explorer.core.service.request.RequestService;
 import org.royllo.explorer.core.test.util.TestWithMockServers;
-import org.royllo.test.TestAssets;
-import org.royllo.test.tapd.DecodedProofValueResponse;
+import org.royllo.test.TapdData;
+import org.royllo.test.tapd.asset.DecodedProofValueResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
@@ -40,22 +40,22 @@ import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_US
 import static org.royllo.explorer.core.util.enums.RequestStatus.FAILURE;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
-import static org.royllo.test.TestAssets.ROYLLO_COIN_PROOF_ID;
-import static org.royllo.test.TestAssets.ROYLLO_COIN_RAW_PROOF;
-import static org.royllo.test.TestAssets.TESTCOIN_ASSET_ID;
-import static org.royllo.test.TestAssets.TESTCOIN_ASSET_STATE_ID_1;
-import static org.royllo.test.TestAssets.TESTCOIN_ASSET_STATE_ID_2;
-import static org.royllo.test.TestAssets.TESTCOIN_ASSET_STATE_ID_3;
-import static org.royllo.test.TestAssets.TESTCOIN_RAW_PROOF_1;
-import static org.royllo.test.TestAssets.TESTCOIN_RAW_PROOF_1_PROOF_ID;
-import static org.royllo.test.TestAssets.TESTCOIN_RAW_PROOF_2;
-import static org.royllo.test.TestAssets.TESTCOIN_RAW_PROOF_2_PROOF_ID;
-import static org.royllo.test.TestAssets.TESTCOIN_RAW_PROOF_3;
-import static org.royllo.test.TestAssets.TESTCOIN_RAW_PROOF_3_PROOF_ID;
-import static org.royllo.test.TestAssets.UNKNOWN_ROYLLO_COIN_ASSET_ID;
-import static org.royllo.test.TestAssets.UNKNOWN_ROYLLO_COIN_ASSET_STATE_ID;
-import static org.royllo.test.TestAssets.UNKNOWN_ROYLLO_COIN_RAW_PROOF;
-import static org.royllo.test.TestAssets.UNKNOWN_ROYLLO_COIN_RAW_PROOF_PROOF_ID;
+import static org.royllo.test.TapdData.ROYLLO_COIN_PROOF_ID;
+import static org.royllo.test.TapdData.ROYLLO_COIN_RAW_PROOF;
+import static org.royllo.test.TapdData.TESTCOIN_ASSET_ID;
+import static org.royllo.test.TapdData.TESTCOIN_ASSET_STATE_ID_1;
+import static org.royllo.test.TapdData.TESTCOIN_ASSET_STATE_ID_2;
+import static org.royllo.test.TapdData.TESTCOIN_ASSET_STATE_ID_3;
+import static org.royllo.test.TapdData.TESTCOIN_RAW_PROOF_1;
+import static org.royllo.test.TapdData.TESTCOIN_RAW_PROOF_1_PROOF_ID;
+import static org.royllo.test.TapdData.TESTCOIN_RAW_PROOF_2;
+import static org.royllo.test.TapdData.TESTCOIN_RAW_PROOF_2_PROOF_ID;
+import static org.royllo.test.TapdData.TESTCOIN_RAW_PROOF_3;
+import static org.royllo.test.TapdData.TESTCOIN_RAW_PROOF_3_PROOF_ID;
+import static org.royllo.test.TapdData.UNKNOWN_ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.UNKNOWN_ROYLLO_COIN_ASSET_STATE_ID;
+import static org.royllo.test.TapdData.UNKNOWN_ROYLLO_COIN_RAW_PROOF;
+import static org.royllo.test.TapdData.UNKNOWN_ROYLLO_COIN_RAW_PROOF_PROOF_ID;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
@@ -136,7 +136,7 @@ public class AddProofRequestBatchTest extends TestWithMockServers {
         // When we try to add again the same proof, we should get an error.
 
         // Check that the asset group, the asset, the asset state and the proof does not exist.
-        DecodedProofValueResponse.DecodedProof unknownRoylloCoinFromTestData = TestAssets.findFirstDecodedProof(UNKNOWN_ROYLLO_COIN_ASSET_ID);
+        DecodedProofValueResponse.DecodedProof unknownRoylloCoinFromTestData = TapdData.findFirstDecodedProof(UNKNOWN_ROYLLO_COIN_ASSET_ID);
         // TODO Check this once we will know how group key works.
         // assertFalse(assetGroupService.getAssetGroupByRawGroupKey(UNKNOWN_ROYLLO_COIN_RAW_GROUP_KEY).isPresent());
         assertFalse(assetService.getAssetByAssetId(unknownRoylloCoinFromTestData.getAsset().getAssetGenesis().getAssetId()).isPresent());

@@ -19,7 +19,7 @@ import static org.mockserver.model.MediaType.APPLICATION_JSON;
  * TODO Refactor transaction names.
  */
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "checkstyle:MagicNumber"})
-public class TestTransactions {
+public class MempoolData {
 
     /** Royllo genesis point tx id. */
     public static final String ROYLLO_COIN_GENESIS_POINT_TXID = "57faede9e107f3af74bb93e730bc1dfd07f81b166a974068f823d30d9eb10111";
@@ -125,7 +125,7 @@ public class TestTransactions {
      * @throws IOException file not found
      */
     private static GetTransactionValueResponse getTransactionValueResponse(final String filePath) throws IOException {
-        InputStream inputStream = TestAssets.class.getResourceAsStream(filePath);
+        InputStream inputStream = TapdData.class.getResourceAsStream(filePath);
         return new ObjectMapper().readValue(inputStream, GetTransactionValueResponse.class);
     }
 

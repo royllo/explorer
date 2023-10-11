@@ -1,4 +1,4 @@
-package org.royllo.test.tapd;
+package org.royllo.test.tapd.asset;
 
 import lombok.Getter;
 

@@ -2,30 +2,30 @@ package org.royllo.test;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.royllo.test.tapd.AssetValue;
-import org.royllo.test.tapd.DecodedProofValue;
+import org.royllo.test.tapd.asset.AssetValue;
+import org.royllo.test.tapd.asset.DecodedProofValue;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.royllo.test.TestAssets.ROYLLO_COIN_ASSET_ID;
-import static org.royllo.test.TestAssets.TEST_COIN_ASSET_ID;
-import static org.royllo.test.TestAssets.UNKNOWN_ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.TEST_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.UNKNOWN_ROYLLO_COIN_ASSET_ID;
 
 @DisplayName("Test asset tests")
-public class TestAssetsData {
+public class TapdDataTest {
 
     @Test
     @DisplayName("findAssetValueByAssetId()")
     public void findAssetValueByAssetId() {
         // Coin that does not exist.
-        assertNull(TestAssets.findAssetValueByAssetId("COIN_THAT_DOES_NOT_EXISTS"));
+        assertNull(TapdData.findAssetValueByAssetId("COIN_THAT_DOES_NOT_EXISTS"));
 
         // =============================================================================================================
         // Royllo coin.
-        final AssetValue roylloCoin = TestAssets.findAssetValueByAssetId(ROYLLO_COIN_ASSET_ID);
+        final AssetValue roylloCoin = TapdData.findAssetValueByAssetId(ROYLLO_COIN_ASSET_ID);
         assertNotNull(roylloCoin);
         final List<DecodedProofValue> decodedProofValue = roylloCoin.getDecodedProofValues();
         assertEquals(1, decodedProofValue.size());
@@ -39,11 +39,11 @@ public class TestAssetsData {
 
         // =============================================================================================================
         // Unknown royllo coin.
-        assertNull(TestAssets.findAssetValueByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID));
+        assertNull(TapdData.findAssetValueByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID));
 
         // =============================================================================================================
         // Test coin.
-        final AssetValue testCoin = TestAssets.findAssetValueByAssetId(TEST_COIN_ASSET_ID);
+        final AssetValue testCoin = TapdData.findAssetValueByAssetId(TEST_COIN_ASSET_ID);
         assertNotNull(testCoin);
         assertEquals(5, testCoin.getDecodedProofValues().size());
     }

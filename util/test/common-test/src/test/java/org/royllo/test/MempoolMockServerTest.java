@@ -12,8 +12,8 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockserver.integration.ClientAndServer.startClientAndServer;
-import static org.royllo.test.TestTransactions.BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID;
-import static org.royllo.test.TestTransactions.BITCOIN_TRANSACTION_1_TXID;
+import static org.royllo.test.MempoolData.BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID;
+import static org.royllo.test.MempoolData.BITCOIN_TRANSACTION_1_TXID;
 
 @DisplayName("Mempool mock server test")
 public class MempoolMockServerTest {
@@ -25,7 +25,7 @@ public class MempoolMockServerTest {
     @DisplayName("Mock server data")
     public void mockServerData() {
         final ClientAndServer mempoolMockServer = startClientAndServer(MOCK_SERVER_PORT);
-        TestTransactions.setMockServerRules(mempoolMockServer);
+        MempoolData.setMockServerRules(mempoolMockServer);
         var client = new OkHttpClient();
 
         // Testing a transaction existing on the bitcoin mainnet.

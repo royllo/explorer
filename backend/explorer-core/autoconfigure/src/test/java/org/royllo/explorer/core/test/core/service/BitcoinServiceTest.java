@@ -14,10 +14,10 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.royllo.test.TestTransactions.BITCOIN_TAPROOT_TRANSACTION_2_TXID;
-import static org.royllo.test.TestTransactions.BITCOIN_TRANSACTION_1_TXID;
-import static org.royllo.test.TestTransactions.BITCOIN_TRANSACTION_2_TXID;
-import static org.royllo.test.TestTransactions.BITCOIN_TRANSACTION_3_TXID;
+import static org.royllo.test.MempoolData.BITCOIN_TAPROOT_TRANSACTION_2_TXID;
+import static org.royllo.test.MempoolData.BITCOIN_TRANSACTION_1_TXID;
+import static org.royllo.test.MempoolData.BITCOIN_TRANSACTION_2_TXID;
+import static org.royllo.test.MempoolData.BITCOIN_TRANSACTION_3_TXID;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)

@@ -27,9 +27,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.service.asset.AssetStateServiceImplementation.SEARCH_PARAMETER_ASSET_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
-import static org.royllo.test.TestAssets.ROYLLO_COIN_ASSET_ID;
-import static org.royllo.test.TestAssets.ROYLLO_COIN_ASSET_STATE_ID;
-import static org.royllo.test.TestTransactions.BITCOIN_TRANSACTION_1_TXID;
+import static org.royllo.test.MempoolData.BITCOIN_TRANSACTION_1_TXID;
+import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_STATE_ID;
 
 @SpringBootTest
 @DisplayName("AssetStateService tests")

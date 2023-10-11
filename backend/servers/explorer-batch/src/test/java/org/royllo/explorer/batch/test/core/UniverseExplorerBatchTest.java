@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.universe.UniverseExplorerBatch;
 import org.royllo.explorer.core.domain.request.AddProofRequest;
 import org.royllo.explorer.core.domain.universe.UniverseServer;
-import org.royllo.explorer.core.provider.tapd.TapdService;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.repository.universe.UniverseServerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 @SpringBootTest
 @DisplayName("Universe explorer batch test")
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
-@ActiveProfiles({"mempoolTransactionServiceMock", "tapdProofServiceMock", "scheduler-disabled"})
+@ActiveProfiles({"tapdProofServiceMock", "scheduler-disabled"})
 public class UniverseExplorerBatchTest {
 
     @Autowired
@@ -36,9 +35,6 @@ public class UniverseExplorerBatchTest {
 
     @Autowired
     UniverseServerRepository universeServerRepository;
-
-    @Autowired
-    TapdService tapdService;
 
     @Autowired
     UniverseExplorerBatch universeExplorerBatch;

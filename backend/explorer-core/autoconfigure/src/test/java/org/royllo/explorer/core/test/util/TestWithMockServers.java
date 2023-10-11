@@ -7,12 +7,12 @@ import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.asset.AssetStateDTO;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.util.base.Base;
-import org.royllo.test.TestAssets;
-import org.royllo.test.TestTransactions;
+import org.royllo.test.MempoolData;
+import org.royllo.test.TapdData;
 import org.royllo.test.mempool.GetTransactionValueResponse;
 import org.royllo.test.mempool.TransactionValue;
-import org.royllo.test.tapd.AssetValue;
-import org.royllo.test.tapd.DecodedProofValueResponse;
+import org.royllo.test.tapd.asset.AssetValue;
+import org.royllo.test.tapd.asset.DecodedProofValueResponse;
 import org.springframework.test.annotation.DirtiesContext;
 
 import javax.xml.bind.DatatypeConverter;
@@ -52,10 +52,10 @@ public class TestWithMockServers extends Base {
     public void startServers() {
         // Mempool mock server.
         mempoolMockServer = startClientAndServer(MEMPOOL_MOCK_SERVER_PORT);
-        TestTransactions.setMockServerRules(mempoolMockServer);
+        MempoolData.setMockServerRules(mempoolMockServer);
         // Tapd mock server.
         tapdMockServer = startClientAndServer(TAPD_MOCK_SERVER_PORT);
-        TestAssets.setMockServerRules(tapdMockServer);
+        TapdData.setMockServerRules(tapdMockServer);
     }
 
     @AfterEach
@@ -75,7 +75,7 @@ public class TestWithMockServers extends Base {
     public void verifyTransaction(final BitcoinTransactionOutputDTO bitcoinTransactionOutputDTO,
                                   final String transactionId) {
         // We retrieve the transaction from our test data.
-        final TransactionValue transactionValue = TestTransactions.findTransactionByTransactionId(transactionId);
+        final TransactionValue transactionValue = MempoolData.findTransactionByTransactionId(transactionId);
 
         // We extract the bitcoin transaction output from the transaction value.
         final GetTransactionValueResponse.VOut transactionValueVOut = transactionValue.getResponse().getVout().get(bitcoinTransactionOutputDTO.getVout());
@@ -98,7 +98,7 @@ public class TestWithMockServers extends Base {
     public void verifyAsset(final AssetDTO assetDTO,
                             final String assetId) {
         // We retrieve the asset from our test data.
-        final AssetValue assetValue = TestAssets.findAssetValueByAssetId(assetId);
+        final AssetValue assetValue = TapdData.findAssetValueByAssetId(assetId);
 
         // We retrieve an asset value from test data. We should to get the data from the first decioded proof.
         final DecodedProofValueResponse.DecodedProof.Asset assetFromTest = assetValue.getDecodedProofValues().get(0).getResponse().getDecodedProof().getAsset();
@@ -154,7 +154,7 @@ public class TestWithMockServers extends Base {
         }
 
         // We find the asset state.
-        final Optional<DecodedProofValueResponse.DecodedProof> assetState = TestAssets.findAssetStateByAssetStateId(assetStateId);
+        final Optional<DecodedProofValueResponse.DecodedProof> assetState = TapdData.findAssetStateByAssetStateId(assetStateId);
         assertTrue(assetState.isPresent());
 
         // We compare each field.

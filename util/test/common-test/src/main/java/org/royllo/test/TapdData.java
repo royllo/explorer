@@ -4,10 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.matchers.MatchType;
 import org.mockserver.model.JsonBody;
-import org.royllo.test.tapd.AssetValue;
-import org.royllo.test.tapd.DecodedProofValue;
-import org.royllo.test.tapd.DecodedProofValueRequest;
-import org.royllo.test.tapd.DecodedProofValueResponse;
+import org.royllo.test.tapd.asset.AssetValue;
+import org.royllo.test.tapd.asset.DecodedProofValue;
+import org.royllo.test.tapd.asset.DecodedProofValueRequest;
+import org.royllo.test.tapd.asset.DecodedProofValueResponse;
+import org.royllo.test.tapd.universe.UniverseRootsResponse;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,7 +26,7 @@ import static org.mockserver.model.MediaType.APPLICATION_JSON;
  * TODO refactor membre names.
  */
 @SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "checkstyle:JavadocVariable"})
-public class TestAssets {
+public class TapdData {
 
     /* ============================================================================================================== */
     /* Royllo coin. */
@@ -109,6 +110,9 @@ public class TestAssets {
 
     /* ============================================================================================================== */
 
+    /** Contains universe roots response. */
+    public static final UniverseRootsResponse UNIVERSE_ROOTS_RESPONSE;
+
     /** Contains all assets and contains decoded proofs (request and response). */
     private static final Map<String, AssetValue> ASSETS = new LinkedHashMap<>();
 
@@ -137,9 +141,6 @@ public class TestAssets {
             ASSETS.put(unknownRoylloCoin.getAssetId(), unknownRoylloCoin);
 
             // =========================================================================================================
-            // ActiveRoylloCoin.
-
-            // =========================================================================================================
             // TestCoin.
             AssetValue testCoin = new AssetValue();
             testCoin.addDecodedProofValue(new DecodedProofValue(
@@ -158,6 +159,10 @@ public class TestAssets {
                     getDecodedProofRequestFromFile("/tapd/testCoin/decodeProof-proofFile3-proofAtDepth1-request.json"),
                     getDecodedProofResponseFromFile("/tapd/testCoin/decodeProof-proofFile3-proofAtDepth1-response.json")));
             ASSETS.put(testCoin.getAssetId(), testCoin);
+
+            // =========================================================================================================
+            // Universe - reply to universe/roots.
+            UNIVERSE_ROOTS_RESPONSE = getUniverseRootsResponse("/tapd/universe/universe-roots-response.json");
 
         } catch (IOException e) {
             throw new RuntimeException("TestAssets loading error: " + e);
@@ -226,6 +231,12 @@ public class TestAssets {
                                 .withBody(entry.getValue().getDecodedProofValues().get(index).getJSONResponse()));
             });
         }
+
+        // Reply to universe/roots.
+        mockServer.when(request().withPath(".*/universe/roots.*"))
+                .respond(response().withStatusCode(200)
+                        .withContentType(APPLICATION_JSON)
+                        .withBody(UNIVERSE_ROOTS_RESPONSE.getJSONResponse()));
     }
 
     /**
@@ -236,7 +247,7 @@ public class TestAssets {
      * @throws IOException file not found
      */
     private static DecodedProofValueRequest getDecodedProofRequestFromFile(final String filePath) throws IOException {
-        InputStream inputStream = TestAssets.class.getResourceAsStream(filePath);
+        InputStream inputStream = TapdData.class.getResourceAsStream(filePath);
         return new ObjectMapper().readValue(inputStream, DecodedProofValueRequest.class);
     }
 
@@ -248,8 +259,20 @@ public class TestAssets {
      * @throws IOException file not found
      */
     private static DecodedProofValueResponse getDecodedProofResponseFromFile(final String filePath) throws IOException {
-        InputStream inputStream = TestAssets.class.getResourceAsStream(filePath);
+        InputStream inputStream = TapdData.class.getResourceAsStream(filePath);
         return new ObjectMapper().readValue(inputStream, DecodedProofValueResponse.class);
+    }
+
+    /**
+     * Returns a universe roots response from a file.
+     *
+     * @param filePath file path
+     * @return universe roots
+     * @throws IOException file not found
+     */
+    private static UniverseRootsResponse getUniverseRootsResponse(final String filePath) throws IOException {
+        InputStream inputStream = TapdData.class.getResourceAsStream(filePath);
+        return new ObjectMapper().readValue(inputStream, UniverseRootsResponse.class);
     }
 
 }

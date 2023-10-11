@@ -22,16 +22,16 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
-import static org.royllo.test.TestAssets.ACTIVE_ROYLLO_COIN_ASSET_ID;
-import static org.royllo.test.TestAssets.ACTIVE_ROYLLO_COIN_PROOF_1_RAW_PROOF;
-import static org.royllo.test.TestAssets.ACTIVE_ROYLLO_COIN_PROOF_2_RAW_PROOF;
-import static org.royllo.test.TestAssets.ACTIVE_ROYLLO_COIN_PROOF_3_RAW_PROOF;
-import static org.royllo.test.TestAssets.ROYLLO_COIN_ASSET_ID;
-import static org.royllo.test.TestAssets.ROYLLO_COIN_PROOF_ID;
-import static org.royllo.test.TestAssets.ROYLLO_COIN_RAW_PROOF;
-import static org.royllo.test.TestAssets.UNKNOWN_ROYLLO_COIN_ASSET_ID;
-import static org.royllo.test.TestAssets.UNKNOWN_ROYLLO_COIN_RAW_PROOF;
-import static org.royllo.test.TestAssets.UNKNOWN_ROYLLO_COIN_RAW_PROOF_PROOF_ID;
+import static org.royllo.test.TapdData.ACTIVE_ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.ACTIVE_ROYLLO_COIN_PROOF_1_RAW_PROOF;
+import static org.royllo.test.TapdData.ACTIVE_ROYLLO_COIN_PROOF_2_RAW_PROOF;
+import static org.royllo.test.TapdData.ACTIVE_ROYLLO_COIN_PROOF_3_RAW_PROOF;
+import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.ROYLLO_COIN_PROOF_ID;
+import static org.royllo.test.TapdData.ROYLLO_COIN_RAW_PROOF;
+import static org.royllo.test.TapdData.UNKNOWN_ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.UNKNOWN_ROYLLO_COIN_RAW_PROOF;
+import static org.royllo.test.TapdData.UNKNOWN_ROYLLO_COIN_RAW_PROOF_PROOF_ID;
 
 @SpringBootTest
 @DisplayName("ProofService tests")
