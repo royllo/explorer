@@ -9,7 +9,6 @@ import org.royllo.explorer.core.provider.tapd.UniverseRootsResponse;
 import org.royllo.explorer.core.repository.proof.ProofFileRepository;
 import org.royllo.explorer.core.repository.universe.UniverseServerRepository;
 import org.royllo.explorer.core.service.request.RequestService;
-import org.royllo.explorer.core.service.universe.UniverseServerService;
 import org.springframework.stereotype.Component;
 
 import static java.time.ZonedDateTime.now;
@@ -33,9 +32,6 @@ public class UniverseExplorerBatch extends BaseBatch {
 
     /** Universe server repository. */
     private final UniverseServerRepository universeServerRepository;
-
-    /** Universe server service. */
-    private final UniverseServerService universeServerService;
 
     /** Tapd service. */
     private final TapdService tapdService;

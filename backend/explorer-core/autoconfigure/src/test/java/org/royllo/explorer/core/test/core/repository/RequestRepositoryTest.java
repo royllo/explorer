@@ -37,8 +37,10 @@ public class RequestRepositoryTest extends TestWithMockServers {
     @Test
     @DisplayName("Requests inheritance")
     public void requestsInheritance() {
+        // This test id used to validate how inheritance with JPA works.
+
         // =============================================================================================================
-        // Creating request 1 (ADD_ASSET).
+        // Creating request 1 (ADD_ASSET type).
         AddProofRequest request1 = new AddProofRequest();
         request1.setRequestId(UUID.randomUUID().toString());
         request1.setCreator(ANONYMOUS_USER);
@@ -64,7 +66,7 @@ public class RequestRepositoryTest extends TestWithMockServers {
         assertEquals(request1ID, addAssetRequest1IDFromJDBC);
 
         // =============================================================================================================
-        // Creating request 2 (ADD_ASSET_META_DATA).
+        // Creating request 2 (ADD_ASSET_META_DATA type).
         AddAssetMetaDataRequest request2 = new AddAssetMetaDataRequest();
         request2.setRequestId(UUID.randomUUID().toString());
         request2.setCreator(ANONYMOUS_USER);
@@ -92,7 +94,7 @@ public class RequestRepositoryTest extends TestWithMockServers {
         assertEquals(request2ID, addAssetRequest2IDFromJDBC);
 
         // =============================================================================================================
-        // Creating request 3 (ADD_ASSET).
+        // Creating request 3 (ADD_ASSET type).
         AddProofRequest request3 = new AddProofRequest();
         request3.setRequestId(UUID.randomUUID().toString());
         request3.setCreator(ANONYMOUS_USER);

@@ -39,7 +39,7 @@ public class UserServiceTest {
     @DisplayName("getUserByUsername()")
     public void getUserByUsernameTest() {
         // Non-existing user.
-        final Optional<UserDTO> nonExistingUser = userService.getUserByUsername("NON_EXISTING_USER");
+        final Optional<UserDTO> nonExistingUser = userService.getUserByUsername("NON_EXISTING_USERNAME");
         assertFalse(nonExistingUser.isPresent());
 
         // Existing user.

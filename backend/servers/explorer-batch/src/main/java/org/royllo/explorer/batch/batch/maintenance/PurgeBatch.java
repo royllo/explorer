@@ -2,14 +2,11 @@ package org.royllo.explorer.batch.batch.maintenance;
 
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.batch.util.base.BaseBatch;
-import org.royllo.explorer.core.domain.request.Request;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static org.royllo.explorer.core.util.enums.RequestStatus.FAILURE;
@@ -46,12 +43,11 @@ public class PurgeBatch extends BaseBatch {
         // =============================================================================================================
         // Purge failed requests.
         logger.info("Checking if failed request should be purged");
-        final List<Request> allFailedRequests = requestRepository.findByStatusInOrderById(Collections.singletonList(FAILURE));
+        final long allFailedRequestsCount = requestRepository.findByStatusOrderById(FAILURE).size();
 
-        if (allFailedRequests.size() > MAXIMUM_FAILED_REQUESTS_STORE) {
-            logger.info("{} failed requests need to be purged", allFailedRequests.size() - MAXIMUM_FAILED_REQUESTS_STORE);
-            requestRepository.findByStatusInOrderById(Collections.singletonList(FAILURE),
-                            PageRequest.of(1, MAXIMUM_FAILED_REQUESTS_STORE))
+        if (allFailedRequestsCount > MAXIMUM_FAILED_REQUESTS_STORE) {
+            logger.info("{} failed requests need to be purged", allFailedRequestsCount - MAXIMUM_FAILED_REQUESTS_STORE);
+            requestRepository.findByStatusOrderById(FAILURE, PageRequest.of(1, MAXIMUM_FAILED_REQUESTS_STORE))
                     .forEach(request -> {
                         logger.info("Purging request {}", request);
                         requestRepository.delete(request);
@@ -59,7 +55,7 @@ public class PurgeBatch extends BaseBatch {
                     });
             logger.info("{} failed requests purged", numberOfPurgeRequests.get());
         } else {
-            logger.info("{} existing failed requests - No need to purge", allFailedRequests.size());
+            logger.info("{} existing failed requests - No purge needed", allFailedRequestsCount);
         }
     }
 

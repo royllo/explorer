@@ -19,7 +19,7 @@ import static org.royllo.explorer.api.configuration.APIConfiguration.MAXIMUM_PAG
 import static org.royllo.explorer.core.service.asset.AssetStateServiceImplementation.SEARCH_PARAMETER_ASSET_ID;
 
 @SpringBootTest
-@DisplayName("AssetDataFetcher tests")
+@DisplayName("AssetStateDataFetcher tests")
 public class AssetStateDataFetcherTest {
 
     @Autowired

@@ -14,7 +14,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.sql.SQLException;
-import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -41,7 +40,7 @@ public class PurgeBatchTest extends BaseTest {
     @Test
     @DisplayName("Purge failed requests")
     public void batch() throws SQLException {
-        // We start by erasing everything.
+        // We start by erasing requests.
         requestRepository.deleteAll();
 
         // =============================================================================================================
@@ -144,7 +143,7 @@ public class PurgeBatchTest extends BaseTest {
         // The rule is that all failed requests besides MAXIMUM_FAILED_REQUESTS_STORE (10 000) must be deleted.
         int totalRequests = requestRepository.findAll().size();
         assertEquals(60_000, totalRequests);
-        int failedRequests = requestRepository.findByStatusInOrderById(Collections.singletonList(FAILURE)).size();
+        int failedRequests = requestRepository.findByStatusOrderById(FAILURE).size();
         assertEquals(20_000, failedRequests);
         assertTrue(requestRepository.findByRequestId("ID_40001").isPresent());
         assertTrue(requestRepository.findByRequestId("ID_60000").isPresent());
@@ -159,7 +158,7 @@ public class PurgeBatchTest extends BaseTest {
 
         totalRequests = requestRepository.findAll().size();
         assertEquals(50_000, totalRequests);
-        failedRequests = requestRepository.findByStatusInOrderById(Collections.singletonList(FAILURE)).size();
+        failedRequests = requestRepository.findByStatusOrderById(FAILURE).size();
         assertEquals(10_000, failedRequests);
         assertTrue(requestRepository.findByRequestId("ID_20001").isPresent());
         assertTrue(requestRepository.findByRequestId("ID_30000").isPresent());

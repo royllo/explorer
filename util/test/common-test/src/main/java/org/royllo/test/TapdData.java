@@ -161,6 +161,14 @@ public class TapdData {
             ASSETS.put(testCoin.getAssetId(), testCoin);
 
             // =========================================================================================================
+            // Invalid proof.
+            AssetValue invalidData = new AssetValue();
+            invalidData.addDecodedProofValue(new DecodedProofValue(
+                    getDecodedProofRequestFromFile("/tapd/invalid/decodeProof-proofFile1-proofAtDepth0-request.json"),
+                    getDecodedProofResponseFromFile("/tapd/invalid/decodeProof-proofFile1-proofAtDepth0-response.json")));
+            ASSETS.put("INVALID_COIN", invalidData);
+
+            // =========================================================================================================
             // Universe - reply to universe/roots.
             UNIVERSE_ROOTS_RESPONSE = getUniverseRootsResponse("/tapd/universe/universe-roots-response.json");
 

@@ -31,28 +31,21 @@ public class UserRepositoryTest {
         assertTrue(anonymousUserById.isPresent());
         assertEquals(ANONYMOUS_ID, anonymousUserById.get().getId().longValue());
         assertEquals(ANONYMOUS_USER_ID, anonymousUserById.get().getUserId());
-        assertEquals("anonymous", anonymousUserById.get().getUsername());
+        assertEquals(ANONYMOUS_USER_USERNAME, anonymousUserById.get().getUsername());
 
         // Finding the user by its uid.
         final Optional<User> anonymousUserByUserId = userRepository.findByUserId(ANONYMOUS_USER_ID);
         assertTrue(anonymousUserByUserId.isPresent());
         assertEquals(ANONYMOUS_ID, anonymousUserByUserId.get().getId().longValue());
         assertEquals(ANONYMOUS_USER_ID, anonymousUserByUserId.get().getUserId());
-        assertEquals("anonymous", anonymousUserByUserId.get().getUsername());
+        assertEquals(ANONYMOUS_USER_USERNAME, anonymousUserByUserId.get().getUsername());
 
         // Finding the user by its username.
         final Optional<User> anonymousUserByUsername = userRepository.findByUsernameIgnoreCase(ANONYMOUS_USER_USERNAME);
         assertTrue(anonymousUserByUsername.isPresent());
         assertEquals(ANONYMOUS_ID, anonymousUserByUsername.get().getId().longValue());
         assertEquals(ANONYMOUS_USER_ID, anonymousUserByUsername.get().getUserId());
-        assertEquals("anonymous", anonymousUserByUsername.get().getUsername());
-    }
-
-    @Test
-    @DisplayName("Find non existing user")
-    public void findNonExistingUser() {
-        assertFalse(userRepository.findById(99999999999L).isPresent());
-        assertFalse(userRepository.findByUsernameIgnoreCase("NON_EXISTING_USER").isPresent());
+        assertEquals(ANONYMOUS_USER_USERNAME, anonymousUserByUsername.get().getUsername());
     }
 
     @Test
@@ -63,5 +56,13 @@ public class UserRepositoryTest {
         assertEquals(2, existingUser.get().getId().longValue());
         assertEquals("straumat", existingUser.get().getUsername());
     }
+
+    @Test
+    @DisplayName("Find non existing user")
+    public void findNonExistingUser() {
+        assertFalse(userRepository.findById(99999999999L).isPresent());
+        assertFalse(userRepository.findByUsernameIgnoreCase("NON_EXISTING_USERNAME").isPresent());
+    }
+
 
 }

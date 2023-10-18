@@ -44,16 +44,16 @@ public class AssetGroupServiceTest extends TestWithMockServers {
         // =============================================================================================================
         // Now creating a real asset group.
         AssetGroupDTO assetGroupDTO = assetGroupService.addAssetGroup(AssetGroupDTO.builder()
-                .assetIdSig("NEW-ASSET-ID-SIG")
-                .rawGroupKey("NEW-ASSET-GROUP-KEY")
-                .tweakedGroupKey("NEW-ASSET-GROUP-KEY-TWEAKED")
+                .assetIdSig("NEW_ASSET_ID_SIG")
+                .rawGroupKey("NEW_ASSET_GROUP_KEY")
+                .tweakedGroupKey("NEW_ASSET_GROUP_KEY_TWEAKED")
                 .build());
 
         assertNotNull(assetGroupDTO);
         assertNotNull(assetGroupDTO.getId());
-        assertEquals("NEW-ASSET-ID-SIG", assetGroupDTO.getAssetIdSig());
-        assertEquals("NEW-ASSET-GROUP-KEY", assetGroupDTO.getRawGroupKey());
-        assertEquals("NEW-ASSET-GROUP-KEY-TWEAKED", assetGroupDTO.getTweakedGroupKey());
+        assertEquals("NEW_ASSET_ID_SIG", assetGroupDTO.getAssetIdSig());
+        assertEquals("NEW_ASSET_GROUP_KEY", assetGroupDTO.getRawGroupKey());
+        assertEquals("NEW_ASSET_GROUP_KEY_TWEAKED", assetGroupDTO.getTweakedGroupKey());
     }
 
     @Test
@@ -61,11 +61,11 @@ public class AssetGroupServiceTest extends TestWithMockServers {
     public void getAssetGroupByRawGroupKey() {
         // =============================================================================================================
         // Non-existing asset group.
-        Optional<AssetGroupDTO> assetGroup = assetGroupService.getAssetGroupByRawGroupKey("NON-EXISTING");
+        Optional<AssetGroupDTO> assetGroup = assetGroupService.getAssetGroupByRawGroupKey("NON_EXISTING_ASSET_GROUP_RAW_KEY");
         assertFalse(assetGroup.isPresent());
 
         // =============================================================================================================
-        // Existing asset group on testnet and in our database initialization script ("roylloCoin") .
+        // Existing asset group on testnet and in our database initialization script.
         assetGroup = assetGroupService.getAssetGroupByRawGroupKey("RAW_GROUP_KEY_10000");
         assertTrue(assetGroup.isPresent());
         assertEquals(10000, assetGroup.get().getId());

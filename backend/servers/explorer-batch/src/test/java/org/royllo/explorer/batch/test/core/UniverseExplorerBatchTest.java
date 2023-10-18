@@ -13,7 +13,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,10 +86,11 @@ public class UniverseExplorerBatchTest {
      * @return an add proof request.
      */
     private List<AddProofRequest> findAddProofRequestByRawProof(final String rawProof) {
-        return requestRepository.findByStatusInOrderById(Collections.singletonList(OPENED))
+        return requestRepository.findByStatusOrderById(OPENED)
                 .stream()
                 .filter(request -> request instanceof AddProofRequest)
                 .map(request -> (AddProofRequest) request)
+                .filter(request -> request.getRawProof() != null)
                 .filter(request -> request.getRawProof().equals(rawProof))
                 .toList();
     }

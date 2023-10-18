@@ -24,7 +24,7 @@ public class AssetValue {
      * @param newDecodedProofValue decoded proof value
      */
     public void addDecodedProofValue(final DecodedProofValue newDecodedProofValue) {
-        if (assetId == null) {
+        if (assetId == null && newDecodedProofValue.getResponse().getDecodedProof() != null) {
             assetId = newDecodedProofValue.getResponse().getDecodedProof().getAsset().getAssetGenesis().getAssetId();
         }
         this.decodedProofValues.add(newDecodedProofValue);

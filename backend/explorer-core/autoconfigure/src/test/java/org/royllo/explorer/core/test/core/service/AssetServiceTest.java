@@ -18,6 +18,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static java.math.BigInteger.ONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -49,7 +50,7 @@ public class AssetServiceTest extends TestWithMockServers {
     @DisplayName("queryAssets()")
     public void queryAssets() {
         // Searching for an asset that doesn't exist.
-        Page<AssetDTO> results = assetService.queryAssets("NON-EXISTING", 1, 5);
+        Page<AssetDTO> results = assetService.queryAssets("NON_EXISTING_ASSET_ID", 1, 5);
         assertEquals(0, results.getTotalElements());
         assertEquals(0, results.getTotalPages());
 
@@ -93,7 +94,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertEquals(9, results.getTotalElements());
         assertEquals(3, results.getTotalPages());
 
-        // Searching for the 9 assets with a page size of 5 - Page 0.
+        // Searching for the 9 assets with a page size of 5 - Page 1.
         results = assetService.queryAssets("TestPaginationCoin", 1, 5);
         assertEquals(5, results.getNumberOfElements());
         assertEquals(9, results.getTotalElements());
@@ -104,7 +105,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertEquals(1003, results.getContent().get(3).getId());
         assertEquals(1004, results.getContent().get(4).getId());
 
-        // Searching for the 9 assets with a page size of 5 - Page 1.
+        // Searching for the 9 assets with a page size of 5 - Page 2.
         results = assetService.queryAssets("TestPaginationCoin", 2, 5);
         assertEquals(4, results.getNumberOfElements());
         assertEquals(9, results.getTotalElements());
@@ -143,7 +144,7 @@ public class AssetServiceTest extends TestWithMockServers {
                 .outputIndex(0)
                 .version(0)
                 .type(NORMAL)
-                .amount(BigInteger.ONE)
+                .amount(ONE)
                 .build()));
         assertTrue(e.getMessage().endsWith("already registered"));
 
@@ -164,7 +165,7 @@ public class AssetServiceTest extends TestWithMockServers {
                 .outputIndex(8)
                 .version(0)
                 .type(NORMAL)
-                .amount(new BigInteger("1"))
+                .amount(ONE)
                 .build());
 
         // Testing asset value.
@@ -181,7 +182,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertEquals(8, asset1.getOutputIndex());
         assertEquals(0, asset1.getVersion());
         assertEquals(NORMAL, asset1.getType());
-        assertEquals(0, asset1.getAmount().compareTo(new BigInteger("1")));
+        assertEquals(0, asset1.getAmount().compareTo(ONE));
         // Asset group.
         assertNull(asset1.getAssetGroup());
         assertEquals(assetGroupCount, assetGroupRepository.findAll().size());
@@ -284,7 +285,7 @@ public class AssetServiceTest extends TestWithMockServers {
     @DisplayName("getAssetByAssetId()")
     public void getAssetByAssetId() {
         // Non-existing asset.
-        Optional<AssetDTO> asset = assetService.getAssetByAssetId("NON-EXISTING");
+        Optional<AssetDTO> asset = assetService.getAssetByAssetId("NON_EXISTING_ASSET_ID");
         assertFalse(asset.isPresent());
 
         // Existing asset on testnet and in our database initialization script ("My Royllo coin") .

@@ -2,6 +2,7 @@ package org.royllo.explorer.core.test.core.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.royllo.explorer.core.dto.universe.UniverseServerDTO;
 import org.royllo.explorer.core.service.universe.UniverseServerService;
 import org.royllo.explorer.core.util.exceptions.universe.UniverseServerCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -34,11 +36,15 @@ public class UniverseServerServiceTest {
 
         // =============================================================================================================
         // Adding a universe server with a valid value (hostname).
-        assertDoesNotThrow(() -> universeServerService.addUniverseServer("universe.royllo.org:8080"));
+        final UniverseServerDTO universeServer1 = universeServerService.addUniverseServer("universe.royllo.org:8080");
+        assertNotNull(universeServer1);
+        assertNotNull(universeServer1.getId());
 
         // =============================================================================================================
         // Adding a universe server with a valid value (hostname).
-        assertDoesNotThrow(() -> universeServerService.addUniverseServer("1.1.1.1:8080"));
+        final UniverseServerDTO universeServer2 = universeServerService.addUniverseServer("1.1.1.1:8080");
+        assertNotNull(universeServer2);
+        assertNotNull(universeServer2.getId());
 
         // =============================================================================================================
         // Trying to add a duplicated value in universe server.

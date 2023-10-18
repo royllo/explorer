@@ -51,47 +51,31 @@ public class TAPDServiceMock {
         // =============================================================================================================
         // Mocks for UniverseExplorerBatchTest.
 
-        // testnet.universe.lightning.finance
+        // testnet.universe.lightning.finance (roots).
         Mockito.when(mockedService.getUniverseRoots("testnet.universe.lightning.finance"))
                 .thenReturn(Mono.just(getUniverseRootsResponse("tapd/universe-roots-response-for-testnet-universe-lightning-finance.json")));
-
-        // testnet.universe.lightning.finance:asset_id_1
+        // testnet.universe.lightning.finance:asset_id_1.
         Mockito.when(mockedService.getUniverseLeaves("testnet.universe.lightning.finance", "asset_id_1"))
                 .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/universe-leaves-asset-id-1-for-testnet-universe-lightning-finance.json")));
-        // testnet.universe.lightning.finance:asset_id_2
+        // testnet.universe.lightning.finance:asset_id_2.
         Mockito.when(mockedService.getUniverseLeaves("testnet.universe.lightning.finance", "asset_id_2"))
                 .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/universe-leaves-asset-id-2-for-testnet-universe-lightning-finance.json")));
-        // testnet.universe.lightning.finance:asset_id_3
+        // testnet.universe.lightning.finance:asset_id_3.
         Mockito.when(mockedService.getUniverseLeaves("testnet.universe.lightning.finance", "asset_id_3"))
                 .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/universe-leaves-asset-id-3-for-testnet-universe-lightning-finance.json")));
 
-        // testnet2.universe.lightning.finance
+        // testnet2.universe.lightning.finance (roots).
         Mockito.when(mockedService.getUniverseRoots("testnet2.universe.lightning.finance"))
                 .thenReturn(Mono.just(getUniverseRootsResponse("tapd/universe-roots-response-for-testnet2-universe-lightning-finance.json")));
-
-        // testnet2.universe.lightning.finance:asset_id_4
-        Mockito.when(mockedService.getUniverseLeaves("testnet2.universe.lightning.finance", "asset_id_4"))
-                .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/universe-leaves-asset-id-4-for-testnet2-universe-lightning-finance.json")));
-
-        // testnet2.universe.lightning.finance:asset_id_1
+        // testnet2.universe.lightning.finance:asset_id_1.
         Mockito.when(mockedService.getUniverseLeaves("testnet2.universe.lightning.finance", "asset_id_1"))
                 .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/universe-leaves-asset-id-1-for-testnet2-universe-lightning-finance.json")));
-
-        // testnet2.universe.lightning.finance:asset_id_1
+        // testnet2.universe.lightning.finance:asset_id_4.
+        Mockito.when(mockedService.getUniverseLeaves("testnet2.universe.lightning.finance", "asset_id_4"))
+                .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/universe-leaves-asset-id-4-for-testnet2-universe-lightning-finance.json")));
+        // testnet2.universe.lightning.finance:asset_id_5.
         Mockito.when(mockedService.getUniverseLeaves("testnet2.universe.lightning.finance", "asset_id_5"))
                 .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/universe-leaves-asset-id-5-for-testnet2-universe-lightning-finance.json")));
-
-        // =============================================================================================================
-        // Empty response for lastSync field tests.
-
-        final ClassPathResource classPathResourceUniverseEmpty = new ClassPathResource("tapd/universe-roots-response-empty.json");
-        UniverseRootsResponse emptyLightningResponse = new ObjectMapper().readValue(classPathResourceUniverseEmpty.getInputStream(), UniverseRootsResponse.class);
-        Mockito.when(mockedService.getUniverseRoots("server1")).thenReturn(Mono.just(emptyLightningResponse));
-        Mockito.when(mockedService.getUniverseRoots("server2")).thenReturn(Mono.just(emptyLightningResponse));
-        Mockito.when(mockedService.getUniverseRoots("server3")).thenReturn(Mono.just(emptyLightningResponse));
-        Mockito.when(mockedService.getUniverseRoots("server4")).thenReturn(Mono.just(emptyLightningResponse));
-        Mockito.when(mockedService.getUniverseRoots("server5")).thenReturn(Mono.just(emptyLightningResponse));
-        Mockito.when(mockedService.getUniverseRoots("server6")).thenReturn(Mono.just(emptyLightningResponse));
 
         return mockedService;
     }

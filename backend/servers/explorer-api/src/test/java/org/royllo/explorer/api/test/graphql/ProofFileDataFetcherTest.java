@@ -63,6 +63,7 @@ public class ProofFileDataFetcherTest {
                 .filter(proof -> proof.getProofFileId().equals(ACTIVE_ROYLLO_COIN_PROOF_1_PROOF_ID))
                 .findFirst();
         assertTrue(proof1.isPresent());
+        assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, proof1.get().getAsset().getAssetId());
         assertEquals(ANONYMOUS_USER_ID, proof1.get().getCreator().getUserId());
         assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, proof1.get().getAsset().getAssetId());
         assertEquals(ACTIVE_ROYLLO_COIN_PROOF_1_RAW_PROOF, proof1.get().getRawProof());
@@ -72,6 +73,7 @@ public class ProofFileDataFetcherTest {
                 .filter(proof -> proof.getProofFileId().equals(ACTIVE_ROYLLO_COIN_PROOF_2_PROOF_ID))
                 .findFirst();
         assertTrue(proof2.isPresent());
+        assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, proof2.get().getAsset().getAssetId());
         assertEquals(ANONYMOUS_USER_ID, proof2.get().getCreator().getUserId());
         assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, proof2.get().getAsset().getAssetId());
         assertEquals(ACTIVE_ROYLLO_COIN_PROOF_2_RAW_PROOF, proof2.get().getRawProof());
@@ -81,6 +83,7 @@ public class ProofFileDataFetcherTest {
                 .filter(proof -> proof.getProofFileId().equals(ACTIVE_ROYLLO_COIN_PROOF_3_PROOF_ID))
                 .findFirst();
         assertTrue(proof3.isPresent());
+        assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, proof3.get().getAsset().getAssetId());
         assertEquals(ANONYMOUS_USER_ID, proof3.get().getCreator().getUserId());
         assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, proof3.get().getAsset().getAssetId());
         assertEquals(ACTIVE_ROYLLO_COIN_PROOF_3_RAW_PROOF, proof3.get().getRawProof());

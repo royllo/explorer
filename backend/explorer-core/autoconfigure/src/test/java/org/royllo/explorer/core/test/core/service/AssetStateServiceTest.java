@@ -56,12 +56,12 @@ public class AssetStateServiceTest extends TestWithMockServers {
     @Test
     @DisplayName("queryAssetStates()")
     public void queryAssetStates() {
-        // Search for asset states without specifying the SEARCH_PARAMETER_ASSET_ID parameter.
-        AssertionError e = assertThrows(AssertionError.class, () -> assetStateService.queryAssetStates("dezded", 1, 5));
+        // Search for asset state that existing without specifying the SEARCH_PARAMETER_ASSET_ID parameter.
+        AssertionError e = assertThrows(AssertionError.class, () -> assetStateService.queryAssetStates("asset_id_9", 1, 5));
         assertEquals("Only assetId:value query is supported", e.getMessage());
 
-        // Searching for asset states for an asset id that doesn't exist.
-        Page<AssetStateDTO> results = assetStateService.queryAssetStates(SEARCH_PARAMETER_ASSET_ID + "NON-EXISTING", 1, 5);
+        // Searching for asset states for an asset state id that doesn't exist.
+        Page<AssetStateDTO> results = assetStateService.queryAssetStates(SEARCH_PARAMETER_ASSET_ID + "NON_EXISTING_ASSET_STATE_ID", 1, 5);
         assertEquals(0, results.getTotalElements());
         assertEquals(0, results.getTotalPages());
 
@@ -243,7 +243,7 @@ public class AssetStateServiceTest extends TestWithMockServers {
     public void getAssetStateByAssetStateId() {
         // =============================================================================================================
         // Non-existing asset group.
-        Optional<AssetStateDTO> assetState = assetStateService.getAssetStateByAssetStateId("NON-EXISTING-ASSET-STATE");
+        Optional<AssetStateDTO> assetState = assetStateService.getAssetStateByAssetStateId("NON_EXISTING_ASSET_STATE_ID");
         assertFalse(assetState.isPresent());
 
         // =============================================================================================================
@@ -255,7 +255,7 @@ public class AssetStateServiceTest extends TestWithMockServers {
         // User.
         assertNotNull(assetState.get().getCreator());
         assertEquals(ANONYMOUS_USER_DTO.getId(), assetState.get().getCreator().getId());
-        // Asset & asset group
+        // Asset & asset group.
         verifyAsset(assetState.get().getAsset(), ROYLLO_COIN_ASSET_ID);
         // Asset state data.
         verifyAssetState(assetState.get(),

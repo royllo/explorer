@@ -13,14 +13,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(properties = {"tapd.api.base-url=https://157.230.85.88:8089"})
-@DisplayName("TAPD Universe roots service test")
+@DisplayName("Lightning TAPD Universe roots service test")
 public class TapdUniverseRootsServiceTest {
 
     @Autowired
     private TapdService tapdService;
 
     @Test
-    @DisplayName("Calling getUniverseRoots() on TAPD")
+    @DisplayName("getUniverseRoots() on lightning TAPD")
     public void getUniverseRootsTest() throws InterruptedException {
         // List of servers to test.
         String[] validServers = new String[]{
@@ -43,10 +43,10 @@ public class TapdUniverseRootsServiceTest {
             assertTrue(response.getUniverseRoots()
                     .values()
                     .stream()
-                    .anyMatch(universeRoot -> "0a7d8e5b8e836f69b8210200fdfd4b6c06c7170e91bd45fe365f1e5a2be0e193".equals(universeRoot.getId().getAssetId())));
+                    .anyMatch(universeRoot -> "05c34a505589025a0a78c31237e560406e4a2c5dc5a41c4ece6f96abbe77ad53".equals(universeRoot.getId().getAssetId())));
 
             // Let the distant server rest for sometime.
-            TimeUnit.SECONDS.sleep(10);
+            TimeUnit.SECONDS.sleep(1);
         }
     }
 

@@ -11,10 +11,11 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.royllo.test.MempoolData.BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID;
 
 @SpringBootTest(properties = {"mempool.api.base-url=https://mempool.space/testnet/api"})
-@DisplayName("Mempool transaction service testnet test")
+@DisplayName("Mempool transaction service on testnet")
 public class MempoolTransactionServiceTestnetTest {
 
     @Autowired
@@ -25,6 +26,11 @@ public class MempoolTransactionServiceTestnetTest {
     @SuppressWarnings("SpellCheckingInspection")
     public void getTransactionTest() {
         // =============================================================================================================
+        // Getting a non-existing transaction.
+        final GetTransactionResponse nonExistingTransaction = mempoolTransactionService.getTransaction("NON_EXISTING_TRANSACTION_ID").block();
+        assertNull(nonExistingTransaction);
+
+        // =============================================================================================================
         // Testing a taproot transaction.
         GetTransactionResponse taprootTransaction = mempoolTransactionService.getTransaction(BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID).block();
         assertNotNull(taprootTransaction);
@@ -32,20 +38,20 @@ public class MempoolTransactionServiceTestnetTest {
         assertEquals(2, taprootTransaction.getVout().size());
 
         // vOut 0.
-        GetTransactionResponse.VOut vout0 = taprootTransaction.getVout().get(0);
-        assertEquals("512092e007434a2583cd7b8f18a7e030ba281d35fefff4708d478cceb7a604c9ed20", vout0.getScriptPubKey());
-        assertEquals("OP_PUSHNUM_1 OP_PUSHBYTES_32 92e007434a2583cd7b8f18a7e030ba281d35fefff4708d478cceb7a604c9ed20", vout0.getScriptPubKeyAsm());
-        assertEquals("v1_p2tr", vout0.getScriptPubKeyType());
-        assertEquals("tb1pjtsqws62ykpu67u0rzn7qv969qwntlhl73cg63uve6m6vpxfa5sq7lu9px", vout0.getScriptPubKeyAddress());
-        assertEquals(0, new BigDecimal("1000").compareTo(vout0.getValue()));
+        GetTransactionResponse.VOut vOut0 = taprootTransaction.getVout().get(0);
+        assertEquals("512092e007434a2583cd7b8f18a7e030ba281d35fefff4708d478cceb7a604c9ed20", vOut0.getScriptPubKey());
+        assertEquals("OP_PUSHNUM_1 OP_PUSHBYTES_32 92e007434a2583cd7b8f18a7e030ba281d35fefff4708d478cceb7a604c9ed20", vOut0.getScriptPubKeyAsm());
+        assertEquals("v1_p2tr", vOut0.getScriptPubKeyType());
+        assertEquals("tb1pjtsqws62ykpu67u0rzn7qv969qwntlhl73cg63uve6m6vpxfa5sq7lu9px", vOut0.getScriptPubKeyAddress());
+        assertEquals(0, new BigDecimal("1000").compareTo(vOut0.getValue()));
 
         // vOut 1.
-        GetTransactionResponse.VOut vout1 = taprootTransaction.getVout().get(1);
-        assertEquals("00147fafce6a7ea1541dc33f99ab673dc525ed3a27b3", vout1.getScriptPubKey());
-        assertEquals("OP_0 OP_PUSHBYTES_20 7fafce6a7ea1541dc33f99ab673dc525ed3a27b3", vout1.getScriptPubKeyAsm());
-        assertEquals("v0_p2wpkh", vout1.getScriptPubKeyType());
-        assertEquals("tb1q07huu6n7592pmselnx4kw0w9yhkn5fan74dze9", vout1.getScriptPubKeyAddress());
-        assertEquals(0, new BigDecimal("1699422").compareTo(vout1.getValue()));
+        GetTransactionResponse.VOut vOut1 = taprootTransaction.getVout().get(1);
+        assertEquals("00147fafce6a7ea1541dc33f99ab673dc525ed3a27b3", vOut1.getScriptPubKey());
+        assertEquals("OP_0 OP_PUSHBYTES_20 7fafce6a7ea1541dc33f99ab673dc525ed3a27b3", vOut1.getScriptPubKeyAsm());
+        assertEquals("v0_p2wpkh", vOut1.getScriptPubKeyType());
+        assertEquals("tb1q07huu6n7592pmselnx4kw0w9yhkn5fan74dze9", vOut1.getScriptPubKeyAddress());
+        assertEquals(0, new BigDecimal("1699422").compareTo(vOut1.getValue()));
     }
 
 }

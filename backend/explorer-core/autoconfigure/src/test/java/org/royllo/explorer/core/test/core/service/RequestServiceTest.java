@@ -84,13 +84,13 @@ public class RequestServiceTest {
         // We should find this request id already in database.
         assertTrue(requestService.getRequestByRequestId("91425ba6-8b16-46a8-baa6-request_p_02").isPresent());
 
-        // We create a new proof request, and we should find it.
+        // We create a new "add proof" request, and we should find it.
         RequestDTO request1DTO = requestService.createAddProofRequest("proof1");
         assertNotNull(request1DTO);
         assertNotNull(request1DTO.getRequestId());
         assertTrue(requestService.getRequestByRequestId(request1DTO.getRequestId()).isPresent());
 
-        // We create a new medata data request, and we should find it.
+        // We create a new "add medata data" request, and we should find it.
         RequestDTO request2DTO = requestService.createAddAssetMetaDataRequest("TaprootAssetId1", "meta1");
         assertNotNull(request2DTO);
         assertNotNull(request2DTO.getRequestId());

@@ -116,6 +116,7 @@ public class TestWithMockServers extends Base {
         }
 
         // We compare each field.
+        // TODO Check each field
         assertEquals(assetDTO.getAssetId(), assetValue.getAssetId());
         verifyTransaction(assetDTO.getGenesisPoint(), assetDTO.getGenesisPoint().getTxId());
         assertEquals(assetDTO.getMetaDataHash(), assetFromTest.getAssetGenesis().getMetaDataHash());
@@ -158,6 +159,7 @@ public class TestWithMockServers extends Base {
         assertTrue(assetState.isPresent());
 
         // We compare each field.
+        // TODO Check each field
         assertEquals(assetStateDTO.getAnchorBlockHash(), assetState.get().getAsset().getChainAnchor().getAnchorBlockHash());
         assertEquals(assetStateDTO.getAnchorOutpoint().getTxId(), assetState.get().getAsset().getChainAnchor().getAnchorTxId());
         assertEquals(assetStateDTO.getAnchorTx(), assetState.get().getAsset().getChainAnchor().getAnchorTx());

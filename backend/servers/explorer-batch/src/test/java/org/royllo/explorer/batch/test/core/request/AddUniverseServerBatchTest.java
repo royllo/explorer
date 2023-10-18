@@ -1,4 +1,4 @@
-package org.royllo.explorer.batch.test.core;
+package org.royllo.explorer.batch.test.core.request;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 @SpringBootTest
 @DisplayName("Add universe server batch test")
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
-@ActiveProfiles({"mempoolTransactionServiceMock", "tapdProofServiceMock", "scheduler-disabled"})
+@ActiveProfiles({"tapdProofServiceMock", "scheduler-disabled"})
 public class AddUniverseServerBatchTest {
 
     @Autowired

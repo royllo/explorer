@@ -178,7 +178,7 @@ public class AssetDataFetcherTest {
     @Test
     @DisplayName("queryAssets() without page number")
     public void queryAssetsWithoutPageNumber() {
-        // Searching an asset without setting page size.
+        // Searching an asset without setting page size (should set page to 1 - Default value).
         AssetPage assetPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
                         QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").build(),
@@ -206,7 +206,6 @@ public class AssetDataFetcherTest {
         assertEquals("asset_id_3", assetPage.getContent().get(3).getAssetId());
         assertEquals("asset_id_4", assetPage.getContent().get(4).getAssetId());
     }
-
 
     @Test
     @DisplayName("queryAssets() with invalid page size")
@@ -307,7 +306,7 @@ public class AssetDataFetcherTest {
         assertEquals(assetFromTestData.getAsset().getAssetGroup().getRawGroupKey(), asset.getAssetGroup().getRawGroupKey());
         assertEquals(assetFromTestData.getAsset().getAssetGroup().getTweakedGroupKey(), asset.getAssetGroup().getTweakedGroupKey());
 
-        // Get asset when asset group is empty (Asset is in the liquibase test script).
+        // Get asset when asset group is empty (This asset is in the liquibase test script).
         asset = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
                         AssetByAssetIdGraphQLQuery.newRequest().assetId("NO_GROUP_ASSET_ASSET_ID").build(),

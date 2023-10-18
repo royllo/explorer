@@ -1,4 +1,4 @@
-package org.royllo.explorer.batch.test.core;
+package org.royllo.explorer.batch.test.core.request;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -108,8 +108,7 @@ public class AddProofRequestBatchTest extends TestWithMockServers {
         assertTrue(invalidProofRequestTreated.isPresent());
         assertFalse(invalidProofRequestTreated.get().isSuccessful());
         assertEquals(FAILURE, invalidProofRequestTreated.get().getStatus());
-        // TODO Add a mock for invalid error
-        //assertEquals("An error occurred while decoding", invalidProofRequestTreated.get().getErrorMessage());
+        assertEquals("proto: (line 1:17): invalid value for bytes type: \"INVALID_PROOF\"", invalidProofRequestTreated.get().getErrorMessage());
 
         // =============================================================================================================
         // "Royllo coin": This asset is already in our database.
@@ -491,7 +490,6 @@ public class AddProofRequestBatchTest extends TestWithMockServers {
                 testCoinProof3AssetState.get().getScriptVersion().longValue());
         assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getScriptKey(),
                 testCoinProof3AssetState.get().getScriptKey());
-
     }
 
 }

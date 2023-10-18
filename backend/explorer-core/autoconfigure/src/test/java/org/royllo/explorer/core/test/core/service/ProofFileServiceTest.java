@@ -23,8 +23,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
 import static org.royllo.test.TapdData.ACTIVE_ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.ACTIVE_ROYLLO_COIN_PROOF_1_PROOF_ID;
 import static org.royllo.test.TapdData.ACTIVE_ROYLLO_COIN_PROOF_1_RAW_PROOF;
+import static org.royllo.test.TapdData.ACTIVE_ROYLLO_COIN_PROOF_2_PROOF_ID;
 import static org.royllo.test.TapdData.ACTIVE_ROYLLO_COIN_PROOF_2_RAW_PROOF;
+import static org.royllo.test.TapdData.ACTIVE_ROYLLO_COIN_PROOF_3_PROOF_ID;
 import static org.royllo.test.TapdData.ACTIVE_ROYLLO_COIN_PROOF_3_RAW_PROOF;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_PROOF_ID;
@@ -75,12 +78,12 @@ public class ProofFileServiceTest extends TestWithMockServers {
 
         // We add again our proof as it's already in our database --> an error must occur.
         e = assertThrows(ProofCreationException.class, () -> proofFileService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, unknownRoylloCoinDecodedProof));
-        assertEquals(e.getMessage(), "This proof file is already registered with proof id: 882416c100923250bf3d9a6947227c309fdd8f348900b42cd02c5904bfa15f52");
+        assertEquals(e.getMessage(), "This proof file is already registered with proof id: " + UNKNOWN_ROYLLO_COIN_RAW_PROOF_PROOF_ID);
     }
 
     @Test
     @DisplayName("getProofFilesByAssetId()")
-    public void getProofsByAssetId() {
+    public void getProofFilesByAssetId() {
         // =============================================================================================================
         // First case: asset id not found in database.
         AssertionError e = assertThrows(AssertionError.class, () -> proofFileService.getProofFilesByAssetId(ROYLLO_COIN_ASSET_ID, 0, 1));
@@ -101,7 +104,7 @@ public class ProofFileServiceTest extends TestWithMockServers {
         assertTrue(proof1.isPresent());
         assertEquals(ANONYMOUS_ID, proof1.get().getCreator().getId());
         assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, proof1.get().getAsset().getAssetId());
-        assertEquals("14e2075827c687217bede3f703cfbc94345717213f4fd34d83b68f8268040691", proof1.get().getProofFileId());
+        assertEquals(ACTIVE_ROYLLO_COIN_PROOF_1_PROOF_ID, proof1.get().getProofFileId());
         assertEquals(ACTIVE_ROYLLO_COIN_PROOF_1_RAW_PROOF, proof1.get().getRawProof());
 
         // Proof 2.
@@ -109,7 +112,7 @@ public class ProofFileServiceTest extends TestWithMockServers {
         assertTrue(proof2.isPresent());
         assertEquals(ANONYMOUS_ID, proof2.get().getCreator().getId());
         assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, proof2.get().getAsset().getAssetId());
-        assertEquals("23a6c9e1db87a8993490c7578c7ae6d85fee3bc16b9fc7d3c4c756f7452262e1", proof2.get().getProofFileId());
+        assertEquals(ACTIVE_ROYLLO_COIN_PROOF_2_PROOF_ID, proof2.get().getProofFileId());
         assertEquals(ACTIVE_ROYLLO_COIN_PROOF_2_RAW_PROOF, proof2.get().getRawProof());
 
         // Proof 3.
@@ -117,7 +120,7 @@ public class ProofFileServiceTest extends TestWithMockServers {
         assertTrue(proof3.isPresent());
         assertEquals(ANONYMOUS_ID, proof3.get().getCreator().getId());
         assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, proof3.get().getAsset().getAssetId());
-        assertEquals("e537eddf83dcb34723121860b49579eb4e766ace01bbb81fc7fec233835f2e1e", proof3.get().getProofFileId());
+        assertEquals(ACTIVE_ROYLLO_COIN_PROOF_3_PROOF_ID, proof3.get().getProofFileId());
         assertEquals(ACTIVE_ROYLLO_COIN_PROOF_3_RAW_PROOF, proof3.get().getRawProof());
 
         // =============================================================================================================
@@ -136,7 +139,7 @@ public class ProofFileServiceTest extends TestWithMockServers {
 
     @Test
     @DisplayName("getProofFileByProofFileId()")
-    public void getProofByProofId() {
+    public void getProofFileByProofFileId() {
         final Optional<ProofFileDTO> roylloCoinProof = proofFileService.getProofFileByProofFileId("09fcd6349cceea648dc00545846e40b50efdf3c9e27e3d7feb43103f6e593576");
 
         // Checking proof.

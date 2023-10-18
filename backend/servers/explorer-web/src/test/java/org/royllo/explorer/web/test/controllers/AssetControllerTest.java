@@ -186,8 +186,8 @@ public class AssetControllerTest extends BaseTest {
     @MethodSource("headers")
     @DisplayName("Invalid asset id")
     void invalidAssetId(final HttpHeaders headers) throws Exception {
-        final String expectedMessage = Objects.requireNonNull(environment.getProperty("asset.view.error.assetNotFound")).replace("\"{0}\"", "&quot;NON_EXISTING&quot;");
-        mockMvc.perform(get("/asset/NON_EXISTING").headers(headers))
+        final String expectedMessage = Objects.requireNonNull(environment.getProperty("asset.view.error.assetNotFound")).replace("\"{0}\"", "&quot;NON_EXISTING_ASSET_ID&quot;");
+        mockMvc.perform(get("/asset/NON_EXISTING_ASSET_ID").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_PAGE)))
                 // Checking error message.

@@ -29,7 +29,7 @@ public class BitcoinServiceTest extends TestWithMockServers {
 
     @Test
     @DisplayName("getBitcoinTransactionOutput()")
-    public void getBitcoinTransactionOutputTest() {
+    public void getBitcoinTransactionOutput() {
         Optional<BitcoinTransactionOutputDTO> bto;
 
         // =============================================================================================================
@@ -53,17 +53,17 @@ public class BitcoinServiceTest extends TestWithMockServers {
 
         // =============================================================================================================
         // Getting a transaction that doesn't exist in our database or in the blockchain.
-        assertFalse(bitcoinService.getBitcoinTransactionOutput("NON-EXISTING-TRANSACTION", 0).isPresent());
-
-        // =============================================================================================================
-        // Getting a transaction that doesn't exist in our database but exists in the blockchain (index 1).
-        bto = bitcoinService.getBitcoinTransactionOutput(BITCOIN_TRANSACTION_3_TXID, 1);
-        assertTrue(bto.isPresent());
-        verifyTransaction(bto.get(), BITCOIN_TRANSACTION_3_TXID);
+        assertFalse(bitcoinService.getBitcoinTransactionOutput("NON_EXISTING_TRANSACTION_OUTPUT", 0).isPresent());
 
         // =============================================================================================================
         // Getting a transaction that doesn't exist in our database but exists in the blockchain (index 0).
         bto = bitcoinService.getBitcoinTransactionOutput(BITCOIN_TRANSACTION_3_TXID, 0);
+        assertTrue(bto.isPresent());
+        verifyTransaction(bto.get(), BITCOIN_TRANSACTION_3_TXID);
+
+        // =============================================================================================================
+        // Getting a transaction that doesn't exist in our database but exists in the blockchain (index 1).
+        bto = bitcoinService.getBitcoinTransactionOutput(BITCOIN_TRANSACTION_3_TXID, 1);
         assertTrue(bto.isPresent());
         verifyTransaction(bto.get(), BITCOIN_TRANSACTION_3_TXID);
 

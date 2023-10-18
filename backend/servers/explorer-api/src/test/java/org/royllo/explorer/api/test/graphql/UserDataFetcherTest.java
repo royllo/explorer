@@ -25,8 +25,8 @@ public class UserDataFetcherTest {
     DgsQueryExecutor dgsQueryExecutor;
 
     @Test
-    @DisplayName("getUserByUserId()")
-    public void getUserByUserId() {
+    @DisplayName("userByUserId()")
+    public void userByUserId() {
         User user = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
                         UserByUserIdGraphQLQuery.newRequest().userId("11111111-1111-1111-1111-111111111111").build(),
@@ -43,8 +43,8 @@ public class UserDataFetcherTest {
     }
 
     @Test
-    @DisplayName("getUserByUsername()")
-    public void getUserByUsername() {
+    @DisplayName("userByUsername()")
+    public void userByUsername() {
         User user = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
                         UserByUsernameGraphQLQuery.newRequest().username("straumat").build(),

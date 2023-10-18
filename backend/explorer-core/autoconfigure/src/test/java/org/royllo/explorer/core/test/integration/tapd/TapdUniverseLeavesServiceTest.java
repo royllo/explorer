@@ -11,17 +11,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(properties = {"tapd.api.base-url=https://157.230.85.88:8089"})
-@DisplayName("TAPD Universe leaves service test")
+@DisplayName("Lightning TAPD universe leaves service test")
 public class TapdUniverseLeavesServiceTest {
 
     @Autowired
     private TapdService tapdService;
 
     @Test
-    @DisplayName("Calling getUniverseLeaves() on TAPD")
+    @DisplayName("getUniverseLeaves() on lightning TAPD")
     public void getUniverseLeavesTest() {
         UniverseLeavesResponse response = tapdService.getUniverseLeaves("https://testnet.universe.lightning.finance",
-                "f84238ffd7838b663f1800d8147c9338f15688b430f6e9d8d53f148049ef3bcb").block();
+                "05c34a505589025a0a78c31237e560406e4a2c5dc5a41c4ece6f96abbe77ad53").block();
 
         // Testing the response.
         assertNotNull(response);
@@ -31,15 +31,15 @@ public class TapdUniverseLeavesServiceTest {
     }
 
     @Test
-    @DisplayName("Calling getUniverseLeaves() with wrong value on TAPD")
+    @DisplayName("getUniverseLeaves() with wrong value on lightning TAPD")
     public void getUniverseLeavesWithWrongValueTest() {
         UniverseLeavesResponse response = tapdService.getUniverseLeaves("https://testnet.universe.lightning.finance",
-                "not-existing").block();
+                "NON_EXISTING_ASSET_ID").block();
 
         // Testing the response (error).
         assertNotNull(response);
         assertEquals(2, response.getErrorCode());
-        assertEquals("encoding/hex: invalid byte: U+006E 'n'", response.getErrorMessage());
+        assertEquals("encoding/hex: invalid byte: U+004E 'N'", response.getErrorMessage());
     }
 
 }

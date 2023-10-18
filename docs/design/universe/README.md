@@ -56,7 +56,7 @@ curl https://testnet.universe.lightning.finance/v1/taproot-assets/universe/roots
 You can search for one with:
 
 ```bash
-curl https://testnet.universe.lightning.finance/v1/taproot-assets/universe/roots/asset-id/f84238ffd7838b663f1800d8147c9338f15688b430f6e9d8d53f148049ef3bcb | jq
+curl https://testnet.universe.lightning.finance/v1/taproot-assets/universe/roots/asset-id/a3ce8dc3b9cf64b2655149f7197e49052a0e86a31ccaa9dd3e5d03fb81f43545 | jq
 ```
 
 note : A UniverseKey is composed of the Universe ID (asset_id/group_key) and also a leaf key (outpoint || script_key)
@@ -66,7 +66,7 @@ represents either asset issuance events (they have a genesis witness) or asset t
 leaves contain a normal Taproot Asset proof, as well as details for the asset.
 
 ```bash
-curl https://testnet.universe.lightning.finance/v1/taproot-assets/universe/leaves/asset-id/f84238ffd7838b663f1800d8147c9338f15688b430f6e9d8d53f148049ef3bcb | jq
+curl https://testnet.universe.lightning.finance/v1/taproot-assets/universe/leaves/asset-id/a3ce8dc3b9cf64b2655149f7197e49052a0e86a31ccaa9dd3e5d03fb81f43545 | jq
 ```
 
 3 - Decode the proof retrieved in the previous step and it's ok, add the proof to our database throw an add proof
