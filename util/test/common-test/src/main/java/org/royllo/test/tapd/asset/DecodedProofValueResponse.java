@@ -73,7 +73,7 @@ public class DecodedProofValueResponse {
 
             /** Version. */
             @JsonProperty("version")
-            int version;
+            String version;
 
             /** Asset genesis. */
             @JsonProperty("asset_genesis")

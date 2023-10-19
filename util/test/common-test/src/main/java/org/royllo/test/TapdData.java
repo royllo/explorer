@@ -125,8 +125,8 @@ public class TapdData {
             AssetValue roylloCoin = new AssetValue();
             // Decoded proof 1.
             roylloCoin.addDecodedProofValue(new DecodedProofValue(
-                    getDecodedProofRequestFromFile("/tapd/roylloCoin/decodeProof-proofFile1-proofAtDepth0-request.json"),
-                    getDecodedProofResponseFromFile("/tapd/roylloCoin/decodeProof-proofFile1-proofAtDepth0-response.json")));
+                    getDecodedProofRequestFromFile("/tapd/old/roylloCoin/decodeProof-proofFile1-proofAtDepth0-request.json"),
+                    getDecodedProofResponseFromFile("/tapd/old/roylloCoin/decodeProof-proofFile1-proofAtDepth0-response.json")));
             // Adding the asset
             ASSETS.put(roylloCoin.getAssetId(), roylloCoin);
 
@@ -135,8 +135,8 @@ public class TapdData {
             AssetValue unknownRoylloCoin = new AssetValue();
             // Decoded proof 1.
             unknownRoylloCoin.addDecodedProofValue(new DecodedProofValue(
-                    getDecodedProofRequestFromFile("/tapd/unknownRoylloCoin/decodeProof-proofFile1-proofAtDepth0-request.json"),
-                    getDecodedProofResponseFromFile("/tapd/unknownRoylloCoin/decodeProof-proofFile1-proofAtDepth0-response.json")));
+                    getDecodedProofRequestFromFile("/tapd/old/unknownRoylloCoin/decodeProof-proofFile1-proofAtDepth0-request.json"),
+                    getDecodedProofResponseFromFile("/tapd/old/unknownRoylloCoin/decodeProof-proofFile1-proofAtDepth0-response.json")));
             // Adding the asset
             ASSETS.put(unknownRoylloCoin.getAssetId(), unknownRoylloCoin);
 
@@ -144,33 +144,54 @@ public class TapdData {
             // TestCoin.
             AssetValue testCoin = new AssetValue();
             testCoin.addDecodedProofValue(new DecodedProofValue(
-                    getDecodedProofRequestFromFile("/tapd/testCoin/decodeProof-proofFile1-proofAtDepth0-request.json"),
-                    getDecodedProofResponseFromFile("/tapd/testCoin/decodeProof-proofFile1-proofAtDepth0-response.json")));
+                    getDecodedProofRequestFromFile("/tapd/old/testCoin/decodeProof-proofFile1-proofAtDepth0-request.json"),
+                    getDecodedProofResponseFromFile("/tapd/old/testCoin/decodeProof-proofFile1-proofAtDepth0-response.json")));
             testCoin.addDecodedProofValue(new DecodedProofValue(
-                    getDecodedProofRequestFromFile("/tapd/testCoin/decodeProof-proofFile2-proofAtDepth0-request.json"),
-                    getDecodedProofResponseFromFile("/tapd/testCoin/decodeProof-proofFile2-proofAtDepth0-response.json")));
+                    getDecodedProofRequestFromFile("/tapd/old/testCoin/decodeProof-proofFile2-proofAtDepth0-request.json"),
+                    getDecodedProofResponseFromFile("/tapd/old/testCoin/decodeProof-proofFile2-proofAtDepth0-response.json")));
             testCoin.addDecodedProofValue(new DecodedProofValue(
-                    getDecodedProofRequestFromFile("/tapd/testCoin/decodeProof-proofFile2-proofAtDepth1-request.json"),
-                    getDecodedProofResponseFromFile("/tapd/testCoin/decodeProof-proofFile2-proofAtDepth1-response.json")));
+                    getDecodedProofRequestFromFile("/tapd/old/testCoin/decodeProof-proofFile2-proofAtDepth1-request.json"),
+                    getDecodedProofResponseFromFile("/tapd/old/testCoin/decodeProof-proofFile2-proofAtDepth1-response.json")));
             testCoin.addDecodedProofValue(new DecodedProofValue(
-                    getDecodedProofRequestFromFile("/tapd/testCoin/decodeProof-proofFile3-proofAtDepth0-request.json"),
-                    getDecodedProofResponseFromFile("/tapd/testCoin/decodeProof-proofFile3-proofAtDepth0-response.json")));
+                    getDecodedProofRequestFromFile("/tapd/old/testCoin/decodeProof-proofFile3-proofAtDepth0-request.json"),
+                    getDecodedProofResponseFromFile("/tapd/old/testCoin/decodeProof-proofFile3-proofAtDepth0-response.json")));
             testCoin.addDecodedProofValue(new DecodedProofValue(
-                    getDecodedProofRequestFromFile("/tapd/testCoin/decodeProof-proofFile3-proofAtDepth1-request.json"),
-                    getDecodedProofResponseFromFile("/tapd/testCoin/decodeProof-proofFile3-proofAtDepth1-response.json")));
+                    getDecodedProofRequestFromFile("/tapd/old/testCoin/decodeProof-proofFile3-proofAtDepth1-request.json"),
+                    getDecodedProofResponseFromFile("/tapd/old/testCoin/decodeProof-proofFile3-proofAtDepth1-response.json")));
             ASSETS.put(testCoin.getAssetId(), testCoin);
 
             // =========================================================================================================
             // Invalid proof.
             AssetValue invalidData = new AssetValue();
             invalidData.addDecodedProofValue(new DecodedProofValue(
-                    getDecodedProofRequestFromFile("/tapd/invalid/decodeProof-proofFile1-proofAtDepth0-request.json"),
-                    getDecodedProofResponseFromFile("/tapd/invalid/decodeProof-proofFile1-proofAtDepth0-response.json")));
+                    getDecodedProofRequestFromFile("/tapd/old/invalid/decodeProof-proofFile1-proofAtDepth0-request.json"),
+                    getDecodedProofResponseFromFile("/tapd/old/invalid/decodeProof-proofFile1-proofAtDepth0-response.json")));
             ASSETS.put("INVALID_COIN", invalidData);
 
             // =========================================================================================================
+            // coinWithFixedSupply.
+            AssetValue coinWithFixedSupply = new AssetValue();
+            coinWithFixedSupply.addDecodedProofValue(new DecodedProofValue(
+                    getDecodedProofRequestFromFile("/tapd/old/coinWithFixedSupply/decodeProof-proofFile1-proofAtDepth0-request.json"),
+                    getDecodedProofResponseFromFile("/tapd/old/coinWithFixedSupply/decodeProof-proofFile1-proofAtDepth0-response.json")));
+
+            // =========================================================================================================
+            // coinWithEmission.
+            AssetValue coinWithEmissionFirstEmission = new AssetValue();
+            coinWithEmissionFirstEmission.addDecodedProofValue(new DecodedProofValue(
+                    getDecodedProofRequestFromFile("/tapd/old/coinWithEmission/first/decodeProof-proofFile1-proofAtDepth0-request.json"),
+                    getDecodedProofResponseFromFile("/tapd/old/coinWithEmission/first/decodeProof-proofFile1-proofAtDepth0-response.json")));
+            ASSETS.put(coinWithEmissionFirstEmission.getAssetId(), coinWithEmissionFirstEmission);
+
+            AssetValue coinWithEmissionSecondEmission = new AssetValue();
+            coinWithEmissionSecondEmission.addDecodedProofValue(new DecodedProofValue(
+                    getDecodedProofRequestFromFile("/tapd/old/coinWithEmission/second/decodeProof-proofFile1-proofAtDepth0-request.json"),
+                    getDecodedProofResponseFromFile("/tapd/old/coinWithEmission/second/decodeProof-proofFile1-proofAtDepth0-response.json")));
+            ASSETS.put(coinWithEmissionSecondEmission.getAssetId(), coinWithEmissionSecondEmission);
+
+            // =========================================================================================================
             // Universe - reply to universe/roots.
-            UNIVERSE_ROOTS_RESPONSE = getUniverseRootsResponse("/tapd/universe/universe-roots-response.json");
+            UNIVERSE_ROOTS_RESPONSE = getUniverseRootsResponse("/tapd/old/universe/universe-roots-response.json");
 
         } catch (IOException e) {
             throw new RuntimeException("TestAssets loading error: " + e);

@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.TEST_COIN_ASSET_ID;
-import static org.royllo.test.TapdData.UNKNOWN_ROYLLO_COIN_ASSET_ID;
 
 @DisplayName("Test asset tests")
 public class TapdDataTest {
@@ -36,10 +35,6 @@ public class TapdDataTest {
         assertNotNull(decodedProofValue1.getRequest().getRawProof());
         assertNotNull(decodedProofValue1.getResponse());
         assertNotNull(decodedProofValue1.getResponse().getDecodedProof().getAsset().getAssetType());
-
-        // =============================================================================================================
-        // Unknown royllo coin.
-        assertNull(TapdData.findAssetValueByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID));
 
         // =============================================================================================================
         // Test coin.

@@ -74,6 +74,21 @@ public class MempoolData {
             TRANSACTIONS.put(TX_FOR_TEST_COIN_1, getTransactionValueFromFile(TX_FOR_TEST_COIN_1));
             TRANSACTIONS.put(TX_FOR_TEST_COIN_2, getTransactionValueFromFile(TX_FOR_TEST_COIN_2));
             TRANSACTIONS.put(TX_FOR_TEST_COIN_3, getTransactionValueFromFile(TX_FOR_TEST_COIN_3));
+
+            // Transactions for coinWithFixedSupply.
+            TRANSACTIONS.put("21da01524e9d41f20d2fd51b76acfe0468ac0954addeb314bfd8ca63cc276a69",
+                    getTransactionValueFromFile("21da01524e9d41f20d2fd51b76acfe0468ac0954addeb314bfd8ca63cc276a69"));
+            TRANSACTIONS.put("ab75d04579905832c8a4ab2d6936a096496f3f0b658354324cb15594308a5e06",
+                    getTransactionValueFromFile("ab75d04579905832c8a4ab2d6936a096496f3f0b658354324cb15594308a5e06"));
+
+            // Transactions for coinWithEmission.
+            TRANSACTIONS.put("49748296309e13a71f7ed14404a66a8bb09cb6b81ec8248586d09a96e3478082",
+                    getTransactionValueFromFile("49748296309e13a71f7ed14404a66a8bb09cb6b81ec8248586d09a96e3478082"));
+            TRANSACTIONS.put("f5cb0a137c8f5cdad6e1ba78aa34dee74b9808e33bc81b45d26d0198efd1ea95",
+                    getTransactionValueFromFile("f5cb0a137c8f5cdad6e1ba78aa34dee74b9808e33bc81b45d26d0198efd1ea95"));
+            TRANSACTIONS.put("69a9ae015c9fbd947e348839efe8ae5f77fcc7b13b740ccaeadd1d664f38dae9",
+                    getTransactionValueFromFile("69a9ae015c9fbd947e348839efe8ae5f77fcc7b13b740ccaeadd1d664f38dae9"));
+
         } catch (IOException e) {
             throw new RuntimeException("TestTransactions loading error: " + e);
         }
