@@ -12,8 +12,8 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockserver.integration.ClientAndServer.startClientAndServer;
-import static org.royllo.test.MempoolData.BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID;
-import static org.royllo.test.MempoolData.BITCOIN_TRANSACTION_1_TXID;
+import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_TXID;
+import static org.royllo.test.MempoolData.ROYLLO_NFT_GENESIS_TXID;
 
 @DisplayName("Mempool mock server test")
 public class MempoolMockServerTest {
@@ -30,20 +30,20 @@ public class MempoolMockServerTest {
 
         // Testing a transaction existing on the bitcoin mainnet.
         Request request = new Request.Builder()
-                .url("http://localhost:" + MOCK_SERVER_PORT + "/api/tx/" + BITCOIN_TRANSACTION_1_TXID)
+                .url("http://localhost:" + MOCK_SERVER_PORT + "/api/tx/" + ROYLLO_COIN_GENESIS_TXID)
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            assertTrue(response.body().string().contains("\"txid\" : \"2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea\""));
+            assertTrue(response.body().string().contains("\"txid\" : \"04feaf85babeeb5662e1139edd48b889ec178880cc69bbe38b5820dae322c75b\""));
         } catch (IOException e) {
             fail("Error while calling the mock server");
         }
 
         // Testing a transaction existing on the bitcoin testnet.
         request = new Request.Builder()
-                .url("http://localhost:" + MOCK_SERVER_PORT + "/testnet/api/tx/" + BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID)
+                .url("http://localhost:" + MOCK_SERVER_PORT + "/testnet/api/tx/" + ROYLLO_NFT_GENESIS_TXID)
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            assertTrue(response.body().string().contains("\"txid\" : \"d8a8016095b9fcd1f63c57342d375026ecbc72c885a54b676c6e62b216e15365\""));
+            assertTrue(response.body().string().contains("\"txid\" : \"c28a42586b36ac499c6d36da792d98176572573124dbc82526d02bbad5b3d9c7\""));
         } catch (IOException e) {
             fail("Error while calling the mock server");
         }
