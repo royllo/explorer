@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -73,7 +73,7 @@ public class GetTransactionValueResponse {
 
         /** Value is the number of Satoshi (1 BTC = 100,000,000 Satoshi). */
         @JsonProperty("value")
-        BigDecimal value = null;
+        BigInteger value = null;
 
     }
 
