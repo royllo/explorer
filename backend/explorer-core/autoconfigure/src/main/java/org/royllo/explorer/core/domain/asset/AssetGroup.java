@@ -40,6 +40,7 @@ public class AssetGroup extends BaseDomain {
     private User creator;
 
     /** A signature over the genesis point using the above key. */
+    // TODO Rename to asset witness or suppress ?
     @Column(name = "ASSET_ID_SIG")
     private String assetIdSig;
 

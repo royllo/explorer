@@ -110,7 +110,7 @@ public class TestWithMockServers extends Base {
             if (assetFromTest.getAssetGroup() == null) {
                 fail("There should not be a null asset group");
             }
-            assetGroupEquality = Objects.equals(assetDTO.getAssetGroup().getAssetIdSig(), assetFromTest.getAssetGroup().getAssetIdSig()) &&
+            assetGroupEquality = Objects.equals(assetDTO.getAssetGroup().getAssetIdSig(), assetFromTest.getAssetGroup().getAssetWitness()) &&
                     Objects.equals(assetDTO.getAssetGroup().getRawGroupKey(), assetFromTest.getAssetGroup().getRawGroupKey()) &&
                     Objects.equals(assetDTO.getAssetGroup().getTweakedGroupKey(), assetFromTest.getAssetGroup().getTweakedGroupKey());
         }

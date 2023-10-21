@@ -69,7 +69,7 @@ public class TapdDecodeServiceTest {
         // TODO Waiting for issue https://github.com/lightninglabs/taproot-assets/issues/407 to be fixed.
         assertEquals("", assetGroupFromServer.getRawGroupKey());
         assertEquals(assetGroupFromTestData.getTweakedGroupKey(), assetGroupFromServer.getTweakedGroupKey());
-        assertEquals(assetGroupFromTestData.getAssetIdSig(), assetGroupFromServer.getAssetIdSig());
+        assertEquals(assetGroupFromTestData.getAssetWitness(), assetGroupFromServer.getAssetIdSig());
 
         // Chain anchor.
         final DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchorFromServer = response.getDecodedProof().getAsset().getChainAnchor();

@@ -72,7 +72,7 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(containsString(">Normal<")))
                 .andExpect(content().string(containsString(">" + assetFromTestData.getAsset().getAmount() + "<")))
                 // Asset group.
-                .andExpect(content().string(containsString(">" + assetFromTestData.getAsset().getAssetGroup().getAssetIdSig() + "<")))
+                .andExpect(content().string(containsString(">" + assetFromTestData.getAsset().getAssetGroup().getAssetWitness() + "<")))
                 // TODO Find a worling example
                 //.andExpect(content().string(containsString(">" + ROYLLO_COIN_RAW_GROUP_KEY + "<")))
                 .andExpect(content().string(containsString(">" + assetFromTestData.getAsset().getAssetGroup().getTweakedGroupKey() + "<")))
@@ -112,7 +112,7 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(containsString(">Normal<")))
                 .andExpect(content().string(containsString(">" + assetFromTestData.getAsset().getAmount() + "<")))
                 // Asset group.
-                .andExpect(content().string(containsString(">" + assetFromTestData.getAsset().getAssetGroup().getAssetIdSig() + "<")))
+                .andExpect(content().string(containsString(">" + assetFromTestData.getAsset().getAssetGroup().getAssetWitness() + "<")))
                 // TODO Find a worling example
                 //.andExpect(content().string(containsString(">" + ROYLLO_COIN_RAW_GROUP_KEY + "<")))
                 .andExpect(content().string(containsString(">" + assetFromTestData.getAsset().getAssetGroup().getTweakedGroupKey() + "<")))

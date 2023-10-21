@@ -302,7 +302,7 @@ public class AssetDataFetcherTest {
         // Asset group.
         assertEquals(ANONYMOUS_USER_ID, asset.getAssetGroup().getCreator().getUserId());
         assertEquals(ANONYMOUS_USER_USERNAME, asset.getAssetGroup().getCreator().getUsername());
-        assertEquals(assetFromTestData.getAsset().getAssetGroup().getAssetIdSig(), asset.getAssetGroup().getAssetIdSig());
+        assertEquals(assetFromTestData.getAsset().getAssetGroup().getAssetWitness(), asset.getAssetGroup().getAssetIdSig());
         assertEquals(assetFromTestData.getAsset().getAssetGroup().getRawGroupKey(), asset.getAssetGroup().getRawGroupKey());
         assertEquals(assetFromTestData.getAsset().getAssetGroup().getTweakedGroupKey(), asset.getAssetGroup().getTweakedGroupKey());
 
