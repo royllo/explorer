@@ -28,7 +28,7 @@ public class MempoolMockServerTest {
         MempoolData.setMockServerRules(mempoolMockServer);
         var client = new OkHttpClient();
 
-        // Testing a transaction existing on the bitcoin mainnet.
+        // Testing a transaction existing on the bitcoin testnet.
         Request request = new Request.Builder()
                 .url("http://localhost:" + MOCK_SERVER_PORT + "/api/tx/" + ROYLLO_COIN_GENESIS_TXID)
                 .build();

@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_TXID;
 
-@DisplayName("Test mempool data")
+@DisplayName("Test transactions data")
 public class MempoolDataTest {
 
     @Test

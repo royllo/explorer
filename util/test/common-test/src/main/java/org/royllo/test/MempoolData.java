@@ -20,35 +20,40 @@ import static org.mockserver.model.HttpResponse.response;
 import static org.mockserver.model.MediaType.APPLICATION_JSON;
 
 /**
- * Mempool transactions data.
+ * Test mempool data.
  */
-@SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "checkstyle:MagicNumber", "checkstyle:JavadocVariable"})
+@SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "checkstyle:MagicNumber", "checkstyle:JavadocVariable", "unused"})
 public class MempoolData {
 
     // =================================================================================================================
-    // For RoylloCoin
+    // RoylloCoin
     public static final String ROYLLO_COIN_GENESIS_TXID = "04feaf85babeeb5662e1139edd48b889ec178880cc69bbe38b5820dae322c75b";
     public static final String ROYLLO_COIN_ANCHOR_1_TXID = "c28a42586b36ac499c6d36da792d98176572573124dbc82526d02bbad5b3d9c7";
+
     // =================================================================================================================
-    // For roylloNFT
+    // roylloNFT
     public static final String ROYLLO_NFT_GENESIS_TXID = "c28a42586b36ac499c6d36da792d98176572573124dbc82526d02bbad5b3d9c7";
     public static final String ROYLLO_NFT_ANCHOR_1_TXID = "6db79f5af2ba65bfb4044ced690f3acb4a791a6fc6a7450664e15559ad770b90";
+
     // =================================================================================================================
-    // For setOfRoylloNFT
+    // setOfRoylloNFT
     public static final String SET_OF_ROYLLO_NFT_GENESIS_TXID = "6db79f5af2ba65bfb4044ced690f3acb4a791a6fc6a7450664e15559ad770b90";
     public static final String SET_OF_ROYLLO_NFT_ANCHOR_1_TXID = "ca93a44b534f410914c18ed4563c97b0a6c31194af236d789a79683c9ec76526";
+
     // =================================================================================================================
-    // For trickyRoylloCoin
+    // trickyRoylloCoin
     public static final String TRICKY_ROYLLO_COIN_GENESIS_TXID = "2777e306451f6d5231f4b17b8286412e1e13ef153800086cf879baae89d9df76";
     public static final String TRICKY_ROYLLO_COIN_ANCHOR_1_TXID = "632d0c3935fff230aa3718e268dce5517786d7976f7aa33efb615b408737b0ad";
     public static final String TRICKY_ROYLLO_COIN_ANCHOR_2_TXID = "f2acf1235882a7683bad5baeb1b84c2f1dbf33f0fc4a7c85f2191aa8d49ce0d3";
     public static final String TRICKY_ROYLLO_COIN_ANCHOR_3_TXID = "2727229cc771efa552f9232a04b0cd8d16df6d83bd217523888feee6a8553ec8";
+
     // =================================================================================================================
-    // For unknownRoylloCoin
+    // unknownRoylloCoin
     public static final String UNKNOWN_ROYLLO_COIN_GENESIS_TXID = "2727229cc771efa552f9232a04b0cd8d16df6d83bd217523888feee6a8553ec8";
     public static final String UNKNOWN_ROYLLO_COIN_ANCHOR_1_TXID = "77b550de10ad347daf314f4982a979db6d101573afe6fbf20c35935ce4bb0413";
+
     // =================================================================================================================
-    // For unlimitedRoylloCoin
+    // unlimitedRoylloCoin
     public static final String UNLIMITED_ROYLLO_COIN_1_GENESIS_TXID = "77b550de10ad347daf314f4982a979db6d101573afe6fbf20c35935ce4bb0413";
     public static final String UNLIMITED_ROYLLO_COIN_1_ANCHOR_1_TXID = "2debb29de64ed7aafaf79c034f1ba22c41f484fafc814cab7b22a97bacfa6825";
     public static final String UNLIMITED_ROYLLO_COIN_2_GENESIS_TXID = "2debb29de64ed7aafaf79c034f1ba22c41f484fafc814cab7b22a97bacfa6825";
@@ -97,14 +102,13 @@ public class MempoolData {
      * @param mockServer mock server
      */
     public static void setMockServerRules(final ClientAndServer mockServer) {
-        // Adding all transactions to the mock server.
-        for (Map.Entry<String, TransactionValue> entry : TRANSACTIONS.entrySet()) {
+        TRANSACTIONS.values().forEach(transactionValue -> {
             // Mock the request.
-            mockServer.when(request().withPath(".*/api/tx/" + entry.getKey() + ".*"))
+            mockServer.when(request().withPath(".*/api/tx/" + transactionValue.getTxId() + ".*"))
                     .respond(response().withStatusCode(200)
                             .withContentType(APPLICATION_JSON)
-                            .withBody(entry.getValue().getJSONResponse()));
-        }
+                            .withBody(transactionValue.getJSONResponse()));
+        });
     }
 
     /**

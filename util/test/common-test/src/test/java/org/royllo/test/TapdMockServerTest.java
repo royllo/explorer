@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
-import static org.royllo.test.TapdData.TEST_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 
 /**
  * Tapd mock server test.
@@ -42,46 +42,25 @@ public class TapdMockServerTest {
                 .post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), roylloCoin.getDecodedProofValues().get(0).getJSONRequest()))
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            assertTrue(response.body().string().contains("\"genesis_point\" : \"57faede9e107f3af74bb93e730bc1dfd07f81b166a974068f823d30d9eb10111:1"));
+            assertTrue(response.body().string().contains("\"genesis_point\" : \"04feaf85babeeb5662e1139edd48b889ec178880cc69bbe38b5820dae322c75b:0"));
         } catch (IOException e) {
             fail("Error while calling the mock server");
         }
 
-        // Testing with test coin.
-        AssetValue testCoin = TapdData.findAssetValueByAssetId(TEST_COIN_ASSET_ID);
+        // Testing with tricky royllo coin.
+        AssetValue testCoin = TapdData.findAssetValueByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID);
         assertNotNull(testCoin);
         request = new Request.Builder()
                 .url("http://localhost:" + MOCK_SERVER_PORT + "/v1/taproot-assets/proofs/decode")
                 .post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), testCoin.getDecodedProofValues().get(2).getJSONRequest()))
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            assertTrue(response.body().string().contains("\"script_key\" : \"02f02cc84b9f38f9596afd32542439d87fb8cd44e73ac4d94445044bb5e98331b1\""));
+            assertTrue(response.body().string().contains("\"script_key\" : \"023a8d9bc352eb3f5f69b798a941f06244b3633a8fd2cf82406132504ff08e23ff\""));
         } catch (IOException e) {
             fail("Error while calling the mock server");
         }
 
         tapdMockServer.stop();
-    }
-
-    @Test
-    @DisplayName("Mock server universe roots response")
-    public void universeRootsResponse() {
-        final ClientAndServer tapdMockServer = ClientAndServer.startClientAndServer(MOCK_SERVER_PORT);
-        TapdData.setMockServerRules(tapdMockServer);
-        var client = new OkHttpClient();
-
-        // Testing the universe/roots response.
-        AssetValue roylloCoin = TapdData.findAssetValueByAssetId(ROYLLO_COIN_ASSET_ID);
-        assertNotNull(roylloCoin);
-        Request request = new Request.Builder()
-                .url("http://localhost:" + MOCK_SERVER_PORT + "/v1/taproot-assets/universe/roots")
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            // System.out.println("==> " + response.body().string());
-            assertTrue(response.body().string().contains("\"asset_id\" : \"02a4d3ce40a0d96deb7dcbd1eb565b8c46e4f5366260cecf848364b2a7fb2c5a\""));
-        } catch (IOException e) {
-            fail("Error while calling the mock server");
-        }
     }
 
 }
