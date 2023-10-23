@@ -29,7 +29,6 @@
 
             <column name="ANCHOR_TX"
                     value="0200000000010139481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0100000000ffffffff026f02000000000000160014b3cb6391af7e94b41475cb925e1eafed57c318cae803000000000000225120541c599eae0b80c2c7c5c7a17b75b147a0fe20663277bbbd49247e87b9b1c1370247304402204afb9a04135bc36e9062e8e0cafad11a58fc2e13f6dcf01447938faced44b53e02202492dc504f6b5577d4add1ea550fad8f7357f7c7215a7d5ec21e14269f270a5e0121027ebfbaf2f6612b4819b188f3b80386d5ddf3d4c55c5f4af8c688d97b8984b0d600000000"/>
-            <column name="ANCHOR_TXID" value="60b11c06d29ad10a66082953e37010090b39bc7541c321066a9e8bf7507abdd7"/>
             <column name="ANCHOR_BLOCK_HASH" value="000000000000002366fc3e4cc4074a94529e09858b6585004a0056e47e08c0c9"/>
             <column name="ANCHOR_OUTPOINT" value="60b11c06d29ad10a66082953e37010090b39bc7541c321066a9e8bf7507abdd7"/>
             <column name="INTERNAL_KEY"
@@ -63,7 +62,6 @@
                     value="2"/>
             <column name="ANCHOR_TX"
                     value="0200000000010139481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0100000000ffffffff026f02000000000000160014b3cb6391af7e94b41475cb925e1eafed57c318cae803000000000000225120541c599eae0b80c2c7c5c7a17b75b147a0fe20663277bbbd49247e87b9b1c1370247304402204afb9a04135bc36e9062e8e0cafad11a58fc2e13f6dcf01447938faced44b53e02202492dc504f6b5577d4add1ea550fad8f7357f7c7215a7d5ec21e14269f270a5e0121027ebfbaf2f6612b4819b188f3b80386d5ddf3d4c55c5f4af8c688d97b8984b0d600000000"/>
-            <column name="ANCHOR_TXID" value="60b11c06d29ad10a66082953e37010090b39bc7541c321066a9e8bf7507abdd7"/>
             <column name="INTERNAL_KEY" value="03bea9941963648cfaaa2981d68ebf209e20b3e68287d94371805832e962401429"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_0"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_0"/>
@@ -96,7 +94,6 @@
             <column name="SCRIPT_KEY" value="script key 1"/>
 
             <column name="ANCHOR_TX" value="Anchor tx 1"/>
-            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 1"/>
             <column name="INTERNAL_KEY" value="Anchor internal key 1"/>
@@ -126,7 +123,6 @@
             <column name="SCRIPT_KEY" value="script key 2"/>
 
             <column name="ANCHOR_TX" value="Anchor tx 2"/>
-            <column name="ANCHOR_TXID" value="Anchor tx id 2"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 2"/>
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 2"/>
             <column name="INTERNAL_KEY" value="Anchor internal key 2"/>
@@ -155,7 +151,6 @@
             <column name="SCRIPT_KEY" value="script key 3"/>
 
             <column name="ANCHOR_TX" value="Anchor tx 3"/>
-            <column name="ANCHOR_TXID" value="Anchor tx id 3"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 3"/>
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 3"/>
             <column name="INTERNAL_KEY" value="Anchor internal key 3"/>
@@ -184,7 +179,6 @@
             <column name="SCRIPT_KEY" value="script key 4"/>
 
             <column name="ANCHOR_TX" value="Anchor tx 4"/>
-            <column name="ANCHOR_TXID" value="Anchor tx id 4"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 4"/>
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 4"/>
             <column name="INTERNAL_KEY" value="Anchor internal key 4"/>
@@ -213,7 +207,6 @@
             <column name="SCRIPT_KEY" value="script key 5"/>
 
             <column name="ANCHOR_TX" value="Anchor tx 5"/>
-            <column name="ANCHOR_TXID" value="Anchor tx id 5"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 5"/>
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 5"/>
             <column name="INTERNAL_KEY" value="Anchor internal key 5"/>
@@ -242,7 +235,6 @@
             <column name="SCRIPT_KEY" value="script key 5"/>
 
             <column name="ANCHOR_TX" value="Anchor tx 5"/>
-            <column name="ANCHOR_TXID" value="Anchor tx id 5"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 5"/>
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 5"/>
             <column name="INTERNAL_KEY" value="Anchor internal key 5"/>
@@ -271,7 +263,6 @@
             <column name="SCRIPT_KEY" value="script key 7"/>
 
             <column name="ANCHOR_TX" value="Anchor tx 7"/>
-            <column name="ANCHOR_TXID" value="Anchor tx id 7"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 7"/>
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 7"/>
             <column name="INTERNAL_KEY" value="Anchor internal key 7"/>
@@ -300,7 +291,6 @@
             <column name="SCRIPT_KEY" value="script key 8"/>
 
             <column name="ANCHOR_TX" value="Anchor tx 8"/>
-            <column name="ANCHOR_TXID" value="Anchor tx id 8"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 8"/>
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 8"/>
             <column name="INTERNAL_KEY" value="Anchor internal key 8"/>
@@ -329,7 +319,6 @@
             <column name="SCRIPT_KEY" value="script key 9"/>
 
             <column name="ANCHOR_TX" value="Anchor tx 9"/>
-            <column name="ANCHOR_TXID" value="Anchor tx id 9"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 9"/>
             <column name="ANCHOR_OUTPOINT" value="Anchor outpoint 9"/>
             <column name="INTERNAL_KEY" value="Anchor internal key 9"/>

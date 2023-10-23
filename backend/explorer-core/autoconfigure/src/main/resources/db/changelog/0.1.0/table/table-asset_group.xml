@@ -18,7 +18,8 @@
                     remarks="The user who created this asset"/>
 
             <!-- Table fields -->
-            <column name="ASSET_ID_SIG" type="TEXT"
+            <!-- TODO Change this field -->
+            <column name="ASSET_WITNESS" type="TEXT"
                     remarks="A signature over the genesis point using the above key"/>
             <column name="RAW_GROUP_KEY" type="TEXT"
                     remarks="The raw group key which is a normal public key"/>

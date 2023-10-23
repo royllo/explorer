@@ -18,11 +18,11 @@ public interface AssetGroupService {
     AssetGroupDTO addAssetGroup(AssetGroupDTO newAssetGroup);
 
     /**
-     * Get an asset group by its raw group key.
+     * Get an asset group by its tweaked group key.
      *
-     * @param rawGroupKey raw group key
+     * @param tweakedGroupKey tweaked group key
      * @return asset group
      */
-    Optional<AssetGroupDTO> getAssetGroupByRawGroupKey(String rawGroupKey);
+    Optional<AssetGroupDTO> getAssetGroupByTweakedGroupKey(String tweakedGroupKey);
 
 }

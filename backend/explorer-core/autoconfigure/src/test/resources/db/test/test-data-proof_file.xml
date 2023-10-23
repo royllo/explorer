@@ -5,11 +5,7 @@
     <changeSet author="straumat" id="test-data-proof_file">
 
         <!-- ======================================================================================================= -->
-        <!--
-        activeRoylloCoin - Testnet (More info in docs/test/activeRoylloCoin.md)
-        The bitcoin transaction output is already in the database.
-        The asset is already in the database.
-        -->
+        <!--  activeRoylloCoin proofs -->
 
         <!-- Proof file 1 -->
         <insert tableName="PROOF_FILE">

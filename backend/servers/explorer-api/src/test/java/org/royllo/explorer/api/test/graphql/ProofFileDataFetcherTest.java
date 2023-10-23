@@ -18,17 +18,19 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
-import static org.royllo.test.TapdData.ACTIVE_ROYLLO_COIN_ASSET_ID;
-import static org.royllo.test.TapdData.ACTIVE_ROYLLO_COIN_PROOF_1_PROOF_ID;
-import static org.royllo.test.TapdData.ACTIVE_ROYLLO_COIN_PROOF_1_RAW_PROOF;
-import static org.royllo.test.TapdData.ACTIVE_ROYLLO_COIN_PROOF_2_PROOF_ID;
-import static org.royllo.test.TapdData.ACTIVE_ROYLLO_COIN_PROOF_2_RAW_PROOF;
-import static org.royllo.test.TapdData.ACTIVE_ROYLLO_COIN_PROOF_3_PROOF_ID;
-import static org.royllo.test.TapdData.ACTIVE_ROYLLO_COIN_PROOF_3_RAW_PROOF;
 
 @SpringBootTest
 @DisplayName("ProofFileDataFetcher tests")
 public class ProofFileDataFetcherTest {
+
+    // TODO Fix this
+    String ACTIVE_ROYLLO_COIN_ASSET_ID;
+    String ACTIVE_ROYLLO_COIN_PROOF_1_PROOF_ID;
+    String ACTIVE_ROYLLO_COIN_PROOF_1_RAW_PROOF;
+    String ACTIVE_ROYLLO_COIN_PROOF_2_PROOF_ID;
+    String ACTIVE_ROYLLO_COIN_PROOF_2_RAW_PROOF;
+    String ACTIVE_ROYLLO_COIN_PROOF_3_PROOF_ID;
+    String ACTIVE_ROYLLO_COIN_PROOF_3_RAW_PROOF;
 
     @Autowired
     DgsQueryExecutor dgsQueryExecutor;

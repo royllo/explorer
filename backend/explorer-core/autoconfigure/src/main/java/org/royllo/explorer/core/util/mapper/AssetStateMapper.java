@@ -33,7 +33,6 @@ public interface AssetStateMapper {
     @Mapping(source = "asset.chainAnchor.anchorBlockHash", target = "anchorBlockHash")
     @Mapping(source = "asset.chainAnchor.anchorOutpoint", target = "anchorOutpoint")
     @Mapping(source = "asset.chainAnchor.anchorTx", target = "anchorTx")
-    @Mapping(source = "asset.chainAnchor.anchorTxId", target = "anchorTxId")
     @Mapping(source = "asset.chainAnchor.internalKey", target = "internalKey")
     @Mapping(source = "asset.chainAnchor.merkleRoot", target = "merkleRoot")
     @Mapping(source = "asset.chainAnchor.tapscriptSibling", target = "tapscriptSibling")

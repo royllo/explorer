@@ -42,6 +42,9 @@ public class TestWithMockServers extends Base {
     /** Tapd server port. */
     public static final int TAPD_MOCK_SERVER_PORT = 9092;
 
+    /** Active royllo coin asset id. TODO Remove this ? */
+    public static String ACTIVE_ROYLLO_COIN_ASSET_ID = "1781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e5413";
+
     /** Mempool mock server. */
     private ClientAndServer mempoolMockServer;
 
@@ -64,8 +67,6 @@ public class TestWithMockServers extends Base {
         tapdMockServer.stop();
     }
 
-    // TODO Implement verifyAssetGroup when things will be more clear.
-
     /**
      * Verify if the bitcoin transaction output DTO is equals to the transaction from test.
      *
@@ -74,19 +75,36 @@ public class TestWithMockServers extends Base {
      */
     public void verifyTransaction(final BitcoinTransactionOutputDTO bitcoinTransactionOutputDTO,
                                   final String transactionId) {
-        // We retrieve the transaction from our test data.
+        // We retrieve the transaction from our test data, and we extract the bitcoin transaction output from the transaction value.
         final TransactionValue transactionValue = MempoolData.findTransactionByTransactionId(transactionId);
-
-        // We extract the bitcoin transaction output from the transaction value.
         final GetTransactionValueResponse.VOut transactionValueVOut = transactionValue.getResponse().getVout().get(bitcoinTransactionOutputDTO.getVout());
 
-        assertEquals(bitcoinTransactionOutputDTO.getBlockHeight(), transactionValue.getResponse().getStatus().getBlockHeight());
-        assertEquals(bitcoinTransactionOutputDTO.getTxId(), transactionValue.getResponse().getTxId());
-        assertEquals(bitcoinTransactionOutputDTO.getScriptPubKey(), transactionValueVOut.getScriptPubKey());
-        assertEquals(bitcoinTransactionOutputDTO.getScriptPubKeyAsm(), transactionValueVOut.getScriptPubKeyAsm());
-        assertEquals(bitcoinTransactionOutputDTO.getScriptPubKeyType(), transactionValueVOut.getScriptPubKeyType());
-        assertEquals(bitcoinTransactionOutputDTO.getScriptPubKeyAddress(), transactionValueVOut.getScriptPubKeyAddress());
-        assertEquals(0, bitcoinTransactionOutputDTO.getValue().compareTo(transactionValueVOut.getValue()));
+        assertEquals(bitcoinTransactionOutputDTO.getBlockHeight(),
+                transactionValue.getResponse().getStatus().getBlockHeight(),
+                "Block height are not equals");
+
+        assertEquals(bitcoinTransactionOutputDTO.getTxId(),
+                transactionValue.getResponse().getTxId(),
+                "Transaction id are not equals");
+
+        assertEquals(bitcoinTransactionOutputDTO.getScriptPubKey(),
+                transactionValueVOut.getScriptPubKey(),
+                "Script pub key are not equals");
+
+        assertEquals(bitcoinTransactionOutputDTO.getScriptPubKeyAsm(),
+                transactionValueVOut.getScriptPubKeyAsm(),
+                "Script pub key asm are not equals");
+
+        assertEquals(bitcoinTransactionOutputDTO.getScriptPubKeyType(),
+                transactionValueVOut.getScriptPubKeyType(),
+                "Script pub key type are not equals");
+
+        assertEquals(bitcoinTransactionOutputDTO.getScriptPubKeyAddress(),
+                transactionValueVOut.getScriptPubKeyAddress(),
+                "Script pub key address are not equals");
+
+        assertEquals(0, bitcoinTransactionOutputDTO.getValue().compareTo(transactionValueVOut.getValue()),
+                "Bitcoin transaction amount are not equals");
     }
 
     /**
@@ -110,21 +128,44 @@ public class TestWithMockServers extends Base {
             if (assetFromTest.getAssetGroup() == null) {
                 fail("There should not be a null asset group");
             }
-            assetGroupEquality = Objects.equals(assetDTO.getAssetGroup().getAssetIdSig(), assetFromTest.getAssetGroup().getAssetWitness()) &&
+            assetGroupEquality = Objects.equals(assetDTO.getAssetGroup().getAssetWitness(), assetFromTest.getAssetGroup().getAssetWitness()) &&
                     Objects.equals(assetDTO.getAssetGroup().getRawGroupKey(), assetFromTest.getAssetGroup().getRawGroupKey()) &&
                     Objects.equals(assetDTO.getAssetGroup().getTweakedGroupKey(), assetFromTest.getAssetGroup().getTweakedGroupKey());
         }
 
         // We compare each field.
-        // TODO Check each field
-        assertEquals(assetDTO.getAssetId(), assetValue.getAssetId());
-        verifyTransaction(assetDTO.getGenesisPoint(), assetDTO.getGenesisPoint().getTxId());
-        assertEquals(assetDTO.getMetaDataHash(), assetFromTest.getAssetGenesis().getMetaDataHash());
-        assertEquals(assetDTO.getOutputIndex().longValue(), assetFromTest.getAssetGenesis().getOutputIndex());
-        assertEquals(assetDTO.getVersion(), assetFromTest.getAssetGenesis().getVersion());
-        assertEquals(assetDTO.getType().toString(), assetFromTest.getAssetType());
-        assertEquals(0, assetDTO.getAmount().compareTo(assetFromTest.getAmount()));
-        assertTrue(assetGroupEquality);
+        assertEquals(assetDTO.getAssetId(),
+                assetValue.getAssetId(),
+                "Asset id are not equals");
+
+        verifyTransaction(assetDTO.getGenesisPoint(),
+                assetDTO.getGenesisPoint().getTxId());
+
+        assertEquals(assetDTO.getMetaDataHash(),
+                assetFromTest.getAssetGenesis().getMetaDataHash(),
+                "Metadata hash are not equals");
+
+        assertEquals(assetDTO.getName(),
+                assetFromTest.getAssetGenesis().getName(),
+                "Name are not equals");
+
+        assertEquals(assetDTO.getOutputIndex().longValue(),
+                assetFromTest.getAssetGenesis().getOutputIndex(),
+                "Output index are not equals");
+
+        assertEquals(assetDTO.getVersion(),
+                assetFromTest.getAssetGenesis().getVersion(),
+                "Version are not equals");
+
+        assertEquals(assetDTO.getType().toString(),
+                assetFromTest.getAssetType(),
+                "Type are not equals");
+
+        assertEquals(0, assetDTO.getAmount().compareTo(assetFromTest.getAmount()),
+                "Amount are not equals");
+
+        assertTrue(assetGroupEquality,
+                "Asset group are not equals");
     }
 
     /**
@@ -163,7 +204,6 @@ public class TestWithMockServers extends Base {
         assertEquals(assetStateDTO.getAnchorBlockHash(), assetState.get().getAsset().getChainAnchor().getAnchorBlockHash());
         assertEquals(assetStateDTO.getAnchorOutpoint().getTxId(), assetState.get().getAsset().getChainAnchor().getAnchorTxId());
         assertEquals(assetStateDTO.getAnchorTx(), assetState.get().getAsset().getChainAnchor().getAnchorTx());
-        assertEquals(assetStateDTO.getAnchorTxId(), assetState.get().getAsset().getChainAnchor().getAnchorTxId());
         assertEquals(assetStateDTO.getInternalKey(), assetState.get().getAsset().getChainAnchor().getInternalKey());
         assertEquals(assetStateDTO.getMerkleRoot(), assetState.get().getAsset().getChainAnchor().getMerkleRoot());
         assertEquals(assetStateDTO.getTapscriptSibling(), assetState.get().getAsset().getChainAnchor().getTapscriptSibling());

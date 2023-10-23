@@ -11,7 +11,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.royllo.explorer.core.util.base.BaseDomain;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -62,6 +62,6 @@ public class BitcoinTransactionOutput extends BaseDomain {
 
     /** Value is the number of Satoshi (1 BTC = 100,000,000 Satoshi). */
     @Column(name = "VALUE")
-    private BigDecimal value;
+    private BigInteger value;
 
 }

@@ -2,12 +2,16 @@ package org.royllo.test.tapd.asset;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.xml.bind.DatatypeConverter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
@@ -146,6 +150,26 @@ public class DecodedProofValueResponse {
             /** Indicates whether this transfer was an asset burn. If true, the number of assets in this output are destroyed and can no longer be spent. */
             @JsonProperty("is_burn")
             Boolean isBurn;
+
+            /**
+             * Returns the calculated state id.
+             *
+             * @return asset state id (calculated)
+             */
+            public String getAssetStateId() {
+                // If we are in an asset state creation, asset state id is null, so we calculate it.
+                // We calculate the asset state id here.
+                String uniqueValue = assetGenesis.getAssetId()
+                        + "_" + chainAnchor.getAnchorOutpoint()
+                        + "_" + scriptKey;
+                try {
+                    MessageDigest md = MessageDigest.getInstance("SHA-256");
+                    byte[] digest = md.digest(uniqueValue.getBytes(StandardCharsets.UTF_8));
+                    return DatatypeConverter.printHexBinary(digest).toLowerCase();
+                } catch (NoSuchAlgorithmException e) {
+                    throw new RuntimeException("SHA-256 is not available: " + e.getMessage());
+                }
+            }
 
             @Getter
             @Setter

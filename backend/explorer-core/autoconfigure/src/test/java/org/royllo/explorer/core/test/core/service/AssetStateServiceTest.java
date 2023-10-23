@@ -27,9 +27,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.service.asset.AssetStateServiceImplementation.SEARCH_PARAMETER_ASSET_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
-import static org.royllo.test.MempoolData.BITCOIN_TRANSACTION_1_TXID;
+import static org.royllo.test.MempoolData.ROYLLO_COIN_ANCHOR_1_TXID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
-import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_STATE_ID;
+import static org.royllo.test.TapdData.ROYLLO_COIN_FROM_TEST;
 
 @SpringBootTest
 @DisplayName("AssetStateService tests")
@@ -76,7 +76,7 @@ public class AssetStateServiceTest extends TestWithMockServers {
     @DisplayName("addAssetState()")
     public void addAssetState() {
         // We retrieve a bitcoin transaction output from database for our test.
-        final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(BITCOIN_TRANSACTION_1_TXID, 0);
+        final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_ANCHOR_1_TXID, 0);
         assertTrue(bto.isPresent());
 
         // =============================================================================================================
@@ -116,7 +116,6 @@ public class AssetStateServiceTest extends TestWithMockServers {
                 .anchorBlockHash("TEST_ANCHOR_BLOCK_HASH")
                 .anchorOutpoint(bto.get())
                 .anchorTx("TEST_ANCHOR_TX")
-                .anchorTxId("TEST_ANCHOR_TX_ID")
                 .internalKey("TEST_INTERNAL_KEY")
                 .merkleRoot("TEST_MERKLE_ROOT")
                 .tapscriptSibling("TEST_TAPSCRIPT_SIBLING")
@@ -132,8 +131,8 @@ public class AssetStateServiceTest extends TestWithMockServers {
         // We check what was created.
         assertNotNull(firstAssetStateCreated.getId());
         // Asset state id is calculated from the asset state data.
-        // TEST_COIN_ASSET_ID_2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea:0_TEST_SCRIPT_KEY
-        assertEquals("83347bed4fa20045ab67de4d9fb0da1f73df6cc5ebdb8e44dcb51a0c5e2dd75a", firstAssetStateCreated.getAssetStateId());
+        // TEST_COIN_ASSET_ID_c28a42586b36ac499c6d36da792d98176572573124dbc82526d02bbad5b3d9c7:0_TEST_SCRIPT_KEY
+        assertEquals("ab670ac3909f2e49dee33b0e33b2566d1ae6fe3428ac4b89f092e8dd9afbd9d8", firstAssetStateCreated.getAssetStateId());
         // User.
         assertNotNull(firstAssetStateCreated.getCreator());
         assertEquals(ANONYMOUS_USER_ID, firstAssetStateCreated.getCreator().getUserId());
@@ -145,10 +144,9 @@ public class AssetStateServiceTest extends TestWithMockServers {
         assertNull(firstAssetStateCreated.getAsset().getAssetGroup());
         // Asset state data.
         assertEquals("TEST_ANCHOR_BLOCK_HASH", firstAssetStateCreated.getAnchorBlockHash());
-        assertEquals("2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea", firstAssetStateCreated.getAnchorOutpoint().getTxId());
+        assertEquals("c28a42586b36ac499c6d36da792d98176572573124dbc82526d02bbad5b3d9c7", firstAssetStateCreated.getAnchorOutpoint().getTxId());
         assertEquals(0, firstAssetStateCreated.getAnchorOutpoint().getVout());
         assertEquals("TEST_ANCHOR_TX", firstAssetStateCreated.getAnchorTx());
-        assertEquals("TEST_ANCHOR_TX_ID", firstAssetStateCreated.getAnchorTxId());
         assertEquals("TEST_INTERNAL_KEY", firstAssetStateCreated.getInternalKey());
         assertEquals("TEST_MERKLE_ROOT", firstAssetStateCreated.getMerkleRoot());
         assertEquals("TEST_TAPSCRIPT_SIBLING", firstAssetStateCreated.getTapscriptSibling());
@@ -171,7 +169,6 @@ public class AssetStateServiceTest extends TestWithMockServers {
                 .anchorBlockHash("TEST_ANCHOR_BLOCK_HASH")
                 .anchorOutpoint(bto.get())
                 .anchorTx("TEST_ANCHOR_TX")
-                .anchorTxId("TEST_ANCHOR_TX_ID")
                 .internalKey("TEST_INTERNAL_KEY")
                 .merkleRoot("TEST_MERKLE_ROOT")
                 .tapscriptSibling("TEST_TAPSCRIPT_SIBLING")
@@ -196,7 +193,6 @@ public class AssetStateServiceTest extends TestWithMockServers {
                 .anchorBlockHash("TEST_ANCHOR_BLOCK_HASH_2")
                 .anchorOutpoint(bto.get())
                 .anchorTx("TEST_ANCHOR_TX_2")
-                .anchorTxId("TEST_ANCHOR_TX_ID_2")
                 .internalKey("TEST_INTERNAL_KEY_2")
                 .merkleRoot("TEST_MERKLE_ROOT_2")
                 .tapscriptSibling("TEST_TAPSCRIPT_SIBLING_2")
@@ -210,12 +206,12 @@ public class AssetStateServiceTest extends TestWithMockServers {
         assertEquals(assetStateCount + 2, assetStateRepository.findAll().size());
 
         // We check what was created (this time we used the getByAssetId() method).
-        final Optional<AssetStateDTO> secondAssetStateCreated = assetStateService.getAssetStateByAssetStateId("fcc1576228519673fbf7ae22f6447cab5d6b5aa6747818d1df4b5f0dc83aac15");
+        final Optional<AssetStateDTO> secondAssetStateCreated = assetStateService.getAssetStateByAssetStateId("d871b41a83f45394851ee929ee41ccb26391a3328d6e90653d7d5f476197d413");
         assertTrue(secondAssetStateCreated.isPresent());
         assertNotNull(secondAssetStateCreated.get().getId());
         // Asset state id is calculated from the asset state data.
-        // TEST_COIN_ASSET_ID_2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea:0_TEST_SCRIPT_KEY_2
-        assertEquals("fcc1576228519673fbf7ae22f6447cab5d6b5aa6747818d1df4b5f0dc83aac15", secondAssetStateCreated.get().getAssetStateId());
+        // TEST_COIN_ASSET_ID_c28a42586b36ac499c6d36da792d98176572573124dbc82526d02bbad5b3d9c7:0_TEST_SCRIPT_KEY_2
+        assertEquals("d871b41a83f45394851ee929ee41ccb26391a3328d6e90653d7d5f476197d413", secondAssetStateCreated.get().getAssetStateId());
         // User.
         assertNotNull(secondAssetStateCreated.get().getCreator());
         assertEquals(ANONYMOUS_USER_ID, secondAssetStateCreated.get().getCreator().getUserId());
@@ -227,10 +223,9 @@ public class AssetStateServiceTest extends TestWithMockServers {
         assertNull(secondAssetStateCreated.get().getAsset().getAssetGroup());
         // Asset state data.
         assertEquals("TEST_ANCHOR_BLOCK_HASH_2", secondAssetStateCreated.get().getAnchorBlockHash());
-        assertEquals("2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea", secondAssetStateCreated.get().getAnchorOutpoint().getTxId());
+        assertEquals("c28a42586b36ac499c6d36da792d98176572573124dbc82526d02bbad5b3d9c7", secondAssetStateCreated.get().getAnchorOutpoint().getTxId());
         assertEquals(0, secondAssetStateCreated.get().getAnchorOutpoint().getVout());
         assertEquals("TEST_ANCHOR_TX_2", secondAssetStateCreated.get().getAnchorTx());
-        assertEquals("TEST_ANCHOR_TX_ID_2", secondAssetStateCreated.get().getAnchorTxId());
         assertEquals("TEST_INTERNAL_KEY_2", secondAssetStateCreated.get().getInternalKey());
         assertEquals("TEST_MERKLE_ROOT_2", secondAssetStateCreated.get().getMerkleRoot());
         assertEquals("TEST_TAPSCRIPT_SIBLING_2", secondAssetStateCreated.get().getTapscriptSibling());
@@ -247,11 +242,11 @@ public class AssetStateServiceTest extends TestWithMockServers {
         assertFalse(assetState.isPresent());
 
         // =============================================================================================================
-        // Existing asset state on testnet and in our database initialization script ("roylloCoin") .
-        assetState = assetStateService.getAssetStateByAssetStateId(ROYLLO_COIN_ASSET_STATE_ID);
+        // Existing asset state on testnet and in our database initialization script ("roylloCoin").
+        assetState = assetStateService.getAssetStateByAssetStateId(ROYLLO_COIN_FROM_TEST.getDecodedProof(0).getAsset().getAssetStateId());
         assertTrue(assetState.isPresent());
         assertEquals(1, assetState.get().getId());
-        assertEquals(ROYLLO_COIN_ASSET_STATE_ID, assetState.get().getAssetStateId());
+        assertEquals(ROYLLO_COIN_FROM_TEST.getDecodedProof(0).getAsset().getAssetStateId(), assetState.get().getAssetStateId());
         // User.
         assertNotNull(assetState.get().getCreator());
         assertEquals(ANONYMOUS_USER_DTO.getId(), assetState.get().getCreator().getId());

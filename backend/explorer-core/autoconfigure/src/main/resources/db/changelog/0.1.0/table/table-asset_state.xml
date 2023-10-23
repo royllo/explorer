@@ -29,8 +29,6 @@
                     remarks="The outpoint (txid:vout) that stores the Taproot commitment"/>
             <column name="ANCHOR_TX" type="TEXT"
                     remarks="The transaction that anchors the Taproot commitment where the asset resides"/>
-            <column name="ANCHOR_TXID" type="TEXT"
-                    remarks="The txid of the above transaction"/>
             <column name="INTERNAL_KEY" type="TEXT"
                     remarks="The raw internal key that was used to create the anchor Taproot output key"/>
             <column name="MERKLE_ROOT" type="TEXT"

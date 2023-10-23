@@ -7,12 +7,11 @@ import org.royllo.explorer.core.provider.mempool.MempoolTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.royllo.test.MempoolData.BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID;
 
 @SpringBootTest(properties = {"mempool.api.base-url=https://mempool.space/testnet/api"})
 @DisplayName("Mempool transaction service on testnet")
@@ -32,7 +31,7 @@ public class MempoolTransactionServiceTestnetTest {
 
         // =============================================================================================================
         // Testing a taproot transaction.
-        GetTransactionResponse taprootTransaction = mempoolTransactionService.getTransaction(BITCOIN_TESTNET_TAPROOT_ASSET_TRANSACTION_1_TXID).block();
+        GetTransactionResponse taprootTransaction = mempoolTransactionService.getTransaction("d8a8016095b9fcd1f63c57342d375026ecbc72c885a54b676c6e62b216e15365").block();
         assertNotNull(taprootTransaction);
         assertEquals(2348688, taprootTransaction.getStatus().getBlockHeight().intValue());
         assertEquals(2, taprootTransaction.getVout().size());
@@ -43,7 +42,7 @@ public class MempoolTransactionServiceTestnetTest {
         assertEquals("OP_PUSHNUM_1 OP_PUSHBYTES_32 92e007434a2583cd7b8f18a7e030ba281d35fefff4708d478cceb7a604c9ed20", vOut0.getScriptPubKeyAsm());
         assertEquals("v1_p2tr", vOut0.getScriptPubKeyType());
         assertEquals("tb1pjtsqws62ykpu67u0rzn7qv969qwntlhl73cg63uve6m6vpxfa5sq7lu9px", vOut0.getScriptPubKeyAddress());
-        assertEquals(0, new BigDecimal("1000").compareTo(vOut0.getValue()));
+        assertEquals(0, new BigInteger("1000").compareTo(vOut0.getValue()));
 
         // vOut 1.
         GetTransactionResponse.VOut vOut1 = taprootTransaction.getVout().get(1);
@@ -51,7 +50,7 @@ public class MempoolTransactionServiceTestnetTest {
         assertEquals("OP_0 OP_PUSHBYTES_20 7fafce6a7ea1541dc33f99ab673dc525ed3a27b3", vOut1.getScriptPubKeyAsm());
         assertEquals("v0_p2wpkh", vOut1.getScriptPubKeyType());
         assertEquals("tb1q07huu6n7592pmselnx4kw0w9yhkn5fan74dze9", vOut1.getScriptPubKeyAddress());
-        assertEquals(0, new BigDecimal("1699422").compareTo(vOut1.getValue()));
+        assertEquals(0, new BigInteger("1699422").compareTo(vOut1.getValue()));
     }
 
 }

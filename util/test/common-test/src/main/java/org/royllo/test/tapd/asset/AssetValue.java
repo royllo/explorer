@@ -36,6 +36,16 @@ public class AssetValue {
      * @param i index
      * @return decoded proof
      */
+    public DecodedProofValueRequest getDecodedProofRequest(final int i) {
+        return decodedProofValues.get(i).getRequest();
+    }
+
+    /**
+     * Returns the decoded proof requested.
+     *
+     * @param i index
+     * @return decoded proof
+     */
     public DecodedProofValueResponse.DecodedProof getDecodedProof(final int i) {
         return decodedProofValues.get(0).getResponse().getDecodedProof();
     }

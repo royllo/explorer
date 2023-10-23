@@ -4,22 +4,5 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet author="straumat" id="0.1.0-data-asset_group">
 
-        <!--
-        roylloCoin - Testnet (More info in docs/test/roylloCoin/README.md)
-        Asset id : f9dd292bb211dae8493645150b36efa990841b11038d026577440d2616d1ec32
-        Block 2427358 / Transaction 57faede9e107f3af74bb93e730bc1dfd07f81b166a974068f823d30d9eb10111 / Output 1
-        -->
-        <insert tableName="ASSET_GROUP">
-            <column name="ID" value="1"/>
-            <column name="FK_USER_CREATOR" value="1"/>
-
-            <column name="RAW_GROUP_KEY" value=""/>
-            <column name="TWEAKED_GROUP_KEY"
-                    value="02260e9ffbe7fdabe746b4ba4c3b86c8f237d7946f116949e93db77d5e0357c13d"/>
-            <column name="ASSET_ID_SIG"
-                    value="d0d86f5c646fcca990b8ceaf7a480762c92900351ae84e8135740fa92a66c8c0a4e509c8d10df8913924a583d74e9cf25ccd56eb2552c3b92a8c3c9ebe8cca97"/>
-
-        </insert>
-
     </changeSet>
 </databaseChangeLog>

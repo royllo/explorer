@@ -44,10 +44,6 @@ public class AssetStateDTO {
     @NotNull(message = "Anchor transaction is required")
     String anchorTx;
 
-    /** The txid of the anchor transaction. */
-    @NotNull(message = "Anchor transaction id is required")
-    String anchorTxId;
-
     /** The raw internal key that was used to create the anchor Taproot output key. */
     @NotNull(message = "Anchor internal key is required")
     String internalKey;

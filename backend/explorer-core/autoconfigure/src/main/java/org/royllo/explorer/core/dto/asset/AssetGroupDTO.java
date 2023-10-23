@@ -20,17 +20,17 @@ public class AssetGroupDTO {
     /** Unique identifier. */
     Long id;
 
-    /** Asset creator. TODO Maybe this field is useless ? or should not be in assetDTO ? */
+    /** Asset creator. */
     @NotNull(message = "Asset group creator is required")
     User creator;
-
-    /** A signature over the genesis point using the above key. */
-    String assetIdSig;
 
     /** The raw group key which is a normal public key. */
     String rawGroupKey;
 
     /** The tweaked group key, which is derived based on the genesis point and also asset type. */
     String tweakedGroupKey;
+
+    /** A witness that authorizes a specific asset to be part of the asset group specified by the above key. */
+    String assetWitness;
 
 }

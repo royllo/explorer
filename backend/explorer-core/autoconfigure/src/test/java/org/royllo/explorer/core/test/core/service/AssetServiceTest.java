@@ -28,9 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
-import static org.royllo.test.MempoolData.BITCOIN_TRANSACTION_1_TXID;
-import static org.royllo.test.MempoolData.BITCOIN_TRANSACTION_3_TXID;
-import static org.royllo.test.TapdData.ACTIVE_ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_TXID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
 
 @SpringBootTest
@@ -49,6 +47,8 @@ public class AssetServiceTest extends TestWithMockServers {
     @Test
     @DisplayName("queryAssets()")
     public void queryAssets() {
+        // TODO would be good to remove the coin we insert in database initialization script or generate the script.
+
         // Searching for an asset that doesn't exist.
         Page<AssetDTO> results = assetService.queryAssets("NON_EXISTING_ASSET_ID", 1, 5);
         assertEquals(0, results.getTotalElements());
@@ -120,7 +120,7 @@ public class AssetServiceTest extends TestWithMockServers {
     @DisplayName("addAsset()")
     public void addAsset() {
         // We retrieve a bitcoin transaction output from database for our test.
-        final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(BITCOIN_TRANSACTION_1_TXID, 0);
+        final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 0);
         assertTrue(bto.isPresent());
 
         // =============================================================================================================
@@ -137,7 +137,7 @@ public class AssetServiceTest extends TestWithMockServers {
         // Third test - AssetId is already in the database.
         e = assertThrows(AssertionError.class, () -> assetService.addAsset(AssetDTO.builder()
                 .creator(ANONYMOUS_USER_DTO)
-                .assetId(ACTIVE_ROYLLO_COIN_ASSET_ID)
+                .assetId(ROYLLO_COIN_ASSET_ID)
                 .genesisPoint(bto.get())
                 .metaDataHash("metadata")
                 .name("name")
@@ -157,7 +157,7 @@ public class AssetServiceTest extends TestWithMockServers {
                 .creator(ANONYMOUS_USER_DTO)
                 .assetId("my asset id")
                 .genesisPoint(BitcoinTransactionOutputDTO.builder()
-                        .txId(BITCOIN_TRANSACTION_3_TXID)
+                        .txId(ROYLLO_COIN_GENESIS_TXID)
                         .vout(0)
                         .build())
                 .metaDataHash("my meta data hash")
@@ -175,7 +175,7 @@ public class AssetServiceTest extends TestWithMockServers {
         // Genesis.
         assertNotNull(asset1.getGenesisPoint());
         assertNotNull(asset1.getGenesisPoint().getId());
-        verifyTransaction(asset1.getGenesisPoint(), BITCOIN_TRANSACTION_3_TXID);
+        verifyTransaction(asset1.getGenesisPoint(), ROYLLO_COIN_GENESIS_TXID);
         // Asset value data.
         assertEquals("my meta data hash", asset1.getMetaDataHash());
         assertEquals("testCoin", asset1.getName());
@@ -202,7 +202,7 @@ public class AssetServiceTest extends TestWithMockServers {
                 .type(NORMAL)
                 .amount(new BigInteger("11"))
                 .assetGroup(AssetGroupDTO.builder()
-                        .assetIdSig("assetIdSig-1")
+                        .assetWitness("assetIdSig-1")
                         .rawGroupKey("rawGroupKey-1")
                         .tweakedGroupKey("tweakedGroupKey-1")
                         .build())
@@ -214,7 +214,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertEquals("assetId2", asset2.getAssetId());
         // Genesis.
         assertNotNull(asset2.getGenesisPoint());
-        assertEquals(6, asset2.getGenesisPoint().getId());
+        assertEquals(1, asset2.getGenesisPoint().getId());
         // Asset value data.
         assertEquals("metaData2", asset2.getMetaDataHash());
         assertEquals("testCoin2", asset2.getName());
@@ -226,7 +226,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertNotNull(asset2.getAssetGroup());
         assertEquals(assetGroupCount + 1, assetGroupRepository.findAll().size());
         assertNotNull(asset2.getAssetGroup().getId());
-        assertEquals("assetIdSig-1", asset2.getAssetGroup().getAssetIdSig());
+        assertEquals("assetIdSig-1", asset2.getAssetGroup().getAssetWitness());
         assertEquals("rawGroupKey-1", asset2.getAssetGroup().getRawGroupKey());
         assertEquals("tweakedGroupKey-1", asset2.getAssetGroup().getTweakedGroupKey());
 
@@ -245,7 +245,7 @@ public class AssetServiceTest extends TestWithMockServers {
                 .type(NORMAL)
                 .amount(new BigInteger("111"))
                 .assetGroup(AssetGroupDTO.builder()
-                        .assetIdSig("assetIdSig-1")
+                        .assetWitness("assetIdSig-1")
                         .rawGroupKey("rawGroupKey-1")
                         .tweakedGroupKey("tweakedGroupKey-1")
                         .build())
@@ -254,7 +254,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertNotNull(asset3.getAssetGroup());
         assertEquals(assetGroupCount + 1, assetGroupRepository.findAll().size());
         assertNotNull(asset3.getAssetGroup().getId());
-        assertEquals("assetIdSig-1", asset3.getAssetGroup().getAssetIdSig());
+        assertEquals("assetIdSig-1", asset3.getAssetGroup().getAssetWitness());
         assertEquals("rawGroupKey-1", asset3.getAssetGroup().getRawGroupKey());
         assertEquals("tweakedGroupKey-1", asset3.getAssetGroup().getTweakedGroupKey());
     }
@@ -262,10 +262,12 @@ public class AssetServiceTest extends TestWithMockServers {
     @Test
     @DisplayName("getAsset()")
     public void getAsset() {
+        // =============================================================================================================
         // Non-existing asset.
         Optional<AssetDTO> asset = assetService.getAsset(0);
         assertFalse(asset.isPresent());
 
+        // =============================================================================================================
         // Existing asset on testnet and in our database initialization script ("My Royllo coin") .
         // Asset id is 1 as My Royllo Coin is the only coin inserted in default database.
         asset = assetService.getAsset(1);
@@ -284,10 +286,12 @@ public class AssetServiceTest extends TestWithMockServers {
     @Test
     @DisplayName("getAssetByAssetId()")
     public void getAssetByAssetId() {
+        // =============================================================================================================
         // Non-existing asset.
         Optional<AssetDTO> asset = assetService.getAssetByAssetId("NON_EXISTING_ASSET_ID");
         assertFalse(asset.isPresent());
 
+        // =============================================================================================================
         // Existing asset on testnet and in our database initialization script ("My Royllo coin") .
         asset = assetService.getAsset(1);
         assertTrue(asset.isPresent());

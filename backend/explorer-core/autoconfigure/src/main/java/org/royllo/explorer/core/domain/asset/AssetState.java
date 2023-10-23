@@ -64,10 +64,6 @@ public class AssetState extends BaseDomain {
     @Column(name = "ANCHOR_TX")
     private String anchorTx;
 
-    /** The txid of the anchor transaction. */
-    @Column(name = "ANCHOR_TXID")
-    private String anchorTxId;
-
     /** The raw internal key that was used to create the anchor Taproot output key. */
     @Column(name = "INTERNAL_KEY")
     private String internalKey;

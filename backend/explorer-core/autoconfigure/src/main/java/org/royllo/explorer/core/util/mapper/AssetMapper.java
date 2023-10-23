@@ -29,7 +29,7 @@ public interface AssetMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "creator", ignore = true)
-    @Mapping(source = "assetIdSig", target = "assetIdSig")
+    @Mapping(source = "assetIdSig", target = "assetWitness")
     @Mapping(source = "rawGroupKey", target = "rawGroupKey")
     @Mapping(source = "tweakedGroupKey", target = "tweakedGroupKey")
     AssetGroupDTO mapToAssetGroupDTO(DecodedProofResponse.DecodedProof.Asset.AssetGroup source);

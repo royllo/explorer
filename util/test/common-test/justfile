@@ -1,5 +1,6 @@
 # ======================================================================================================================
 # The followind commands are used to download tapd and configure it.
+
 get_and_run_tapd:
     rm -rdf tade
     git clone https://github.com/royllo/tade.git

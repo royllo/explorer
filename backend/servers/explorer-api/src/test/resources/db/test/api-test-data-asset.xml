@@ -12,7 +12,7 @@
 
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_10000"/>
             <column name="TWEAKED_GROUP_KEY" value="TWEAKED_GROUP_KEY_10000"/>
-            <column name="ASSET_ID_SIG" value="ASSET_ID_SIG_10000"/>
+            <column name="ASSET_WITNESS" value="ASSET_WITNESS_10000"/>
         </insert>
 
         <insert tableName="ASSET">
@@ -41,7 +41,6 @@
                     value="2"/>
             <column name="ANCHOR_TX"
                     value="0200000000010139481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0100000000ffffffff026f02000000000000160014b3cb6391af7e94b41475cb925e1eafed57c318cae803000000000000225120541c599eae0b80c2c7c5c7a17b75b147a0fe20663277bbbd49247e87b9b1c1370247304402204afb9a04135bc36e9062e8e0cafad11a58fc2e13f6dcf01447938faced44b53e02202492dc504f6b5577d4add1ea550fad8f7357f7c7215a7d5ec21e14269f270a5e0121027ebfbaf2f6612b4819b188f3b80386d5ddf3d4c55c5f4af8c688d97b8984b0d600000000"/>
-            <column name="ANCHOR_TXID" value="60b11c06d29ad10a66082953e37010090b39bc7541c321066a9e8bf7507abdd7"/>
             <column name="INTERNAL_KEY" value="03bea9941963648cfaaa2981d68ebf209e20b3e68287d94371805832e962401429"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_0"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_0"/>
@@ -77,7 +76,6 @@
                     value="2"/>
             <column name="ANCHOR_TX"
                     value="0200000000010139481e35ca088d991a4e6d7296b22c650545f0bbfe0850d3ae48a214318f84db0100000000ffffffff026f02000000000000160014b3cb6391af7e94b41475cb925e1eafed57c318cae803000000000000225120541c599eae0b80c2c7c5c7a17b75b147a0fe20663277bbbd49247e87b9b1c1370247304402204afb9a04135bc36e9062e8e0cafad11a58fc2e13f6dcf01447938faced44b53e02202492dc504f6b5577d4add1ea550fad8f7357f7c7215a7d5ec21e14269f270a5e0121027ebfbaf2f6612b4819b188f3b80386d5ddf3d4c55c5f4af8c688d97b8984b0d600000000"/>
-            <column name="ANCHOR_TXID" value="60b11c06d29ad10a66082953e37010090b39bc7541c321066a9e8bf7507abdd7"/>
             <column name="INTERNAL_KEY" value="03bea9941963648cfaaa2981d68ebf209e20b3e68287d94371805832e962401429"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_0"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_0"/>
@@ -94,7 +92,7 @@
 
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1001"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1001"/>
-            <column name="ASSET_ID_SIG" value="RAW_GROUP_KEY_1001"/>
+            <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1001"/>
         </insert>
         <insert tableName="ASSET">
             <column name="ID" value="1001"/>
@@ -119,7 +117,6 @@
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX" value="Anchor tx 1"/>
-            <column name="ANCHOR_TXID" value="Anchor tx id 1"/>
             <column name="INTERNAL_KEY" value="Anchor internal key 1"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_1"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_1"/>
@@ -134,7 +131,7 @@
 
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1002"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1002"/>
-            <column name="ASSET_ID_SIG" value="RAW_GROUP_KEY_1002"/>
+            <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1002"/>
         </insert>
         <insert tableName="ASSET">
             <column name="ID" value="1002"/>
@@ -159,7 +156,6 @@
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 2"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX" value="Anchor tx 2"/>
-            <column name="ANCHOR_TXID" value="Anchor tx id 2"/>
             <column name="INTERNAL_KEY" value="Anchor internal key 2"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_2"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_2"/>
@@ -174,7 +170,7 @@
 
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1003"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1003"/>
-            <column name="ASSET_ID_SIG" value="RAW_GROUP_KEY_1003"/>
+            <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1003"/>
         </insert>
         <insert tableName="ASSET">
             <column name="ID" value="1003"/>
@@ -199,7 +195,6 @@
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 3"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX" value="Anchor tx 3"/>
-            <column name="ANCHOR_TXID" value="Anchor tx id 3"/>
             <column name="INTERNAL_KEY" value="Anchor internal key 3"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_3"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_3"/>
@@ -214,7 +209,7 @@
 
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1004"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1004"/>
-            <column name="ASSET_ID_SIG" value="RAW_GROUP_KEY_1004"/>
+            <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1004"/>
         </insert>
         <insert tableName="ASSET">
             <column name="ID" value="1004"/>
@@ -239,7 +234,6 @@
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 4"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX" value="Anchor tx 4"/>
-            <column name="ANCHOR_TXID" value="Anchor tx id 4"/>
             <column name="INTERNAL_KEY" value="Anchor internal key 4"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_4"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_4"/>
@@ -254,7 +248,7 @@
 
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1005"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1005"/>
-            <column name="ASSET_ID_SIG" value="RAW_GROUP_KEY_1005"/>
+            <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1005"/>
         </insert>
         <insert tableName="ASSET">
             <column name="ID" value="1005"/>
@@ -279,7 +273,6 @@
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 5"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX" value="Anchor tx 5"/>
-            <column name="ANCHOR_TXID" value="Anchor tx id 5"/>
             <column name="INTERNAL_KEY" value="Anchor internal key 5"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_5"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_5"/>
@@ -294,7 +287,7 @@
 
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1006"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1006"/>
-            <column name="ASSET_ID_SIG" value="RAW_GROUP_KEY_1006"/>
+            <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1006"/>
         </insert>
         <insert tableName="ASSET">
             <column name="ID" value="1006"/>
@@ -319,7 +312,6 @@
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 6"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX" value="Anchor tx 6"/>
-            <column name="ANCHOR_TXID" value="Anchor tx id 6"/>
             <column name="INTERNAL_KEY" value="Anchor internal key 6"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_6"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_6"/>
@@ -334,7 +326,7 @@
 
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1007"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1007"/>
-            <column name="ASSET_ID_SIG" value="RAW_GROUP_KEY_1007"/>
+            <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1007"/>
         </insert>
         <insert tableName="ASSET">
             <column name="ID" value="1007"/>
@@ -359,7 +351,6 @@
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 7"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX" value="Anchor tx 7"/>
-            <column name="ANCHOR_TXID" value="Anchor tx id 7"/>
             <column name="INTERNAL_KEY" value="Anchor internal key 7"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_7"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_7"/>
@@ -374,7 +365,7 @@
 
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1008"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1008"/>
-            <column name="ASSET_ID_SIG" value="RAW_GROUP_KEY_1008"/>
+            <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1008"/>
         </insert>
         <insert tableName="ASSET">
             <column name="ID" value="1008"/>
@@ -399,7 +390,6 @@
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 8"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX" value="Anchor tx 8"/>
-            <column name="ANCHOR_TXID" value="Anchor tx id 8"/>
             <column name="INTERNAL_KEY" value="Anchor internal key 8"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_8"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_8"/>
@@ -416,7 +406,7 @@
 
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1009"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1009"/>
-            <column name="ASSET_ID_SIG" value="RAW_GROUP_KEY_1009"/>
+            <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1009"/>
         </insert>
         <insert tableName="ASSET">
             <column name="ID" value="1009"/>
@@ -442,7 +432,6 @@
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 91"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX" value="Anchor tx 91"/>
-            <column name="ANCHOR_TXID" value="Anchor tx id 91"/>
             <column name="INTERNAL_KEY" value="Anchor internal key 91"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_91"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_91"/>
@@ -459,7 +448,6 @@
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 92"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX" value="Anchor tx 92"/>
-            <column name="ANCHOR_TXID" value="Anchor tx id 92"/>
             <column name="INTERNAL_KEY" value="Anchor internal key 92"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_92"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_92"/>
@@ -476,7 +464,6 @@
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 93"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX" value="Anchor tx 93"/>
-            <column name="ANCHOR_TXID" value="Anchor tx id 93"/>
             <column name="INTERNAL_KEY" value="Anchor internal key 93"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_93"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_93"/>
