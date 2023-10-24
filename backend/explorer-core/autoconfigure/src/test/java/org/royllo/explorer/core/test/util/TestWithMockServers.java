@@ -199,29 +199,10 @@ public class TestWithMockServers extends Base {
      * Verify if the asset state DTO is equals to the asset state from test.
      *
      * @param assetStateDTO asset state
-     * @param assetId       asset id
-     * @param outpointTxId  outpoint tx id
-     * @param outpointVout  outpoint vout
-     * @param scriptKey     scriptkey
+     * @param assetStateId  asset state id
      */
     public void verifyAssetState(final AssetStateDTO assetStateDTO,
-                                 final String assetId,
-                                 final String outpointTxId,
-                                 final int outpointVout,
-                                 final String scriptKey) {
-        // Calculate unique value and its hash to retrieve and asset state
-        String uniqueValue = assetId
-                + "_" + outpointTxId + ":" + outpointVout
-                + "_" + scriptKey;
-        String assetStateId = "";
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] digest = md.digest(uniqueValue.getBytes(UTF_8));
-            assetStateId = DatatypeConverter.printHexBinary(digest).toLowerCase();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("SHA-256 is not available: " + e.getMessage());
-        }
-
+                                 final String assetStateId) {
         // We find the asset state.
         final Optional<DecodedProofValueResponse.DecodedProof> assetState = TapdData.findAssetStateByAssetStateId(assetStateId);
         assertTrue(assetState.isPresent(),
@@ -260,6 +241,36 @@ public class TestWithMockServers extends Base {
         assertEquals(assetStateDTO.getScriptKey(),
                 assetState.get().getAsset().getScriptKey(),
                 "Script key are not equals");
+    }
+
+    /**
+     * Verify if the asset state DTO is equals to the asset state from test.
+     *
+     * @param assetStateDTO asset state
+     * @param assetId       asset id
+     * @param outpointTxId  outpoint tx id
+     * @param outpointVout  outpoint vout
+     * @param scriptKey     scriptkey
+     */
+    public void verifyAssetState(final AssetStateDTO assetStateDTO,
+                                 final String assetId,
+                                 final String outpointTxId,
+                                 final int outpointVout,
+                                 final String scriptKey) {
+        // Calculate unique value and its hash to retrieve and asset state
+        String uniqueValue = assetId
+                + "_" + outpointTxId + ":" + outpointVout
+                + "_" + scriptKey;
+        String assetStateId = "";
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] digest = md.digest(uniqueValue.getBytes(UTF_8));
+            assetStateId = DatatypeConverter.printHexBinary(digest).toLowerCase();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("SHA-256 is not available: " + e.getMessage());
+        }
+
+        verifyAssetState(assetStateDTO, assetStateId);
     }
 
 }

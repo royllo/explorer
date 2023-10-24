@@ -107,7 +107,6 @@ public class SetOfRoylloNFTIntegrationTest extends TestWithMockServers {
         // =============================================================================================================
         // We check that the asset doesn't already exist.
         assertFalse(assetGroupService.getAssetGroupByTweakedGroupKey(SET_OF_ROYLLO_NFT_TWEAKED_GROUP_KEY).isPresent());
-        assetGroupRepository.findAll().forEach(assetGroup -> System.out.println("> Result " + assetGroup.getTweakedGroupKey()));
 
         assertFalse(assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_1_ASSET_ID).isPresent());
         assertFalse(assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_2_ASSET_ID).isPresent());
@@ -147,7 +146,6 @@ public class SetOfRoylloNFTIntegrationTest extends TestWithMockServers {
 
         final Optional<RequestDTO> addRoylloNFT1RequestTreated = requestService.getRequest(addRoylloNFT1Request.getId());
         assertTrue(addRoylloNFT1RequestTreated.isPresent());
-        System.out.println("=> " + addRoylloNFT1RequestTreated.get().getErrorMessage());
         assertTrue(addRoylloNFT1RequestTreated.get().isSuccessful());
         assertEquals(SUCCESS, addRoylloNFT1RequestTreated.get().getStatus());
         assertNotNull(((AddProofRequestDTO) addRoylloNFT1RequestTreated.get()).getAsset());

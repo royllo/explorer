@@ -162,6 +162,7 @@ public class DecodedProofValueResponse {
                 String uniqueValue = assetGenesis.getAssetId()
                         + "_" + chainAnchor.getAnchorOutpoint()
                         + "_" + scriptKey;
+
                 try {
                     MessageDigest md = MessageDigest.getInstance("SHA-256");
                     byte[] digest = md.digest(uniqueValue.getBytes(StandardCharsets.UTF_8));

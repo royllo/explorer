@@ -9,8 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
-import static org.springframework.test.util.AssertionErrors.fail;
 
 @SpringBootTest
 @DisplayName("unknownRoylloCoin test")
@@ -27,7 +27,8 @@ public class UnknownRoylloCoinIntegrationTest {
     @Test
     @DisplayName("Process proof")
     public void processProof() {
-        fail("Not implemented yet");
+        System.out.printf("toto");
+        fail("Not yet implemented");
     }
 
 }

@@ -30,7 +30,7 @@ this asset is a collection of NFT.
 ### trickyRoylloCoin
 
 This coin is used to test the case of a coin with several states.
-**Emission possible** : you will have an asset group.
+**fixed supply** : you won't find an asset group.
 
 ### unknownRoylloCoin
 
