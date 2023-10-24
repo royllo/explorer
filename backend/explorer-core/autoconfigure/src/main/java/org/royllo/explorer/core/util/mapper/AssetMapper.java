@@ -10,6 +10,8 @@ import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.royllo.explorer.core.util.enums.AssetType;
 
 import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
+import static org.royllo.explorer.core.util.enums.AssetType.COLLECTIBLE;
+import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
 
 /**
  * Asset mapper.
@@ -60,9 +62,9 @@ public interface AssetMapper {
 
     default AssetType mapToAssetType(final String source) {
         if (source.equals("COLLECTIBLE")) {
-            return AssetType.COLLECTIBLE;
+            return COLLECTIBLE;
         }
-        return AssetType.NORMAL;
+        return NORMAL;
     }
 
 }

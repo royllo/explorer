@@ -1,4 +1,4 @@
-package org.royllo.explorer.batch.test.core.request;
+package org.royllo.explorer.batch.test.core.proof;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -65,8 +65,6 @@ public class AddProofRequestBatchTest extends TestWithMockServers {
     String UNKNOWN_ROYLLO_COIN_ASSET_STATE_ID;
     String UNKNOWN_ROYLLO_COIN_RAW_PROOF;
     String UNKNOWN_ROYLLO_COIN_RAW_PROOF_PROOF_ID;
-
-
     @Autowired
     AssetGroupRepository assetGroupRepository;
 
@@ -111,7 +109,7 @@ public class AddProofRequestBatchTest extends TestWithMockServers {
         assertTrue(invalidProofRequestTreated.isPresent());
         assertFalse(invalidProofRequestTreated.get().isSuccessful());
         assertEquals(FAILURE, invalidProofRequestTreated.get().getStatus());
-        assertEquals("proto: (line 1:17): invalid value for bytes type: \"INVALID_PROOF\"", invalidProofRequestTreated.get().getErrorMessage());
+        assertEquals("proto: (line 1:17): invalid value for bytes type: \"INVALID_PROOF\"", invalidProofRequestTreated.get().getErrorMessage());
 
         // =============================================================================================================
         // "Royllo coin": This asset is already in our database.
@@ -336,8 +334,6 @@ public class AddProofRequestBatchTest extends TestWithMockServers {
                 testCoinProof1AssetState.get().getAnchorOutpoint().getTxId() + ":" + testCoinProof1AssetState.get().getAnchorOutpoint().getVout());
         assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getChainAnchor().getAnchorTx(),
                 testCoinProof1AssetState.get().getAnchorTx());
-        assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getChainAnchor().getAnchorTxId(),
-                testCoinProof1AssetState.get().getAnchorTxId());
         assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getChainAnchor().getInternalKey(),
                 testCoinProof1AssetState.get().getInternalKey());
         assertEquals(testCoinDecodedProof1.getDecodedProof().getAsset().getChainAnchor().getMerkleRoot(),
@@ -410,8 +406,6 @@ public class AddProofRequestBatchTest extends TestWithMockServers {
                 testCoinProof2AssetState.get().getAnchorOutpoint().getTxId() + ":" + testCoinProof2AssetState.get().getAnchorOutpoint().getVout());
         assertEquals(testCoinDecodedProof2.getDecodedProof().getAsset().getChainAnchor().getAnchorTx(),
                 testCoinProof2AssetState.get().getAnchorTx());
-        assertEquals(testCoinDecodedProof2.getDecodedProof().getAsset().getChainAnchor().getAnchorTxId(),
-                testCoinProof2AssetState.get().getAnchorTxId());
         assertEquals(testCoinDecodedProof2.getDecodedProof().getAsset().getChainAnchor().getInternalKey(),
                 testCoinProof2AssetState.get().getInternalKey());
         assertEquals(testCoinDecodedProof2.getDecodedProof().getAsset().getChainAnchor().getMerkleRoot(),
@@ -484,8 +478,7 @@ public class AddProofRequestBatchTest extends TestWithMockServers {
                 testCoinProof3AssetState.get().getAnchorOutpoint().getTxId() + ":" + testCoinProof3AssetState.get().getAnchorOutpoint().getVout());
         assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getChainAnchor().getAnchorTx(),
                 testCoinProof3AssetState.get().getAnchorTx());
-        assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getChainAnchor().getAnchorTxId(),
-                testCoinProof3AssetState.get().getAnchorTxId());
+
         assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getChainAnchor().getInternalKey(),
                 testCoinProof3AssetState.get().getInternalKey());
         assertEquals(testCoinDecodedProof3.getDecodedProof().getAsset().getChainAnchor().getMerkleRoot(),

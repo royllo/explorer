@@ -34,6 +34,8 @@ public class AssetGroup extends BaseDomain {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
+    // TODO - Add and AssetGroupId field.
+
     /** Asset creator. */
     @ManyToOne(fetch = EAGER)
     @JoinColumn(name = "FK_USER_CREATOR", nullable = false)

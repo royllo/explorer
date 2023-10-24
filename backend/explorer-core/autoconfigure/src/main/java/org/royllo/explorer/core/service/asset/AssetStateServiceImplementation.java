@@ -4,10 +4,13 @@ import io.micrometer.common.util.StringUtils;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.asset.Asset;
+import org.royllo.explorer.core.domain.asset.AssetGroup;
 import org.royllo.explorer.core.domain.asset.AssetState;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
+import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
 import org.royllo.explorer.core.dto.asset.AssetStateDTO;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
+import org.royllo.explorer.core.repository.asset.AssetGroupRepository;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.repository.asset.AssetStateRepository;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
@@ -18,7 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
 
 /**
  * {@link AssetStateService} implementation.
@@ -31,11 +34,17 @@ public class AssetStateServiceImplementation extends BaseService implements Asse
     /** Search parameter for asset id. */
     public static final String SEARCH_PARAMETER_ASSET_ID = "assetId:";
 
+    /** Assert group repository. */
+    private final AssetGroupRepository assetGroupRepository;
+
     /** Assert repository. */
     private final AssetRepository assetRepository;
 
     /** Assert state repository. */
     private final AssetStateRepository assetStateRepository;
+
+    /** Asset group service. */
+    private final AssetGroupService assetGroupService;
 
     /** Asset service. */
     private final AssetService assetService;
@@ -82,20 +91,38 @@ public class AssetStateServiceImplementation extends BaseService implements Asse
         // =============================================================================================================
         // We update and save the asset state.
         final AssetState assetStateToCreate = ASSET_STATE_MAPPER.mapToAssetState(newAssetState);
+        assetStateToCreate.setCreator(ANONYMOUS_USER);
 
         // We check that the asset state does not already exist.
         assert assetStateRepository.findByAssetStateId(assetStateToCreate.getAssetStateId()).isEmpty() : "Asset state already exists";
 
-        // Setting the creator. TODO Why map ?
-        assetStateToCreate.setCreator(USER_MAPPER.mapToUser(ANONYMOUS_USER_DTO));
-
+        // =============================================================================================================
         // Setting the asset of this asset state. We check in database if we can find it with its assetId. If not, we set it.
         final Optional<Asset> asset = assetRepository.findByAssetId(assetStateToCreate.getAsset().getAssetId());
         if (asset.isPresent()) {
             // We set the asset of the asset state to create.
+            logger.info("Asset {} already exists with id : {}", asset.get().getAssetId(), asset.get().getId());
             assetStateToCreate.setAsset(asset.get());
         } else {
-            // We create the asset and we set it .
+            logger.info("Asset {} does not exists", assetStateToCreate.getAsset().getAssetId());
+            // We create the asset, and we set it (we also check for the group asset).
+
+            // But before, we are setting the asset group of this asset state. Whe check in database if we can find it with its raw group key. If not we set it.
+            if (assetStateToCreate.getAsset().getAssetGroup() != null && newAssetState.getAsset().getAssetGroup().getTweakedGroupKey() != null) {
+                final Optional<AssetGroup> assetGroup = assetGroupRepository.findByTweakedGroupKey(assetStateToCreate.getAsset().getAssetGroup().getTweakedGroupKey());
+                if (assetGroup.isPresent()) {
+                    // We set the asset group of asset.
+                    logger.info("Asset group {} already exists with id : {}", assetGroup.get().getTweakedGroupKey(), assetGroup.get().getId());
+                    newAssetState.getAsset().setAssetGroup(ASSET_GROUP_MAPPER.mapToAssetGroupDTO(assetGroup.get()));
+                } else {
+                    // We create the asset group and set it.
+                    final AssetGroupDTO assetGroupCreated = assetGroupService.addAssetGroup(newAssetState.getAsset().getAssetGroup());
+                    logger.info("Asset group {} created with id : {}", assetGroupCreated.getTweakedGroupKey(), assetGroupCreated.getId());
+                    newAssetState.getAsset().setAssetGroup(assetGroupCreated);
+                }
+            }
+
+            // We create the asset.
             final AssetDTO assetCreated = assetService.addAsset(newAssetState.getAsset());
             assetStateToCreate.setAsset(ASSET_MAPPER.mapToAsset(assetCreated));
         }

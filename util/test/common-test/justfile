@@ -12,6 +12,9 @@ retrieve_macaroon_from_tapd:
     sudo cp /var/lib/docker/volumes/tapd/_data/data/testnet/admin.macaroon ./src/main/resources/tapd/admin.macaroon
     sudo chown $USER ./src/main/resources/tapd/admin.macaroon
 
+run_tapd:
+    docker-compose -f tade/docker-compose.yml up
+
 # ======================================================================================================================
 # The followind commands are used to download data for each asset.
 
@@ -135,3 +138,9 @@ generate_unlimitedRoylloCoin_data:
 
     curl    https://mempool.space/testnet/api/tx/89cd5498584f217ca77d50e740e56490a710ab7b6988b3cd73aac95b9e077b1f | \
             jq > src/main/resources/mempool/89cd5498584f217ca77d50e740e56490a710ab7b6988b3cd73aac95b9e077b1f-response.json
+
+generate_invalidProof_data:
+    curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./src/main/resources/tapd/admin.macaroon)" \
+            --data @src/main/resources/tapd/assets/invalidProof/decodeProof-proofFile1-proofAtDepth0-request.json \
+            --insecure https://localhost:8089/v1/taproot-assets/proofs/decode | \
+            jq > src/main/resources/tapd/assets/invalidProof/decodeProof-proofFile1-proofAtDepth0-response.json

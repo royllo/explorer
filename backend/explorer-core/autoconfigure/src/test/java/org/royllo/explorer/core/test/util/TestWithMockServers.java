@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockserver.integration.ClientAndServer;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
+import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
 import org.royllo.explorer.core.dto.asset.AssetStateDTO;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.util.base.Base;
@@ -108,6 +109,32 @@ public class TestWithMockServers extends Base {
     }
 
     /**
+     * Verify if the asset group DTO is equals to the asset group from test.
+     *
+     * @param assetGroupDTO asset group
+     * @param assetId       asset id that has this group.
+     */
+    public void verifyAssetGroup(final AssetGroupDTO assetGroupDTO,
+                                 final String assetId) {
+        // Finding asset group of the first decoded proof.
+        final DecodedProofValueResponse.DecodedProof.Asset assetFromTest = TapdData.findAssetValueByAssetId(assetId).getDecodedProof(0).getAsset();
+        if (assetFromTest.getAssetGroup() != null) {
+            assertEquals(assetGroupDTO.getRawGroupKey(),
+                    assetFromTest.getAssetGroup().getRawGroupKey(),
+                    "Raw group key are not equals");
+            assertEquals(assetGroupDTO.getTweakedGroupKey(),
+                    assetFromTest.getAssetGroup().getTweakedGroupKey(),
+                    "Tweaked group key are not equals");
+            assertEquals(assetGroupDTO.getAssetWitness(),
+                    assetFromTest.getAssetGroup().getAssetWitness(),
+                    "Asset witness are not equals");
+        } else {
+            fail("Asset group is null");
+        }
+    }
+
+
+    /**
      * Verify if the asset DTO is equals to the asset from test.
      *
      * @param assetDTO asset
@@ -197,18 +224,42 @@ public class TestWithMockServers extends Base {
 
         // We find the asset state.
         final Optional<DecodedProofValueResponse.DecodedProof> assetState = TapdData.findAssetStateByAssetStateId(assetStateId);
-        assertTrue(assetState.isPresent());
+        assertTrue(assetState.isPresent(),
+                "Asset state not found");
 
         // We compare each field.
         // TODO Check each field
-        assertEquals(assetStateDTO.getAnchorBlockHash(), assetState.get().getAsset().getChainAnchor().getAnchorBlockHash());
-        assertEquals(assetStateDTO.getAnchorOutpoint().getTxId(), assetState.get().getAsset().getChainAnchor().getAnchorTxId());
-        assertEquals(assetStateDTO.getAnchorTx(), assetState.get().getAsset().getChainAnchor().getAnchorTx());
-        assertEquals(assetStateDTO.getInternalKey(), assetState.get().getAsset().getChainAnchor().getInternalKey());
-        assertEquals(assetStateDTO.getMerkleRoot(), assetState.get().getAsset().getChainAnchor().getMerkleRoot());
-        assertEquals(assetStateDTO.getTapscriptSibling(), assetState.get().getAsset().getChainAnchor().getTapscriptSibling());
-        assertEquals(assetStateDTO.getScriptVersion(), assetState.get().getAsset().getScriptVersion());
-        assertEquals(assetStateDTO.getScriptKey(), assetState.get().getAsset().getScriptKey());
+        assertEquals(assetStateDTO.getAnchorBlockHash(),
+                assetState.get().getAsset().getChainAnchor().getAnchorBlockHash(),
+                "Anchor block hash are not equals");
+
+        assertEquals(assetStateDTO.getAnchorOutpoint().getTxId(),
+                assetState.get().getAsset().getChainAnchor().getAnchorTxId(),
+                "Anchor outpoint tx id are not equals");
+
+        assertEquals(assetStateDTO.getAnchorTx(),
+                assetState.get().getAsset().getChainAnchor().getAnchorTx(),
+                "Anchor tx are not equals");
+
+        assertEquals(assetStateDTO.getInternalKey(),
+                assetState.get().getAsset().getChainAnchor().getInternalKey(),
+                "Internal key are not equals");
+
+        assertEquals(assetStateDTO.getMerkleRoot(),
+                assetState.get().getAsset().getChainAnchor().getMerkleRoot(),
+                "Merkle root are not equals");
+
+        assertEquals(assetStateDTO.getTapscriptSibling(),
+                assetState.get().getAsset().getChainAnchor().getTapscriptSibling(),
+                "Tapscript sibling are not equals");
+
+        assertEquals(assetStateDTO.getScriptVersion(),
+                assetState.get().getAsset().getScriptVersion(),
+                "Script version are not equals");
+
+        assertEquals(assetStateDTO.getScriptKey(),
+                assetState.get().getAsset().getScriptKey(),
+                "Script key are not equals");
     }
 
 }

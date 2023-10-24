@@ -33,12 +33,20 @@ public class MempoolData {
     // =================================================================================================================
     // roylloNFT
     public static final String ROYLLO_NFT_GENESIS_TXID = "c28a42586b36ac499c6d36da792d98176572573124dbc82526d02bbad5b3d9c7";
+    public static final int ROYLLO_NFT_GENESIS_VOUT = 1;
     public static final String ROYLLO_NFT_ANCHOR_1_TXID = "6db79f5af2ba65bfb4044ced690f3acb4a791a6fc6a7450664e15559ad770b90";
+    public static final int ROYLLO_NFT_ANCHOR_1_VOUT = 0;
 
     // =================================================================================================================
     // setOfRoylloNFT
     public static final String SET_OF_ROYLLO_NFT_GENESIS_TXID = "6db79f5af2ba65bfb4044ced690f3acb4a791a6fc6a7450664e15559ad770b90";
+    public static final int SET_OF_ROYLLO_NFT_GENESIS_VOUT = 1;
     public static final String SET_OF_ROYLLO_NFT_ANCHOR_1_TXID = "ca93a44b534f410914c18ed4563c97b0a6c31194af236d789a79683c9ec76526";
+    public static final int SET_OF_ROYLLO_NFT_ANCHOR_1_VOUT = 0;
+    public static final String SET_OF_ROYLLO_NFT_ANCHOR_2_TXID = "ca93a44b534f410914c18ed4563c97b0a6c31194af236d789a79683c9ec76526";
+    public static final int SET_OF_ROYLLO_NFT_ANCHOR_2_VOUT = 0;
+    public static final String SET_OF_ROYLLO_NFT_ANCHOR_3_TXID = "ca93a44b534f410914c18ed4563c97b0a6c31194af236d789a79683c9ec76526";
+    public static final int SET_OF_ROYLLO_NFT_ANCHOR_3_VOUT = 0;
 
     // =================================================================================================================
     // trickyRoylloCoin
@@ -71,6 +79,7 @@ public class MempoolData {
         LOGGER.info("Loading MempoolData...");
         Arrays.stream(MempoolData.class.getFields())
                 .filter(field -> Modifier.isPublic(field.getModifiers()) && Modifier.isStatic(field.getModifiers()))
+                .filter(field -> field.getType().equals(String.class))
                 .map(txid -> {
                     try {
                         return (String) txid.get(null);

@@ -4,7 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Setter;
 import lombok.Value;
+import lombok.experimental.NonFinal;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.dto.user.UserDTO;
 import org.royllo.explorer.core.util.enums.AssetType;
@@ -60,6 +62,8 @@ public class AssetDTO {
     BigInteger amount;
 
     /** Asset group. */
+    @NonFinal
+    @Setter
     AssetGroupDTO assetGroup;
 
 }

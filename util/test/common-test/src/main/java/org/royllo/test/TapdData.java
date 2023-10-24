@@ -138,6 +138,13 @@ public class TapdData {
         UNLIMITED_ROYLLO_COIN_2_FROM_TEST.addDecodedProofValue(getDecodedProofValue("unlimitedRoylloCoin/firstEmission", 1, 0));
         ASSETS.put(UNLIMITED_ROYLLO_COIN_2_ASSET_ID, UNLIMITED_ROYLLO_COIN_2_FROM_TEST);
 
+        // =============================================================================================================
+        // Invalid proof
+        LOGGER.info("Loading invalidProof...");
+        final AssetValue invalidProof = new AssetValue();
+        invalidProof.addDecodedProofValue(getDecodedProofValue("invalidProof", 1, 0));
+        ASSETS.put("invalidProof", invalidProof);
+
         LOGGER.info("TapdData loaded.");
     }
 
