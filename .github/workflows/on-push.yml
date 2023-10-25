@@ -147,7 +147,7 @@ jobs:
 
       - name: Build and package
         run: |
-          mvn package -Dmaven.test.skip=true
+          mvn package -DskipTests
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
