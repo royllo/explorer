@@ -108,7 +108,7 @@ public class AssetStateServiceImplementation extends BaseService implements Asse
             // We create the asset, and we set it (we also check for the group asset).
 
             // But before, we are setting the asset group of this asset state. Whe check in database if we can find it with its raw group key. If not we set it.
-            if (assetStateToCreate.getAsset().getAssetGroup() != null && newAssetState.getAsset().getAssetGroup().getTweakedGroupKey() != null) {
+            if (assetStateToCreate.getAsset().getAssetGroup() != null) {
                 final Optional<AssetGroup> assetGroup = assetGroupRepository.findByTweakedGroupKey(assetStateToCreate.getAsset().getAssetGroup().getTweakedGroupKey());
                 if (assetGroup.isPresent()) {
                     // We set the asset group of asset.

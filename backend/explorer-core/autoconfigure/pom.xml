@@ -203,26 +203,6 @@
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>${maven.resources.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>copy-test-resource</id>
-                        <phase>process-test-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/royllo-test-util</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/test/java</directory>
-                                    <includes>
-                                        <include>**/TestWithMockServers.*</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <!-- Plugin to create the two jars (one is only for tests) -->
             <plugin>
@@ -241,14 +221,8 @@
                     <execution>
                         <id>royllo-test-util</id>
                         <phase>package</phase>
-                        <configuration>
-                            <includes>
-                                <include>${project.build.directory}/royllo-test-util</include>
-                            </includes>
-                            <classifier>test</classifier>
-                        </configuration>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>test-jar</goal>
                         </goals>
                     </execution>
                 </executions>

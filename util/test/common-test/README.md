@@ -40,4 +40,4 @@ This coin is used to test the case when Royllo doesn't know the coin.
 ### unlimitedRoylloCoin
 
 This coin is used to test the case of a coin with an asset group and two emissions.
-**Emission possible** : you will have an asset group. and two emissions.
+**Emission possible** : you will have an asset group and two emissions.

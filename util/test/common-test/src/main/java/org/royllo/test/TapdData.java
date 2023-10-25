@@ -135,7 +135,7 @@ public class TapdData {
         ASSETS.put(UNLIMITED_ROYLLO_COIN_1_ASSET_ID, UNLIMITED_ROYLLO_COIN_1_FROM_TEST);
 
         UNLIMITED_ROYLLO_COIN_2_FROM_TEST = new AssetValue();
-        UNLIMITED_ROYLLO_COIN_2_FROM_TEST.addDecodedProofValue(getDecodedProofValue("unlimitedRoylloCoin/firstEmission", 1, 0));
+        UNLIMITED_ROYLLO_COIN_2_FROM_TEST.addDecodedProofValue(getDecodedProofValue("unlimitedRoylloCoin/secondEmission", 1, 0));
         ASSETS.put(UNLIMITED_ROYLLO_COIN_2_ASSET_ID, UNLIMITED_ROYLLO_COIN_2_FROM_TEST);
 
         // =============================================================================================================

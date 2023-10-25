@@ -77,8 +77,8 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
     AddProofBatch addProofBatch;
 
     @Test
-    @DisplayName("Process proof")
-    public void processProof() {
+    @DisplayName("Process proofs")
+    public void processProofs() {
         /*
             11 000 trickyCoins were created.
                 50 trickyCoins were sent to another address.
@@ -237,6 +237,87 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
                 TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID);
         verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_2_ASSET_STATE_ID).get(),
                 TRICKY_ROYLLO_COIN_2_ASSET_STATE_ID);
+        verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_3_ASSET_STATE_ID).get(),
+                TRICKY_ROYLLO_COIN_3_ASSET_STATE_ID);
+        verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_4_ASSET_STATE_ID).get(),
+                TRICKY_ROYLLO_COIN_4_ASSET_STATE_ID);
+    }
+
+    @Test
+    @DisplayName("Process proofs starting from the last one")
+    public void processProofsStartingFromTheLastOne() {
+        // Proof 3.
+        final String TRICKY_ROYLLO_COIN_3_RAW_PROOF = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(3).getRawProof();
+        final String TRICKY_ROYLLO_COIN_3_PROOF_ID = sha256(TRICKY_ROYLLO_COIN_3_RAW_PROOF);
+
+        // Asset states.
+        final String TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProof(0).getAsset().getAssetStateId();
+        final String TRICKY_ROYLLO_COIN_2_ASSET_STATE_ID = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProof(1).getAsset().getAssetStateId();
+        final String TRICKY_ROYLLO_COIN_3_ASSET_STATE_ID = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProof(3).getAsset().getAssetStateId();
+        final String TRICKY_ROYLLO_COIN_4_ASSET_STATE_ID = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProof(4).getAsset().getAssetStateId();
+
+        // =============================================================================================================
+        // We check that the asset doesn't already exist.
+        assertFalse(assetService.getAssetByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID).isPresent());
+
+        assertFalse(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID).isPresent());
+        assertFalse(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_2_ASSET_STATE_ID).isPresent());
+        assertFalse(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_3_ASSET_STATE_ID).isPresent());
+        assertFalse(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_4_ASSET_STATE_ID).isPresent());
+
+        assertFalse(proofService.getProofFileByProofFileId(TRICKY_ROYLLO_COIN_3_PROOF_ID).isPresent());
+
+        // =============================================================================================================
+        // We count how many items we have before inserting.
+        final long assetGroupCountBefore = assetGroupRepository.count();
+        final long assetCountBefore = assetRepository.count();
+        final long assetStateCountBefore = assetStateRepository.count();
+
+        // =============================================================================================================
+        // We add the three proofs.
+        AddProofRequestDTO addTrickyCoinProof3Request = requestService.createAddProofRequest(TRICKY_ROYLLO_COIN_3_RAW_PROOF);
+        assertNotNull(addTrickyCoinProof3Request);
+        assertEquals(OPENED, addTrickyCoinProof3Request.getStatus());
+
+        // =============================================================================================================
+        // We process the request and test its results
+        addProofBatch.processRequests();
+
+        final Optional<RequestDTO> addTrickyCoinProof3RequestTreated = requestService.getRequest(addTrickyCoinProof3Request.getId());
+        assertTrue(addTrickyCoinProof3RequestTreated.isPresent());
+        assertTrue(addTrickyCoinProof3RequestTreated.get().isSuccessful());
+        assertEquals(SUCCESS, addTrickyCoinProof3RequestTreated.get().getStatus());
+        assertNotNull(((AddProofRequestDTO) addTrickyCoinProof3RequestTreated.get()).getAsset());
+        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, ((AddProofRequestDTO) addTrickyCoinProof3RequestTreated.get()).getAsset().getAssetId());
+
+        // =============================================================================================================
+        // We check that nothing more has been created.
+        assertTrue(bitcoinService.getBitcoinTransactionOutput(TRICKY_ROYLLO_COIN_GENESIS_TXID, SET_OF_ROYLLO_NFT_GENESIS_VOUT).isPresent());
+        assertTrue(bitcoinService.getBitcoinTransactionOutput(TRICKY_ROYLLO_COIN_ANCHOR_1_TXID, SET_OF_ROYLLO_NFT_ANCHOR_1_VOUT).isPresent());
+        assertTrue(bitcoinService.getBitcoinTransactionOutput(TRICKY_ROYLLO_COIN_ANCHOR_2_TXID, SET_OF_ROYLLO_NFT_ANCHOR_2_VOUT).isPresent());
+        assertTrue(bitcoinService.getBitcoinTransactionOutput(TRICKY_ROYLLO_COIN_ANCHOR_3_TXID, SET_OF_ROYLLO_NFT_ANCHOR_3_VOUT).isPresent());
+
+        assertTrue(assetService.getAssetByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID).isPresent());
+
+        assertTrue(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID).isPresent());
+        assertFalse(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_2_ASSET_STATE_ID).isPresent());
+        assertTrue(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_3_ASSET_STATE_ID).isPresent());
+        assertTrue(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_4_ASSET_STATE_ID).isPresent());
+
+        assertTrue(proofService.getProofFileByProofFileId(TRICKY_ROYLLO_COIN_3_PROOF_ID).isPresent());
+
+        // =============================================================================================================
+        // We check what has been created.
+        assertEquals(assetGroupCountBefore, assetGroupRepository.count());
+        assertEquals(assetCountBefore + 1, assetRepository.count());
+        assertEquals(assetStateCountBefore + 3, assetStateRepository.count());
+
+        // Verify asset.
+        verifyAsset(assetService.getAssetByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID).get(), TRICKY_ROYLLO_COIN_ASSET_ID);
+
+        // Verify asset states.
+        verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID).get(),
+                TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID);
         verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_3_ASSET_STATE_ID).get(),
                 TRICKY_ROYLLO_COIN_3_ASSET_STATE_ID);
         verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_4_ASSET_STATE_ID).get(),

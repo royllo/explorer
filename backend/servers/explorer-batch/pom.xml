@@ -79,7 +79,7 @@
         <dependency>
             <groupId>org.royllo.explorer</groupId>
             <artifactId>explorer-core-spring-boot-autoconfigure</artifactId>
-            <classifier>test</classifier>
+            <classifier>tests</classifier>
             <type>test-jar</type>
             <version>${project.version}</version>
             <scope>test</scope>

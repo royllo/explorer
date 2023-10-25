@@ -197,7 +197,7 @@ public class SetOfRoylloNFTIntegrationTest extends TestWithMockServers {
         verifyTransaction(bitcoinService.getBitcoinTransactionOutput(SET_OF_ROYLLO_NFT_GENESIS_TXID, SET_OF_ROYLLO_NFT_GENESIS_VOUT).get(),
                 SET_OF_ROYLLO_NFT_GENESIS_TXID);
 
-        verifyAssetGroup(assetGroupService.getAssetGroupByTweakedGroupKey(SET_OF_ROYLLO_NFT_TWEAKED_GROUP_KEY).get(), SET_OF_ROYLLO_NFT_TWEAKED_GROUP_KEY);
+        verifyAssetGroup(assetGroupService.getAssetGroupByTweakedGroupKey(SET_OF_ROYLLO_NFT_TWEAKED_GROUP_KEY).get(), SET_OF_ROYLLO_NFT_1_ASSET_ID);
 
         // NTF1.
         verifyTransaction(bitcoinService.getBitcoinTransactionOutput(SET_OF_ROYLLO_NFT_ANCHOR_1_TXID, SET_OF_ROYLLO_NFT_ANCHOR_1_VOUT).get(),

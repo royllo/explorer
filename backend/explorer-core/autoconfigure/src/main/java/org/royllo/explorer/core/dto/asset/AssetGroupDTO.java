@@ -28,6 +28,7 @@ public class AssetGroupDTO {
     String rawGroupKey;
 
     /** The tweaked group key, which is derived based on the genesis point and also asset type. */
+    @NotNull(message = "Tweaked group key is required")
     String tweakedGroupKey;
 
     /** A witness that authorizes a specific asset to be part of the asset group specified by the above key. */
