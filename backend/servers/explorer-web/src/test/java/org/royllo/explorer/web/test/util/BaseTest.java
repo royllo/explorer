@@ -23,7 +23,7 @@ public class BaseTest {
         htmxHeaders.add(HTMX_REQUEST, "true");
 
         return Stream.of(
-                // Normal call (no HTMX).
+                // Normal call.
                 Arguments.of(new HttpHeaders()),
                 // HTMX call.
                 Arguments.of(htmxHeaders)

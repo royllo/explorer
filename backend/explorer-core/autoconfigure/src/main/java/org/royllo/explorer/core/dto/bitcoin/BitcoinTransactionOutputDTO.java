@@ -55,4 +55,14 @@ public class BitcoinTransactionOutputDTO {
         return getScriptPubKeyType() != null && getScriptPubKeyType().toLowerCase().endsWith("p2tr");
     }
 
+    /**
+     * To string (only display txid-vout).
+     *
+     * @return txid + count
+     */
+    @Override
+    public String toString() {
+        return txId + '-' + vout;
+    }
+
 }

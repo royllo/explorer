@@ -14,6 +14,7 @@ import java.util.Objects;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
 import static org.royllo.explorer.web.util.constants.PagesConstants.REQUEST_PAGE;
+import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -112,7 +113,7 @@ public class RequestControllerTest {
                 .andExpect(content().string(containsString(">Success<")))
                 // View asset.
                 .andExpect(content().string(containsString(environment.getProperty("request.button.asset.view"))))
-                .andExpect(content().string(containsString("\"/asset/f9dd292bb211dae8493645150b36efa990841b11038d026577440d2616d1ec32\"")))
+                .andExpect(content().string(containsString("\"/asset/" + ROYLLO_COIN_ASSET_ID + "\"")))
                 // Error messages.
                 .andExpect(content().string(not(containsString(environment.getProperty("request.view.error.noRequestId")))))
                 .andExpect(content().string(not(containsString(Objects.requireNonNull(
