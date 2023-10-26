@@ -87,7 +87,7 @@
         <caffeine.version>3.1.8</caffeine.version>
 
         <thymeleaf-layout-dialect.version>3.3.0</thymeleaf-layout-dialect.version>
-        <htmx-spring-boot-thymeleaf.version>3.0.0</htmx-spring-boot-thymeleaf.version>
+        <htmx-spring-boot-thymeleaf.version>3.1.1</htmx-spring-boot-thymeleaf.version>
         <webjars-locator.version>0.47</webjars-locator.version>
         <htmx.version>1.9.6</htmx.version>
         <alpinejs.version>3.13.1</alpinejs.version>
