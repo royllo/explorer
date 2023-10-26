@@ -83,10 +83,10 @@ public class MempoolData {
     public static final String UNLIMITED_ROYLLO_COIN_1_ANCHOR_1_TXID = "2debb29de64ed7aafaf79c034f1ba22c41f484fafc814cab7b22a97bacfa6825";
     public static final int UNLIMITED_ROYLLO_COIN_1_ANCHOR_1_GENESIS_VOUT = 0;
 
-    public static final String UNLIMITED_ROYLLO_COIN_2_GENESIS_TXID = "2debb29de64ed7aafaf79c034f1ba22c41f484fafc814cab7b22a97bacfa6825";
+    public static final String UNLIMITED_ROYLLO_COIN_2_GENESIS_TXID = "89cd5498584f217ca77d50e740e56490a710ab7b6988b3cd73aac95b9e077b1f";
     public static final int UNLIMITED_ROYLLO_COIN_2_GENESIS_VOUT = 1;
 
-    public static final String UNLIMITED_ROYLLO_COIN_2_ANCHOR_1_TXID = "89cd5498584f217ca77d50e740e56490a710ab7b6988b3cd73aac95b9e077b1f";
+    public static final String UNLIMITED_ROYLLO_COIN_2_ANCHOR_1_TXID = "0516611bebe6a92675ee7360ad64edf0b3b2e967fe8c474b2d2242d5a349da3d";
     public static final int UNLIMITED_ROYLLO_COIN_2_ANCHOR_1_GENESIS_VOUT = 0;
 
     /** Static logger. */

@@ -4,10 +4,8 @@ import io.micrometer.common.util.StringUtils;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.asset.Asset;
-import org.royllo.explorer.core.domain.asset.AssetGroup;
 import org.royllo.explorer.core.domain.asset.AssetState;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
-import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
 import org.royllo.explorer.core.dto.asset.AssetStateDTO;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.repository.asset.AssetGroupRepository;
@@ -97,31 +95,14 @@ public class AssetStateServiceImplementation extends BaseService implements Asse
         assert assetStateRepository.findByAssetStateId(assetStateToCreate.getAssetStateId()).isEmpty() : "Asset state already exists";
 
         // =============================================================================================================
-        // Setting the asset of this asset state. We check in database if we can find it with its assetId. If not, we set it.
+        // Setting the asset of this asset state. We check in database if we can find it with its assetId. If not, we create it.
         final Optional<Asset> asset = assetRepository.findByAssetId(assetStateToCreate.getAsset().getAssetId());
         if (asset.isPresent()) {
-            // We set the asset of the asset state to create.
+            // Asset exists, we set the asset of the asset state to create.
             logger.info("Asset {} already exists with id : {}", asset.get().getAssetId(), asset.get().getId());
             assetStateToCreate.setAsset(asset.get());
         } else {
             logger.info("Asset {} does not exists", assetStateToCreate.getAsset().getAssetId());
-            // We create the asset, and we set it (we also check for the group asset).
-
-            // But before, we are setting the asset group of this asset state. Whe check in database if we can find it with its raw group key. If not we set it.
-            if (assetStateToCreate.getAsset().getAssetGroup() != null) {
-                final Optional<AssetGroup> assetGroup = assetGroupRepository.findByTweakedGroupKey(assetStateToCreate.getAsset().getAssetGroup().getTweakedGroupKey());
-                if (assetGroup.isPresent()) {
-                    // We set the asset group of asset.
-                    logger.info("Asset group {} already exists with id : {}", assetGroup.get().getTweakedGroupKey(), assetGroup.get().getId());
-                    newAssetState.getAsset().setAssetGroup(ASSET_GROUP_MAPPER.mapToAssetGroupDTO(assetGroup.get()));
-                } else {
-                    // We create the asset group and set it.
-                    final AssetGroupDTO assetGroupCreated = assetGroupService.addAssetGroup(newAssetState.getAsset().getAssetGroup());
-                    logger.info("Asset group {} created with id : {}", assetGroupCreated.getTweakedGroupKey(), assetGroupCreated.getId());
-                    newAssetState.getAsset().setAssetGroup(assetGroupCreated);
-                }
-            }
-
             // We create the asset.
             final AssetDTO assetCreated = assetService.addAsset(newAssetState.getAsset());
             assetStateToCreate.setAsset(ASSET_MAPPER.mapToAsset(assetCreated));

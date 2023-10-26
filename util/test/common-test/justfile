@@ -136,6 +136,9 @@ generate_unlimitedRoylloCoin_data:
     curl    https://mempool.space/testnet/api/tx/2debb29de64ed7aafaf79c034f1ba22c41f484fafc814cab7b22a97bacfa6825 | \
             jq > src/main/resources/mempool/2debb29de64ed7aafaf79c034f1ba22c41f484fafc814cab7b22a97bacfa6825-response.json
 
+    curl    https://mempool.space/testnet/api/tx/0516611bebe6a92675ee7360ad64edf0b3b2e967fe8c474b2d2242d5a349da3d | \
+            jq > src/main/resources/mempool/0516611bebe6a92675ee7360ad64edf0b3b2e967fe8c474b2d2242d5a349da3d-response.json
+
     curl    https://mempool.space/testnet/api/tx/89cd5498584f217ca77d50e740e56490a710ab7b6988b3cd73aac95b9e077b1f | \
             jq > src/main/resources/mempool/89cd5498584f217ca77d50e740e56490a710ab7b6988b3cd73aac95b9e077b1f-response.json
 

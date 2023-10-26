@@ -1,6 +1,5 @@
 package org.royllo.explorer.core.test.integration.tapd;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
@@ -15,6 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.ROYLLO_COIN_FROM_TEST;
+import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_FROM_TEST;
 
 @SpringBootTest(properties = {"tapd.api.base-url=https://157.230.85.88:8089"})
 @DisplayName("TAPD decode proof service test")
@@ -24,16 +25,12 @@ public class TapdDecodeServiceTest {
     private TapdService tapdService;
 
     @Test
-    @Disabled
     @DisplayName("decode()")
-    @SuppressWarnings("SpellCheckingInspection")
     public void decodeTest() {
-        // TODO Enable this test when the 0.03 TAPD server is up and running.
+        final String ROYLLO_COIN_RAW_PROOF = ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getRawProof();
 
         // Value coming from the server.
-        // TODO Fix this.
-        // final DecodedProofResponse response = tapdService.decode(ROYLLO_COIN_RAW_PROOF).block();
-        final DecodedProofResponse response = null;
+        final DecodedProofResponse response = tapdService.decode(ROYLLO_COIN_RAW_PROOF).block();
         assertNotNull(response);
 
         // Value coming from our test data.
@@ -43,7 +40,7 @@ public class TapdDecodeServiceTest {
         // =============================================================================================================
         // Testing all the value from the response with what we have in test data.
 
-        // Errots.
+        // Errors.
         assertNull(response.getErrorCode());
         assertNull(response.getErrorMessage());
 
@@ -89,32 +86,24 @@ public class TapdDecodeServiceTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("decode() with proofAtDepth parameter")
     public void proofAtDepthTest() {
-        // TODO Enable this test when the 0.03 TAPD server is up and running.
+        final String TRICKY_ROYLLO_COIN_3_RAW_PROOF = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(3).getRawProof();
 
-        // TODO Fix this.
-        // final DecodedProofResponse response1 = tapdService.decode(TESTCOIN_RAW_PROOF_2, 0).block();
-        final DecodedProofResponse response1 = null;
+        final DecodedProofResponse response1 = tapdService.decode(TRICKY_ROYLLO_COIN_3_RAW_PROOF, 0).block();
         assertNotNull(response1);
         assertEquals(2, response1.getDecodedProof().getNumberOfProofs());
-        assertEquals(1, response1.getDecodedProof().getProofAtDepth());
+        assertEquals(0, response1.getDecodedProof().getProofAtDepth());
 
-        // TODO Fix this.
-        // final DecodedProofResponse response2 = tapdService.decode(TESTCOIN_RAW_PROOF_2, 1).block();
-        final DecodedProofResponse response2 = null;
+        final DecodedProofResponse response2 = tapdService.decode(TRICKY_ROYLLO_COIN_3_RAW_PROOF, 1).block();
         assertNotNull(response2);
         assertEquals(2, response1.getDecodedProof().getNumberOfProofs());
-        assertEquals(0, response2.getDecodedProof().getProofAtDepth());
+        assertEquals(1, response2.getDecodedProof().getProofAtDepth());
     }
 
     @Test
-    @Disabled
     @DisplayName("decode() on tapd with an invalid proof")
     public void decodeErrorTest() {
-        // TODO Enable this test when the 0.03 TAPD server is up and running.
-
         final DecodedProofResponse response = tapdService.decode("INVALID_PROOF").block();
 
         // Testing errors.

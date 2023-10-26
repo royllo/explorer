@@ -57,6 +57,7 @@ public class TestWithMockServers extends Base {
         // Mempool mock server.
         mempoolMockServer = startClientAndServer(MEMPOOL_MOCK_SERVER_PORT);
         MempoolData.setMockServerRules(mempoolMockServer);
+
         // Tapd mock server.
         tapdMockServer = startClientAndServer(TAPD_MOCK_SERVER_PORT);
         TapdData.setMockServerRules(tapdMockServer);

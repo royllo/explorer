@@ -64,7 +64,7 @@ public class TapdData {
     public static final String UNLIMITED_ROYLLO_COIN_1_ASSET_ID = "ce2d57a6bef7668a781bc149f5491aab7392b30a2f4368f013722f46a57abc70";
     public static final AssetValue UNLIMITED_ROYLLO_COIN_1_FROM_TEST;
 
-    public static final String UNLIMITED_ROYLLO_COIN_2_ASSET_ID = "8deae8ae25e1e46f8d74ba47b28860001965628d2c011f8f19f9e07dbecec7d0";
+    public static final String UNLIMITED_ROYLLO_COIN_2_ASSET_ID = "fdf6f8c41602ccdad237305a05e41868ba267947d152a1cacfaf3b5045a84a04";
     public static final AssetValue UNLIMITED_ROYLLO_COIN_2_FROM_TEST;
 
     /** Static logger. */

@@ -108,7 +108,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         }
 
         // We check if an asset group is set.
-        if (newAsset.getAssetGroup() != null && !StringUtils.isEmpty(newAsset.getAssetGroup().getRawGroupKey())) {
+        if (newAsset.getAssetGroup() != null && !StringUtils.isEmpty(newAsset.getAssetGroup().getTweakedGroupKey())) {
             // If the asset exists in database, we retrieve and set it.
             final Optional<AssetGroupDTO> assetGroup = assetGroupService.getAssetGroupByTweakedGroupKey(newAsset.getAssetGroup().getTweakedGroupKey());
             if (assetGroup.isPresent()) {
@@ -121,7 +121,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         }
 
         // If the asset group is not set, we set it to null.
-        if (newAsset.getAssetGroup() != null && StringUtils.isEmpty(newAsset.getAssetGroup().getRawGroupKey())) {
+        if (newAsset.getAssetGroup() != null && StringUtils.isEmpty(newAsset.getAssetGroup().getTweakedGroupKey())) {
             assetToCreate.setAssetGroup(null);
         }
 

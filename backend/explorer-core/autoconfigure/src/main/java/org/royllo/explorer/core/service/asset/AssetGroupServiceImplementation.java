@@ -36,7 +36,7 @@ public class AssetGroupServiceImplementation extends BaseService implements Asse
         // Saving asset group.
         final AssetGroup assetGroupToCreate = ASSET_GROUP_MAPPER.mapToAssetGroup(newAssetGroup);
         final AssetGroupDTO assetGroupCreated = ASSET_GROUP_MAPPER.mapToAssetGroupDTO(assetGroupRepository.save(assetGroupToCreate));
-
+        
         // We return the value.
         logger.info("Asset group created: {}", assetGroupCreated);
         return assetGroupCreated;
