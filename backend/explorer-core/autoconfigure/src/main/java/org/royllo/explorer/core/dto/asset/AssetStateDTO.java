@@ -32,6 +32,10 @@ public class AssetStateDTO {
     @NotNull(message = "Linked asset is required")
     AssetDTO asset;
 
+    /** The transaction that anchors the Taproot asset commitment where the asset resides. */
+    @NotNull(message = "Anchor transaction is required")
+    String anchorTx;
+
     /** The block hash the contains the anchor transaction above. */
     @NotNull(message = "Anchor block hash is required")
     String anchorBlockHash;
@@ -39,10 +43,6 @@ public class AssetStateDTO {
     /** Outpoint (txid:vout) that stores the Taproot asset commitment. */
     @NotNull(message = "Anchor outpoint is required")
     BitcoinTransactionOutputDTO anchorOutpoint;
-
-    /** The transaction that anchors the Taproot asset commitment where the asset resides. */
-    @NotNull(message = "Anchor transaction is required")
-    String anchorTx;
 
     /** The raw internal key that was used to create the anchor Taproot output key. */
     @NotNull(message = "Anchor internal key is required")

@@ -45,27 +45,27 @@ public class Asset extends BaseDomain {
     @JoinColumn(name = "FK_USER_CREATOR", nullable = false)
     private User creator;
 
+    /** Asset genesis: The asset ID that uniquely identifies the asset. */
+    @Column(name = "ASSET_ID", updatable = false)
+    private String assetId;
+
     /** Asset group. */
     @ManyToOne(fetch = EAGER)
     @JoinColumn(name = "FK_ASSET_GROUP")
     private AssetGroup assetGroup;
-
-    /** Asset genesis: The asset ID that uniquely identifies the asset. */
-    @Column(name = "ASSET_ID", updatable = false)
-    private String assetId;
 
     /** Asset genesis: The first outpoint of the transaction that created the asset (txid:vout). */
     @ManyToOne(fetch = EAGER)
     @JoinColumn(name = "FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT", updatable = false)
     private BitcoinTransactionOutput genesisPoint;
 
-    /** Asset genesis: The hash of the metadata for this genesis asset. */
-    @Column(name = "META_DATA_HASH", updatable = false)
-    private String metaDataHash;
-
     /** Asset genesis: The name of the asset. */
     @Column(name = "NAME", updatable = false)
     private String name;
+
+    /** Asset genesis: The hash of the metadata for this genesis asset. */
+    @Column(name = "META_DATA_HASH", updatable = false)
+    private String metaDataHash;
 
     /** Asset genesis: The index of the output that carries the unique Taproot commitment in the genesis transaction. */
     @Column(name = "OUTPUT_INDEX", updatable = false)

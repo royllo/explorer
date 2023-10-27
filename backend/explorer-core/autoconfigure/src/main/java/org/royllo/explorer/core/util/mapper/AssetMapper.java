@@ -31,6 +31,7 @@ public interface AssetMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "creator", ignore = true)
+    @Mapping(source = "tweakedGroupKey", target = "assetGroupId")
     @Mapping(source = "assetWitness", target = "assetWitness")
     @Mapping(source = "rawGroupKey", target = "rawGroupKey")
     @Mapping(source = "tweakedGroupKey", target = "tweakedGroupKey")

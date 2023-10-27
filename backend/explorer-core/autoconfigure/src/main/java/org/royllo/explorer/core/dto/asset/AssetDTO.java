@@ -39,12 +39,12 @@ public class AssetDTO {
     /** The first outpoint of the transaction that created the asset (txid:vout). */
     BitcoinTransactionOutputDTO genesisPoint;
 
-    /** The hash of the metadata for this genesis asset. */
-    String metaDataHash;
-
     /** The name of the asset. */
     @NotBlank(message = "Asset name is required")
     String name;
+
+    /** The hash of the metadata for this genesis asset. */
+    String metaDataHash;
 
     /** The index of the output that carries the unique Taproot asset commitment in the genesis transaction. */
     @NotNull(message = "Output index is required")

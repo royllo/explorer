@@ -98,7 +98,7 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
 
         // =============================================================================================================
         // We check that the asset doesn't already exist.
-        assertFalse(assetGroupService.getAssetGroupByTweakedGroupKey(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY).isPresent());
+        assertFalse(assetGroupService.getAssetGroupByAssetGroupId(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY).isPresent());
 
         assertFalse(assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_1_ASSET_ID).isPresent());
         assertFalse(assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_2_ASSET_ID).isPresent());
@@ -150,7 +150,7 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
         assertTrue(bitcoinService.getBitcoinTransactionOutput(UNLIMITED_ROYLLO_COIN_2_GENESIS_TXID, UNLIMITED_ROYLLO_COIN_2_GENESIS_VOUT).isPresent());
         assertTrue(bitcoinService.getBitcoinTransactionOutput(UNLIMITED_ROYLLO_COIN_2_ANCHOR_1_TXID, UNLIMITED_ROYLLO_COIN_2_ANCHOR_1_GENESIS_VOUT).isPresent());
 
-        assertTrue(assetGroupService.getAssetGroupByTweakedGroupKey(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY).isPresent());
+        assertTrue(assetGroupService.getAssetGroupByAssetGroupId(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY).isPresent());
 
         assertTrue(assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_1_ASSET_ID).isPresent());
         assertTrue(assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_2_ASSET_ID).isPresent());

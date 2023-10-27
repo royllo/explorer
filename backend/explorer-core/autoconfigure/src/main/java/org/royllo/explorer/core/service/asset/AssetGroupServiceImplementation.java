@@ -32,8 +32,9 @@ public class AssetGroupServiceImplementation extends BaseService implements Asse
 
         // Checking constraints.
         assert newAssetGroup.getId() == null : "Asset group id must be null";
+        assert StringUtils.isNotBlank(newAssetGroup.getAssetGroupId()) : "Asset group id is required";
         assert StringUtils.isNotBlank(newAssetGroup.getTweakedGroupKey()) : "Tweaked Asset group key is required";
-        assert assetGroupRepository.findByTweakedGroupKey(newAssetGroup.getTweakedGroupKey()).isEmpty() : "Tweaked asset group key already registered";
+        assert assetGroupRepository.findByAssetGroupId(newAssetGroup.getAssetGroupId()).isEmpty() : "Asset group id already registered";
 
         // Saving asset group.
         final AssetGroup assetGroupToCreate = ASSET_GROUP_MAPPER.mapToAssetGroup(newAssetGroup);
@@ -46,15 +47,15 @@ public class AssetGroupServiceImplementation extends BaseService implements Asse
     }
 
     @Override
-    public Optional<AssetGroupDTO> getAssetGroupByTweakedGroupKey(final String tweakedGroupKey) {
-        logger.info("Getting asset group with tweaked group key: {}", tweakedGroupKey);
+    public Optional<AssetGroupDTO> getAssetGroupByAssetGroupId(final String assetGroupId) {
+        logger.info("Getting asset group with asset group id: {}", assetGroupId);
 
-        final Optional<AssetGroup> assetGroup = assetGroupRepository.findByTweakedGroupKey(tweakedGroupKey);
+        final Optional<AssetGroup> assetGroup = assetGroupRepository.findByAssetGroupId(assetGroupId);
         if (assetGroup.isEmpty()) {
-            logger.info("Asset group with tweaked group key {} not found", assetGroup);
+            logger.info("Asset group with asset group id {} not found", assetGroupId);
             return Optional.empty();
         } else {
-            logger.info("Asset group with tweaked group key {} found: {}", tweakedGroupKey, assetGroup.get());
+            logger.info("Asset group with asset group id {} found: {}", assetGroupId, assetGroup.get());
             return assetGroup.map(ASSET_GROUP_MAPPER::mapToAssetGroupDTO);
         }
     }

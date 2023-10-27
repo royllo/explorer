@@ -51,6 +51,10 @@ public class AssetState extends BaseDomain {
     @JoinColumn(name = "FK_ASSET", nullable = false)
     private Asset asset;
 
+    /** The transaction that anchors the Taproot asset commitment where the asset resides. */
+    @Column(name = "ANCHOR_TX")
+    private String anchorTx;
+
     /** The block hash the contains the anchor transaction above. */
     @Column(name = "ANCHOR_BLOCK_HASH")
     private String anchorBlockHash;
@@ -59,10 +63,6 @@ public class AssetState extends BaseDomain {
     @ManyToOne(fetch = EAGER)
     @JoinColumn(name = "FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT", updatable = false)
     private BitcoinTransactionOutput anchorOutpoint;
-
-    /** The transaction that anchors the Taproot asset commitment where the asset resides. */
-    @Column(name = "ANCHOR_TX")
-    private String anchorTx;
 
     /** The raw internal key that was used to create the anchor Taproot output key. */
     @Column(name = "INTERNAL_KEY")

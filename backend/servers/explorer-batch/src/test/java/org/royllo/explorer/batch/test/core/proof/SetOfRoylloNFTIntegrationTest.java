@@ -106,7 +106,7 @@ public class SetOfRoylloNFTIntegrationTest extends TestWithMockServers {
 
         // =============================================================================================================
         // We check that the asset doesn't already exist.
-        assertFalse(assetGroupService.getAssetGroupByTweakedGroupKey(SET_OF_ROYLLO_NFT_TWEAKED_GROUP_KEY).isPresent());
+        assertFalse(assetGroupService.getAssetGroupByAssetGroupId(SET_OF_ROYLLO_NFT_TWEAKED_GROUP_KEY).isPresent());
 
         assertFalse(assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_1_ASSET_ID).isPresent());
         assertFalse(assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_2_ASSET_ID).isPresent());
@@ -172,7 +172,7 @@ public class SetOfRoylloNFTIntegrationTest extends TestWithMockServers {
         assertTrue(bitcoinService.getBitcoinTransactionOutput(SET_OF_ROYLLO_NFT_ANCHOR_2_TXID, SET_OF_ROYLLO_NFT_ANCHOR_2_VOUT).isPresent());
         assertTrue(bitcoinService.getBitcoinTransactionOutput(SET_OF_ROYLLO_NFT_ANCHOR_3_TXID, SET_OF_ROYLLO_NFT_ANCHOR_3_VOUT).isPresent());
 
-        assertTrue(assetGroupService.getAssetGroupByTweakedGroupKey(SET_OF_ROYLLO_NFT_TWEAKED_GROUP_KEY).isPresent());
+        assertTrue(assetGroupService.getAssetGroupByAssetGroupId(SET_OF_ROYLLO_NFT_TWEAKED_GROUP_KEY).isPresent());
 
         assertTrue(assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_1_ASSET_ID).isPresent());
         assertTrue(assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_2_ASSET_ID).isPresent());
@@ -197,7 +197,7 @@ public class SetOfRoylloNFTIntegrationTest extends TestWithMockServers {
         verifyTransaction(bitcoinService.getBitcoinTransactionOutput(SET_OF_ROYLLO_NFT_GENESIS_TXID, SET_OF_ROYLLO_NFT_GENESIS_VOUT).get(),
                 SET_OF_ROYLLO_NFT_GENESIS_TXID);
 
-        verifyAssetGroup(assetGroupService.getAssetGroupByTweakedGroupKey(SET_OF_ROYLLO_NFT_TWEAKED_GROUP_KEY).get(), SET_OF_ROYLLO_NFT_1_ASSET_ID);
+        verifyAssetGroup(assetGroupService.getAssetGroupByAssetGroupId(SET_OF_ROYLLO_NFT_TWEAKED_GROUP_KEY).get(), SET_OF_ROYLLO_NFT_1_ASSET_ID);
 
         // NTF1.
         verifyTransaction(bitcoinService.getBitcoinTransactionOutput(SET_OF_ROYLLO_NFT_ANCHOR_1_TXID, SET_OF_ROYLLO_NFT_ANCHOR_1_VOUT).get(),

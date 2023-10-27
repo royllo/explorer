@@ -202,9 +202,10 @@ public class AssetServiceTest extends TestWithMockServers {
                 .type(NORMAL)
                 .amount(new BigInteger("11"))
                 .assetGroup(AssetGroupDTO.builder()
-                        .assetWitness("assetIdSig-1")
+                        .assetGroupId("tweakedGroupKey-1")
                         .rawGroupKey("rawGroupKey-1")
                         .tweakedGroupKey("tweakedGroupKey-1")
+                        .assetWitness("assetIdSig-1")
                         .build())
                 .build());
 
@@ -226,9 +227,10 @@ public class AssetServiceTest extends TestWithMockServers {
         assertNotNull(asset2.getAssetGroup());
         assertEquals(assetGroupCount + 1, assetGroupRepository.findAll().size());
         assertNotNull(asset2.getAssetGroup().getId());
-        assertEquals("assetIdSig-1", asset2.getAssetGroup().getAssetWitness());
+        assertEquals("tweakedGroupKey-1", asset2.getAssetGroup().getAssetGroupId());
         assertEquals("rawGroupKey-1", asset2.getAssetGroup().getRawGroupKey());
         assertEquals("tweakedGroupKey-1", asset2.getAssetGroup().getTweakedGroupKey());
+        assertEquals("assetIdSig-1", asset2.getAssetGroup().getAssetWitness());
 
         // =============================================================================================================
         // We add a third asset.
@@ -245,15 +247,17 @@ public class AssetServiceTest extends TestWithMockServers {
                 .type(NORMAL)
                 .amount(new BigInteger("111"))
                 .assetGroup(AssetGroupDTO.builder()
-                        .assetWitness("assetIdSig-1")
-                        .rawGroupKey("rawGroupKey-1")
+                        .assetGroupId("tweakedGroupKey-1")
                         .tweakedGroupKey("tweakedGroupKey-1")
+                        .rawGroupKey("rawGroupKey-1")
+                        .assetWitness("assetIdSig-1")
                         .build())
                 .build());
         // Asset group.
         assertNotNull(asset3.getAssetGroup());
         assertEquals(assetGroupCount + 1, assetGroupRepository.findAll().size());
         assertNotNull(asset3.getAssetGroup().getId());
+        assertEquals("tweakedGroupKey-1", asset3.getAssetGroup().getTweakedGroupKey());
         assertEquals("assetIdSig-1", asset3.getAssetGroup().getAssetWitness());
         assertEquals("rawGroupKey-1", asset3.getAssetGroup().getRawGroupKey());
         assertEquals("tweakedGroupKey-1", asset3.getAssetGroup().getTweakedGroupKey());
@@ -274,17 +278,23 @@ public class AssetServiceTest extends TestWithMockServers {
         AssetDTO asset2 = AssetDTO.builder()
                 .assetId("asset2")
                 .genesisPoint(bto.get())
-                .assetGroup(AssetGroupDTO.builder().tweakedGroupKey("assetGroup1").build())
+                .assetGroup(AssetGroupDTO.builder()
+                        .assetGroupId("assetGroupId1")
+                        .tweakedGroupKey("assetGroup1").build())
                 .build();
         AssetDTO asset3 = AssetDTO.builder()
                 .assetId("asset3")
                 .genesisPoint(bto.get())
-                .assetGroup(AssetGroupDTO.builder().tweakedGroupKey("assetGroup1").build())
+                .assetGroup(AssetGroupDTO.builder()
+                        .assetGroupId("assetGroupId1")
+                        .tweakedGroupKey("assetGroup1").build())
                 .build();
         AssetDTO asset4 = AssetDTO.builder()
                 .assetId("asset4")
                 .genesisPoint(bto.get())
-                .assetGroup(AssetGroupDTO.builder().tweakedGroupKey("assetGroup2").build())
+                .assetGroup(AssetGroupDTO.builder()
+                        .assetGroupId("assetGroupId2")
+                        .tweakedGroupKey("assetGroup2").build())
                 .build();
 
         // Asset creation.

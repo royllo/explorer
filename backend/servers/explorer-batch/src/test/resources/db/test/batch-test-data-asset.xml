@@ -10,6 +10,7 @@
             <column name="ID" value="1001"/>
             <column name="FK_USER_CREATOR" value="2"/>
 
+            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1001"/>
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1001"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1001"/>
             <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1001"/>
@@ -49,6 +50,7 @@
             <column name="ID" value="1002"/>
             <column name="FK_USER_CREATOR" value="2"/>
 
+            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1002"/>
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1002"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1002"/>
             <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1002"/>
@@ -88,6 +90,7 @@
             <column name="ID" value="1003"/>
             <column name="FK_USER_CREATOR" value="2"/>
 
+            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1003"/>
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1003"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1003"/>
             <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1003"/>
@@ -127,6 +130,7 @@
             <column name="ID" value="1004"/>
             <column name="FK_USER_CREATOR" value="2"/>
 
+            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1004"/>
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1004"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1004"/>
             <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1004"/>
@@ -166,6 +170,7 @@
             <column name="ID" value="1005"/>
             <column name="FK_USER_CREATOR" value="2"/>
 
+            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1005"/>
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1005"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1005"/>
             <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1005"/>
@@ -205,6 +210,7 @@
             <column name="ID" value="1006"/>
             <column name="FK_USER_CREATOR" value="2"/>
 
+            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1006"/>
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1006"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1006"/>
             <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1006"/>
@@ -244,6 +250,7 @@
             <column name="ID" value="1007"/>
             <column name="FK_USER_CREATOR" value="2"/>
 
+            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1007"/>
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1007"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1007"/>
             <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1007"/>
@@ -283,6 +290,7 @@
             <column name="ID" value="1008"/>
             <column name="FK_USER_CREATOR" value="2"/>
 
+            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1008"/>
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1008"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1008"/>
             <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1008"/>
@@ -322,6 +330,7 @@
             <column name="ID" value="1009"/>
             <column name="FK_USER_CREATOR" value="2"/>
 
+            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1009"/>
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1009"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1009"/>
             <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1009"/>
