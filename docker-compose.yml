@@ -23,6 +23,8 @@ services:
     restart: always
     networks:
       - royllo-explorer-network
+    ports:
+      - "5432:5432"
     volumes:
       - royllo-explorer-database-volume:/var/lib/postgresql/data
     environment:
