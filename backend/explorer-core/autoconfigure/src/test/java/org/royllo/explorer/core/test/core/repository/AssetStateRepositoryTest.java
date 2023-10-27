@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 
 @SpringBootTest
 @DisplayName("AssetStateRepositoryTest tests")
@@ -22,14 +23,14 @@ public class AssetStateRepositoryTest {
     @DisplayName("findByAsset_AssetId()")
     public void findByAsset_AssetId() {
         // One asset with three asset states.
-        Page<AssetState> results = assetStateRepository.findByAsset_AssetId("asset_id_9", Pageable.ofSize(2));
-        assertEquals(3, results.getTotalElements());
+        Page<AssetState> results = assetStateRepository.findByAsset_AssetId(TRICKY_ROYLLO_COIN_ASSET_ID, Pageable.ofSize(2));
+        assertEquals(4, results.getTotalElements());
         assertEquals(2, results.getSize());
         assertEquals(2, results.getTotalPages());
 
         // We change the page size.
-        results = assetStateRepository.findByAsset_AssetId("asset_id_9", Pageable.ofSize(5));
-        assertEquals(3, results.getTotalElements());
+        results = assetStateRepository.findByAsset_AssetId(TRICKY_ROYLLO_COIN_ASSET_ID, Pageable.ofSize(5));
+        assertEquals(4, results.getTotalElements());
         assertEquals(5, results.getSize());
         assertEquals(1, results.getTotalPages());
     }

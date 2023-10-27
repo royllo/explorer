@@ -4,71 +4,186 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet author="straumat" id="test-data-bitcoin_transaction_output">
 
-        <!--
-        Block 766 / Transaction 46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946 / Output 0
-        curl -sSL "https://mempool.space/api/tx/46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946"
-        -->
-        <insert tableName="BITCOIN_TRANSACTION_OUTPUT">
-            <column name="ID" value="3"/>
-            <column name="BLOCK_HEIGHT" value="766"/>
-            <column name="TXID" value="46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946"/>
-            <column name="VOUT" value="0"/>
-            <column name="SCRIPTPUBKEY" value="76a914607c727d45ba97358a3fa06be04a514cfb12f4dd88ac"/>
-            <column name="SCRIPTPUBKEY_ASM"
-                    value="OP_DUP OP_HASH160 OP_PUSHBYTES_20 607c727d45ba97358a3fa06be04a514cfb12f4dd OP_EQUALVERIFY OP_CHECKSIG"/>
-            <column name="SCRIPTPUBKEY_TYPE" value="p2pkh"/>
-            <column name="SCRIPTPUBKEY_ADDRESS" value="19oAxAJhAKmEFb2pcA9qiX8sV8hxKeXjzd"/>
-            <column name="VALUE" value="10000000"/>
+        <insert tableName="bitcoin_transaction_output">
+            <column name="id" valueNumeric="3"/>
+            <column name="block_height" valueNumeric="2534237"/>
+            <column name="txid" value="c28a42586b36ac499c6d36da792d98176572573124dbc82526d02bbad5b3d9c7"/>
+            <column name="vout" valueNumeric="1"/>
+            <column name="scriptpubkey" value="5120d7ab0deb6185088278a66f5599be41510db531fd7f2df39e3b8558e2d2b65b06"/>
+            <column name="scriptpubkey_asm"
+                    value="OP_PUSHNUM_1 OP_PUSHBYTES_32 d7ab0deb6185088278a66f5599be41510db531fd7f2df39e3b8558e2d2b65b06"/>
+            <column name="scriptpubkey_type" value="v1_p2tr"/>
+            <column name="scriptpubkey_address" value="tb1p674sm6mps5ygy79xda2en0jp2yxm2v0a0ukl883ms4vw954ktvrquns5km"/>
+            <column name="value" valueNumeric="1096904"/>
+            <column name="created_on" valueDate="2023-10-27T19:25:35.11727"/>
+            <column name="updated_on"/>
         </insert>
-
-        <!--
-        Block 766 / Transaction 46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946 / Output 1
-        curl -sSL "https://mempool.space/api/tx/46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946"
-        -->
-        <insert tableName="BITCOIN_TRANSACTION_OUTPUT">
-            <column name="ID" value="4"/>
-            <column name="BLOCK_HEIGHT" value="754059"/>
-            <column name="TXID" value="46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946"/>
-            <column name="VOUT" value="1"/>
-            <column name="SCRIPTPUBKEY" value="0020701a8d401c84fb13e6baf169d59684e17abd9fa216c8cc5b9fc63d622ff8c58d"/>
-            <column name="SCRIPTPUBKEY_ASM"
-                    value="OP_0 OP_PUSHBYTES_32 701a8d401c84fb13e6baf169d59684e17abd9fa216c8cc5b9fc63d622ff8c58d"/>
-            <column name="SCRIPTPUBKEY_TYPE" value="v0_p2wsh"/>
-            <column name="SCRIPTPUBKEY_ADDRESS" value="bc1qwqdg6squsna38e46795at95yu9atm8azzmyvckulcc7kytlcckxswvvzej"/>
-            <column name="VALUE" value="47765975"/>
+        <insert tableName="bitcoin_transaction_output">
+            <column name="id" valueNumeric="4"/>
+            <column name="block_height" valueNumeric="2534238"/>
+            <column name="txid" value="6db79f5af2ba65bfb4044ced690f3acb4a791a6fc6a7450664e15559ad770b90"/>
+            <column name="vout" valueNumeric="0"/>
+            <column name="scriptpubkey" value="51200abf9c151df80edc22d2fd1b8c0dcd07dcdda6e859cdcb513102d50cc5cbfdfe"/>
+            <column name="scriptpubkey_asm"
+                    value="OP_PUSHNUM_1 OP_PUSHBYTES_32 0abf9c151df80edc22d2fd1b8c0dcd07dcdda6e859cdcb513102d50cc5cbfdfe"/>
+            <column name="scriptpubkey_type" value="v1_p2tr"/>
+            <column name="scriptpubkey_address" value="tb1pp2lec9galq8dcgkjl5dccrwdqlwdmfhgt8xuk5f3qt2se3wtlhlqahmfrt"/>
+            <column name="value" valueNumeric="1000"/>
+            <column name="created_on" valueDate="2023-10-27T19:25:35.950247"/>
+            <column name="updated_on"/>
         </insert>
-
-        <!--
-            Transaction on testnet corresponding to asset n°1
-        -->
-        <insert tableName="BITCOIN_TRANSACTION_OUTPUT">
-            <column name="ID" value="5"/>
-            <column name="BLOCK_HEIGHT" value="2348688"/>
-            <column name="TXID" value="d8a8016095b9fcd1f63c57342d375026ecbc72c885a54b676c6e62b216e15365"/>
-            <column name="VOUT" value="1"/>
-            <column name="SCRIPTPUBKEY" value="00147fafce6a7ea1541dc33f99ab673dc525ed3a27b3"/>
-            <column name="SCRIPTPUBKEY_ASM" value="OP_0 OP_PUSHBYTES_20 7fafce6a7ea1541dc33f99ab673dc525ed3a27b3"/>
-            <column name="SCRIPTPUBKEY_TYPE" value="V0_P2WPKH"/>
-            <column name="SCRIPTPUBKEY_ADDRESS" value="tb1q07huu6n7592pmselnx4kw0w9yhkn5fan74dze9"/>
-            <column name="VALUE" value="1699422"/>
+        <insert tableName="bitcoin_transaction_output">
+            <column name="id" valueNumeric="5"/>
+            <column name="block_height" valueNumeric="2534238"/>
+            <column name="txid" value="6db79f5af2ba65bfb4044ced690f3acb4a791a6fc6a7450664e15559ad770b90"/>
+            <column name="vout" valueNumeric="1"/>
+            <column name="scriptpubkey" value="5120d9c5d97fb55abcdf85102d90fb4c7b76d9f1656ae900d3127c861d0e814fa699"/>
+            <column name="scriptpubkey_asm"
+                    value="OP_PUSHNUM_1 OP_PUSHBYTES_32 d9c5d97fb55abcdf85102d90fb4c7b76d9f1656ae900d3127c861d0e814fa699"/>
+            <column name="scriptpubkey_type" value="v1_p2tr"/>
+            <column name="scriptpubkey_address" value="tb1pm8zajla4t27dlpgs9kg0knrmwmvlzet2ayqdxynuscwsaq2056vs7hx0wz"/>
+            <column name="value" valueNumeric="1093579"/>
+            <column name="created_on" valueDate="2023-10-27T19:25:58.565204"/>
+            <column name="updated_on"/>
         </insert>
-
-        <!--
-        Block 720 / Transaction 2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea / Output 0
-        curl -sSL "https://mempool.space/api/tx/2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea"
-        -->
-        <insert tableName="BITCOIN_TRANSACTION_OUTPUT">
-            <column name="ID" value="6"/>
-            <column name="BLOCK_HEIGHT" value="720"/>
-            <column name="TXID" value="2a5726687859bb1ec8a8cfeac78db8fa16b5b1c31e85be9c9812dfed68df43ea"/>
-            <column name="VOUT" value="0"/>
-            <column name="SCRIPTPUBKEY"
-                    value="410415ca91c387efac4ea86f0196b2a1d831f75a488f115055636f0022c51df508197ad4fc31f553d48052b05b0a3b6030a84a0441adae97734129bb8ea0ddfd4004ac"/>
-            <column name="SCRIPTPUBKEY_ASM"
-                    value="OP_PUSHBYTES_65 0415ca91c387efac4ea86f0196b2a1d831f75a488f115055636f0022c51df508197ad4fc31f553d48052b05b0a3b6030a84a0441adae97734129bb8ea0ddfd4004 OP_CHECKSIG"/>
-            <column name="SCRIPTPUBKEY_TYPE" value="p2pk"/>
-            <column name="SCRIPTPUBKEY_ADDRESS"/>
-            <column name="VALUE" value="5000000000"/>
+        <insert tableName="bitcoin_transaction_output">
+            <column name="id" valueNumeric="6"/>
+            <column name="block_height" valueNumeric="2534319"/>
+            <column name="txid" value="ca93a44b534f410914c18ed4563c97b0a6c31194af236d789a79683c9ec76526"/>
+            <column name="vout" valueNumeric="0"/>
+            <column name="scriptpubkey" value="5120d6484a40e7a0c5bcb5a958bd6251554feee22c1c94b0c058d7891105b34f309b"/>
+            <column name="scriptpubkey_asm"
+                    value="OP_PUSHNUM_1 OP_PUSHBYTES_32 d6484a40e7a0c5bcb5a958bd6251554feee22c1c94b0c058d7891105b34f309b"/>
+            <column name="scriptpubkey_type" value="v1_p2tr"/>
+            <column name="scriptpubkey_address" value="tb1p6eyy5s885rzmeddftz7ky524flhwytqujjcvqkxh3ygstv60xzdsv7klyl"/>
+            <column name="value" valueNumeric="1000"/>
+            <column name="created_on" valueDate="2023-10-27T19:25:59.562859"/>
+            <column name="updated_on"/>
+        </insert>
+        <insert tableName="bitcoin_transaction_output">
+            <column name="id" valueNumeric="7"/>
+            <column name="block_height" valueNumeric="2534319"/>
+            <column name="txid" value="2777e306451f6d5231f4b17b8286412e1e13ef153800086cf879baae89d9df76"/>
+            <column name="vout" valueNumeric="1"/>
+            <column name="scriptpubkey" value="00142e42579b5194674680049c65249edb0893aa2d6b"/>
+            <column name="scriptpubkey_asm" value="OP_0 OP_PUSHBYTES_20 2e42579b5194674680049c65249edb0893aa2d6b"/>
+            <column name="scriptpubkey_type" value="v0_p2wpkh"/>
+            <column name="scriptpubkey_address" value="tb1q9ep90x63j3n5dqqyn3jjf8kmpzf65tttupudyg"/>
+            <column name="value" valueNumeric="1493078"/>
+            <column name="created_on" valueDate="2023-10-27T19:26:26.983423"/>
+            <column name="updated_on"/>
+        </insert>
+        <insert tableName="bitcoin_transaction_output">
+            <column name="id" valueNumeric="8"/>
+            <column name="block_height" valueNumeric="2534320"/>
+            <column name="txid" value="632d0c3935fff230aa3718e268dce5517786d7976f7aa33efb615b408737b0ad"/>
+            <column name="vout" valueNumeric="0"/>
+            <column name="scriptpubkey" value="51204251129e0033628da2e8e297ea72bd6675143a881841a655f92b93462d8f3898"/>
+            <column name="scriptpubkey_asm"
+                    value="OP_PUSHNUM_1 OP_PUSHBYTES_32 4251129e0033628da2e8e297ea72bd6675143a881841a655f92b93462d8f3898"/>
+            <column name="scriptpubkey_type" value="v1_p2tr"/>
+            <column name="scriptpubkey_address" value="tb1pgfg398sqxd3gmghgu2t75u4ave63gw5grpq6v40e9wf5vtv08zvq4fn50e"/>
+            <column name="value" valueNumeric="1000"/>
+            <column name="created_on" valueDate="2023-10-27T19:26:27.99196"/>
+            <column name="updated_on"/>
+        </insert>
+        <insert tableName="bitcoin_transaction_output">
+            <column name="id" valueNumeric="9"/>
+            <column name="block_height" valueNumeric="2534322"/>
+            <column name="txid" value="f2acf1235882a7683bad5baeb1b84c2f1dbf33f0fc4a7c85f2191aa8d49ce0d3"/>
+            <column name="vout" valueNumeric="1"/>
+            <column name="scriptpubkey" value="5120e8e257c55806d5091802e9c92c8264153a1778c3d7814c12854f14079cc6c98a"/>
+            <column name="scriptpubkey_asm"
+                    value="OP_PUSHNUM_1 OP_PUSHBYTES_32 e8e257c55806d5091802e9c92c8264153a1778c3d7814c12854f14079cc6c98a"/>
+            <column name="scriptpubkey_type" value="v1_p2tr"/>
+            <column name="scriptpubkey_address" value="tb1par39032cqm2sjxqza8yjeqnyz5apw7xr67q5cy59fu2q08xxex9qcrqmkc"/>
+            <column name="value" valueNumeric="1000"/>
+            <column name="created_on" valueDate="2023-10-27T19:26:37.420372"/>
+            <column name="updated_on"/>
+        </insert>
+        <insert tableName="bitcoin_transaction_output">
+            <column name="id" valueNumeric="10"/>
+            <column name="block_height" valueNumeric="2534322"/>
+            <column name="txid" value="f2acf1235882a7683bad5baeb1b84c2f1dbf33f0fc4a7c85f2191aa8d49ce0d3"/>
+            <column name="vout" valueNumeric="0"/>
+            <column name="scriptpubkey" value="5120eb93573ac51bf6b65aa4458b0bc48659844f2fd267108c740d130bfe9ac41807"/>
+            <column name="scriptpubkey_asm"
+                    value="OP_PUSHNUM_1 OP_PUSHBYTES_32 eb93573ac51bf6b65aa4458b0bc48659844f2fd267108c740d130bfe9ac41807"/>
+            <column name="scriptpubkey_type" value="v1_p2tr"/>
+            <column name="scriptpubkey_address" value="tb1pawf4wwk9r0mtvk4ygk9sh3yxtxzy7t7jvuggcaqdzv9laxkyrqrsegnmnz"/>
+            <column name="value" valueNumeric="1000"/>
+            <column name="created_on" valueDate="2023-10-27T19:26:53.227839"/>
+            <column name="updated_on"/>
+        </insert>
+        <insert tableName="bitcoin_transaction_output">
+            <column name="id" valueNumeric="11"/>
+            <column name="block_height" valueNumeric="2534327"/>
+            <column name="txid" value="2727229cc771efa552f9232a04b0cd8d16df6d83bd217523888feee6a8553ec8"/>
+            <column name="vout" valueNumeric="1"/>
+            <column name="scriptpubkey" value="51203f475770dfc8d7e92e93632c251a5c01b6e90670e8522b81cb7b448bf86efffa"/>
+            <column name="scriptpubkey_asm"
+                    value="OP_PUSHNUM_1 OP_PUSHBYTES_32 3f475770dfc8d7e92e93632c251a5c01b6e90670e8522b81cb7b448bf86efffa"/>
+            <column name="scriptpubkey_type" value="v1_p2tr"/>
+            <column name="scriptpubkey_address" value="tb1p8ar4wuxlert7jt5nvvkz2xjuqxmwjpnsapfzhqwt0dzgh7rwllaqq8jaym"/>
+            <column name="value" valueNumeric="1000"/>
+            <column name="created_on" valueDate="2023-10-27T19:26:54.281267"/>
+            <column name="updated_on"/>
+        </insert>
+        <insert tableName="bitcoin_transaction_output">
+            <column name="id" valueNumeric="12"/>
+            <column name="block_height" valueNumeric="2534330"/>
+            <column name="txid" value="77b550de10ad347daf314f4982a979db6d101573afe6fbf20c35935ce4bb0413"/>
+            <column name="vout" valueNumeric="1"/>
+            <column name="scriptpubkey" value="51202dc635ce603c8c9675f08276f2bb6c796576f80c65fd9a81249549a2488f6ef1"/>
+            <column name="scriptpubkey_asm"
+                    value="OP_PUSHNUM_1 OP_PUSHBYTES_32 2dc635ce603c8c9675f08276f2bb6c796576f80c65fd9a81249549a2488f6ef1"/>
+            <column name="scriptpubkey_type" value="v1_p2tr"/>
+            <column name="scriptpubkey_address" value="tb1p9hrrtnnq8jxfva0ssfm09wmv09jhd7qvvh7e4qfyj4y6yjy0dmcs45p9s5"/>
+            <column name="value" valueNumeric="1483385"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:23.506877"/>
+            <column name="updated_on"/>
+        </insert>
+        <insert tableName="bitcoin_transaction_output">
+            <column name="id" valueNumeric="13"/>
+            <column name="block_height" valueNumeric="2534338"/>
+            <column name="txid" value="2debb29de64ed7aafaf79c034f1ba22c41f484fafc814cab7b22a97bacfa6825"/>
+            <column name="vout" valueNumeric="0"/>
+            <column name="scriptpubkey" value="5120e5d4f8a3b6b3087984f36182654e2deb91e2e567cf35f068e6d4362ac7958cce"/>
+            <column name="scriptpubkey_asm"
+                    value="OP_PUSHNUM_1 OP_PUSHBYTES_32 e5d4f8a3b6b3087984f36182654e2deb91e2e567cf35f068e6d4362ac7958cce"/>
+            <column name="scriptpubkey_type" value="v1_p2tr"/>
+            <column name="scriptpubkey_address" value="tb1puh203gakkvy8np8nvxpx2n3dawg79et8eu6lq68x6smz43u43n8q9gym7d"/>
+            <column name="value" valueNumeric="1000"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.511333"/>
+            <column name="updated_on"/>
+        </insert>
+        <insert tableName="bitcoin_transaction_output">
+            <column name="id" valueNumeric="14"/>
+            <column name="block_height" valueNumeric="2534357"/>
+            <column name="txid" value="89cd5498584f217ca77d50e740e56490a710ab7b6988b3cd73aac95b9e077b1f"/>
+            <column name="vout" valueNumeric="1"/>
+            <column name="scriptpubkey" value="5120ebbbbe5cbf1c801c654895d752c2bcc2bac63f68216ef4e352f748a48b8d6040"/>
+            <column name="scriptpubkey_asm"
+                    value="OP_PUSHNUM_1 OP_PUSHBYTES_32 ebbbbe5cbf1c801c654895d752c2bcc2bac63f68216ef4e352f748a48b8d6040"/>
+            <column name="scriptpubkey_type" value="v1_p2tr"/>
+            <column name="scriptpubkey_address" value="tb1pawamuh9lrjqpce2gjht49s4uc2avv0mgy9h0fc6j7ay2fzudvpqq05ze9n"/>
+            <column name="value" valueNumeric="1479680"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:31.951721"/>
+            <column name="updated_on"/>
+        </insert>
+        <insert tableName="bitcoin_transaction_output">
+            <column name="id" valueNumeric="15"/>
+            <column name="block_height" valueNumeric="2535184"/>
+            <column name="txid" value="0516611bebe6a92675ee7360ad64edf0b3b2e967fe8c474b2d2242d5a349da3d"/>
+            <column name="vout" valueNumeric="0"/>
+            <column name="scriptpubkey" value="51206f479cbd41e4ffce26c55a28268877fd40b0e64c283c817b875930bed23cea1e"/>
+            <column name="scriptpubkey_asm"
+                    value="OP_PUSHNUM_1 OP_PUSHBYTES_32 6f479cbd41e4ffce26c55a28268877fd40b0e64c283c817b875930bed23cea1e"/>
+            <column name="scriptpubkey_type" value="v1_p2tr"/>
+            <column name="scriptpubkey_address" value="tb1pdaree02punluufk9tg5zdzrhl4qtpejv9q7gz7u8tycta53uag0q4uc3pe"/>
+            <column name="value" valueNumeric="1000"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:32.963449"/>
+            <column name="updated_on"/>
         </insert>
 
     </changeSet>

@@ -30,6 +30,7 @@ import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_US
 import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
 import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_TXID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 
 @SpringBootTest
 @DisplayName("AssetService tests")
@@ -47,8 +48,6 @@ public class AssetServiceTest extends TestWithMockServers {
     @Test
     @DisplayName("queryAssets()")
     public void queryAssets() {
-        // TODO would be good to remove the coin we insert in database initialization script or generate the script.
-
         // Searching for an asset that doesn't exist.
         Page<AssetDTO> results = assetService.queryAssets("NON_EXISTING_ASSET_ID", 1, 5);
         assertEquals(0, results.getTotalElements());
@@ -60,60 +59,29 @@ public class AssetServiceTest extends TestWithMockServers {
         assertEquals(1, results.getTotalPages());
         assertEquals(1, results.getContent().get(0).getId());
 
-        // Searching for an asset with its partial name (activeRoylloCoin) - only 1 result.
-        results = assetService.queryAssets("veR", 1, 5);
+        // Searching for an asset with its partial name (trickyCoin) - only 1 result.
+        results = assetService.queryAssets("ky", 1, 5);
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
-        assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, results.getContent().get(0).getAssetId());
+        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, results.getContent().get(0).getAssetId());
 
-        // Searching for an asset with its partial name uppercase (activeRoylloCoin) - only 1 result.
-        results = assetService.queryAssets("VER", 1, 5);
+        // Searching for an asset with its partial name uppercase (trickyRoylloCoin) - only 1 result.
+        results = assetService.queryAssets("kyR", 1, 5);
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
-        assertEquals(ACTIVE_ROYLLO_COIN_ASSET_ID, results.getContent().get(0).getAssetId());
+        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, results.getContent().get(0).getAssetId());
 
-        // Searching for an asset with its partial name corresponding to two assets.
-        // The last coin we insert in database has "TestPaginationCoin0" as name, so it appears first in results.
-        results = assetService.queryAssets("PaginationCoin", 1, 5);
-        assertEquals(9, results.getTotalElements());
+        // Searching for an asset with its partial name corresponding to eight assets.
+        results = assetService.queryAssets("royllo", 1, 4);
+        assertEquals(8, results.getTotalElements());
         assertEquals(2, results.getTotalPages());
         Set<Long> ids = results.stream()
                 .map(AssetDTO::getId)
                 .collect(Collectors.toSet());
-        assertTrue(ids.contains(1009L));
-        assertTrue(ids.contains(1001L));
-        assertTrue(ids.contains(1002L));
-        assertTrue(ids.contains(1003L));
-        assertTrue(ids.contains(1004L));
-
-        // =============================================================================================================
-        // We have 9 assets to tests pagination.
-
-        // Searching for the 9 assets with a page size of 4.
-        results = assetService.queryAssets("TestPaginationCoin", 1, 4);
-        assertEquals(9, results.getTotalElements());
-        assertEquals(3, results.getTotalPages());
-
-        // Searching for the 9 assets with a page size of 5 - Page 1.
-        results = assetService.queryAssets("TestPaginationCoin", 1, 5);
-        assertEquals(5, results.getNumberOfElements());
-        assertEquals(9, results.getTotalElements());
-        assertEquals(2, results.getTotalPages());
-        assertEquals(1009, results.getContent().get(0).getId());
-        assertEquals(1001, results.getContent().get(1).getId());
-        assertEquals(1002, results.getContent().get(2).getId());
-        assertEquals(1003, results.getContent().get(3).getId());
-        assertEquals(1004, results.getContent().get(4).getId());
-
-        // Searching for the 9 assets with a page size of 5 - Page 2.
-        results = assetService.queryAssets("TestPaginationCoin", 2, 5);
-        assertEquals(4, results.getNumberOfElements());
-        assertEquals(9, results.getTotalElements());
-        assertEquals(2, results.getTotalPages());
-        assertEquals(1005, results.getContent().get(0).getId());
-        assertEquals(1006, results.getContent().get(1).getId());
-        assertEquals(1007, results.getContent().get(2).getId());
-        assertEquals(1008, results.getContent().get(3).getId());
+        assertTrue(ids.contains(1L));
+        assertTrue(ids.contains(2L));
+        assertTrue(ids.contains(3L));
+        assertTrue(ids.contains(4L));
     }
 
     @Test
@@ -352,7 +320,7 @@ public class AssetServiceTest extends TestWithMockServers {
         verifyAsset(asset.get(), ROYLLO_COIN_ASSET_ID);
 
         // getAsset() on an asset that has no asset group
-        asset = assetService.getAsset(999);
+        asset = assetService.getAsset(1);
         assertTrue(asset.isPresent());
         assertNull(asset.get().getAssetGroup());
     }
@@ -366,7 +334,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertFalse(asset.isPresent());
 
         // =============================================================================================================
-        // Existing asset on testnet and in our database initialization script ("My Royllo coin") .
+        // Existing asset on testnet and in our database initialization script ("roylloCoin") .
         asset = assetService.getAsset(1);
         assertTrue(asset.isPresent());
         assertEquals(ROYLLO_COIN_ASSET_ID, asset.get().getAssetId());
@@ -375,7 +343,7 @@ public class AssetServiceTest extends TestWithMockServers {
         verifyAsset(asset.get(), ROYLLO_COIN_ASSET_ID);
 
         // getAsset() on an asset that has no asset group
-        asset = assetService.getAsset(999);
+        asset = assetService.getAsset(1);
         assertTrue(asset.isPresent());
         assertNull(asset.get().getAssetGroup());
     }

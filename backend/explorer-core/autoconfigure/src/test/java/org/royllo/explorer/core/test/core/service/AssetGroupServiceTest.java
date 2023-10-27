@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_FROM_TEST;
 
 @SpringBootTest
 @DisplayName("AssetGroupService tests")
@@ -49,7 +50,7 @@ public class AssetGroupServiceTest extends TestWithMockServers {
         // =============================================================================================================
         // Constraint test - Asset group key already registered.
         e = assertThrows(AssertionError.class, () -> assetGroupService.addAssetGroup(AssetGroupDTO.builder()
-                .assetGroupId("TWEAKED_GROUP_KEY_10000")
+                .assetGroupId(UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup().getTweakedGroupKey())
                 .tweakedGroupKey("TWEAKED_GROUP_KEY_10000").build()));
         assertEquals("Asset group id already registered", e.getMessage());
 
@@ -70,8 +71,8 @@ public class AssetGroupServiceTest extends TestWithMockServers {
     }
 
     @Test
-    @DisplayName("getAssetGroupByTweakedGroupKey()")
-    public void getAssetGroupByRawGroupKey() {
+    @DisplayName("getAssetGroupByAssetGroupId()")
+    public void getAssetGroupByAssetGroupId() {
         // =============================================================================================================
         // Non-existing asset group.
         Optional<AssetGroupDTO> assetGroup = assetGroupService.getAssetGroupByAssetGroupId("NON_EXISTING_ASSET_GROUP_ID");
@@ -79,13 +80,13 @@ public class AssetGroupServiceTest extends TestWithMockServers {
 
         // =============================================================================================================
         // Existing asset group on testnet and in our database initialization script.
-        assetGroup = assetGroupService.getAssetGroupByAssetGroupId("TWEAKED_GROUP_KEY_10000");
+        assetGroup = assetGroupService.getAssetGroupByAssetGroupId(UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup().getTweakedGroupKey());
         assertTrue(assetGroup.isPresent());
-        assertEquals(10000, assetGroup.get().getId());
-        assertEquals("TWEAKED_GROUP_KEY_10000", assetGroup.get().getAssetGroupId());
-        assertEquals("RAW_GROUP_KEY_10000", assetGroup.get().getRawGroupKey());
-        assertEquals("TWEAKED_GROUP_KEY_10000", assetGroup.get().getTweakedGroupKey());
-        assertEquals("ASSET_WITNESS_10000", assetGroup.get().getAssetWitness());
+        assertNotNull(assetGroup.get().getId());
+        assertEquals(UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup().getTweakedGroupKey(), assetGroup.get().getAssetGroupId());
+        assertEquals(UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup().getRawGroupKey(), assetGroup.get().getRawGroupKey());
+        assertEquals(UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup().getTweakedGroupKey(), assetGroup.get().getTweakedGroupKey());
+        assertEquals(UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup().getAssetWitness(), assetGroup.get().getAssetWitness());
     }
 
 }

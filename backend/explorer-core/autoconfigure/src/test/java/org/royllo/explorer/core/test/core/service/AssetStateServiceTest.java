@@ -30,6 +30,7 @@ import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_US
 import static org.royllo.test.MempoolData.ROYLLO_COIN_ANCHOR_1_TXID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_FROM_TEST;
+import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 
 @SpringBootTest
 @DisplayName("AssetStateService tests")
@@ -66,10 +67,10 @@ public class AssetStateServiceTest extends TestWithMockServers {
         assertEquals(0, results.getTotalPages());
 
         // Searching for the asset states of an existing asset.
-        results = assetStateService.queryAssetStates(SEARCH_PARAMETER_ASSET_ID + "asset_id_9", 1, 5);
-        assertEquals(3, results.getTotalElements());
-        assertEquals(5, results.getSize());
-        assertEquals(1, results.getTotalPages());
+        results = assetStateService.queryAssetStates(SEARCH_PARAMETER_ASSET_ID + TRICKY_ROYLLO_COIN_ASSET_ID, 1, 2);
+        assertEquals(4, results.getTotalElements());
+        assertEquals(2, results.getSize());
+        assertEquals(2, results.getTotalPages());
     }
 
     @Test

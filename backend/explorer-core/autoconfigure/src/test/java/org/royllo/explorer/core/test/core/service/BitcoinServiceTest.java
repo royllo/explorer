@@ -69,11 +69,11 @@ public class BitcoinServiceTest extends TestWithMockServers {
         // Getting again a transaction we saved in database. Check we did not create a duplicate.
         bto = bitcoinService.getBitcoinTransactionOutput(UNKNOWN_ROYLLO_COIN_GENESIS_TXID, 0);
         assertTrue(bto.isPresent());
-        assertEquals(8, bto.get().getId());
+        assertEquals(17, bto.get().getId());
 
         // =============================================================================================================
         // Getting a transaction that doesn't exist in our database but exists in the blockchain.
-        // But the output specified does not exist ! (There is two outputs, and we ask for index 4 - ie output 3).
+        // But the output specified does not exist !
         assertTrue(bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 3).isEmpty());
 
         // =============================================================================================================
