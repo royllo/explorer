@@ -3,6 +3,7 @@ package org.royllo.explorer.batch.test.core.proof;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.request.AddProofBatch;
+import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.asset.AssetStateDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
@@ -171,20 +172,22 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
         final Optional<AssetStateDTO> assetState1 = assetStateService.getAssetStateByAssetStateId(UNLIMITED_ROYLLO_COIN_1_ASSET_STATE_ID);
         assertTrue(assetState1.isPresent());
         assertNotNull(assetState1.get().getAsset().getAssetGroup());
-        System.out.println("==> " + assetState1);
         assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, assetState1.get().getAsset().getAssetGroup().getTweakedGroupKey());
 
-        final Optional<AssetStateDTO> assetStat2 = assetStateService.getAssetStateByAssetStateId(UNLIMITED_ROYLLO_COIN_2_ASSET_STATE_ID);
-        assertTrue(assetStat2.isPresent());
-        assertNotNull(assetStat2.get().getAsset().getAssetGroup());
-        assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, assetState1.get().getAsset().getAssetGroup().getTweakedGroupKey());
+        final Optional<AssetStateDTO> assetState2 = assetStateService.getAssetStateByAssetStateId(UNLIMITED_ROYLLO_COIN_2_ASSET_STATE_ID);
+        assertTrue(assetState2.isPresent());
+        assertNotNull(assetState2.get().getAsset().getAssetGroup());
+        assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, assetState2.get().getAsset().getAssetGroup().getTweakedGroupKey());
 
-        // TODO This should work!
-//        final Optional<AssetDTO> asset1 = assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_1_ASSET_ID);
-//        assertTrue(asset1.isPresent());
-//        System.out.println("-> " + assetStateService.getAssetStateByAssetStateId(UNLIMITED_ROYLLO_COIN_1_ASSET_STATE_ID).get());
+        final Optional<AssetDTO> asset1 = assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_1_ASSET_ID);
+        assertTrue(asset1.isPresent());
+        assertNotNull(asset1.get().getAssetGroup());
+        assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, asset1.get().getAssetGroup().getTweakedGroupKey());
 
-
+        final Optional<AssetDTO> asset2 = assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_2_ASSET_ID);
+        assertTrue(asset2.isPresent());
+        assertNotNull(asset2.get().getAssetGroup());
+        assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, asset2.get().getAssetGroup().getTweakedGroupKey());
     }
 
 }

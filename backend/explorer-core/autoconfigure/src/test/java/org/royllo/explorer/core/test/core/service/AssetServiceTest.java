@@ -260,6 +260,70 @@ public class AssetServiceTest extends TestWithMockServers {
     }
 
     @Test
+    @DisplayName("addAsset() with asset group")
+    public void addAssetWithAssetGroup() {
+        // We retrieve a bitcoin transaction output from database for our test.
+        final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 0);
+        assertTrue(bto.isPresent());
+
+        // 4 assets : 1 with no asset group, 2 with the same asset group and 1 with another asset group.
+        AssetDTO asset1 = AssetDTO.builder()
+                .assetId("asset1")
+                .genesisPoint(bto.get())
+                .build();
+        AssetDTO asset2 = AssetDTO.builder()
+                .assetId("asset2")
+                .genesisPoint(bto.get())
+                .assetGroup(AssetGroupDTO.builder().tweakedGroupKey("assetGroup1").build())
+                .build();
+        AssetDTO asset3 = AssetDTO.builder()
+                .assetId("asset3")
+                .genesisPoint(bto.get())
+                .assetGroup(AssetGroupDTO.builder().tweakedGroupKey("assetGroup1").build())
+                .build();
+        AssetDTO asset4 = AssetDTO.builder()
+                .assetId("asset4")
+                .genesisPoint(bto.get())
+                .assetGroup(AssetGroupDTO.builder().tweakedGroupKey("assetGroup2").build())
+                .build();
+
+        // Asset creation.
+        assetService.addAsset(asset1);
+        assetService.addAsset(asset2);
+        assetService.addAsset(asset3);
+        assetService.addAsset(asset4);
+
+        // Asset retrieval.
+        AssetDTO asset1Created = assetService.getAssetByAssetId("asset1").orElse(null);
+        AssetDTO asset2Created = assetService.getAssetByAssetId("asset2").orElse(null);
+        AssetDTO asset3Created = assetService.getAssetByAssetId("asset3").orElse(null);
+        AssetDTO asset4Created = assetService.getAssetByAssetId("asset4").orElse(null);
+
+        // Verification.
+        assertNotNull(asset1Created);
+        assertNotNull(asset1Created.getId());
+        assertNull(asset1Created.getAssetGroup());
+
+        assertNotNull(asset2Created);
+        assertNotNull(asset2Created.getId());
+        assertNotNull(asset2Created.getAssetGroup());
+        assertNotNull(asset2Created.getAssetGroup().getId());
+        assertEquals("assetGroup1", asset2Created.getAssetGroup().getTweakedGroupKey());
+
+        assertNotNull(asset3Created);
+        assertNotNull(asset3Created.getId());
+        assertNotNull(asset3Created.getAssetGroup());
+        assertNotNull(asset3Created.getAssetGroup().getId());
+        assertEquals("assetGroup1", asset3Created.getAssetGroup().getTweakedGroupKey());
+
+        assertNotNull(asset4Created);
+        assertNotNull(asset4Created.getId());
+        assertNotNull(asset4Created.getAssetGroup());
+        assertNotNull(asset4Created.getAssetGroup().getId());
+        assertEquals("assetGroup2", asset4Created.getAssetGroup().getTweakedGroupKey());
+    }
+
+    @Test
     @DisplayName("getAsset()")
     public void getAsset() {
         // =============================================================================================================

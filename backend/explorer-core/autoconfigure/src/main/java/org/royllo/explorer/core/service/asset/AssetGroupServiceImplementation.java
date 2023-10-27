@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
+
 /**
  * {@link AssetGroupService} implementation.
  */
@@ -35,8 +37,9 @@ public class AssetGroupServiceImplementation extends BaseService implements Asse
 
         // Saving asset group.
         final AssetGroup assetGroupToCreate = ASSET_GROUP_MAPPER.mapToAssetGroup(newAssetGroup);
+        assetGroupToCreate.setCreator(ANONYMOUS_USER);
         final AssetGroupDTO assetGroupCreated = ASSET_GROUP_MAPPER.mapToAssetGroupDTO(assetGroupRepository.save(assetGroupToCreate));
-        
+
         // We return the value.
         logger.info("Asset group created: {}", assetGroupCreated);
         return assetGroupCreated;

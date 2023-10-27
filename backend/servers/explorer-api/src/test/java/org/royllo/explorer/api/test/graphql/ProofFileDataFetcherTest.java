@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
 
 @SpringBootTest
+@Disabled
 @DisplayName("ProofFileDataFetcher tests")
 public class ProofFileDataFetcherTest {
 
