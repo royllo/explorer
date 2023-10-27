@@ -64,7 +64,7 @@
 
         <!-- ======================================================================================================= -->
         <!-- Project libraries -->
-        <spring.version>3.1.4</spring.version>
+        <spring.version>3.1.5</spring.version>
         <reactor-core.version>3.5.11</reactor-core.version>
         <reactor-netty.version>1.1.12</reactor-netty.version>
 
@@ -87,7 +87,7 @@
         <caffeine.version>3.1.8</caffeine.version>
 
         <thymeleaf-layout-dialect.version>3.3.0</thymeleaf-layout-dialect.version>
-        <htmx-spring-boot-thymeleaf.version>3.0.0</htmx-spring-boot-thymeleaf.version>
+        <htmx-spring-boot-thymeleaf.version>3.1.1</htmx-spring-boot-thymeleaf.version>
         <webjars-locator.version>0.47</webjars-locator.version>
         <htmx.version>1.9.6</htmx.version>
         <alpinejs.version>3.13.1</alpinejs.version>
@@ -172,7 +172,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.4</version>
+        <version>3.1.5</version>
         <relativePath/>
     </parent>
     <!-- =========================================================================================================== -->
