@@ -68,9 +68,9 @@ jobs:
       - name: Build docker images
         run: |
           mvn clean install -P release -DskipTests
-          mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-batch/pom.xml
-          mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-api/pom.xml
-          mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-web/pom.xml
+          mvn spring-boot:build-image -P release -DskipTests -f backend/servers/explorer-batch/pom.xml
+          mvn spring-boot:build-image -P release -DskipTests -f backend/servers/explorer-api/pom.xml
+          mvn spring-boot:build-image -P release -DskipTests -f backend/servers/explorer-web/pom.xml
 
       # ================================================================================================================
       - name: Run the docker-compose with our images
@@ -181,10 +181,10 @@ jobs:
       # ================================================================================================================
       - name: Build docker images
         run: |
-          mvn clean install -P release -Dmaven.test.skip
-          mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-batch/pom.xml
-          mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-api/pom.xml
-          mvn spring-boot:build-image -P release -Dmaven.test.skip -f backend/servers/explorer-web/pom.xml
+          mvn clean install -P release -DskipTests
+          mvn spring-boot:build-image -P release -DskipTests -f backend/servers/explorer-batch/pom.xml
+          mvn spring-boot:build-image -P release -DskipTests -f backend/servers/explorer-api/pom.xml
+          mvn spring-boot:build-image -P release -DskipTests -f backend/servers/explorer-web/pom.xml
 
       # ================================================================================================================
       - name: Docker Hub login
