@@ -164,8 +164,8 @@ public class DecodedProofResponse {
                 String tweakedGroupKey;
 
                 /** A signature over the genesis point using the above key. */
-                @JsonProperty("asset_id_sig")
-                String assetIdSig;
+                @JsonProperty("asset_witness")
+                String assetWitness;
 
             }
 

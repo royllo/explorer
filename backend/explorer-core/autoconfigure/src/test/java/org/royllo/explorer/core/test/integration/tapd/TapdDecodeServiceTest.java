@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.royllo.explorer.core.provider.tapd.TapdService;
-import org.royllo.test.TapdData;
 import org.royllo.test.tapd.asset.DecodedProofValue;
 import org.royllo.test.tapd.asset.DecodedProofValueResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
-import static org.royllo.test.TapdData.ROYLLO_COIN_FROM_TEST;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_FROM_TEST;
+import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_FROM_TEST;
 
 @SpringBootTest(properties = {"tapd.api.base-url=https://157.230.85.88:8089"})
 @DisplayName("TAPD decode proof service test")
@@ -27,14 +25,14 @@ public class TapdDecodeServiceTest {
     @Test
     @DisplayName("decode()")
     public void decodeTest() {
-        final String ROYLLO_COIN_RAW_PROOF = ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getRawProof();
+        final String ROYLLO_COIN_RAW_PROOF = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofRequest(0).getRawProof();
 
         // Value coming from the server.
         final DecodedProofResponse response = tapdService.decode(ROYLLO_COIN_RAW_PROOF).block();
         assertNotNull(response);
 
         // Value coming from our test data.
-        final DecodedProofValue decodedProofValueFromTest = TapdData.findAssetValueByAssetId(ROYLLO_COIN_ASSET_ID).getDecodedProofValues().get(0);
+        final DecodedProofValue decodedProofValueFromTest = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofValues().get(0);
         assertNotNull(decodedProofValueFromTest);
 
         // =============================================================================================================
@@ -67,10 +65,9 @@ public class TapdDecodeServiceTest {
         // Asset group.
         final DecodedProofResponse.DecodedProof.Asset.AssetGroup assetGroupFromServer = response.getDecodedProof().getAsset().getAssetGroup();
         final DecodedProofValueResponse.DecodedProof.Asset.AssetGroup assetGroupFromTestData = assetFromTestData.getAssetGroup();
-        // TODO Waiting for issue https://github.com/lightninglabs/taproot-assets/issues/407 to be fixed.
-        assertEquals("", assetGroupFromServer.getRawGroupKey());
+        assertEquals(assetGroupFromTestData.getRawGroupKey(), assetGroupFromServer.getRawGroupKey());
         assertEquals(assetGroupFromTestData.getTweakedGroupKey(), assetGroupFromServer.getTweakedGroupKey());
-        assertEquals(assetGroupFromTestData.getAssetWitness(), assetGroupFromServer.getAssetIdSig());
+        assertEquals(assetGroupFromTestData.getAssetWitness(), assetGroupFromServer.getAssetWitness());
 
         // Chain anchor.
         final DecodedProofResponse.DecodedProof.Asset.ChainAnchor chainAnchorFromServer = response.getDecodedProof().getAsset().getChainAnchor();
@@ -80,15 +77,14 @@ public class TapdDecodeServiceTest {
         assertEquals(chainAnchorFromTestData.getAnchorBlockHash(), chainAnchorFromServer.getAnchorBlockHash());
         assertEquals(chainAnchorFromTestData.getAnchorOutpoint(), chainAnchorFromServer.getAnchorOutpoint());
         assertEquals(chainAnchorFromTestData.getInternalKey(), chainAnchorFromServer.getInternalKey());
-        // TODO Waiting for issue https://github.com/lightninglabs/taproot-assets/issues/407 to be fixed.
-        assertEquals("", chainAnchorFromServer.getMerkleRoot());
+        assertEquals(chainAnchorFromTestData.getMerkleRoot(), chainAnchorFromServer.getMerkleRoot());
         assertEquals(chainAnchorFromTestData.getTapscriptSibling(), chainAnchorFromServer.getTapscriptSibling());
     }
 
     @Test
     @DisplayName("decode() with proofAtDepth parameter")
     public void proofAtDepthTest() {
-        final String TRICKY_ROYLLO_COIN_3_RAW_PROOF = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(3).getRawProof();
+        final String TRICKY_ROYLLO_COIN_3_RAW_PROOF = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(2).getRawProof();
 
         final DecodedProofResponse response1 = tapdService.decode(TRICKY_ROYLLO_COIN_3_RAW_PROOF, 0).block();
         assertNotNull(response1);
