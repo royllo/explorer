@@ -23,13 +23,13 @@ public class AssetStateRepositoryTest {
     @DisplayName("findByAsset_AssetId()")
     public void findByAsset_AssetId() {
         // One asset with three asset states.
-        Page<AssetState> results = assetStateRepository.findByAsset_AssetId(TRICKY_ROYLLO_COIN_ASSET_ID, Pageable.ofSize(2));
+        Page<AssetState> results = assetStateRepository.findByAsset_AssetIdOrderById(TRICKY_ROYLLO_COIN_ASSET_ID, Pageable.ofSize(2));
         assertEquals(4, results.getTotalElements());
         assertEquals(2, results.getSize());
         assertEquals(2, results.getTotalPages());
 
         // We change the page size.
-        results = assetStateRepository.findByAsset_AssetId(TRICKY_ROYLLO_COIN_ASSET_ID, Pageable.ofSize(5));
+        results = assetStateRepository.findByAsset_AssetIdOrderById(TRICKY_ROYLLO_COIN_ASSET_ID, Pageable.ofSize(5));
         assertEquals(4, results.getTotalElements());
         assertEquals(5, results.getSize());
         assertEquals(1, results.getTotalPages());

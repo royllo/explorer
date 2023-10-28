@@ -26,6 +26,15 @@ public class AssetStateDataFetcher extends BaseDataFetcher {
     /** Asset state service. */
     private final AssetStateService assetStateService;
 
+    /**
+     * Query asset states.
+     * * - Search if the "query" parameter contains "assetId:" in the beginning, if true, returns all lined asset states.
+     *
+     * @param query    the query to search for
+     * @param page     the page number you want
+     * @param pageSize the page size you want
+     * @return list of assets corresponding to the search
+     */
     @DgsQuery
     public final Page<AssetStateDTO> queryAssetStates(final @InputArgument String query,
                                                       final @InputArgument Integer page,

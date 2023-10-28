@@ -69,7 +69,8 @@ public class AssetStateServiceImplementation extends BaseService implements Asse
         // and search for all the asset states of this asset.
         if (query.contains(SEARCH_PARAMETER_ASSET_ID)) {
             final String assetId = query.trim().split(SEARCH_PARAMETER_ASSET_ID)[1];
-            results = assetStateRepository.findByAsset_AssetId(assetId, PageRequest.of(page - 1, pageSize))
+            results = assetStateRepository.findByAsset_AssetIdOrderById(assetId,
+                            PageRequest.of(page - 1, pageSize))
                     .map(ASSET_STATE_MAPPER::mapToAssetStateDTO);
         }
 

@@ -31,6 +31,6 @@ public interface AssetStateRepository extends JpaRepository<AssetState, Long> {
      * @return asset states
      */
     @SuppressWarnings("checkstyle:MethodName")
-    Page<AssetState> findByAsset_AssetId(String assetId, Pageable pageable);
+    Page<AssetState> findByAsset_AssetIdOrderById(String assetId, Pageable pageable);
 
 }

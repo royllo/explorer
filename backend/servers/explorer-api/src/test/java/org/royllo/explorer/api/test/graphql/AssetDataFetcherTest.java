@@ -13,7 +13,6 @@ import org.royllo.explorer.api.graphql.generated.client.QueryAssetsGraphQLQuery;
 import org.royllo.explorer.api.graphql.generated.client.QueryAssetsProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.types.Asset;
 import org.royllo.explorer.api.graphql.generated.types.AssetPage;
-import org.royllo.test.TapdData;
 import org.royllo.test.tapd.asset.DecodedProofValueResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,6 +25,10 @@ import static org.royllo.explorer.api.configuration.APIConfiguration.MAXIMUM_PAG
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_ASSET_ID;
+import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_FROM_TEST;
+import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_2_ASSET_ID;
 
 @SpringBootTest
 @DisplayName("AssetDataFetcher tests")
@@ -40,7 +43,7 @@ public class AssetDataFetcherTest {
         // Searching an asset - Page 1.
         AssetPage assetPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(1).build(),
+                        QueryAssetsGraphQLQuery.newRequest().query("coin").page(1).build(),
                         new QueryAssetsProjectionRoot<>().content()
                                 .creator().userId().username().getParent()
                                 .genesisPoint().txId().vout().parent()
@@ -57,49 +60,21 @@ public class AssetDataFetcherTest {
                 });
 
         // Testing results.
-        assertEquals(9, assetPage.getTotalElements());
-        assertEquals(2, assetPage.getTotalPages());
-        assertEquals("asset_id_0", assetPage.getContent().get(0).getAssetId());
-        assertEquals("asset_id_1", assetPage.getContent().get(1).getAssetId());
-        assertEquals("asset_id_2", assetPage.getContent().get(2).getAssetId());
-        assertEquals("asset_id_3", assetPage.getContent().get(3).getAssetId());
-        assertEquals("asset_id_4", assetPage.getContent().get(4).getAssetId());
-
-        // Searching an asset - Page 2.
-        assetPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
-                new GraphQLQueryRequest(
-                        QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(2).build(),
-                        new QueryAssetsProjectionRoot<>().content()
-                                .creator().userId().username().parent()
-                                .genesisPoint().txId().vout().parent()
-                                .name()
-                                .metaDataHash()
-                                .assetId()
-                                .outputIndex()
-                                .parent()
-                                .totalElements()
-                                .totalPages())
-                        .serialize(),
-                "data." + DgsConstants.QUERY.QueryAssets,
-                new TypeRef<>() {
-                });
-
-        // Testing results.
-        assertEquals(9, assetPage.getTotalElements());
-        assertEquals(2, assetPage.getTotalPages());
-        assertEquals("asset_id_5", assetPage.getContent().get(0).getAssetId());
-        assertEquals("asset_id_6", assetPage.getContent().get(1).getAssetId());
-        assertEquals("asset_id_7", assetPage.getContent().get(2).getAssetId());
-        assertEquals("asset_id_8", assetPage.getContent().get(3).getAssetId());
+        assertEquals(4, assetPage.getTotalElements());
+        assertEquals(1, assetPage.getTotalPages());
+        assertEquals(ROYLLO_COIN_ASSET_ID, assetPage.getContent().get(0).getAssetId());
+        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, assetPage.getContent().get(1).getAssetId());
+        assertEquals(UNLIMITED_ROYLLO_COIN_1_ASSET_ID, assetPage.getContent().get(2).getAssetId());
+        assertEquals(UNLIMITED_ROYLLO_COIN_2_ASSET_ID, assetPage.getContent().get(3).getAssetId());
     }
 
     @Test
     @DisplayName("queryAssets() with page size")
     public void queryAssetsWithPageSize() {
-        // Searching an asset - Page 1 with 4 as a page size.
+        // Searching an asset - Page 1 with 2 as a page size.
         AssetPage assetPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(1).pageSize(4).build(),
+                        QueryAssetsGraphQLQuery.newRequest().query("coin").page(1).pageSize(2).build(),
                         new QueryAssetsProjectionRoot<>().content()
                                 .creator().userId().username().parent()
                                 .genesisPoint().txId().vout().parent()
@@ -116,17 +91,15 @@ public class AssetDataFetcherTest {
                 });
 
         // Testing results.
-        assertEquals(9, assetPage.getTotalElements());
-        assertEquals(3, assetPage.getTotalPages());
-        assertEquals("asset_id_0", assetPage.getContent().get(0).getAssetId());
-        assertEquals("asset_id_1", assetPage.getContent().get(1).getAssetId());
-        assertEquals("asset_id_2", assetPage.getContent().get(2).getAssetId());
-        assertEquals("asset_id_3", assetPage.getContent().get(3).getAssetId());
+        assertEquals(4, assetPage.getTotalElements());
+        assertEquals(2, assetPage.getTotalPages());
+        assertEquals(ROYLLO_COIN_ASSET_ID, assetPage.getContent().get(0).getAssetId());
+        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, assetPage.getContent().get(1).getAssetId());
 
-        // Searching an asset - Page 2 with 4 as a page size.
+        // Searching an asset - Page 2 with 2 as a page size.
         assetPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(2).pageSize(4).build(),
+                        QueryAssetsGraphQLQuery.newRequest().query("coin").page(2).pageSize(2).build(),
                         new QueryAssetsProjectionRoot<>().content()
                                 .creator().userId().username().parent()
                                 .genesisPoint().txId().vout().parent()
@@ -143,36 +116,11 @@ public class AssetDataFetcherTest {
                 });
 
         // Testing results.
-        assertEquals(9, assetPage.getTotalElements());
-        assertEquals(3, assetPage.getTotalPages());
-        assertEquals("asset_id_4", assetPage.getContent().get(0).getAssetId());
-        assertEquals("asset_id_5", assetPage.getContent().get(1).getAssetId());
-        assertEquals("asset_id_6", assetPage.getContent().get(2).getAssetId());
-        assertEquals("asset_id_7", assetPage.getContent().get(3).getAssetId());
+        assertEquals(4, assetPage.getTotalElements());
+        assertEquals(2, assetPage.getTotalPages());
+        assertEquals(UNLIMITED_ROYLLO_COIN_1_ASSET_ID, assetPage.getContent().get(0).getAssetId());
+        assertEquals(UNLIMITED_ROYLLO_COIN_2_ASSET_ID, assetPage.getContent().get(1).getAssetId());
 
-        // Searching an asset - Page 3 with 4 as a page size.
-        assetPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
-                new GraphQLQueryRequest(
-                        QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").page(3).pageSize(4).build(),
-                        new QueryAssetsProjectionRoot<>().content()
-                                .creator().userId().username().parent()
-                                .genesisPoint().txId().vout().parent()
-                                .name()
-                                .metaDataHash()
-                                .assetId()
-                                .outputIndex()
-                                .parent()
-                                .totalElements()
-                                .totalPages()
-                ).serialize(),
-                "data." + DgsConstants.QUERY.QueryAssets,
-                new TypeRef<>() {
-                });
-
-        // Testing results.
-        assertEquals(9, assetPage.getTotalElements());
-        assertEquals(3, assetPage.getTotalPages());
-        assertEquals("asset_id_8", assetPage.getContent().get(0).getAssetId());
     }
 
     @Test
@@ -181,7 +129,7 @@ public class AssetDataFetcherTest {
         // Searching an asset without setting page size (should set page to 1 - Default value).
         AssetPage assetPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        QueryAssetsGraphQLQuery.newRequest().query("TestPaginationCoin").build(),
+                        QueryAssetsGraphQLQuery.newRequest().query("coin").build(),
                         new QueryAssetsProjectionRoot<>().content()
                                 .creator().userId().username().parent()
                                 .genesisPoint().txId().vout().parent()
@@ -197,14 +145,14 @@ public class AssetDataFetcherTest {
                 new TypeRef<>() {
                 });
 
+
         // Testing results.
-        assertEquals(9, assetPage.getTotalElements());
-        assertEquals(2, assetPage.getTotalPages());
-        assertEquals("asset_id_0", assetPage.getContent().get(0).getAssetId());
-        assertEquals("asset_id_1", assetPage.getContent().get(1).getAssetId());
-        assertEquals("asset_id_2", assetPage.getContent().get(2).getAssetId());
-        assertEquals("asset_id_3", assetPage.getContent().get(3).getAssetId());
-        assertEquals("asset_id_4", assetPage.getContent().get(4).getAssetId());
+        assertEquals(4, assetPage.getTotalElements());
+        assertEquals(1, assetPage.getTotalPages());
+        assertEquals(ROYLLO_COIN_ASSET_ID, assetPage.getContent().get(0).getAssetId());
+        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, assetPage.getContent().get(1).getAssetId());
+        assertEquals(UNLIMITED_ROYLLO_COIN_1_ASSET_ID, assetPage.getContent().get(2).getAssetId());
+        assertEquals(UNLIMITED_ROYLLO_COIN_2_ASSET_ID, assetPage.getContent().get(3).getAssetId());
     }
 
     @Test
@@ -262,7 +210,7 @@ public class AssetDataFetcherTest {
     public void assetByAssetId() {
         Asset asset = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        AssetByAssetIdGraphQLQuery.newRequest().assetId(ROYLLO_COIN_ASSET_ID).build(),
+                        AssetByAssetIdGraphQLQuery.newRequest().assetId(UNLIMITED_ROYLLO_COIN_1_ASSET_ID).build(),
                         new AssetByAssetIdProjectionRoot<>()
                                 .creator().userId().username().parent()
                                 .assetId()
@@ -285,12 +233,12 @@ public class AssetDataFetcherTest {
 
         // Testing results.
         assertNotNull(asset);
-        final DecodedProofValueResponse.DecodedProof assetFromTestData = TapdData.findAssetValueByAssetId(ROYLLO_COIN_ASSET_ID).getDecodedProof(0);
+        final DecodedProofValueResponse.DecodedProof assetFromTestData = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0);
 
         // Asset.
         assertEquals(ANONYMOUS_USER_ID, asset.getCreator().getUserId());
         assertEquals(ANONYMOUS_USER_USERNAME, asset.getCreator().getUsername());
-        assertEquals(ROYLLO_COIN_ASSET_ID, asset.getAssetId());
+        assertEquals(UNLIMITED_ROYLLO_COIN_1_ASSET_ID, asset.getAssetId());
         assertEquals(assetFromTestData.getAsset().getAssetGenesis().getGenesisPoint(), asset.getGenesisPoint().getTxId() + ":" + asset.getGenesisPoint().getVout());
         assertEquals(assetFromTestData.getAsset().getAssetGenesis().getMetaDataHash(), asset.getMetaDataHash());
         assertEquals(assetFromTestData.getAsset().getAssetGenesis().getName(), asset.getName());
@@ -300,17 +248,17 @@ public class AssetDataFetcherTest {
         assertEquals(0, assetFromTestData.getAsset().getAmount().compareTo(asset.getAmount()));
 
         // Asset group.
-        // TODO Make a new test on another asset because roylloCoin doesn't have an asset group.
-//        assertEquals(ANONYMOUS_USER_ID, asset.getAssetGroup().getCreator().getUserId());
-//        assertEquals(ANONYMOUS_USER_USERNAME, asset.getAssetGroup().getCreator().getUsername());
-//        assertEquals(assetFromTestData.getAsset().getAssetGroup().getRawGroupKey(), asset.getAssetGroup().getRawGroupKey());
-//        assertEquals(assetFromTestData.getAsset().getAssetGroup().getTweakedGroupKey(), asset.getAssetGroup().getTweakedGroupKey());
-//        assertEquals(assetFromTestData.getAsset().getAssetGroup().getAssetWitness(), asset.getAssetGroup().getAssetWitness());
+        assertNotNull(asset.getAssetGroup());
+        assertEquals(ANONYMOUS_USER_ID, asset.getAssetGroup().getCreator().getUserId());
+        assertEquals(ANONYMOUS_USER_USERNAME, asset.getAssetGroup().getCreator().getUsername());
+        assertEquals(assetFromTestData.getAsset().getAssetGroup().getRawGroupKey(), asset.getAssetGroup().getRawGroupKey());
+        assertEquals(assetFromTestData.getAsset().getAssetGroup().getTweakedGroupKey(), asset.getAssetGroup().getTweakedGroupKey());
+        assertEquals(assetFromTestData.getAsset().getAssetGroup().getAssetWitness(), asset.getAssetGroup().getAssetWitness());
 
-        // Get asset when asset group is empty (This asset is in the liquibase test script).
+        // Get asset when asset group is empty.
         asset = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        AssetByAssetIdGraphQLQuery.newRequest().assetId("NO_GROUP_ASSET_ASSET_ID").build(),
+                        AssetByAssetIdGraphQLQuery.newRequest().assetId(ROYLLO_COIN_ASSET_ID).build(),
                         new AssetByAssetIdProjectionRoot<>()
                                 .assetId()
                                 .assetGroup()

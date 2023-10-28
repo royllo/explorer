@@ -1,0 +1,38 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="test-data-asset_group">
+
+        <!-- ======================================================================================================= -->
+        <!-- setOfRoylloNFT -->
+        <insert tableName="asset_group">
+            <column name="id" valueNumeric="2"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="asset_group_id" value="039511fd8c1f51acfbd85d9d742268d1ca03ce3b69d0436e71130192c085394c99"/>
+            <column name="raw_group_key" value=""/>
+            <column name="tweaked_group_key"
+                    value="039511fd8c1f51acfbd85d9d742268d1ca03ce3b69d0436e71130192c085394c99"/>
+            <column name="asset_witness" value=""/>
+            <column name="created_on" valueDate="2023-10-27T19:25:58.575251"/>
+            <column name="updated_on"/>
+        </insert>
+        <!-- ======================================================================================================= -->
+
+        <!-- ======================================================================================================= -->
+        <!-- unlimitedRoylloCoin -->
+        <insert tableName="asset_group">
+            <column name="id" valueNumeric="3"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="asset_group_id" value="0349d60c6689bbbb2ffc9b30b45b96a3d6e5fd5fd01c867344c0054f6105048241"/>
+            <column name="raw_group_key" value=""/>
+            <column name="tweaked_group_key"
+                    value="0349d60c6689bbbb2ffc9b30b45b96a3d6e5fd5fd01c867344c0054f6105048241"/>
+            <column name="asset_witness" value=""/>
+            <column name="created_on" valueDate="2023-10-27T19:27:23.52041"/>
+            <column name="updated_on"/>
+        </insert>
+        <!-- ======================================================================================================= -->
+
+    </changeSet>
+</databaseChangeLog>

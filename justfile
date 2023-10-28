@@ -17,13 +17,13 @@ build_docker:
 
 # ======================================================================================================================
 # Run
-api:
+run_api:
     mvn spring-boot:run -Dspring-boot.run.profiles=dev -f backend/servers/explorer-api/pom.xml
 
-web_backend:
+run_web_backend:
     mvn spring-boot:run -Dspring-boot.run.profiles=dev -f backend/servers/explorer-web/pom.xml
 
-web_frontend:
+run_web_frontend:
     npm run --prefix backend/servers/explorer-web build && npm run --prefix backend/servers/explorer-web watch
 
 # ======================================================================================================================
