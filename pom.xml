@@ -75,7 +75,7 @@
         <liquibase.version>4.24.0</liquibase.version>
         <jdbc.driver.hsqldb.version>2.7.2</jdbc.driver.hsqldb.version>
         <jdbc.driver.postgresql.version>42.6.0</jdbc.driver.postgresql.version>
-        <jdbc.driver.mysql.version>8.1.0</jdbc.driver.mysql.version>
+        <jdbc.driver.mysql.version>8.2.0</jdbc.driver.mysql.version>
 
         <lombok.version>1.18.30</lombok.version>
         <lombok.mapstruct.version>0.2.0</lombok.mapstruct.version>
