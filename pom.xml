@@ -75,7 +75,7 @@
         <liquibase.version>4.24.0</liquibase.version>
         <jdbc.driver.hsqldb.version>2.7.2</jdbc.driver.hsqldb.version>
         <jdbc.driver.postgresql.version>42.6.0</jdbc.driver.postgresql.version>
-        <jdbc.driver.mysql.version>8.1.0</jdbc.driver.mysql.version>
+        <jdbc.driver.mysql.version>8.2.0</jdbc.driver.mysql.version>
 
         <lombok.version>1.18.30</lombok.version>
         <lombok.mapstruct.version>0.2.0</lombok.mapstruct.version>
@@ -88,7 +88,7 @@
 
         <thymeleaf-layout-dialect.version>3.3.0</thymeleaf-layout-dialect.version>
         <htmx-spring-boot-thymeleaf.version>3.1.1</htmx-spring-boot-thymeleaf.version>
-        <webjars-locator.version>0.47</webjars-locator.version>
+        <webjars-locator.version>0.48</webjars-locator.version>
         <htmx.version>1.9.6</htmx.version>
         <alpinejs.version>3.13.1</alpinejs.version>
 
@@ -100,7 +100,7 @@
         <!-- ======================================================================================================= -->
         <!-- Maven plugins -->
         <maven.gitflow.version>1.20.0</maven.gitflow.version>
-        <maven.checkstyle.plugin.version>3.3.0</maven.checkstyle.plugin.version>
+        <maven.checkstyle.plugin.version>3.3.1</maven.checkstyle.plugin.version>
         <maven.graphqlcodegen.plugin.version>1.50</maven.graphqlcodegen.plugin.version>
         <maven.puppycrawl.checkstyle.version>10.12.4</maven.puppycrawl.checkstyle.version>
         <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
@@ -111,7 +111,7 @@
         <maven.jar.plugin.version>3.3.0</maven.jar.plugin.version>
         <maven.archetype-packaging.version>3.2.1</maven.archetype-packaging.version>
 
-        <frontend-maven-plugin.version>1.14.0</frontend-maven-plugin.version>
+        <frontend-maven-plugin.version>1.14.2</frontend-maven-plugin.version>
         <frontend-maven-plugin.nodeVersion>v20.8.0</frontend-maven-plugin.nodeVersion>
         <frontend-maven-plugin.npmVersion>10.2.0</frontend-maven-plugin.npmVersion>
     </properties>
