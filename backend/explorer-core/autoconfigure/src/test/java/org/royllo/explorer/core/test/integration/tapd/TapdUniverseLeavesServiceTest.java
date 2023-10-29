@@ -2,6 +2,7 @@ package org.royllo.explorer.core.test.integration.tapd;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.royllo.explorer.core.provider.tapd.TapdService;
 import org.royllo.explorer.core.provider.tapd.UniverseLeavesResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest(properties = {"tapd.api.base-url=https://157.230.85.88:8089"})
 @DisplayName("Lightning TAPD universe leaves service test")
@@ -28,6 +30,12 @@ public class TapdUniverseLeavesServiceTest {
         assertEquals(1, response.getLeaves().size());
         assertNotNull(response.getLeaves().get(0));
         assertNotNull(response.getLeaves().get(0).getIssuanceProof());
+
+        // Check we can decode the proof.
+        final DecodedProofResponse decodedProof = tapdService.decode(response.getLeaves().get(0).getIssuanceProof()).block();
+        assertNotNull(decodedProof);
+        assertNull(decodedProof.getErrorCode());
+        assertNotNull(decodedProof.getDecodedProof());
     }
 
     @Test

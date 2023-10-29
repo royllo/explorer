@@ -56,17 +56,17 @@ curl https://testnet.universe.lightning.finance/v1/taproot-assets/universe/roots
 You can search for one with:
 
 ```bash
-curl https://testnet.universe.lightning.finance/v1/taproot-assets/universe/roots/asset-id/a3ce8dc3b9cf64b2655149f7197e49052a0e86a31ccaa9dd3e5d03fb81f43545 | jq
+curl https://testnet.universe.lightning.finance/v1/taproot-assets/universe/roots/asset-id/f3b3ad46642a979532296684b318245e61d36d18c9ce85df17bc9b57b7c577da | jq
 ```
 
 note : A UniverseKey is composed of the Universe ID (asset_id/group_key) and also a leaf key (outpoint || script_key)
 
-2 - Call asset leaves (the values in the Universe MS-SMT tree) for a each asset_id retrieved (or group_key). Those
+2 - Call asset leaves (the values in the Universe MS-SMT tree) for each asset_id retrieved (or group_key). Those
 represents either asset issuance events (they have a genesis witness) or asset transfers that took place on chain. The
 leaves contain a normal Taproot Asset proof, as well as details for the asset.
 
 ```bash
-curl https://testnet.universe.lightning.finance/v1/taproot-assets/universe/leaves/asset-id/a3ce8dc3b9cf64b2655149f7197e49052a0e86a31ccaa9dd3e5d03fb81f43545 | jq
+curl https://testnet.universe.lightning.finance/v1/taproot-assets/universe/leaves/asset-id/f86dce3597f2f268b619ccd2f9af52b03a8dfb6894894442e8ffa8d49b4dbfd8 | jq
 ```
 
 3 - Decode the proof retrieved in the previous step and it's ok, add the proof to our database throw an add proof
@@ -75,7 +75,7 @@ request.
 ```bash
 curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./admin.macaroon)" \
         --data @REST-decode-parameter.json \
-        --insecure https://157.230.85.88:8089/v1/taproot-assets/proofs/decode
+        --insecure https://localhost:8089/v1/taproot-assets/proofs/decode
 ```
 
 ## Backup
