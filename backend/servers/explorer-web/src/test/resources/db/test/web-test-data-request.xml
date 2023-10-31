@@ -24,7 +24,6 @@
             <column name="TYPE" value="ADD_PROOF"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="STATUS" value="FAILURE"/>
-            <column name="ERROR_MESSAGE" value="There is an error !"/>
         </insert>
         <insert tableName="REQUEST_ADD_PROOF">
             <column name="ID" value="2"/>
@@ -45,7 +44,7 @@
             <column name="META_DATA" value="MD2"/>
         </insert>
 
-        <!-- Add proofFile request n°4 ( Successful proofFile GI4/P4 ) -->
+        <!-- Add proofFile request n°4 ( Opened proofFile GI4/P4 ) -->
         <insert tableName="REQUEST">
             <column name="ID" value="4"/>
             <column name="REQUEST_ID" value="91425ba6-8b16-46a8-baa6-request_p_03"/>
@@ -57,63 +56,6 @@
             <column name="ID" value="4"/>
             <column name="RAW_PROOF" value="P4"/>
             <column name="FK_ASSET" value="1"/>
-        </insert>
-
-        <!-- ======================================================================================================= -->
-        <!-- Add universe server requests -->
-
-        <!-- 6 - REQUEST_ID_6 - Opened-->
-        <insert tableName="REQUEST">
-            <column name="ID" value="6"/>
-            <column name="REQUEST_ID" value="REQUEST_ID_6"/>
-            <column name="TYPE" value="ADD_UNIVERSE_SERVER"/>
-            <column name="FK_USER_CREATOR" value="1"/>
-            <column name="STATUS" value="OPENED"/>
-        </insert>
-        <insert tableName="REQUEST_ADD_UNIVERSE_SERVER">
-            <column name="ID" value="6"/>
-            <column name="SERVER_ADDRESS" value="1.1.1.6:8080"/>
-        </insert>
-
-        <!-- 7 - REQUEST_ID_7 - Success-->
-        <insert tableName="REQUEST">
-            <column name="ID" value="7"/>
-            <column name="REQUEST_ID" value="REQUEST_ID_7"/>
-            <column name="TYPE" value="ADD_UNIVERSE_SERVER"/>
-            <column name="FK_USER_CREATOR" value="1"/>
-            <column name="STATUS" value="SUCCESS"/>
-        </insert>
-        <insert tableName="REQUEST_ADD_UNIVERSE_SERVER">
-            <column name="ID" value="7"/>
-            <column name="SERVER_ADDRESS" value="1.1.1.7:8080"/>
-        </insert>
-
-        <!-- 8 - REQUEST_ID_8 - Recoverable failure -->
-        <insert tableName="REQUEST">
-            <column name="ID" value="8"/>
-            <column name="REQUEST_ID" value="REQUEST_ID_8"/>
-            <column name="TYPE" value="ADD_UNIVERSE_SERVER"/>
-            <column name="FK_USER_CREATOR" value="1"/>
-            <column name="STATUS" value="RECOVERABLE_FAILURE"/>
-            <column name="ERROR_MESSAGE" value="Network timeout"/>
-        </insert>
-        <insert tableName="REQUEST_ADD_UNIVERSE_SERVER">
-            <column name="ID" value="8"/>
-            <column name="SERVER_ADDRESS" value="1.1.1.8:8080"/>
-        </insert>
-
-        <!-- 9 - REQUEST_ID_9 - Failure -->
-        <insert tableName="REQUEST">
-            <column name="ID" value="9"/>
-            <column name="REQUEST_ID" value="REQUEST_ID_9"/>
-            <column name="TYPE" value="ADD_UNIVERSE_SERVER"/>
-            <column name="FK_USER_CREATOR" value="1"/>
-            <column name="STATUS" value="FAILURE"/>
-            <column name="ERROR_MESSAGE" value="Server unknown"/>
-        </insert>
-        <insert tableName="REQUEST_ADD_UNIVERSE_SERVER">
-            <column name="ID" value="9"/>
-            <column name="SERVER_ADDRESS" value="1.1.1.9:8080"/>
         </insert>
 
     </changeSet>

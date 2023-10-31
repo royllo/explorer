@@ -9,7 +9,11 @@ databaseChangeLog:
   - include:
       file: /db/test/web-test-data-application_user.xml
   - include:
+      file: /db/test/web-test-data-asset_group.xml
+  - include:
       file: /db/test/web-test-data-asset.xml
+  - include:
+      file: /db/test/web-test-data-asset_state.xml
   - include:
       file: /db/test/web-test-data-proof_file.xml
   - include:

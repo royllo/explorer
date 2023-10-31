@@ -1,9 +1,14 @@
 package org.royllo.test.tapd.asset;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.xml.bind.DatatypeConverter;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.jackson.Jacksonized;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Decoded proof request (for tests).
@@ -37,5 +42,16 @@ public class DecodedProofValueRequest {
      */
     @JsonProperty("with_meta_reveal")
     boolean withMetaReveal;
+
+    // sha256 of rawProof field
+    public final String getProofId() {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] digest = md.digest(rawProof.getBytes(StandardCharsets.UTF_8));
+            return DatatypeConverter.printHexBinary(digest).toLowerCase();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("SHA-256 is not available: " + e.getMessage());
+        }
+    }
 
 }

@@ -1,4 +1,4 @@
-package org.royllo.explorer.web.test.controllers;
+package org.royllo.explorer.web.test.controllers.request;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -55,7 +55,9 @@ public class AddUniverseServerRequestControllerTest {
         mockMvc.perform(get("/request/choose_request_type"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(CHOOSE_REQUEST_TYPE_PAGE))
-                // Error messages.
+                // Two choices must be available.
+                .andExpect(content().string(containsString(environment.getProperty("request.proofFile.add"))))
+                .andExpect(content().string(containsString("/request/proof/add")))
                 .andExpect(content().string(containsString(environment.getProperty("request.universeServer.add"))))
                 .andExpect(content().string(containsString("/request/universe_server/add")));
     }

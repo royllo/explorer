@@ -13,6 +13,7 @@ public interface AssetStateService {
 
     /**
      * Query asset states.
+     * TODO Replace this method by a getAssetStatesByAssetId(String assetId) method.
      * - Search if the "query" parameter contains "assetId:" in the beginning, if true, returns all lined asset states.
      *
      * @param query    the query

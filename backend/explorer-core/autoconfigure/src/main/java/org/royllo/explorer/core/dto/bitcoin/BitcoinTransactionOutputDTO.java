@@ -47,22 +47,13 @@ public class BitcoinTransactionOutputDTO {
     BigInteger value;
 
     /**
-     * Is this transaction output a taproot transaction ?
-     *
-     * @return true if it's a taproot transaction
-     */
-    public boolean isTaprootType() {
-        return getScriptPubKeyType() != null && getScriptPubKeyType().toLowerCase().endsWith("p2tr");
-    }
-
-    /**
      * To string (only display txid-vout).
      *
      * @return txid + count
      */
     @Override
     public String toString() {
-        return txId + '-' + vout;
+        return txId + ':' + vout;
     }
 
 }
