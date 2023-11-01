@@ -5,40 +5,39 @@
     <changeSet author="straumat" id="0.1.0-data-bitcoin_transaction_output">
 
         <!--
-        roylloCoin - Testnet (More info in docs/test/roylloCoin/README.md)
-        Asset id : f9dd292bb211dae8493645150b36efa990841b11038d026577440d2616d1ec32
-        Block 2427358 / Transaction 57faede9e107f3af74bb93e730bc1dfd07f81b166a974068f823d30d9eb10111 / Output 1
-        curl -sL "https://mempool.space/testnet/api/tx/57faede9e107f3af74bb93e730bc1dfd07f81b166a974068f823d30d9eb10111"
+        roylloCoin - Testnet (More info in util/test/common-test/README-roylloCoin.md)
+        Asset id : ce5a426ea282d2dee3a2eb48170231403ee4768be17f73fef8e6f925d30797af
+        Genesis Point 04feaf85babeeb5662e1139edd48b889ec178880cc69bbe38b5820dae322c75b:0
+        curl -sL "https://mempool.space/testnet/api/tx/04feaf85babeeb5662e1139edd48b889ec178880cc69bbe38b5820dae322c75b"
         -->
         <insert tableName="BITCOIN_TRANSACTION_OUTPUT">
             <column name="ID" value="1"/>
-            <column name="BLOCK_HEIGHT" value="2427358"/>
-            <column name="TXID" value="57faede9e107f3af74bb93e730bc1dfd07f81b166a974068f823d30d9eb10111"/>
-            <column name="VOUT" value="1"/>
-            <column name="SCRIPTPUBKEY" value="0014c35088956d26c44af4c00dfc8bf10d9a4c79320e"/>
-            <column name="SCRIPTPUBKEY_ASM" value="OP_0 OP_PUSHBYTES_20 c35088956d26c44af4c00dfc8bf10d9a4c79320e"/>
+            <column name="BLOCK_HEIGHT" value="2534138"/>
+            <column name="TXID" value="04feaf85babeeb5662e1139edd48b889ec178880cc69bbe38b5820dae322c75b"/>
+            <column name="VOUT" value="0"/>
+            <column name="SCRIPTPUBKEY" value="00142e42579b5194674680049c65249edb0893aa2d6b"/>
+            <column name="SCRIPTPUBKEY_ASM" value="OP_0 OP_PUSHBYTES_20 2e42579b5194674680049c65249edb0893aa2d6b"/>
             <column name="SCRIPTPUBKEY_TYPE" value="v0_p2wpkh"/>
-            <column name="SCRIPTPUBKEY_ADDRESS" value="tb1qcdgg39tdymzy4axqph7ghugdnfx8jvswazkums"/>
-            <column name="VALUE" value="2705"/>
+            <column name="SCRIPTPUBKEY_ADDRESS" value="tb1q9ep90x63j3n5dqqyn3jjf8kmpzf65tttupudyg"/>
+            <column name="VALUE" value="1100379"/>
         </insert>
 
         <!--
-        roylloCoin - Testnet (More info in docs/test/roylloCoin/README.md)
-        Asset id : f9dd292bb211dae8493645150b36efa990841b11038d026577440d2616d1ec32
-        This is the first asset state
-        Block 2427358 / Transaction 0324ddf7ec79711a340a04e1ee3cee53005e046b4e0de31d498cc586ba9181c7 / Output 0
-        curl -sL "https://mempool.space/testnet/api/tx/0324ddf7ec79711a340a04e1ee3cee53005e046b4e0de31d498cc586ba9181c7"
+        roylloCoin - Testnet (More info in util/test/common-test/README-roylloCoin.md)
+        Asset id : ce5a426ea282d2dee3a2eb48170231403ee4768be17f73fef8e6f925d30797af
+        Anchor outpoint c28a42586b36ac499c6d36da792d98176572573124dbc82526d02bbad5b3d9c7:0
+        curl -sL "https://mempool.space/testnet/api/tx/c28a42586b36ac499c6d36da792d98176572573124dbc82526d02bbad5b3d9c7"
         -->
         <insert tableName="BITCOIN_TRANSACTION_OUTPUT">
             <column name="ID" value="2"/>
-            <column name="BLOCK_HEIGHT" value="2440694"/>
-            <column name="TXID" value="0324ddf7ec79711a340a04e1ee3cee53005e046b4e0de31d498cc586ba9181c7"/>
+            <column name="BLOCK_HEIGHT" value="2534237"/>
+            <column name="TXID" value="c28a42586b36ac499c6d36da792d98176572573124dbc82526d02bbad5b3d9c7"/>
             <column name="VOUT" value="0"/>
-            <column name="SCRIPTPUBKEY" value="512040b3ddefc0df09b89fd1379a3bd246bf2827ed461506a5899dc230324d0aa158"/>
+            <column name="SCRIPTPUBKEY" value="51202aad3ee91b3a90c38bbbad0b5da98f1f85bda1cfd12c4bcb15f69e8e95842ffd"/>
             <column name="SCRIPTPUBKEY_ASM"
-                    value="OP_PUSHNUM_1 OP_PUSHBYTES_32 40b3ddefc0df09b89fd1379a3bd246bf2827ed461506a5899dc230324d0aa158"/>
-            <column name="SCRIPTPUBKEY_TYPE" value="v0_p2wpkh"/>
-            <column name="SCRIPTPUBKEY_ADDRESS" value="tb1pgzeamm7qmuym3873x7drh5jxhu5z0m2xz5r2tzvacgcryng259vqp9vs54"/>
+                    value="OP_PUSHNUM_1 OP_PUSHBYTES_32 2aad3ee91b3a90c38bbbad0b5da98f1f85bda1cfd12c4bcb15f69e8e95842ffd"/>
+            <column name="SCRIPTPUBKEY_TYPE" value="v1_p2tr"/>
+            <column name="SCRIPTPUBKEY_ADDRESS" value="tb1p92kna6gm82gv8zam4594m2v0r7zmmgw06ykyhjc4760ga9vy9l7s4maeth"/>
             <column name="VALUE" value="1000"/>
         </insert>
 

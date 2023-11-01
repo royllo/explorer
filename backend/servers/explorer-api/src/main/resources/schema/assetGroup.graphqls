@@ -1,11 +1,13 @@
 "Taproot asset group"
 type AssetGroup {
+    "Asset group id (=RAW_GROUP_KEY)"
+    assetGroupId: ID!
     "The asset group creator"
     creator: User!
-    "A signature over the genesis point using the above key"
-    assetIdSig: String
     "The raw group key which is a normal public key"
     rawGroupKey: String
     "The tweaked group key, which is derived based on the genesis point and also asset type"
     tweakedGroupKey: String
+    "A witness that authorizes a specific asset to be part of the asset group specified by the above key"
+    assetWitness: String
 }

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
+
 /**
  * {@link AssetGroupService} implementation.
  */
@@ -30,11 +32,13 @@ public class AssetGroupServiceImplementation extends BaseService implements Asse
 
         // Checking constraints.
         assert newAssetGroup.getId() == null : "Asset group id must be null";
-        assert StringUtils.isNotBlank(newAssetGroup.getRawGroupKey()) : "Asset group key id is required";
-        assert assetGroupRepository.findByRawGroupKey(newAssetGroup.getRawGroupKey()).isEmpty() : "Asset group key already registered";
+        assert StringUtils.isNotBlank(newAssetGroup.getAssetGroupId()) : "Asset group id is required";
+        assert StringUtils.isNotBlank(newAssetGroup.getTweakedGroupKey()) : "Tweaked Asset group key is required";
+        assert assetGroupRepository.findByAssetGroupId(newAssetGroup.getAssetGroupId()).isEmpty() : "Asset group id already registered";
 
         // Saving asset group.
         final AssetGroup assetGroupToCreate = ASSET_GROUP_MAPPER.mapToAssetGroup(newAssetGroup);
+        assetGroupToCreate.setCreator(ANONYMOUS_USER);
         final AssetGroupDTO assetGroupCreated = ASSET_GROUP_MAPPER.mapToAssetGroupDTO(assetGroupRepository.save(assetGroupToCreate));
 
         // We return the value.
@@ -43,15 +47,15 @@ public class AssetGroupServiceImplementation extends BaseService implements Asse
     }
 
     @Override
-    public Optional<AssetGroupDTO> getAssetGroupByRawGroupKey(final String rawGroupKey) {
-        logger.info("Getting asset group with raw group key {}", rawGroupKey);
+    public Optional<AssetGroupDTO> getAssetGroupByAssetGroupId(final String assetGroupId) {
+        logger.info("Getting asset group with asset group id: {}", assetGroupId);
 
-        final Optional<AssetGroup> assetGroup = assetGroupRepository.findByRawGroupKey(rawGroupKey);
+        final Optional<AssetGroup> assetGroup = assetGroupRepository.findByAssetGroupId(assetGroupId);
         if (assetGroup.isEmpty()) {
-            logger.info("Asset group with raw group key {} not found", assetGroup);
+            logger.info("Asset group with asset group id {} not found", assetGroupId);
             return Optional.empty();
         } else {
-            logger.info("Asset group with raw group key {} found: {}", rawGroupKey, assetGroup.get());
+            logger.info("Asset group with asset group id {} found: {}", assetGroupId, assetGroup.get());
             return assetGroup.map(ASSET_GROUP_MAPPER::mapToAssetGroupDTO);
         }
     }

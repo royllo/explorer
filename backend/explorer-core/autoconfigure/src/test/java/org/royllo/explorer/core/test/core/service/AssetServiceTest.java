@@ -8,40 +8,39 @@ import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.repository.asset.AssetGroupRepository;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
-import org.royllo.explorer.core.test.util.BaseTest;
+import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static java.math.BigInteger.ONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
+import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_TXID;
+import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 
 @SpringBootTest
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
-@ActiveProfiles("mempoolTransactionServiceMock")
 @DisplayName("AssetService tests")
-public class AssetServiceTest extends BaseTest {
-
-    @Autowired
-    private AssetGroupRepository assetGroupRepository;
+public class AssetServiceTest extends TestWithMockServers {
 
     @Autowired
     private BitcoinService bitcoinService;
+
+    @Autowired
+    private AssetGroupRepository assetGroupRepository;
 
     @Autowired
     private AssetService assetService;
@@ -50,7 +49,7 @@ public class AssetServiceTest extends BaseTest {
     @DisplayName("queryAssets()")
     public void queryAssets() {
         // Searching for an asset that doesn't exist.
-        Page<AssetDTO> results = assetService.queryAssets("NON-EXISTING", 1, 5);
+        Page<AssetDTO> results = assetService.queryAssets("NON_EXISTING_ASSET_ID", 1, 5);
         assertEquals(0, results.getTotalElements());
         assertEquals(0, results.getTotalPages());
 
@@ -60,107 +59,62 @@ public class AssetServiceTest extends BaseTest {
         assertEquals(1, results.getTotalPages());
         assertEquals(1, results.getContent().get(0).getId());
 
-        // Searching for an asset with its partial name (activeRoylloCoin) - only 1 result.
-        results = assetService.queryAssets("veR", 1, 5);
+        // Searching for an asset with its partial name (trickyCoin) - only 1 result.
+        results = assetService.queryAssets("ky", 1, 5);
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
-        assertEquals(ACTIVE_ROYLLO_COIN_ID, results.getContent().get(0).getId());
+        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, results.getContent().get(0).getAssetId());
 
-        // Searching for an asset with its partial name uppercase (activeRoylloCoin) - only 1 result.
-        results = assetService.queryAssets("VER", 1, 5);
+        // Searching for an asset with its partial name uppercase (trickyRoylloCoin) - only 1 result.
+        results = assetService.queryAssets("kyR", 1, 5);
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
-        assertEquals(ACTIVE_ROYLLO_COIN_ID, results.getContent().get(0).getId());
+        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, results.getContent().get(0).getAssetId());
 
-        // Searching for an asset with its partial name corresponding to two assets.
-        // The last coin we insert in database has "TestPaginationCoin0" as name, so it appears first in results.
-        results = assetService.queryAssets("PaginationCoin", 1, 5);
-        assertEquals(9, results.getTotalElements());
+        // Searching for an asset with its partial name corresponding to eight assets.
+        results = assetService.queryAssets("royllo", 1, 4);
+        assertEquals(8, results.getTotalElements());
         assertEquals(2, results.getTotalPages());
         Set<Long> ids = results.stream()
                 .map(AssetDTO::getId)
                 .collect(Collectors.toSet());
-        assertTrue(ids.contains(1009L));
-        assertTrue(ids.contains(1001L));
-        assertTrue(ids.contains(1002L));
-        assertTrue(ids.contains(1003L));
-        assertTrue(ids.contains(1004L));
-
-        // We have 9 assets to tests pagination.
-
-        // Searching for the 9 assets with a page size of 4.
-        results = assetService.queryAssets("TestPaginationCoin", 1, 4);
-        assertEquals(9, results.getTotalElements());
-        assertEquals(3, results.getTotalPages());
-
-        // Searching for the 9 assets with a page size of 5 - Page 0.
-        results = assetService.queryAssets("TestPaginationCoin", 1, 5);
-        assertEquals(5, results.getNumberOfElements());
-        assertEquals(9, results.getTotalElements());
-        assertEquals(2, results.getTotalPages());
-        assertEquals(1009, results.getContent().get(0).getId());
-        assertEquals(1001, results.getContent().get(1).getId());
-        assertEquals(1002, results.getContent().get(2).getId());
-        assertEquals(1003, results.getContent().get(3).getId());
-        assertEquals(1004, results.getContent().get(4).getId());
-
-        // Searching for the 9 assets with a page size of 5 - Page 1.
-        results = assetService.queryAssets("TestPaginationCoin", 2, 5);
-        assertEquals(4, results.getNumberOfElements());
-        assertEquals(9, results.getTotalElements());
-        assertEquals(2, results.getTotalPages());
-        assertEquals(1005, results.getContent().get(0).getId());
-        assertEquals(1006, results.getContent().get(1).getId());
-        assertEquals(1007, results.getContent().get(2).getId());
-        assertEquals(1008, results.getContent().get(3).getId());
+        assertTrue(ids.contains(1L));
+        assertTrue(ids.contains(2L));
+        assertTrue(ids.contains(3L));
+        assertTrue(ids.contains(4L));
     }
 
     @Test
     @DisplayName("addAsset()")
     public void addAsset() {
         // We retrieve a bitcoin transaction output from database for our test.
-        final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(BITCOIN_TRANSACTION_1_TXID, 0);
+        final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 0);
         assertTrue(bto.isPresent());
 
         // =============================================================================================================
         // First test - Trying to save an existing asset.
-        try {
-            assetService.addAsset(AssetDTO.builder()
-                    .id(1L)
-                    .build());
-            fail("Should have thrown an exception");
-        } catch (AssertionError e) {
-            assertEquals("Asset already exists", e.getMessage());
-        }
+        AssertionError e = assertThrows(AssertionError.class, () -> assetService.addAsset(AssetDTO.builder().id(1L).build()));
+        assertEquals("Asset already exists", e.getMessage());
 
         // =============================================================================================================
         // Second test - Bitcoin transaction is null.
-        try {
-            assetService.addAsset(AssetDTO.builder()
-                    .build());
-            fail("Should have thrown an exception");
-        } catch (AssertionError e) {
-            assertEquals("Bitcoin transaction is required", e.getMessage());
-        }
+        e = assertThrows(AssertionError.class, () -> assetService.addAsset(AssetDTO.builder().build()));
+        assertEquals("Bitcoin transaction is required", e.getMessage());
 
         // =============================================================================================================
         // Third test - AssetId is already in the database.
-        try {
-            assetService.addAsset(AssetDTO.builder()
-                    .creator(ANONYMOUS_USER_DTO)
-                    .assetId(ACTIVE_ROYLLO_COIN_ASSET_ID)
-                    .genesisPoint(bto.get())
-                    .metaDataHash("metadata")
-                    .name("name")
-                    .outputIndex(0)
-                    .version(0)
-                    .type(NORMAL)
-                    .amount(BigInteger.ONE)
-                    .build());
-            fail("Should have thrown an exception");
-        } catch (AssertionError e) {
-            assertTrue(e.getMessage().endsWith("already registered"));
-        }
+        e = assertThrows(AssertionError.class, () -> assetService.addAsset(AssetDTO.builder()
+                .creator(ANONYMOUS_USER_DTO)
+                .assetId(ROYLLO_COIN_ASSET_ID)
+                .genesisPoint(bto.get())
+                .metaDataHash("metadata")
+                .name("name")
+                .outputIndex(0)
+                .version(0)
+                .type(NORMAL)
+                .amount(ONE)
+                .build()));
+        assertTrue(e.getMessage().endsWith("already registered"));
 
         // =============================================================================================================
         // We add a first asset.
@@ -171,7 +125,7 @@ public class AssetServiceTest extends BaseTest {
                 .creator(ANONYMOUS_USER_DTO)
                 .assetId("my asset id")
                 .genesisPoint(BitcoinTransactionOutputDTO.builder()
-                        .txId(BITCOIN_TRANSACTION_3_TXID)
+                        .txId(ROYLLO_COIN_GENESIS_TXID)
                         .vout(0)
                         .build())
                 .metaDataHash("my meta data hash")
@@ -179,7 +133,7 @@ public class AssetServiceTest extends BaseTest {
                 .outputIndex(8)
                 .version(0)
                 .type(NORMAL)
-                .amount(new BigInteger("1"))
+                .amount(ONE)
                 .build());
 
         // Testing asset value.
@@ -189,20 +143,14 @@ public class AssetServiceTest extends BaseTest {
         // Genesis.
         assertNotNull(asset1.getGenesisPoint());
         assertNotNull(asset1.getGenesisPoint().getId());
-        assertEquals(BITCOIN_TRANSACTION_3_TXID, asset1.getGenesisPoint().getTxId());
-        assertEquals(0, asset1.getGenesisPoint().getVout());
-        assertEquals("76a9140aa7e954ae2c972225309f0992e3ecd698a90f5f88ac", asset1.getGenesisPoint().getScriptPubKey());
-        assertEquals("OP_DUP OP_HASH160 OP_PUSHBYTES_20 0aa7e954ae2c972225309f0992e3ecd698a90f5f OP_EQUALVERIFY OP_CHECKSIG", asset1.getGenesisPoint().getScriptPubKeyAsm());
-        assertEquals("p2pkh", asset1.getGenesisPoint().getScriptPubKeyType());
-        assertEquals("1yLucPwZwVuNxMFTXyyX5qTk3YFNpAGEz", asset1.getGenesisPoint().getScriptPubKeyAddress());
-        assertEquals(0, new BigDecimal("2036308").compareTo(asset1.getGenesisPoint().getValue()));
+        verifyTransaction(asset1.getGenesisPoint(), ROYLLO_COIN_GENESIS_TXID);
         // Asset value data.
         assertEquals("my meta data hash", asset1.getMetaDataHash());
         assertEquals("testCoin", asset1.getName());
         assertEquals(8, asset1.getOutputIndex());
         assertEquals(0, asset1.getVersion());
         assertEquals(NORMAL, asset1.getType());
-        assertEquals(0, asset1.getAmount().compareTo(new BigInteger("1")));
+        assertEquals(0, asset1.getAmount().compareTo(ONE));
         // Asset group.
         assertNull(asset1.getAssetGroup());
         assertEquals(assetGroupCount, assetGroupRepository.findAll().size());
@@ -222,9 +170,10 @@ public class AssetServiceTest extends BaseTest {
                 .type(NORMAL)
                 .amount(new BigInteger("11"))
                 .assetGroup(AssetGroupDTO.builder()
-                        .assetIdSig("assetIdSig-1")
+                        .assetGroupId("tweakedGroupKey-1")
                         .rawGroupKey("rawGroupKey-1")
                         .tweakedGroupKey("tweakedGroupKey-1")
+                        .assetWitness("assetIdSig-1")
                         .build())
                 .build());
 
@@ -234,7 +183,7 @@ public class AssetServiceTest extends BaseTest {
         assertEquals("assetId2", asset2.getAssetId());
         // Genesis.
         assertNotNull(asset2.getGenesisPoint());
-        assertEquals(6, asset2.getGenesisPoint().getId());
+        assertEquals(1, asset2.getGenesisPoint().getId());
         // Asset value data.
         assertEquals("metaData2", asset2.getMetaDataHash());
         assertEquals("testCoin2", asset2.getName());
@@ -246,9 +195,10 @@ public class AssetServiceTest extends BaseTest {
         assertNotNull(asset2.getAssetGroup());
         assertEquals(assetGroupCount + 1, assetGroupRepository.findAll().size());
         assertNotNull(asset2.getAssetGroup().getId());
-        assertEquals("assetIdSig-1", asset2.getAssetGroup().getAssetIdSig());
+        assertEquals("tweakedGroupKey-1", asset2.getAssetGroup().getAssetGroupId());
         assertEquals("rawGroupKey-1", asset2.getAssetGroup().getRawGroupKey());
         assertEquals("tweakedGroupKey-1", asset2.getAssetGroup().getTweakedGroupKey());
+        assertEquals("assetIdSig-1", asset2.getAssetGroup().getAssetWitness());
 
         // =============================================================================================================
         // We add a third asset.
@@ -265,51 +215,112 @@ public class AssetServiceTest extends BaseTest {
                 .type(NORMAL)
                 .amount(new BigInteger("111"))
                 .assetGroup(AssetGroupDTO.builder()
-                        .assetIdSig("assetIdSig-1")
-                        .rawGroupKey("rawGroupKey-1")
+                        .assetGroupId("tweakedGroupKey-1")
                         .tweakedGroupKey("tweakedGroupKey-1")
+                        .rawGroupKey("rawGroupKey-1")
+                        .assetWitness("assetIdSig-1")
                         .build())
                 .build());
         // Asset group.
         assertNotNull(asset3.getAssetGroup());
         assertEquals(assetGroupCount + 1, assetGroupRepository.findAll().size());
         assertNotNull(asset3.getAssetGroup().getId());
-        assertEquals("assetIdSig-1", asset3.getAssetGroup().getAssetIdSig());
+        assertEquals("tweakedGroupKey-1", asset3.getAssetGroup().getTweakedGroupKey());
+        assertEquals("assetIdSig-1", asset3.getAssetGroup().getAssetWitness());
         assertEquals("rawGroupKey-1", asset3.getAssetGroup().getRawGroupKey());
         assertEquals("tweakedGroupKey-1", asset3.getAssetGroup().getTweakedGroupKey());
     }
 
     @Test
+    @DisplayName("addAsset() with asset group")
+    public void addAssetWithAssetGroup() {
+        // We retrieve a bitcoin transaction output from database for our test.
+        final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 0);
+        assertTrue(bto.isPresent());
+
+        // 4 assets : 1 with no asset group, 2 with the same asset group and 1 with another asset group.
+        AssetDTO asset1 = AssetDTO.builder()
+                .assetId("asset1")
+                .genesisPoint(bto.get())
+                .build();
+        AssetDTO asset2 = AssetDTO.builder()
+                .assetId("asset2")
+                .genesisPoint(bto.get())
+                .assetGroup(AssetGroupDTO.builder()
+                        .assetGroupId("assetGroupId1")
+                        .tweakedGroupKey("assetGroup1").build())
+                .build();
+        AssetDTO asset3 = AssetDTO.builder()
+                .assetId("asset3")
+                .genesisPoint(bto.get())
+                .assetGroup(AssetGroupDTO.builder()
+                        .assetGroupId("assetGroupId1")
+                        .tweakedGroupKey("assetGroup1").build())
+                .build();
+        AssetDTO asset4 = AssetDTO.builder()
+                .assetId("asset4")
+                .genesisPoint(bto.get())
+                .assetGroup(AssetGroupDTO.builder()
+                        .assetGroupId("assetGroupId2")
+                        .tweakedGroupKey("assetGroup2").build())
+                .build();
+
+        // Asset creation.
+        assetService.addAsset(asset1);
+        assetService.addAsset(asset2);
+        assetService.addAsset(asset3);
+        assetService.addAsset(asset4);
+
+        // Asset retrieval.
+        AssetDTO asset1Created = assetService.getAssetByAssetId("asset1").orElse(null);
+        AssetDTO asset2Created = assetService.getAssetByAssetId("asset2").orElse(null);
+        AssetDTO asset3Created = assetService.getAssetByAssetId("asset3").orElse(null);
+        AssetDTO asset4Created = assetService.getAssetByAssetId("asset4").orElse(null);
+
+        // Verification.
+        assertNotNull(asset1Created);
+        assertNotNull(asset1Created.getId());
+        assertNull(asset1Created.getAssetGroup());
+
+        assertNotNull(asset2Created);
+        assertNotNull(asset2Created.getId());
+        assertNotNull(asset2Created.getAssetGroup());
+        assertNotNull(asset2Created.getAssetGroup().getId());
+        assertEquals("assetGroup1", asset2Created.getAssetGroup().getTweakedGroupKey());
+
+        assertNotNull(asset3Created);
+        assertNotNull(asset3Created.getId());
+        assertNotNull(asset3Created.getAssetGroup());
+        assertNotNull(asset3Created.getAssetGroup().getId());
+        assertEquals("assetGroup1", asset3Created.getAssetGroup().getTweakedGroupKey());
+
+        assertNotNull(asset4Created);
+        assertNotNull(asset4Created.getId());
+        assertNotNull(asset4Created.getAssetGroup());
+        assertNotNull(asset4Created.getAssetGroup().getId());
+        assertEquals("assetGroup2", asset4Created.getAssetGroup().getTweakedGroupKey());
+    }
+
+    @Test
     @DisplayName("getAsset()")
     public void getAsset() {
+        // =============================================================================================================
         // Non-existing asset.
         Optional<AssetDTO> asset = assetService.getAsset(0);
         assertFalse(asset.isPresent());
 
+        // =============================================================================================================
         // Existing asset on testnet and in our database initialization script ("My Royllo coin") .
-        asset = assetService.getAsset(ROYLLO_COIN_ID);
+        // Asset id is 1 as My Royllo Coin is the only coin inserted in default database.
+        asset = assetService.getAsset(1);
         assertTrue(asset.isPresent());
-        // Genesis point.
         assertEquals(ROYLLO_COIN_ASSET_ID, asset.get().getAssetId());
         assertNotNull(asset.get().getCreator());
-        assertEquals(ANONYMOUS_USER_DTO.getId(), asset.get().getCreator().getId());
-        assertEquals(ROYLLO_COIN_GENESIS_POINT_TXID, asset.get().getGenesisPoint().getTxId());
-        assertEquals(ROYLLO_COIN_GENESIS_POINT_VOUT, asset.get().getGenesisPoint().getVout());
-        assertEquals(ROYLLO_COIN_META_DATA_HASH, asset.get().getMetaDataHash());
-        assertEquals(ROYLLO_COIN_NAME, asset.get().getName());
-        assertEquals(ROYLLO_COIN_OUTPUT_INDEX, asset.get().getOutputIndex());
-        assertEquals(ROYLLO_COIN_VERSION, asset.get().getVersion());
-        assertEquals(ROYLLO_COIN_TYPE, asset.get().getType());
-        assertEquals(0, asset.get().getAmount().compareTo(ROYLLO_COIN_AMOUNT));
-
-        // Asset group.
-        assertNotNull(asset.get().getAssetGroup());
-        assertEquals(ROYLLO_COIN_RAW_GROUP_KEY, asset.get().getAssetGroup().getRawGroupKey());
-        assertEquals(ROYLLO_COIN_TWEAKED_GROUP_KEY, asset.get().getAssetGroup().getTweakedGroupKey());
-        assertEquals(ROYLLO_COIN_ASSET_ID_SIG, asset.get().getAssetGroup().getAssetIdSig());
+        assertEquals(ANONYMOUS_ID, asset.get().getCreator().getId());
+        verifyAsset(asset.get(), ROYLLO_COIN_ASSET_ID);
 
         // getAsset() on an asset that has no asset group
-        asset = assetService.getAsset(999);
+        asset = assetService.getAsset(1);
         assertTrue(asset.isPresent());
         assertNull(asset.get().getAssetGroup());
     }
@@ -317,36 +328,23 @@ public class AssetServiceTest extends BaseTest {
     @Test
     @DisplayName("getAssetByAssetId()")
     public void getAssetByAssetId() {
+        // =============================================================================================================
         // Non-existing asset.
-        Optional<AssetDTO> asset = assetService.getAssetByAssetId("NON-EXISTING");
+        Optional<AssetDTO> asset = assetService.getAssetByAssetId("NON_EXISTING_ASSET_ID");
         assertFalse(asset.isPresent());
 
+        // =============================================================================================================
         // Existing asset on testnet and in our database initialization script ("roylloCoin") .
-        asset = assetService.getAssetByAssetId(ROYLLO_COIN_ASSET_ID);
+        asset = assetService.getAsset(1);
         assertTrue(asset.isPresent());
-        // Genesis point.
         assertEquals(ROYLLO_COIN_ASSET_ID, asset.get().getAssetId());
         assertNotNull(asset.get().getCreator());
-        assertEquals(ANONYMOUS_USER_DTO.getId(), asset.get().getCreator().getId());
-        assertEquals(ROYLLO_COIN_GENESIS_POINT_TXID, asset.get().getGenesisPoint().getTxId());
-        assertEquals(ROYLLO_COIN_GENESIS_POINT_VOUT, asset.get().getGenesisPoint().getVout());
-        assertEquals(ROYLLO_COIN_META_DATA_HASH, asset.get().getMetaDataHash());
-        assertEquals(ROYLLO_COIN_NAME, asset.get().getName());
-        assertEquals(ROYLLO_COIN_OUTPUT_INDEX, asset.get().getOutputIndex());
-        assertEquals(ROYLLO_COIN_VERSION, asset.get().getVersion());
-        assertEquals(ROYLLO_COIN_TYPE, asset.get().getType());
-        assertEquals(0, asset.get().getAmount().compareTo(ROYLLO_COIN_AMOUNT));
+        assertEquals(ANONYMOUS_ID, asset.get().getCreator().getId());
+        verifyAsset(asset.get(), ROYLLO_COIN_ASSET_ID);
 
-        // Asset group.
-        assertNotNull(asset.get().getAssetGroup());
-        assertEquals(ROYLLO_COIN_RAW_GROUP_KEY, asset.get().getAssetGroup().getRawGroupKey());
-        assertEquals(ROYLLO_COIN_TWEAKED_GROUP_KEY, asset.get().getAssetGroup().getTweakedGroupKey());
-        assertEquals(ROYLLO_COIN_ASSET_ID_SIG, asset.get().getAssetGroup().getAssetIdSig());
-
-        // getAssetByAssetId() on an asset that has no asset group
-        asset = assetService.getAssetByAssetId("NO_GROUP_ASSET_ASSET_ID");
+        // getAsset() on an asset that has no asset group
+        asset = assetService.getAsset(1);
         assertTrue(asset.isPresent());
-        assertEquals(999, asset.get().getId());
         assertNull(asset.get().getAssetGroup());
     }
 

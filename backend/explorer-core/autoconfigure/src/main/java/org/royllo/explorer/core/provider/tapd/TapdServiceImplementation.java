@@ -96,7 +96,7 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
                 .uri("/v1/taproot-assets/proofs/decode")
                 .header("Grpc-Metadata-macaroon", tapdParameters.getApi().getMacaroon())
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromValue(ProofRequest.builder()
+                .body(BodyInserters.fromValue(DecodedProofRequest.builder()
                         .rawProof(rawProof)
                         .proofAtDepth(proofAtDepth)
                         .withPrevWitnesses(false)
@@ -150,7 +150,7 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
                 .baseUrl(serverAddress)
                 .build()
                 .get()
-                .uri("/v1/taproot-assets/universe/leaves/asset-id/" + assetId)
+                .uri("/v1/taproot-assets/universe/leaves/asset-id/" + assetId + "?proof_type=PROOF_TYPE_ISSUANCE")
                 .exchangeToFlux(response -> response.bodyToFlux(UniverseLeavesResponse.class))
                 .next();
     }

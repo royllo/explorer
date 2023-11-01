@@ -29,6 +29,9 @@ public class AssetDTO {
     @NotNull(message = "Asset creator is required")
     UserDTO creator;
 
+    /** Asset group. */
+    AssetGroupDTO assetGroup;
+
     /** The asset ID that uniquely identifies the asset. */
     @NotBlank(message = "Asset id is required")
     String assetId;
@@ -36,12 +39,12 @@ public class AssetDTO {
     /** The first outpoint of the transaction that created the asset (txid:vout). */
     BitcoinTransactionOutputDTO genesisPoint;
 
-    /** The hash of the metadata for this genesis asset. */
-    String metaDataHash;
-
     /** The name of the asset. */
     @NotBlank(message = "Asset name is required")
     String name;
+
+    /** The hash of the metadata for this genesis asset. */
+    String metaDataHash;
 
     /** The index of the output that carries the unique Taproot asset commitment in the genesis transaction. */
     @NotNull(message = "Output index is required")
@@ -58,8 +61,5 @@ public class AssetDTO {
     /** The total amount of the asset stored in this Taproot asset UTXO. */
     @NotNull(message = "Total amount is required")
     BigInteger amount;
-
-    /** Asset group. */
-    AssetGroupDTO assetGroup;
 
 }

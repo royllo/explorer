@@ -18,12 +18,14 @@
                     remarks="The user who created this asset"/>
 
             <!-- Table fields -->
-            <column name="ASSET_ID_SIG" type="TEXT"
-                    remarks="A signature over the genesis point using the above key"/>
+            <column name="ASSET_GROUP_ID" type="VARCHAR(255)"
+                    remarks="The asset ID that uniquely identifies the asset"/>
             <column name="RAW_GROUP_KEY" type="TEXT"
                     remarks="The raw group key which is a normal public key"/>
-            <column name="TWEAKED_GROUP_KEY" type="TEXT"
+            <column name="TWEAKED_GROUP_KEY" type="VARCHAR(255)"
                     remarks="The tweaked group key, which is derived based on the genesis point and also asset type"/>
+            <column name="ASSET_WITNESS" type="TEXT"
+                    remarks="A signature over the genesis point using the above key"/>
 
             <!-- Technical fields -->
             <column name="CREATED_ON" type="TIMESTAMP"
@@ -39,7 +41,17 @@
                           columnDataType="BIGINT"
                           startWith="2"/>
 
-        <!-- TODO Add index (On raw group key ?) -->
+        <!-- Index on ASSET_GROUP_ID -->
+        <createIndex indexName="IDX_ASSET_GROUP_ASSET_GROUP_ID"
+                     tableName="ASSET_GROUP">
+            <column name="ASSET_GROUP_ID"/>
+        </createIndex>
+
+        <!-- Index on RAW_GROUP_KEY -->
+        <createIndex indexName="IDX_ASSET_GROUP_TWEAKED_GROUP_KEY"
+                     tableName="ASSET_GROUP">
+            <column name="TWEAKED_GROUP_KEY"/>
+        </createIndex>
 
     </changeSet>
 </databaseChangeLog>

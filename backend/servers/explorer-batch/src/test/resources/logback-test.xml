@@ -1,0 +1,8 @@
+<configuration>
+    <!-- Other logback configurations -->
+
+    <!-- Set MockServer logging to ERROR level to only see error logs.
+         If you want to completely disable it, use OFF level. -->
+    <logger name="org.mockserver" level="ERROR"/>
+
+</configuration>

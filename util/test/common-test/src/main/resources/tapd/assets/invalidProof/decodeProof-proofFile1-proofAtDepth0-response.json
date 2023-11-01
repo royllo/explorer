@@ -1,0 +1,5 @@
+{
+  "code": 3,
+  "message": "proto: (line 1:17): invalid value for bytes type: \"INVALID_PROOF\"",
+  "details": []
+}

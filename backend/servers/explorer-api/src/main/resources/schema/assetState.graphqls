@@ -10,8 +10,6 @@ type AssetState {
     anchorBlockHash: String!
     "Outpoint (txid:vout) that stores the Taproot asset commitment"
     anchorOutpoint: BitcoinTransactionOutput!
-    "The transaction that anchors the Taproot commitment where the asset resides"
-    anchorTx: String!
     "The txid of the anchor transaction"
     anchorTxId: String!
     "The raw internal key that was used to create the anchor Taproot output key"

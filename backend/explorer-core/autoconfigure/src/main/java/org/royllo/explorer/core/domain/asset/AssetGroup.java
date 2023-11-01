@@ -39,9 +39,9 @@ public class AssetGroup extends BaseDomain {
     @JoinColumn(name = "FK_USER_CREATOR", nullable = false)
     private User creator;
 
-    /** A signature over the genesis point using the above key. */
-    @Column(name = "ASSET_ID_SIG")
-    private String assetIdSig;
+    /** Asset group id (=RAW_GROUP_KEY). */
+    @Column(name = "ASSET_GROUP_ID", updatable = false)
+    private String assetGroupId;
 
     /** The raw group key which is a normal public key. */
     @Column(name = "RAW_GROUP_KEY")
@@ -50,5 +50,9 @@ public class AssetGroup extends BaseDomain {
     /** The tweaked group key, which is derived based on the genesis point and also asset type. */
     @Column(name = "TWEAKED_GROUP_KEY")
     private String tweakedGroupKey;
+
+    /** A witness that authorizes a specific asset to be part of the asset group specified by the above key. */
+    @Column(name = "ASSET_WITNESS")
+    private String assetWitness;
 
 }

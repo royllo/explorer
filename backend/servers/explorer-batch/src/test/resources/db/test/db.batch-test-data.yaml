@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - include:
+      file: /db/changelog/db.changelog-master.yaml
+
+  # ====================================================================================================================
+  # Tests data.
+  - include:
+      file: /db/test/batch-test-data-universe_server.xml

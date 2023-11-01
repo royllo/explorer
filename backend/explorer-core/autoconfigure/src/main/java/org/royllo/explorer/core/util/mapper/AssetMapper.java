@@ -10,12 +10,14 @@ import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.royllo.explorer.core.util.enums.AssetType;
 
 import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
+import static org.royllo.explorer.core.util.enums.AssetType.COLLECTIBLE;
+import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
 
 /**
  * Asset mapper.
  */
 @Mapper(nullValuePropertyMappingStrategy = IGNORE,
-        uses = {BitcoinMapper.class, UserMapper.class})
+        uses = {AssetGroupMapper.class, BitcoinMapper.class, UserMapper.class})
 public interface AssetMapper {
 
     @Mapping(target = "createdOn", ignore = true)
@@ -29,7 +31,8 @@ public interface AssetMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "creator", ignore = true)
-    @Mapping(source = "assetIdSig", target = "assetIdSig")
+    @Mapping(source = "tweakedGroupKey", target = "assetGroupId")
+    @Mapping(source = "assetWitness", target = "assetWitness")
     @Mapping(source = "rawGroupKey", target = "rawGroupKey")
     @Mapping(source = "tweakedGroupKey", target = "tweakedGroupKey")
     AssetGroupDTO mapToAssetGroupDTO(DecodedProofResponse.DecodedProof.Asset.AssetGroup source);
@@ -60,9 +63,9 @@ public interface AssetMapper {
 
     default AssetType mapToAssetType(final String source) {
         if (source.equals("COLLECTIBLE")) {
-            return AssetType.COLLECTIBLE;
+            return COLLECTIBLE;
         }
-        return AssetType.NORMAL;
+        return NORMAL;
     }
 
 }

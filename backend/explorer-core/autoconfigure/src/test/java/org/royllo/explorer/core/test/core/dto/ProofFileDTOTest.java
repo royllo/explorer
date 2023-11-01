@@ -7,7 +7,7 @@ import org.royllo.explorer.core.dto.proof.ProofFileDTO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-@DisplayName("ProofDTO tests")
+@DisplayName("ProofFileDTO tests")
 public class ProofFileDTOTest {
 
     @Test

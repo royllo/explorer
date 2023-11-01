@@ -10,16 +10,26 @@ import org.royllo.explorer.api.graphql.generated.DgsConstants;
 import org.royllo.explorer.api.graphql.generated.client.QueryAssetStatesGraphQLQuery;
 import org.royllo.explorer.api.graphql.generated.client.QueryAssetStatesProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.types.AssetStatePage;
-import org.royllo.explorer.api.test.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.royllo.explorer.api.configuration.APIConfiguration.MAXIMUM_PAGE_SIZE;
 import static org.royllo.explorer.core.service.asset.AssetStateServiceImplementation.SEARCH_PARAMETER_ASSET_ID;
+import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_FROM_TEST;
 
 @SpringBootTest
-@DisplayName("AssetDataFetcher tests")
-public class AssetStateDataFetcherTest extends BaseTest {
+@DisplayName("AssetStateDataFetcher tests")
+public class AssetStateDataFetcherTest {
+
+    private static final String TRICKY_ROYLLO_COIN_ASSET_STATE_ID_1 = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProof(0).getAsset().getAssetStateId();
+    private static final String TRICKY_ROYLLO_COIN_ASSET_STATE_ID_2 = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProof(1).getAsset().getAssetStateId();
+    private static final String TRICKY_ROYLLO_COIN_ASSET_STATE_ID_3 = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProof(3).getAsset().getAssetStateId();
+    private static final String TRICKY_ROYLLO_COIN_ASSET_STATE_ID_4 = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProof(4).getAsset().getAssetStateId();
 
     @Autowired
     DgsQueryExecutor dgsQueryExecutor;
@@ -28,138 +38,137 @@ public class AssetStateDataFetcherTest extends BaseTest {
     @DisplayName("queryAssetStates()")
     public void queryAssetStates() {
         // Getting one page.
-        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                QueryAssetStatesGraphQLQuery.newRequest().query(SEARCH_PARAMETER_ASSET_ID + "asset_id_0").page(1).build(),
-                new QueryAssetStatesProjectionRoot<>().content()
-                        .assetStateId()
-                        .creator().userId().username().getParent()
-                        .asset().assetId().name().getParent()
-                        .anchorBlockHash()
-                        .anchorOutpoint().txId().vout().getParent()
-                        .anchorTx()
-                        .internalKey()
-                        .merkleRoot()
-                        .tapscriptSibling()
-                        .scriptVersion()
-                        .scriptKey()
-                        .getParent()
-                        .totalElements()
-                        .totalPages());
-
         AssetStatePage assetStatePage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
-                graphQLQueryRequest.serialize(),
+                new GraphQLQueryRequest(
+                        QueryAssetStatesGraphQLQuery.newRequest().query(SEARCH_PARAMETER_ASSET_ID + TRICKY_ROYLLO_COIN_ASSET_ID).page(1).build(),
+                        new QueryAssetStatesProjectionRoot<>().content()
+                                .assetStateId()
+                                .creator().userId().username().getParent()
+                                .asset().assetId().name().getParent()
+                                .anchorBlockHash()
+                                .anchorOutpoint().txId().vout().getParent()
+                                .internalKey()
+                                .merkleRoot()
+                                .tapscriptSibling()
+                                .scriptVersion()
+                                .scriptKey()
+                                .getParent()
+                                .totalElements()
+                                .totalPages()
+                ).serialize(),
                 "data." + DgsConstants.QUERY.QueryAssetStates,
                 new TypeRef<>() {
                 });
 
-        assertEquals(3, assetStatePage.getTotalElements());
+        // Testing the results.
+        assertEquals(4, assetStatePage.getTotalElements());
         assertEquals(1, assetStatePage.getTotalPages());
-        assertEquals("ASSET_STATE_ID_10091", assetStatePage.getContent().get(0).getAssetStateId());
-        assertEquals("ASSET_STATE_ID_10092", assetStatePage.getContent().get(1).getAssetStateId());
-        assertEquals("ASSET_STATE_ID_10093", assetStatePage.getContent().get(2).getAssetStateId());
+        assertTrue(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_1)));
+        assertTrue(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_2)));
+        assertTrue(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_3)));
+        assertTrue(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_4)));
     }
 
     @Test
     @DisplayName("queryAssetStates() with page size")
     public void queryAssetStatesWithPageSize() {
-        // Looking at page 2.
-        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                QueryAssetStatesGraphQLQuery.newRequest().query(SEARCH_PARAMETER_ASSET_ID + "asset_id_0").page(2).pageSize(1).build(),
-                new QueryAssetStatesProjectionRoot<>().content()
-                        .assetStateId()
-                        .creator().userId().username().getParent()
-                        .asset().assetId().name().getParent()
-                        .anchorBlockHash()
-                        .anchorOutpoint().txId().vout().getParent()
-                        .anchorTx()
-                        .internalKey()
-                        .merkleRoot()
-                        .tapscriptSibling()
-                        .scriptVersion()
-                        .scriptKey()
-                        .getParent()
-                        .totalElements()
-                        .totalPages());
-
+        // Getting page 2.
         AssetStatePage assetStatePage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
-                graphQLQueryRequest.serialize(),
+                new GraphQLQueryRequest(
+                        QueryAssetStatesGraphQLQuery.newRequest().query(SEARCH_PARAMETER_ASSET_ID + TRICKY_ROYLLO_COIN_ASSET_ID).page(2).pageSize(1).build(),
+                        new QueryAssetStatesProjectionRoot<>().content()
+                                .assetStateId()
+                                .creator().userId().username().getParent()
+                                .asset().assetId().name().getParent()
+                                .anchorBlockHash()
+                                .anchorOutpoint().txId().vout().getParent()
+                                .internalKey()
+                                .merkleRoot()
+                                .tapscriptSibling()
+                                .scriptVersion()
+                                .scriptKey()
+                                .getParent()
+                                .totalElements()
+                                .totalPages()
+                ).serialize(),
                 "data." + DgsConstants.QUERY.QueryAssetStates,
                 new TypeRef<>() {
                 });
 
-        assertEquals(3, assetStatePage.getTotalElements());
-        assertEquals(3, assetStatePage.getTotalPages());
-        assertEquals("ASSET_STATE_ID_10092", assetStatePage.getContent().get(0).getAssetStateId());
-    }
-
-    @Test
-    @DisplayName("queryAssetStates() with invalid page size")
-    public void queryAssetStatesWithInvalidPageSize() {
-        try {
-            // Looking at page 2.
-            GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                    QueryAssetStatesGraphQLQuery.newRequest().query(SEARCH_PARAMETER_ASSET_ID + "asset_id_0").page(2).pageSize(1).build(),
-                    new QueryAssetStatesProjectionRoot<>().content()
-                            .assetStateId());
-
-            AssetStatePage assetStatePage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
-                    graphQLQueryRequest.serialize(),
-                    "data." + DgsConstants.QUERY.QueryAssetStates,
-                    new TypeRef<>() {
-                    });
-        } catch (
-                QueryException e) {
-            assertEquals("Page number starts at page 1", e.getMessage());
-        }
+        // Testing the results.
+        assertEquals(4, assetStatePage.getTotalElements());
+        assertEquals(4, assetStatePage.getTotalPages());
+        assertFalse(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_1)));
+        // This one is assertTrue because we asked for page 2.
+        assertTrue(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_2)));
+        assertFalse(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_3)));
+        assertFalse(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_4)));
     }
 
     @Test
     @DisplayName("queryAssetStates() without page number")
     public void queryAssetStatesWithoutPageNumber() {
-        // Getting one page.
-        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                QueryAssetStatesGraphQLQuery.newRequest().query(SEARCH_PARAMETER_ASSET_ID + "asset_id_0").build(),
-                new QueryAssetStatesProjectionRoot<>().content()
-                        .assetStateId()
-                        .creator().userId().username().getParent()
-                        .asset().assetId().name().getParent()
-                        .anchorBlockHash()
-                        .anchorOutpoint().txId().vout().getParent()
-                        .anchorTx()
-                        .internalKey()
-                        .merkleRoot()
-                        .tapscriptSibling()
-                        .scriptVersion()
-                        .scriptKey()
-                        .getParent()
-                        .totalElements()
-                        .totalPages());
-
+        // Getting a page without setting page number.
         AssetStatePage assetStatePage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
-                graphQLQueryRequest.serialize(),
+                new GraphQLQueryRequest(
+                        QueryAssetStatesGraphQLQuery.newRequest().query(SEARCH_PARAMETER_ASSET_ID + TRICKY_ROYLLO_COIN_ASSET_ID).build(),
+                        new QueryAssetStatesProjectionRoot<>().content()
+                                .assetStateId()
+                                .creator().userId().username().getParent()
+                                .asset().assetId().name().getParent()
+                                .anchorBlockHash()
+                                .anchorOutpoint().txId().vout().getParent()
+                                .internalKey()
+                                .merkleRoot()
+                                .tapscriptSibling()
+                                .scriptVersion()
+                                .scriptKey()
+                                .getParent()
+                                .totalElements()
+                                .totalPages()
+                ).serialize(),
                 "data." + DgsConstants.QUERY.QueryAssetStates,
                 new TypeRef<>() {
                 });
 
-        assertEquals(3, assetStatePage.getTotalElements());
+        // Testing the results.
+        assertEquals(4, assetStatePage.getTotalElements());
         assertEquals(1, assetStatePage.getTotalPages());
-        assertEquals("ASSET_STATE_ID_10091", assetStatePage.getContent().get(0).getAssetStateId());
-        assertEquals("ASSET_STATE_ID_10092", assetStatePage.getContent().get(1).getAssetStateId());
-        assertEquals("ASSET_STATE_ID_10093", assetStatePage.getContent().get(2).getAssetStateId());
+
+        assertTrue(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_1)));
+        assertTrue(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_2)));
+        assertTrue(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_3)));
+        assertTrue(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_4)));
+    }
+
+    @Test
+    @DisplayName("queryAssetStates() with invalid page size")
+    public void queryAssetStatesWithInvalidPageSize() {
+        QueryException e = assertThrows(QueryException.class, () -> dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+                new GraphQLQueryRequest(
+                        QueryAssetStatesGraphQLQuery.newRequest().query(SEARCH_PARAMETER_ASSET_ID + "asset_id_0").pageSize(MAXIMUM_PAGE_SIZE + 1).build(),
+                        new QueryAssetStatesProjectionRoot<>().content()
+                                .assetStateId()
+                ).serialize(),
+                "data." + DgsConstants.QUERY.QueryAssetStates,
+                new TypeRef<>() {
+                }));
+        assertEquals("Page size can't be superior to " + MAXIMUM_PAGE_SIZE, e.getMessage());
     }
 
     @Test
     @DisplayName("queryAssetStates() with negative number")
     public void queryAssetStatesWithNegativePageNumber() {
-        try {
-            // Looking at page 2.
-            new GraphQLQueryRequest(
-                    QueryAssetStatesGraphQLQuery.newRequest().query(SEARCH_PARAMETER_ASSET_ID + "asset_id_0").page(-1).build(),
-                    new QueryAssetStatesProjectionRoot<>().content()
-                            .assetStateId());
-        } catch (QueryException e) {
-            assertEquals("Page number starts at page 1", e.getMessage());
-        }
+        QueryException e = assertThrows(QueryException.class, () -> dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+                new GraphQLQueryRequest(
+                        QueryAssetStatesGraphQLQuery.newRequest().query(SEARCH_PARAMETER_ASSET_ID + "ANY_ASSET").page(-1).build(),
+                        new QueryAssetStatesProjectionRoot<>().content()
+                                .assetStateId()
+                ).serialize(),
+                "data." + DgsConstants.QUERY.QueryAssetStates,
+                new TypeRef<>() {
+                }));
+        assertEquals("Page number starts at page 1", e.getMessage());
     }
 
 }

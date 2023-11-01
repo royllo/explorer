@@ -1,0 +1,56 @@
+{
+  "decoded_proof": {
+    "proof_at_depth": 0,
+    "number_of_proofs": 3,
+    "asset": {
+      "version": "ASSET_VERSION_V0",
+      "asset_genesis": {
+        "genesis_point": "2777e306451f6d5231f4b17b8286412e1e13ef153800086cf879baae89d9df76:1",
+        "name": "trickyRoylloCoin",
+        "meta_hash": "13a16f12767ad6fbafcfd69fd12fc19747ac35749b1b6806c74dd4a07d2e4b41",
+        "asset_id": "e16029acc4d2cf0505857265442344efb5547f2047a3fc1c4822683f7c57820e",
+        "output_index": 0,
+        "version": 0
+      },
+      "asset_type": "NORMAL",
+      "amount": "125",
+      "lock_time": 0,
+      "relative_lock_time": 0,
+      "script_version": 0,
+      "script_key": "02629f225f4ef29972e703b1086796dbe47e881ae913904a1c2eec15df35361fb6",
+      "script_key_is_local": false,
+      "asset_group": null,
+      "chain_anchor": {
+        "anchor_tx": "02000000000102d3e09cd4a81a19f2857c4afcf033bf1d2f4cb8b1ae5bad3b68a7825823f1acf20200000000ffffffffd3e09cd4a81a19f2857c4afcf033bf1d2f4cb8b1ae5bad3b68a7825823f1acf200000000000000000003e803000000000000225120acb9b163799c60c08c279c18a652ffe4bbbea9301831c3acca52b796a5fb7cc5e8030000000000002251203f475770dfc8d7e92e93632c251a5c01b6e90670e8522b81cb7b448bf86efffa03aa1600000000002251209706916002ac9ba36bab02ce2ed586da3ee2bfd271c54743143c9663ccfda56d01409867a537b52ee5c4bc798315397d89bf65380e4ed88a04ec9315f67bc08ed6bb275a51117feecf87da27a8b2761630c92fd81c6e4512ecfe9536819be6b3c5d00140a6df68be0be4f5c58b40e0463254e11e6848761ad77d538f53212ad78b5ab80640344e46de7bcd6d8350bf52769851a5b0abff9e8c08414075ea885ad86644ac00000000",
+        "anchor_txid": "2727229cc771efa552f9232a04b0cd8d16df6d83bd217523888feee6a8553ec8",
+        "anchor_block_hash": "000000000000001a569a96b191eb6fb89a7e32beab1a9ceca5e88e2e264c645e",
+        "anchor_outpoint": "2727229cc771efa552f9232a04b0cd8d16df6d83bd217523888feee6a8553ec8:1",
+        "internal_key": "034d6fd392fe86bdfc93973406f15050b36281f569be8335afa4b3586b36a0aaf8",
+        "merkle_root": "3dba25fa8dbc57f111da04477792ba54d4cad983e28c369c4a4189dd4a836aac",
+        "tapscript_sibling": "",
+        "block_height": 2534327
+      },
+      "prev_witnesses": [],
+      "is_spent": false,
+      "lease_owner": "",
+      "lease_expiry": "0",
+      "is_burn": false
+    },
+    "meta_reveal": null,
+    "tx_merkle_proof": "07ed5bc2ffc43424ee07fed779bdbbb19b8a264d6b3c7e4be7e48e1fc63196abe8e749d4950360f70c69103d539ae7a27a80ca78c226fd540b4fc84d687b71eb786b8fc0cc51efe9a546188902577e1f5d105dbe483b03077fd6ac643ef2dfd0a152a98a2916ce8948567b361ed53da743e455e575cef6380c1909aeeb597c377c476ce23a33c62d040495d94028ba3c503aa8d56ed27a3e323c2503277d03fddf89361e8d266148f7784cdadbcd47b21d8221418ec9b4b5f5ffad95a9e41159ca7be8c3138e935252798546897d2515404231693240af2dc052479c1403f9ef1164",
+    "inclusion_proof": "0004000000010221034d6fd392fe86bdfc93973406f15050b36281f569be8335afa4b3586b36a0aaf8037401490001000220e16029acc4d2cf0505857265442344efb5547f2047a3fc1c4822683f7c57820e04220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff022700010002220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "exclusion_proofs": [
+      "000400000000022102bfca44f6bdfd7d54ce75e775049026015f7745ddef61610d4a6488c42f06f0a8039c01710001000220e16029acc4d2cf0505857265442344efb5547f2047a3fc1c4822683f7c57820e044a000179bef732bcc42581ed21a0673d739a0096c5b29c13e4170d59185ba1bf5a20650000000000002a49ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f022700010002220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "000400000002022102fabb9caf70565dd69dabab7e38cd8932843de0a2e620d8c8964d375387e764bc0503040101"
+    ],
+    "split_root_proof": "000400000000022102bfca44f6bdfd7d54ce75e775049026015f7745ddef61610d4a6488c42f06f0a8037401490001000220e16029acc4d2cf0505857265442344efb5547f2047a3fc1c4822683f7c57820e04220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff022700010002220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "num_additional_inputs": 0,
+    "challenge_witness": [],
+    "is_burn": false,
+    "genesis_reveal": null,
+    "group_key_reveal": {
+      "raw_group_key": "",
+      "tapscript_root": ""
+    }
+  }
+}

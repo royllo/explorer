@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -44,16 +44,7 @@ public class BitcoinTransactionOutputDTO {
     String scriptPubKeyAddress;
 
     /** Value is the number of Satoshi (1 BTC = 100,000,000 Satoshi). */
-    BigDecimal value;
-
-    /**
-     * Is this transaction output a taproot transaction ?
-     *
-     * @return true if it's a taproot transaction
-     */
-    public boolean isTaprootType() {
-        return getScriptPubKeyType() != null && getScriptPubKeyType().toLowerCase().endsWith("p2tr");
-    }
+    BigInteger value;
 
     /**
      * To string (only display txid-vout).

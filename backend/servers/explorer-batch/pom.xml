@@ -70,6 +70,20 @@
             <artifactId>postgresql</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.royllo.test</groupId>
+            <artifactId>common-test</artifactId>
+            <version>0.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.royllo.explorer</groupId>
+            <artifactId>explorer-core-spring-boot-autoconfigure</artifactId>
+            <classifier>tests</classifier>
+            <type>test-jar</type>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -213,7 +227,7 @@
     <parent>
         <groupId>org.royllo.explorer</groupId>
         <artifactId>explorer</artifactId>
-        <version>0.0.16</version>
+        <version>0.0.17</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
     <!-- =========================================================================================================== -->

@@ -26,20 +26,35 @@ public class AssetStateDataFetcher extends BaseDataFetcher {
     /** Asset state service. */
     private final AssetStateService assetStateService;
 
+    /**
+     * Query asset states.
+     * * - Search if the "query" parameter contains "assetId:" in the beginning, if true, returns all lined asset states.
+     *
+     * @param query    the query to search for
+     * @param page     the page number you want
+     * @param pageSize the page size you want
+     * @return list of assets corresponding to the search
+     */
     @DgsQuery
     public final Page<AssetStateDTO> queryAssetStates(final @InputArgument String query,
                                                       final @InputArgument Integer page,
                                                       final @InputArgument Integer pageSize) {
-        // Checking maximum page size.
-        // Note : page size validation (> 0) is done by the service layer.
-        if (Objects.requireNonNullElse(pageSize, DEFAULT_PAGE_SIZE) > MAXIMUM_PAGE_SIZE) {
+        // Value we will use.
+        final int finalPage = Objects.requireNonNullElse(page, FIRST_PAGE);
+        final int finalPageSize = Objects.requireNonNullElse(pageSize, DEFAULT_PAGE_SIZE);
+
+        // Checking page parameters.
+        if (finalPageSize > MAXIMUM_PAGE_SIZE) {
             throw new DgsInvalidInputArgumentException("Page size can't be superior to " + MAXIMUM_PAGE_SIZE, null);
+        }
+        if (finalPage < FIRST_PAGE) {
+            throw new DgsInvalidInputArgumentException("Page number starts at page " + FIRST_PAGE, null);
         }
 
         // Return the results.
         return assetStateService.queryAssetStates(query,
-                Objects.requireNonNullElse(page, FIRST_PAGE),
-                Objects.requireNonNullElse(pageSize, DEFAULT_PAGE_SIZE));
+                finalPage,
+                finalPageSize);
     }
 
 }

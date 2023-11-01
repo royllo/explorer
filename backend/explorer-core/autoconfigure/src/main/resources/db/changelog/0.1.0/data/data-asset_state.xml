@@ -5,9 +5,8 @@
     <changeSet author="straumat" id="0.1.0-data-asset_state">
 
         <!--
-        roylloCoin - Testnet (More info in docs/test/roylloCoin/README.md)
-        Asset id : f9dd292bb211dae8493645150b36efa990841b11038d026577440d2616d1ec32
-        Block 2427358 / Transaction 57faede9e107f3af74bb93e730bc1dfd07f81b166a974068f823d30d9eb10111 / Output 1
+        roylloCoin - Testnet (More info in util/test/common-test/README-roylloCoin.md)
+        Asset id : ce5a426ea282d2dee3a2eb48170231403ee4768be17f73fef8e6f925d30797af
         -->
         <insert tableName="ASSET_STATE">
             <column name="ID" value="1"/>
@@ -15,14 +14,14 @@
             <column name="FK_ASSET" value="1"/>
 
             <!-- Chain anchor - Describes where in the chain the asset is currently anchored -->
-            <column name="ASSET_STATE_ID" value="CALCULATED_ASSET_STATE_ID_FOR_ROYLLO_COIN"/>
-            <column name="ANCHOR_BLOCK_HASH" value="0000000000006b8c5e2e1a5658a841d8a20f839ba710120ecc323c8d12b10632"/>
+            <!-- Asset state id = sha256(ce5a426ea282d2dee3a2eb48170231403ee4768be17f73fef8e6f925d30797af_c28a42586b36ac499c6d36da792d98176572573124dbc82526d02bbad5b3d9c7:0_025d615b377761a5bfcfe84f0f11afd35837a68f702dd8a0cac0a2a4052b20d211) -->
+            <column name="ASSET_STATE_ID" value="05435af6c896f2dfe0cc3dccd86260eb22e82b5e3ce77f796a8c06baf4bdc006"/>
+            <column name="ANCHOR_BLOCK_HASH" value="0000000000000033e0a0580c592ed3c47df45ca147d569e2730fb3ca415289ab"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX"
-                    value="020000000001021101b19e0dd323f86840976a161bf807fd1dbc30e793bb74aff307e1e9edfa570100000000ffffffffdc62e81401abfec546a45213c65c9910466f06ea1b831b017c13edfa71d775b10200000000ffffffff02e80300000000000022512040b3ddefc0df09b89fd1379a3bd246bf2827ed461506a5899dc230324d0aa158bc05000000000000225120d7ab0deb6185088278a66f5599be41510db531fd7f2df39e3b8558e2d2b65b0602473044022023f92ca5b7289d5cfb2ae415b91efa8bb9758d97b78b8ad17c81ce43fa9d262a02205c790874cbd4dae139f1d3e2b029bb97c4bf13bff0bc80127dacf9e917a37ed5012102cf948a447b6b49ccf83754b2455b7c6f77a9daeb1bb192f17ae34d3f52182a1a024630430220698a8f0543c97775ece1ad26a63f99d837ff9fd3b136e5c43cc984c37a75b3dd021f4d183f9811ac7a7cde904c795f68f96bda845efb5493a95582b60a93ca55c201210305c9ac7185c67621b7534e700d9592863f07ae5b9add38da9576e4a06a66c10000000000"/>
-            <column name="ANCHOR_TXID" value="0324ddf7ec79711a340a04e1ee3cee53005e046b4e0de31d498cc586ba9181c7"/>
+                    value="020000000001015bc722e3da20588be3bb69cc808817ec89b848dd9e13e16256ebbeba85affe040000000000ffffffff02e8030000000000002251202aad3ee91b3a90c38bbbad0b5da98f1f85bda1cfd12c4bcb15f69e8e95842ffdc8bc100000000000225120d7ab0deb6185088278a66f5599be41510db531fd7f2df39e3b8558e2d2b65b06024730440220631ed9453ae9a4d5dbabbb44cb97cf5cbe9956176463c3cc6387282f522f5d3b022015456e56cabf586e3662b8be7a698abb654ce0f621bc2e5a7d8e8103abcd6402012103219e2594f427e338690c3f51409706439d8ab83fde02d18d0c28ec55c285801c00000000"/>
             <column name="INTERNAL_KEY" value="026ad322cc8a05cf5723bf8aeb5c778c6462146e573af182ba20c6bed53ea29ae6"/>
-            <column name="MERKLE_ROOT" value="cd773bc1a59f3b641e819b51944d1bcf10e4676cba0620ebe3b064c5d0a777da"/>
+            <column name="MERKLE_ROOT" value="fb74e3e82f8d2700804ec05c6574b59e8f6828adb5fecc49e9d07a89f14548c8"/>
             <column name="TAPSCRIPT_SIBLING" value=""/>
 
             <!-- State data -->

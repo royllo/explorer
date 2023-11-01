@@ -4,6 +4,16 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet author="straumat" id="0.1.0-table-constraints-asset_group">
 
+        <!-- Adding a unique constraint on ASSET_GROUP_ID -->
+        <addUniqueConstraint constraintName="ASSET_GROUP_UNIQUE_ASSET_GROUP_ID"
+                             tableName="ASSET_GROUP"
+                             columnNames="ASSET_GROUP_ID"/>
+
+        <!-- Adding a unique constraint on TWEAKED_RAW_GROUP_KEY -->
+        <addUniqueConstraint constraintName="ASSET_GROUP_UNIQUE_TWEAKED_GROUP_KEY"
+                             tableName="ASSET_GROUP"
+                             columnNames="TWEAKED_GROUP_KEY"/>
+
         <!-- Foreign key FK_USER_CREATOR > USER.ID -->
         <addForeignKeyConstraint constraintName="FK_ASSET_GROUP_APPLICATION_USER_CREATOR"
                                  baseColumnNames="FK_USER_CREATOR"

@@ -25,36 +25,36 @@ public class UserDataFetcherTest {
     DgsQueryExecutor dgsQueryExecutor;
 
     @Test
-    @DisplayName("getUserByUserId()")
-    public void getUserByUserId() {
-        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                UserByUserIdGraphQLQuery.newRequest().userId("11111111-1111-1111-1111-111111111111").build(),
-                new UserByUserIdProjectionRoot<>().userId().username());
-
+    @DisplayName("userByUserId()")
+    public void userByUserId() {
         User user = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
-                graphQLQueryRequest.serialize(),
+                new GraphQLQueryRequest(
+                        UserByUserIdGraphQLQuery.newRequest().userId("11111111-1111-1111-1111-111111111111").build(),
+                        new UserByUserIdProjectionRoot<>().userId().username())
+                        .serialize(),
                 "data." + DgsConstants.QUERY.UserByUserId,
                 new TypeRef<>() {
                 });
 
+        // Testing the results.
         assertNotNull(user);
         assertEquals("11111111-1111-1111-1111-111111111111", user.getUserId());
         assertEquals("straumat", user.getUsername());
     }
 
     @Test
-    @DisplayName("getUserByUsername()")
-    public void getUserByUsername() {
-        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                UserByUsernameGraphQLQuery.newRequest().username("straumat").build(),
-                new UserByUsernameProjectionRoot<>().userId().username());
-
+    @DisplayName("userByUsername()")
+    public void userByUsername() {
         User user = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
-                graphQLQueryRequest.serialize(),
+                new GraphQLQueryRequest(
+                        UserByUsernameGraphQLQuery.newRequest().username("straumat").build(),
+                        new UserByUsernameProjectionRoot<>().userId().username())
+                        .serialize(),
                 "data." + DgsConstants.QUERY.UserByUsername,
                 new TypeRef<>() {
                 });
 
+        // Testing the results.
         assertNotNull(user);
         assertEquals("11111111-1111-1111-1111-111111111111", user.getUserId());
         assertEquals("straumat", user.getUsername());

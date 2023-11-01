@@ -27,7 +27,24 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
     /**
      * Find all requests with the corresponding status.
      *
-     * @param status status filter
+     * @param status status
+     * @return Requests with the corresponding status
+     */
+    List<Request> findByStatusOrderById(RequestStatus status);
+
+    /**
+     * Find all requests with the corresponding status.
+     *
+     * @param status   status
+     * @param pageable page parameters
+     * @return Requests with the corresponding status
+     */
+    List<Request> findByStatusOrderById(RequestStatus status, Pageable pageable);
+
+    /**
+     * Find all requests with the corresponding status.
+     *
+     * @param status status list
      * @return Requests with the corresponding status
      */
     List<Request> findByStatusInOrderById(List<RequestStatus> status);

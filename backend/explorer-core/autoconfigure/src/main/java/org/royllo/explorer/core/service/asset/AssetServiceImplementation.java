@@ -20,7 +20,7 @@ import java.util.Optional;
 
 import static java.util.stream.Collectors.joining;
 import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_SIZE;
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
 
 /**
  * {@link AssetService} implementation.
@@ -96,9 +96,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         // =============================================================================================================
         // We update and save the asset.
         final Asset assetToCreate = ASSET_MAPPER.mapToAsset(newAsset);
-
-        // Setting the creator.
-        assetToCreate.setCreator(USER_MAPPER.mapToUser(ANONYMOUS_USER_DTO));
+        assetToCreate.setCreator(ANONYMOUS_USER);
 
         // Setting the bitcoin transaction output ID if not already set.
         if (newAsset.getGenesisPoint().getId() == null) {
@@ -108,9 +106,9 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         }
 
         // We check if an asset group is set.
-        if (newAsset.getAssetGroup() != null && !StringUtils.isEmpty(newAsset.getAssetGroup().getRawGroupKey())) {
+        if (newAsset.getAssetGroup() != null && !StringUtils.isEmpty(newAsset.getAssetGroup().getTweakedGroupKey())) {
             // If the asset exists in database, we retrieve and set it.
-            final Optional<AssetGroupDTO> assetGroup = assetGroupService.getAssetGroupByRawGroupKey(newAsset.getAssetGroup().getRawGroupKey());
+            final Optional<AssetGroupDTO> assetGroup = assetGroupService.getAssetGroupByAssetGroupId(newAsset.getAssetGroup().getAssetGroupId());
             if (assetGroup.isPresent()) {
                 assetToCreate.setAssetGroup(ASSET_GROUP_MAPPER.mapToAssetGroup(assetGroup.get()));
             } else {
@@ -118,11 +116,6 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
                 final AssetGroupDTO assetGroupCreated = assetGroupService.addAssetGroup(newAsset.getAssetGroup());
                 assetToCreate.setAssetGroup(ASSET_GROUP_MAPPER.mapToAssetGroup(assetGroupCreated));
             }
-        }
-
-        // If the asset group is not set, we set it to null.
-        if (newAsset.getAssetGroup() != null && StringUtils.isEmpty(newAsset.getAssetGroup().getRawGroupKey())) {
-            assetToCreate.setAssetGroup(null);
         }
 
         // We save and return the value.

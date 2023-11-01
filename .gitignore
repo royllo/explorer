@@ -114,3 +114,6 @@ Supprimerait loose-touch.iml
 output-*
 /.idea/
 /clients/web/.vite/
+
+# Used to download royllo tade and run it.
+/util/test/common-test/tade/

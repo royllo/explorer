@@ -8,7 +8,7 @@
     <!-- Project information -->
     <artifactId>explorer-core-spring-boot-starter</artifactId>
     <packaging>jar</packaging>
-    <name>Royllo Explorer spring boot starter (starter)</name>
+    <name>Royllo Explorer core (starter)</name>
     <description>Contains database schema, domain, repository, dto, services, util</description>
     <!-- =========================================================================================================== -->
 
@@ -114,7 +114,7 @@
     <parent>
         <groupId>org.royllo.explorer</groupId>
         <artifactId>explorer</artifactId>
-        <version>0.0.16</version>
+        <version>0.0.17</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
     <!-- =========================================================================================================== -->

@@ -13,11 +13,11 @@ import java.util.Optional;
 public interface AssetGroupRepository extends JpaRepository<AssetGroup, Long> {
 
     /**
-     * Find an asset group by its raw group key.
+     * Find an asset group but its asset group id.
      *
-     * @param rawGroupKey raw group pey
+     * @param assetGroupId asset group id
      * @return asset group
      */
-    Optional<AssetGroup> findByRawGroupKey(String rawGroupKey);
+    Optional<AssetGroup> findByAssetGroupId(String assetGroupId);
 
 }

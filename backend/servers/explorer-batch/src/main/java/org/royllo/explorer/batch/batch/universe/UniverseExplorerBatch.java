@@ -9,7 +9,7 @@ import org.royllo.explorer.core.provider.tapd.UniverseRootsResponse;
 import org.royllo.explorer.core.repository.proof.ProofFileRepository;
 import org.royllo.explorer.core.repository.universe.UniverseServerRepository;
 import org.royllo.explorer.core.service.request.RequestService;
-import org.royllo.explorer.core.service.universe.UniverseServerService;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import static java.time.ZonedDateTime.now;
@@ -26,16 +26,13 @@ public class UniverseExplorerBatch extends BaseBatch {
     private static final int START_DELAY_IN_MILLISECONDS = 1_000;
 
     /** Delay between two calls to process requests (1 000 ms = 1 second). */
-    private static final int DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS = 10_000;
+    private static final int DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS = 60_000;
 
     /** Proof repository. */
     private final ProofFileRepository proofFileRepository;
 
     /** Universe server repository. */
     private final UniverseServerRepository universeServerRepository;
-
-    /** Universe server service. */
-    private final UniverseServerService universeServerService;
 
     /** Tapd service. */
     private final TapdService tapdService;
@@ -46,8 +43,7 @@ public class UniverseExplorerBatch extends BaseBatch {
     /**
      * Retrieving all universe servers data.
      */
-    // TODO Waiting for issue https://github.com/lightninglabs/taproot-assets/issues/401 to be fixed.
-    // @Scheduled(initialDelay = START_DELAY_IN_MILLISECONDS, fixedDelay = DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS)
+    @Scheduled(initialDelay = START_DELAY_IN_MILLISECONDS, fixedDelay = DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS)
     public void processUniverseServers() {
         if (enabled.get()) {
             universeServerRepository.findFirstByOrderByLastSynchronizedOnAsc().ifPresent(universeServer -> {

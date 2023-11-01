@@ -7,8 +7,6 @@ import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.royllo.explorer.core.provider.tapd.TapdService;
 import org.royllo.explorer.core.repository.request.RequestRepository;
-import org.royllo.explorer.core.service.asset.AssetGroupService;
-import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.asset.AssetStateService;
 import org.royllo.explorer.core.service.proof.ProofFileService;
 import org.royllo.explorer.core.service.request.RequestService;
@@ -40,12 +38,6 @@ public class AddProofBatch extends BaseBatch {
 
     /** Request service. */
     private final RequestService requestService;
-
-    /** Asset group service. */
-    private final AssetGroupService assetGroupService;
-
-    /** Asset service. */
-    private final AssetService assetService;
 
     /** Asset state service. */
     private final AssetStateService assetStateService;
