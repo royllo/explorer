@@ -139,6 +139,28 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+            <!-- Release plugin -->
+            <plugin>
+                <groupId>com.amashchenko.maven.plugin</groupId>
+                <artifactId>gitflow-maven-plugin</artifactId>
+                <version>1.20.0</version>
+                <configuration>
+                    <gitFlowConfig>
+                        <productionBranch>production</productionBranch>
+                        <developmentBranch>development</developmentBranch>
+                    </gitFlowConfig>
+                    <commitMessages>
+                        <featureStartMessage>Update versions for feature branch</featureStartMessage>
+                        <featureFinishMessage>Update versions for development branch</featureFinishMessage>
+                        <hotfixStartMessage>Update versions for hotfix</hotfixStartMessage>
+                        <hotfixFinishMessage>Update for next development version</hotfixFinishMessage>
+                        <releaseStartMessage>Update versions for release</releaseStartMessage>
+                        <releaseFinishMessage>Update for next development version</releaseFinishMessage>
+                        <tagHotfixMessage>Tag hotfix</tagHotfixMessage>
+                        <tagReleaseMessage>Tag release</tagReleaseMessage>
+                    </commitMessages>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <!-- =========================================================================================================== -->
