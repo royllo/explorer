@@ -15,11 +15,13 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 import static java.util.stream.Collectors.joining;
 import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_SIZE;
+import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.TWEAKED_GROUP_KEY_SIZE;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
 
 /**
@@ -50,6 +52,14 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
 
         // Results.
         Page<AssetDTO> results = Page.empty();
+
+        // Search if the "query" parameter is a tweaked group keys (asset group) > returns all assets of this asset group.
+        if (query.length() == TWEAKED_GROUP_KEY_SIZE) {
+            final Optional<AssetGroupDTO> assetGroup = assetGroupService.getAssetGroupByAssetGroupId(query);
+            if (assetGroup.isPresent()) {
+                results = new PageImpl<>(getAssetsByAssetGroupId(query).stream().toList());
+            }
+        }
 
         // If the "query" parameter has a size equals to ASSET_ID_SIZE,
         // we search if there is this asset in database with this exact assetId.
@@ -150,6 +160,14 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
             logger.info("Asset with assetId {} found: {}", assetId, asset.get());
             return asset.map(ASSET_MAPPER::mapToAssetDTO);
         }
+    }
+
+    @Override
+    public List<AssetDTO> getAssetsByAssetGroupId(@NonNull final String assetGroupId) {
+        logger.info("Getting assets with asset group id {}", assetGroupId);
+        return assetRepository.findByAssetGroup_AssetGroupId(assetGroupId).stream()
+                .map(ASSET_MAPPER::mapToAssetDTO)
+                .toList();
     }
 
 }

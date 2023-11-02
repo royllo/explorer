@@ -12,6 +12,7 @@ import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.math.BigInteger;
 import java.util.Optional;
@@ -30,9 +31,15 @@ import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_US
 import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
 import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_TXID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_ASSET_ID;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_FROM_TEST;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_2_ASSET_ID;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_3_ASSET_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
+@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @DisplayName("AssetService tests")
 public class AssetServiceTest extends TestWithMockServers {
 
@@ -52,6 +59,14 @@ public class AssetServiceTest extends TestWithMockServers {
         Page<AssetDTO> results = assetService.queryAssets("NON_EXISTING_ASSET_ID", 1, 5);
         assertEquals(0, results.getTotalElements());
         assertEquals(0, results.getTotalPages());
+
+        // Searching for an asset with its group asset id
+        results = assetService.queryAssets(SET_OF_ROYLLO_NFT_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup().getTweakedGroupKey(), 1, 5);
+        assertEquals(3, results.getTotalElements());
+        assertEquals(1, results.getTotalPages());
+        assertEquals(SET_OF_ROYLLO_NFT_1_ASSET_ID, results.getContent().get(0).getAssetId());
+        assertEquals(SET_OF_ROYLLO_NFT_2_ASSET_ID, results.getContent().get(1).getAssetId());
+        assertEquals(SET_OF_ROYLLO_NFT_3_ASSET_ID, results.getContent().get(2).getAssetId());
 
         // Searching for an asset with its asset id.
         results = assetService.queryAssets(ROYLLO_COIN_ASSET_ID, 1, 5);
@@ -346,6 +361,17 @@ public class AssetServiceTest extends TestWithMockServers {
         asset = assetService.getAsset(1);
         assertTrue(asset.isPresent());
         assertNull(asset.get().getAssetGroup());
+    }
+
+    @Test
+    @DisplayName("getAssetByAssetId()")
+    public void getAssetsByAssetGroupId() {
+        // Test with an asset group that doesn't exist.
+        assertEquals(0, assetService.getAssetsByAssetGroupId("NON_EXISTING_ASSET_GROUP_ID").size());
+
+        // Test with an asset group with three assets.
+        final String tweakedGroupKey = SET_OF_ROYLLO_NFT_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup().getTweakedGroupKey();
+        assertEquals(3, assetService.getAssetsByAssetGroupId(tweakedGroupKey).size());
     }
 
 }
