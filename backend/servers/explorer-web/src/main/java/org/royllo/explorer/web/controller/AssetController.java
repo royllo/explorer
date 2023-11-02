@@ -21,7 +21,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
-import static org.royllo.explorer.core.service.asset.AssetStateServiceImplementation.SEARCH_PARAMETER_ASSET_ID;
 import static org.royllo.explorer.web.configuration.WebConfiguration.ASSET_PROOFS_DEFAULT_PAGE_SIZE;
 import static org.royllo.explorer.web.configuration.WebConfiguration.ASSET_STATES_DEFAULT_PAGE_SIZE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_ID_ATTRIBUTE;
@@ -74,8 +73,7 @@ public class AssetController extends BaseController {
 
                 // =========================================================================================================
                 // We retrieve the asset states.
-                final Page<AssetStateDTO> assetStates = assetStateService.queryAssetStates(SEARCH_PARAMETER_ASSET_ID + assetId.trim(),
-                        1,
+                final Page<AssetStateDTO> assetStates = assetStateService.getAssetStatesByAssetId(assetId.trim(), 1,
                         ASSET_STATES_DEFAULT_PAGE_SIZE);
                 model.addAttribute(ASSET_STATES_LIST_ATTRIBUTE, assetStates.getContent());
 

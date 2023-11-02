@@ -25,9 +25,6 @@ public class DecodedProofValue {
     /** Asset state id. */
     String assetStateId;
 
-    /** Proof at depth. */
-    long proofAtDepth;
-
     /**
      * Constructor.
      *
@@ -39,18 +36,13 @@ public class DecodedProofValue {
         this.request = newRequest;
         this.response = newResponse;
 
-        // TODO Temporary solution because of proof at depth is not well-made.
         if (response.getDecodedProof() != null) {
-            response.getDecodedProof().setProofAtDepth(request.getProofAtDepth());
-            this.proofAtDepth = request.getProofAtDepth();
-
             // "Calculated field".
             String uniqueValue = newResponse.getDecodedProof().getAsset().getAssetGenesis().getAssetId()
                     + "_" + newResponse.getDecodedProof().getAsset().getChainAnchor().getAnchorOutpoint()
                     + "_" + newResponse.getDecodedProof().getAsset().getScriptKey();
             this.assetStateId = sha256(uniqueValue);
         } else {
-            this.proofAtDepth = 0;
             this.assetStateId = "";
         }
     }

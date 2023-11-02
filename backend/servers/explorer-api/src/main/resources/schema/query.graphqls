@@ -5,9 +5,6 @@ type Query {
     "Query for assets - Search for exact assetId or part of asset name"
     queryAssets(query: String!, page: Int, pageSize: Int): AssetPage
 
-    "Query for asset states - Search for asset states (use 'assetId:value')"
-    queryAssetStates(query: String!, page: Int, pageSize: Int): AssetStatePage
-
     # ==================================================================================================================
     # Assets API
     "Get an asset group by asset group id"
@@ -15,6 +12,9 @@ type Query {
 
     "Get an asset by asset id"
     assetByAssetId(assetId: ID!): Asset
+
+    "Returns the asset states of the asset id"
+    assetStatesByAssetId(assetId: String!, page: Int, pageSize: Int): AssetStatePage
 
     # ==================================================================================================================
     # Proofs API

@@ -13,8 +13,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.sql.SQLException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
@@ -39,7 +37,7 @@ public class PurgeBatchTest extends BaseTest {
 
     @Test
     @DisplayName("Purge failed requests")
-    public void batch() throws SQLException {
+    public void batch() {
         // We start by erasing requests.
         requestRepository.deleteAll();
 

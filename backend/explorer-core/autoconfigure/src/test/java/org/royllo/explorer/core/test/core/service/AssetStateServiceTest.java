@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.royllo.explorer.core.service.asset.AssetStateServiceImplementation.SEARCH_PARAMETER_ASSET_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
 import static org.royllo.test.MempoolData.ROYLLO_COIN_ANCHOR_1_TXID;
@@ -53,25 +52,6 @@ public class AssetStateServiceTest extends TestWithMockServers {
 
     @Autowired
     private AssetStateService assetStateService;
-
-    @Test
-    @DisplayName("queryAssetStates()")
-    public void queryAssetStates() {
-        // Search for asset state that existing without specifying the SEARCH_PARAMETER_ASSET_ID parameter.
-        AssertionError e = assertThrows(AssertionError.class, () -> assetStateService.queryAssetStates("asset_id_9", 1, 5));
-        assertEquals("Only assetId:value query is supported", e.getMessage());
-
-        // Searching for asset states for an asset state id that doesn't exist.
-        Page<AssetStateDTO> results = assetStateService.queryAssetStates(SEARCH_PARAMETER_ASSET_ID + "NON_EXISTING_ASSET_STATE_ID", 1, 5);
-        assertEquals(0, results.getTotalElements());
-        assertEquals(0, results.getTotalPages());
-
-        // Searching for the asset states of an existing asset.
-        results = assetStateService.queryAssetStates(SEARCH_PARAMETER_ASSET_ID + TRICKY_ROYLLO_COIN_ASSET_ID, 1, 2);
-        assertEquals(4, results.getTotalElements());
-        assertEquals(2, results.getSize());
-        assertEquals(2, results.getTotalPages());
-    }
 
     @Test
     @DisplayName("addAssetState()")
@@ -259,6 +239,21 @@ public class AssetStateServiceTest extends TestWithMockServers {
                 assetState.get().getAnchorOutpoint().getTxId(),
                 assetState.get().getAnchorOutpoint().getVout(),
                 assetState.get().getScriptKey());
+    }
+
+    @Test
+    @DisplayName("getAssetStatesByAssetId()")
+    public void getAssetStatesByAssetId() {
+        // Searching for asset states for an asset state id that doesn't exist.
+        Page<AssetStateDTO> results = assetStateService.getAssetStatesByAssetId("NON_EXISTING_ASSET_STATE_ID", 1, 5);
+        assertEquals(0, results.getTotalElements());
+        assertEquals(0, results.getTotalPages());
+
+        // Searching for the asset states of an existing asset.
+        results = assetStateService.getAssetStatesByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID, 1, 2);
+        assertEquals(4, results.getTotalElements());
+        assertEquals(2, results.getSize());
+        assertEquals(2, results.getTotalPages());
     }
 
 }

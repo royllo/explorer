@@ -31,7 +31,6 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 
 /**
  * Utility classes for tests.
- * TODO Create an annotation to start required mock servers
  */
 @SuppressWarnings("SpellCheckingInspection")
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
@@ -42,9 +41,6 @@ public class TestWithMockServers extends Base {
 
     /** Tapd server port. */
     public static final int TAPD_MOCK_SERVER_PORT = 9092;
-
-    /** Active royllo coin asset id. TODO Remove this ? */
-    public static String ACTIVE_ROYLLO_COIN_ASSET_ID = "1781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e5413";
 
     /** Mempool mock server. */
     private ClientAndServer mempoolMockServer;
@@ -126,10 +122,9 @@ public class TestWithMockServers extends Base {
             assertEquals(assetGroupDTO.getTweakedGroupKey(),
                     assetFromTest.getAssetGroup().getTweakedGroupKey(),
                     "Tweaked group key are not equals");
-            // TODO there is a comparaison betwenn null and an empty string.
-//            assertEquals(assetGroupDTO.getAssetWitness(),
-//                    assetFromTest.getAssetGroup().getAssetWitness(),
-//                    "Asset witness are not equals");
+            assertEquals(assetGroupDTO.getAssetWitness(),
+                    assetFromTest.getAssetGroup().getAssetWitness(),
+                    "Asset witness are not equals");
         } else {
             fail("Asset group is null");
         }
@@ -210,7 +205,6 @@ public class TestWithMockServers extends Base {
                 "Asset state not found");
 
         // We compare each field.
-        // TODO Check each field
         assertEquals(assetStateDTO.getAnchorBlockHash(),
                 assetState.get().getAsset().getChainAnchor().getAnchorBlockHash(),
                 "Anchor block hash are not equals");

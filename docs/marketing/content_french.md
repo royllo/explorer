@@ -14,15 +14,15 @@ En savoir plus: https://royllo.substack.com/p/royllo-explorer-for-taproot-assets
 Mon nouveau projet Bitcoin Depuis un certain temps, je m’intéresse à une innovation qui va arriver sur Bitcoin: les
 Taproot Assets.
 
-En effet, bitcoin a prouvé qu’il était un système financier résistant, autonome et quasiment impossible à détruire. Il a
+Bitcoin a prouvé qu’il était un système financier résistant, autonome et quasiment impossible à détruire. Il a
 aussi prouvé qu’il pouvait tenir le rôle de réserve de valeur en offrant des propriétés uniques (résistant à la censure,
-rareté, facile à déplacer, politique monétaire fixe…). Cependant, tout miser sur le bitcoin est risqué et on a besoin de
-d’autres types d’actifs.
+rareté, facile à déplacer, politique monétaire fixe…). Cependant, tout miser sur le bitcoin est risqué et nous avons
+besoin d’autres types d’actifs.
 
 L’idée de Taproot Assets, c’est de permettre à n’importe qui d’émettre ses propres actifs sur la blockchain Bitcoin.
 Vous pourriez par exemple créer une monnaie utilisée seulement par vous et vos partenaires ou par les gens qui habitent
-le même coin que vous, vous pourriez aussi créer des actifs qui représentent des choses réelles (Or, terrain, quantité
-de bois…) ou bien gérer créer des NTFS représentant des oeuvres ou des tickets de concerts…
+le même endroit que vous, vous pourriez aussi créer des actifs qui représentent des choses réelles (Or, terrain,
+quantité de bois…) ou bien créer des NTFS représentant des œuvres ou des tickets de concerts…
 
 Bitcoin (avec le réseau Lighting) est l'infrastructure financière la plus ouverte, la plus sécurisée et la plus robuste.
 Avec Taproot Assets, cette infrastructure peut devenir un réseau monétaire mondial qui permet à quiconque de créer,

@@ -54,7 +54,6 @@ public class MempoolData {
 
     // =================================================================================================================
     // trickyRoylloCoin.
-    // TODO Add missing transactions.
     public static final String TRICKY_ROYLLO_COIN_GENESIS_TXID = "2777e306451f6d5231f4b17b8286412e1e13ef153800086cf879baae89d9df76";
     public static final int TRICKY_ROYLLO_COIN_GENESIS_VOUT = 1;
 

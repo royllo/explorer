@@ -7,8 +7,8 @@ import com.netflix.graphql.dgs.exceptions.QueryException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.api.graphql.generated.DgsConstants;
-import org.royllo.explorer.api.graphql.generated.client.QueryAssetStatesGraphQLQuery;
-import org.royllo.explorer.api.graphql.generated.client.QueryAssetStatesProjectionRoot;
+import org.royllo.explorer.api.graphql.generated.client.AssetStatesByAssetIdGraphQLQuery;
+import org.royllo.explorer.api.graphql.generated.client.AssetStatesByAssetIdProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.types.AssetStatePage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.api.configuration.APIConfiguration.MAXIMUM_PAGE_SIZE;
-import static org.royllo.explorer.core.service.asset.AssetStateServiceImplementation.SEARCH_PARAMETER_ASSET_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_FROM_TEST;
 
@@ -35,13 +34,13 @@ public class AssetStateDataFetcherTest {
     DgsQueryExecutor dgsQueryExecutor;
 
     @Test
-    @DisplayName("queryAssetStates()")
-    public void queryAssetStates() {
+    @DisplayName("assetStatesByAssetId()")
+    public void assetStatesByAssetId() {
         // Getting one page.
         AssetStatePage assetStatePage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        QueryAssetStatesGraphQLQuery.newRequest().query(SEARCH_PARAMETER_ASSET_ID + TRICKY_ROYLLO_COIN_ASSET_ID).page(1).build(),
-                        new QueryAssetStatesProjectionRoot<>().content()
+                        AssetStatesByAssetIdGraphQLQuery.newRequest().assetId(TRICKY_ROYLLO_COIN_ASSET_ID).page(1).build(),
+                        new AssetStatesByAssetIdProjectionRoot<>().content()
                                 .assetStateId()
                                 .creator().userId().username().getParent()
                                 .asset().assetId().name().getParent()
@@ -56,7 +55,7 @@ public class AssetStateDataFetcherTest {
                                 .totalElements()
                                 .totalPages()
                 ).serialize(),
-                "data." + DgsConstants.QUERY.QueryAssetStates,
+                "data." + DgsConstants.QUERY.AssetStatesByAssetId,
                 new TypeRef<>() {
                 });
 
@@ -70,13 +69,13 @@ public class AssetStateDataFetcherTest {
     }
 
     @Test
-    @DisplayName("queryAssetStates() with page size")
-    public void queryAssetStatesWithPageSize() {
+    @DisplayName("assetStatesByAssetId() with page size")
+    public void assetStatesByAssetIdWithPageSize() {
         // Getting page 2.
         AssetStatePage assetStatePage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        QueryAssetStatesGraphQLQuery.newRequest().query(SEARCH_PARAMETER_ASSET_ID + TRICKY_ROYLLO_COIN_ASSET_ID).page(2).pageSize(1).build(),
-                        new QueryAssetStatesProjectionRoot<>().content()
+                        AssetStatesByAssetIdGraphQLQuery.newRequest().assetId(TRICKY_ROYLLO_COIN_ASSET_ID).page(2).pageSize(1).build(),
+                        new AssetStatesByAssetIdProjectionRoot<>().content()
                                 .assetStateId()
                                 .creator().userId().username().getParent()
                                 .asset().assetId().name().getParent()
@@ -91,7 +90,7 @@ public class AssetStateDataFetcherTest {
                                 .totalElements()
                                 .totalPages()
                 ).serialize(),
-                "data." + DgsConstants.QUERY.QueryAssetStates,
+                "data." + DgsConstants.QUERY.AssetStatesByAssetId,
                 new TypeRef<>() {
                 });
 
@@ -106,13 +105,13 @@ public class AssetStateDataFetcherTest {
     }
 
     @Test
-    @DisplayName("queryAssetStates() without page number")
-    public void queryAssetStatesWithoutPageNumber() {
+    @DisplayName("assetStatesByAssetId() without page number")
+    public void assetStatesByAssetIdWithoutPageNumber() {
         // Getting a page without setting page number.
         AssetStatePage assetStatePage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        QueryAssetStatesGraphQLQuery.newRequest().query(SEARCH_PARAMETER_ASSET_ID + TRICKY_ROYLLO_COIN_ASSET_ID).build(),
-                        new QueryAssetStatesProjectionRoot<>().content()
+                        AssetStatesByAssetIdGraphQLQuery.newRequest().assetId(TRICKY_ROYLLO_COIN_ASSET_ID).build(),
+                        new AssetStatesByAssetIdProjectionRoot<>().content()
                                 .assetStateId()
                                 .creator().userId().username().getParent()
                                 .asset().assetId().name().getParent()
@@ -127,7 +126,7 @@ public class AssetStateDataFetcherTest {
                                 .totalElements()
                                 .totalPages()
                 ).serialize(),
-                "data." + DgsConstants.QUERY.QueryAssetStates,
+                "data." + DgsConstants.QUERY.AssetStatesByAssetId,
                 new TypeRef<>() {
                 });
 
@@ -142,30 +141,30 @@ public class AssetStateDataFetcherTest {
     }
 
     @Test
-    @DisplayName("queryAssetStates() with invalid page size")
-    public void queryAssetStatesWithInvalidPageSize() {
+    @DisplayName("assetStatesByAssetId() with invalid page size")
+    public void assetStatesByAssetIdWithInvalidPageSize() {
         QueryException e = assertThrows(QueryException.class, () -> dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        QueryAssetStatesGraphQLQuery.newRequest().query(SEARCH_PARAMETER_ASSET_ID + "asset_id_0").pageSize(MAXIMUM_PAGE_SIZE + 1).build(),
-                        new QueryAssetStatesProjectionRoot<>().content()
+                        AssetStatesByAssetIdGraphQLQuery.newRequest().assetId("asset_id_0").pageSize(MAXIMUM_PAGE_SIZE + 1).build(),
+                        new AssetStatesByAssetIdProjectionRoot<>().content()
                                 .assetStateId()
                 ).serialize(),
-                "data." + DgsConstants.QUERY.QueryAssetStates,
+                "data." + DgsConstants.QUERY.AssetStatesByAssetId,
                 new TypeRef<>() {
                 }));
         assertEquals("Page size can't be superior to " + MAXIMUM_PAGE_SIZE, e.getMessage());
     }
 
     @Test
-    @DisplayName("queryAssetStates() with negative number")
-    public void queryAssetStatesWithNegativePageNumber() {
+    @DisplayName("assetStatesByAssetId() with negative number")
+    public void assetStatesByAssetIdWithNegativePageNumber() {
         QueryException e = assertThrows(QueryException.class, () -> dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        QueryAssetStatesGraphQLQuery.newRequest().query(SEARCH_PARAMETER_ASSET_ID + "ANY_ASSET").page(-1).build(),
-                        new QueryAssetStatesProjectionRoot<>().content()
+                        AssetStatesByAssetIdGraphQLQuery.newRequest().assetId("ANY_ASSET").page(-1).build(),
+                        new AssetStatesByAssetIdProjectionRoot<>().content()
                                 .assetStateId()
                 ).serialize(),
-                "data." + DgsConstants.QUERY.QueryAssetStates,
+                "data." + DgsConstants.QUERY.AssetStatesByAssetId,
                 new TypeRef<>() {
                 }));
         assertEquals("Page number starts at page 1", e.getMessage());
