@@ -53,7 +53,7 @@ public class RoylloCoinIntegrationTest extends TestWithMockServers {
         assertTrue(myRoylloCoinRequestTreated.isPresent());
         assertFalse(myRoylloCoinRequestTreated.get().isSuccessful());
         assertEquals(FAILURE, myRoylloCoinRequestTreated.get().getStatus());
-        assertEquals("This proof file is already registered with proof id: " + ROYLLO_COIN_PROOF_ID, myRoylloCoinRequestTreated.get().getErrorMessage());
+        assertEquals("This proof is already registered with proof id: " + ROYLLO_COIN_PROOF_ID, myRoylloCoinRequestTreated.get().getErrorMessage());
     }
 
 }

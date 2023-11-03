@@ -12,7 +12,7 @@ import org.royllo.explorer.core.service.asset.AssetGroupService;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.asset.AssetStateService;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
-import org.royllo.explorer.core.service.proof.ProofFileService;
+import org.royllo.explorer.core.service.proof.ProofService;
 import org.royllo.explorer.core.service.request.RequestService;
 import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +72,7 @@ public class SetOfRoylloNFTIntegrationTest extends TestWithMockServers {
     AssetStateService assetStateService;
 
     @Autowired
-    ProofFileService proofService;
+    ProofService proofService;
 
     @Autowired
     RequestService requestService;
@@ -116,9 +116,9 @@ public class SetOfRoylloNFTIntegrationTest extends TestWithMockServers {
         assertFalse(assetStateService.getAssetStateByAssetStateId(SET_OF_ROYLLO_NFT_2_ASSET_STATE_ID).isPresent());
         assertFalse(assetStateService.getAssetStateByAssetStateId(SET_OF_ROYLLO_NFT_3_ASSET_STATE_ID).isPresent());
 
-        assertFalse(proofService.getProofFileByProofFileId(SET_OF_ROYLLO_NFT_1_PROOF_ID).isPresent());
-        assertFalse(proofService.getProofFileByProofFileId(SET_OF_ROYLLO_NFT_2_PROOF_ID).isPresent());
-        assertFalse(proofService.getProofFileByProofFileId(SET_OF_ROYLLO_NFT_3_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofByProofId(SET_OF_ROYLLO_NFT_1_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofByProofId(SET_OF_ROYLLO_NFT_2_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofByProofId(SET_OF_ROYLLO_NFT_3_PROOF_ID).isPresent());
 
         // =============================================================================================================
         // We count how many items we have before inserting.
@@ -182,9 +182,9 @@ public class SetOfRoylloNFTIntegrationTest extends TestWithMockServers {
         assertTrue(assetStateService.getAssetStateByAssetStateId(SET_OF_ROYLLO_NFT_2_ASSET_STATE_ID).isPresent());
         assertTrue(assetStateService.getAssetStateByAssetStateId(SET_OF_ROYLLO_NFT_3_ASSET_STATE_ID).isPresent());
 
-        assertTrue(proofService.getProofFileByProofFileId(SET_OF_ROYLLO_NFT_1_PROOF_ID).isPresent());
-        assertTrue(proofService.getProofFileByProofFileId(SET_OF_ROYLLO_NFT_2_PROOF_ID).isPresent());
-        assertTrue(proofService.getProofFileByProofFileId(SET_OF_ROYLLO_NFT_3_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofByProofId(SET_OF_ROYLLO_NFT_1_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofByProofId(SET_OF_ROYLLO_NFT_2_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofByProofId(SET_OF_ROYLLO_NFT_3_PROOF_ID).isPresent());
 
         // =============================================================================================================
         // We check what have been created.

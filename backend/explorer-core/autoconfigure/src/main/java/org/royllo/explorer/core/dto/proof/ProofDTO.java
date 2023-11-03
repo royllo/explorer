@@ -12,19 +12,19 @@ import org.royllo.explorer.core.dto.user.UserDTO;
 import static lombok.AccessLevel.PRIVATE;
 
 /**
- * Taproot asset proof file.
+ * Taproot asset proof.
  */
 @Value
 @Builder
 @AllArgsConstructor(access = PRIVATE)
 @SuppressWarnings("checkstyle:VisibilityModifier")
-public class ProofFileDTO {
+public class ProofDTO {
 
-    /** Raw proof minimum size - Under this size, the raw proof is displayed without preview. */
-    private static final int RAW_PROOF_MINIMUM_SIZE = 6;
+    /** Proof minimum size - Under this size, the raw proof is displayed without preview. */
+    private static final int PROOF_MINIMUM_SIZE = 6;
 
-    /** Raw proof preview size - The size of the preview on both ends. */
-    private static final int RAW_PROOF_PREVIEW_SIZE = 3;
+    /** Proof preview size - The size of the preview on both ends. */
+    private static final int PROOF_PREVIEW_SIZE = 3;
 
     /** Unique identifier. */
     Long id;
@@ -37,14 +37,14 @@ public class ProofFileDTO {
     @NotNull(message = "Target asset is required")
     AssetDTO asset;
 
-    /** Proof file id - sha256(rawProof). */
+    /** Proof id - sha256(proof). */
     @NotBlank(message = "Proof file ID is required")
-    String proofFileId;
+    String proofId;
 
-    /** Raw proof. */
+    /** Proof. */
     @ToString.Exclude
-    @NotBlank(message = "Raw proof is required")
-    String rawProof;
+    @NotBlank(message = "Proof is required")
+    String proof;
 
     /**
      * Returns an abstract of proof (for logs).
@@ -52,17 +52,17 @@ public class ProofFileDTO {
      *
      * @return proof abstract
      */
-    @ToString.Include(name = "rawProofAbstract")
-    public String getRawProofAbstract() {
+    @ToString.Include(name = "proofAbstract")
+    public String getProofAbstract() {
         // If raw proof is null, return null.
-        if (rawProof == null) {
+        if (proof == null) {
             return null;
         }
         // If raw proof is too small for substring, return raw proof.
-        if (rawProof.length() <= RAW_PROOF_MINIMUM_SIZE) {
-            return rawProof;
+        if (proof.length() <= PROOF_MINIMUM_SIZE) {
+            return proof;
         }
-        return rawProof.substring(0, RAW_PROOF_PREVIEW_SIZE) + "..." + rawProof.substring(rawProof.length() - RAW_PROOF_PREVIEW_SIZE);
+        return proof.substring(0, PROOF_PREVIEW_SIZE) + "..." + proof.substring(proof.length() - PROOF_PREVIEW_SIZE);
     }
 
 }

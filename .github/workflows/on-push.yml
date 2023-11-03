@@ -84,7 +84,7 @@ jobs:
         id: addProofRequest
         run: |
           requestId=$(curl -H "Content-Type: application/json" \
-                -d '{ "query": "mutation { createAddProofRequest(input: {rawProof: \"${{ secrets.UNKNOWN_ROYLLO_COIN_RAW_PROOF }}\"}) { requestId }}" }' \
+                -d '{ "query": "mutation { createAddProofRequest(input: {proof: \"${{ secrets.UNKNOWN_ROYLLO_COIN_RAW_PROOF }}\"}) { requestId }}" }' \
                 http://localhost:9090/graphql | jq -r '.data.createAddProofRequest.requestId')
           echo "requestId=${requestId}" >> $GITHUB_OUTPUT
 

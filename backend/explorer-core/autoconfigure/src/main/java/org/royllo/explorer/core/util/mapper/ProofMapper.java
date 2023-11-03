@@ -1,20 +1,20 @@
 package org.royllo.explorer.core.util.mapper;
 
 import org.mapstruct.Mapper;
-import org.royllo.explorer.core.domain.proof.ProofFile;
-import org.royllo.explorer.core.dto.proof.ProofFileDTO;
+import org.royllo.explorer.core.domain.proof.Proof;
+import org.royllo.explorer.core.dto.proof.ProofDTO;
 
 import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 
 /**
- * Proof file related mapper.
+ * Proof related mapper.
  */
 @SuppressWarnings("unused")
 @Mapper(nullValuePropertyMappingStrategy = IGNORE, uses = {UserMapper.class, AssetMapper.class, BitcoinMapper.class})
-public interface ProofFileMapper {
+public interface ProofMapper {
 
-    ProofFile mapToProofFile(ProofFileDTO source);
+    Proof mapToProof(ProofDTO source);
 
-    ProofFileDTO mapToProofFileDTO(ProofFile source);
+    ProofDTO mapToProofDTO(Proof source);
 
 }

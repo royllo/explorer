@@ -6,10 +6,10 @@ import com.netflix.graphql.dgs.client.codegen.GraphQLQueryRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.api.graphql.generated.DgsConstants;
-import org.royllo.explorer.api.graphql.generated.client.ProofFilesByAssetIdGraphQLQuery;
-import org.royllo.explorer.api.graphql.generated.client.ProofFilesByAssetIdProjectionRoot;
-import org.royllo.explorer.api.graphql.generated.types.ProofFile;
-import org.royllo.explorer.api.graphql.generated.types.ProofFilePage;
+import org.royllo.explorer.api.graphql.generated.client.ProofsByAssetIdGraphQLQuery;
+import org.royllo.explorer.api.graphql.generated.client.ProofsByAssetIdProjectionRoot;
+import org.royllo.explorer.api.graphql.generated.types.Proof;
+import org.royllo.explorer.api.graphql.generated.types.ProofPage;
 import org.royllo.explorer.core.util.base.Base;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,15 +23,15 @@ import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_FROM_TEST;
 
 @SpringBootTest
-@DisplayName("ProofFileDataFetcher tests")
-public class ProofFileDataFetcherTest extends Base {
+@DisplayName("ProofDataFetcher tests")
+public class ProofDataFetcherTest extends Base {
 
     @Autowired
     DgsQueryExecutor dgsQueryExecutor;
 
     @Test
-    @DisplayName("proofFilesByAssetId()")
-    public void proofFilesByAssetId() {
+    @DisplayName("proofsByAssetId()")
+    public void proofsByAssetId() {
 
         // Proof 1.
         final String TRICKY_ROYLLO_COIN_1_RAW_PROOF = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getRawProof();
@@ -46,19 +46,19 @@ public class ProofFileDataFetcherTest extends Base {
         final String TRICKY_ROYLLO_COIN_3_PROOF_ID = sha256(TRICKY_ROYLLO_COIN_3_RAW_PROOF);
 
         // Retrieving tricky royllo coin proof (page 1 of 10 elements).
-        ProofFilePage proofPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+        ProofPage proofPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        ProofFilesByAssetIdGraphQLQuery.newRequest().assetId(TRICKY_ROYLLO_COIN_ASSET_ID).page(1).pageSize(10).build(),
-                        new ProofFilesByAssetIdProjectionRoot<>().content()
+                        ProofsByAssetIdGraphQLQuery.newRequest().assetId(TRICKY_ROYLLO_COIN_ASSET_ID).page(1).pageSize(10).build(),
+                        new ProofsByAssetIdProjectionRoot<>().content()
                                 .creator().userId().username().parent()
                                 .asset().assetId().parent()
-                                .proofFileId()
-                                .rawProof()
+                                .proofId()
+                                .proof()
                                 .parent()
                                 .totalElements()
                                 .totalPages()
                 ).serialize(),
-                "data." + DgsConstants.QUERY.ProofFilesByAssetId,
+                "data." + DgsConstants.QUERY.ProofsByAssetId,
                 new TypeRef<>() {
                 });
 
@@ -67,52 +67,52 @@ public class ProofFileDataFetcherTest extends Base {
         assertEquals(1, proofPage.getTotalPages());
 
         // Testing proof 1.
-        final Optional<ProofFile> proof1 = proofPage.getContent()
+        final Optional<Proof> proof1 = proofPage.getContent()
                 .stream()
-                .filter(proof -> proof.getProofFileId().equals(TRICKY_ROYLLO_COIN_1_PROOF_ID))
+                .filter(proof -> proof.getProofId().equals(TRICKY_ROYLLO_COIN_1_PROOF_ID))
                 .findFirst();
         assertTrue(proof1.isPresent());
         assertEquals(ANONYMOUS_USER_ID, proof1.get().getCreator().getUserId());
         assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof1.get().getAsset().getAssetId());
-        assertEquals(TRICKY_ROYLLO_COIN_1_PROOF_ID, proof1.get().getProofFileId());
-        assertEquals(TRICKY_ROYLLO_COIN_1_RAW_PROOF, proof1.get().getRawProof());
+        assertEquals(TRICKY_ROYLLO_COIN_1_PROOF_ID, proof1.get().getProofId());
+        assertEquals(TRICKY_ROYLLO_COIN_1_RAW_PROOF, proof1.get().getProof());
 
         // Testing proof 2.
-        final Optional<ProofFile> proof2 = proofPage.getContent().stream()
-                .filter(proof -> proof.getProofFileId().equals(TRICKY_ROYLLO_COIN_2_PROOF_ID))
+        final Optional<Proof> proof2 = proofPage.getContent().stream()
+                .filter(proof -> proof.getProofId().equals(TRICKY_ROYLLO_COIN_2_PROOF_ID))
                 .findFirst();
         assertTrue(proof2.isPresent());
         assertEquals(ANONYMOUS_USER_ID, proof2.get().getCreator().getUserId());
         assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof2.get().getAsset().getAssetId());
-        assertEquals(TRICKY_ROYLLO_COIN_2_PROOF_ID, proof2.get().getProofFileId());
-        assertEquals(TRICKY_ROYLLO_COIN_2_RAW_PROOF, proof2.get().getRawProof());
+        assertEquals(TRICKY_ROYLLO_COIN_2_PROOF_ID, proof2.get().getProofId());
+        assertEquals(TRICKY_ROYLLO_COIN_2_RAW_PROOF, proof2.get().getProof());
 
 
         // Testing proof 3.
-        final Optional<ProofFile> proof3 = proofPage.getContent().stream()
-                .filter(proof -> proof.getProofFileId().equals(TRICKY_ROYLLO_COIN_3_PROOF_ID))
+        final Optional<Proof> proof3 = proofPage.getContent().stream()
+                .filter(proof -> proof.getProofId().equals(TRICKY_ROYLLO_COIN_3_PROOF_ID))
                 .findFirst();
         assertTrue(proof3.isPresent());
         assertEquals(ANONYMOUS_USER_ID, proof3.get().getCreator().getUserId());
         assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof3.get().getAsset().getAssetId());
-        assertEquals(TRICKY_ROYLLO_COIN_3_PROOF_ID, proof3.get().getProofFileId());
-        assertEquals(TRICKY_ROYLLO_COIN_3_RAW_PROOF, proof3.get().getRawProof());
+        assertEquals(TRICKY_ROYLLO_COIN_3_PROOF_ID, proof3.get().getProofId());
+        assertEquals(TRICKY_ROYLLO_COIN_3_RAW_PROOF, proof3.get().getProof());
 
 
         // Checking page management results.
         proofPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        ProofFilesByAssetIdGraphQLQuery.newRequest().assetId(TRICKY_ROYLLO_COIN_ASSET_ID).page(1).pageSize(1).build(),
-                        new ProofFilesByAssetIdProjectionRoot<>().content()
+                        ProofsByAssetIdGraphQLQuery.newRequest().assetId(TRICKY_ROYLLO_COIN_ASSET_ID).page(1).pageSize(1).build(),
+                        new ProofsByAssetIdProjectionRoot<>().content()
                                 .creator().userId().username().parent()
                                 .asset().assetId().parent()
-                                .proofFileId()
-                                .rawProof()
+                                .proofId()
+                                .proof()
                                 .parent()
                                 .totalElements()
                                 .totalPages()
                 ).serialize(),
-                "data." + DgsConstants.QUERY.ProofFilesByAssetId,
+                "data." + DgsConstants.QUERY.ProofsByAssetId,
                 new TypeRef<>() {
                 });
 

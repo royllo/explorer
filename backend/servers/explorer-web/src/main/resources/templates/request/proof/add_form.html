@@ -12,7 +12,7 @@
     <div class="pt-12 w-4/5 mx-auto">
         <form method="post" th:action="@{/request/proof/add}" th:object="${command}">
 
-            <!--/* Raw proofFile field */-->
+            <!--/* Raw proof field */-->
             <textarea
                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     name="rawProof"
@@ -21,20 +21,20 @@
                     required
                     rows="25"
                     th:field="*{rawProof}"
-                    th:placeholder="#{request.proofFile.rawProof.helper}">
+                    th:placeholder="#{request.proof.rawProof.helper}">
             </textarea>
             <p class="mt-2 text-sm text-red-600 dark:text-red-500" th:errors="*{rawProof}"
                th:if="${#fields.hasErrors('rawProof')}"></p>
             <br/>
             <button class="defaultButton"
-                    th:text="#{request.proofFile.submit}"
+                    th:text="#{request.proof.submit}"
                     type="submit"></button>
             <br/>
             <br/>
 
-            <!--/* Explain how to retrieve a raw proofFile ? */-->
-            <div th:text="#{request.proofFile.explanation.title}"></div>
-            <code th:utext="#{request.proofFile.explanation.code}"></code>
+            <!--/* Explain how to retrieve a raw proof ? */-->
+            <div th:text="#{request.proof.explanation.title}"></div>
+            <code th:utext="#{request.proof.explanation.code}"></code>
 
             <div class="my-12">&nbsp;</div>
         </form>

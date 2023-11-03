@@ -63,7 +63,7 @@ public class RequestDataFetcher extends BaseDataFetcher {
      */
     @DgsMutation
     public final AddProofRequestDTO createAddProofRequest(final @InputArgument AddProofRequestInputs input) {
-        return requestService.createAddProofRequest(input.getRawProof());
+        return requestService.createAddProofRequest(input.getProof());
     }
 
     /**

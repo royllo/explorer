@@ -1,7 +1,10 @@
 package org.royllo.explorer.core.test.core.service;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
@@ -40,6 +43,7 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 
 @SpringBootTest
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("AssetService tests")
 public class AssetServiceTest extends TestWithMockServers {
 
@@ -53,6 +57,7 @@ public class AssetServiceTest extends TestWithMockServers {
     private AssetService assetService;
 
     @Test
+    @Order(1)
     @DisplayName("queryAssets()")
     public void queryAssets() {
         // Searching for an asset that doesn't exist.
@@ -100,6 +105,7 @@ public class AssetServiceTest extends TestWithMockServers {
     }
 
     @Test
+    @Order(2)
     @DisplayName("addAsset()")
     public void addAsset() {
         // We retrieve a bitcoin transaction output from database for our test.
@@ -247,6 +253,7 @@ public class AssetServiceTest extends TestWithMockServers {
     }
 
     @Test
+    @Order(3)
     @DisplayName("addAsset() with asset group")
     public void addAssetWithAssetGroup() {
         // We retrieve a bitcoin transaction output from database for our test.
@@ -317,6 +324,7 @@ public class AssetServiceTest extends TestWithMockServers {
     }
 
     @Test
+    @Order(4)
     @DisplayName("getAsset()")
     public void getAsset() {
         // =============================================================================================================
@@ -341,6 +349,7 @@ public class AssetServiceTest extends TestWithMockServers {
     }
 
     @Test
+    @Order(5)
     @DisplayName("getAssetByAssetId()")
     public void getAssetByAssetId() {
         // =============================================================================================================
@@ -364,6 +373,7 @@ public class AssetServiceTest extends TestWithMockServers {
     }
 
     @Test
+    @Order(6)
     @DisplayName("getAssetByAssetId()")
     public void getAssetsByAssetGroupId() {
         // Test with an asset group that doesn't exist.

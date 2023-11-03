@@ -56,7 +56,7 @@ public class AddUniverseServerRequestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(CHOOSE_REQUEST_TYPE_PAGE))
                 // Two choices must be available.
-                .andExpect(content().string(containsString(environment.getProperty("request.proofFile.add"))))
+                .andExpect(content().string(containsString(environment.getProperty("request.proof.add"))))
                 .andExpect(content().string(containsString("/request/proof/add")))
                 .andExpect(content().string(containsString(environment.getProperty("request.universeServer.add"))))
                 .andExpect(content().string(containsString("/request/universe_server/add")));

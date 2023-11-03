@@ -29,7 +29,7 @@ import static jakarta.persistence.FetchType.EAGER;
 public class AddProofRequest extends Request {
 
     /** Proof that validates the asset information. */
-    @Column(name = "RAW_PROOF", updatable = false)
+    @Column(name = "proof", updatable = false)
     private String rawProof;
 
     /** The asset created/updated by this request. */

@@ -5,7 +5,7 @@
     <changeSet author="straumat" id="0.1.0-table-request_add_proof">
 
         <createTable tableName="REQUEST_ADD_PROOF"
-                     remarks="A request to add a proofFile to royllo explorer">
+                     remarks="A request to add a proof to royllo explorer">
 
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"
@@ -14,8 +14,8 @@
             </column>
 
             <!-- Table fields -->
-            <column name="RAW_PROOF" type="TEXT"
-                    remarks="Raw proofFile"/>
+            <column name="proof" type="TEXT"
+                    remarks="Raw proof"/>
             <column name="FK_ASSET" type="BIGINT"
                     remarks="The asset created/updated by this request"/>
 

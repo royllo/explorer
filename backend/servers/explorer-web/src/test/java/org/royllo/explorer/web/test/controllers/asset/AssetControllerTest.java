@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
-import org.royllo.explorer.core.repository.proof.ProofFileRepository;
+import org.royllo.explorer.core.repository.proof.ProofRepository;
 import org.royllo.explorer.web.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -37,7 +37,7 @@ public class AssetControllerTest extends BaseTest {
     AssetRepository assetRepository;
 
     @Autowired
-    ProofFileRepository proofFileRepository;
+    ProofRepository proofRepository;
 
     @Autowired
     MockMvc mockMvc;
@@ -74,8 +74,8 @@ public class AssetControllerTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Download proof file")
-    void downloadProofFile() throws Exception {
+    @DisplayName("Download proof")
+    void downloadProof() throws Exception {
         mockMvc.perform(get("/asset/" + ROYLLO_COIN_ASSET_ID + "/proof_file/" + ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getProofId()))
                 .andExpect(status().isOk());
     }
