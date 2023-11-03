@@ -25,8 +25,25 @@
             <column name="TAPSCRIPT_SIBLING" value=""/>
 
             <!-- State data -->
+            <column name="VERSION" value="ASSET_VERSION_V0"/>
+            <column name="AMOUNT" value="10000"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+
             <column name="SCRIPT_VERSION" value="0"/>
             <column name="SCRIPT_KEY" value="025d615b377761a5bfcfe84f0f11afd35837a68f702dd8a0cac0a2a4052b20d211"/>
+
+            <column name="LEASE_OWNER" value=""/>
+            <column name="LEASE_OWNER" value="0"/>
+
+            <column name="TX_MERKLE_ROOT"
+                    value="060d6cca264dc5ae7811f5e30305b64021c4b6107325359dd2964afb464ede9d209af1a7478aa5e8704ed521214bfa5935f022a3282ca01ec378743f8f2b26e883d7c81784fdd7aa621d14239510ee5f06add858f8f7c262941b6642674650628793c0b475e851828cbbd4048d003279eb3617939dee343f2a0edc55c6eb694929ac0f81acc5d39a6dd1675e351a7c26c84a6636253d30525ed7f09e9aba7d472b9d9a0a166581b27a343859332d3bebc60736a221995481b9355a475bb52c468330"/>
+            <column name="INCLUSION_PROOF"
+                    value="0004000000000221026ad322cc8a05cf5723bf8aeb5c778c6462146e573af182ba20c6bed53ea29ae6037401490001000220ce5a426ea282d2dee3a2eb48170231403ee4768be17f73fef8e6f925d30797af04220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff022700010002220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"/>
+            <column name="EXCLUSION_PROOFS"
+                    value="00040000000102210264e26d9bcccf4e442e08a8bab1fc2a0b64fcb83b34cbba1fe4b0404c3fd110980503040101"/>
+            <column name="SPLIT_ROOT_PROOF" value=""/>
+            <column name="CHALLENGE_WITNESS" value=""/>
 
         </insert>
 

@@ -21,7 +21,7 @@
 
             <!-- Asset genesis : The base genesis information of an asset. This information never changes -->
             <column name="ASSET_ID" type="VARCHAR(255)"
-                    remarks="Asset group id (=RAW_GROUP_KEY)."/>
+                    remarks="Asset group id (=RAW_GROUP_KEY)"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" type="BIGINT"
                     remarks="The first outpoint of the transaction that created the asset (txid:vout)"/>
             <column name="META_DATA_HASH" type="TEXT"
@@ -37,7 +37,7 @@
             <column name="ASSET_TYPE" type="TEXT"
                     remarks="The type of the asset: normal or a collectible"/>
             <column name="AMOUNT" type="BIGINT"
-                    remarks="The total amount of the asset stored in this Taproot UTXO"/>
+                    remarks="The total amount minted of the asset"/>
 
             <!-- Technical fields -->
             <column name="CREATED_ON" type="TIMESTAMP"
