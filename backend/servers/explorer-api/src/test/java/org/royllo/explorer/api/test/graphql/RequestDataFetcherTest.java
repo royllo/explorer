@@ -78,7 +78,7 @@ public class RequestDataFetcherTest {
                 new GraphQLQueryRequest(
                         CreateAddProofRequestGraphQLQuery.newRequest()
                                 .input(AddProofRequestInputs.newBuilder()
-                                        .rawProof("6")
+                                        .proof("6")
                                         .build())
                                 .build(),
                         new CreateAddProofRequestProjectionRoot<>()
