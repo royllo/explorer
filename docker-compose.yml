@@ -19,7 +19,7 @@ services:
   # ====================================================================================================================
   # Database used to store data ( https://hub.docker.com/_/postgres ).
   royllo-explorer-database-server:
-    image: library/postgres:15-alpine
+    image: library/postgres:16-alpine
     restart: always
     networks:
       - royllo-explorer-network

@@ -25,7 +25,7 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles("scheduler-disabled")
 @Testcontainers
-@SpringBootTest(properties = {"spring.datasource.url=jdbc:tc:postgresql:15:///explorer",
+@SpringBootTest(properties = {"spring.datasource.url=jdbc:tc:postgresql:16:///explorer",
         "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver"})
 public class PurgeBatchTest extends BaseTest {
 

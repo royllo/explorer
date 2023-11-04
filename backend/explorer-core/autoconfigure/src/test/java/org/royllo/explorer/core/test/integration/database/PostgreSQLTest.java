@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 @Testcontainers
 @SpringBootTest(properties = {
-        "spring.datasource.url=jdbc:tc:postgresql:15:///explorer",
+        "spring.datasource.url=jdbc:tc:postgresql:16:///explorer",
         "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver",
         "spring.liquibase.change-log=db/changelog/db.changelog-master.yaml"
 })
