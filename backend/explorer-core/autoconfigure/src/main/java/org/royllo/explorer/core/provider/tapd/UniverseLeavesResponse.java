@@ -41,9 +41,9 @@ public class UniverseLeavesResponse {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Leaf {
 
-        /** Issuance proof. */
-        @JsonProperty("issuance_proof")
-        private String issuanceProof;
+        /** Proof. */
+        @JsonProperty("proof")
+        private String proof;
 
     }
 
