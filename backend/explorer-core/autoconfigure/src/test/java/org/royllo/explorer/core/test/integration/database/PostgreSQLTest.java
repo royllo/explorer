@@ -41,7 +41,7 @@ public class PostgreSQLTest {
 
     @Test
     @DisplayName("LTree found in pg_extension")
-    public void treeFoundInPGExtension() throws SQLException {
+    public void lTreeFoundInPGExtension() throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             final ResultSet results = connection.createStatement()
                     .executeQuery("""

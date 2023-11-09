@@ -11,7 +11,6 @@ import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.dto.user.UserDTO;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -84,7 +83,7 @@ public class AssetStateDTO {
     String leaseOwner;
 
     /** If the asset has been leased, this is the expiry of the lease as a Unix timestamp in seconds. */
-    long leaseExpiry;
+    Long leaseExpiry;
 
     /** The merkle proof for AnchorTx used to prove its inclusion within BlockHeader. */
     String txMerkleProof;
@@ -93,13 +92,13 @@ public class AssetStateDTO {
     String inclusionProof;
 
     /** The set of TaprootProofs proving the exclusion of the resulting asset from all other Taproot outputs within AnchorTx. */
-    List<String> exclusionProofs = new ArrayList<>();
+    List<String> exclusionProofs;
 
     /** An optional TaprootProof needed if this asset is the result of a split. SplitRootProof proves inclusion of the root asset of the split. */
     String splitRootProof;
 
     /** ChallengeWitness is an optional virtual transaction witness that serves as an ownership proof for the asset. */
-    List<String> challengeWitness = new ArrayList<>();
+    List<String> challengeWitness;
 
     /** The asset state ID that uniquely identifies the asset state (calculated by Royllo). */
     @Setter

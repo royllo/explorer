@@ -43,7 +43,7 @@ public class DisplaySetRoylloNFT3Test extends BaseTest {
     @MethodSource("headers")
     @DisplayName("Check setRoylloNFT3 asset page")
     void assetPage(final HttpHeaders headers) throws Exception {
-        final DecodedProofValueResponse.DecodedProof assetFromTest = SET_OF_ROYLLO_NFT_3_FROM_TEST.getDecodedProof(0);
+        final DecodedProofValueResponse.DecodedProof assetFromTest = SET_OF_ROYLLO_NFT_3_FROM_TEST.getDecodedProofResponse(0);
 
         mockMvc.perform(get("/asset/" + SET_OF_ROYLLO_NFT_3_ASSET_ID).headers(headers))
                 .andExpect(status().isOk())

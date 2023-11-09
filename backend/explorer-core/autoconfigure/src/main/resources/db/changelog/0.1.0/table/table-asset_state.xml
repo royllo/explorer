@@ -53,7 +53,7 @@
                     remarks="If the asset has been leased, this is the owner (application ID) of the lease"/>
             <column name="LEASE_EXPIRY" type="BIGINT"
                     remarks="If the asset has been leased, this is the expiry of the lease as a Unix timestamp in seconds."/>
-            <column name="TX_MERKLE_ROOT" type="TEXT"
+            <column name="TX_MERKLE_PROOF" type="TEXT"
                     remarks="The merkle root of the transaction that created the asset"/>
             <column name="INCLUSION_PROOF" type="TEXT"
                     remarks="The TaprootProof proving the new inclusion of the resulting asset within AnchorTx"/>

@@ -55,7 +55,7 @@ public class TapdDataTest {
         assertNotNull(roylloCoin);
 
         // Decoded proof 1.
-        final DecodedProofValueResponse.DecodedProof roylloCoinProof = roylloCoin.getDecodedProof(0);
+        final DecodedProofValueResponse.DecodedProof roylloCoinProof = roylloCoin.getDecodedProofResponse(0);
         // Decoded proof.
         assertEquals(0, roylloCoinProof.getProofAtDepth());
         assertEquals(1, roylloCoinProof.getNumberOfProofs());
@@ -106,12 +106,21 @@ public class TapdDataTest {
         final AssetValue unlimitedRoylloCoin1 = TapdData.findAssetValueByAssetId(UNLIMITED_ROYLLO_COIN_1_ASSET_ID);
         assertNotNull(unlimitedRoylloCoin1);
         // Decoded proof 1.
-        final DecodedProofValueResponse.DecodedProof unlimitedRoylloCoin1Proof = unlimitedRoylloCoin1.getDecodedProof(0);
+        final DecodedProofValueResponse.DecodedProof unlimitedRoylloCoin1Proof = unlimitedRoylloCoin1.getDecodedProofResponse(0);
         // Test for "asset_group".
         assertNotNull(unlimitedRoylloCoin1Proof.getAsset().getAssetGroup());
         assertEquals("", unlimitedRoylloCoin1Proof.getAsset().getAssetGroup().getRawGroupKey());
         assertEquals("0349d60c6689bbbb2ffc9b30b45b96a3d6e5fd5fd01c867344c0054f6105048241", unlimitedRoylloCoin1Proof.getAsset().getAssetGroup().getTweakedGroupKey());
         assertEquals("", unlimitedRoylloCoin1Proof.getAsset().getAssetGroup().getAssetWitness());
+    }
+
+    @Test
+    @DisplayName("Tricky coin value")
+    public void trickyCoinValue() {
+        // We test some fields that are not in royllo coin decoded proof.
+        // We are using trickyRoylloCoin/decodeProof-proofFile3-proofAtDepth0-response.json
+        final DecodedProofValueResponse.DecodedProof roylloCoinProof3 = TapdData.findAssetValueByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID).getDecodedProofResponse(3);
+        assertEquals("000400000000022102bfca44f6bdfd7d54ce75e775049026015f7745ddef61610d4a6488c42f06f0a8037401490001000220e16029acc4d2cf0505857265442344efb5547f2047a3fc1c4822683f7c57820e04220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff022700010002220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", roylloCoinProof3.getSplitRootProof());
     }
 
 }

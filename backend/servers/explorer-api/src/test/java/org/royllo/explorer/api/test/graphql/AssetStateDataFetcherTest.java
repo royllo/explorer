@@ -25,10 +25,10 @@ import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_FROM_TEST;
 @DisplayName("AssetStateDataFetcher tests")
 public class AssetStateDataFetcherTest {
 
-    private static final String TRICKY_ROYLLO_COIN_ASSET_STATE_ID_1 = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProof(0).getAsset().getAssetStateId();
-    private static final String TRICKY_ROYLLO_COIN_ASSET_STATE_ID_2 = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProof(1).getAsset().getAssetStateId();
-    private static final String TRICKY_ROYLLO_COIN_ASSET_STATE_ID_3 = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProof(3).getAsset().getAssetStateId();
-    private static final String TRICKY_ROYLLO_COIN_ASSET_STATE_ID_4 = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProof(4).getAsset().getAssetStateId();
+    private static final String TRICKY_ROYLLO_COIN_ASSET_STATE_ID_1 = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetStateId();
+    private static final String TRICKY_ROYLLO_COIN_ASSET_STATE_ID_2 = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(1).getAsset().getAssetStateId();
+    private static final String TRICKY_ROYLLO_COIN_ASSET_STATE_ID_3 = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(3).getAsset().getAssetStateId();
+    private static final String TRICKY_ROYLLO_COIN_ASSET_STATE_ID_4 = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(4).getAsset().getAssetStateId();
 
     @Autowired
     DgsQueryExecutor dgsQueryExecutor;

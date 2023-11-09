@@ -165,7 +165,7 @@ public class TapdData {
      * @return first decoded proof
      */
     public static DecodedProofValueResponse.DecodedProof findFirstDecodedProof(final String assetId) {
-        return ASSETS.get(assetId).getDecodedProof(1);
+        return ASSETS.get(assetId).getDecodedProofResponse(1);
     }
 
     /**

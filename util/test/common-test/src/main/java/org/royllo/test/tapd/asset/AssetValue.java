@@ -46,7 +46,7 @@ public class AssetValue {
      * @param i index
      * @return decoded proof
      */
-    public DecodedProofValueResponse.DecodedProof getDecodedProof(final int i) {
+    public DecodedProofValueResponse.DecodedProof getDecodedProofResponse(final int i) {
         return decodedProofValues.get(i).getResponse().getDecodedProof();
     }
 
