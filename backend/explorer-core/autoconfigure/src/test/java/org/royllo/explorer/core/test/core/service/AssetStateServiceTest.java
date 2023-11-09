@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
 import static org.royllo.test.MempoolData.ROYLLO_COIN_ANCHOR_1_TXID;
@@ -226,13 +227,13 @@ public class AssetStateServiceTest extends TestWithMockServers {
 
         // =============================================================================================================
         // Existing asset state on testnet and in our database initialization script ("roylloCoin").
-        assetState = assetStateService.getAssetStateByAssetStateId(ROYLLO_COIN_FROM_TEST.getDecodedProof(0).getAsset().getAssetStateId());
+        assetState = assetStateService.getAssetStateByAssetStateId(ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetStateId());
         assertTrue(assetState.isPresent());
         assertEquals(1, assetState.get().getId());
-        assertEquals(ROYLLO_COIN_FROM_TEST.getDecodedProof(0).getAsset().getAssetStateId(), assetState.get().getAssetStateId());
+        assertEquals(ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetStateId(), assetState.get().getAssetStateId());
         // User.
         assertNotNull(assetState.get().getCreator());
-        assertEquals(ANONYMOUS_USER_DTO.getId(), assetState.get().getCreator().getId());
+        assertEquals(ANONYMOUS_ID, assetState.get().getCreator().getId());
         // Asset & asset group.
         verifyAsset(assetState.get().getAsset(), ROYLLO_COIN_ASSET_ID);
         // Asset state data.

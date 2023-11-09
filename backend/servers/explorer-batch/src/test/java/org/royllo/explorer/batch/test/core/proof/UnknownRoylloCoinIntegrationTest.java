@@ -82,7 +82,7 @@ public class UnknownRoylloCoinIntegrationTest extends TestWithMockServers {
         // unknownRoylloCoin is not in our database - We add it (No asset group).
         final String UNKNOWN_ROYLLO_COIN_RAW_PROOF = UNKNOWN_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getRawProof();
         final String UNKNOWN_ROYLLO_COIN_PROOF_ID = sha256(UNKNOWN_ROYLLO_COIN_RAW_PROOF);
-        final String UNKNOWN_ROYLLO_COIN_STATE_ID = UNKNOWN_ROYLLO_COIN_FROM_TEST.getDecodedProof(0).getAsset().getAssetStateId();
+        final String UNKNOWN_ROYLLO_COIN_STATE_ID = UNKNOWN_ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetStateId();
 
         // =============================================================================================================
         // We check that the asset doesn't already exist.
@@ -137,7 +137,7 @@ public class UnknownRoylloCoinIntegrationTest extends TestWithMockServers {
                 UNKNOWN_ROYLLO_COIN_ASSET_ID,
                 UNKNOWN_ROYLLO_COIN_ANCHOR_1_TXID,
                 UNKNOWN_ROYLLO_COIN_ANCHOR_1_VOUT,
-                UNKNOWN_ROYLLO_COIN_FROM_TEST.getDecodedProof(0).getAsset().getScriptKey());
+                UNKNOWN_ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(0).getAsset().getScriptKey());
     }
 
 }

@@ -152,6 +152,23 @@ public class DecodedProofValueResponse {
             Boolean isBurn;
 
             /**
+             * If the asset has been leased, this is the expiry of the lease as a Unix timestamp in seconds.
+             *
+             * @return lease expiry timestamp
+             */
+            public final Long getLeaseExpiryTimestamp() {
+                if (leaseExpiry == null) {
+                    return 0L;
+                } else {
+                    try {
+                        return Long.parseLong(leaseExpiry);
+                    } catch (NumberFormatException e) {
+                        return 0L;
+                    }
+                }
+            }
+
+            /**
              * Returns the calculated state id.
              *
              * @return asset state id (calculated)

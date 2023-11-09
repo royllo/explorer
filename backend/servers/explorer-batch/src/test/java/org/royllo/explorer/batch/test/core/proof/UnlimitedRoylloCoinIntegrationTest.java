@@ -84,17 +84,17 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
     @DisplayName("Process proof")
     public void processProof() {
         // unlimitedRoylloCoin. You will have an asset group and two emissions.
-        final String UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup().getTweakedGroupKey();
+        final String UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup().getTweakedGroupKey();
 
         // First emission.
         final String UNLIMITED_ROYLLO_COIN_1_RAW_PROOF = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofRequest(0).getRawProof();
         final String UNLIMITED_ROYLLO_COIN_1_PROOF_ID = sha256(UNLIMITED_ROYLLO_COIN_1_RAW_PROOF);
-        final String UNLIMITED_ROYLLO_COIN_1_ASSET_STATE_ID = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetStateId();
+        final String UNLIMITED_ROYLLO_COIN_1_ASSET_STATE_ID = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetStateId();
 
         // Second emission.
         final String UNLIMITED_ROYLLO_COIN_2_RAW_PROOF = UNLIMITED_ROYLLO_COIN_2_FROM_TEST.getDecodedProofRequest(0).getRawProof();
         final String UNLIMITED_ROYLLO_COIN_2_PROOF_ID = sha256(UNLIMITED_ROYLLO_COIN_2_RAW_PROOF);
-        final String UNLIMITED_ROYLLO_COIN_2_ASSET_STATE_ID = UNLIMITED_ROYLLO_COIN_2_FROM_TEST.getDecodedProof(0).getAsset().getAssetStateId();
+        final String UNLIMITED_ROYLLO_COIN_2_ASSET_STATE_ID = UNLIMITED_ROYLLO_COIN_2_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetStateId();
 
         // =============================================================================================================
         // We check that the asset doesn't already exist.

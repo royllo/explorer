@@ -72,7 +72,7 @@ public class AssetDataFetcherTest {
         assertEquals(UNLIMITED_ROYLLO_COIN_2_ASSET_ID, assetPage.getContent().get(3).getAssetId());
 
         // Query assets with an asset group id.
-        final String assetGroupId = SET_OF_ROYLLO_NFT_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup().getTweakedGroupKey();
+        final String assetGroupId = SET_OF_ROYLLO_NFT_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup().getTweakedGroupKey();
         assetPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
                         QueryAssetsGraphQLQuery.newRequest().query(assetGroupId).page(1).build(),
@@ -264,7 +264,7 @@ public class AssetDataFetcherTest {
 
         // Testing results.
         assertNotNull(asset);
-        final DecodedProofValueResponse.DecodedProof assetFromTestData = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0);
+        final DecodedProofValueResponse.DecodedProof assetFromTestData = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofResponse(0);
 
         // Asset.
         assertEquals(ANONYMOUS_USER_ID, asset.getCreator().getUserId());

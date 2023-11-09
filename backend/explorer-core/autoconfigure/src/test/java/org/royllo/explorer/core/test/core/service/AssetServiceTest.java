@@ -60,7 +60,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertEquals(0, results.getTotalPages());
 
         // Searching for an asset with its group asset id
-        results = assetService.queryAssets(SET_OF_ROYLLO_NFT_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup().getTweakedGroupKey(), 1, 5);
+        results = assetService.queryAssets(SET_OF_ROYLLO_NFT_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup().getTweakedGroupKey(), 1, 5);
         assertEquals(3, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
         assertEquals(SET_OF_ROYLLO_NFT_1_ASSET_ID, results.getContent().get(0).getAssetId());
@@ -369,7 +369,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertEquals(0, assetService.getAssetsByAssetGroupId("NON_EXISTING_ASSET_GROUP_ID").size());
 
         // Test with an asset group with three assets.
-        final String tweakedGroupKey = SET_OF_ROYLLO_NFT_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup().getTweakedGroupKey();
+        final String tweakedGroupKey = SET_OF_ROYLLO_NFT_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup().getTweakedGroupKey();
         assertEquals(3, assetService.getAssetsByAssetGroupId(tweakedGroupKey).size());
     }
 

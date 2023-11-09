@@ -82,7 +82,7 @@ public class RoylloNFTIntegrationTest extends TestWithMockServers {
         // roylloNFT is not in our database - We add it (No asset group).
         final String ROYLLO_NFT_RAW_PROOF = ROYLLO_NFT_FROM_TEST.getDecodedProofRequest(0).getRawProof();
         final String ROYLLO_NFT_PROOF_ID = sha256(ROYLLO_NFT_RAW_PROOF);
-        final String ROYLLO_NFT_ASSET_STATE_ID = ROYLLO_NFT_FROM_TEST.getDecodedProof(0).getAsset().getAssetStateId();
+        final String ROYLLO_NFT_ASSET_STATE_ID = ROYLLO_NFT_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetStateId();
 
         // =============================================================================================================
         // We check that the asset doesn't already exist.
@@ -139,7 +139,7 @@ public class RoylloNFTIntegrationTest extends TestWithMockServers {
                 ROYLLO_NFT_ASSET_ID,
                 ROYLLO_NFT_ANCHOR_1_TXID,
                 ROYLLO_NFT_ANCHOR_1_VOUT,
-                ROYLLO_NFT_FROM_TEST.getDecodedProof(0).getAsset().getScriptKey());
+                ROYLLO_NFT_FROM_TEST.getDecodedProofResponse(0).getAsset().getScriptKey());
     }
 
 }

@@ -43,7 +43,7 @@ public class DisplayUnlimitedRoylloCoin2Test extends BaseTest {
     @MethodSource("headers")
     @DisplayName("Check unlimitedRoylloCoin2 asset page")
     void assetPage(final HttpHeaders headers) throws Exception {
-        final DecodedProofValueResponse.DecodedProof assetFromTest = UNLIMITED_ROYLLO_COIN_2_FROM_TEST.getDecodedProof(0);
+        final DecodedProofValueResponse.DecodedProof assetFromTest = UNLIMITED_ROYLLO_COIN_2_FROM_TEST.getDecodedProofResponse(0);
 
         mockMvc.perform(get("/asset/" + UNLIMITED_ROYLLO_COIN_2_ASSET_ID).headers(headers))
                 .andExpect(status().isOk())

@@ -79,7 +79,7 @@ public class UniverseExplorerBatch extends BaseBatch {
                             // We retrieve the proofs for each asset.
                             leaves.getLeaves()
                                     .stream()
-                                    .map(UniverseLeavesResponse.Leaf::getIssuanceProof)
+                                    .map(UniverseLeavesResponse.Leaf::getProof)
                                     .filter(proof -> proofRepository.findByProofId(sha256(proof)).isEmpty())
                                     .forEach(proof -> {
                                         final AddProofRequestDTO addProofRequest = requestService.createAddProofRequest(proof);

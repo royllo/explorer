@@ -22,6 +22,9 @@ public class TapdUniverseLeavesServiceTest {
     @Test
     @DisplayName("getUniverseLeaves() on lightning TAPD")
     public void getUniverseLeavesTest() {
+        // Testing this:
+        // curl https://testnet.universe.lightning.finance/v1/taproot-assets/universe/leaves/asset-id/05c34a505589025a0a78c31237e560406e4a2c5dc5a41c4ece6f96abbe77ad53?proof_type=PROOF_TYPE_ISSUANCE
+
         UniverseLeavesResponse response = tapdService.getUniverseLeaves("https://testnet.universe.lightning.finance",
                 "05c34a505589025a0a78c31237e560406e4a2c5dc5a41c4ece6f96abbe77ad53").block();
 
@@ -29,10 +32,10 @@ public class TapdUniverseLeavesServiceTest {
         assertNotNull(response);
         assertEquals(1, response.getLeaves().size());
         assertNotNull(response.getLeaves().get(0));
-        assertNotNull(response.getLeaves().get(0).getIssuanceProof());
+        assertNotNull(response.getLeaves().get(0).getProof());
 
         // Check we can decode the proof.
-        final DecodedProofResponse decodedProof = tapdService.decode(response.getLeaves().get(0).getIssuanceProof()).block();
+        final DecodedProofResponse decodedProof = tapdService.decode(response.getLeaves().get(0).getProof()).block();
         assertNotNull(decodedProof);
         assertNull(decodedProof.getErrorCode());
         assertNotNull(decodedProof.getDecodedProof());
