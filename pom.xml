@@ -83,7 +83,7 @@
 
         <!-- ======================================================================================================= -->
         <!-- Web libraries -->
-        <bucket4j-core.version>8.5.0</bucket4j-core.version>
+        <bucket4j-core.version>8.6.0</bucket4j-core.version>
         <caffeine.version>3.1.8</caffeine.version>
 
         <thymeleaf-layout-dialect.version>3.3.0</thymeleaf-layout-dialect.version>
