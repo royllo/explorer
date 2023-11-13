@@ -117,3 +117,4 @@ output-*
 
 # Used to download royllo tade and run it.
 /util/test/common-test/tade/
+util/test/common-test/src/main/resources/tapd/admin-production.macaroon
