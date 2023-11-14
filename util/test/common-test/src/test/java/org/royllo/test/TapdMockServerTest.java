@@ -15,6 +15,8 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_TXID;
+import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_VOUT;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 
@@ -42,7 +44,7 @@ public class TapdMockServerTest {
                 .post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), roylloCoin.getDecodedProofValues().get(0).getJSONRequest()))
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            assertTrue(response.body().string().contains("\"genesis_point\" : \"04feaf85babeeb5662e1139edd48b889ec178880cc69bbe38b5820dae322c75b:0"));
+            assertTrue(response.body().string().contains("\"genesis_point\" : \"" + ROYLLO_COIN_GENESIS_TXID + ":" + ROYLLO_COIN_GENESIS_VOUT + "" + "\""));
         } catch (IOException e) {
             fail("Error while calling the mock server");
         }
