@@ -1,7 +1,6 @@
 # roylloCoin
 
-Asset id: `ce5a426ea282d2dee3a2eb48170231403ee4768be17f73fef8e6f925d30797af`
-Creation script key: `025d615b377761a5bfcfe84f0f11afd35837a68f702dd8a0cac0a2a4052b20d211`
+TODO Update with what we did in production.
 
 ```bash
 docker exec -it 9e26560b40cf tapcli assets mint \

@@ -9,10 +9,10 @@
         "name": "roylloNFT",
         "meta_hash": "30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336",
         "asset_id": "89c9d3ff7cb9dbc4615f854f7127e94db10edd430f8bcf82d7309d0c8b750051",
+        "asset_type": "COLLECTIBLE",
         "output_index": 0,
         "version": 0
       },
-      "asset_type": "COLLECTIBLE",
       "amount": "1",
       "lock_time": 0,
       "relative_lock_time": 0,
@@ -22,7 +22,6 @@
       "asset_group": null,
       "chain_anchor": {
         "anchor_tx": "02000000000101c7d9b3d5ba2bd02625c8db243157726517982d79da366d9c49ac366b58428ac20100000000ffffffff02e8030000000000002251200abf9c151df80edc22d2fd1b8c0dcd07dcdda6e859cdcb513102d50cc5cbfdfecbaf100000000000225120d9c5d97fb55abcdf85102d90fb4c7b76d9f1656ae900d3127c861d0e814fa699014035721b41acdd8960274338bfa9ec0c5bb7627ee8b089607a17a66b98247203c2dd34ac0db9f30b24aaf8a7b9091223d49971d38e8f6a62af3f1d72cc77118b2600000000",
-        "anchor_txid": "6db79f5af2ba65bfb4044ced690f3acb4a791a6fc6a7450664e15559ad770b90",
         "anchor_block_hash": "0000000000002d538197af66e3d394bc5e88193e6edf3570874134c76f122897",
         "anchor_outpoint": "6db79f5af2ba65bfb4044ced690f3acb4a791a6fc6a7450664e15559ad770b90:0",
         "internal_key": "033b8449aae83eb0ed04f7952108637d078836bb5d3353a33b6486248b401f60da",
@@ -52,10 +51,10 @@
         "name": "roylloNFT",
         "meta_hash": "30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336",
         "asset_id": "89c9d3ff7cb9dbc4615f854f7127e94db10edd430f8bcf82d7309d0c8b750051",
+        "asset_type": "COLLECTIBLE",
         "output_index": 0,
         "version": 0
-      },
-      "asset_type": "COLLECTIBLE"
+      }
     },
     "group_key_reveal": {
       "raw_group_key": "",
