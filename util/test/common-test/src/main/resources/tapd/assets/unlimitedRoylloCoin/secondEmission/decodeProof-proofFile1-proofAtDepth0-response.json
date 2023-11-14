@@ -9,10 +9,10 @@
         "name": "unlimitedRoylloCoin2",
         "meta_hash": "36a5ee53396cf2d45b9f7bfb306ec706bca2e5738d9bbf4cf52e3cd2cf45a311",
         "asset_id": "fdf6f8c41602ccdad237305a05e41868ba267947d152a1cacfaf3b5045a84a04",
+        "asset_type": "NORMAL",
         "output_index": 0,
         "version": 0
       },
-      "asset_type": "NORMAL",
       "amount": "501",
       "lock_time": 0,
       "relative_lock_time": 0,
@@ -26,7 +26,6 @@
       },
       "chain_anchor": {
         "anchor_tx": "020000000001011f7b079e5bc9aa73cdb388697bab10a79064e540e7507da77c214f589854cd890100000000ffffffff02e8030000000000002251206f479cbd41e4ffce26c55a28268877fd40b0e64c283c817b875930bed23cea1e2b8216000000000022512078523cac7967c76daecc63e1fce58e7035fa400f8e5516299443dd4b2deebe210140864ccb6887b5dd92e0592b95aa5af1e4c0c82bbb20688a44c1a42a784aab5c5d2d22dbef014b51dfab133c4ea5d24826ddbd857ab8744cf7665492aa3ad45f0f00000000",
-        "anchor_txid": "0516611bebe6a92675ee7360ad64edf0b3b2e967fe8c474b2d2242d5a349da3d",
         "anchor_block_hash": "0000000000000039e91d73fc6392f998a760ded016bb425a680ef925cc303b23",
         "anchor_outpoint": "0516611bebe6a92675ee7360ad64edf0b3b2e967fe8c474b2d2242d5a349da3d:0",
         "internal_key": "024b84c791ddceed288f4c832d047e67f8152ce1af352cc18930902d84bc6bf913",
@@ -56,10 +55,10 @@
         "name": "unlimitedRoylloCoin2",
         "meta_hash": "36a5ee53396cf2d45b9f7bfb306ec706bca2e5738d9bbf4cf52e3cd2cf45a311",
         "asset_id": "fdf6f8c41602ccdad237305a05e41868ba267947d152a1cacfaf3b5045a84a04",
+        "asset_type": "NORMAL",
         "output_index": 0,
         "version": 0
-      },
-      "asset_type": "NORMAL"
+      }
     },
     "group_key_reveal": {
       "raw_group_key": "",

@@ -9,10 +9,10 @@
         "name": "trickyRoylloCoin",
         "meta_hash": "13a16f12767ad6fbafcfd69fd12fc19747ac35749b1b6806c74dd4a07d2e4b41",
         "asset_id": "e16029acc4d2cf0505857265442344efb5547f2047a3fc1c4822683f7c57820e",
+        "asset_type": "NORMAL",
         "output_index": 0,
         "version": 0
       },
-      "asset_type": "NORMAL",
       "amount": "11000",
       "lock_time": 0,
       "relative_lock_time": 0,
@@ -22,7 +22,6 @@
       "asset_group": null,
       "chain_anchor": {
         "anchor_tx": "0200000000010176dfd989aeba79f86c08003815ef131e2e4186827bb1f431526d1f4506e377270100000000ffffffff02e8030000000000002251204251129e0033628da2e8e297ea72bd6675143a881841a655f92b93462d8f3898ebbf16000000000022512075a5d9344ea3b0fb74a7c42b14e066249a9ff3abfb515e6288abe5502f2585740247304402206bf51adf6f12b6f50e344d51bffaa5b5e94e6cf0834523920352354a84c4836a0220177509e5a4c424852779d8ebf44441e4ec3f80ea365ec185c37d5e453106ab94012103219e2594f427e338690c3f51409706439d8ab83fde02d18d0c28ec55c285801c00000000",
-        "anchor_txid": "632d0c3935fff230aa3718e268dce5517786d7976f7aa33efb615b408737b0ad",
         "anchor_block_hash": "000000000000003adbad005a04747fc9c84518a9d2784595d956b7491c455fb7",
         "anchor_outpoint": "632d0c3935fff230aa3718e268dce5517786d7976f7aa33efb615b408737b0ad:0",
         "internal_key": "03995581f54bd5751c79fa0f394f97fc05b88180bacc67805ff11065e6c6c60c40",
@@ -52,10 +51,10 @@
         "name": "trickyRoylloCoin",
         "meta_hash": "13a16f12767ad6fbafcfd69fd12fc19747ac35749b1b6806c74dd4a07d2e4b41",
         "asset_id": "e16029acc4d2cf0505857265442344efb5547f2047a3fc1c4822683f7c57820e",
+        "asset_type": "NORMAL",
         "output_index": 0,
         "version": 0
-      },
-      "asset_type": "NORMAL"
+      }
     },
     "group_key_reveal": {
       "raw_group_key": "",

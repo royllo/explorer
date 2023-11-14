@@ -99,10 +99,6 @@ public class DecodedProofValueResponse {
             @JsonProperty("asset_genesis")
             AssetGenesis assetGenesis;
 
-            /** Asset type. */
-            @JsonProperty("asset_type")
-            String assetType;
-
             /** Amount. */
             @JsonProperty("amount")
             BigInteger amount;
@@ -211,6 +207,10 @@ public class DecodedProofValueResponse {
                 /** Asset id. */
                 @JsonProperty("asset_id")
                 String assetId;
+
+                /** Asset type. */
+                @JsonProperty("asset_type")
+                String assetType;
 
                 /** Output index. */
                 @JsonProperty("output_index")

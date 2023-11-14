@@ -1,10 +1,7 @@
 # roylloNFT
 
-Asset id: `89c9d3ff7cb9dbc4615f854f7127e94db10edd430f8bcf82d7309d0c8b750051`
-Creation script key : `02368d08b148b5a0867e38a1187f9fb4ab0a36c21159502e701beafc8cdda1dec9`
-
 ```bash
-docker exec -it 9e26560b40cf tapcli assets mint \
+docker exec -it 1569a4bdcffc tapcli assets mint \
                 --type collectible \
                 --name roylloNFT \
                 --supply 1 \
@@ -14,7 +11,7 @@ docker exec -it 9e26560b40cf tapcli assets mint \
 We emit the transaction.
 
 ```bash
-docker exec -it 9e26560b40cf \
+docker exec -it d22d919622b1 \
                 tapcli assets mint finalize
 ```
 
@@ -60,7 +57,7 @@ Creation result:
 Corresponding proof can be retrieved with:
 
 ```bash
-docker exec -it 9e26560b40cf \
+docker exec -it d22d919622b1 \
        tapcli proofs export \
        --asset_id 89c9d3ff7cb9dbc4615f854f7127e94db10edd430f8bcf82d7309d0c8b750051 \
        --script_key 02368d08b148b5a0867e38a1187f9fb4ab0a36c21159502e701beafc8cdda1dec9

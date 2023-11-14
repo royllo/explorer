@@ -33,7 +33,7 @@ public class MempoolMockServerTest {
                 .url("http://localhost:" + MOCK_SERVER_PORT + "/api/tx/" + ROYLLO_COIN_GENESIS_TXID)
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            assertTrue(response.body().string().contains("\"txid\" : \"04feaf85babeeb5662e1139edd48b889ec178880cc69bbe38b5820dae322c75b\""));
+            assertTrue(response.body().string().contains("\"txid\" : \"" + ROYLLO_COIN_GENESIS_TXID + "\""));
         } catch (IOException e) {
             fail("Error while calling the mock server");
         }
@@ -43,7 +43,7 @@ public class MempoolMockServerTest {
                 .url("http://localhost:" + MOCK_SERVER_PORT + "/testnet/api/tx/" + ROYLLO_NFT_GENESIS_TXID)
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            assertTrue(response.body().string().contains("\"txid\" : \"c28a42586b36ac499c6d36da792d98176572573124dbc82526d02bbad5b3d9c7\""));
+            assertTrue(response.body().string().contains("\"txid\" : \"" + ROYLLO_NFT_GENESIS_TXID + "\""));
         } catch (IOException e) {
             fail("Error while calling the mock server");
         }
