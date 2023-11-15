@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-@SpringBootTest(properties = {"tapd.api.base-url=https://157.230.85.88:8089"})
+@SpringBootTest(properties = {"tapd.api.base-url=https://testnet.universe.royllo.org:8089"})
 @DisplayName("Lightning TAPD universe leaves service test")
 public class TapdUniverseLeavesServiceTest {
 

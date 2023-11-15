@@ -5,8 +5,8 @@
     <changeSet author="straumat" id="0.1.0-data-asset">
 
         <!--
-        roylloCoin - Testnet (More info in util/test/common-test/README-roylloCoin.md)
-        Asset id : ce5a426ea282d2dee3a2eb48170231403ee4768be17f73fef8e6f925d30797af
+        roylloCoin - On mainnet.
+        Asset id : 24a27ab522c9c33e64f4462f2acee01571e014ccbbac075786d1deae033a128d
         -->
         <insert tableName="ASSET">
             <column name="ID" value="1"/>
@@ -14,16 +14,16 @@
             <column name="FK_ASSET_GROUP"/>
 
             <!-- Asset genesis -->
-            <column name="ASSET_ID" value="ce5a426ea282d2dee3a2eb48170231403ee4768be17f73fef8e6f925d30797af"/>
+            <column name="ASSET_ID" value="24a27ab522c9c33e64f4462f2acee01571e014ccbbac075786d1deae033a128d"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="1"/>
-            <column name="META_DATA_HASH" value="e342a303a484ac7fead42c7bc8590000c10fa801f1e7c6c59bd47b360171dfee"/>
+            <column name="META_DATA_HASH" value="e08c74d75554e2c9d6d8452a3584d191f8727963b05e497bba84ada8ae829208"/>
             <column name="NAME" value="roylloCoin"/>
+            <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="OUTPUT_INDEX" value="0"/>
             <column name="VERSION" value="0"/>
 
             <!-- Asset characteristics -->
-            <column name="ASSET_TYPE" value="NORMAL"/>
-            <column name="AMOUNT" value="10000"/>
+            <column name="AMOUNT" value="100000"/>
         </insert>
 
     </changeSet>

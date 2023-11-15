@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_FROM_TEST;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_FROM_TEST;
 
-@SpringBootTest(properties = {"tapd.api.base-url=https://157.230.85.88:8089"})
+@SpringBootTest(properties = {"tapd.api.base-url=https://testnet.universe.royllo.org:8089"})
 @DisplayName("TAPD decode proof service test")
 public class TapdDecodeServiceTest {
 
@@ -45,7 +45,7 @@ public class TapdDecodeServiceTest {
         // Asset.
         final DecodedProofResponse.DecodedProof.Asset assetFromServer = response.getDecodedProof().getAsset();
         final DecodedProofValueResponse.DecodedProof.Asset assetFromTestData = decodedProofValueFromTest.getResponse().getDecodedProof().getAsset();
-        assertEquals(assetFromTestData.getAssetType(), assetFromServer.getAssetType());
+        assertEquals(assetFromTestData.getAssetGenesis().getAssetType(), assetFromServer.getAssetGenesis().getAssetType());
         assertEquals(0, assetFromTestData.getAmount().compareTo(assetFromServer.getAmount()));
         assertEquals(assetFromTestData.getLockTime(), assetFromServer.getLockTime());
         assertEquals(assetFromTestData.getRelativeLockTime(), assetFromServer.getRelativeLockTime());

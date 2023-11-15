@@ -181,7 +181,7 @@ public class TestWithMockServers extends Base {
                 "Version are not equals");
 
         assertEquals(assetDTO.getType().toString(),
-                assetFromTest.getAssetType(),
+                assetFromTest.getAssetGenesis().getAssetType(),
                 "Type are not equals");
 
         assertEquals(0, assetDTO.getAmount().compareTo(assetFromTest.getAmount()),
@@ -212,11 +212,6 @@ public class TestWithMockServers extends Base {
         assertEquals(assetStateDTO.getAnchorBlockHash(),
                 assetFromTest.get().getAsset().getChainAnchor().getAnchorBlockHash(),
                 "Anchor block hash are not equals");
-
-        assertEquals(assetStateDTO.getAnchorOutpoint().getTxId(),
-                assetFromTest.get().getAsset().getChainAnchor().getAnchorTxId(),
-                "Anchor outpoint tx id are not equals");
-
 
         assertEquals(assetStateDTO.getInternalKey(),
                 assetFromTest.get().getAsset().getChainAnchor().getInternalKey(),

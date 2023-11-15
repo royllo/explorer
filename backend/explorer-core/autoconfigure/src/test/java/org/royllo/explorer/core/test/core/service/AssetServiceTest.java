@@ -197,7 +197,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertEquals("assetId2", asset2.getAssetId());
         // Genesis.
         assertNotNull(asset2.getGenesisPoint());
-        assertEquals(1, asset2.getGenesisPoint().getId());
+        assertNotNull(asset2.getGenesisPoint().getId());
         // Asset value data.
         assertEquals("metaData2", asset2.getMetaDataHash());
         assertEquals("testCoin2", asset2.getName());

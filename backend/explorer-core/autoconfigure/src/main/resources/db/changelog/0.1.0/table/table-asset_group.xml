@@ -39,7 +39,7 @@
         <addAutoIncrement tableName="ASSET_GROUP"
                           columnName="ID"
                           columnDataType="BIGINT"
-                          startWith="2"/>
+                          startWith="1"/>
 
         <!-- Index on ASSET_GROUP_ID -->
         <createIndex indexName="IDX_ASSET_GROUP_ASSET_GROUP_ID"

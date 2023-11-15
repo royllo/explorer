@@ -30,7 +30,7 @@ public class TapdData {
 
     // =================================================================================================================
     // For RoylloCoin
-    public static final String ROYLLO_COIN_ASSET_ID = "ce5a426ea282d2dee3a2eb48170231403ee4768be17f73fef8e6f925d30797af";
+    public static final String ROYLLO_COIN_ASSET_ID = "24a27ab522c9c33e64f4462f2acee01571e014ccbbac075786d1deae033a128d";
     public static final AssetValue ROYLLO_COIN_FROM_TEST;
 
     // =================================================================================================================

@@ -275,7 +275,7 @@ public class AssetDataFetcherTest {
         assertEquals(assetFromTestData.getAsset().getAssetGenesis().getName(), asset.getName());
         assertEquals(assetFromTestData.getAsset().getAssetGenesis().getOutputIndex(), asset.getOutputIndex());
         assertEquals(assetFromTestData.getAsset().getAssetGenesis().getVersion(), asset.getVersion());
-        assertEquals(assetFromTestData.getAsset().getAssetType(), asset.getType().toString());
+        assertEquals(assetFromTestData.getAsset().getAssetGenesis().getAssetType(), asset.getType().toString());
         assertEquals(0, assetFromTestData.getAsset().getAmount().compareTo(asset.getAmount()));
 
         // Asset group.
