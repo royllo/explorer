@@ -223,7 +223,7 @@ public class SearchControllerTest extends BaseTest {
      */
     private void createFakeAssets(final int numberOfAssets) {
         // Transaction used.
-        final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 0);
+        final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 4);
         assertTrue(bto.isPresent());
 
         // Create fake assets.
