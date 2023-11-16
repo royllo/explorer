@@ -4,23 +4,22 @@
     <!--/* Left side. */-->
     <aside class="items-center grid-flow-col">
         <a target="royllo_website"
-           th:href="@{https://www.royllo.org}">Royllo</a>
-        -
-        <a target="royllo_licence"
-           th:href="@{https://github.com/royllo/explorer/blob/development/LICENSE}">GNU GPL v3.0</a>
+           th:href="@{https://www.royllo.org}"
+           th:text="#{footer.royllo.description}">
+        </a>
     </aside>
 
     <!--/* Right side. */-->
     <nav class="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
-        <a target="api"
+        <a target="royllo_api"
            th:href="@{https://api.explorer.royllo.org}">
             <img alt="api" class="footerIcon" th:alt="#{footer.api}" th:src="@{/svg/api.svg}"/>
         </a>
-        <a target="github"
+        <a target="royllo_github"
            th:href="@{https://github.com/royllo/explorer}">
             <img alt="github" class="footerIcon" th:alt="#{footer.github}" th:src="@{/svg/github.svg}"/>
         </a>
-        <a target="twitter"
+        <a target="royllo_twitter"
            th:href="@{https://twitter.com/royllo_org}">
             <img alt="twitter" class="footerIcon" th:alt="#{footer.twitter}" th:src="@{/svg/twitter.svg}"/>
         </a>
