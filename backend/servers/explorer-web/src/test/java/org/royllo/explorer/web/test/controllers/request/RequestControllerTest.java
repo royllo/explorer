@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @DisplayName("Request controller tests")
 @AutoConfigureMockMvc
-@PropertySource("classpath:messages.properties")
+@PropertySource("classpath:i18n/messages.properties")
 public class RequestControllerTest {
 
     @Autowired

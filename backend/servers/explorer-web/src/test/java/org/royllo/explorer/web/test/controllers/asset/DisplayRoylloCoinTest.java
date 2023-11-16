@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @DisplayName("Display roylloCoin page tests")
 @AutoConfigureMockMvc
-@PropertySource("classpath:messages.properties")
+@PropertySource("classpath:i18n/messages.properties")
 public class DisplayRoylloCoinTest extends BaseTest {
 
     @Autowired
