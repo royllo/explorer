@@ -1,0 +1,29 @@
+<!--/* "fixed bottom-0 left-0" are required to stick to the bottom. */-->
+<footer class="footer fixed bottom-0 left-0 items-center p-4 bg-base-200 text-base-content">
+
+    <!--/* Left side. */-->
+    <aside class="items-center grid-flow-col">
+        <a target="royllo_website"
+           th:href="@{https://www.royllo.org}">Royllo</a>
+        -
+        <a target="royllo_licence"
+           th:href="@{https://github.com/royllo/explorer/blob/development/LICENSE}">GNU GPL v3.0</a>
+    </aside>
+
+    <!--/* Right side. */-->
+    <nav class="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
+        <a target="api"
+           th:href="@{https://api.explorer.royllo.org}">
+            <img alt="api" class="footerIcon" th:alt="#{footer.api}" th:src="@{/svg/api.svg}"/>
+        </a>
+        <a target="github"
+           th:href="@{https://github.com/royllo/explorer}">
+            <img alt="github" class="footerIcon" th:alt="#{footer.github}" th:src="@{/svg/github.svg}"/>
+        </a>
+        <a target="twitter"
+           th:href="@{https://twitter.com/royllo_org}">
+            <img alt="twitter" class="footerIcon" th:alt="#{footer.twitter}" th:src="@{/svg/twitter.svg}"/>
+        </a>
+    </nav>
+
+</footer>

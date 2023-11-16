@@ -39,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("Search controller tests")
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
-@PropertySource("classpath:messages.properties")
+@PropertySource("classpath:i18n/messages.properties")
 public class SearchControllerTest extends BaseTest {
 
     @Autowired

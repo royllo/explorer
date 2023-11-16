@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html data-theme="light"
+      lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!--/* =========================================================================================================== */-->
+<!--/* Head */-->
+<head th:replace="~{util/fragments/layouts/default/head :: head}">
+    <title th:text="#{head.title}"></title>
+</head>
+<!--/* =========================================================================================================== */-->
+
+<!--/* =========================================================================================================== */-->
+<!--/* Body */-->
+<body>
+
+<!--/* Header */-->
+<header th:replace="~{util/fragments/layouts/default/header :: header}"></header>
+
+<!--/* Content */-->
+<!--/*
+    flex            :   Utilities for controlling how flex items both grow and shrink.
+    flex-col        :   Use flex-col to position flex items vertically.
+*/-->
+<main class="flex flex-col h-screen"
+      id="content"
+      layout:fragment="content">
+</main>
+
+<!--/* Footer */-->
+<footer th:replace="~{util/fragments/layouts/default/footer :: footer}"></footer>
+
+</body>
+<!--/* =========================================================================================================== */-->
+
+</html>

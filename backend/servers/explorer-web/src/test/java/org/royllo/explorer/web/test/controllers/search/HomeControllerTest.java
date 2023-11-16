@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @DisplayName("Home controller tests")
 @AutoConfigureMockMvc
-@PropertySource("classpath:messages.properties")
+@PropertySource("classpath:i18n/messages.properties")
 public class HomeControllerTest extends BaseTest {
 
     @Autowired

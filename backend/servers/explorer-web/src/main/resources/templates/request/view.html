@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"
-      layout:decorate="~{util/fragments/layouts/default_layout}"
+      layout:decorate="~{util/fragments/layouts/default/layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
@@ -68,7 +68,7 @@
             </div>
 
         </div>
-        
+
         <!--/* View asset */-->
         <div class="my-12" th:if="${
         #strings.equals(result.class.name, 'org.royllo.explorer.core.dto.request.AddProofRequestDTO')
