@@ -38,6 +38,9 @@ retrieve_royllo_testnet_universe_roots:
 retrieve_royllo_mainnet_universe_roots:
     curl --insecure https://universe.royllo.org:8089/v1/taproot-assets/universe/roots | jq
 
+retrieve_lighting_labs_mainnet_universe_roots:
+    curl --insecure https://universe.lightning.finance/v1/taproot-assets/universe/roots?limit=100 | jq
+
 # ======================================================================================================================
 # The followind commands are used to download data for each asset.
 
