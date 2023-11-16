@@ -4,30 +4,37 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<div class="items-center justify-center align-top mx-auto w-5/6" layout:fragment="content" th:fragment="home-content">
-
-    <!--/* Logo */-->
+<div layout:fragment="content" th:fragment="home-content">
     <!--/*
-        items-center    :   Use items-center to align items along the center of the container’s cross axis.
-        justify-center  :   Use justify-center to justify items along the container’s main axis such that they are centered.
+        We create a centered container for the content (not the full site for mobile display).
         mx-auto         :   To center a container, use the mx-auto utility.
+        w-5/9           :   width: 83.333333%;
     */-->
-    <img alt="Royllo Logo"
-         class="items-center justify-center mx-auto"
-         height="178"
-         th:src="@{/images/logo/royllo_logo_homepage.png}"
-         width="150"/>
+    <div class="mx-auto w-5/6">
 
-    <!--/* Search form */-->
-    <div th:insert="~{util/fragments/components/search_asset_form :: form}"></div>
+        <!--/* Logo */-->
+        <!--/*
+            items-center    :   Use items-center to align items along the center of the container’s cross axis.
+            justify-center  :   Use justify-center to justify items along the container’s main axis such that they are centered.
+            mx-auto         :   To center a container, use the mx-auto utility.
+        */-->
+        <img alt="Royllo Logo"
+             class="items-center justify-center mx-auto"
+             height="178"
+             th:src="@{/images/logo/royllo_logo_homepage.png}"
+             width="150"/>
 
-    <!--/* Homepage message */-->
-    <!--/*
-        mt-12   :   Use mt-12 to add a margin-top.
-        text-sm :   Use text-sm to set the font-size to 0.875rem.
-    */-->
-    <div class="flex items-center justify-center mx-auto mt-12 text-sm" th:utext="#{home.message}"></div>
+        <!--/* Search form */-->
+        <div th:insert="~{util/fragments/components/search_asset_form :: form}"></div>
 
+        <!--/* Homepage message */-->
+        <!--/*
+            mt-12   :   Use mt-12 to add a margin-top.
+            text-sm :   Use text-sm to set the font-size to 0.875rem.
+        */-->
+        <div class="flex items-center justify-center mx-auto mt-12 text-sm" th:utext="#{home.message}"></div>
+
+    </div>
 </div>
 <!--/* =========================================================================================================== */-->
 
