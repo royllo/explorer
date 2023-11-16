@@ -12,7 +12,7 @@
             <label class="sr-only" for="query" th:text="#{search.field.helper}"></label>
             <input autocomplete="false"
                    autofocus
-                   class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                   class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg"
                    hx-get="/search"
                    hx-target="#content"
                    hx-trigger="keyup[key=='Enter']"
@@ -20,6 +20,7 @@
                    name="query" onClick="this.select();"
                    onFocus="this.select();"
                    required
+                   spellcheck="false"
                    th:placeholder="#{search.field.helper}"
                    th:value="${query}">
         </div>

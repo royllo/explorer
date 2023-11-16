@@ -1,109 +1,125 @@
 <!doctype html>
-<!--suppress XmlUnboundNsPrefix -->
 <html lang="en"
       layout:decorate="~{util/fragments/layouts/default/layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<div class="items-center justify-center align-top mx-auto w-5/6" layout:fragment="content" th:fragment="search-results">
+<div layout:fragment="content" th:fragment="search-results">
 
-    <!--/* ======================================================================================================= */-->
-    <!--/* Search form */-->
-    <div th:insert="~{util/fragments/components/search_asset_form :: form}"></div>
+    <div class="mx-auto w-5/6">
 
-    <!--/* ======================================================================================================= */-->
-    <!--/* Error management */-->
-    <div class="errorManagement">
+        <!--/* =================================================================================================== */-->
+        <!--/* Search form */-->
+        <div th:insert="~{util/fragments/components/search_asset_form :: form}"></div>
 
-        <!--/* No value for the "query" parameter */-->
-        <div th:if="${#strings.isEmpty(query)}"
-             th:insert="~{util/fragments/components/error_message :: error_message(#{search.error.noQuery})}">
+        <!--/* =================================================================================================== */-->
+        <!--/* Error management */-->
+        <div class="errorManagement">
+
+            <!--/* No value for the "query" parameter */-->
+            <div th:if="${#strings.isEmpty(query)}"
+                 th:insert="~{util/fragments/components/error_message :: error_message(#{search.error.noQuery})}">
+            </div>
+
+            <!--/* No result */-->
+            <div th:if="${result != null && result.getTotalElements() == 0}"
+                 th:insert="~{util/fragments/components/error_message :: error_message(#{search.error.noResult(${query})})}">
+            </div>
+
+            <!--/* There is results but not for the page they asked for */-->
+            <div th:if="${result != null && result.getTotalElements() > 0 && result.getContent().isEmpty()}"
+                 th:insert="~{util/fragments/components/error_message :: error_message(#{search.error.invalidPage})}">
+            </div>
+
         </div>
 
-        <!--/* No result */-->
-        <div th:if="${result != null && result.getTotalElements() == 0}"
-             th:insert="~{util/fragments/components/error_message :: error_message(#{search.noResult(${query})})}">
-        </div>
+        <!--/* =================================================================================================== */-->
+        <!--/* Results */-->
+        <div th:if="${result != null && !result.getContent().isEmpty()}">
 
-        <!--/* There is results but not for the page they asked for */-->
-        <div th:if="${result != null && result.getTotalElements() > 0 && result.getContent().isEmpty()}"
-             th:insert="~{util/fragments/components/error_message :: error_message(#{search.error.invalidPage})}">
-        </div>
+            <!--/* If there are results */-->
+            <ul class="divide-y divide-gray-100" role="list">
 
-    </div>
+                <!--/* =========================================================================================== */-->
+                <!--/* For each asset in the result */-->
+                <li class="relative flex justify-between gap-x-6 py-5" th:each="asset: ${result.content}">
 
-    <!--/* ======================================================================================================= */-->
-    <!--/* Results */-->
-    <div th:if="${result != null && !result.getContent().isEmpty()}">
+                    <div class="flex gap-x-4 w-4/5">
+                        <!--/* Icon */-->
+                        <img class="h-12 w-12 flex-none bg-gray-50"
+                             th:alt="${asset.name}"
+                             th:if="${#strings.equalsIgnoreCase(asset.type, 'NORMAL')}"
+                             th:src="@{/svg/type_normal_asset.svg}"/>
 
-        <!--/* If result is present */-->
-        <ul class="divide-y divide-gray-100" role="list">
+                        <img class="h-12 w-12 flex-none bg-gray-50"
+                             th:alt="${asset.name}"
+                             th:if="${#strings.equalsIgnoreCase(asset.type, 'COLLECTIBLE')}"
+                             th:src="@{/svg/type_collectible_asset.svg}"/>
 
-            <!--/* For each asset in the result */-->
-            <li class="relative flex justify-between gap-x-6 py-5" th:each="asset: ${result.content}">
+                        <!--/* Description */-->
+                        <div class="min-w-0 flex-auto">
+                            <p class="text-sm font-semibold leading-6 text-gray-900">
+                                <a hx-push-url="true"
+                                   hx-target="#content"
+                                   th:href="@{'/asset/' + ${asset.assetId}}"
+                                   th:hx-get="@{'/asset/' + ${asset.assetId}}">
+                                    <span class="absolute inset-x-0 -top-px bottom-0"></span>
+                                    <span th:text="${asset.name}"></span>
+                                </a>
+                            </p>
+                            <p class="text-xs text-gray-500 ">
+                                <span class="relative truncate block"
+                                      th:text="@{#{data.asset.assetId} + ': ' + ${asset.assetId}}">
 
-                <div class="flex gap-x-4 w-4/5">
-                    <img alt="coin"
-                         class="h-12 w-12 flex-none bg-gray-50"
-                         th:alt="${asset.name}" th:src="@{/svg/coin.svg}"/>
-                    <div class="min-w-0 flex-auto">
-                        <p class="text-sm font-semibold leading-6 text-gray-900">
-                            <a hx-push-url="true"
-                               hx:get="|/asset/${asset.assetId}|"
-                               hx:target="|#content|"
-                               th:href="@{'/asset/' + ${asset.assetId}}">
-                                <span class="absolute inset-x-0 -top-px bottom-0"></span>
-                                <span th:text="${asset.name}"></span>
-                            </a>
-                        </p>
-                        <p class="text-xs text-gray-500 ">
-                        <span class="relative truncate block"
-                              th:text="@{#{field.asset.assetId} + ': ' + ${asset.assetId}}"></span>
-                            <span class="relative truncate block"
-                                  th:text="@{#{field.asset.genesisPoint} + ': ' + ${asset.genesisPoint}}"></span>
-                            <span class="relative truncate block"
-                                  th:text="@{#{field.asset.creator.username} + ': ' + ${asset.creator.username}}"></span>
-                        </p>
+                                </span>
+                                <span class="relative truncate block"
+                                      th:if="${asset.assetGroup != null}"
+                                      th:text="@{#{data.asset.tweakedGroupKey} + ': ' + ${asset.assetGroup.tweakedGroupKey}}">
+                                </span>
+                                <span class="relative truncate block"
+                                      th:if="${#strings.equalsIgnoreCase(asset.type, 'NORMAL')}"
+                                      th:text="@{#{data.asset.amount} + ': ' + ${asset.amount}}">
+                                </span>
+                                <span class="relative truncate block"
+                                      th:text="@{#{data.asset.creator} + ': ' + ${asset.creator.username}}">
+
+                                </span>
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="flex items-center gap-x-4">
-                    <svg aria-hidden="true" class="h-5 w-5 flex-none text-gray-400" fill="currentColor"
-                         viewBox="0 0 20 20">
-                        <path clip-rule="evenodd"
-                              d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                              fill-rule="evenodd"/>
-                    </svg>
-                </div>
-
-            </li>
-        </ul>
-
-        <!--/* Pages numbers */-->
-        <div class="mb-16">
-            <ul class="pagination" th:if="${result.getTotalElements() > 0}">
-                <!--/* Page list (current one and the others) */-->
-                <li th:each="pageNumber: ${#numbers.sequence(1, result.totalPages)}">
-
-                    <a aria-current="page"
-                       class="paginationSelectedPage"
-                       href="#"
-                       th:if="${page == pageNumber}"
-                       th:text="${pageNumber}">3</a>
-
-                    <a class="paginationNotSelectedPage"
-                       hx-push-url="true"
-                       hx:get="|/search?query=${query}&page=${pageNumber}|"
-                       hx:target="|#content|"
-                       th:href="@{'/search?query=' + ${query} + '&page=' + ${pageNumber}}"
-                       th:if="${page != pageNumber}"
-                       th:text="${pageNumber}"></a>
 
                 </li>
+                <!--/* =========================================================================================== */-->
+
             </ul>
+
+            <!--/* Pages numbers */-->
+            <div class="join" th:if="${result.getTotalPages() > 1}">
+                <div th:each="pageNumber: ${#numbers.sequence(1, result.totalPages)}">
+
+                    <!--/* Current page */-->
+                    <button class="join-item btn"
+                            th:if="${page == pageNumber}"
+                            th:text="${pageNumber}">
+                    </button>
+
+                    <!--/* Other pages */-->
+                    <a class="join-item btn btn-active"
+                       hx-push-url="true"
+                       hx-target="#content"
+                       th:href="@{'/search?query=' + ${query} + '&page=' + ${pageNumber}}"
+                       th:hx-get="@{'/search?query=' + ${query} + '&page=' + ${pageNumber}}"
+                       th:if="${page != pageNumber}"
+                       th:text="${pageNumber}">
+                    </a>
+
+                </div>
+            </div>
+            <!--/* TODO Replace multiple "<br>" this with something more clean */-->
+            <br><br><br><br><br><br><br><br>
+
         </div>
-
     </div>
-
 </div>
 
 </html>

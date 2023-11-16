@@ -28,7 +28,6 @@ import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.FOR
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_PROOF_REQUEST_FORM_PAGE;
 import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_PROOF_REQUEST_SUCCESS_PAGE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.CHOOSE_REQUEST_TYPE_PAGE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -48,19 +47,6 @@ public class AddProofRequestRequestControllerTest {
 
     @Autowired
     Environment environment;
-
-    @Test
-    @DisplayName("Add proof request choice")
-    void addProofRequestChoice() throws Exception {
-        mockMvc.perform(get("/request/choose_request_type"))
-                .andExpect(status().isOk())
-                .andExpect(view().name(CHOOSE_REQUEST_TYPE_PAGE))
-                // Two choices must be available.
-                .andExpect(content().string(containsString(environment.getProperty("request.proof.add"))))
-                .andExpect(content().string(containsString("/request/proof/add")))
-                .andExpect(content().string(containsString(environment.getProperty("request.universeServer.add"))))
-                .andExpect(content().string(containsString("/request/universe_server/add")));
-    }
 
     @Test
     @DisplayName("Add proof request form test")

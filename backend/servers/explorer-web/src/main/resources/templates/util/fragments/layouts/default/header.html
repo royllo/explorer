@@ -1,13 +1,12 @@
-<!--suppress ALL -->
 <header class="navbar">
 
     <!--/* Left side (Use flex-1 to allow a flex item to grow and shrink as needed, ignoring its initial size) */-->
     <div class="flex-1">
 
-        <!--/* Left logo with link */-->
-        <a hx-push-url="true"
-           hx:get="|/|"
-           hx:target="|#content|"
+        <!--/* Left side with logo & link */-->
+        <a hx-get="/"
+           hx-push-url="true"
+           hx-target="#content"
            th:href="@{/}">
             <img alt="Royllo Logo"
                  height="52"
