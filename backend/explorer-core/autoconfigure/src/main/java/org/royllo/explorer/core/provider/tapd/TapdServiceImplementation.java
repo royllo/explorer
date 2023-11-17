@@ -29,7 +29,7 @@ import javax.net.ssl.SSLException;
 public class TapdServiceImplementation extends BaseProviderService implements TapdService {
 
     /** Webflux codec maximum size. */
-    public static final int CODEC_MAXIMUM_SIZE = 64 * 1024 * 1024;
+    public static final int CODEC_MAXIMUM_SIZE = 32 * 1024 * 1024;
 
     /** Outgoing rate limits parameters. */
     private final OutgoingRateLimitsParameters outgoingRateLimitsParameters;
