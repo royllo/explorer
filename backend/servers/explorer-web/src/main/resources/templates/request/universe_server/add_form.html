@@ -8,33 +8,45 @@
 
     <!--/* ======================================================================================================= */-->
     <!--/* Display form */-->
-    <div class="pt-12 w-2/5 mx-auto">
+    <div class="pt-12 md:w-2/5 w-5/6 mx-auto">
         <form method="post" th:action="@{/request/universe_server/add}" th:object="${command}">
 
             <!--/* Server address */-->
-            <label class="block text-sm font-semibold leading-6 text-gray-900" for="serverAddress"
-                   th:text="#{request.universeServer.serverAddress}"></label>
-            <div class="mt-2.5">
-                <input autocomplete="false"
-                       autofocus
-                       class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                       id="serverAddress"
-                       name="serverAddress"
-                       required
-                       th:field="*{serverAddress}"
-                       th:placeholder="#{request.universeServer.serverAddress.helper}"
-                       type="text">
+            <label class="label" for="serverAddress">
+                <span class="label-text" th:text="#{request.universeServer.serverAddress}"></span>
+            </label>
+            <input autocomplete="false"
+                   autofocus
+                   class="input input-bordered w-full"
+                   id="serverAddress"
+                   name="serverAddress"
+                   required
+                   th:field="*{serverAddress}"
+                   th:placeholder="#{request.universeServer.serverAddress.helper}"
+                   type="text"/>
+
+            <!--/* Error messages */-->
+            <!--/* TODO Replace with inserting "error_message.html" */-->
+            <div th:each="error: ${#fields.errors('*')}"
+                 th:if="${#fields.hasErrors('serverAddress')}">
+                <div class="alert alert-error my-4" th:fragment="error_message(message)">
+                    <svg class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"/>
+                    </svg>
+                    <span th:text="${error}"></span>
+                </div>
             </div>
-            <p class="mt-2 text-sm text-red-600 dark:text-red-500" th:errors="*{serverAddress}"
-               th:if="${#fields.hasErrors('serverAddress')}"></p>
-            <br/>
-            <button class="defaultButton"
+
+            <button class="btn btn-primary mt-6"
                     th:text="#{request.universeServer.submit}"
                     type="submit"></button>
-            <br/>
-            <br/>
 
-            <div class="my-12">&nbsp;</div>
+            <!--/* TODO Replace this with something more clean */-->
+            <div class="my-16">&nbsp</div>
         </form>
     </div>
 
