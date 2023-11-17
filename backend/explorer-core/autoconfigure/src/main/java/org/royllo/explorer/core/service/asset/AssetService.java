@@ -3,6 +3,7 @@ package org.royllo.explorer.core.service.asset;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -11,9 +12,10 @@ import java.util.Optional;
 public interface AssetService {
 
     /**
-     * Query assets.
-     * - Search if the "query" parameter is an assetId, if true, returns only this one.
-     * - Search if the "query" parameter contains in assets name.
+     * Query assets following this algorithm:
+     * - Search if the "query" parameter is a tweaked group keys (asset group) > returns all assets of this asset group.
+     * - Search if the "query" parameter is an assetId (asset) > returns the asset.
+     * - Else search the "query" parameter in assets names.
      *
      * @param query    the query
      * @param page     the page we want to retrieve (First page is page 1)
@@ -45,5 +47,13 @@ public interface AssetService {
      * @return asset
      */
     Optional<AssetDTO> getAssetByAssetId(String assetId);
+
+    /**
+     * Get assets by asset group id.
+     *
+     * @param assetGroupId asset group id
+     * @return assets
+     */
+    List<AssetDTO> getAssetsByAssetGroupId(String assetGroupId);
 
 }

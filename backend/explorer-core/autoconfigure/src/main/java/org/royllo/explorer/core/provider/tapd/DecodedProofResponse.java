@@ -64,6 +64,22 @@ public class DecodedProofResponse {
         @JsonProperty("exclusion_proofs")
         List<String> exclusionProofs;
 
+        /** An optional TaprootProof needed if this asset is the result of a split. SplitRootProof proves inclusion of the root asset of the split. */
+        @JsonProperty("split_root_proof")
+        String splitRootProof;
+
+        /** The number of additional nested full proofs for any inputs found within the resulting asset. */
+        @JsonProperty("num_additional_inputs")
+        long numberOfAdditionalInputs;
+
+        /** ChallengeWitness is an optional virtual transaction witness that serves as an ownership proof for the asset. */
+        @JsonProperty("challenge_witness")
+        List<String> challengeWitness;
+
+        /** Indicates whether the state transition this proof represents is a burn, meaning that the assets were provably destroyed and can no longer be spent. */
+        @JsonProperty("is_burn")
+        Boolean isBurn;
+
         @Getter
         @Setter
         @NoArgsConstructor
@@ -78,10 +94,6 @@ public class DecodedProofResponse {
             /** Asset genesis. */
             @JsonProperty("asset_genesis")
             AssetGenesis assetGenesis;
-
-            /** Asset type. */
-            @JsonProperty("asset_type")
-            String assetType;
 
             /** Amount. */
             @JsonProperty("amount")
@@ -115,6 +127,39 @@ public class DecodedProofResponse {
             @JsonProperty("prev_witnesses")
             List<String> prevWitnesses;
 
+            /** Indicates whether the asset has been spent. */
+            @JsonProperty("is_spent")
+            Boolean isSpent;
+
+            /** If the asset has been leased, this is the owner (application ID) of the lease. */
+            @JsonProperty("lease_owner")
+            String leaseOwner;
+
+            /** If the asset has been leased, this is the expiry of the lease as a Unix timestamp in seconds. */
+            @JsonProperty("lease_expiry")
+            String leaseExpiry;
+
+            /** Indicates whether this transfer was an asset burn. If true, the number of assets in this output are destroyed and can no longer be spent. */
+            @JsonProperty("is_burn")
+            Boolean isBurn;
+
+            /**
+             * If the asset has been leased, this is the expiry of the lease as a Unix timestamp in seconds.
+             *
+             * @return lease expiry timestamp
+             */
+            public final Long getLeaseExpiryTimestamp() {
+                if (leaseExpiry == null) {
+                    return 0L;
+                } else {
+                    try {
+                        return Long.parseLong(leaseExpiry);
+                    } catch (NumberFormatException e) {
+                        return 0L;
+                    }
+                }
+            }
+
             @Getter
             @Setter
             @NoArgsConstructor
@@ -137,6 +182,10 @@ public class DecodedProofResponse {
                 /** Asset id. */
                 @JsonProperty("asset_id")
                 String assetId;
+
+                /** Asset type. */
+                @JsonProperty("asset_type")
+                String assetType;
 
                 /** Output index. */
                 @JsonProperty("output_index")
@@ -203,6 +252,10 @@ public class DecodedProofResponse {
                 /** The serialized preimage of a Tapscript sibling, if there was one. */
                 @JsonProperty("tapscript_sibling")
                 String tapscriptSibling;
+
+                /** Block height. */
+                @JsonProperty("block_height")
+                long blockHeight;
 
             }
 

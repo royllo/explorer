@@ -34,7 +34,7 @@
         ],
         "is_spent": false
       },
-      "issuance_proof": "asset_id_5_proof"
+      "proof": "asset_id_5_proof"
     }
   ]
 }

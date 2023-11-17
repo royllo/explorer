@@ -29,9 +29,6 @@ import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_US
 @SuppressWarnings({"checkstyle:DesignForExtension", "unused"})
 public class AssetStateServiceImplementation extends BaseService implements AssetStateService {
 
-    /** Search parameter for asset id. */
-    public static final String SEARCH_PARAMETER_ASSET_ID = "assetId:";
-
     /** Assert group repository. */
     private final AssetGroupRepository assetGroupRepository;
 
@@ -49,33 +46,6 @@ public class AssetStateServiceImplementation extends BaseService implements Asse
 
     /** Bitcoin service. */
     private final BitcoinService bitcoinService;
-
-    @Override
-    public Page<AssetStateDTO> queryAssetStates(@NonNull final String query,
-                                                final int page,
-                                                final int pageSize) {
-        logger.info("Searching for {}", query);
-
-        // For the moment, we only support a "assetId:value" query.
-        assert query.contains(SEARCH_PARAMETER_ASSET_ID) : "Only assetId:value query is supported";
-
-        // Checking constraints.
-        assert page >= 1 : "Page number starts at page 1";
-
-        // Results that will be returned.
-        Page<AssetStateDTO> results = Page.empty();
-
-        // If the query parameter contains "assetId:value", retrieve the value
-        // and search for all the asset states of this asset.
-        if (query.contains(SEARCH_PARAMETER_ASSET_ID)) {
-            final String assetId = query.trim().split(SEARCH_PARAMETER_ASSET_ID)[1];
-            results = assetStateRepository.findByAsset_AssetIdOrderById(assetId,
-                            PageRequest.of(page - 1, pageSize))
-                    .map(ASSET_STATE_MAPPER::mapToAssetStateDTO);
-        }
-
-        return results;
-    }
 
     @Override
     public AssetStateDTO addAssetState(final @NonNull AssetStateDTO newAssetState) {
@@ -134,6 +104,20 @@ public class AssetStateServiceImplementation extends BaseService implements Asse
             logger.info("Asset state with asset state id {} found: {}", assetStateId, assetState.get());
             return assetState.map(ASSET_STATE_MAPPER::mapToAssetStateDTO);
         }
+    }
+
+    @Override
+    public Page<AssetStateDTO> getAssetStatesByAssetId(@NonNull final String assetId,
+                                                       final int page,
+                                                       final int pageSize) {
+        logger.info("Getting asset states where asset state id = {}", assetId);
+
+        // Checking constraints.
+        assert page >= 1 : "Page number starts at page 1";
+
+        // Results.
+        return assetStateRepository.findByAsset_AssetIdOrderById(assetId, PageRequest.of(page - 1, pageSize))
+                .map(ASSET_STATE_MAPPER::mapToAssetStateDTO);
     }
 
 }

@@ -10,19 +10,6 @@ import java.util.Optional;
  */
 public interface AssetStateService {
 
-
-    /**
-     * Query asset states.
-     * TODO Replace this method by a getAssetStatesByAssetId(String assetId) method.
-     * - Search if the "query" parameter contains "assetId:" in the beginning, if true, returns all lined asset states.
-     *
-     * @param query    the query
-     * @param page     the page we want to retrieve (First page is page 1)
-     * @param pageSize the page size
-     * @return list of asset states corresponding to the search
-     */
-    Page<AssetStateDTO> queryAssetStates(String query, int page, int pageSize);
-
     /**
      * Add an asset state.
      *
@@ -38,5 +25,15 @@ public interface AssetStateService {
      * @return asset state
      */
     Optional<AssetStateDTO> getAssetStateByAssetStateId(String assetStateId);
+
+    /**
+     * Get asset states by asset id.
+     *
+     * @param assetId  asset id
+     * @param page     page number
+     * @param pageSize page size
+     * @return list of asset states of the corresponding assetId
+     */
+    Page<AssetStateDTO> getAssetStatesByAssetId(String assetId, int page, int pageSize);
 
 }

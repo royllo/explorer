@@ -10,7 +10,10 @@ import java.math.BigInteger;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.royllo.test.MempoolData.ROYLLO_COIN_ANCHOR_1_TXID;
+import static org.royllo.test.MempoolData.ROYLLO_COIN_ANCHOR_1_VOUT;
 import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_TXID;
+import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_VOUT;
 
 @DisplayName("Test transactions data")
 public class MempoolDataTest {
@@ -27,33 +30,41 @@ public class MempoolDataTest {
         final TransactionValue transaction = MempoolData.findTransactionByTransactionId(ROYLLO_COIN_GENESIS_TXID);
         assertNotNull(transaction);
         assertEquals(ROYLLO_COIN_GENESIS_TXID, transaction.getTxId());
-        assertEquals(2, transaction.getResponse().getVout().size());
+        assertEquals(25, transaction.getResponse().getVout().size());
     }
 
     @Test
     @DisplayName("Royllo coin transaction value")
     public void roylloCoinTransactionValue() {
-        final TransactionValue transaction = MempoolData.findTransactionByTransactionId(ROYLLO_COIN_GENESIS_TXID);
-        assertNotNull(transaction);
-        assertEquals(ROYLLO_COIN_GENESIS_TXID, transaction.getResponse().getTxId());
-        assertEquals(2534138, transaction.getResponse().getStatus().getBlockHeight());
-        assertEquals(2, transaction.getResponse().getVout().size());
+        // Genesis txid.
+        final TransactionValue genesisTransaction = MempoolData.findTransactionByTransactionId(ROYLLO_COIN_GENESIS_TXID);
+        assertNotNull(genesisTransaction);
+        assertEquals(ROYLLO_COIN_GENESIS_TXID, genesisTransaction.getResponse().getTxId());
+        assertEquals(816513, genesisTransaction.getResponse().getStatus().getBlockHeight());
+        assertEquals(25, genesisTransaction.getResponse().getVout().size());
 
-        // VOut 0.
-        final GetTransactionValueResponse.VOut vOut0 = transaction.getResponse().getVout().get(0);
-        assertEquals("00142e42579b5194674680049c65249edb0893aa2d6b", vOut0.getScriptPubKey());
-        assertEquals("OP_0 OP_PUSHBYTES_20 2e42579b5194674680049c65249edb0893aa2d6b", vOut0.getScriptPubKeyAsm());
-        assertEquals("v0_p2wpkh", vOut0.getScriptPubKeyType());
-        assertEquals("tb1q9ep90x63j3n5dqqyn3jjf8kmpzf65tttupudyg", vOut0.getScriptPubKeyAddress());
-        assertEquals(0, BigInteger.valueOf(1100379).compareTo(vOut0.getValue()));
+        // Genesis vOut.
+        final GetTransactionValueResponse.VOut genesisVOut = genesisTransaction.getResponse().getVout().get(ROYLLO_COIN_GENESIS_VOUT);
+        assertEquals("001472ce14cdf4c24b53e7c45d1bd1eaa904114de962", genesisVOut.getScriptPubKey());
+        assertEquals("OP_0 OP_PUSHBYTES_20 72ce14cdf4c24b53e7c45d1bd1eaa904114de962", genesisVOut.getScriptPubKeyAsm());
+        assertEquals("v0_p2wpkh", genesisVOut.getScriptPubKeyType());
+        assertEquals("bc1qwt8pfn05cf948e7yt5dar64fqsg5m6tz8835gs", genesisVOut.getScriptPubKeyAddress());
+        assertEquals(0, BigInteger.valueOf(287379).compareTo(genesisVOut.getValue()));
 
-        // VOut 1.
-        final GetTransactionValueResponse.VOut vOut1 = transaction.getResponse().getVout().get(1);
-        assertEquals("00149254ff3e9788825ebe42dd2cc251fead1d8b2938", vOut1.getScriptPubKey());
-        assertEquals("OP_0 OP_PUSHBYTES_20 9254ff3e9788825ebe42dd2cc251fead1d8b2938", vOut1.getScriptPubKeyAsm());
-        assertEquals("v0_p2wpkh", vOut1.getScriptPubKeyType());
-        assertEquals("tb1qjf20705h3zp9a0jzm5kvy50745wck2fcp5zq02", vOut1.getScriptPubKeyAddress());
-        assertEquals(0, BigInteger.valueOf(1239334904).compareTo(vOut1.getValue()));
+        // Anchor 1 txid.
+        final TransactionValue anchor1Transaction = MempoolData.findTransactionByTransactionId(ROYLLO_COIN_ANCHOR_1_TXID);
+        assertNotNull(anchor1Transaction);
+        assertEquals(ROYLLO_COIN_ANCHOR_1_TXID, anchor1Transaction.getResponse().getTxId());
+        assertEquals(816610, anchor1Transaction.getResponse().getStatus().getBlockHeight());
+        assertEquals(2, anchor1Transaction.getResponse().getVout().size());
+
+        // Anchor 1 vOut.
+        final GetTransactionValueResponse.VOut anchor1VOut = anchor1Transaction.getResponse().getVout().get(ROYLLO_COIN_ANCHOR_1_VOUT);
+        assertEquals("51200e7b1c167645f8fea7d7d52d9fd2655822d53e9f56e7ce5261635955d18906f1", anchor1VOut.getScriptPubKey());
+        assertEquals("OP_PUSHNUM_1 OP_PUSHBYTES_32 0e7b1c167645f8fea7d7d52d9fd2655822d53e9f56e7ce5261635955d18906f1", anchor1VOut.getScriptPubKeyAsm());
+        assertEquals("v1_p2tr", anchor1VOut.getScriptPubKeyType());
+        assertEquals("bc1ppea3c9nkghu0af7h65kel5n9tq3d205l2mnuu5npvdv4t5vfqmcsh2ttkn", anchor1VOut.getScriptPubKeyAddress());
+        assertEquals(0, BigInteger.valueOf(1000).compareTo(anchor1VOut.getValue()));
     }
 
 }

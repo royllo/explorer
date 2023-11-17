@@ -13,7 +13,7 @@ import org.royllo.explorer.core.service.asset.AssetGroupService;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.asset.AssetStateService;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
-import org.royllo.explorer.core.service.proof.ProofFileService;
+import org.royllo.explorer.core.service.proof.ProofService;
 import org.royllo.explorer.core.service.request.RequestService;
 import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +68,7 @@ public class UnknownRoylloCoinIntegrationTest extends TestWithMockServers {
     AssetStateService assetStateService;
 
     @Autowired
-    ProofFileService proofService;
+    ProofService proofService;
 
     @Autowired
     RequestService requestService;
@@ -82,13 +82,13 @@ public class UnknownRoylloCoinIntegrationTest extends TestWithMockServers {
         // unknownRoylloCoin is not in our database - We add it (No asset group).
         final String UNKNOWN_ROYLLO_COIN_RAW_PROOF = UNKNOWN_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getRawProof();
         final String UNKNOWN_ROYLLO_COIN_PROOF_ID = sha256(UNKNOWN_ROYLLO_COIN_RAW_PROOF);
-        final String UNKNOWN_ROYLLO_COIN_STATE_ID = UNKNOWN_ROYLLO_COIN_FROM_TEST.getDecodedProof(0).getAsset().getAssetStateId();
+        final String UNKNOWN_ROYLLO_COIN_STATE_ID = UNKNOWN_ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetStateId();
 
         // =============================================================================================================
         // We check that the asset doesn't already exist.
         assertFalse(assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
         assertFalse(assetStateService.getAssetStateByAssetStateId(UNKNOWN_ROYLLO_COIN_STATE_ID).isPresent());
-        assertFalse(proofService.getProofFileByProofFileId(UNKNOWN_ROYLLO_COIN_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofByProofId(UNKNOWN_ROYLLO_COIN_PROOF_ID).isPresent());
 
         // =============================================================================================================
         // We count how many items we have before inserting.
@@ -118,7 +118,7 @@ public class UnknownRoylloCoinIntegrationTest extends TestWithMockServers {
         assertTrue(bitcoinService.getBitcoinTransactionOutput(UNKNOWN_ROYLLO_COIN_ANCHOR_1_TXID, UNKNOWN_ROYLLO_COIN_ANCHOR_1_VOUT).isPresent());
         assertTrue(assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
         assertTrue(assetStateService.getAssetStateByAssetStateId(UNKNOWN_ROYLLO_COIN_STATE_ID).isPresent());
-        assertTrue(proofService.getProofFileByProofFileId(UNKNOWN_ROYLLO_COIN_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofByProofId(UNKNOWN_ROYLLO_COIN_PROOF_ID).isPresent());
 
         // =============================================================================================================
         // We check that nothing more has been created.
@@ -137,7 +137,7 @@ public class UnknownRoylloCoinIntegrationTest extends TestWithMockServers {
                 UNKNOWN_ROYLLO_COIN_ASSET_ID,
                 UNKNOWN_ROYLLO_COIN_ANCHOR_1_TXID,
                 UNKNOWN_ROYLLO_COIN_ANCHOR_1_VOUT,
-                UNKNOWN_ROYLLO_COIN_FROM_TEST.getDecodedProof(0).getAsset().getScriptKey());
+                UNKNOWN_ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(0).getAsset().getScriptKey());
     }
 
 }

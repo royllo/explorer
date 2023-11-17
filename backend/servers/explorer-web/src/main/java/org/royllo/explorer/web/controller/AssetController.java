@@ -5,10 +5,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.asset.AssetStateDTO;
-import org.royllo.explorer.core.dto.proof.ProofFileDTO;
+import org.royllo.explorer.core.dto.proof.ProofDTO;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.asset.AssetStateService;
-import org.royllo.explorer.core.service.proof.ProofFileService;
+import org.royllo.explorer.core.service.proof.ProofService;
 import org.royllo.explorer.web.util.base.BaseController;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -21,7 +21,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
-import static org.royllo.explorer.core.service.asset.AssetStateServiceImplementation.SEARCH_PARAMETER_ASSET_ID;
 import static org.royllo.explorer.web.configuration.WebConfiguration.ASSET_PROOFS_DEFAULT_PAGE_SIZE;
 import static org.royllo.explorer.web.configuration.WebConfiguration.ASSET_STATES_DEFAULT_PAGE_SIZE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_ID_ATTRIBUTE;
@@ -47,7 +46,7 @@ public class AssetController extends BaseController {
     private final AssetStateService assetStateService;
 
     /** Proof file service. */
-    private final ProofFileService proofFileService;
+    private final ProofService proofService;
 
     /**
      * Page displaying an asset.
@@ -74,15 +73,14 @@ public class AssetController extends BaseController {
 
                 // =========================================================================================================
                 // We retrieve the asset states.
-                final Page<AssetStateDTO> assetStates = assetStateService.queryAssetStates(SEARCH_PARAMETER_ASSET_ID + assetId.trim(),
-                        1,
+                final Page<AssetStateDTO> assetStates = assetStateService.getAssetStatesByAssetId(assetId.trim(), 1,
                         ASSET_STATES_DEFAULT_PAGE_SIZE);
                 model.addAttribute(ASSET_STATES_LIST_ATTRIBUTE, assetStates.getContent());
 
                 // =========================================================================================================
                 // We retrieve the proof files.
                 model.addAttribute(PROOF_FILES_LIST_ATTRIBUTE,
-                        proofFileService.getProofFilesByAssetId(assetId.trim(),
+                        proofService.getProofByAssetId(assetId.trim(),
                                 1,
                                 ASSET_PROOFS_DEFAULT_PAGE_SIZE));
             }
@@ -96,7 +94,7 @@ public class AssetController extends BaseController {
     }
 
     /**
-     * Returns a proof file.
+     * Returns a proof.
      *
      * @param proofFileId proof file id
      * @return proof file
@@ -104,9 +102,9 @@ public class AssetController extends BaseController {
     @GetMapping(value = "/asset/{assetId}/proof_file/{proofFileId}",
             produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public @ResponseBody byte[] getProofFile(@PathVariable(value = PROOF_FILE_ID_ATTRIBUTE) final String proofFileId) {
-        final Optional<ProofFileDTO> proofFile = proofFileService.getProofFileByProofFileId(proofFileId);
+        final Optional<ProofDTO> proofFile = proofService.getProofByProofId(proofFileId);
         if (proofFile.isPresent()) {
-            return proofFile.get().getRawProof().getBytes();
+            return proofFile.get().getProof().getBytes();
         } else {
             throw new ResponseStatusException(NOT_FOUND, "Proof file not found");
         }

@@ -27,18 +27,17 @@ public class AssetStateDataFetcher extends BaseDataFetcher {
     private final AssetStateService assetStateService;
 
     /**
-     * Query asset states.
-     * * - Search if the "query" parameter contains "assetId:" in the beginning, if true, returns all lined asset states.
+     * Get asset state by asset state id.
      *
-     * @param query    the query to search for
+     * @param assetId  asset id
      * @param page     the page number you want
      * @param pageSize the page size you want
      * @return list of assets corresponding to the search
      */
     @DgsQuery
-    public final Page<AssetStateDTO> queryAssetStates(final @InputArgument String query,
-                                                      final @InputArgument Integer page,
-                                                      final @InputArgument Integer pageSize) {
+    public final Page<AssetStateDTO> assetStatesByAssetId(final @InputArgument String assetId,
+                                                          final @InputArgument Integer page,
+                                                          final @InputArgument Integer pageSize) {
         // Value we will use.
         final int finalPage = Objects.requireNonNullElse(page, FIRST_PAGE);
         final int finalPageSize = Objects.requireNonNullElse(pageSize, DEFAULT_PAGE_SIZE);
@@ -51,8 +50,7 @@ public class AssetStateDataFetcher extends BaseDataFetcher {
             throw new DgsInvalidInputArgumentException("Page number starts at page " + FIRST_PAGE, null);
         }
 
-        // Return the results.
-        return assetStateService.queryAssetStates(query,
+        return assetStateService.getAssetStatesByAssetId(assetId,
                 finalPage,
                 finalPageSize);
     }

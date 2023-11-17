@@ -39,10 +39,10 @@ public interface RequestService {
     /**
      * Creates a request to add a raw proof.
      *
-     * @param rawProof Raw proof that validates the asset information
+     * @param proof proof that validates the asset information
      * @return id The request created
      */
-    AddProofRequestDTO createAddProofRequest(String rawProof);
+    AddProofRequestDTO createAddProofRequest(String proof);
 
     /**
      * Creates a request to add an asset meta data.

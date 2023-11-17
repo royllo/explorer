@@ -46,8 +46,8 @@ public class BitcoinServiceTest extends TestWithMockServers {
         // Getting a transaction output already in our database but the output doesn't exists.
         assertTrue(bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 0).isPresent());
         assertTrue(bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 1).isPresent());
-        assertTrue(bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 2).isEmpty());
-        assertTrue(bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 3).isEmpty());
+        assertTrue(bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 24).isPresent());
+        assertTrue(bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 25).isEmpty());
 
         // =============================================================================================================
         // Getting a transaction that doesn't exist in our database or in the blockchain.
@@ -58,6 +58,7 @@ public class BitcoinServiceTest extends TestWithMockServers {
         bto = bitcoinService.getBitcoinTransactionOutput(UNKNOWN_ROYLLO_COIN_GENESIS_TXID, 0);
         assertTrue(bto.isPresent());
         verifyTransaction(bto.get(), UNKNOWN_ROYLLO_COIN_GENESIS_TXID);
+        final Long outputId = bto.get().getId();
 
         // =============================================================================================================
         // Getting a transaction that doesn't exist in our database but exists in the blockchain (index 1).
@@ -69,20 +70,12 @@ public class BitcoinServiceTest extends TestWithMockServers {
         // Getting again a transaction we saved in database. Check we did not create a duplicate.
         bto = bitcoinService.getBitcoinTransactionOutput(UNKNOWN_ROYLLO_COIN_GENESIS_TXID, 0);
         assertTrue(bto.isPresent());
-        assertEquals(17, bto.get().getId());
+        assertEquals(outputId, bto.get().getId());
 
         // =============================================================================================================
         // Getting a transaction that doesn't exist in our database but exists in the blockchain.
         // But the output specified does not exist !
-        assertTrue(bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 3).isEmpty());
-
-        // =============================================================================================================
-        // Checking others output indexes on our transaction in blockchain.
-        assertTrue(bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 0).isPresent());
-        assertTrue(bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 1).isPresent());
-        assertTrue(bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 2).isEmpty());
-        assertTrue(bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 3).isEmpty());
-        assertTrue(bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 4).isEmpty());
+        assertTrue(bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 25).isEmpty());
     }
 
 }

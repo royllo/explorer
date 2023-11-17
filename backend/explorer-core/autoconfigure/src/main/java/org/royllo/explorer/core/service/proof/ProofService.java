@@ -1,42 +1,42 @@
 package org.royllo.explorer.core.service.proof;
 
-import org.royllo.explorer.core.dto.proof.ProofFileDTO;
+import org.royllo.explorer.core.dto.proof.ProofDTO;
 import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.springframework.data.domain.Page;
 
 import java.util.Optional;
 
 /**
- * Proof file service.
+ * Proof service.
  */
-public interface ProofFileService {
+public interface ProofService {
 
     /**
      * Add a new proof to the database.
      *
-     * @param rawProof     raw proof
+     * @param proof        proof
      * @param decodedProof decoded proof
      * @return the proof created
      */
-    ProofFileDTO addProof(String rawProof,
-                          DecodedProofResponse decodedProof);
+    ProofDTO addProof(String proof,
+                      DecodedProofResponse decodedProof);
 
     /**
-     * Get a proof file by its proof file id.
+     * Get a proof by its proof id.
      *
-     * @param proofFileId proof file id
+     * @param proofId proof id
      * @return proof
      */
-    Optional<ProofFileDTO> getProofFileByProofFileId(String proofFileId);
+    Optional<ProofDTO> getProofByProofId(String proofId);
 
     /**
-     * Returns the proof files of a specific asset.
+     * Returns the proof of a specific asset.
      *
      * @param assetId  asset id
      * @param page     the page number we want to retrieve (First page is page 1)
      * @param pageSize the page size
      * @return proofs
      */
-    Page<ProofFileDTO> getProofFilesByAssetId(String assetId, int page, int pageSize);
+    Page<ProofDTO> getProofByAssetId(String assetId, int page, int pageSize);
 
 }

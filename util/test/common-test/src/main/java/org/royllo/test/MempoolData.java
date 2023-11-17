@@ -27,8 +27,11 @@ public class MempoolData {
 
     // =================================================================================================================
     // RoylloCoin.
-    public static final String ROYLLO_COIN_GENESIS_TXID = "04feaf85babeeb5662e1139edd48b889ec178880cc69bbe38b5820dae322c75b";
-    public static final String ROYLLO_COIN_ANCHOR_1_TXID = "c28a42586b36ac499c6d36da792d98176572573124dbc82526d02bbad5b3d9c7";
+    public static final String ROYLLO_COIN_GENESIS_TXID = "d22de9a2de657c262a2c20c14500b8adca593c96f3fb85bfd756ba66626b9fcb";
+    public static final int ROYLLO_COIN_GENESIS_VOUT = 4;
+
+    public static final String ROYLLO_COIN_ANCHOR_1_TXID = "ca8d2eb13b25fd0b363d92de2655988b49bc5b519f282d41e10ce117beb97558";
+    public static final int ROYLLO_COIN_ANCHOR_1_VOUT = 0;
 
     // =================================================================================================================
     // roylloNFT.
@@ -54,7 +57,6 @@ public class MempoolData {
 
     // =================================================================================================================
     // trickyRoylloCoin.
-    // TODO Add missing transactions.
     public static final String TRICKY_ROYLLO_COIN_GENESIS_TXID = "2777e306451f6d5231f4b17b8286412e1e13ef153800086cf879baae89d9df76";
     public static final int TRICKY_ROYLLO_COIN_GENESIS_VOUT = 1;
 

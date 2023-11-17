@@ -9,6 +9,7 @@ import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 import org.royllo.explorer.web.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
@@ -37,6 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @DisplayName("Search controller tests")
 @AutoConfigureMockMvc
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @PropertySource("classpath:messages.properties")
 public class SearchControllerTest extends BaseTest {
 
@@ -221,7 +223,7 @@ public class SearchControllerTest extends BaseTest {
      */
     private void createFakeAssets(final int numberOfAssets) {
         // Transaction used.
-        final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 0);
+        final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 4);
         assertTrue(bto.isPresent());
 
         // Create fake assets.

@@ -6,7 +6,7 @@ import org.royllo.explorer.core.util.mapper.AssetGroupMapper;
 import org.royllo.explorer.core.util.mapper.AssetMapper;
 import org.royllo.explorer.core.util.mapper.AssetStateMapper;
 import org.royllo.explorer.core.util.mapper.BitcoinMapper;
-import org.royllo.explorer.core.util.mapper.ProofFileMapper;
+import org.royllo.explorer.core.util.mapper.ProofMapper;
 import org.royllo.explorer.core.util.mapper.RequestMapper;
 import org.royllo.explorer.core.util.mapper.UniverseServerMapper;
 import org.royllo.explorer.core.util.mapper.UserMapper;
@@ -41,8 +41,8 @@ public abstract class Base {
     /** Request related mapper. */
     protected static final RequestMapper REQUEST_MAPPER = Mappers.getMapper(RequestMapper.class);
 
-    /** Proof file related mapper. */
-    protected static final ProofFileMapper PROOF_FILE_MAPPER = Mappers.getMapper(ProofFileMapper.class);
+    /** Proof related mapper. */
+    protected static final ProofMapper PROOF_MAPPER = Mappers.getMapper(ProofMapper.class);
 
     /** Universe server related mapper. */
     protected static final UniverseServerMapper UNIVERSE_SERVER_MAPPER = Mappers.getMapper(UniverseServerMapper.class);

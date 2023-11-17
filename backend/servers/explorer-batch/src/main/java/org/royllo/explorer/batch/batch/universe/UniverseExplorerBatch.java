@@ -6,7 +6,7 @@ import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.provider.tapd.TapdService;
 import org.royllo.explorer.core.provider.tapd.UniverseLeavesResponse;
 import org.royllo.explorer.core.provider.tapd.UniverseRootsResponse;
-import org.royllo.explorer.core.repository.proof.ProofFileRepository;
+import org.royllo.explorer.core.repository.proof.ProofRepository;
 import org.royllo.explorer.core.repository.universe.UniverseServerRepository;
 import org.royllo.explorer.core.service.request.RequestService;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -29,7 +29,7 @@ public class UniverseExplorerBatch extends BaseBatch {
     private static final int DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS = 60_000;
 
     /** Proof repository. */
-    private final ProofFileRepository proofFileRepository;
+    private final ProofRepository proofRepository;
 
     /** Universe server repository. */
     private final UniverseServerRepository universeServerRepository;
@@ -48,7 +48,7 @@ public class UniverseExplorerBatch extends BaseBatch {
         if (enabled.get()) {
             universeServerRepository.findFirstByOrderByLastSynchronizedOnAsc().ifPresent(universeServer -> {
                 // For each server we have in our databases.
-                logger.info("Processing universe server: {}", universeServer);
+                logger.info("Processing universe server: {}", universeServer.getServerAddress());
 
                 // We indicate that we are working on this universe server by updating its last sync date.
                 universeServer.setLastSynchronizedOn(now());
@@ -57,7 +57,13 @@ public class UniverseExplorerBatch extends BaseBatch {
                 // We retrieve the universe roots.
                 final UniverseRootsResponse universeRoots = tapdService.getUniverseRoots(universeServer.getServerAddress()).block();
                 if (universeRoots == null) {
-                    logger.error("No universe roots found for server: {}", universeServer);
+                    logger.error("No universe roots found for server - null reply: {}", universeServer.getServerAddress());
+                    return;
+                }
+
+                // if there is none, we stop here.
+                if (universeRoots.getUniverseRoots().isEmpty()) {
+                    logger.error("No universe roots found for server - empty reply: {}", universeServer.getServerAddress());
                     return;
                 }
 
@@ -68,22 +74,27 @@ public class UniverseExplorerBatch extends BaseBatch {
                         .filter(universeRoot -> universeRoot.getId().getAssetId() != null)
                         .map(universeRoot -> universeRoot.getId().getAssetId())
                         .distinct()
+                        .peek(assetId -> logger.info("Found asset id: {}", assetId))
                         .forEach(assetId -> {
-                            logger.info("Processing asset id: {}", assetId);
                             final UniverseLeavesResponse leaves = tapdService.getUniverseLeaves(universeServer.getServerAddress(), assetId).block();
                             if (leaves == null) {
-                                logger.error("No universe leaves found for asset id: {}", assetId);
+                                logger.error("No universe leaves found for asset id - null result: {}", assetId);
+                                return;
+                            }
+
+                            if (leaves.getLeaves().isEmpty()) {
+                                logger.error("No universe leaves found for asset id - empty result: {}", assetId);
                                 return;
                             }
 
                             // We retrieve the proofs for each asset.
                             leaves.getLeaves()
                                     .stream()
-                                    .map(UniverseLeavesResponse.Leaf::getIssuanceProof)
-                                    .filter(proof -> proofFileRepository.findByProofFileId(sha256(proof)).isEmpty())
+                                    .map(UniverseLeavesResponse.Leaf::getProof)
+                                    .filter(proof -> proofRepository.findByProofId(sha256(proof)).isEmpty())
                                     .forEach(proof -> {
                                         final AddProofRequestDTO addProofRequest = requestService.createAddProofRequest(proof);
-                                        logger.info("Request created {} for asset: {}", addProofRequest.getId(), addProofRequest.getRawProof());
+                                        logger.info("Request created {} for asset: {}", addProofRequest.getId(), assetId);
                                     });
                         });
 

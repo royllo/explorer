@@ -2,28 +2,28 @@
 <databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
-    <changeSet author="straumat" id="0.1.0-table-proof_file">
+    <changeSet author="straumat" id="0.1.0-table-proof">
 
-        <createTable tableName="PROOF_FILE"
-                     remarks="Taproot assets proof file">
+        <createTable tableName="PROOF"
+                     remarks="Taproot assets proof">
 
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"
                     remarks="Unique identifier">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PROOF_FILE"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PROOF"/>
             </column>
 
             <!-- Foreign keys -->
             <column name="FK_USER_CREATOR" type="BIGINT"
-                    remarks="The user who created this proofFile"/>
+                    remarks="The user who created this proof"/>
             <column name="FK_ASSET" type="BIGINT"
-                    remarks="The asset linked to this proofFile"/>
+                    remarks="The asset linked to this proof"/>
 
             <!-- Table fields -->
-            <column name="PROOF_FILE_ID" type="VARCHAR(255)"
-                    remarks="Calculated value : sha256(Raw proofFile)"/>
-            <column name="RAW_PROOF" type="TEXT"
-                    remarks="Raw proofFile"/>
+            <column name="PROOF_ID" type="VARCHAR(255)"
+                    remarks="Calculated value: sha256(proof)"/>
+            <column name="PROOF" type="TEXT"
+                    remarks="Proof"/>
 
             <!-- Technical fields -->
             <column name="CREATED_ON" type="TIMESTAMP"
@@ -34,20 +34,20 @@
         </createTable>
 
         <!-- Auto increment on the unique identifier -->
-        <addAutoIncrement tableName="PROOF_FILE"
+        <addAutoIncrement tableName="PROOF"
                           columnName="ID"
                           columnDataType="BIGINT"
                           startWith="2"/>
 
-        <!-- Index on PROOF_FILE_ID -->
-        <createIndex indexName="IDX_PROOF_FILE_PROOF_ID"
-                     tableName="PROOF_FILE">
-            <column name="PROOF_FILE_ID"/>
+        <!-- Index on PROOF_ID -->
+        <createIndex indexName="IDX_PROOF_PROOF_ID"
+                     tableName="PROOF">
+            <column name="PROOF_ID"/>
         </createIndex>
 
         <!-- Index on FK_ASSET -->
-        <createIndex indexName="IDX_PROOF_FILE_FK_ASSET"
-                     tableName="PROOF_FILE">
+        <createIndex indexName="IDX_PROOF_FK_ASSET"
+                     tableName="PROOF">
             <column name="FK_ASSET"/>
         </createIndex>
 

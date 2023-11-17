@@ -46,7 +46,7 @@ public interface AssetMapper {
     @Mapping(source = "asset.assetGenesis.name", target = "name")
     @Mapping(source = "asset.assetGenesis.outputIndex", target = "outputIndex")
     @Mapping(source = "asset.assetGenesis.version", target = "version")
-    @Mapping(source = "asset.assetType", target = "type")
+    @Mapping(source = "asset.assetGenesis.assetType", target = "type")
     @Mapping(source = "asset.amount", target = "amount")
     AssetDTO mapToAssetDTO(DecodedProofResponse.DecodedProof source);
 

@@ -15,6 +15,6 @@ import lombok.ToString;
 public class AddProofRequestInputs {
 
     /** Proof that validates the asset information. */
-    private String rawProof;
+    private String proof;
 
 }

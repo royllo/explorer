@@ -31,7 +31,6 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 
 /**
  * Utility classes for tests.
- * TODO Create an annotation to start required mock servers
  */
 @SuppressWarnings("SpellCheckingInspection")
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
@@ -42,9 +41,6 @@ public class TestWithMockServers extends Base {
 
     /** Tapd server port. */
     public static final int TAPD_MOCK_SERVER_PORT = 9092;
-
-    /** Active royllo coin asset id. TODO Remove this ? */
-    public static String ACTIVE_ROYLLO_COIN_ASSET_ID = "1781a8879353ab2f8bb70dcf96f5b0ff620a987cf1044b924d6e3c382e1e5413";
 
     /** Mempool mock server. */
     private ClientAndServer mempoolMockServer;
@@ -118,7 +114,7 @@ public class TestWithMockServers extends Base {
     public void verifyAssetGroup(final AssetGroupDTO assetGroupDTO,
                                  final String assetId) {
         // Finding asset group of the first decoded proof.
-        final DecodedProofValueResponse.DecodedProof.Asset assetFromTest = TapdData.findAssetValueByAssetId(assetId).getDecodedProof(0).getAsset();
+        final DecodedProofValueResponse.DecodedProof.Asset assetFromTest = TapdData.findAssetValueByAssetId(assetId).getDecodedProofResponse(0).getAsset();
         if (assetFromTest.getAssetGroup() != null) {
             assertEquals(assetGroupDTO.getRawGroupKey(),
                     assetFromTest.getAssetGroup().getRawGroupKey(),
@@ -126,10 +122,9 @@ public class TestWithMockServers extends Base {
             assertEquals(assetGroupDTO.getTweakedGroupKey(),
                     assetFromTest.getAssetGroup().getTweakedGroupKey(),
                     "Tweaked group key are not equals");
-            // TODO there is a comparaison betwenn null and an empty string.
-//            assertEquals(assetGroupDTO.getAssetWitness(),
-//                    assetFromTest.getAssetGroup().getAssetWitness(),
-//                    "Asset witness are not equals");
+            assertEquals(assetGroupDTO.getAssetWitness(),
+                    assetFromTest.getAssetGroup().getAssetWitness(),
+                    "Asset witness are not equals");
         } else {
             fail("Asset group is null");
         }
@@ -186,7 +181,7 @@ public class TestWithMockServers extends Base {
                 "Version are not equals");
 
         assertEquals(assetDTO.getType().toString(),
-                assetFromTest.getAssetType(),
+                assetFromTest.getAssetGenesis().getAssetType(),
                 "Type are not equals");
 
         assertEquals(0, assetDTO.getAmount().compareTo(assetFromTest.getAmount()),
@@ -205,43 +200,97 @@ public class TestWithMockServers extends Base {
     public void verifyAssetState(final AssetStateDTO assetStateDTO,
                                  final String assetStateId) {
         // We find the asset state.
-        final Optional<DecodedProofValueResponse.DecodedProof> assetState = TapdData.findAssetStateByAssetStateId(assetStateId);
-        assertTrue(assetState.isPresent(),
+        final Optional<DecodedProofValueResponse.DecodedProof> assetFromTest = TapdData.findAssetStateByAssetStateId(assetStateId);
+        assertTrue(assetFromTest.isPresent(),
                 "Asset state not found");
 
-        // We compare each field.
-        // TODO Check each field
-        assertEquals(assetStateDTO.getAnchorBlockHash(),
-                assetState.get().getAsset().getChainAnchor().getAnchorBlockHash(),
-                "Anchor block hash are not equals");
-
-        assertEquals(assetStateDTO.getAnchorOutpoint().getTxId(),
-                assetState.get().getAsset().getChainAnchor().getAnchorTxId(),
-                "Anchor outpoint tx id are not equals");
-
         assertEquals(assetStateDTO.getAnchorTx(),
-                assetState.get().getAsset().getChainAnchor().getAnchorTx(),
+                assetFromTest.get().getAsset().getChainAnchor().getAnchorTx(),
                 "Anchor tx are not equals");
 
+        // We compare each field.
+        assertEquals(assetStateDTO.getAnchorBlockHash(),
+                assetFromTest.get().getAsset().getChainAnchor().getAnchorBlockHash(),
+                "Anchor block hash are not equals");
+
         assertEquals(assetStateDTO.getInternalKey(),
-                assetState.get().getAsset().getChainAnchor().getInternalKey(),
+                assetFromTest.get().getAsset().getChainAnchor().getInternalKey(),
                 "Internal key are not equals");
 
         assertEquals(assetStateDTO.getMerkleRoot(),
-                assetState.get().getAsset().getChainAnchor().getMerkleRoot(),
+                assetFromTest.get().getAsset().getChainAnchor().getMerkleRoot(),
                 "Merkle root are not equals");
 
         assertEquals(assetStateDTO.getTapscriptSibling(),
-                assetState.get().getAsset().getChainAnchor().getTapscriptSibling(),
+                assetFromTest.get().getAsset().getChainAnchor().getTapscriptSibling(),
                 "Tapscript sibling are not equals");
 
+        assertEquals(assetStateDTO.getVersion(),
+                assetFromTest.get().getAsset().getVersion(),
+                "Version are not equals");
+
+        assertEquals(assetStateDTO.getAmount(),
+                assetFromTest.get().getAsset().getAmount(),
+                "Amount are not equals");
+
+        assertEquals(assetStateDTO.getLockTime(),
+                assetFromTest.get().getAsset().getLockTime(),
+                "Lock time are not equals");
+
+        assertEquals(assetStateDTO.getRelativeLockTime(),
+                assetFromTest.get().getAsset().getRelativeLockTime(),
+                "Relative lock time are not equals");
+
         assertEquals(assetStateDTO.getScriptVersion(),
-                assetState.get().getAsset().getScriptVersion(),
+                assetFromTest.get().getAsset().getScriptVersion(),
                 "Script version are not equals");
 
         assertEquals(assetStateDTO.getScriptKey(),
-                assetState.get().getAsset().getScriptKey(),
+                assetFromTest.get().getAsset().getScriptKey(),
                 "Script key are not equals");
+
+        assertEquals(assetStateDTO.getLeaseOwner(),
+                assetFromTest.get().getAsset().getLeaseOwner(),
+                "Lease owner are not equals");
+
+        assertEquals(assetStateDTO.getLeaseExpiry(),
+                assetFromTest.get().getAsset().getLeaseExpiryTimestamp(),
+                "Lease expiry are not equals");
+
+        assertEquals(assetStateDTO.getTxMerkleProof(),
+                assetFromTest.get().getTxMerkleProof(),
+                "Tx merkle proof are not equals");
+
+        assertEquals(assetStateDTO.getInclusionProof(),
+                assetFromTest.get().getInclusionProof(),
+                "Inclusion proof are not equals");
+
+        assertEquals(assetStateDTO.getExclusionProofs().size(),
+                assetFromTest.get().getExclusionProofs().size(),
+                "Exclusion proofs size are not equals");
+
+        // Check that assetStateDTO.getExclusionProofs() and assetState.get().getExclusionProofs() have the same content.
+        for (int i = 0; i < assetStateDTO.getExclusionProofs().size(); i++) {
+            assertEquals(assetStateDTO.getExclusionProofs().get(i),
+                    assetFromTest.get().getExclusionProofs().get(i),
+                    "Exclusion proof are not equals");
+        }
+
+        assertEquals(assetStateDTO.getSplitRootProof(),
+                assetFromTest.get().getSplitRootProof(),
+                "Split root proof are not equals");
+
+        assertEquals(assetStateDTO.getChallengeWitness().size(),
+                assetFromTest.get().getChallengeWitness().size(),
+                "Challenge witness are not equals");
+
+        // Check that assetStateDTO.getChallengeWitness() and assetState.get().getChallengeWitness() have the same content.
+        for (int i = 0; i < assetStateDTO.getChallengeWitness().size(); i++) {
+            assertEquals(assetStateDTO.getChallengeWitness().get(i),
+                    assetFromTest.get().getChallengeWitness().get(i),
+                    "Challenge witness are not equals");
+        }
+
     }
 
     /**
@@ -262,16 +311,13 @@ public class TestWithMockServers extends Base {
         String uniqueValue = assetId
                 + "_" + outpointTxId + ":" + outpointVout
                 + "_" + scriptKey;
-        String assetStateId = "";
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] digest = md.digest(uniqueValue.getBytes(UTF_8));
-            assetStateId = DatatypeConverter.printHexBinary(digest).toLowerCase();
+            verifyAssetState(assetStateDTO, DatatypeConverter.printHexBinary(digest).toLowerCase());
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("SHA-256 is not available: " + e.getMessage());
         }
-
-        verifyAssetState(assetStateDTO, assetStateId);
     }
 
 }

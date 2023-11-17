@@ -13,6 +13,7 @@ import org.royllo.explorer.core.service.asset.AssetStateService;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 
@@ -24,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.royllo.explorer.core.service.asset.AssetStateServiceImplementation.SEARCH_PARAMETER_ASSET_ID;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
 import static org.royllo.test.MempoolData.ROYLLO_COIN_ANCHOR_1_TXID;
@@ -33,6 +34,7 @@ import static org.royllo.test.TapdData.ROYLLO_COIN_FROM_TEST;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 
 @SpringBootTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @DisplayName("AssetStateService tests")
 public class AssetStateServiceTest extends TestWithMockServers {
 
@@ -53,25 +55,6 @@ public class AssetStateServiceTest extends TestWithMockServers {
 
     @Autowired
     private AssetStateService assetStateService;
-
-    @Test
-    @DisplayName("queryAssetStates()")
-    public void queryAssetStates() {
-        // Search for asset state that existing without specifying the SEARCH_PARAMETER_ASSET_ID parameter.
-        AssertionError e = assertThrows(AssertionError.class, () -> assetStateService.queryAssetStates("asset_id_9", 1, 5));
-        assertEquals("Only assetId:value query is supported", e.getMessage());
-
-        // Searching for asset states for an asset state id that doesn't exist.
-        Page<AssetStateDTO> results = assetStateService.queryAssetStates(SEARCH_PARAMETER_ASSET_ID + "NON_EXISTING_ASSET_STATE_ID", 1, 5);
-        assertEquals(0, results.getTotalElements());
-        assertEquals(0, results.getTotalPages());
-
-        // Searching for the asset states of an existing asset.
-        results = assetStateService.queryAssetStates(SEARCH_PARAMETER_ASSET_ID + TRICKY_ROYLLO_COIN_ASSET_ID, 1, 2);
-        assertEquals(4, results.getTotalElements());
-        assertEquals(2, results.getSize());
-        assertEquals(2, results.getTotalPages());
-    }
 
     @Test
     @DisplayName("addAssetState()")
@@ -132,8 +115,8 @@ public class AssetStateServiceTest extends TestWithMockServers {
         // We check what was created.
         assertNotNull(firstAssetStateCreated.getId());
         // Asset state id is calculated from the asset state data.
-        // TEST_COIN_ASSET_ID_c28a42586b36ac499c6d36da792d98176572573124dbc82526d02bbad5b3d9c7:0_TEST_SCRIPT_KEY
-        assertEquals("ab670ac3909f2e49dee33b0e33b2566d1ae6fe3428ac4b89f092e8dd9afbd9d8", firstAssetStateCreated.getAssetStateId());
+        // TEST_COIN_ASSET_ID_ca8d2eb13b25fd0b363d92de2655988b49bc5b519f282d41e10ce117beb97558:0_TEST_SCRIPT_KEY
+        assertEquals("c8c6b3b8808a00749763400cf599442ac0a5687a8fd6715084768e3550bf9162", firstAssetStateCreated.getAssetStateId());
         // User.
         assertNotNull(firstAssetStateCreated.getCreator());
         assertEquals(ANONYMOUS_USER_ID, firstAssetStateCreated.getCreator().getUserId());
@@ -145,7 +128,7 @@ public class AssetStateServiceTest extends TestWithMockServers {
         assertNull(firstAssetStateCreated.getAsset().getAssetGroup());
         // Asset state data.
         assertEquals("TEST_ANCHOR_BLOCK_HASH", firstAssetStateCreated.getAnchorBlockHash());
-        assertEquals("c28a42586b36ac499c6d36da792d98176572573124dbc82526d02bbad5b3d9c7", firstAssetStateCreated.getAnchorOutpoint().getTxId());
+        assertEquals("ca8d2eb13b25fd0b363d92de2655988b49bc5b519f282d41e10ce117beb97558", firstAssetStateCreated.getAnchorOutpoint().getTxId());
         assertEquals(0, firstAssetStateCreated.getAnchorOutpoint().getVout());
         assertEquals("TEST_ANCHOR_TX", firstAssetStateCreated.getAnchorTx());
         assertEquals("TEST_INTERNAL_KEY", firstAssetStateCreated.getInternalKey());
@@ -207,12 +190,12 @@ public class AssetStateServiceTest extends TestWithMockServers {
         assertEquals(assetStateCount + 2, assetStateRepository.findAll().size());
 
         // We check what was created (this time we used the getByAssetId() method).
-        final Optional<AssetStateDTO> secondAssetStateCreated = assetStateService.getAssetStateByAssetStateId("d871b41a83f45394851ee929ee41ccb26391a3328d6e90653d7d5f476197d413");
+        final Optional<AssetStateDTO> secondAssetStateCreated = assetStateService.getAssetStateByAssetStateId("31c9f36b393bbeb968b973fe16fade5ab6e65e0dfd7fee10f4254627f0f70c53");
         assertTrue(secondAssetStateCreated.isPresent());
         assertNotNull(secondAssetStateCreated.get().getId());
         // Asset state id is calculated from the asset state data.
-        // TEST_COIN_ASSET_ID_c28a42586b36ac499c6d36da792d98176572573124dbc82526d02bbad5b3d9c7:0_TEST_SCRIPT_KEY_2
-        assertEquals("d871b41a83f45394851ee929ee41ccb26391a3328d6e90653d7d5f476197d413", secondAssetStateCreated.get().getAssetStateId());
+        // TEST_COIN_ASSET_ID_ca8d2eb13b25fd0b363d92de2655988b49bc5b519f282d41e10ce117beb97558:0_TEST_SCRIPT_KEY_2
+        assertEquals("31c9f36b393bbeb968b973fe16fade5ab6e65e0dfd7fee10f4254627f0f70c53", secondAssetStateCreated.get().getAssetStateId());
         // User.
         assertNotNull(secondAssetStateCreated.get().getCreator());
         assertEquals(ANONYMOUS_USER_ID, secondAssetStateCreated.get().getCreator().getUserId());
@@ -224,7 +207,7 @@ public class AssetStateServiceTest extends TestWithMockServers {
         assertNull(secondAssetStateCreated.get().getAsset().getAssetGroup());
         // Asset state data.
         assertEquals("TEST_ANCHOR_BLOCK_HASH_2", secondAssetStateCreated.get().getAnchorBlockHash());
-        assertEquals("c28a42586b36ac499c6d36da792d98176572573124dbc82526d02bbad5b3d9c7", secondAssetStateCreated.get().getAnchorOutpoint().getTxId());
+        assertEquals("ca8d2eb13b25fd0b363d92de2655988b49bc5b519f282d41e10ce117beb97558", secondAssetStateCreated.get().getAnchorOutpoint().getTxId());
         assertEquals(0, secondAssetStateCreated.get().getAnchorOutpoint().getVout());
         assertEquals("TEST_ANCHOR_TX_2", secondAssetStateCreated.get().getAnchorTx());
         assertEquals("TEST_INTERNAL_KEY_2", secondAssetStateCreated.get().getInternalKey());
@@ -244,13 +227,13 @@ public class AssetStateServiceTest extends TestWithMockServers {
 
         // =============================================================================================================
         // Existing asset state on testnet and in our database initialization script ("roylloCoin").
-        assetState = assetStateService.getAssetStateByAssetStateId(ROYLLO_COIN_FROM_TEST.getDecodedProof(0).getAsset().getAssetStateId());
+        assetState = assetStateService.getAssetStateByAssetStateId(ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetStateId());
         assertTrue(assetState.isPresent());
         assertEquals(1, assetState.get().getId());
-        assertEquals(ROYLLO_COIN_FROM_TEST.getDecodedProof(0).getAsset().getAssetStateId(), assetState.get().getAssetStateId());
+        assertEquals(ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetStateId(), assetState.get().getAssetStateId());
         // User.
         assertNotNull(assetState.get().getCreator());
-        assertEquals(ANONYMOUS_USER_DTO.getId(), assetState.get().getCreator().getId());
+        assertEquals(ANONYMOUS_ID, assetState.get().getCreator().getId());
         // Asset & asset group.
         verifyAsset(assetState.get().getAsset(), ROYLLO_COIN_ASSET_ID);
         // Asset state data.
@@ -259,6 +242,21 @@ public class AssetStateServiceTest extends TestWithMockServers {
                 assetState.get().getAnchorOutpoint().getTxId(),
                 assetState.get().getAnchorOutpoint().getVout(),
                 assetState.get().getScriptKey());
+    }
+
+    @Test
+    @DisplayName("getAssetStatesByAssetId()")
+    public void getAssetStatesByAssetId() {
+        // Searching for asset states for an asset state id that doesn't exist.
+        Page<AssetStateDTO> results = assetStateService.getAssetStatesByAssetId("NON_EXISTING_ASSET_STATE_ID", 1, 5);
+        assertEquals(0, results.getTotalElements());
+        assertEquals(0, results.getTotalPages());
+
+        // Searching for the asset states of an existing asset.
+        results = assetStateService.getAssetStatesByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID, 1, 2);
+        assertEquals(4, results.getTotalElements());
+        assertEquals(2, results.getSize());
+        assertEquals(2, results.getTotalPages());
     }
 
 }

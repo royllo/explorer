@@ -44,11 +44,11 @@ public class DisplayTrickyRoylloCoinTest extends BaseTest {
     @DisplayName("Check trickyRoylloCoin asset page")
     void assetPage(final HttpHeaders headers) throws Exception {
         // Test data.
-        final DecodedProofValueResponse.DecodedProof assetFromTest = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProof(0);
-        final DecodedProofValueResponse.DecodedProof.Asset TRICKY_ROYLLO_COIN_1_ASSET_STATE = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProof(0).getAsset();
-        final DecodedProofValueResponse.DecodedProof.Asset TRICKY_ROYLLO_COIN_2_ASSET_STATE = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProof(1).getAsset();
-        final DecodedProofValueResponse.DecodedProof.Asset TRICKY_ROYLLO_COIN_3_ASSET_STATE = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProof(3).getAsset();
-        final DecodedProofValueResponse.DecodedProof.Asset TRICKY_ROYLLO_COIN_4_ASSET_STATE = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProof(4).getAsset();
+        final DecodedProofValueResponse.DecodedProof assetFromTest = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(0);
+        final DecodedProofValueResponse.DecodedProof.Asset TRICKY_ROYLLO_COIN_1_ASSET_STATE = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(0).getAsset();
+        final DecodedProofValueResponse.DecodedProof.Asset TRICKY_ROYLLO_COIN_2_ASSET_STATE = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(1).getAsset();
+        final DecodedProofValueResponse.DecodedProof.Asset TRICKY_ROYLLO_COIN_3_ASSET_STATE = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(3).getAsset();
+        final DecodedProofValueResponse.DecodedProof.Asset TRICKY_ROYLLO_COIN_4_ASSET_STATE = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(4).getAsset();
 
         mockMvc.perform(get("/asset/" + TRICKY_ROYLLO_COIN_ASSET_ID).headers(headers))
                 .andExpect(status().isOk())

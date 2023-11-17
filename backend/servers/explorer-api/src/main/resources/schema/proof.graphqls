@@ -1,0 +1,21 @@
+"Taproot asset proof"
+type Proof {
+    "Proof id  - sha256(proof)"
+    proofId: String!
+    "The asset creator"
+    creator: User!
+    "Target asset"
+    asset: Asset!
+    "Proof"
+    proof: String!
+}
+
+"Proof page - Container used to return proof results"
+type ProofPage {
+    "Proofs returned for a specific page number"
+    content: [Proof]
+    "Total number of elements returned for the search"
+    totalElements: Int!
+    "Total number of pages returned for the search"
+    totalPages: Int!
+}

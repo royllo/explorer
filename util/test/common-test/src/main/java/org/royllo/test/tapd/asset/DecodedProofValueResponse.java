@@ -99,10 +99,6 @@ public class DecodedProofValueResponse {
             @JsonProperty("asset_genesis")
             AssetGenesis assetGenesis;
 
-            /** Asset type. */
-            @JsonProperty("asset_type")
-            String assetType;
-
             /** Amount. */
             @JsonProperty("amount")
             BigInteger amount;
@@ -152,6 +148,23 @@ public class DecodedProofValueResponse {
             Boolean isBurn;
 
             /**
+             * If the asset has been leased, this is the expiry of the lease as a Unix timestamp in seconds.
+             *
+             * @return lease expiry timestamp
+             */
+            public final Long getLeaseExpiryTimestamp() {
+                if (leaseExpiry == null) {
+                    return 0L;
+                } else {
+                    try {
+                        return Long.parseLong(leaseExpiry);
+                    } catch (NumberFormatException e) {
+                        return 0L;
+                    }
+                }
+            }
+
+            /**
              * Returns the calculated state id.
              *
              * @return asset state id (calculated)
@@ -194,6 +207,10 @@ public class DecodedProofValueResponse {
                 /** Asset id. */
                 @JsonProperty("asset_id")
                 String assetId;
+
+                /** Asset type. */
+                @JsonProperty("asset_type")
+                String assetType;
 
                 /** Output index. */
                 @JsonProperty("output_index")

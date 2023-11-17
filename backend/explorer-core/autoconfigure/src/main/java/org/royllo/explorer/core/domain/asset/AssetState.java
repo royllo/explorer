@@ -1,6 +1,7 @@
 package org.royllo.explorer.core.domain.asset;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -15,6 +16,11 @@ import lombok.experimental.NonFinal;
 import org.royllo.explorer.core.domain.bitcoin.BitcoinTransactionOutput;
 import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.util.base.BaseDomain;
+import org.royllo.explorer.core.util.converter.StringListConverter;
+
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 import static jakarta.persistence.FetchType.EAGER;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -76,6 +82,22 @@ public class AssetState extends BaseDomain {
     @Column(name = "TAPSCRIPT_SIBLING")
     private String tapscriptSibling;
 
+    /** The version of the Taproot Asset. */
+    @Column(name = "VERSION")
+    private String version;
+
+    /** The total amount of the asset stored in this Taproot asset UTXO. */
+    @Column(name = "AMOUNT")
+    private BigInteger amount;
+
+    /** An optional locktime, as with Bitcoin transactions. */
+    @Column(name = "LOCK_TIME")
+    private int lockTime;
+
+    /** An optional relative lock time, same as Bitcoin transactions. */
+    @Column(name = "RELATIVE_LOCK_TIME")
+    private int relativeLockTime;
+
     /** The version of the script, only version 0 is defined at present. */
     @Column(name = "SCRIPT_VERSION")
     private int scriptVersion;
@@ -83,5 +105,35 @@ public class AssetState extends BaseDomain {
     /** The script key of the asset, which can be spent under Taproot semantics. */
     @Column(name = "SCRIPT_KEY")
     private String scriptKey;
+
+    /** If the asset has been leased, this is the owner (application ID) of the lease. */
+    @Column(name = "LEASE_OWNER")
+    private String leaseOwner;
+
+    /** If the asset has been leased, this is the expiry of the lease as a Unix timestamp in seconds. */
+    @Column(name = "LEASE_EXPIRY")
+    private long leaseExpiry;
+
+    /** The merkle proof for AnchorTx used to prove its inclusion within BlockHeader. */
+    @Column(name = "TX_MERKLE_PROOF")
+    private String txMerkleProof;
+
+    /** The TaprootProof proving the new inclusion of the resulting asset within AnchorTx. */
+    @Column(name = "INCLUSION_PROOF")
+    private String inclusionProof;
+
+    /** The set of TaprootProofs proving the exclusion of the resulting asset from all other Taproot outputs within AnchorTx. */
+    @Convert(converter = StringListConverter.class)
+    @Column(name = "EXCLUSION_PROOFS")
+    private List<String> exclusionProofs = new ArrayList<>();
+
+    /** An optional TaprootProof needed if this asset is the result of a split. SplitRootProof proves inclusion of the root asset of the split. */
+    @Column(name = "SPLIT_ROOT_PROOF")
+    private String splitRootProof;
+
+    /** ChallengeWitness is an optional virtual transaction witness that serves as an ownership proof for the asset. */
+    @Convert(converter = StringListConverter.class)
+    @Column(name = "CHALLENGE_WITNESS")
+    private List<String> challengeWitness = new ArrayList<>();
 
 }

@@ -50,7 +50,7 @@ public class AssetGroupServiceTest extends TestWithMockServers {
         // =============================================================================================================
         // Constraint test - Asset group key already registered.
         e = assertThrows(AssertionError.class, () -> assetGroupService.addAssetGroup(AssetGroupDTO.builder()
-                .assetGroupId(UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup().getTweakedGroupKey())
+                .assetGroupId(UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup().getTweakedGroupKey())
                 .tweakedGroupKey("TWEAKED_GROUP_KEY_10000").build()));
         assertEquals("Asset group id already registered", e.getMessage());
 
@@ -80,13 +80,13 @@ public class AssetGroupServiceTest extends TestWithMockServers {
 
         // =============================================================================================================
         // Existing asset group on testnet and in our database initialization script.
-        assetGroup = assetGroupService.getAssetGroupByAssetGroupId(UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup().getTweakedGroupKey());
+        assetGroup = assetGroupService.getAssetGroupByAssetGroupId(UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup().getTweakedGroupKey());
         assertTrue(assetGroup.isPresent());
         assertNotNull(assetGroup.get().getId());
-        assertEquals(UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup().getTweakedGroupKey(), assetGroup.get().getAssetGroupId());
-        assertEquals(UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup().getRawGroupKey(), assetGroup.get().getRawGroupKey());
-        assertEquals(UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup().getTweakedGroupKey(), assetGroup.get().getTweakedGroupKey());
-        assertEquals(UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup().getAssetWitness(), assetGroup.get().getAssetWitness());
+        assertEquals(UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup().getTweakedGroupKey(), assetGroup.get().getAssetGroupId());
+        assertEquals(UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup().getRawGroupKey(), assetGroup.get().getRawGroupKey());
+        assertEquals(UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup().getTweakedGroupKey(), assetGroup.get().getTweakedGroupKey());
+        assertEquals(UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup().getAssetWitness(), assetGroup.get().getAssetWitness());
     }
 
 }

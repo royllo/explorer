@@ -24,7 +24,6 @@ public interface AssetStateRepository extends JpaRepository<AssetState, Long> {
 
     /**
      * Find all the asset states for a given asset.
-     * TODO Add an order when we will know how to order them.
      *
      * @param assetId  asset id
      * @param pageable page parameters

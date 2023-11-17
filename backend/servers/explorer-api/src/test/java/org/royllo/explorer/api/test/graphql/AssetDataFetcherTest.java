@@ -25,6 +25,10 @@ import static org.royllo.explorer.api.configuration.APIConfiguration.MAXIMUM_PAG
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_ASSET_ID;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_FROM_TEST;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_2_ASSET_ID;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_3_ASSET_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_ASSET_ID;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_FROM_TEST;
@@ -66,6 +70,33 @@ public class AssetDataFetcherTest {
         assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, assetPage.getContent().get(1).getAssetId());
         assertEquals(UNLIMITED_ROYLLO_COIN_1_ASSET_ID, assetPage.getContent().get(2).getAssetId());
         assertEquals(UNLIMITED_ROYLLO_COIN_2_ASSET_ID, assetPage.getContent().get(3).getAssetId());
+
+        // Query assets with an asset group id.
+        final String assetGroupId = SET_OF_ROYLLO_NFT_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup().getTweakedGroupKey();
+        assetPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+                new GraphQLQueryRequest(
+                        QueryAssetsGraphQLQuery.newRequest().query(assetGroupId).page(1).build(),
+                        new QueryAssetsProjectionRoot<>().content()
+                                .creator().userId().username().getParent()
+                                .genesisPoint().txId().vout().parent()
+                                .name()
+                                .metaDataHash()
+                                .assetId()
+                                .outputIndex()
+                                .parent()
+                                .totalElements()
+                                .totalPages()
+                ).serialize(),
+                "data." + DgsConstants.QUERY.QueryAssets,
+                new TypeRef<>() {
+                });
+
+        // Testing results.
+        assertEquals(3, assetPage.getTotalElements());
+        assertEquals(1, assetPage.getTotalPages());
+        assertEquals(SET_OF_ROYLLO_NFT_1_ASSET_ID, assetPage.getContent().get(0).getAssetId());
+        assertEquals(SET_OF_ROYLLO_NFT_2_ASSET_ID, assetPage.getContent().get(1).getAssetId());
+        assertEquals(SET_OF_ROYLLO_NFT_3_ASSET_ID, assetPage.getContent().get(2).getAssetId());
     }
 
     @Test
@@ -233,7 +264,7 @@ public class AssetDataFetcherTest {
 
         // Testing results.
         assertNotNull(asset);
-        final DecodedProofValueResponse.DecodedProof assetFromTestData = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0);
+        final DecodedProofValueResponse.DecodedProof assetFromTestData = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofResponse(0);
 
         // Asset.
         assertEquals(ANONYMOUS_USER_ID, asset.getCreator().getUserId());
@@ -244,7 +275,7 @@ public class AssetDataFetcherTest {
         assertEquals(assetFromTestData.getAsset().getAssetGenesis().getName(), asset.getName());
         assertEquals(assetFromTestData.getAsset().getAssetGenesis().getOutputIndex(), asset.getOutputIndex());
         assertEquals(assetFromTestData.getAsset().getAssetGenesis().getVersion(), asset.getVersion());
-        assertEquals(assetFromTestData.getAsset().getAssetType(), asset.getType().toString());
+        assertEquals(assetFromTestData.getAsset().getAssetGenesis().getAssetType(), asset.getType().toString());
         assertEquals(0, assetFromTestData.getAsset().getAmount().compareTo(asset.getAmount()));
 
         // Asset group.

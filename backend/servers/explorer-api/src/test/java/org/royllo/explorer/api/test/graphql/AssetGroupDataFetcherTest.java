@@ -29,7 +29,7 @@ public class AssetGroupDataFetcherTest {
     @Test
     @DisplayName("getAssetGroupByAssetGroupId()")
     public void getAssetGroupByAssetGroupId() {
-        final String assetGroupId = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup().getTweakedGroupKey();
+        final String assetGroupId = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup().getTweakedGroupKey();
 
         AssetGroup asset = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
@@ -46,7 +46,7 @@ public class AssetGroupDataFetcherTest {
                 });
 
         assertNotNull(asset);
-        final DecodedProofValueResponse.DecodedProof.Asset.AssetGroup assetGroupFromTest = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup();
+        final DecodedProofValueResponse.DecodedProof.Asset.AssetGroup assetGroupFromTest = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup();
         assertEquals(ANONYMOUS_USER_ID, asset.getCreator().getUserId());
         assertEquals(ANONYMOUS_USER_USERNAME, asset.getCreator().getUsername());
         assertEquals(assetGroupFromTest.getTweakedGroupKey(), asset.getAssetGroupId());

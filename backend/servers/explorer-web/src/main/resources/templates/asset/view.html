@@ -248,15 +248,15 @@
             <!--/* Proof files tab */-->
             <div :class="{ 'active': activeTab === 'proofFiles' }" class="px-6 py-4"
                  x-show="activeTab === 'proofFiles'">
-                <div class="overflow-hidden shadow sm:rounded-lg mb-4" th:each="proofFile: ${proofFilesList}">
+                <div class="overflow-hidden shadow sm:rounded-lg mb-4" th:each="proof: ${proofFilesList}">
 
                     <div class="border-t border-gray-100">
                         <dl class="divide-y divide-gray-100">
                             <div class="tableLine">
-                                <dt class="tableLineDescription" th:text="#{proofFile.view.proof}"></dt>
+                                <dt class="tableLineDescription" th:text="#{proof.view.proof}"></dt>
                                 <dd class="tableLineValue">
-                                    <a th:href="@{'/asset/' + ${assetId} + '/proof_file/' + ${proofFile.getProofFileId()}}"
-                                       th:text="${proofFile.getRawProof()}"></a>
+                                    <a th:href="@{'/asset/' + ${assetId} + '/proof_file/' + ${proof.getProofId()}}"
+                                       th:text="${proof.getProof()}"></a>
                                 </dd>
                             </div>
                         </dl>

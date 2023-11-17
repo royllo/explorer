@@ -29,13 +29,14 @@ import javax.net.ssl.SSLException;
 public class TapdServiceImplementation extends BaseProviderService implements TapdService {
 
     /** Webflux codec maximum size. */
-    public static final int CODE_MAXIMUM_SIZE = 16 * 1024 * 1024;
+    public static final int CODEC_MAXIMUM_SIZE = 32 * 1024 * 1024;
 
     /** Outgoing rate limits parameters. */
     private final OutgoingRateLimitsParameters outgoingRateLimitsParameters;
 
     /** TAPD parameters. */
     private final TAPDParameters tapdParameters;
+
     /** SSL Context. */
     private SslContext sslContext;
 
@@ -70,14 +71,14 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
     }
 
     @Override
-    public final Mono<DecodedProofResponse> decode(final String rawProof) {
+    public final Mono<DecodedProofResponse> decode(final String proof) {
         // The index depth of the decoded proof, with 0 being the latest proof.
-        return decode(rawProof, 0);
+        return decode(proof, 0);
     }
 
     @Override
-    public final Mono<DecodedProofResponse> decode(final String rawProof, final long proofAtDepth) {
-        logger.info("Calling decode for proof from tapd with raw proof {} at {} depth", rawProof, proofAtDepth);
+    public final Mono<DecodedProofResponse> decode(final String proof, final long proofAtDepth) {
+        logger.info("Calling decode for proof from tapd with raw proof {} at {} depth", proof, proofAtDepth);
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
 
         // Consume a token from the token bucket.
@@ -89,6 +90,7 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
         }
 
         return WebClient.builder()
+                .codecs(clientCodecConfigurer -> clientCodecConfigurer.defaultCodecs().maxInMemorySize(CODEC_MAXIMUM_SIZE))
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
                 .baseUrl(tapdParameters.getApi().getBaseUrl())
                 .build()
@@ -97,7 +99,7 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
                 .header("Grpc-Metadata-macaroon", tapdParameters.getApi().getMacaroon())
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(DecodedProofRequest.builder()
-                        .rawProof(rawProof)
+                        .rawProof(proof)
                         .proofAtDepth(proofAtDepth)
                         .withPrevWitnesses(false)
                         .withMetaReveal(false)
@@ -121,7 +123,7 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
         }
 
         return WebClient.builder()
-                .codecs(clientCodecConfigurer -> clientCodecConfigurer.defaultCodecs().maxInMemorySize(CODE_MAXIMUM_SIZE))
+                .codecs(clientCodecConfigurer -> clientCodecConfigurer.defaultCodecs().maxInMemorySize(CODEC_MAXIMUM_SIZE))
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
                 .baseUrl(serverAddress)
                 .build()
@@ -146,6 +148,7 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
         }
 
         return WebClient.builder()
+                .codecs(clientCodecConfigurer -> clientCodecConfigurer.defaultCodecs().maxInMemorySize(CODEC_MAXIMUM_SIZE))
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
                 .baseUrl(serverAddress)
                 .build()

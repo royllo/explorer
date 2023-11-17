@@ -14,7 +14,7 @@ import org.royllo.explorer.core.service.asset.AssetGroupService;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.asset.AssetStateService;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
-import org.royllo.explorer.core.service.proof.ProofFileService;
+import org.royllo.explorer.core.service.proof.ProofService;
 import org.royllo.explorer.core.service.request.RequestService;
 import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +72,7 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
     AssetStateService assetStateService;
 
     @Autowired
-    ProofFileService proofService;
+    ProofService proofService;
 
     @Autowired
     RequestService requestService;
@@ -84,17 +84,17 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
     @DisplayName("Process proof")
     public void processProof() {
         // unlimitedRoylloCoin. You will have an asset group and two emissions.
-        final String UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetGroup().getTweakedGroupKey();
+        final String UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup().getTweakedGroupKey();
 
         // First emission.
         final String UNLIMITED_ROYLLO_COIN_1_RAW_PROOF = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofRequest(0).getRawProof();
         final String UNLIMITED_ROYLLO_COIN_1_PROOF_ID = sha256(UNLIMITED_ROYLLO_COIN_1_RAW_PROOF);
-        final String UNLIMITED_ROYLLO_COIN_1_ASSET_STATE_ID = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProof(0).getAsset().getAssetStateId();
+        final String UNLIMITED_ROYLLO_COIN_1_ASSET_STATE_ID = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetStateId();
 
         // Second emission.
         final String UNLIMITED_ROYLLO_COIN_2_RAW_PROOF = UNLIMITED_ROYLLO_COIN_2_FROM_TEST.getDecodedProofRequest(0).getRawProof();
         final String UNLIMITED_ROYLLO_COIN_2_PROOF_ID = sha256(UNLIMITED_ROYLLO_COIN_2_RAW_PROOF);
-        final String UNLIMITED_ROYLLO_COIN_2_ASSET_STATE_ID = UNLIMITED_ROYLLO_COIN_2_FROM_TEST.getDecodedProof(0).getAsset().getAssetStateId();
+        final String UNLIMITED_ROYLLO_COIN_2_ASSET_STATE_ID = UNLIMITED_ROYLLO_COIN_2_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetStateId();
 
         // =============================================================================================================
         // We check that the asset doesn't already exist.
@@ -106,8 +106,8 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
         assertFalse(assetStateService.getAssetStateByAssetStateId(UNLIMITED_ROYLLO_COIN_1_ASSET_STATE_ID).isPresent());
         assertFalse(assetStateService.getAssetStateByAssetStateId(UNLIMITED_ROYLLO_COIN_2_ASSET_STATE_ID).isPresent());
 
-        assertFalse(proofService.getProofFileByProofFileId(UNLIMITED_ROYLLO_COIN_1_PROOF_ID).isPresent());
-        assertFalse(proofService.getProofFileByProofFileId(UNLIMITED_ROYLLO_COIN_2_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofByProofId(UNLIMITED_ROYLLO_COIN_1_PROOF_ID).isPresent());
+        assertFalse(proofService.getProofByProofId(UNLIMITED_ROYLLO_COIN_2_PROOF_ID).isPresent());
 
         // =============================================================================================================
         // We count how many items we have before inserting.
@@ -158,8 +158,8 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
         assertTrue(assetStateService.getAssetStateByAssetStateId(UNLIMITED_ROYLLO_COIN_1_ASSET_STATE_ID).isPresent());
         assertTrue(assetStateService.getAssetStateByAssetStateId(UNLIMITED_ROYLLO_COIN_2_ASSET_STATE_ID).isPresent());
 
-        assertTrue(proofService.getProofFileByProofFileId(UNLIMITED_ROYLLO_COIN_1_PROOF_ID).isPresent());
-        assertTrue(proofService.getProofFileByProofFileId(UNLIMITED_ROYLLO_COIN_2_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofByProofId(UNLIMITED_ROYLLO_COIN_1_PROOF_ID).isPresent());
+        assertTrue(proofService.getProofByProofId(UNLIMITED_ROYLLO_COIN_2_PROOF_ID).isPresent());
 
         // =============================================================================================================
         // We check that nothing more has been created.

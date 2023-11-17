@@ -37,10 +37,32 @@
                     remarks="The serialized preimage of a Tapscript sibling, if there was one. If this is empty, then the merkle_root hash is equal to the Taproot root hash of the anchor output"/>
 
             <!-- State data -->
+            <column name="VERSION" type="TEXT"
+                    remarks="The version of the Taproot Asset"/>
+            <column name="AMOUNT" type="BIGINT"
+                    remarks="The total amount of the asset stored in this Taproot UTXO"/>
+            <column name="LOCK_TIME" type="BIGINT"
+                    remarks="An optional locktime, as with Bitcoin transactions"/>
+            <column name="RELATIVE_LOCK_TIME" type="BIGINT"
+                    remarks="An optional relative lock time, same as Bitcoin transactions"/>
             <column name="SCRIPT_VERSION" type="INTEGER"
                     remarks="The version of the script, only version 0 is defined at present"/>
             <column name="SCRIPT_KEY" type="TEXT"
                     remarks="The script key of the asset, which can be spent under Taproot semantics"/>
+            <column name="LEASE_OWNER" type="TEXT"
+                    remarks="If the asset has been leased, this is the owner (application ID) of the lease"/>
+            <column name="LEASE_EXPIRY" type="BIGINT"
+                    remarks="If the asset has been leased, this is the expiry of the lease as a Unix timestamp in seconds."/>
+            <column name="TX_MERKLE_PROOF" type="TEXT"
+                    remarks="The merkle root of the transaction that created the asset"/>
+            <column name="INCLUSION_PROOF" type="TEXT"
+                    remarks="The TaprootProof proving the new inclusion of the resulting asset within AnchorTx"/>
+            <column name="EXCLUSION_PROOFS" type="TEXT"
+                    remarks="The TaprootProof proving the exclusion of the resulting asset within AnchorTx"/>
+            <column name="SPLIT_ROOT_PROOF" type="TEXT"
+                    remarks="An optional TaprootProof needed if this asset is the result of a split. SplitRootProof proves inclusion of the root asset of the split"/>
+            <column name="CHALLENGE_WITNESS" type="TEXT"
+                    remarks="ChallengeWitness is an optional virtual transaction witness that serves as an ownership proof for the asset"/>
 
             <!-- Technical fields -->
             <column name="CREATED_ON" type="TIMESTAMP"
