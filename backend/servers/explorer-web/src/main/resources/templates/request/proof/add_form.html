@@ -1,5 +1,4 @@
 <!doctype html>
-<!--suppress ALL -->
 <html lang="en"
       layout:decorate="~{util/fragments/layouts/default/layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
@@ -12,16 +11,18 @@
     <div class="pt-12 w-4/5 mx-auto">
         <form method="post" th:action="@{/request/proof/add}" th:object="${command}">
 
-            <!--/* Raw proof field */-->
-            <textarea class="w-full textarea textarea-bordered"
-                      name="proof"
-                      onClick="this.select();"
-                      onFocus="this.select();"
-                      required
-                      rows="15"
-                      th:field="*{proof}"
-                      th:placeholder="#{request.proof.proof.helper}">
-            </textarea>
+            <!--/* Proof field */-->
+            <label>
+                <textarea class="w-full textarea textarea-bordered"
+                          name="proof"
+                          onClick="this.select();"
+                          onFocus="this.select();"
+                          required
+                          rows="15"
+                          th:field="*{proof}"
+                          th:placeholder="#{request.proof.proof.helper}">
+                </textarea>
+            </label>
 
             <!--/* Error messages */-->
             <!--/* TODO Replace with inserting "error_message.html" */-->
@@ -40,7 +41,7 @@
             </div>
 
             <!--/* Submit button */-->
-            <button class="btn btn-primary"
+            <button class="btn btn-primary mt-6"
                     th:text="#{request.proof.submit}"
                     type="submit"></button>
 

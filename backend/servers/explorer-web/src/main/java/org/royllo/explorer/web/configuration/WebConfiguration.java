@@ -58,6 +58,7 @@ public class WebConfiguration implements WebMvcConfigurer {
                 "classpath:/i18n/data",
                 "classpath:/i18n/footer",
                 "classpath:/i18n/html",
+                "classpath:/i18n/request",
                 "classpath:/i18n/request-add-proof",
                 "classpath:/i18n/request-add-universe-server",
                 "classpath:/i18n/search"
