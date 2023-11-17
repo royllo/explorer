@@ -10,8 +10,8 @@ import lombok.Data;
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public class AddProofRequestForm {
 
-    /** Raw proof. */
+    /** Proof. */
     @NotBlank
-    String rawProof;
+    String proof;
 
 }
