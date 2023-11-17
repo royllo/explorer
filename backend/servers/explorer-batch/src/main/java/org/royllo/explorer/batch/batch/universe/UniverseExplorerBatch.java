@@ -48,7 +48,7 @@ public class UniverseExplorerBatch extends BaseBatch {
         if (enabled.get()) {
             universeServerRepository.findFirstByOrderByLastSynchronizedOnAsc().ifPresent(universeServer -> {
                 // For each server we have in our databases.
-                logger.info("Processing universe server: {}", universeServer);
+                logger.info("Processing universe server: {}", universeServer.getServerAddress());
 
                 // We indicate that we are working on this universe server by updating its last sync date.
                 universeServer.setLastSynchronizedOn(now());
@@ -57,7 +57,13 @@ public class UniverseExplorerBatch extends BaseBatch {
                 // We retrieve the universe roots.
                 final UniverseRootsResponse universeRoots = tapdService.getUniverseRoots(universeServer.getServerAddress()).block();
                 if (universeRoots == null) {
-                    logger.error("No universe roots found for server: {}", universeServer);
+                    logger.error("No universe roots found for server - null reply: {}", universeServer.getServerAddress());
+                    return;
+                }
+
+                // if there is none, we stop here.
+                if (universeRoots.getUniverseRoots().isEmpty()) {
+                    logger.error("No universe roots found for server - empty reply: {}", universeServer.getServerAddress());
                     return;
                 }
 
@@ -68,11 +74,16 @@ public class UniverseExplorerBatch extends BaseBatch {
                         .filter(universeRoot -> universeRoot.getId().getAssetId() != null)
                         .map(universeRoot -> universeRoot.getId().getAssetId())
                         .distinct()
+                        .peek(assetId -> logger.info("Found asset id: {}", assetId))
                         .forEach(assetId -> {
-                            logger.info("Processing asset id: {}", assetId);
                             final UniverseLeavesResponse leaves = tapdService.getUniverseLeaves(universeServer.getServerAddress(), assetId).block();
                             if (leaves == null) {
-                                logger.error("No universe leaves found for asset id: {}", assetId);
+                                logger.error("No universe leaves found for asset id - null result: {}", assetId);
+                                return;
+                            }
+
+                            if (leaves.getLeaves().isEmpty()) {
+                                logger.error("No universe leaves found for asset id - empty result: {}", assetId);
                                 return;
                             }
 
@@ -83,7 +94,7 @@ public class UniverseExplorerBatch extends BaseBatch {
                                     .filter(proof -> proofRepository.findByProofId(sha256(proof)).isEmpty())
                                     .forEach(proof -> {
                                         final AddProofRequestDTO addProofRequest = requestService.createAddProofRequest(proof);
-                                        logger.info("Request created {} for asset: {}", addProofRequest.getId(), addProofRequest.getRawProof());
+                                        logger.info("Request created {} for asset: {}", addProofRequest.getId(), assetId);
                                     });
                         });
 
