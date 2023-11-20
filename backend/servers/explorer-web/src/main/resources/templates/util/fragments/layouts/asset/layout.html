@@ -23,8 +23,14 @@
     flex-col        :   Use flex-col to position flex items vertically.
 */-->
 <main class="flex flex-col"
-      id="content"
-      layout:fragment="content">
+      id="content">
+
+    <div th:replace="~{util/fragments/layouts/asset/header :: section}"></div>
+
+    <div id="asset-tab"
+         layout:fragment="content">
+    </div>
+
 </main>
 
 <!--/* Footer */-->

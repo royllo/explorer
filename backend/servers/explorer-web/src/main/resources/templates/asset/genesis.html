@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{util/fragments/layouts/asset/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!--/* =========================================================================================================== */-->
+<div layout:fragment="content" th:fragment="asset-genesis-view">
+
+    <!--/* Where we are */-->
+    <div class="text-sm breadcrumbs">
+        <ul>
+            <li>&nbsp;</li>
+            <li th:text="#{asset.view.tabs.genesis}"></li>
+        </ul>
+    </div>
+
+    <!--/* Asset information */-->
+    <div class="overflow-x-auto">
+        <table class="table table-zebra table-fixed">
+            <!-- head -->
+            <thead class=" w-full">
+            <tr>
+                <th colspan="1">Asset information</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Lines -->
+            <tr>
+
+                <td>
+                    <div class="font-bold">Quality Control</div>
+                    <div class="text-ellipsis overflow-hidden"></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <a hx-push-url="true"
+       hx-target="#asset-tab"
+       th:href="@{'/asset/' + ${assetId} + '/group'}"
+       th:hx-get="@{'/asset/' + ${assetId} + '/group'}">
+        GROUP
+    </a>
+
+</div>
+<!--/* =========================================================================================================== */-->
+
+</html>

@@ -1,5 +1,6 @@
 <!--/* Search form */-->
-<form hx-push-url="true" hx-swap="outerHTML" th:action="@{/search}" th:method="GET">
+<form hx-get="/search" hx-push-url="true" hx-target="#content" th:action="@{/search}"
+      th:method="GET">
 
     <div class="mx-auto max-w-xl">
         <div class="relative">
@@ -13,8 +14,6 @@
             <input autocomplete="false"
                    autofocus
                    class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg"
-                   hx-get="/search"
-                   hx-target="#content"
                    hx-trigger="keyup[key=='Enter']"
                    id="query"
                    name="query" onClick="this.select();"
