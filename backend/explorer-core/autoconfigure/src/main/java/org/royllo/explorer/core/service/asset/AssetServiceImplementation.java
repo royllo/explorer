@@ -152,7 +152,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
     public Optional<AssetDTO> getAssetByAssetId(@NonNull final String assetId) {
         logger.info("Getting asset with assetId {}", assetId);
 
-        final Optional<Asset> asset = assetRepository.findByAssetId(assetId);
+        final Optional<Asset> asset = assetRepository.findByAssetId(assetId.trim());
         if (asset.isEmpty()) {
             logger.info("Asset with assetId {} not found", assetId);
             return Optional.empty();
@@ -165,7 +165,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
     @Override
     public List<AssetDTO> getAssetsByAssetGroupId(@NonNull final String assetGroupId) {
         logger.info("Getting assets with asset group id {}", assetGroupId);
-        return assetRepository.findByAssetGroup_AssetGroupId(assetGroupId).stream()
+        return assetRepository.findByAssetGroup_AssetGroupId(assetGroupId.trim()).stream()
                 .map(ASSET_MAPPER::mapToAssetDTO)
                 .toList();
     }

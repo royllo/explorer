@@ -25,11 +25,37 @@
 <main class="flex flex-col"
       id="content">
 
-    <div th:replace="~{util/fragments/layouts/asset/header :: section}"></div>
+    <!--/* ======================================================================================================= */-->
+    <!--/* Error management */-->
+    <div class="errorManagement" th:if="${#strings.isEmpty(assetId) || asset == null}">
 
-    <div id="asset-tab"
-         layout:fragment="content">
+        <!--/* No value for the "assetId" parameter */-->
+        <div th:if="${#strings.isEmpty(assetId)}"
+             th:insert="~{util/fragments/components/error_message :: error_message(#{asset.view.error.noAssetId})}">
+        </div>
+
+        <!--/* We have the "assetId" parameter but the asset was not found */-->
+        <div th:if="${!#strings.isEmpty(assetId) && asset == null}"
+             th:insert="~{util/fragments/components/error_message :: error_message(#{asset.view.error.assetNotFound(${assetId})})}">
+        </div>
+
     </div>
+    <!--/* ======================================================================================================= */-->
+
+    <!--/* ======================================================================================================= */-->
+    <!--/* Display asset /-->
+    <div th:if="${asset != null}">
+
+        <!--/* Header describing the asset and the menu */-->
+        <div th:replace="~{util/fragments/layouts/asset/header :: section}"></div>
+
+        <!--/* A tab describing a part of the asset */-->
+        <div id="asset-tab"
+             layout:fragment="content">
+        </div>
+
+    </div>
+    <!--/* ======================================================================================================= */-->
 
 </main>
 

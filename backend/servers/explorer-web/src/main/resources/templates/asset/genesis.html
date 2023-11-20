@@ -4,10 +4,10 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<div layout:fragment="content" th:fragment="asset-genesis-view">
+<div layout:fragment="content" th:fragment="asset-genesis-fragment">
 
     <!--/* Where we are */-->
-    <div class="text-sm breadcrumbs">
+    <div class="text breadcrumbs">
         <ul>
             <li>&nbsp;</li>
             <li th:text="#{asset.view.tabs.genesis}"></li>
@@ -20,7 +20,25 @@
             <!-- head -->
             <thead class=" w-full">
             <tr>
-                <th colspan="1">Asset information</th>
+                <th colspan="2" th:text="#{asset.view.asset.information.title}"></th>
+            </tr>
+            </thead>
+            <!-- Lines -->
+            <tbody>
+            <tr th:replace="~{util/fragments/layouts/asset/table_line :: table_line('a', 'b')}"></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br><br>
+
+    <!--/* Asset genesis information */-->
+    <div class="overflow-x-auto">
+        <table class="table table-zebra table-fixed">
+            <!-- head -->
+            <thead class=" w-full">
+            <tr>
+                <th colspan="2" th:text="#{asset.view.asset.genesis.title}"></th>
             </tr>
             </thead>
             <tbody>
@@ -35,14 +53,6 @@
             </tbody>
         </table>
     </div>
-
-
-    <a hx-push-url="true"
-       hx-target="#asset-tab"
-       th:href="@{'/asset/' + ${assetId} + '/group'}"
-       th:hx-get="@{'/asset/' + ${assetId} + '/group'}">
-        GROUP
-    </a>
 
 </div>
 <!--/* =========================================================================================================== */-->

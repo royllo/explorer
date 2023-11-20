@@ -24,11 +24,12 @@ import java.util.Optional;
 import static org.royllo.explorer.web.configuration.WebConfiguration.ASSET_PROOFS_DEFAULT_PAGE_SIZE;
 import static org.royllo.explorer.web.configuration.WebConfiguration.ASSET_STATES_DEFAULT_PAGE_SIZE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GENESIS_PAGE;
-import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GENESIS_PAGE_FRAGMENT;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GROUP_PAGE;
-import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GROUP_PAGE_FRAGMENT;
+import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_OWNER_TAB;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PAGE;
-import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PAGE_FRAGMENT;
+import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PROOFS_TAB;
+import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_STATES_TAB;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_ID_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_STATES_LIST_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PROOF_FILES_LIST_ATTRIBUTE;
@@ -65,17 +66,9 @@ public class AssetController extends BaseController {
     public String asset(final Model model,
                         final HttpServletRequest request,
                         @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
-        // If assetId is present, we retrieve it.
-        if (StringUtils.isNotBlank(assetId)) {
-            model.addAttribute(ASSET_ID_ATTRIBUTE, assetId);
-            final Optional<AssetDTO> asset = assetService.getAssetByAssetId(assetId.trim());
-            asset.ifPresent(assetDTO -> model.addAttribute(RESULT_ATTRIBUTE, assetDTO));
-        }
+        addAssetToModel(model, assetId);
 
-        // If it's an HTMX request, we return the fragment.
-        if (isHtmxRequest(request)) {
-            return ASSET_PAGE_FRAGMENT;
-        }
+        // TODO Implement fragment management.
         return ASSET_PAGE;
     }
 
@@ -85,25 +78,16 @@ public class AssetController extends BaseController {
      * @param model   model
      * @param request request
      * @param assetId asset id
-     * @return view asset page
+     * @return asset genesis page
      */
     @SuppressWarnings("SameReturnValue")
     @GetMapping(value = {"/asset/{assetId}/genesis"})
     public String assetGenesis(final Model model,
                                final HttpServletRequest request,
                                @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
-        // If assetId is present, we retrieve it.
-        if (StringUtils.isNotBlank(assetId)) {
-            model.addAttribute(ASSET_ID_ATTRIBUTE, assetId);
-            final Optional<AssetDTO> asset = assetService.getAssetByAssetId(assetId.trim());
-            asset.ifPresent(assetDTO -> model.addAttribute(RESULT_ATTRIBUTE, assetDTO));
-        }
+        addAssetToModel(model, assetId);
 
-        // If it's an HTMX request, we return the fragment.
-        if (isHtmxRequest(request)) {
-            return ASSET_GENESIS_PAGE_FRAGMENT;
-        }
-        return ASSET_GENESIS_PAGE;
+        return getPage(request, ASSET_GENESIS_PAGE);
     }
 
     /**
@@ -112,25 +96,70 @@ public class AssetController extends BaseController {
      * @param model   model
      * @param request request
      * @param assetId asset id
-     * @return view asset page
+     * @return asset group page
      */
     @SuppressWarnings("SameReturnValue")
     @GetMapping(value = {"/asset/{assetId}/group"})
     public String assetGroup(final Model model,
                              final HttpServletRequest request,
                              @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
-        // If assetId is present, we retrieve it.
-        if (StringUtils.isNotBlank(assetId)) {
-            model.addAttribute(ASSET_ID_ATTRIBUTE, assetId);
-            final Optional<AssetDTO> asset = assetService.getAssetByAssetId(assetId.trim());
-            asset.ifPresent(assetDTO -> model.addAttribute(RESULT_ATTRIBUTE, assetDTO));
-        }
+        addAssetToModel(model, assetId);
 
-        // If it's an HTMX request, we return the fragment.
-        if (isHtmxRequest(request)) {
-            return ASSET_GROUP_PAGE_FRAGMENT;
-        }
-        return ASSET_GROUP_PAGE;
+        return getPage(request, ASSET_GROUP_PAGE);
+    }
+
+    /**
+     * Page displaying the asset states.
+     *
+     * @param model   model
+     * @param request request
+     * @param assetId asset id
+     * @return asset states page
+     */
+    @SuppressWarnings("SameReturnValue")
+    @GetMapping(value = {"/asset/{assetId}/states"})
+    public String assetStates(final Model model,
+                              final HttpServletRequest request,
+                              @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
+        addAssetToModel(model, assetId);
+
+        return getPage(request, ASSET_STATES_TAB);
+    }
+
+    /**
+     * Page displaying the asset owner.
+     *
+     * @param model   model
+     * @param request request
+     * @param assetId asset id
+     * @return asset owner page
+     */
+    @SuppressWarnings("SameReturnValue")
+    @GetMapping(value = {"/asset/{assetId}/owner"})
+    public String assetOwner(final Model model,
+                             final HttpServletRequest request,
+                             @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
+        addAssetToModel(model, assetId);
+
+        return getPage(request, ASSET_OWNER_TAB);
+    }
+
+    /**
+     * Page displaying the asset proofs.
+     *
+     * @param model   model
+     * @param request request
+     * @param assetId asset id
+     * @return proofs owner page
+     */
+    @SuppressWarnings("SameReturnValue")
+    @GetMapping(value = {"/asset/{assetId}/proofs"})
+    public String assetProofs(final Model model,
+                              final HttpServletRequest request,
+                              @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
+        addAssetToModel(model, assetId);
+
+        return getPage(request, ASSET_PROOFS_TAB);
     }
 
     /**
@@ -171,9 +200,9 @@ public class AssetController extends BaseController {
         }
 
         // If it's an HTMX request, we return the fragment.
-        if (isHtmxRequest(request)) {
-            return ASSET_PAGE_FRAGMENT;
-        }
+//        if (isHtmxRequest(request)) {
+//            return ASSET_PAGE_FRAGMENT;
+//        }
         return ASSET_PAGE;
     }
 
@@ -192,6 +221,17 @@ public class AssetController extends BaseController {
         } else {
             throw new ResponseStatusException(NOT_FOUND, "Proof file not found");
         }
+    }
+
+    /**
+     * Add asset data to the model.
+     *
+     * @param model   model
+     * @param assetId asset id
+     */
+    private void addAssetToModel(final Model model, final String assetId) {
+        model.addAttribute(ASSET_ID_ATTRIBUTE, assetId);
+        assetService.getAssetByAssetId(assetId).ifPresent(assetDTO -> model.addAttribute(ASSET_ATTRIBUTE, assetDTO));
     }
 
 }

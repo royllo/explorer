@@ -1,6 +1,7 @@
 package org.royllo.explorer.web.util.constants;
 
 import lombok.experimental.UtilityClass;
+import org.royllo.explorer.web.util.page.Page;
 
 /**
  * Asset page files.
@@ -12,25 +13,19 @@ public class AssetPageConstants {
     /** Asset page. */
     public static final String ASSET_PAGE = "asset/genesis";
 
-    /** Asset page fragment. */
-    public static final String ASSET_PAGE_FRAGMENT = "asset/genesis";
-
     /** Asset genesis page. */
-    public static final String ASSET_GENESIS_PAGE = "asset/genesis";
-
-    /** Asset genesis page fragment. */
-    public static final String ASSET_GENESIS_PAGE_FRAGMENT = "asset/genesis :: asset-genesis-view";
+    public static final Page ASSET_GENESIS_PAGE = new Page("asset/genesis");
 
     /** Asset group page. */
-    public static final String ASSET_GROUP_PAGE = "asset/group";
+    public static final Page ASSET_GROUP_PAGE = new Page("asset/group");
 
-    /** Asset group page fragment. */
-    public static final String ASSET_GROUP_PAGE_FRAGMENT = "asset/group :: asset-group-view";
+    /** Asset states page. */
+    public static final Page ASSET_STATES_TAB = new Page("asset/states");
 
-    /** Asset genesis tab attribute value. */
-    public static final String ASSET_GENESIS_TAB = "genesis";
+    /** Asset owner page. */
+    public static final Page ASSET_OWNER_TAB = new Page("asset/owner");
 
-    /** Asset group tab attribute value. */
-    public static final String ASSET_GROUP_TAB = "genesis";
+    /** Asset proofs page. */
+    public static final Page ASSET_PROOFS_TAB = new Page("asset/proofs");
 
 }

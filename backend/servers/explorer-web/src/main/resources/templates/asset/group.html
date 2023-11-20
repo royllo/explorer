@@ -4,14 +4,15 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<div layout:fragment="content" th:fragment="asset-group-view">
+<div layout:fragment="content" th:fragment="asset-group-fragment">
 
-    <a hx-push-url="true"
-       hx-target="#asset-tab"
-       th:href="@{'/asset/' + ${assetId} + '/genesis'}"
-       th:hx-get="@{'/asset/' + ${assetId} + '/genesis'}">
-        GENESIS
-    </a>
+    <!--/* Where we are */-->
+    <div class="text breadcrumbs">
+        <ul>
+            <li>&nbsp;</li>
+            <li th:text="#{asset.view.tabs.group}"></li>
+        </ul>
+    </div>
 
 </div>
 <!--/* =========================================================================================================== */-->
