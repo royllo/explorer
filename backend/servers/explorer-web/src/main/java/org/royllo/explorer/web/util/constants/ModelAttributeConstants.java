@@ -18,6 +18,9 @@ public class ModelAttributeConstants {
     /** Asset id attribute. */
     public static final String ASSET_ID_ATTRIBUTE = "assetId";
 
+    /** Asset attribute. */
+    public static final String ASSET_ATTRIBUTE = "asset";
+
     /** Proof file id attribute. */
     public static final String PROOF_FILE_ID_ATTRIBUTE = "proofFileId";
 
