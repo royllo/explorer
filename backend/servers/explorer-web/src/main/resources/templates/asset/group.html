@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{util/fragments/layouts/asset/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!--/* =========================================================================================================== */-->
+<div layout:fragment="content" th:fragment="asset-group-view">
+
+    <a hx-push-url="true"
+       hx-target="#asset-tab"
+       th:href="@{'/asset/' + ${assetId} + '/genesis'}"
+       th:hx-get="@{'/asset/' + ${assetId} + '/genesis'}">
+        GENESIS
+    </a>
+
+</div>
+<!--/* =========================================================================================================== */-->
+
+</html>

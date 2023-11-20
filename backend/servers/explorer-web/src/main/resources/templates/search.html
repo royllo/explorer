@@ -59,31 +59,33 @@
                         <!--/* Description */-->
                         <div class="min-w-0 flex-auto">
                             <p class="text-sm font-semibold leading-6 text-gray-900">
-                                <a hx-push-url="true"
-                                   hx-target="#content"
-                                   th:href="@{'/asset/' + ${asset.assetId}}"
-                                   th:hx-get="@{'/asset/' + ${asset.assetId}}">
+                                <a th:href="@{'/asset/' + ${asset.assetId}}">
+                                    <!--/* TODO make an HTMX call */-->
+                                    <!--/* https://stackoverflow.com/questions/77514855/getting-a-fragment-of-a-layout-after-the-page-has-been-generated */-->
+                                    <!--/* hx-push-url="true" */-->
+                                    <!--/* hx-target="#content" */-->
+                                    <!--/* th:hx-get="@{'/asset/' + ${asset.assetId}}" */-->
                                     <span class="absolute inset-x-0 -top-px bottom-0"></span>
                                     <span th:text="${asset.name}"></span>
                                 </a>
                             </p>
                             <p class="text-xs text-gray-500 ">
-                                <span class="relative truncate block"
-                                      th:text="@{#{data.asset.assetId} + ': ' + ${asset.assetId}}">
+                             <span class="relative truncate block"
+                                   th:text="@{#{data.asset.assetId} + ': ' + ${asset.assetId}}">
 
-                                </span>
+                             </span>
                                 <span class="relative truncate block"
                                       th:if="${asset.assetGroup != null}"
                                       th:text="@{#{data.asset.tweakedGroupKey} + ': ' + ${asset.assetGroup.tweakedGroupKey}}">
-                                </span>
+                             </span>
                                 <span class="relative truncate block"
                                       th:if="${#strings.equalsIgnoreCase(asset.type, 'NORMAL')}"
                                       th:text="@{#{data.asset.amount} + ': ' + ${asset.amount}}">
-                                </span>
+                             </span>
                                 <span class="relative truncate block"
                                       th:text="@{#{data.asset.creator} + ': ' + ${asset.creator.username}}">
 
-                                </span>
+                             </span>
                             </p>
                         </div>
                     </div>
