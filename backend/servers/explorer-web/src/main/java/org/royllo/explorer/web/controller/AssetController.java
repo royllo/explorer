@@ -87,7 +87,7 @@ public class AssetController extends BaseController {
                                @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
         addAssetToModel(model, assetId);
 
-        return getPage(request, ASSET_GENESIS_PAGE);
+        return getPageOrFragment(request, ASSET_GENESIS_PAGE);
     }
 
     /**
@@ -105,7 +105,7 @@ public class AssetController extends BaseController {
                              @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
         addAssetToModel(model, assetId);
 
-        return getPage(request, ASSET_GROUP_PAGE);
+        return getPageOrFragment(request, ASSET_GROUP_PAGE);
     }
 
     /**
@@ -123,7 +123,7 @@ public class AssetController extends BaseController {
                               @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
         addAssetToModel(model, assetId);
 
-        return getPage(request, ASSET_STATES_TAB);
+        return getPageOrFragment(request, ASSET_STATES_TAB);
     }
 
     /**
@@ -141,7 +141,7 @@ public class AssetController extends BaseController {
                              @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
         addAssetToModel(model, assetId);
 
-        return getPage(request, ASSET_OWNER_TAB);
+        return getPageOrFragment(request, ASSET_OWNER_TAB);
     }
 
     /**
@@ -159,7 +159,7 @@ public class AssetController extends BaseController {
                               @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
         addAssetToModel(model, assetId);
 
-        return getPage(request, ASSET_PROOFS_TAB);
+        return getPageOrFragment(request, ASSET_PROOFS_TAB);
     }
 
     /**
