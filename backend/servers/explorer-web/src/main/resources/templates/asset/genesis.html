@@ -17,39 +17,44 @@
     <!--/* Asset information */-->
     <div class="overflow-x-auto">
         <table class="table table-zebra table-fixed">
-            <!-- head -->
-            <thead class=" w-full">
-            <tr>
-                <th colspan="2" th:text="#{asset.view.asset.information.title}"></th>
-            </tr>
-            </thead>
-            <!-- Lines -->
+            <!--/* Asset information */-->
             <tbody>
-            <tr th:replace="~{util/fragments/layouts/asset/table_line :: table_line('a', 'b')}"></tr>
-            </tbody>
-        </table>
-    </div>
 
-    <br><br>
+            <tr th:replace="~{util/fragments/layouts/asset/table_line ::
+                            table_line(#{asset.data.name}, ${asset.name})}"></tr>
 
-    <!--/* Asset genesis information */-->
-    <div class="overflow-x-auto">
-        <table class="table table-zebra table-fixed">
-            <!-- head -->
-            <thead class=" w-full">
-            <tr>
-                <th colspan="2" th:text="#{asset.view.asset.genesis.title}"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- Lines -->
-            <tr>
+            <tr th:replace="~{util/fragments/layouts/asset/table_line ::
+                            table_line(#{asset.data.assetId}, ${asset.assetId})}"></tr>
 
+            <th:block th:if="${#strings.equals(asset.type, 'NORMAL')}">
                 <td>
-                    <div class="font-bold">Quality Control</div>
-                    <div class="text-ellipsis overflow-hidden"></div>
+                    <div class="font-bold" th:text="#{asset.data.assetType}"></div>
+                    <div class="text-ellipsis overflow-hidden" th:text="#{asset.data.assetType.normal}"></div>
                 </td>
-            </tr>
+
+                <tr th:replace="~{util/fragments/layouts/asset/table_line ::
+                            table_line(#{asset.data.amount}, ${asset.amount})}"></tr>
+            </th:block>
+
+            <th:block th:if="${#strings.equals(asset.type, 'COLLECTIBLE')}">
+                <td>
+                    <div class="font-bold" th:text="#{asset.data.assetType}"></div>
+                    <div class="text-ellipsis overflow-hidden" th:text="#{asset.data.assetType.collectible}"></div>
+                </td>
+            </th:block>
+
+            <tr th:replace="~{util/fragments/layouts/asset/table_line ::
+                            table_line(#{asset.data.metaDataHash}, ${asset.metaDataHash})}"></tr>
+
+            <tr th:replace="~{util/fragments/layouts/asset/table_line ::
+                            table_line(#{asset.data.version}, ${asset.version})}"></tr>
+
+            <tr th:replace="~{util/fragments/layouts/asset/table_line ::
+                            table_line(#{asset.data.genesisPoint}, ${asset.genesisPoint})}"></tr>
+
+            <tr th:replace="~{util/fragments/layouts/asset/table_line ::
+                            table_line(#{asset.data.outputIndex}, ${asset.outputIndex})}"></tr>
+
             </tbody>
         </table>
     </div>
