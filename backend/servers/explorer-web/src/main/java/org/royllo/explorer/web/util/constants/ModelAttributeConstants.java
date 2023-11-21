@@ -30,6 +30,9 @@ public class ModelAttributeConstants {
     /** Result attribute. */
     public static final String RESULT_ATTRIBUTE = "result";
 
+    /** Asset in group list attribute. */
+    public static final String ASSETS_IN_GROUP_LIST_ATTRIBUTE = "assetsInGroupList";
+
     /** Asset states list attribute. */
     public static final String ASSET_STATES_LIST_ATTRIBUTE = "assetStatesList";
 
