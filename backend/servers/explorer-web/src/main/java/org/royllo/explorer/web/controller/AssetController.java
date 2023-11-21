@@ -21,6 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
+import static org.royllo.explorer.web.configuration.WebConfiguration.ASSET_GROUP_ASSETS_DEFAULT_PAGE_SIZE;
 import static org.royllo.explorer.web.configuration.WebConfiguration.ASSET_PROOFS_DEFAULT_PAGE_SIZE;
 import static org.royllo.explorer.web.configuration.WebConfiguration.ASSET_STATES_DEFAULT_PAGE_SIZE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GENESIS_PAGE;
@@ -29,6 +30,7 @@ import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_OW
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PROOFS_TAB;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_STATES_TAB;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSETS_IN_GROUP_LIST_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_ID_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_STATES_LIST_ATTRIBUTE;
@@ -103,7 +105,19 @@ public class AssetController extends BaseController {
     public String assetGroup(final Model model,
                              final HttpServletRequest request,
                              @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
-        addAssetToModel(model, assetId);
+        final Optional<AssetDTO> asset = addAssetToModel(model, assetId);
+
+        // We search for the assets in the same asset group.
+        if (asset.isPresent() && asset.get().getAssetGroup() != null) {
+            // TODO Use a specific method to get assets from a group instead of the search service.
+            // TODO Add a pagination for this result
+            System.out.println("=> " + asset.get().getAssetGroup().getTweakedGroupKey());
+            model.addAttribute(ASSETS_IN_GROUP_LIST_ATTRIBUTE,
+                    assetService.queryAssets(asset.get().getAssetGroup().getTweakedGroupKey(),
+                            1,
+                            ASSET_GROUP_ASSETS_DEFAULT_PAGE_SIZE));
+
+        }
 
         return getPageOrFragment(request, ASSET_GROUP_PAGE);
     }
@@ -228,10 +242,13 @@ public class AssetController extends BaseController {
      *
      * @param model   model
      * @param assetId asset id
+     * @return asset
      */
-    private void addAssetToModel(final Model model, final String assetId) {
+    private Optional<AssetDTO> addAssetToModel(final Model model, final String assetId) {
         model.addAttribute(ASSET_ID_ATTRIBUTE, assetId);
-        assetService.getAssetByAssetId(assetId).ifPresent(assetDTO -> model.addAttribute(ASSET_ATTRIBUTE, assetDTO));
+        final Optional<AssetDTO> asset = assetService.getAssetByAssetId(assetId);
+        asset.ifPresent(assetDTO -> model.addAttribute(ASSET_ATTRIBUTE, assetDTO));
+        return asset;
     }
 
 }
