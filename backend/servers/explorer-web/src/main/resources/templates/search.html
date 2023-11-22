@@ -14,24 +14,22 @@
 
         <!--/* =================================================================================================== */-->
         <!--/* Error management */-->
-        <div class="errorManagement">
 
-            <!--/* No value for the "query" parameter */-->
-            <div th:if="${#strings.isEmpty(query)}"
-                 th:insert="~{util/fragments/components/error_message :: error_message(#{search.error.noQuery})}">
-            </div>
-
-            <!--/* No result */-->
-            <div th:if="${result != null && result.getTotalElements() == 0}"
-                 th:insert="~{util/fragments/components/error_message :: error_message(#{search.error.noResult(${query})})}">
-            </div>
-
-            <!--/* There is results but not for the page they asked for */-->
-            <div th:if="${result != null && result.getTotalElements() > 0 && result.getContent().isEmpty()}"
-                 th:insert="~{util/fragments/components/error_message :: error_message(#{search.error.invalidPage})}">
-            </div>
-
+        <!--/* No value for the "query" parameter */-->
+        <div th:if="${#strings.isEmpty(query)}"
+             th:insert="~{util/fragments/components/error_message :: error_message(#{search.error.noQuery})}">
         </div>
+
+        <!--/* No result */-->
+        <div th:if="${result != null && result.getTotalElements() == 0}"
+             th:insert="~{util/fragments/components/error_message :: error_message(#{search.error.noResult(${query})})}">
+        </div>
+
+        <!--/* There is results but not for the page they asked for */-->
+        <div th:if="${result != null && result.getTotalElements() > 0 && result.getContent().isEmpty()}"
+             th:insert="~{util/fragments/components/error_message :: error_message(#{search.error.invalidPage})}">
+        </div>
+
 
         <!--/* =================================================================================================== */-->
         <!--/* Results */-->

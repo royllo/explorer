@@ -12,14 +12,14 @@
 /* Tailwind's component classes and any component classes registered by plugins. */
 @layer components {
 
-    .errorManagement {
-        @apply pt-12 w-2/3 mx-auto
-    }
-
 }
 
 /* ================================================================================================================== */
 /* Tailwind's utility classes and any utility classes registered by plugins. */
 @layer utilities {
+
+    .footerIcon {
+        @apply object-fill h-6 w-6
+    }
 
 }

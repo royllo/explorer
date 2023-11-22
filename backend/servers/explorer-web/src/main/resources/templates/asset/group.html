@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<div layout:fragment="content" th:fragment="asset-group-fragment">
+<div layout:fragment="content" th:fragment="asset-group-fragment" th:if="${asset} != null">
 
     <!--/* Where we are */-->
     <div class="text breadcrumbs">
@@ -15,7 +15,7 @@
     </div>
 
     <!--/* If there are no asset group, just say it */-->
-    <div class="overflow-x-auto" th:if="${asset.assetGroup} == null">
+    <div class="overflow-x-auto">
         <table class="table table-zebra table-fixed">
             <!--/* Header */-->
             <thead class=" w-full">

@@ -27,19 +27,17 @@
 
     <!--/* ======================================================================================================= */-->
     <!--/* Error management */-->
-    <div class="errorManagement" th:if="${#strings.isEmpty(assetId) || asset == null}">
 
-        <!--/* No value for the "assetId" parameter */-->
-        <div th:if="${#strings.isEmpty(assetId)}"
-             th:insert="~{util/fragments/components/error_message :: error_message(#{asset.view.error.noAssetId})}">
-        </div>
-
-        <!--/* We have the "assetId" parameter but the asset was not found */-->
-        <div th:if="${!#strings.isEmpty(assetId) && asset == null}"
-             th:insert="~{util/fragments/components/error_message :: error_message(#{asset.view.error.assetNotFound(${assetId})})}">
-        </div>
-
+    <!--/* No value for the "assetId" parameter */-->
+    <div th:if="${#strings.isEmpty(assetId)}"
+         th:insert="~{util/fragments/components/error_message :: error_message(#{asset.view.error.noAssetId})}">
     </div>
+
+    <!--/* We have the "assetId" parameter but the asset was not found */-->
+    <div th:if="${!#strings.isEmpty(assetId) && asset == null}"
+         th:insert="~{util/fragments/components/error_message :: error_message(#{asset.view.error.assetNotFound})}">
+    </div>
+
     <!--/* ======================================================================================================= */-->
 
     <!--/* ======================================================================================================= */-->

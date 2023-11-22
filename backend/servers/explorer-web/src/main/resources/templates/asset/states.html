@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<div layout:fragment="content" th:fragment="asset-states-fragment">
+<div layout:fragment="content" th:fragment="asset-states-fragment" th:if="${asset} != null">
 
     <!--/* Where we are */-->
     <div class="text breadcrumbs">
@@ -15,7 +15,7 @@
     </div>
 
     <!--/* Display asset states */-->
-    <details class="collapse bg-base-200 mb-5" th:each="assetState, iStat: ${assetStatesList}">
+    <details class="collapse bg-base-200 mb-6" th:each="assetState, iStat: ${assetStatesList}">
         <summary class="collapse-title text-xl font-medium">
             <div th:text="#{field.asset.anchorOutpoint} + ' / ' + #{field.asset.scriptKey}"></div>
             <div class="text-ellipsis overflow-hidden text-sm" th:text="${assetState.anchorOutpoint.toString()}"></div>
@@ -87,8 +87,20 @@
                       th:id="'tapscriptSibling-' + ${iStat.index}"
                       th:text="${assetState.tapscriptSibling}">
             </textarea>
+            <!--/* Anchor amount */-->
+            <label class="label"
+                   th:for="'amount-' + ${iStat.index}">
+                <span class="label-text" th:text="#{asset.data.amount}"></span>
+            </label>
+            <input class="input input-bordered w-full"
+                   readonly
+                   th:id="'amount-' + ${iStat.index}"
+                   th:value="${assetState.amount}"
+                   type="text"/>
         </div>
     </details>
+
+    <div class="mt-16">&nbsp;</div>
 
 </div>
 <!--/* =========================================================================================================== */-->
