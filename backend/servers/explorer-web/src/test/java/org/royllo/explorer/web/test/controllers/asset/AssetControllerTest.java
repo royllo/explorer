@@ -10,7 +10,7 @@ import org.royllo.explorer.web.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.MockMvc;
@@ -19,7 +19,7 @@ import java.util.Objects;
 
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.containsString;
-import static org.royllo.explorer.web.util.constants.PagesConstants.ASSET_PAGE;
+import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PAGE;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_FROM_TEST;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -30,8 +30,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @DisplayName("Asset controller tests")
 @AutoConfigureMockMvc
-@PropertySource("classpath:i18n/messages.properties")
 public class AssetControllerTest extends BaseTest {
+
+    // TODO review this test
 
     @Autowired
     AssetRepository assetRepository;
@@ -45,6 +46,9 @@ public class AssetControllerTest extends BaseTest {
     @Autowired
     Environment environment;
 
+    @Autowired
+    MessageSource messageSource;
+
     @ParameterizedTest
     @MethodSource("headers")
     @DisplayName("Asset page without parameter")
@@ -53,9 +57,8 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_PAGE)))
                 // Checking error message.
-                .andExpect(content().string(containsString(environment.getProperty("asset.view.error.noAssetId"))))
-                .andExpect(content().string(not(containsString(Objects.requireNonNull(
-                                environment.getProperty("asset.view.error.assetNotFound"))
+                .andExpect(content().string(containsString(getMessage(messageSource, "asset.view.error.noAssetId"))))
+                .andExpect(content().string(not(containsString(Objects.requireNonNull(getMessage(messageSource, "asset.view.error.assetNotFound"))
                         .replace("\"{0}\"", "&quot;" + ROYLLO_COIN_ASSET_ID + "&quot;")))));
     }
 

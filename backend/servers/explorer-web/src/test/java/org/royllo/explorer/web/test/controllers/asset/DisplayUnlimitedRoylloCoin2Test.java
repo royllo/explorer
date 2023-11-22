@@ -19,7 +19,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.containsString;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
-import static org.royllo.explorer.web.util.constants.PagesConstants.ASSET_PAGE;
+import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PAGE;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_2_ASSET_ID;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_2_FROM_TEST;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -32,6 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @PropertySource("classpath:i18n/messages.properties")
 public class DisplayUnlimitedRoylloCoin2Test extends BaseTest {
+
+    // TODO review this test
 
     @Autowired
     MockMvc mockMvc;

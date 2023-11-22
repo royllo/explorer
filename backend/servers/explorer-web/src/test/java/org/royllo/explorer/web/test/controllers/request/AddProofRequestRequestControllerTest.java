@@ -42,6 +42,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @PropertySource("classpath:i18n/messages.properties")
 public class AddProofRequestRequestControllerTest {
 
+    // TODO review this test
+
     @Autowired
     MockMvc mockMvc;
 
