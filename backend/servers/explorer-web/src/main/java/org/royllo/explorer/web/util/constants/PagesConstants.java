@@ -21,18 +21,6 @@ public class PagesConstants {
     /** Search page fragment. */
     public static final String SEARCH_PAGE_FRAGMENT = "search :: search-results";
 
-    /** Asset page. */
-    public static final String ASSET_PAGE = "asset/view";
-
-    /** Asset page fragment. */
-    public static final String ASSET_PAGE_FRAGMENT = "asset/view :: asset-view";
-
-    /** Asset proofs page. */
-    public static final String ASSET_PROOFS_PAGE = "asset/proof/list";
-
-    /** Asset proofs page fragment. */
-    public static final String ASSET_PROOFS_PAGE_FRAGMENT = "asset/proof/list :: asset-proofs-list";
-
     /** Request page. */
     public static final String REQUEST_PAGE = "request/view";
 
