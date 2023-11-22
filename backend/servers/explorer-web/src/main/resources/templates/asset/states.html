@@ -14,6 +14,82 @@
         </ul>
     </div>
 
+    <!--/* Display asset states */-->
+    <details class="collapse bg-base-200 mb-5" th:each="assetState, iStat: ${assetStatesList}">
+        <summary class="collapse-title text-xl font-medium">
+            <div th:text="#{field.asset.anchorOutpoint} + ' / ' + #{field.asset.scriptKey}"></div>
+            <div class="text-ellipsis overflow-hidden text-sm" th:text="${assetState.anchorOutpoint.toString()}"></div>
+            <div class="text-ellipsis overflow-hidden text-sm" th:text="${assetState.scriptKey}"></div>
+        </summary>
+        <div class="collapse-content">
+
+            <!--/* Anchor tx */-->
+            <label class="label"
+                   th:for="'anchorTx-' + ${iStat.index}">
+                <span class="label-text" th:text="#{asset.data.anchorTx}"></span>
+            </label>
+            <textarea class="textarea textarea-bordered h-24 w-full"
+                      readonly
+                      th:id="'anchorTx-' + ${iStat.index}"
+                      th:text="${assetState.anchorTx}">
+            </textarea>
+
+            <!--/* Anchor block hash */-->
+            <label class="label"
+                   th:for="'anchorBlockHash-' + ${iStat.index}">
+                <span class="label-text" th:text="#{asset.data.anchorBlockHash}"></span>
+            </label>
+            <textarea class="textarea textarea-bordered h-24 w-full"
+                      readonly
+                      th:id="'anchorBlockHash-' + ${iStat.index}"
+                      th:text="${assetState.anchorBlockHash}">
+            </textarea>
+
+            <!--/* Anchor outpoint */-->
+            <label class="label"
+                   th:for="'anchorOutpoint-' + ${iStat.index}">
+                <span class="label-text" th:text="#{asset.data.anchorOutpoint}"></span>
+            </label>
+            <textarea class="textarea textarea-bordered h-24 w-full"
+                      readonly
+                      th:id="'anchorOutpoint-' + ${iStat.index}"
+                      th:text="${assetState.anchorOutpoint}">
+            </textarea>
+
+            <!--/* Anchor internal key */-->
+            <label class="label"
+                   th:for="'internalKey-' + ${iStat.index}">
+                <span class="label-text" th:text="#{asset.data.internalKey}"></span>
+            </label>
+            <textarea class="textarea textarea-bordered h-24 w-full"
+                      readonly
+                      th:id="'internalKey-' + ${iStat.index}"
+                      th:text="${assetState.internalKey}">
+            </textarea>
+
+            <!--/* Anchor merkle root */-->
+            <label class="label"
+                   th:for="'merkleRoot-' + ${iStat.index}">
+                <span class="label-text" th:text="#{asset.data.merkleRoot}"></span>
+            </label>
+            <textarea class="textarea textarea-bordered h-24 w-full"
+                      readonly
+                      th:id="'merkleRoot-' + ${iStat.index}"
+                      th:text="${assetState.merkleRoot}">
+            </textarea>
+            <!--/* Anchor tapscript sibling */-->
+            <label class="label"
+                   th:for="'tapscriptSibling-' + ${iStat.index}">
+                <span class="label-text" th:text="#{asset.data.tapscriptSibling}"></span>
+            </label>
+            <textarea class="textarea textarea-bordered h-24 w-full"
+                      readonly
+                      th:id="'tapscriptSibling-' + ${iStat.index}"
+                      th:text="${assetState.tapscriptSibling}">
+            </textarea>
+        </div>
+    </details>
+
 </div>
 <!--/* =========================================================================================================== */-->
 

@@ -14,6 +14,38 @@
         </ul>
     </div>
 
+    <!--/* If there are no asset owner, just say it */-->
+    <div class="overflow-x-auto">
+        <table class="table table-fixed">
+            <!--/* Header */-->
+            <thead class=" w-full">
+            <tr>
+                <th class="text-xl font-bold text-ellipsis overflow-hidden"
+                    th:text="#{asset.data.creator}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <div class="font-bold" th:text="#{asset.data.creator.userId}"></div>
+                    <div class="text-ellipsis overflow-hidden" th:text="${asset.creator.userId}"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="font-bold" th:text="#{asset.data.creator.username}"></div>
+                    <div class="text-ellipsis overflow-hidden" th:text="${asset.creator.username}"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="font-light italic" th:text="#{asset.view.tabs.owner.explanation}"></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 <!--/* =========================================================================================================== */-->
 
