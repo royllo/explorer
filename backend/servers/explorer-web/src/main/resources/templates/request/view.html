@@ -8,18 +8,15 @@
 
     <!--/* ======================================================================================================= */-->
     <!--/* Error management */-->
-    <div class="errorManagement">
 
-        <!--/* No value for the "requestId" parameter */-->
-        <div th:if="${#strings.isEmpty(requestId)}"
-             th:insert="~{util/fragments/components/error_message :: error_message(#{request.view.error.noRequestId})}">
-        </div>
+    <!--/* No value for the "requestId" parameter */-->
+    <div th:if="${#strings.isEmpty(requestId)}"
+         th:insert="~{util/fragments/components/error_message :: error_message(#{request.view.error.noRequestId})}">
+    </div>
 
-        <!--/* We have the "requestId" parameter but the request was not found */-->
-        <div th:if="${!#strings.isEmpty(requestId) && result == null}"
-             th:insert="~{util/fragments/components/error_message :: error_message(#{request.view.error.requestNotFound(${requestId})})}">
-        </div>
-
+    <!--/* We have the "requestId" parameter but the request was not found */-->
+    <div th:if="${!#strings.isEmpty(requestId) && result == null}"
+         th:insert="~{util/fragments/components/error_message :: error_message(#{request.view.error.requestNotFound})}">
     </div>
 
     <!--/* ======================================================================================================= */-->
@@ -37,7 +34,7 @@
             </svg>
             <div>
                 <h3 class="font-bold" th:text="#{request} + ' ' +${result.requestId}"></h3>
-                <div class="text-xs" th:text="#{field.asset.status} + ': ' + #{request.status.opened}"></div>
+                <div class="text-xs" th:text="#{field.request.status} + ': ' + #{request.status.opened}"></div>
             </div>
             <a class="btn btn-sm"
                th:href="@{'/request/' + ${result.getRequestId()}}"
@@ -57,8 +54,8 @@
             </svg>
             <div>
                 <h3 class="font-bold" th:text="#{request} + ' ' +${result.requestId}"></h3>
-                <div class="text-xs" th:text="#{field.asset.status} + ': ' + #{request.status.failure}"></div>
-                <div class="text-xs" th:text="#{field.asset.errorMessage} + ': ' + ${result.errorMessage}"></div>
+                <div class="text-xs" th:text="#{field.request.status} + ': ' + #{request.status.failure}"></div>
+                <div class="text-xs" th:text="#{field.request.errorMessage} + ': ' + ${result.errorMessage}"></div>
             </div>
         </div>
         <!--/* =================================================================================================== */-->
@@ -73,7 +70,7 @@
             </svg>
             <div>
                 <h3 class="font-bold" th:text="#{request} + ' ' +${result.requestId}"></h3>
-                <div class="text-xs" th:text="#{field.asset.status} + ': ' + #{request.status.success}"></div>
+                <div class="text-xs" th:text="#{field.request.status} + ': ' + #{request.status.success}"></div>
             </div>
             <a class="btn btn-sm"
                th:href="@{'/asset/' + ${result.asset.assetId}}"

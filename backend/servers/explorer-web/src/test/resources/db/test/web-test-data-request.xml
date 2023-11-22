@@ -24,6 +24,7 @@
             <column name="TYPE" value="ADD_PROOF"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="STATUS" value="FAILURE"/>
+            <column name="ERROR_MESSAGE" value="Impossible to decode"/>
         </insert>
         <insert tableName="REQUEST_ADD_PROOF">
             <column name="ID" value="2"/>
@@ -56,6 +57,46 @@
             <column name="ID" value="4"/>
             <column name="proof" value="P4"/>
             <column name="FK_ASSET" value="1"/>
+        </insert>
+
+        <!-- Add universe server request n°5 ( Opened ) -->
+        <insert tableName="REQUEST">
+            <column name="ID" value="5"/>
+            <column name="REQUEST_ID" value="request_5_universe_opened"/>
+            <column name="TYPE" value="ADD_UNIVERSE_SERVER"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="STATUS" value="OPENED"/>
+        </insert>
+        <insert tableName="REQUEST_ADD_UNIVERSE_SERVER">
+            <column name="ID" value="5"/>
+            <column name="SERVER_ADDRESS" value="1.1.1.1"/>
+        </insert>
+
+        <!-- Add universe server request n°6 ( Failure ) -->
+        <insert tableName="REQUEST">
+            <column name="ID" value="6"/>
+            <column name="REQUEST_ID" value="request_6_universe_failure"/>
+            <column name="TYPE" value="ADD_UNIVERSE_SERVER"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="STATUS" value="FAILURE"/>
+            <column name="ERROR_MESSAGE" value="Server 2.2.2.2 not connected"/>
+        </insert>
+        <insert tableName="REQUEST_ADD_UNIVERSE_SERVER">
+            <column name="ID" value="6"/>
+            <column name="SERVER_ADDRESS" value="2.2.2.2"/>
+        </insert>
+
+        <!-- Add universe server request n°7 ( Success ) -->
+        <insert tableName="REQUEST">
+            <column name="ID" value="7"/>
+            <column name="REQUEST_ID" value="request_7_universe_success"/>
+            <column name="TYPE" value="ADD_UNIVERSE_SERVER"/>
+            <column name="FK_USER_CREATOR" value="1"/>
+            <column name="STATUS" value="SUCCESS"/>
+        </insert>
+        <insert tableName="REQUEST_ADD_UNIVERSE_SERVER">
+            <column name="ID" value="7"/>
+            <column name="SERVER_ADDRESS" value="3.3.3.3"/>
         </insert>
 
     </changeSet>
