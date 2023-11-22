@@ -137,6 +137,11 @@ public class AssetController extends BaseController {
                               @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
         addAssetToModel(model, assetId);
 
+        // We retrieve the asset states.
+        model.addAttribute(ASSET_STATES_LIST_ATTRIBUTE, assetStateService.getAssetStatesByAssetId(assetId,
+                1,
+                ASSET_STATES_DEFAULT_PAGE_SIZE));
+
         return getPageOrFragment(request, ASSET_STATES_TAB);
     }
 
