@@ -14,6 +14,21 @@
         </ul>
     </div>
 
+    <!--/* List all the proofs */-->
+    <div class="overflow-x-auto">
+        <table class="table table-zebra table-fixed">
+            <tbody>
+            <!--/* Proofs */-->
+            <tr th:each="proof: ${proofsList.content}">
+                <td class="text-ellipsis overflow-hidden">
+                    <a th:href="@{'/asset/' + ${assetId} + '/proof/' + ${proof.proofId}}"
+                       th:text="${proof.proofId}"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 <!--/* =========================================================================================================== */-->
 
