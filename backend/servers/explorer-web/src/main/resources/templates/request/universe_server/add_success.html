@@ -13,12 +13,12 @@
                   stroke-width="2"></path>
         </svg>
         <div>
-            <h3 class="font-bold" th:text="#{request.createdSuccessfully(${result.getRequestId()})}"></h3>
-            <div class="text-s" th:utext="#{request.creationMessage}"></div>
+            <h3 class="font-bold" th:text="#{request.message.requestCreated(${result.getRequestId()})}"></h3>
+            <div class="text-s" th:utext="#{request.message.creationExplanation}"></div>
         </div>
         <a class="btn btn-sm"
            th:href="@{'/request/' + ${result.getRequestId()}}"
-           th:text="#{request.viewStatus}"></a>
+           th:text="#{request.view.status}"></a>
     </div>
 
 </div>

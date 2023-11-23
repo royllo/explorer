@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.REQUEST_ID_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.REQUEST_PAGE;
+import static org.royllo.explorer.web.util.constants.RequestPageConstants.REQUEST_PAGE;
 
 /**
  * Request controller.

@@ -14,9 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
+import static org.royllo.explorer.web.util.constants.HomePagesConstants.HOME_PAGE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.QUERY_ATTRIBUTE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.HOME_PAGE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.HOME_PAGE_FRAGMENT;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -41,7 +40,7 @@ public class HomeControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(HOME_PAGE))
                 // Checking the button in the header.
-                .andExpect(content().string(containsString(getMessage(messages, "request.addData"))))
+                .andExpect(content().string(containsString(getMessage(messages, "request.view.addData"))))
                 .andExpect(content().string(containsString("\"/request/proof/add\"")))
                 .andExpect(content().string(containsString("\"/request/universe_server/add\"")))
                 // Checking the search form is here and empty.
@@ -65,9 +64,9 @@ public class HomeControllerTest extends BaseTest {
 
         mockMvc.perform(get("/").headers(getHeaders()))
                 .andExpect(status().isOk())
-                .andExpect(view().name(HOME_PAGE_FRAGMENT))
+                .andExpect(view().name(containsString(HOME_PAGE)))
                 // Checking the button is NOT RETURNED.
-                .andExpect(content().string(not(containsString(getMessage(messages, "request.addData")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "request.view.addData")))))
                 .andExpect(content().string(not(containsString("\"/request/proof/add\""))))
                 .andExpect(content().string(not(containsString("\"/request/universe_server/add\""))))
                 // Checking the search form is here and empty.

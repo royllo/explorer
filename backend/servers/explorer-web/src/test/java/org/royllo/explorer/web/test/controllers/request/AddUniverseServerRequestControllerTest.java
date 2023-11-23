@@ -26,8 +26,8 @@ import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_US
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.FORM_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_UNIVERSE_SERVER_REQUEST_SUCCESS_PAGE;
+import static org.royllo.explorer.web.util.constants.RequestPageConstants.ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE;
+import static org.royllo.explorer.web.util.constants.RequestPageConstants.ADD_UNIVERSE_SERVER_REQUEST_SUCCESS_PAGE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -56,7 +56,7 @@ public class AddUniverseServerRequestControllerTest extends BaseTest {
                 .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE))
                 .andExpect(model().attributeExists(FORM_ATTRIBUTE))
                 // Error messages.
-                .andExpect(content().string(not(containsString(getMessage(messages, "request.universeServer.serverAddress.error.invalidServerAddress")))));
+                .andExpect(content().string(not(containsString(getMessage(messages, "request.view.universeServer.error.invalidServerAddress")))));
 
         mockMvc.perform(get("/request/universe_server/add")
                         .param("serverAddress", "1.1.1.1")
@@ -65,7 +65,7 @@ public class AddUniverseServerRequestControllerTest extends BaseTest {
                 .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE))
                 .andExpect(model().attributeExists(FORM_ATTRIBUTE))
                 // Error messages.
-                .andExpect(content().string(not(containsString(getMessage(messages, "request.universeServer.serverAddress.error.invalidServerAddress")))));
+                .andExpect(content().string(not(containsString(getMessage(messages, "request.view.universeServer.error.invalidServerAddress")))));
 
     }
 
@@ -79,7 +79,7 @@ public class AddUniverseServerRequestControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE))
                 .andExpect(model().hasErrors())
-                .andExpect(content().string(containsString(getMessage(messages, "request.universeServer.serverAddress.error.invalidServerAddress"))));
+                .andExpect(content().string(containsString(getMessage(messages, "request.view.universeServer.error.invalidServerAddress"))));
 
         // Empty server address.
         mockMvc.perform(post("/request/universe_server/add")
@@ -88,7 +88,7 @@ public class AddUniverseServerRequestControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE))
                 .andExpect(model().hasErrors())
-                .andExpect(content().string(containsString(getMessage(messages, "request.universeServer.serverAddress.error.invalidServerAddress"))));
+                .andExpect(content().string(containsString(getMessage(messages, "request.view.universeServer.error.invalidServerAddress"))));
 
         // Invalid server address.
         mockMvc.perform(post("/request/universe_server/add")
@@ -97,7 +97,7 @@ public class AddUniverseServerRequestControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE))
                 .andExpect(model().hasErrors())
-                .andExpect(content().string(containsString(getMessage(messages, "request.universeServer.serverAddress.error.invalidServerAddress"))));
+                .andExpect(content().string(containsString(getMessage(messages, "request.view.universeServer.error.invalidServerAddress"))));
 
     }
 
@@ -117,11 +117,11 @@ public class AddUniverseServerRequestControllerTest extends BaseTest {
                 .andDo(result -> request.set((AddUniverseServerRequestDTO) Objects.requireNonNull(result.getModelAndView()).getModelMap().get(RESULT_ATTRIBUTE)))
                 // Check page content.
                 .andExpect(content().string(containsString(request.get().getRequestId())))
-                .andExpect(content().string(containsString(getMessage(messages, "request.creationMessage"))))
-                .andExpect(content().string(containsString(getMessage(messages, "request.viewStatus"))))
+                .andExpect(content().string(containsString(getMessage(messages, "request.message.creationExplanation"))))
+                .andExpect(content().string(containsString(getMessage(messages, "request.view.status"))))
                 .andExpect(content().string(containsString("/request/" + request.get().getRequestId())))
                 // Error messages.
-                .andExpect(content().string(not(containsString(getMessage(messages, "request.universeServer.serverAddress.error.invalidServerAddress")))));
+                .andExpect(content().string(not(containsString(getMessage(messages, "request.view.universeServer.error.invalidServerAddress")))));
 
         // We test the request created (we get it from the model).
         assertNotNull(request.get());

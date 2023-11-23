@@ -13,7 +13,7 @@
 
             <!--/* Server address */-->
             <label class="label" for="serverAddress">
-                <span class="label-text" th:text="#{request.universeServer.serverAddress}"></span>
+                <span class="label-text" th:text="#{request.view.universeServer.serverAddress}"></span>
             </label>
             <input autocomplete="false"
                    autofocus
@@ -22,7 +22,7 @@
                    name="serverAddress"
                    required
                    th:field="*{serverAddress}"
-                   th:placeholder="#{request.universeServer.serverAddress.helper}"
+                   th:placeholder="#{request.view.universeServer.add.helper}"
                    type="text"/>
 
             <!--/* Error messages */-->
@@ -42,7 +42,7 @@
             </div>
 
             <button class="btn btn-primary mt-6"
-                    th:text="#{request.universeServer.submit}"
+                    th:text="#{request.view.universeServer.submit}"
                     type="submit"></button>
 
             <!--/* TODO Replace this with something more clean */-->

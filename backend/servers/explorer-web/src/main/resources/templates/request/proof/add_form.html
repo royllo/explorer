@@ -20,7 +20,7 @@
                           required
                           rows="15"
                           th:field="*{proof}"
-                          th:placeholder="#{request.proof.proof.helper}">
+                          th:placeholder="#{request.view.proof.add.helper}">
                 </textarea>
             </label>
 
@@ -42,15 +42,15 @@
 
             <!--/* Submit button */-->
             <button class="btn btn-primary mt-6"
-                    th:text="#{request.proof.submit}"
+                    th:text="#{request.view.proof.submit}"
                     type="submit"></button>
 
             <!--/* Explanation */-->
             <div class="mockup-code mt-6">
-                <pre data-prefix="#" th:utext="#{request.proof.explanation.title}"></pre>
-                <pre data-prefix="$" th:utext="#{request.proof.explanation.code.line.1}"></pre>
-                <pre data-prefix=">" th:utext="#{request.proof.explanation.code.line.2}"></pre>
-                <pre data-prefix=">" th:utext="#{request.proof.explanation.code.line.3}"></pre>
+                <pre data-prefix="#" th:utext="#{request.view.proof.explanation.title}"></pre>
+                <pre data-prefix="$" th:utext="#{request.view.proof.explanation.code.line.1}"></pre>
+                <pre data-prefix=">" th:utext="#{request.view.proof.explanation.code.line.2}"></pre>
+                <pre data-prefix=">" th:utext="#{request.view.proof.explanation.code.line.3}"></pre>
             </div>
 
             <!--/* TODO Replace this with something more clean */-->

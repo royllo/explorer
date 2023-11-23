@@ -75,7 +75,7 @@ public class DisplayUnlimitedRoylloCoin1Test extends BaseTest {
                 // Checking genesis tab data.
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getName() + "<")))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getAssetId() + "<")))
-                .andExpect(content().string(containsString(">Normal<")))
+                .andExpect(content().string(containsString(">" + getMessage(messages, "asset.data.assetType.normal") + "<")))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAmount() + "<")))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getMetaDataHash() + "<")))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getVersion() + "<")))

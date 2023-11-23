@@ -27,8 +27,8 @@ import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_US
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.FORM_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_PROOF_REQUEST_FORM_PAGE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_PROOF_REQUEST_SUCCESS_PAGE;
+import static org.royllo.explorer.web.util.constants.RequestPageConstants.ADD_PROOF_REQUEST_FORM_PAGE;
+import static org.royllo.explorer.web.util.constants.RequestPageConstants.ADD_PROOF_REQUEST_SUCCESS_PAGE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -96,8 +96,8 @@ public class AddProofRequestRequestControllerTest extends BaseTest {
                 .andDo(result -> proof.set((AddProofRequestDTO) Objects.requireNonNull(result.getModelAndView()).getModelMap().get(RESULT_ATTRIBUTE)))
                 // Check page content.
                 .andExpect(content().string(containsString(proof.get().getRequestId())))
-                .andExpect(content().string(containsString(getMessage(messages, "request.creationMessage"))))
-                .andExpect(content().string(containsString(getMessage(messages, "request.viewStatus"))))
+                .andExpect(content().string(containsString(getMessage(messages, "request.message.creationExplanation"))))
+                .andExpect(content().string(containsString(getMessage(messages, "request.view.status"))))
                 .andExpect(content().string(containsString("/request/" + proof.get().getRequestId())))
                 // Error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "NotBlank.command.proof")))));

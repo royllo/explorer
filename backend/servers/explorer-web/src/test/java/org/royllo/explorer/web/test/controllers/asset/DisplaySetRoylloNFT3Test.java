@@ -78,7 +78,7 @@ public class DisplaySetRoylloNFT3Test extends BaseTest {
                 // Checking genesis tab data.
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getName() + "<")))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getAssetId() + "<")))
-                .andExpect(content().string(containsString(">Collectible<")))
+                .andExpect(content().string(containsString(">" + getMessage(messages, "asset.data.assetType.collectible") + "<")))
                 .andExpect(content().string(not(containsString(">" + assetFromTest.getAsset().getAmount() + "<"))))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getMetaDataHash() + "<")))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getVersion() + "<")))

@@ -10,7 +10,7 @@
                       d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
                       fill-rule="evenodd"/>
             </svg>
-            <label class="sr-only" for="query" th:text="#{search.field.helper}"></label>
+            <label class="sr-only" for="query" th:text="#{search.view.field.helper}"></label>
             <input autocomplete="false"
                    autofocus
                    class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg"
@@ -20,7 +20,7 @@
                    onFocus="this.select();"
                    required
                    spellcheck="false"
-                   th:placeholder="#{search.field.helper}"
+                   th:placeholder="#{search.view.field.helper}"
                    th:value="${query}">
         </div>
     </div>
