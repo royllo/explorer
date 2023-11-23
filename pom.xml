@@ -94,7 +94,7 @@
 
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
-        <testcontainers.version>1.19.2</testcontainers.version>
+        <testcontainers.version>1.19.3</testcontainers.version>
         <mockito-core.version>5.7.0</mockito-core.version>
 
         <!-- ======================================================================================================= -->
