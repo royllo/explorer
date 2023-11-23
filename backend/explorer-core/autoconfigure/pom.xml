@@ -221,6 +221,11 @@
                     <execution>
                         <id>royllo-test-util</id>
                         <phase>package</phase>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/Application*</exclude>
+                            </excludes>
+                        </configuration>
                         <goals>
                             <goal>test-jar</goal>
                         </goals>
