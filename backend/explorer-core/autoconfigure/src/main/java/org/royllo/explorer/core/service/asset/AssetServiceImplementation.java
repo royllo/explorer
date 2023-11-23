@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -149,10 +150,14 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
     }
 
     @Override
-    public Optional<AssetDTO> getAssetByAssetId(@NonNull final String assetId) {
+    public Optional<AssetDTO> getAssetByAssetId(final String assetId) {
         logger.info("Getting asset with assetId {}", assetId);
 
-        final Optional<Asset> asset = assetRepository.findByAssetId(assetId);
+        if (assetId == null) {
+            return Optional.empty();
+        }
+
+        final Optional<Asset> asset = assetRepository.findByAssetId(assetId.trim());
         if (asset.isEmpty()) {
             logger.info("Asset with assetId {} not found", assetId);
             return Optional.empty();
@@ -163,9 +168,14 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
     }
 
     @Override
-    public List<AssetDTO> getAssetsByAssetGroupId(@NonNull final String assetGroupId) {
+    public List<AssetDTO> getAssetsByAssetGroupId(final String assetGroupId) {
         logger.info("Getting assets with asset group id {}", assetGroupId);
-        return assetRepository.findByAssetGroup_AssetGroupId(assetGroupId).stream()
+
+        if (assetGroupId == null) {
+            return Collections.emptyList();
+        }
+
+        return assetRepository.findByAssetGroup_AssetGroupId(assetGroupId.trim()).stream()
                 .map(ASSET_MAPPER::mapToAssetDTO)
                 .toList();
     }

@@ -18,8 +18,11 @@ public class ModelAttributeConstants {
     /** Asset id attribute. */
     public static final String ASSET_ID_ATTRIBUTE = "assetId";
 
-    /** Proof file id attribute. */
-    public static final String PROOF_FILE_ID_ATTRIBUTE = "proofFileId";
+    /** Asset attribute. */
+    public static final String ASSET_ATTRIBUTE = "asset";
+
+    /** Proof id attribute. */
+    public static final String PROOF_ID_ATTRIBUTE = "proofId";
 
     /** Request id attribute. */
     public static final String REQUEST_ID_ATTRIBUTE = "requestId";
@@ -27,11 +30,14 @@ public class ModelAttributeConstants {
     /** Result attribute. */
     public static final String RESULT_ATTRIBUTE = "result";
 
+    /** Asset in group list attribute. */
+    public static final String ASSETS_IN_GROUP_LIST_ATTRIBUTE = "assetsInGroupList";
+
     /** Asset states list attribute. */
     public static final String ASSET_STATES_LIST_ATTRIBUTE = "assetStatesList";
 
-    /** Proof files list attribute. */
-    public static final String PROOF_FILES_LIST_ATTRIBUTE = "proofFilesList";
+    /** Proof list attribute. */
+    public static final String PROOF_LIST_ATTRIBUTE = "proofsList";
 
     /** Form attribute. */
     public static final String FORM_ATTRIBUTE = "command";

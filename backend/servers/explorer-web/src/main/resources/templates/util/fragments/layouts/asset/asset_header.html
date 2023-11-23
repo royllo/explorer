@@ -1,0 +1,91 @@
+<!--/* Asset header (what is the asset and available links) */-->
+<section th:if="${asset} != null">
+
+    <div class="navbar bg-neutral text-neutral-content">
+        <div class="navbar-start">
+            <!--/* This is the menu if we are on mobile */-->
+            <div class="dropdown">
+                <label class="btn btn-ghost lg:hidden" tabindex="0">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 6h16M4 12h8m-8 6h16" stroke-linecap="round" stroke-linejoin="round"
+                              stroke-width="2"/>
+                    </svg>
+                </label>
+                <ul class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                    <li><a hx-target="#asset-tab"
+                           th:href="@{'/asset/' + ${assetId} + '/genesis'}"
+                           th:hx-get="@{'/asset/' + ${assetId} + '/genesis'}"
+                           th:text="#{asset.view.tabs.genesis}"></a></li>
+
+                    <li><a hx-push-url="true"
+                           hx-target="#asset-tab"
+                           th:href="@{'/asset/' + ${assetId} + '/group'}"
+                           th:hx-get="@{'/asset/' + ${assetId} + '/group'}"
+                           th:text="#{asset.view.tabs.group}"></a></li>
+
+                    <li><a hx-push-url="true"
+                           hx-target="#asset-tab"
+                           th:href="@{'/asset/' + ${assetId} + '/states'}"
+                           th:hx-get="@{'/asset/' + ${assetId} + '/states'}"
+                           th:text="#{asset.view.tabs.states}"></a></li>
+
+                    <li><a hx-push-url="true"
+                           hx-target="#asset-tab"
+                           th:href="@{'/asset/' + ${assetId} + '/owner'}"
+                           th:hx-get="@{'/asset/' + ${assetId} + '/owner'}"
+                           th:text="#{asset.view.tabs.owner}"></a></li>
+
+                    <li><a hx-push-url="true"
+                           hx-target="#asset-tab"
+                           th:href="@{'/asset/' + ${assetId} + '/proofs'}"
+                           th:hx-get="@{'/asset/' + ${assetId} + '/proofs'}"
+                           th:text="#{asset.view.tabs.proofs}"></a></li>
+                </ul>
+            </div>
+            <!--/* Asset display */-->
+            <div>
+                <div class="text-2xl font-bold" th:text="${asset.name}"></div>
+                <div class="text-xs hidden lg:block" th:text="${asset.assetId}"></div>
+            </div>
+        </div>
+        <!--/* This is the menu on mobile */-->
+        <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1">
+                <li><a hx-push-url="true"
+                       hx-target="#asset-tab"
+                       th:href="@{'/asset/' + ${assetId} + '/genesis'}"
+                       th:hx-get="@{'/asset/' + ${assetId} + '/genesis'}"
+                       th:text="#{asset.view.tabs.genesis}"></a></li>
+
+                <li><a hx-push-url="true"
+                       hx-target="#asset-tab"
+                       th:href="@{'/asset/' + ${assetId} + '/group'}"
+                       th:hx-get="@{'/asset/' + ${assetId} + '/group'}"
+                       th:text="#{asset.view.tabs.group}"></a></li>
+
+                <li><a hx-push-url="true"
+                       hx-target="#asset-tab"
+                       th:href="@{'/asset/' + ${assetId} + '/states'}"
+                       th:hx-get="@{'/asset/' + ${assetId} + '/states'}"
+                       th:text="#{asset.view.tabs.states}"></a></li>
+
+                <li><a hx-push-url="true"
+                       hx-target="#asset-tab"
+                       th:href="@{'/asset/' + ${assetId} + '/owner'}"
+                       th:hx-get="@{'/asset/' + ${assetId} + '/owner'}"
+                       th:text="#{asset.view.tabs.owner}"></a></li>
+
+                <li><a hx-push-url="true"
+                       hx-target="#asset-tab"
+                       th:href="@{'/asset/' + ${assetId} + '/proofs'}"
+                       th:hx-get="@{'/asset/' + ${assetId} + '/proofs'}"
+                       th:text="#{asset.view.tabs.proofs}"></a></li>
+            </ul>
+        </div>
+        <!--/* Will be used to add a "share button" */-->
+        <!--/* <a class="btn">Button</a> */-->
+        <div class="navbar-end">&nbsp;</div>
+    </div>
+
+</section>

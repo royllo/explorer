@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{util/fragments/layouts/asset/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!--/* =========================================================================================================== */-->
+<div layout:fragment="content" th:fragment="asset-genesis-fragment" th:if="${asset} != null">
+
+    <!--/* Where we are */-->
+    <div class="text breadcrumbs">
+        <ul>
+            <li>&nbsp;</li>
+            <li th:text="#{asset.view.tabs.genesis}"></li>
+        </ul>
+    </div>
+
+    <!--/* Asset information */-->
+    <div class="overflow-x-auto">
+        <table class="table table-zebra table-fixed">
+            <!--/* Asset information */-->
+            <tbody>
+
+            <tr th:replace="~{util/fragments/layouts/asset/table_line ::
+                            table_line(#{asset.data.name}, ${asset.name})}"></tr>
+
+            <tr th:replace="~{util/fragments/layouts/asset/table_line ::
+                            table_line(#{asset.data.assetId}, ${asset.assetId})}"></tr>
+
+            <th:block th:if="${#strings.equals(asset.type, 'NORMAL')}">
+                <td>
+                    <div class="font-bold" th:text="#{asset.data.assetType}"></div>
+                    <div class="text-ellipsis overflow-hidden" th:text="#{asset.data.assetType.normal}"></div>
+                </td>
+
+                <tr th:replace="~{util/fragments/layouts/asset/table_line ::
+                            table_line(#{asset.data.amount}, ${asset.amount})}"></tr>
+            </th:block>
+
+            <th:block th:if="${#strings.equals(asset.type, 'COLLECTIBLE')}">
+                <td>
+                    <div class="font-bold" th:text="#{asset.data.assetType}"></div>
+                    <div class="text-ellipsis overflow-hidden" th:text="#{asset.data.assetType.collectible}"></div>
+                </td>
+            </th:block>
+
+            <tr th:replace="~{util/fragments/layouts/asset/table_line ::
+                            table_line(#{asset.data.metaDataHash}, ${asset.metaDataHash})}"></tr>
+
+            <tr th:replace="~{util/fragments/layouts/asset/table_line ::
+                            table_line(#{asset.data.version}, ${asset.version})}"></tr>
+
+            <tr th:replace="~{util/fragments/layouts/asset/table_line ::
+                            table_line(#{asset.data.genesisPoint}, ${asset.genesisPoint})}"></tr>
+
+            <tr th:replace="~{util/fragments/layouts/asset/table_line ::
+                            table_line(#{asset.data.outputIndex}, ${asset.outputIndex})}"></tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<!--/* =========================================================================================================== */-->
+
+</html>

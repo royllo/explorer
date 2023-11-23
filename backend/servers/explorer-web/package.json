@@ -16,9 +16,11 @@
     "watch:serve": "browser-sync start --no-inject-changes --proxy localhost:8080 --files 'target/classes/templates' 'target/classes/static'"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
     "autoprefixer": "^10.4.16",
     "browser-sync": "^2.29.3",
     "cssnano": "^6.0.1",
+    "daisyui": "^4.0.7",
     "mkdirp": "^3.0.1",
     "ncp": "^2.0.0",
     "npm-run-all": "^4.1.5",

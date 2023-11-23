@@ -7,9 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import static org.royllo.explorer.web.util.constants.HomePagesConstants.HOME_PAGE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.QUERY_ATTRIBUTE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.HOME_PAGE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.HOME_PAGE_FRAGMENT;
 
 /**
  * Home page controller.
@@ -32,11 +31,8 @@ public class HomeController extends BaseController {
                        @RequestParam(required = false) final String query) {
         // Update the model with the query.
         model.addAttribute(QUERY_ATTRIBUTE, query);
-        // If it's an HTMX request, we return the fragment.
-        if (isHtmxRequest(request)) {
-            return HOME_PAGE_FRAGMENT;
-        }
-        return HOME_PAGE;
+
+        return getPageOrFragment(request, HOME_PAGE);
     }
 
 }

@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"
-      layout:decorate="~{util/fragments/layouts/default_layout}"
+      layout:decorate="~{util/fragments/layouts/default/layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
@@ -8,76 +8,77 @@
 
     <!--/* ======================================================================================================= */-->
     <!--/* Error management */-->
-    <div class="errorManagement">
 
-        <!--/* No value for the "requestId" parameter */-->
-        <div th:if="${#strings.isEmpty(requestId)}"
-             th:insert="~{util/fragments/components/error_message :: error_message(#{request.view.error.noRequestId})}">
-        </div>
+    <!--/* No value for the "requestId" parameter */-->
+    <div th:if="${#strings.isEmpty(requestId)}"
+         th:insert="~{util/fragments/components/error_message :: error_message(#{request.view.error.noRequestId})}">
+    </div>
 
-        <!--/* We have the "requestId" parameter but the request was not found */-->
-        <div th:if="${!#strings.isEmpty(requestId) && result == null}"
-             th:insert="~{util/fragments/components/error_message :: error_message(#{request.view.error.requestNotFound(${requestId})})}">
-        </div>
-
+    <!--/* We have the "requestId" parameter but the request was not found */-->
+    <div th:if="${!#strings.isEmpty(requestId) && result == null}"
+         th:insert="~{util/fragments/components/error_message :: error_message(#{request.view.error.requestNotFound})}">
     </div>
 
     <!--/* ======================================================================================================= */-->
     <!--/* Display request */-->
     <div class="pt-12 w-4/5 mx-auto" th:if="${result != null}">
 
-        <div class="head">
-
-            <!--*/ Request ID */-->
-            <div class="overflow-hidden shadow sm:rounded-lg">
-                <div class="px-4 py-6 sm:px-6">
-                    <h3 class="tableHeadTitle" th:text="'Request ' + ${result.requestId}"></h3>
-                </div>
-                <div class="border-t border-gray-100">
-                    <dl class="divide-y divide-gray-100">
-
-                        <!--/* Request ID */-->
-                        <div class="tableLine">
-                            <dt class="tableLineDescription" th:text="#{field.asset.requestId}"></dt>
-                            <dd class="tableLineValue" th:text="${result.requestId}"></dd>
-                        </div>
-                        <!--/* Creator */-->
-                        <div class="tableLine">
-                            <dt class="tableLineDescription" th:text="#{field.asset.creator.username}"></dt>
-                            <dd class="tableLineValue" th:text="${result.creator.username}"></dd>
-                        </div>
-                        <!--/* Request status */-->
-                        <div class="tableLine">
-                            <dt class="tableLineDescription" th:text="#{field.asset.status}"></dt>
-                            <dd class="tableLineValue" th:if="${#strings.equals(result.status, 'OPENED')}"
-                                th:text="#{status.opened}"></dd>
-                            <dd class="tableLineValue" th:if="${#strings.equals(result.status, 'FAILURE')}"
-                                th:text="#{status.failure}"></dd>
-                            <dd class="tableLineValue" th:if="${#strings.equals(result.status, 'RECOVERABLE_FAILURE')}"
-                                th:text="#{status.recoverableFailure}"></dd>
-                            <dd class="tableLineValue" th:if="${#strings.equals(result.status, 'SUCCESS')}"
-                                th:text="#{status.success}"></dd>
-                        </div>
-                        <!--/*  Error message (if failure) */-->
-                        <div class="tableLine" th:if="${#strings.equals(result.status, 'FAILURE')}">
-                            <dt class="tableLineDescription" th:text="#{field.asset.errorMessage}"></dt>
-                            <dd class="tableLineValue" th:text="${result.errorMessage}"></dd>
-                        </div>
-                    </dl>
-                </div>
+        <!--/* =================================================================================================== */-->
+        <!--/* Request opened */-->
+        <div class="alert alert-info" th:if="${#strings.equals(result.status, 'OPENED')}">
+            <svg class="stroke-current shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"></path>
+            </svg>
+            <div>
+                <h3 class="font-bold" th:text="#{request} + ' ' +${result.requestId}"></h3>
+                <div class="text-xs" th:text="#{field.request.status} + ': ' + #{request.status.opened}"></div>
             </div>
+            <a class="btn btn-sm"
+               th:href="@{'/request/' + ${result.getRequestId()}}"
+               th:text="#{request.view.refresh}">
+            </a>
+        </div>
+        <!--/* =================================================================================================== */-->
 
+        <!--/* =================================================================================================== */-->
+        <!--/* Error treating request */-->
+        <div class="alert alert-error" th:if="${#strings.equals(result.status, 'FAILURE')}">
+            <svg class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"/>
+            </svg>
+            <div>
+                <h3 class="font-bold" th:text="#{request} + ' ' +${result.requestId}"></h3>
+                <div class="text-xs" th:text="#{field.request.status} + ': ' + #{request.status.failure}"></div>
+                <div class="text-xs" th:text="#{field.request.errorMessage} + ': ' + ${result.errorMessage}"></div>
+            </div>
         </div>
-        
-        <!--/* View asset */-->
-        <div class="my-12" th:if="${
-        #strings.equals(result.class.name, 'org.royllo.explorer.core.dto.request.AddProofRequestDTO')
-        && result.asset != null
-        && #strings.equals(result.status, 'SUCCESS')}">
-            <a class="defaultButton"
+        <!--/* =================================================================================================== */-->
+
+        <!--/* =================================================================================================== */-->
+        <!--/* Request successful */-->
+        <div class="alert alert-success" th:if="${#strings.equals(result.status, 'SUCCESS')}">
+            <svg class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-width="2"/>
+            </svg>
+            <div>
+                <h3 class="font-bold" th:text="#{request} + ' ' +${result.requestId}"></h3>
+                <div class="text-xs" th:text="#{field.request.status} + ': ' + #{request.status.success}"></div>
+            </div>
+            <a class="btn btn-sm"
                th:href="@{'/asset/' + ${result.asset.assetId}}"
-               th:text="#{request.button.asset.view}"></a>
+               th:if="${#strings.equals(result.class.name, 'org.royllo.explorer.core.dto.request.AddProofRequestDTO')}"
+               th:text="#{request.view.button.asset}">
+            </a>
         </div>
+        <!--/* =================================================================================================== */-->
 
     </div>
 

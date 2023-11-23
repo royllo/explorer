@@ -11,7 +11,7 @@ import org.royllo.explorer.core.util.validator.ServerAddress;
 public class AddUniverseServerRequestForm {
 
     /** The universe server address (consists of both an IP address and a port number). */
-    @ServerAddress(message = "{request.universeServer.serverAddress.error.invalidServerAddress}")
+    @ServerAddress(message = "{request.view.universeServer.error.invalidServerAddress}")
     private String serverAddress;
 
 }

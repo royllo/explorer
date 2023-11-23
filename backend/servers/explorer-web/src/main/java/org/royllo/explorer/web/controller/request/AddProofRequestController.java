@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.FORM_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_PROOF_REQUEST_FORM_PAGE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_PROOF_REQUEST_SUCCESS_PAGE;
+import static org.royllo.explorer.web.util.constants.RequestPageConstants.ADD_PROOF_REQUEST_FORM_PAGE;
+import static org.royllo.explorer.web.util.constants.RequestPageConstants.ADD_PROOF_REQUEST_SUCCESS_PAGE;
 
 /**
  * Add proof request controller.
@@ -57,7 +57,7 @@ public class AddProofRequestController {
             return ADD_PROOF_REQUEST_FORM_PAGE;
         } else {
             // Calling the service to create the request.
-            model.addAttribute(RESULT_ATTRIBUTE, requestService.createAddProofRequest(form.getRawProof()));
+            model.addAttribute(RESULT_ATTRIBUTE, requestService.createAddProofRequest(form.getProof()));
             return ADD_PROOF_REQUEST_SUCCESS_PAGE;
         }
     }
