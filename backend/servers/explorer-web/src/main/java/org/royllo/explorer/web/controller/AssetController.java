@@ -23,10 +23,10 @@ import static org.royllo.explorer.web.configuration.WebConfiguration.ASSET_PROOF
 import static org.royllo.explorer.web.configuration.WebConfiguration.ASSET_STATES_DEFAULT_PAGE_SIZE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GENESIS_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GROUP_PAGE;
-import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_OWNER_TAB;
+import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_OWNER_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PAGE;
-import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PROOFS_TAB;
-import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_STATES_TAB;
+import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PROOFS_PAGE;
+import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_STATES_PAGE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSETS_IN_GROUP_LIST_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_ID_ATTRIBUTE;
@@ -107,7 +107,6 @@ public class AssetController extends BaseController {
         if (asset.isPresent() && asset.get().getAssetGroup() != null) {
             // TODO Use a specific method to get assets from a group instead of the search service.
             // TODO Add a pagination for this result
-            System.out.println("=> " + asset.get().getAssetGroup().getTweakedGroupKey());
             model.addAttribute(ASSETS_IN_GROUP_LIST_ATTRIBUTE,
                     assetService.queryAssets(asset.get().getAssetGroup().getTweakedGroupKey(),
                             1,
@@ -138,7 +137,7 @@ public class AssetController extends BaseController {
                 1,
                 ASSET_STATES_DEFAULT_PAGE_SIZE));
 
-        return getPageOrFragment(request, ASSET_STATES_TAB);
+        return getPageOrFragment(request, ASSET_STATES_PAGE);
     }
 
     /**
@@ -156,7 +155,7 @@ public class AssetController extends BaseController {
                              @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
         addAssetToModel(model, assetId);
 
-        return getPageOrFragment(request, ASSET_OWNER_TAB);
+        return getPageOrFragment(request, ASSET_OWNER_PAGE);
     }
 
     /**
@@ -180,7 +179,7 @@ public class AssetController extends BaseController {
                         1,
                         ASSET_PROOFS_DEFAULT_PAGE_SIZE));
 
-        return getPageOrFragment(request, ASSET_PROOFS_TAB);
+        return getPageOrFragment(request, ASSET_PROOFS_PAGE);
     }
 
     /**
