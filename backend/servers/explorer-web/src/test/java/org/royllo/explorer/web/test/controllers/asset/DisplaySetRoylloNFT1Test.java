@@ -24,7 +24,9 @@ import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_ST
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_ASSET_ID;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_FROM_TEST;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_2_ASSET_ID;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_2_FROM_TEST;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_3_ASSET_ID;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_3_FROM_TEST;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -67,17 +69,21 @@ public class DisplaySetRoylloNFT1Test extends BaseTest {
     @DisplayName("Check genesis page")
     void assetPageGenesis(final HttpHeaders headers) throws Exception {
 
-        mockMvc.perform(get("/asset/" + assetId + "/states").headers(headers))
+        mockMvc.perform(get("/asset/" + assetId + "/genesis").headers(headers))
                 .andExpect(status().isOk())
-                .andExpect(view().name(containsString(ASSET_STATES_PAGE)))
-                // Checking states tab data.
-                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getChainAnchor().getAnchorOutpoint() + "<")))
-                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getScriptKey() + "<")))
-                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getChainAnchor().getAnchorTx() + "<")))
-                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getChainAnchor().getAnchorBlockHash() + "<")))
-                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getChainAnchor().getInternalKey() + "<")))
-                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getChainAnchor().getMerkleRoot() + "<")))
-                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getChainAnchor().getTapscriptSibling() + "<")))
+                .andExpect(view().name(containsString(ASSET_GENESIS_PAGE)))
+                // Checking tab header.
+                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getName() + "<")))
+                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getAssetId() + "<")))
+                // Checking genesis tab data.
+                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getName() + "<")))
+                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getAssetId() + "<")))
+                .andExpect(content().string(containsString(">Collectible<")))
+                .andExpect(content().string(not(containsString(">" + assetFromTest.getAsset().getAmount() + "<"))))
+                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getMetaDataHash() + "<")))
+                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getVersion() + "<")))
+                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getGenesisPoint() + "<")))
+                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getOutputIndex() + "<")))
                 // Error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.noAssetId")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));
@@ -154,6 +160,8 @@ public class DisplaySetRoylloNFT1Test extends BaseTest {
                 .andExpect(view().name(containsString(ASSET_PROOFS_PAGE)))
                 // Checking proofs tab data.
                 .andExpect(content().string(containsString(">" + SET_OF_ROYLLO_NFT_1_FROM_TEST.getDecodedProofRequest(0).getProofId() + "<")))
+                .andExpect(content().string(not(containsString(">" + SET_OF_ROYLLO_NFT_2_FROM_TEST.getDecodedProofRequest(0).getProofId() + "<"))))
+                .andExpect(content().string(not(containsString(">" + SET_OF_ROYLLO_NFT_3_FROM_TEST.getDecodedProofRequest(0).getProofId() + "<"))))
                 // Error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.noAssetId")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));

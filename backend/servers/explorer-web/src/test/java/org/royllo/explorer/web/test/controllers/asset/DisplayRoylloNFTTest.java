@@ -45,7 +45,7 @@ public class DisplayRoylloNFTTest extends BaseTest {
 
     @ParameterizedTest
     @MethodSource("headers")
-    @DisplayName("Check page")
+    @DisplayName("Check default page")
     void assetDefaultPage(final HttpHeaders headers) throws Exception {
 
         mockMvc.perform(get("/asset/" + assetId).headers(headers))

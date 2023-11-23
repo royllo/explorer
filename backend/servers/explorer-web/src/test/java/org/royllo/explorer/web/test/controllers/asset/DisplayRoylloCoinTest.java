@@ -45,7 +45,7 @@ public class DisplayRoylloCoinTest extends BaseTest {
 
     @ParameterizedTest
     @MethodSource("headers")
-    @DisplayName("Check roylloCoin page")
+    @DisplayName("Check default page")
     void assetDefaultPage(final HttpHeaders headers) throws Exception {
 
         mockMvc.perform(get("/asset/" + assetId).headers(headers))
@@ -62,7 +62,7 @@ public class DisplayRoylloCoinTest extends BaseTest {
 
     @ParameterizedTest
     @MethodSource("headers")
-    @DisplayName("Check roylloCoin genesis page")
+    @DisplayName("Check genesis page")
     void assetPageGenesis(final HttpHeaders headers) throws Exception {
 
         mockMvc.perform(get("/asset/" + assetId + "/genesis").headers(headers))
@@ -88,7 +88,7 @@ public class DisplayRoylloCoinTest extends BaseTest {
 
     @ParameterizedTest
     @MethodSource("headers")
-    @DisplayName("Check roylloCoin group page")
+    @DisplayName("Check group page")
     void assetPageGroup(final HttpHeaders headers) throws Exception {
 
         mockMvc.perform(get("/asset/" + assetId + "/group").headers(headers))
@@ -105,7 +105,7 @@ public class DisplayRoylloCoinTest extends BaseTest {
 
     @ParameterizedTest
     @MethodSource("headers")
-    @DisplayName("Check roylloCoin states page")
+    @DisplayName("Check states page")
     void assetPageStates(final HttpHeaders headers) throws Exception {
 
         mockMvc.perform(get("/asset/" + assetId + "/states").headers(headers))
@@ -127,7 +127,7 @@ public class DisplayRoylloCoinTest extends BaseTest {
 
     @ParameterizedTest
     @MethodSource("headers")
-    @DisplayName("Check roylloCoin owner page")
+    @DisplayName("Check owner page")
     void assetPageOwner(final HttpHeaders headers) throws Exception {
 
         mockMvc.perform(get("/asset/" + assetId + "/owner").headers(headers))
@@ -144,7 +144,7 @@ public class DisplayRoylloCoinTest extends BaseTest {
 
     @ParameterizedTest
     @MethodSource("headers")
-    @DisplayName("Check roylloCoin proofs page")
+    @DisplayName("Check proofs page")
     void assetPageProofs(final HttpHeaders headers) throws Exception {
 
         mockMvc.perform(get("/asset/" + assetId + "/proofs").headers(headers))
