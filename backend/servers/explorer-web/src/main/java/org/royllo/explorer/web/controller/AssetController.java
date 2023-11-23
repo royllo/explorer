@@ -24,7 +24,6 @@ import static org.royllo.explorer.web.configuration.WebConfiguration.ASSET_STATE
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GENESIS_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GROUP_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_OWNER_PAGE;
-import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PROOFS_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_STATES_PAGE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSETS_IN_GROUP_LIST_ATTRIBUTE;
@@ -52,26 +51,7 @@ public class AssetController extends BaseController {
     private final ProofService proofService;
 
     /**
-     * Page displaying the asset genesis.
-     *
-     * @param model   model
-     * @param request request
-     * @param assetId asset id
-     * @return view asset page
-     */
-    @SuppressWarnings("SameReturnValue")
-    @GetMapping(value = {"/asset", "/asset/", "/asset/{assetId}"})
-    public String asset(final Model model,
-                        final HttpServletRequest request,
-                        @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
-        addAssetToModel(model, assetId);
-
-        // TODO Implement fragment management.
-        return ASSET_PAGE;
-    }
-
-    /**
-     * Page displaying the asset genesis.
+     * Page displaying the asset genesis (which is the default page).
      *
      * @param model   model
      * @param request request
@@ -79,7 +59,7 @@ public class AssetController extends BaseController {
      * @return asset genesis page
      */
     @SuppressWarnings("SameReturnValue")
-    @GetMapping(value = {"/asset/{assetId}/genesis"})
+    @GetMapping(value = {"/asset", "/asset/", "/asset/{assetId}", "/asset/{assetId}/genesis"})
     public String assetGenesis(final Model model,
                                final HttpServletRequest request,
                                @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {

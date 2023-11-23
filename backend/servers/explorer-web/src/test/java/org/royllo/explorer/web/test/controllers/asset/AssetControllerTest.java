@@ -2,8 +2,6 @@ package org.royllo.explorer.web.test.controllers.asset;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.repository.proof.ProofRepository;
 import org.royllo.explorer.web.test.util.BaseTest;
@@ -11,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.CoreMatchers.not;
@@ -41,12 +38,11 @@ public class AssetControllerTest extends BaseTest {
     @Autowired
     MessageSource messages;
 
-    @ParameterizedTest
-    @MethodSource("headers")
+    @Test
     @DisplayName("Asset page without parameter")
-    void assetPageWithoutParameter(final HttpHeaders headers) throws Exception {
+    void assetPageWithoutParameter() throws Exception {
 
-        mockMvc.perform(get("/asset/").headers(headers))
+        mockMvc.perform(get("/asset/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_PAGE)))
                 // Checking error message.
@@ -55,12 +51,11 @@ public class AssetControllerTest extends BaseTest {
 
     }
 
-    @ParameterizedTest
-    @MethodSource("headers")
+    @Test
     @DisplayName("Asset page without parameter and slash")
-    void assetPageWithoutParameterAndSlash(final HttpHeaders headers) throws Exception {
+    void assetPageWithoutParameterAndSlash() throws Exception {
 
-        mockMvc.perform(get("/asset").headers(headers))
+        mockMvc.perform(get("/asset"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_PAGE)))
                 // Checking error message.
@@ -69,12 +64,11 @@ public class AssetControllerTest extends BaseTest {
 
     }
 
-    @ParameterizedTest
-    @MethodSource("headers")
+    @Test
     @DisplayName("Invalid asset id")
-    void invalidAssetId(final HttpHeaders headers) throws Exception {
+    void invalidAssetId() throws Exception {
 
-        mockMvc.perform(get("/asset/NON_EXISTING_ASSET_ID").headers(headers))
+        mockMvc.perform(get("/asset/NON_EXISTING_ASSET_ID"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_PAGE)))
                 // Checking error message.

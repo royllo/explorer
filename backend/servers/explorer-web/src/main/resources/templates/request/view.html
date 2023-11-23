@@ -38,7 +38,7 @@
             </div>
             <a class="btn btn-sm"
                th:href="@{'/request/' + ${result.getRequestId()}}"
-               th:text="#{request.refresh}">
+               th:text="#{request.view.refresh}">
             </a>
         </div>
         <!--/* =================================================================================================== */-->
@@ -75,7 +75,7 @@
             <a class="btn btn-sm"
                th:href="@{'/asset/' + ${result.asset.assetId}}"
                th:if="${#strings.equals(result.class.name, 'org.royllo.explorer.core.dto.request.AddProofRequestDTO')}"
-               th:text="#{request.button.asset.view}">
+               th:text="#{request.view.button.asset}">
             </a>
         </div>
         <!--/* =================================================================================================== */-->

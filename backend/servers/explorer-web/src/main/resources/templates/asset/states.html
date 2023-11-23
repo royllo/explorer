@@ -17,7 +17,7 @@
     <!--/* Display asset states */-->
     <details class="collapse bg-base-200 mb-6" th:each="assetState, iStat: ${assetStatesList}">
         <summary class="collapse-title text-xl font-medium">
-            <div th:text="#{field.asset.anchorOutpoint} + ' / ' + #{field.asset.scriptKey}"></div>
+            <div th:text="#{asset.data.anchorOutpoint} + ' / ' + #{asset.data.scriptKey}"></div>
             <div class="text-ellipsis overflow-hidden text-sm" th:text="${assetState.anchorOutpoint.toString()}"></div>
             <div class="text-ellipsis overflow-hidden text-sm" th:text="${assetState.scriptKey}"></div>
         </summary>

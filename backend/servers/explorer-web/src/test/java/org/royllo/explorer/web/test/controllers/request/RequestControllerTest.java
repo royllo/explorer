@@ -11,7 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
-import static org.royllo.explorer.web.util.constants.PagesConstants.REQUEST_PAGE;
+import static org.royllo.explorer.web.util.constants.RequestPageConstants.REQUEST_PAGE;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -78,7 +78,7 @@ public class RequestControllerTest extends BaseTest {
                 // Request status.
                 .andExpect(content().string(containsString(getMessage(messages, "field.request.status") + ": Opened")))
                 // No view asset.
-                .andExpect(content().string(not(containsString(getMessage(messages, "request.button.asset.view")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "request.view.button.asset")))))
                 // Error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "request.view.error.noRequestId")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "request.view.error.requestNotFound")))));
@@ -94,7 +94,7 @@ public class RequestControllerTest extends BaseTest {
                 .andExpect(content().string(containsString(getMessage(messages, "field.request.status") + ": Failure")))
                 .andExpect(content().string(containsString(getMessage(messages, "field.request.errorMessage") + ": Impossible to decode")))
                 // No view asset.
-                .andExpect(content().string(not(containsString(getMessage(messages, "request.button.asset.view")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "request.view.button.asset")))))
                 // Error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "request.view.error.noRequestId")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "request.view.error.requestNotFound")))));
@@ -110,7 +110,7 @@ public class RequestControllerTest extends BaseTest {
                 // Request status.
                 .andExpect(content().string(containsString(getMessage(messages, "field.request.status") + ": Opened")))
                 // No view asset.
-                .andExpect(content().string(not(containsString(getMessage(messages, "request.button.asset.view")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "request.view.button.asset")))))
                 // Error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "request.view.error.noRequestId")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "request.view.error.requestNotFound")))));
@@ -126,7 +126,7 @@ public class RequestControllerTest extends BaseTest {
                 // Request status.
                 .andExpect(content().string(containsString(getMessage(messages, "field.request.status") + ": Success")))
                 // View asset.
-                .andExpect(content().string(containsString(getMessage(messages, "request.button.asset.view"))))
+                .andExpect(content().string(containsString(getMessage(messages, "request.view.button.asset"))))
                 .andExpect(content().string(containsString("\"/asset/" + ROYLLO_COIN_ASSET_ID + "\"")))
                 // Error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "request.view.error.noRequestId")))))
@@ -143,7 +143,7 @@ public class RequestControllerTest extends BaseTest {
                 // Request status.
                 .andExpect(content().string(containsString(getMessage(messages, "field.request.status") + ": Opened")))
                 // No view asset.
-                .andExpect(content().string(not(containsString(getMessage(messages, "request.button.asset.view")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "request.view.button.asset")))))
                 // Error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "request.view.error.noRequestId")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "request.view.error.requestNotFound")))));
@@ -161,7 +161,7 @@ public class RequestControllerTest extends BaseTest {
                 .andExpect(content().string(containsString(getMessage(messages, "field.request.status") + ": Failure")))
                 .andExpect(content().string(containsString(getMessage(messages, "field.request.errorMessage") + ": Server 2.2.2.2 not connecte")))
                 // No view asset.
-                .andExpect(content().string(not(containsString(getMessage(messages, "request.button.asset.view")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "request.view.button.asset")))))
                 // Error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "request.view.error.noRequestId")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "request.view.error.requestNotFound")))));
@@ -177,7 +177,7 @@ public class RequestControllerTest extends BaseTest {
                 // Request status.
                 .andExpect(content().string(containsString(getMessage(messages, "field.request.status") + ": Success")))
                 // No view asset.
-                .andExpect(content().string(not(containsString(getMessage(messages, "request.button.asset.view")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "request.view.button.asset")))))
                 // Error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "request.view.error.noRequestId")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "request.view.error.requestNotFound")))));

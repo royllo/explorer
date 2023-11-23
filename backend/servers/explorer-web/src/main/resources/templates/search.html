@@ -69,19 +69,19 @@
                             </p>
                             <p class="text-xs text-gray-500 ">
                              <span class="relative truncate block"
-                                   th:text="@{#{asset.data.assetId} + ': ' + ${asset.assetId}}">
+                                   th:text="#{asset.data.assetId} + ': ' + ${asset.assetId}">
 
                              </span>
                                 <span class="relative truncate block"
                                       th:if="${asset.assetGroup != null}"
-                                      th:text="@{#{asset.data.tweakedGroupKey} + ': ' + ${asset.assetGroup.tweakedGroupKey}}">
+                                      th:text="#{asset.data.tweakedGroupKey} + ': ' + ${asset.assetGroup.tweakedGroupKey}">
                              </span>
                                 <span class="relative truncate block"
                                       th:if="${#strings.equalsIgnoreCase(asset.type, 'NORMAL')}"
-                                      th:text="@{#{asset.data.amount} + ': ' + ${asset.amount}}">
+                                      th:text="#{asset.data.amount} + ': ' + ${asset.amount}">
                              </span>
                                 <span class="relative truncate block"
-                                      th:text="@{#{asset.data.creator} + ': ' + ${asset.creator.username}}">
+                                      th:text="#{asset.data.creator} + ': ' + ${asset.creator.username}">
 
                              </span>
                             </p>
