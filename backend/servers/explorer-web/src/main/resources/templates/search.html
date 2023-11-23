@@ -30,68 +30,50 @@
              th:insert="~{util/fragments/components/error_message :: error_message(#{search.error.invalidPage})}">
         </div>
 
-
         <!--/* =================================================================================================== */-->
         <!--/* Results */-->
         <div th:if="${result != null && !result.getContent().isEmpty()}">
 
-            <!--/* If there are results */-->
-            <ul class="divide-y divide-gray-100" role="list">
+            <!--/* =========================================================================================== */-->
+            <div class="alert shadow-lg mb-5 mt-5" role="alert" th:each="asset: ${result.content}">
+                <!--/* Icon */-->
+                <img class="h-12 w-12 flex-none bg-gray-50"
+                     th:alt="${asset.name}"
+                     th:if="${#strings.equalsIgnoreCase(asset.type, 'NORMAL')}"
+                     th:src="@{/svg/type_normal_asset.svg}"/>
 
-                <!--/* =========================================================================================== */-->
-                <!--/* For each asset in the result */-->
-                <li class="relative flex justify-between gap-x-6 py-5" th:each="asset: ${result.content}">
-
-                    <div class="flex gap-x-4 w-4/5">
-                        <!--/* Icon */-->
-                        <img class="h-12 w-12 flex-none bg-gray-50"
-                             th:alt="${asset.name}"
-                             th:if="${#strings.equalsIgnoreCase(asset.type, 'NORMAL')}"
-                             th:src="@{/svg/type_normal_asset.svg}"/>
-
-                        <img class="h-12 w-12 flex-none bg-gray-50"
-                             th:alt="${asset.name}"
-                             th:if="${#strings.equalsIgnoreCase(asset.type, 'COLLECTIBLE')}"
-                             th:src="@{/svg/type_collectible_asset.svg}"/>
-
-                        <!--/* Description */-->
-                        <div class="min-w-0 flex-auto">
-                            <p class="text-sm font-semibold leading-6 text-gray-900">
-                                <a th:href="@{'/asset/' + ${asset.assetId}}">
-                                    <!--/* TODO make an HTMX call */-->
-                                    <!--/* https://stackoverflow.com/questions/77514855/getting-a-fragment-of-a-layout-after-the-page-has-been-generated */-->
-                                    <!--/* hx-push-url="true" */-->
-                                    <!--/* hx-target="#content" */-->
-                                    <!--/* th:hx-get="@{'/asset/' + ${asset.assetId}}" */-->
-                                    <span class="absolute inset-x-0 -top-px bottom-0"></span>
-                                    <span th:text="${asset.name}"></span>
-                                </a>
-                            </p>
-                            <p class="text-xs text-gray-500 ">
-                             <span class="relative truncate block"
-                                   th:text="#{asset.data.assetId} + ': ' + ${asset.assetId}">
-
-                             </span>
-                                <span class="relative truncate block"
-                                      th:if="${asset.assetGroup != null}"
-                                      th:text="#{asset.data.tweakedGroupKey} + ': ' + ${asset.assetGroup.tweakedGroupKey}">
-                             </span>
-                                <span class="relative truncate block"
-                                      th:if="${#strings.equalsIgnoreCase(asset.type, 'NORMAL')}"
-                                      th:text="#{asset.data.amount} + ': ' + ${asset.amount}">
-                             </span>
-                                <span class="relative truncate block"
-                                      th:text="#{asset.data.creator} + ': ' + ${asset.creator.username}">
-
-                             </span>
-                            </p>
-                        </div>
+                <img class="h-12 w-12 flex-none bg-gray-50"
+                     th:alt="${asset.name}"
+                     th:if="${#strings.equalsIgnoreCase(asset.type, 'COLLECTIBLE')}"
+                     th:src="@{/svg/type_collectible_asset.svg}"/>
+                <!--/* Text */-->
+                <div>
+                    <h3 class="font-bold">
+                        <a th:href="@{'/asset/' + ${asset.assetId}}">
+                            <span th:text="${asset.name}"></span>
+                        </a>
+                    </h3>
+                    <div class="text-xs">
+                        <span class="hidden lg:block"
+                              th:text="#{asset.data.assetId} + ': ' + ${asset.assetId}">
+                        </span>
+                        <span class="hidden lg:block"
+                              th:if="${asset.assetGroup != null}"
+                              th:text="#{asset.data.tweakedGroupKey} + ': ' + ${asset.assetGroup.tweakedGroupKey}">
+                        </span>
+                        <span class="block"
+                              th:if="${#strings.equalsIgnoreCase(asset.type, 'NORMAL')}"
+                              th:text="#{asset.data.amount} + ': ' + ${asset.amount}">
+                        </span>
+                        <span class="block"
+                              th:text="#{asset.data.creator} + ': ' + ${asset.creator.username}">
+                        </span>
                     </div>
+                </div>
+                <!--/* <button class="btn btn-sm">See</button> */-->
+            </div>
+            <!--/* =========================================================================================== */-->
 
-                </li>
-                <!--/* =========================================================================================== */-->
-
-            </ul>
 
             <!--/* Pages numbers */-->
             <div class="join" th:if="${result.getTotalPages() > 1}">
