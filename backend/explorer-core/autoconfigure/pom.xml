@@ -223,7 +223,7 @@
                         <phase>package</phase>
                         <configuration>
                             <excludes>
-                                <exclude>**/Application*</exclude>
+                                <exclude>**/Application.class</exclude>
                             </excludes>
                         </configuration>
                         <goals>
