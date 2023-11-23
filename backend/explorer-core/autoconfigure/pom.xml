@@ -224,6 +224,7 @@
                         <configuration>
                             <excludes>
                                 <exclude>**/Application.class</exclude>
+                                <exclude>**/Application.java</exclude>
                             </excludes>
                         </configuration>
                         <goals>
