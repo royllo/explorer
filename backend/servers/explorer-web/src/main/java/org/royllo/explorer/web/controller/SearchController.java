@@ -14,8 +14,8 @@ import static org.royllo.explorer.web.configuration.WebConfiguration.ASSET_SEARC
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PAGE_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.QUERY_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.SEARCH_PAGE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.SEARCH_PAGE_FRAGMENT;
+import static org.royllo.explorer.web.util.constants.SearchPageConstants.SEARCH_PAGE;
+import static org.royllo.explorer.web.util.constants.SearchPageConstants.SEARCH_PAGE_FRAGMENT;
 
 /**
  * Search controller.

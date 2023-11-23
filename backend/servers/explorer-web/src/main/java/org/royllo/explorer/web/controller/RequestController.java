@@ -1,7 +1,6 @@
 package org.royllo.explorer.web.controller;
 
 import io.micrometer.common.util.StringUtils;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.service.request.RequestService;
 import org.royllo.explorer.web.util.base.BaseController;
@@ -12,9 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.REQUEST_ID_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.CHOOSE_REQUEST_TYPE_PAGE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.CHOOSE_REQUEST_TYPE_PAGE_FRAGMENT;
-import static org.royllo.explorer.web.util.constants.PagesConstants.REQUEST_PAGE;
+import static org.royllo.explorer.web.util.constants.RequestPageConstants.REQUEST_PAGE;
 
 /**
  * Request controller.
@@ -25,23 +22,6 @@ public class RequestController extends BaseController {
 
     /** Request service. */
     private final RequestService requestService;
-
-    /**
-     * Page letting the user choose the type of request to make.
-     *
-     * @param model   model
-     * @param request request
-     * @return page to display
-     */
-    @GetMapping(value = {"/request/choose_request_type"})
-    public String chooseRequestType(final Model model,
-                                    final HttpServletRequest request) {
-        // If it's an HTMX request, we return the fragment.
-        if (isHtmxRequest(request)) {
-            return CHOOSE_REQUEST_TYPE_PAGE_FRAGMENT;
-        }
-        return CHOOSE_REQUEST_TYPE_PAGE;
-    }
 
     /**
      * Page displaying a request.

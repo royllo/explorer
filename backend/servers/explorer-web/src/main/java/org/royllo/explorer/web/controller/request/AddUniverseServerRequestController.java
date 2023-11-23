@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.FORM_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.ADD_UNIVERSE_SERVER_REQUEST_SUCCESS_PAGE;
+import static org.royllo.explorer.web.util.constants.RequestPageConstants.ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE;
+import static org.royllo.explorer.web.util.constants.RequestPageConstants.ADD_UNIVERSE_SERVER_REQUEST_SUCCESS_PAGE;
 
 /**
  * Add universe server request controller.

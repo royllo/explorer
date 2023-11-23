@@ -1,0 +1,45 @@
+<header class="navbar">
+
+    <!--/* Left side (Use flex-1 to allow a flex item to grow and shrink as needed, ignoring its initial size) */-->
+    <div class="flex-1">
+
+        <!--/* Left side with logo & link */-->
+        <a hx-get="/"
+           hx-push-url="true"
+           hx-target="#content"
+           th:href="@{/}">
+            <img alt="Royllo Logo"
+                 height="52"
+                 th:src="@{/images/logo/royllo_logo_horizontal_with_title.png}"
+                 width="171"/>
+        </a>
+
+    </div>
+
+    <!--/* Right side (Use flex-none to prevent a flex item from growing or shrinking) */-->
+    <div class="flex-none">
+
+        <details class="dropdown dropdown-end">
+            <summary class="m-1 btn btn-secondary" th:text="#{request.view.addData}"></summary>
+            <ul class="dropdown-content z-[1] menu p-2 shadow rounded-box w-52">
+
+                <!--/* Add proof */-->
+                <li>
+                    <a th:href="@{/request/proof/add}"
+                       th:text="#{request.view.proof.add}">
+                    </a>
+                </li>
+
+                <!--/* Add universe server */-->
+                <li>
+                    <a th:href="@{/request/universe_server/add}"
+                       th:text="#{request.view.universeServer.add}">
+                    </a>
+                </li>
+
+            </ul>
+        </details>
+
+    </div>
+
+</header>

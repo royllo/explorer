@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html data-theme="winter"
+      lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!--/* =========================================================================================================== */-->
+<!--/* Head */-->
+<head th:replace="~{util/fragments/layouts/default/head :: head}">
+    <title th:text="#{head.title}"></title>
+</head>
+<!--/* =========================================================================================================== */-->
+
+<!--/* =========================================================================================================== */-->
+<!--/* Body */-->
+<body>
+
+<!--/* Header */-->
+<header th:replace="~{util/fragments/layouts/asset/header :: header}"></header>
+
+<!--/* Content */-->
+<!--/*
+    flex            :   Utilities for controlling how flex items both grow and shrink.
+    flex-col        :   Use flex-col to position flex items vertically.
+*/-->
+<main class="flex flex-col"
+      id="content">
+
+    <!--/* ======================================================================================================= */-->
+    <!--/* Error management */-->
+
+    <!--/* No value for the "assetId" parameter */-->
+    <div th:if="${#strings.isEmpty(assetId)}"
+         th:insert="~{util/fragments/components/error_message :: error_message(#{asset.view.error.noAssetId})}">
+    </div>
+
+    <!--/* We have the "assetId" parameter but the asset was not found */-->
+    <div th:if="${!#strings.isEmpty(assetId) && asset == null}"
+         th:insert="~{util/fragments/components/error_message :: error_message(#{asset.view.error.assetNotFound})}">
+    </div>
+
+    <!--/* ======================================================================================================= */-->
+
+    <!--/* ======================================================================================================= */-->
+    <!--/* Display asset /-->
+    <div th:if="${asset != null}">
+
+        <!--/* Header describing the asset and the menu */-->
+        <div th:replace="~{util/fragments/layouts/asset/asset_header :: section}"></div>
+
+        <!--/* A tab describing a part of the asset */-->
+        <div class="w-11/12 mx-auto"
+             id="asset-tab"
+             layout:fragment="content">
+        </div>
+
+    </div>
+    <!--/* ======================================================================================================= */-->
+
+</main>
+
+<!--/* Footer */-->
+<footer th:replace="~{util/fragments/layouts/default/footer :: footer}"></footer>
+
+</body>
+<!--/* =========================================================================================================== */-->
+
+</html>

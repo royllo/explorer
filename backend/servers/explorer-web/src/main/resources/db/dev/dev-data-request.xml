@@ -24,19 +24,20 @@
             <column name="TYPE" value="ADD_PROOF"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="STATUS" value="FAILURE"/>
+            <column name="ERROR_MESSAGE" value="there was an unexpected error"/>
         </insert>
         <insert tableName="REQUEST_ADD_PROOF">
             <column name="ID" value="2"/>
             <column name="proof" value="P2"/>
         </insert>
 
-        <!-- Add asset request n°3 ( Opened addAssetMetaData GI3/P3 ) -->
+        <!-- Add asset request n°3 ( Success addAssetMetaData GI3/P3 ) -->
         <insert tableName="REQUEST">
             <column name="ID" value="3"/>
             <column name="REQUEST_ID" value="91425ba6-8b16-46a8-baa6-request_m_01"/>
             <column name="TYPE" value="ADD_ASSET_META_DATA"/>
             <column name="FK_USER_CREATOR" value="1"/>
-            <column name="STATUS" value="OPENED"/>
+            <column name="STATUS" value="SUCCESS"/>
         </insert>
         <insert tableName="REQUEST_ADD_ASSET_META_DATA">
             <column name="ID" value="3"/>
@@ -50,10 +51,11 @@
             <column name="REQUEST_ID" value="91425ba6-8b16-46a8-baa6-request_p_03"/>
             <column name="TYPE" value="ADD_PROOF"/>
             <column name="FK_USER_CREATOR" value="1"/>
-            <column name="STATUS" value="OPENED"/>
+            <column name="STATUS" value="SUCCESS"/>
         </insert>
         <insert tableName="REQUEST_ADD_PROOF">
             <column name="ID" value="4"/>
+            <column name="FK_ASSET" value="1"/>
             <column name="proof" value="P4"/>
         </insert>
 

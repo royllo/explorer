@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{util/fragments/layouts/asset/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!--/* =========================================================================================================== */-->
+<div layout:fragment="content" th:fragment="asset-states-fragment" th:if="${asset} != null">
+
+    <!--/* Where we are */-->
+    <div class="text breadcrumbs">
+        <ul>
+            <li>&nbsp;</li>
+            <li th:text="#{asset.view.tabs.states}"></li>
+        </ul>
+    </div>
+
+    <!--/* Display asset states */-->
+    <details class="collapse bg-base-200 mb-6" th:each="assetState, iStat: ${assetStatesList}">
+        <summary class="collapse-title text-xl font-medium">
+            <div th:text="#{asset.data.anchorOutpoint} + ' / ' + #{asset.data.scriptKey}"></div>
+            <div class="text-ellipsis overflow-hidden text-sm" th:text="${assetState.anchorOutpoint.toString()}"></div>
+            <div class="text-ellipsis overflow-hidden text-sm" th:text="${assetState.scriptKey}"></div>
+        </summary>
+        <div class="collapse-content">
+
+            <!--/* Anchor tx */-->
+            <label class="label"
+                   th:for="'anchorTx-' + ${iStat.index}">
+                <span class="label-text" th:text="#{asset.data.anchorTx}"></span>
+            </label>
+            <textarea class="textarea textarea-bordered h-24 w-full"
+                      readonly
+                      th:id="'anchorTx-' + ${iStat.index}"
+                      th:text="${assetState.anchorTx}">
+            </textarea>
+
+            <!--/* Anchor block hash */-->
+            <label class="label"
+                   th:for="'anchorBlockHash-' + ${iStat.index}">
+                <span class="label-text" th:text="#{asset.data.anchorBlockHash}"></span>
+            </label>
+            <textarea class="textarea textarea-bordered h-24 w-full"
+                      readonly
+                      th:id="'anchorBlockHash-' + ${iStat.index}"
+                      th:text="${assetState.anchorBlockHash}">
+            </textarea>
+
+            <!--/* Anchor outpoint */-->
+            <label class="label"
+                   th:for="'anchorOutpoint-' + ${iStat.index}">
+                <span class="label-text" th:text="#{asset.data.anchorOutpoint}"></span>
+            </label>
+            <textarea class="textarea textarea-bordered h-24 w-full"
+                      readonly
+                      th:id="'anchorOutpoint-' + ${iStat.index}"
+                      th:text="${assetState.anchorOutpoint}">
+            </textarea>
+
+            <!--/* Anchor internal key */-->
+            <label class="label"
+                   th:for="'internalKey-' + ${iStat.index}">
+                <span class="label-text" th:text="#{asset.data.internalKey}"></span>
+            </label>
+            <textarea class="textarea textarea-bordered h-24 w-full"
+                      readonly
+                      th:id="'internalKey-' + ${iStat.index}"
+                      th:text="${assetState.internalKey}">
+            </textarea>
+
+            <!--/* Anchor merkle root */-->
+            <label class="label"
+                   th:for="'merkleRoot-' + ${iStat.index}">
+                <span class="label-text" th:text="#{asset.data.merkleRoot}"></span>
+            </label>
+            <textarea class="textarea textarea-bordered h-24 w-full"
+                      readonly
+                      th:id="'merkleRoot-' + ${iStat.index}"
+                      th:text="${assetState.merkleRoot}">
+            </textarea>
+            <!--/* Anchor tapscript sibling */-->
+            <label class="label"
+                   th:for="'tapscriptSibling-' + ${iStat.index}">
+                <span class="label-text" th:text="#{asset.data.tapscriptSibling}"></span>
+            </label>
+            <textarea class="textarea textarea-bordered h-24 w-full"
+                      readonly
+                      th:id="'tapscriptSibling-' + ${iStat.index}"
+                      th:text="${assetState.tapscriptSibling}">
+            </textarea>
+            <!--/* Anchor amount */-->
+            <label class="label"
+                   th:for="'amount-' + ${iStat.index}">
+                <span class="label-text" th:text="#{asset.data.amount}"></span>
+            </label>
+            <input class="input input-bordered w-full"
+                   readonly
+                   th:id="'amount-' + ${iStat.index}"
+                   th:value="${assetState.amount}"
+                   type="text"/>
+        </div>
+    </details>
+
+    <div class="mt-16">&nbsp;</div>
+
+</div>
+<!--/* =========================================================================================================== */-->
+
+</html>

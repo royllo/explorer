@@ -12,12 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Objects;
 import java.util.Optional;
 
 import static java.math.BigInteger.ONE;
@@ -28,7 +26,7 @@ import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_US
 import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PAGE_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.QUERY_ATTRIBUTE;
-import static org.royllo.explorer.web.util.constants.PagesConstants.SEARCH_PAGE;
+import static org.royllo.explorer.web.util.constants.SearchPageConstants.SEARCH_PAGE;
 import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_TXID;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -39,7 +37,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("Search controller tests")
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
-@PropertySource("classpath:messages.properties")
 public class SearchControllerTest extends BaseTest {
 
     @Autowired
@@ -52,98 +49,89 @@ public class SearchControllerTest extends BaseTest {
     MockMvc mockMvc;
 
     @Autowired
-    Environment environment;
+    MessageSource messages;
 
     @ParameterizedTest
     @MethodSource("headers")
     @DisplayName("Search page without query parameter")
     void searchPageWithoutQueryParameter(final HttpHeaders headers) throws Exception {
+
+        // Attribute not set.
         mockMvc.perform(get("/search").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(SEARCH_PAGE)))
                 // Error message.
-                .andExpect(content().string(containsString(environment.getProperty("search.error.noQuery"))))
-                .andExpect(content().string(not(containsString(environment.getProperty("search.error.invalidPage")))))
-                .andExpect(content().string(not(containsString(Objects.requireNonNull(
-                                environment.getProperty("search.noResult"))
-                        .replace("\"{0}\"", "&quot;&quot;")))));
-    }
+                .andExpect(content().string(containsString(getMessage(messages, "search.error.noQuery"))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noResult")))));
 
-    @ParameterizedTest
-    @MethodSource("headers")
-    @DisplayName("Search page with empty parameter")
-    void searchPageWithEmptyParameter(final HttpHeaders headers) throws Exception {
+        // Attribute set to "".
         mockMvc.perform(get("/search").headers(headers).queryParam(QUERY_ATTRIBUTE, ""))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(SEARCH_PAGE)))
                 // Error message.
-                .andExpect(content().string(containsString(environment.getProperty("search.error.noQuery"))))
-                .andExpect(content().string(not(containsString(environment.getProperty("search.error.invalidPage")))))
-                .andExpect(content().string(not(containsString(Objects.requireNonNull(
-                                environment.getProperty("search.noResult"))
-                        .replace("\"{0}\"", "&quot;&quot;")))));
+                .andExpect(content().string(containsString(getMessage(messages, "search.error.noQuery"))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noResult")))));
 
-        // With space.
-        mockMvc.perform(get("/search").queryParam(QUERY_ATTRIBUTE, " "))
+        // Attribute set to " ".
+        mockMvc.perform(get("/search").headers(headers).queryParam(QUERY_ATTRIBUTE, " "))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(SEARCH_PAGE)))
                 // Error message.
-                .andExpect(content().string(containsString(environment.getProperty("search.error.noQuery"))))
-                .andExpect(content().string(not(containsString(environment.getProperty("search.error.invalidPage")))))
-                .andExpect(content().string(not(containsString(Objects.requireNonNull(
-                                environment.getProperty("search.noResult"))
-                        .replace("\"{0}\"", "&quot;&quot;")))));
+                .andExpect(content().string(containsString(getMessage(messages, "search.error.noQuery"))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noResult")))));
+
     }
 
     @ParameterizedTest
     @MethodSource("headers")
     @DisplayName("Search page with no result")
     void searchPageWithNoResult(final HttpHeaders headers) throws Exception {
-        // We remove the parameter from the message.
-        final String expectedMessage = Objects.requireNonNull(environment.getProperty("search.noResult")).replace("\"{0}\"", "");
+
         mockMvc.perform(get("/search").headers(headers).param(QUERY_ATTRIBUTE, "NO_RESULT_QUERY"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(SEARCH_PAGE)))
                 // Error message.
-                .andExpect(content().string(not(containsString(environment.getProperty("search.error.noQuery")))))
-                .andExpect(content().string(not(containsString(environment.getProperty("search.error.invalidPage")))))
-                .andExpect(content().string(containsString(expectedMessage)));
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noQuery")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.invalidPage")))))
+                .andExpect(content().string(containsString(getMessage(messages, "search.error.noResult"))));
+
     }
 
     @ParameterizedTest
     @MethodSource("headers")
-    @DisplayName("Search page with results & blank spaces")
-    void searchPageWithResults(final HttpHeaders headers) throws Exception {
+    @DisplayName("Search page with results on several pages")
+    void searchPageWithResultsOnSeveralPages(final HttpHeaders headers) throws Exception {
         // Create fake assets.
-        createFakeAssets(11);
+        createFakeAssets();
 
         // Results - Page 1 (page not specified).
         mockMvc.perform(get("/search").headers(headers).param(QUERY_ATTRIBUTE, "FAKE"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(SEARCH_PAGE)))
                 // Checking results.
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_01")))
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_02")))
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_03")))
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_04")))
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_05")))
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_06")))
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_07")))
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_08")))
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_09")))
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_10")))
-                .andExpect(content().string(not(containsString("/FAKE_ASSET_ID_11"))))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_01")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_02")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_03")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_04")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_05")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_06")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_07")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_08")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_09")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_10")))
+                .andExpect(content().string(not(containsString("/asset/FAKE_ASSET_ID_11"))))
                 // Checking pages.
-                .andExpect(content().string(not(containsString(">0</a>"))))
-                .andExpect(content().string(containsString(">1</a>")))
-                .andExpect(content().string(containsString(">2</a>")))
-                .andExpect(content().string(not(containsString(">3</a>"))))
-                // Error messages.
-                .andExpect(content().string(not(containsString(environment.getProperty("search.error.noQuery")))))
-                .andExpect(content().string(not(containsString(environment.getProperty("search.error.invalidPage")))))
-                .andExpect(content().string(not(containsString(Objects.requireNonNull(
-                                environment.getProperty("search.noResult"))
-                        .replace("\"{0}\"", "&quot;coin&quot;")))));
+                .andExpect(content().string(not(containsString(">0</"))))
+                .andExpect(content().string(containsString(">1</")))
+                .andExpect(content().string(containsString(">2</")))
+                .andExpect(content().string(not(containsString(">3</"))))
+                // Checking there is no error message.
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noQuery")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noResult")))));
 
         // Results - Page 1 (page specified).
         mockMvc.perform(get("/search")
@@ -152,28 +140,26 @@ public class SearchControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(SEARCH_PAGE)))
                 // Checking results.
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_01")))
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_02")))
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_03")))
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_04")))
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_05")))
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_06")))
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_07")))
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_08")))
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_09")))
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_10")))
-                .andExpect(content().string(not(containsString("/FAKE_ASSET_ID_11"))))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_01")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_02")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_03")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_04")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_05")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_06")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_07")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_08")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_09")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_10")))
+                .andExpect(content().string(not(containsString("/asset/FAKE_ASSET_ID_11"))))
                 // Checking pages.
-                .andExpect(content().string(not(containsString(">0</a>"))))
-                .andExpect(content().string(containsString(">1</a>")))
-                .andExpect(content().string(containsString(">2</a>")))
-                .andExpect(content().string(not(containsString(">3</a>"))))
-                // Error messages.
-                .andExpect(content().string(not(containsString(environment.getProperty("search.error.noQuery")))))
-                .andExpect(content().string(not(containsString(environment.getProperty("search.error.invalidPage")))))
-                .andExpect(content().string(not(containsString(Objects.requireNonNull(
-                                environment.getProperty("search.noResult"))
-                        .replace("\"{0}\"", "&quot;coin&quot;")))));
+                .andExpect(content().string(not(containsString(">0</"))))
+                .andExpect(content().string(containsString(">1</")))
+                .andExpect(content().string(containsString(">2</")))
+                .andExpect(content().string(not(containsString(">3</"))))
+                // Checking there is no error message.
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noQuery")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noResult")))));
 
         // Results - Page 2 - Added spaces to test trim().
         mockMvc.perform(get("/search")
@@ -182,26 +168,26 @@ public class SearchControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(SEARCH_PAGE)))
                 // Checking results.
-                .andExpect(content().string(not(containsString("/FAKE_ASSET_ID_10"))))
-                .andExpect(content().string(containsString("/FAKE_ASSET_ID_11")))
-                .andExpect(content().string(not(containsString("/FAKE_ASSET_ID_12"))))
+                .andExpect(content().string(not(containsString("/asset/FAKE_ASSET_ID_10"))))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_11")))
+                .andExpect(content().string(not(containsString("/asset/FAKE_ASSET_ID_12"))))
                 // Checking pages.
-                .andExpect(content().string(not(containsString(">0</a>"))))
-                .andExpect(content().string(containsString(">1</a>")))
-                .andExpect(content().string(containsString(">2</a>")))
-                .andExpect(content().string(not(containsString(">3</a>"))))
-                // Error messages.
-                .andExpect(content().string(not(containsString(environment.getProperty("search.error.noQuery")))))
-                .andExpect(content().string(not(containsString(environment.getProperty("search.error.invalidPage")))))
-                .andExpect(content().string(not(containsString(Objects.requireNonNull(
-                                environment.getProperty("search.noResult"))
-                        .replace("\"{0}\"", "&quot;coin&quot;")))));
+                .andExpect(content().string(not(containsString(">0</"))))
+                .andExpect(content().string(containsString(">1</")))
+                .andExpect(content().string(containsString(">2</")))
+                .andExpect(content().string(not(containsString(">3</"))))
+                // Checking there is no error message.
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noQuery")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noResult")))));
+
     }
 
     @ParameterizedTest
     @MethodSource("headers")
     @DisplayName("Search page with invalid page number")
     void searchPageWithInvalidPageNumber(final HttpHeaders headers) throws Exception {
+
         mockMvc.perform(get("/search")
                         .headers(headers)
                         .param(QUERY_ATTRIBUTE, "coin")
@@ -209,25 +195,22 @@ public class SearchControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(SEARCH_PAGE)))
                 // Checking error message.
-                .andExpect(content().string(containsString(environment.getProperty("search.error.invalidPage"))))
-                .andExpect(content().string(not(containsString(environment.getProperty("search.error.noQuery")))))
-                .andExpect(content().string(not(containsString(Objects.requireNonNull(
-                                environment.getProperty("search.noResult"))
-                        .replace("\"{0}\"", "&quot;coin&quot;")))));
+                .andExpect(content().string(containsString(getMessage(messages, "search.error.invalidPage"))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noQuery")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noResult")))));
+
     }
 
     /**
      * Create fake assets starting with FAKE_ASSET_%1
-     *
-     * @param numberOfAssets number of assets to generate
      */
-    private void createFakeAssets(final int numberOfAssets) {
+    private void createFakeAssets() {
         // Transaction used.
         final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 4);
         assertTrue(bto.isPresent());
 
         // Create fake assets.
-        for (int i = 1; i <= numberOfAssets; i++) {
+        for (int i = 1; i <= 11; i++) {
             final Optional<AssetDTO> assetFound = assetService.getAssetByAssetId("FAKE_ASSET_ID_" + String.format("%02d", i));
             if (assetFound.isEmpty()) {
                 assetService.addAsset(

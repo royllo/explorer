@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{util/fragments/layouts/asset/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!--/* =========================================================================================================== */-->
+<div layout:fragment="content" th:fragment="asset-proofs-fragment" th:if="${asset} != null">
+
+    <!--/* Where we are */-->
+    <div class="text breadcrumbs">
+        <ul>
+            <li>&nbsp;</li>
+            <li th:text="#{asset.view.tabs.proofs}"></li>
+        </ul>
+    </div>
+
+    <!--/* List all the proofs */-->
+    <div class="overflow-x-auto">
+        <table class="table table-zebra table-fixed">
+            <tbody>
+            <!--/* Proofs */-->
+            <tr th:each="proof: ${proofsList.content}">
+                <td class="text-ellipsis overflow-hidden">
+                    <a th:href="@{'/asset/' + ${assetId} + '/proof/' + ${proof.proofId}}"
+                       th:text="${proof.proofId}"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<!--/* =========================================================================================================== */-->
+
+</html>
