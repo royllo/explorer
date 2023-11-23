@@ -39,7 +39,7 @@ public class AssetControllerTest extends BaseTest {
     MockMvc mockMvc;
 
     @Autowired
-    MessageSource messageSource;
+    MessageSource messages;
 
     @ParameterizedTest
     @MethodSource("headers")
@@ -50,8 +50,8 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_PAGE)))
                 // Checking error message.
-                .andExpect(content().string(containsString(getMessage(messageSource, "asset.view.error.noAssetId"))))
-                .andExpect(content().string(not(containsString(getMessage(messageSource, "asset.view.error.assetNotFound")))));
+                .andExpect(content().string(containsString(getMessage(messages, "asset.view.error.noAssetId"))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));
 
     }
 
@@ -64,8 +64,8 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_PAGE)))
                 // Checking error message.
-                .andExpect(content().string(containsString(getMessage(messageSource, "asset.view.error.noAssetId"))))
-                .andExpect(content().string(not(containsString(getMessage(messageSource, "asset.view.error.assetNotFound")))));
+                .andExpect(content().string(containsString(getMessage(messages, "asset.view.error.noAssetId"))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));
 
     }
 
@@ -78,8 +78,8 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_PAGE)))
                 // Checking error message.
-                .andExpect(content().string(not(containsString(getMessage(messageSource, "asset.view.error.noAssetId")))))
-                .andExpect(content().string(containsString(getMessage(messageSource, "asset.view.error.assetNotFound"))));
+                .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.noAssetId")))))
+                .andExpect(content().string(containsString(getMessage(messages, "asset.view.error.assetNotFound"))));
 
     }
 

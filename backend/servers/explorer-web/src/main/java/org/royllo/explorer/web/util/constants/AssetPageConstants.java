@@ -19,12 +19,12 @@ public class AssetPageConstants {
     public static final String ASSET_GROUP_PAGE = "asset/group";
 
     /** Asset states page. */
-    public static final String ASSET_STATES_TAB = "asset/states";
+    public static final String ASSET_STATES_PAGE = "asset/states";
 
     /** Asset owner page. */
-    public static final String ASSET_OWNER_TAB = "asset/owner";
+    public static final String ASSET_OWNER_PAGE = "asset/owner";
 
     /** Asset proofs page. */
-    public static final String ASSET_PROOFS_TAB = "asset/proofs";
+    public static final String ASSET_PROOFS_PAGE = "asset/proofs";
 
 }

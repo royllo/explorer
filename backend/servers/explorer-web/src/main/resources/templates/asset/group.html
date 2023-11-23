@@ -14,8 +14,8 @@
         </ul>
     </div>
 
-    <!--/* If there are no asset group, just say it */-->
-    <div class="overflow-x-auto">
+
+    <div class="overflow-x-auto" th:if="${asset.assetGroup} == null">
         <table class="table table-zebra table-fixed">
             <!--/* Header */-->
             <thead class=" w-full">
