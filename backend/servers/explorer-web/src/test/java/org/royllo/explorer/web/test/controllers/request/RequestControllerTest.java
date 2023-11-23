@@ -181,6 +181,7 @@ public class RequestControllerTest extends BaseTest {
                 // Error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "request.view.error.noRequestId")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "request.view.error.requestNotFound")))));
+
     }
 
 }
