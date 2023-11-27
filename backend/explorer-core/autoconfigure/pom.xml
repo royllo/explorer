@@ -223,8 +223,8 @@
                         <phase>package</phase>
                         <configuration>
                             <excludes>
-                                <exclude>**/Application.class</exclude>
-                                <exclude>**/Application.java</exclude>
+                                <exclude>org.royllo.explorer.core.test.Application.class</exclude>
+                                <exclude>org.royllo.explorer.core.test.Application.java</exclude>
                             </excludes>
                         </configuration>
                         <goals>

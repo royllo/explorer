@@ -1,5 +1,6 @@
 package org.royllo.explorer.core.util.mapper;
 
+import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.royllo.explorer.core.domain.asset.Asset;
@@ -18,6 +19,7 @@ import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
  */
 @Mapper(nullValuePropertyMappingStrategy = IGNORE,
         uses = {AssetGroupMapper.class, BitcoinMapper.class, UserMapper.class})
+@DecoratedWith(AssetMapperDecorator.class)
 public interface AssetMapper {
 
     @Mapping(target = "createdOn", ignore = true)
@@ -38,6 +40,7 @@ public interface AssetMapper {
     AssetGroupDTO mapToAssetGroupDTO(DecodedProofResponse.DecodedProof.Asset.AssetGroup source);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "assetIdAlias", ignore = true)
     @Mapping(target = "creator", ignore = true)
     @Mapping(source = "asset.assetGroup", target = "assetGroup")
     @Mapping(source = "asset.assetGenesis.assetId", target = "assetId")

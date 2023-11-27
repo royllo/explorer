@@ -30,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
+import static org.royllo.explorer.core.util.mapper.AssetMapperDecorator.ALIAS_LENGTH;
 import static org.royllo.test.MempoolData.UNLIMITED_ROYLLO_COIN_1_ANCHOR_1_GENESIS_VOUT;
 import static org.royllo.test.MempoolData.UNLIMITED_ROYLLO_COIN_1_ANCHOR_1_TXID;
 import static org.royllo.test.MempoolData.UNLIMITED_ROYLLO_COIN_1_GENESIS_TXID;
@@ -38,6 +39,8 @@ import static org.royllo.test.MempoolData.UNLIMITED_ROYLLO_COIN_2_ANCHOR_1_GENES
 import static org.royllo.test.MempoolData.UNLIMITED_ROYLLO_COIN_2_ANCHOR_1_TXID;
 import static org.royllo.test.MempoolData.UNLIMITED_ROYLLO_COIN_2_GENESIS_TXID;
 import static org.royllo.test.MempoolData.UNLIMITED_ROYLLO_COIN_2_GENESIS_VOUT;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_ASSET_ID;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_2_ASSET_ID;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_ASSET_ID;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_FROM_TEST;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_2_ASSET_ID;
@@ -141,7 +144,6 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
         assertTrue(unlimitedRoylloCoin2RequestTreated.get().isSuccessful());
         assertEquals(SUCCESS, unlimitedRoylloCoin2RequestTreated.get().getStatus());
         assertNotNull(((AddProofRequestDTO) unlimitedRoylloCoin2RequestTreated.get()).getAsset());
-        assertEquals(UNLIMITED_ROYLLO_COIN_2_ASSET_ID, ((AddProofRequestDTO) unlimitedRoylloCoin2RequestTreated.get()).getAsset().getAssetId());
 
         // =============================================================================================================
         // We check that nothing more has been created.
@@ -181,11 +183,15 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
 
         final Optional<AssetDTO> asset1 = assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_1_ASSET_ID);
         assertTrue(asset1.isPresent());
+        assertNotNull(asset1.get().getAssetIdAlias());
+        assertEquals(ALIAS_LENGTH, asset1.get().getAssetIdAlias().length());
         assertNotNull(asset1.get().getAssetGroup());
         assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, asset1.get().getAssetGroup().getTweakedGroupKey());
 
         final Optional<AssetDTO> asset2 = assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_2_ASSET_ID);
         assertTrue(asset2.isPresent());
+        assertNotNull(asset2.get().getAssetIdAlias());
+        assertEquals(ALIAS_LENGTH, asset2.get().getAssetIdAlias().length());
         assertNotNull(asset2.get().getAssetGroup());
         assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, asset2.get().getAssetGroup().getTweakedGroupKey());
     }

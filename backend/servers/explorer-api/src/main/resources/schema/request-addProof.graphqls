@@ -9,5 +9,5 @@ type AddProofRequest implements Request {
     "Error message - Not empty if status is equals to ERROR"
     errorMessage: String
     "Proof that validates the asset information"
-    rawProof: String!
+    proof: String!
 }

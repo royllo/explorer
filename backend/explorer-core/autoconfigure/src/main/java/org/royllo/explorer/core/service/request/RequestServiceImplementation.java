@@ -95,7 +95,7 @@ public class RequestServiceImplementation extends BaseService implements Request
                 .requestId(UUID.randomUUID().toString())
                 .creator(ANONYMOUS_USER)
                 .status(OPENED)
-                .rawProof(proof)
+                .proof(proof)
                 .build();
 
         AddProofRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetRequestDTO(requestRepository.save(request));
