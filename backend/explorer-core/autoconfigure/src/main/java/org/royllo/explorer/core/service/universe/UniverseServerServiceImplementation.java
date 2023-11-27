@@ -14,8 +14,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
-import static org.royllo.explorer.core.util.validator.ServerAddressValidator.HOSTNAME_PATTERN;
-import static org.royllo.explorer.core.util.validator.ServerAddressValidator.IP_ADDRESS_PATTERN;
+import static org.royllo.explorer.core.util.validator.ServerAddressValidator.HOSTNAME_OR_IP_PATTERN;
 
 /**
  * {@link UniverseServerService} implementation.
@@ -39,8 +38,7 @@ public class UniverseServerServiceImplementation extends BaseService implements 
         }
 
         // Checking if the server address is valid.
-        if (!HOSTNAME_PATTERN.matcher(serverAddress.trim()).matches()
-                && !IP_ADDRESS_PATTERN.matcher(serverAddress.trim()).matches()) {
+        if (!HOSTNAME_OR_IP_PATTERN.matcher(serverAddress.trim()).matches()) {
             logger.error("Invalid server address {}", serverAddress.trim());
             throw new UniverseServerCreationException("Invalid server address " + serverAddress.trim());
         }

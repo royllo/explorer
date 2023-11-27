@@ -8,7 +8,7 @@
     <!-- Project information -->
     <groupId>org.royllo.explorer</groupId>
     <artifactId>explorer</artifactId>
-    <version>0.0.19</version>
+    <version>0.0.20</version>
     <name>Royllo - A Taproot asset explorer</name>
     <description>Royllo explorer allows you to search for Taproot assets created on the Bitcoin blockchain</description>
     <packaging>pom</packaging>
@@ -68,13 +68,13 @@
         <reactor-core.version>3.6.0</reactor-core.version>
         <reactor-netty.version>1.1.13</reactor-netty.version>
 
-        <graphql-dgs-platform-dependencies.version>8.1.0</graphql-dgs-platform-dependencies.version>
+        <graphql-dgs-platform-dependencies.version>8.1.1</graphql-dgs-platform-dependencies.version>
         <graphql-dgs-codegen-core.version>6.1.0</graphql-dgs-codegen-core.version>
         <graphql-dgs-codegen-client-core.version>5.1.17</graphql-dgs-codegen-client-core.version>
 
         <liquibase.version>4.25.0</liquibase.version>
         <jdbc.driver.hsqldb.version>2.7.2</jdbc.driver.hsqldb.version>
-        <jdbc.driver.postgresql.version>42.6.0</jdbc.driver.postgresql.version>
+        <jdbc.driver.postgresql.version>42.7.0</jdbc.driver.postgresql.version>
         <jdbc.driver.mysql.version>8.2.0</jdbc.driver.mysql.version>
 
         <lombok.version>1.18.30</lombok.version>
@@ -88,13 +88,13 @@
 
         <thymeleaf-layout-dialect.version>3.3.0</thymeleaf-layout-dialect.version>
         <htmx-spring-boot-thymeleaf.version>3.1.1</htmx-spring-boot-thymeleaf.version>
-        <webjars-locator.version>0.48</webjars-locator.version>
-        <htmx.version>1.9.8</htmx.version>
-        <alpinejs.version>3.13.2</alpinejs.version>
+        <webjars-locator.version>0.50</webjars-locator.version>
+        <htmx.version>1.9.9</htmx.version>
+        <alpinejs.version>3.13.3</alpinejs.version>
 
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
-        <testcontainers.version>1.19.2</testcontainers.version>
+        <testcontainers.version>1.19.3</testcontainers.version>
         <mockito-core.version>5.7.0</mockito-core.version>
 
         <!-- ======================================================================================================= -->
