@@ -133,6 +133,26 @@ public class AddUniverseServerRequestControllerTest extends BaseTest {
         assertNull(request.get().getErrorMessage());
         assertEquals("1.1.1.1:8080", request.get().getServerAddress());
 
+        // Issue with 52.23.192.176:8089 or https://universe.tiramisuwallet.com:8089/ not working.
+        mockMvc.perform(post("/request/universe_server/add")
+                        .param("serverAddress", "52.23.192.176:8089")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                .andExpect(status().isOk())
+                .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_SUCCESS_PAGE))
+                // TODO This should fail.
+                .andExpect(flash().attribute(FORM_ATTRIBUTE, hasProperty("serverAddress", equalTo("1.1.1.1:8080").toString())))
+                .andExpect(model().attributeExists(RESULT_ATTRIBUTE))
+                .andExpect(model().hasNoErrors());
+
+        mockMvc.perform(post("/request/universe_server/add")
+                        .param("serverAddress", "https://universe.tiramisuwallet.com:8089")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                .andExpect(status().isOk())
+                .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_SUCCESS_PAGE))
+                // TODO This should fail.
+                .andExpect(flash().attribute(FORM_ATTRIBUTE, hasProperty("serverAddress", equalTo("1.1.1.1:8080").toString())))
+                .andExpect(model().attributeExists(RESULT_ATTRIBUTE))
+                .andExpect(model().hasNoErrors());
     }
 
 }

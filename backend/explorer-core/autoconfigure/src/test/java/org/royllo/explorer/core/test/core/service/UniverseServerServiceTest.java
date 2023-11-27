@@ -35,16 +35,22 @@ public class UniverseServerServiceTest {
         assertEquals("Invalid server address invalid", e.getMessage());
 
         // =============================================================================================================
-        // Adding a universe server with a valid value (hostname).
+        // Adding a universe server with a valid value (web).
         final UniverseServerDTO universeServer1 = universeServerService.addUniverseServer("universe.royllo.org:8080");
         assertNotNull(universeServer1);
         assertNotNull(universeServer1.getId());
+        final UniverseServerDTO universeServer1Bis = universeServerService.addUniverseServer("https://universe.royllo.org:8080");
+        assertNotNull(universeServer1Bis);
+        assertNotNull(universeServer1Bis.getId());
 
         // =============================================================================================================
         // Adding a universe server with a valid value (hostname).
         final UniverseServerDTO universeServer2 = universeServerService.addUniverseServer("1.1.1.1:8080");
         assertNotNull(universeServer2);
         assertNotNull(universeServer2.getId());
+        final UniverseServerDTO universeServer2Bis = universeServerService.addUniverseServer("https://1.1.1.1:8080");
+        assertNotNull(universeServer2Bis);
+        assertNotNull(universeServer2Bis.getId());
 
         // =============================================================================================================
         // Trying to add a duplicated value in universe server.
