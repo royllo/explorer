@@ -24,7 +24,9 @@ jobs:
 
       # ================================================================================================================
       - name: build and run tests
-        run: mvn clean test
+        run: |
+          mvn clean install -DskipTests -f backend/explorer-core/autoconfigure/pom.xml
+          mvn clean test
 
   # ====================================================================================================================
   # Run integration tests.
@@ -45,7 +47,9 @@ jobs:
 
       # ================================================================================================================
       - name: build and run tests
-        run: mvn clean test -P integration
+        run: |
+          mvn clean install -DskipTests -f backend/explorer-core/autoconfigure/pom.xml
+          mvn clean test -P integration
 
   # ====================================================================================================================
   # Run docker tests.
