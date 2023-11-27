@@ -88,7 +88,7 @@ public class RequestServiceImplementation extends BaseService implements Request
 
     @Override
     public AddProofRequestDTO createAddProofRequest(final String proof) {
-        logger.info("Adding proof request with raw proof {}", proof);
+        logger.info("Adding proof request with proof {}", proof);
 
         // Creating and saving the request.
         AddProofRequest request = AddProofRequest.builder()

@@ -49,7 +49,7 @@ public class PurgeBatchTest extends BaseTest {
             request.setRequestId("ID_" + i);
             request.setCreator(ANONYMOUS_USER);
             request.setStatus(OPENED);
-            request.setRawProof("Request n°" + i);
+            request.setProof("Request n°" + i);
             requestRepository.save(request);
         }
         // We should have 10 000 requests.
@@ -81,7 +81,7 @@ public class PurgeBatchTest extends BaseTest {
             request.setRequestId("ID_" + i);
             request.setCreator(ANONYMOUS_USER);
             request.setStatus(FAILURE);
-            request.setRawProof("Request n°" + i);
+            request.setProof("Request n°" + i);
             requestRepository.save(request);
         }
         // We should have 30 000 requests.
@@ -113,7 +113,7 @@ public class PurgeBatchTest extends BaseTest {
             request.setRequestId("ID_" + i);
             request.setCreator(ANONYMOUS_USER);
             request.setStatus(SUCCESS);
-            request.setRawProof("Request n°" + i);
+            request.setProof("Request n°" + i);
             requestRepository.save(request);
         }
         // We should have 30 000 requests.

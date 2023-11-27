@@ -62,7 +62,7 @@ public class AddProofBatch extends BaseBatch {
                             // =========================================================================================
                             // First step, we call decode to see how many proofs are inside the file.
                             long numberOfProofs = 0;
-                            DecodedProofResponse response = tapdService.decode(request.getRawProof()).block();
+                            DecodedProofResponse response = tapdService.decode(request.getProof()).block();
                             if (response == null) {
                                 logger.info("Decoded proof for request {} is null", request.getId());
                                 request.failure("Decoded proof is null");
@@ -82,7 +82,7 @@ public class AddProofBatch extends BaseBatch {
                             // Now, we decode all proofs, one by one, starting by the oldest (issuance proof).
                             boolean proofAdded = false;
                             for (long i = numberOfProofs; i > 0; i--) {
-                                response = tapdService.decode(request.getRawProof(), i - 1).block();
+                                response = tapdService.decode(request.getProof(), i - 1).block();
 
                                 // We check if we have a decoded proof response.
                                 if (response == null) {
@@ -112,7 +112,7 @@ public class AddProofBatch extends BaseBatch {
 
                                         // If not already added, we add the proof.
                                         if (!proofAdded) {
-                                            proofService.addProof(request.getRawProof(), response);
+                                            proofService.addProof(request.getProof(), response);
                                             request.setAsset(assetStateCreated.get().getAsset());
                                             proofAdded = true;
                                         }
@@ -131,7 +131,7 @@ public class AddProofBatch extends BaseBatch {
                         }
 
                         // We save the request.
-                        logger.info("Proof {} added: {} ", request.getRawProof(), request);
+                        logger.info("Proof {} added: {} ", request.getProof(), request);
                         requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(request));
                     });
         }

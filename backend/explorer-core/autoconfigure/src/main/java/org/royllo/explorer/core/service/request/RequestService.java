@@ -37,7 +37,7 @@ public interface RequestService {
     Optional<RequestDTO> getRequestByRequestId(String requestId);
 
     /**
-     * Creates a request to add a raw proof.
+     * Creates a request to add a proof.
      *
      * @param proof proof that validates the asset information
      * @return id The request created

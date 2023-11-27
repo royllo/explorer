@@ -30,7 +30,7 @@ public class AddProofRequest extends Request {
 
     /** Proof that validates the asset information. */
     @Column(name = "proof", updatable = false)
-    private String rawProof;
+    private String proof;
 
     /** The asset created/updated by this request. */
     @ManyToOne(fetch = EAGER)

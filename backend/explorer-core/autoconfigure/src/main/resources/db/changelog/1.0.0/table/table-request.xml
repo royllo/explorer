@@ -1,0 +1,65 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="1.0.0-table-request">
+
+        <createTable tableName="REQUEST"
+                     remarks="A request to update royllo data made by a user">
+
+            <!-- Unique identifier -->
+            <column name="ID" type="BIGINT"
+                    remarks="Unique identifier">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_REQUEST"/>
+            </column>
+
+            <!-- Foreign keys -->
+            <column name="FK_USER_CREATOR" type="BIGINT"
+                    remarks="The user who created this request">
+                <constraints nullable="false"/>
+            </column>
+
+            <!-- Table fields -->
+            <column name="REQUEST_ID" type="VARCHAR(255)"
+                    remarks="Request UUID">
+                <constraints nullable="false" unique="true" uniqueConstraintName="UNIQUE_REQUEST_REQUEST_ID"/>
+            </column>
+            <column name="TYPE" type="TEXT"
+                    remarks="Request type">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STATUS" type="VARCHAR(255)"
+                    remarks="Request status">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ERROR_MESSAGE" type="TEXT"
+                    remarks="Error message - Not empty if status is equals to ERROR"/>
+
+            <!-- Technical fields -->
+            <column name="CREATED_ON" type="TIMESTAMP"
+                    remarks="Data created on"/>
+            <column name="UPDATED_ON" type="TIMESTAMP"
+                    remarks="Data updated on"/>
+
+        </createTable>
+
+        <!-- Auto increment on technical ID -->
+        <addAutoIncrement tableName="REQUEST"
+                          columnName="ID"
+                          columnDataType="BIGINT"
+                          startWith="1"/>
+
+        <!-- Index on STATUS -->
+        <createIndex indexName="IDX_REQUEST_STATUS"
+                     tableName="REQUEST">
+            <column name="STATUS"/>
+        </createIndex>
+
+        <!-- Index on REQUEST_ID -->
+        <createIndex indexName="IDX_REQUEST_REQUEST_ID"
+                     tableName="REQUEST">
+            <column name="REQUEST_ID"/>
+        </createIndex>
+
+    </changeSet>
+</databaseChangeLog>
