@@ -217,14 +217,13 @@
                             <goal>jar</goal>
                         </goals>
                     </execution>
-                    <!-- This is your test JAR configuration -->
+                    <!-- This is our test JAR configuration -->
                     <execution>
                         <id>royllo-test-util</id>
                         <phase>package</phase>
                         <configuration>
                             <excludes>
-                                <exclude>org.royllo.explorer.core.test.Application.class</exclude>
-                                <exclude>org.royllo.explorer.core.test.Application.java</exclude>
+                                <exclude>**/Application.class</exclude>
                             </excludes>
                         </configuration>
                         <goals>
