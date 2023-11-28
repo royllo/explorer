@@ -76,26 +76,30 @@ public class UniverseExplorerBatch extends BaseBatch {
                         .distinct()
                         .peek(assetId -> logger.info("Found asset id: {}", assetId))
                         .forEach(assetId -> {
-                            final UniverseLeavesResponse leaves = tapdService.getUniverseLeaves(universeServer.getServerAddress(), assetId).block();
-                            if (leaves == null) {
-                                logger.error("No universe leaves found for asset id - null result: {}", assetId);
-                                return;
-                            }
+                            try {
+                                final UniverseLeavesResponse leaves = tapdService.getUniverseLeaves(universeServer.getServerAddress(), assetId).block();
+                                if (leaves == null) {
+                                    logger.error("No universe leaves found for asset id - null result: {}", assetId);
+                                    return;
+                                }
 
-                            if (leaves.getLeaves().isEmpty()) {
-                                logger.error("No universe leaves found for asset id - empty result: {}", assetId);
-                                return;
-                            }
+                                if (leaves.getLeaves().isEmpty()) {
+                                    logger.error("No universe leaves found for asset id - empty result: {}", assetId);
+                                    return;
+                                }
 
-                            // We retrieve the proofs for each asset.
-                            leaves.getLeaves()
-                                    .stream()
-                                    .map(UniverseLeavesResponse.Leaf::getProof)
-                                    .filter(proof -> proofRepository.findByProofId(sha256(proof)).isEmpty())
-                                    .forEach(proof -> {
-                                        final AddProofRequestDTO addProofRequest = requestService.createAddProofRequest(proof);
-                                        logger.info("Request created {} for asset: {}", addProofRequest.getId(), assetId);
-                                    });
+                                // We retrieve the proofs for each asset.
+                                leaves.getLeaves()
+                                        .stream()
+                                        .map(UniverseLeavesResponse.Leaf::getProof)
+                                        .filter(proof -> proofRepository.findByProofId(sha256(proof)).isEmpty())
+                                        .forEach(proof -> {
+                                            final AddProofRequestDTO addProofRequest = requestService.createAddProofRequest(proof);
+                                            logger.info("Request created {} for asset: {}", addProofRequest.getId(), assetId);
+                                        });
+                            } catch (Exception e) {
+                                logger.error("Error while retrieving leaves for asset id: {}", assetId, e);
+                            }
                         });
 
             });
