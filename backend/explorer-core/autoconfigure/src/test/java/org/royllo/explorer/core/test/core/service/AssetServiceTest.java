@@ -33,11 +33,14 @@ import static org.royllo.explorer.core.util.mapper.AssetMapperDecorator.ALIAS_LE
 import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_TXID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.ROYLLO_NFT_ASSET_ID;
+import static org.royllo.test.TapdData.ROYLLO_NFT_ASSET_ID_ALIAS;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_ASSET_ID;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_FROM_TEST;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_2_ASSET_ID;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_2_ASSET_ID_ALIAS;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_3_ASSET_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID_ALIAS;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
@@ -74,6 +77,12 @@ public class AssetServiceTest extends TestWithMockServers {
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
         assertEquals(1, results.getContent().get(0).getId());
+
+        // Searching for an asset with its asset id alias.
+        results = assetService.queryAssets(TRICKY_ROYLLO_COIN_ASSET_ID_ALIAS, 1, 5);
+        assertEquals(1, results.getTotalElements());
+        assertEquals(1, results.getTotalPages());
+        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, results.getContent().get(0).getAssetId());
 
         // Searching for an asset with its partial name (trickyCoin) - only 1 result.
         results = assetService.queryAssets("ky", 1, 5);
@@ -374,7 +383,14 @@ public class AssetServiceTest extends TestWithMockServers {
         asset = assetService.getAssetByAssetId(ROYLLO_NFT_ASSET_ID);
         assertTrue(asset.isPresent());
         assertNotNull(asset.get().getAssetId());
-        assertEquals("alias001", asset.get().getAssetIdAlias());
+        assertEquals(ROYLLO_NFT_ASSET_ID_ALIAS, asset.get().getAssetIdAlias());
+
+        // Testing with an asset id alias
+        asset = assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_2_ASSET_ID_ALIAS);
+        assertTrue(asset.isPresent());
+        assertNotNull(asset.get().getAssetId());
+        assertEquals(SET_OF_ROYLLO_NFT_2_ASSET_ID, asset.get().getAssetId());
+        assertEquals(SET_OF_ROYLLO_NFT_2_ASSET_ID_ALIAS, asset.get().getAssetIdAlias());
     }
 
     @Test

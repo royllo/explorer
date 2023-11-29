@@ -24,6 +24,14 @@ public interface AssetRepository extends JpaRepository<Asset, Long> {
     Optional<Asset> findByAssetId(String assetId);
 
     /**
+     * find by asset id.
+     *
+     * @param assetIdAlias asset id alias
+     * @return asset
+     */
+    Optional<Asset> findByAssetIdAlias(String assetIdAlias);
+
+    /**
      * Find an asset by its complete or partial name.
      *
      * @param name     complete or partial name
