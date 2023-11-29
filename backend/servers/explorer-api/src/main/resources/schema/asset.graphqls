@@ -2,6 +2,8 @@
 type Asset {
     "The asset ID that uniquely identifies the asset"
     assetId: ID!
+    "The asset ID alias in Royllo (generated or configured)"
+    assetIdAlias: ID!
     "The asset creator"
     creator: User!
     "The first outpoint of the transaction that created the asset (txid:vout)"
@@ -15,7 +17,7 @@ type Asset {
     "The version of the Taproot asset"
     version: Int!
     "The type of the asset: normal or a collectible"
-    type : AssetType!
+    type: AssetType!
     "The total amount of the asset stored in this Taproot UTXO"
     amount: BigInteger!
     "Asset group"
