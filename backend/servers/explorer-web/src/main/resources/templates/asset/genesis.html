@@ -26,6 +26,18 @@
             <tr th:replace="~{util/fragments/layouts/asset/table_line ::
                             table_line(#{asset.data.assetId}, ${asset.assetId})}"></tr>
 
+            <tr th:replace="~{util/fragments/layouts/asset/table_line ::
+                            table_line(#{asset.data.assetIdAlias}, ${asset.assetIdAlias})}"></tr>
+
+            <tr>
+                <td>
+                    <div class="font-bold" th:text="#{asset.data.assetURL}"></div>
+                    <div class="text-ellipsis overflow-hidden">
+                        <a th:href="${assetUrl}" th:text="${assetUrl}"></a>
+                    </div>
+                </td>
+            </tr>
+
             <th:block th:if="${#strings.equals(asset.type, 'NORMAL')}">
                 <td>
                     <div class="font-bold" th:text="#{asset.data.assetType}"></div>

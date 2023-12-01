@@ -11,6 +11,7 @@
             <column name="fk_user_creator" valueNumeric="1"/>
             <column name="fk_asset_group"/>
             <column name="asset_id" value="89c9d3ff7cb9dbc4615f854f7127e94db10edd430f8bcf82d7309d0c8b750051"/>
+            <column name="asset_id_alias" value="alias001"/>
             <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
             <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
             <column name="name" value="roylloNFT"/>
@@ -30,6 +31,7 @@
             <column name="fk_user_creator" valueNumeric="1"/>
             <column name="fk_asset_group" valueNumeric="2"/>
             <column name="asset_id" value="f643450242bb302284bab17e097982ad89790f94a9ad53db34d1902dfcccae5b"/>
+            <column name="asset_id_alias" value="alias002"/>
             <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="5"/>
             <column name="meta_data_hash" value="5d24eb6c3942d4919bdf6aa059ccd193afcbace8cfaf3cf9138ad43cafadc38e"/>
             <column name="name" value="setOfRoylloNFT"/>
@@ -45,6 +47,7 @@
             <column name="fk_user_creator" valueNumeric="1"/>
             <column name="fk_asset_group" valueNumeric="2"/>
             <column name="asset_id" value="84be6e5954af62b40d1ea25f289e05414d579116e00b9fcaa76453efe8ee39ff"/>
+            <column name="asset_id_alias" value="alias003"/>
             <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="5"/>
             <column name="meta_data_hash" value="512dfac35a94760baf3dbd6682e3cd0d5cf4f3f8cc5b881931f73ed3a820c2a4"/>
             <column name="name" value="setOfRoylloNFT2"/>
@@ -60,6 +63,7 @@
             <column name="fk_user_creator" valueNumeric="1"/>
             <column name="fk_asset_group" valueNumeric="2"/>
             <column name="asset_id" value="23577de9f41b99b03ad8ed10e09120bf949f956b0702133102a566f5d33f2bd7"/>
+            <column name="asset_id_alias" value="alias004"/>
             <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="5"/>
             <column name="meta_data_hash" value="57321df398180b331e6a8207abe9412a19e5b5c307348340fac9d450b5310cec"/>
             <column name="name" value="setOfRoylloNFT3"/>
@@ -79,6 +83,7 @@
             <column name="fk_user_creator" valueNumeric="1"/>
             <column name="fk_asset_group"/>
             <column name="asset_id" value="e16029acc4d2cf0505857265442344efb5547f2047a3fc1c4822683f7c57820e"/>
+            <column name="asset_id_alias" value="alias005"/>
             <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="7"/>
             <column name="meta_data_hash" value="13a16f12767ad6fbafcfd69fd12fc19747ac35749b1b6806c74dd4a07d2e4b41"/>
             <column name="name" value="trickyRoylloCoin"/>
@@ -98,6 +103,7 @@
             <column name="fk_user_creator" valueNumeric="1"/>
             <column name="fk_asset_group" valueNumeric="3"/>
             <column name="asset_id" value="ce2d57a6bef7668a781bc149f5491aab7392b30a2f4368f013722f46a57abc70"/>
+            <column name="asset_id_alias" value="alias006"/>
             <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="12"/>
             <column name="meta_data_hash" value="ef35cbdef9f461dee0ad1c4753a481e30fb7b02d6356f342e573671f8044af5e"/>
             <column name="name" value="unlimitedRoylloCoin1"/>
@@ -113,6 +119,7 @@
             <column name="fk_user_creator" valueNumeric="1"/>
             <column name="fk_asset_group" valueNumeric="3"/>
             <column name="asset_id" value="fdf6f8c41602ccdad237305a05e41868ba267947d152a1cacfaf3b5045a84a04"/>
+            <column name="asset_id_alias" value="alias007"/>
             <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="14"/>
             <column name="meta_data_hash" value="36a5ee53396cf2d45b9f7bfb306ec706bca2e5738d9bbf4cf52e3cd2cf45a311"/>
             <column name="name" value="unlimitedRoylloCoin2"/>
@@ -124,341 +131,6 @@
             <column name="updated_on"/>
         </insert>
         <!-- ======================================================================================================= -->
-
-        <!-- ======================================================================================================= -->
-        <!-- Assets to test pagination -->
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1000"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1000"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1000"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1001"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1001"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1001"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1002"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1002"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1002"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1003"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1003"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1003"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1004"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1004"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1004"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1005"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1005"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1005"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1006"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1006"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1006"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1007"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1007"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1007"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1008"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1008"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1008"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1009"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1009"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1009"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1010"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1010"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1010"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1011"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1011"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1011"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1012"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1012"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1012"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1013"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1013"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1013"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1014"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1014"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1014"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1015"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1015"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1015"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1016"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1016"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1016"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1017"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1017"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1017"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1018"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1018"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1018"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1019"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1019"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1019"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1020"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1020"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1020"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <insert tableName="asset">
-            <column name="id" valueNumeric="1021"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
-            <column name="fk_asset_group"/>
-            <column name="asset_id" value="ASSET_ID_1021"/>
-            <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
-            <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
-            <column name="name" value="pagination 1021"/>
-            <column name="output_index" valueNumeric="0"/>
-            <column name="version" valueNumeric="0"/>
-            <column name="asset_type" value="NORMAL"/>
-            <column name="amount" valueNumeric="100"/>
-            <column name="created_on" valueDate="2023-10-27T19:25:35.15666"/>
-            <column name="updated_on"/>
-        </insert>
-        <!-- ======================================================================================================= -->
-
 
     </changeSet>
 </databaseChangeLog>
