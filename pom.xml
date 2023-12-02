@@ -95,7 +95,7 @@
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
         <testcontainers.version>1.19.3</testcontainers.version>
-        <mockito-core.version>5.7.0</mockito-core.version>
+        <mockito-core.version>5.8.0</mockito-core.version>
 
         <!-- ======================================================================================================= -->
         <!-- Maven plugins -->
