@@ -1,0 +1,51 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="1.0.0-table-universe_server">
+
+        <createTable tableName="UNIVERSE_SERVER"
+                     remarks="Universe server">
+
+            <!-- Unique identifier -->
+            <column name="ID" type="BIGINT"
+                    remarks="Unique identifier">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_UNIVERSE_SERVER"/>
+            </column>
+
+            <!-- Table fields -->
+            <column name="UNIVERSE_SERVER_ID" type="VARCHAR(255)"
+                    remarks="Universe server UUID">
+                <constraints nullable="false" unique="true" uniqueConstraintName="UK_UNIVERSE_SERVER_UNIVERSE_SERVER_ID"/>
+            </column>
+            <column name="FK_USER_OWNER" type="BIGINT"
+                    remarks="The user who ows this universe server">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SERVER_ADDRESS" type="VARCHAR(255)"
+                    remarks="The server address typically consists of both an IP address and a port number"/>
+            <column name="LAST_SYNCHRONIZED_ON" type="TIMESTAMP"
+                    remarks="When is the last time we contact the server to synchronize"/>
+
+            <!-- Technical fields -->
+            <column name="CREATED_ON" type="TIMESTAMP"
+                    remarks="Data created on"/>
+            <column name="UPDATED_ON" type="TIMESTAMP"
+                    remarks="Data updated on"/>
+
+        </createTable>
+
+        <!-- Auto increment on the unique identifier -->
+        <addAutoIncrement tableName="UNIVERSE_SERVER"
+                          columnName="ID"
+                          columnDataType="BIGINT"
+                          startWith="1"/>
+
+        <!-- Index on SERVER_ADDRESS -->
+        <createIndex indexName="IDX_UNIVERSE_SERVER_SERVER_ADDRESS"
+                     tableName="UNIVERSE_SERVER">
+            <column name="SERVER_ADDRESS"/>
+        </createIndex>
+
+    </changeSet>
+</databaseChangeLog>

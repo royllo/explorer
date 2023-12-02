@@ -24,7 +24,7 @@ public class AssetGroupDTO {
     @NotNull(message = "Asset group creator is required")
     User creator;
 
-    /** Asset group id (=RAW_GROUP_KEY). */
+    /** Asset group id (=TWEAKED_GROUP_KEY). */
     @NotNull(message = "Asset group id is required")
     String assetGroupId;
 

@@ -111,7 +111,7 @@ public class AddProofRequestRequestControllerTest extends BaseTest {
         assertEquals(OPENED, proof.get().getStatus());
         assertNull(proof.get().getAsset());
         assertNull(proof.get().getErrorMessage());
-        assertEquals("simple proof", proof.get().getRawProof());
+        assertEquals("simple proof", proof.get().getProof());
 
     }
 

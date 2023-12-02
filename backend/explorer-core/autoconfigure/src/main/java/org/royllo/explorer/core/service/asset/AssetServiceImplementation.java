@@ -21,8 +21,6 @@ import java.util.Objects;
 import java.util.Optional;
 
 import static java.util.stream.Collectors.joining;
-import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_SIZE;
-import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.TWEAKED_GROUP_KEY_SIZE;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
 
 /**
@@ -54,17 +52,14 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         // Results.
         Page<AssetDTO> results = Page.empty();
 
-        // Search if the "query" parameter is a tweaked group keys (asset group) > returns all assets of this asset group.
-        if (query.length() == TWEAKED_GROUP_KEY_SIZE) {
-            final Optional<AssetGroupDTO> assetGroup = assetGroupService.getAssetGroupByAssetGroupId(query);
-            if (assetGroup.isPresent()) {
-                results = new PageImpl<>(getAssetsByAssetGroupId(query).stream().toList());
-            }
+        // Search if the "query" parameter is a tweaked group key (asset group) > returns all assets of this asset group.
+        final Optional<AssetGroupDTO> assetGroup = assetGroupService.getAssetGroupByAssetGroupId(query);
+        if (assetGroup.isPresent()) {
+            results = new PageImpl<>(getAssetsByAssetGroupId(query).stream().toList());
         }
 
-        // If the "query" parameter has a size equals to ASSET_ID_SIZE,
-        // we search if there is this asset in database with this exact assetId.
-        if (query.length() == ASSET_ID_SIZE) {
+        // If nothing found, we search if there is this asset in database with this exact asset id.
+        if (results.isEmpty()) {
             final Optional<Asset> assetIdSearch = assetRepository.findByAssetId(query);
             if (assetIdSearch.isPresent()) {
                 results = new PageImpl<>(assetIdSearch.stream()
@@ -73,14 +68,23 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
             }
         }
 
-        // If the query with exact assetId found nothing (or "query" parameter is not 64 characters),
-        // we search if there is an asset with "query" parameter as complete or partial asset name.
+        // If nothing found, we will search on asset id alias.
+        if (results.isEmpty()) {
+            final Optional<Asset> assetIdAliasSearch = assetRepository.findByAssetIdAlias(query);
+            if (assetIdAliasSearch.isPresent()) {
+                results = new PageImpl<>(assetIdAliasSearch.stream()
+                        .map(ASSET_MAPPER::mapToAssetDTO)
+                        .toList());
+            }
+        }
+
+        // If nothing found, we search if there is an asset with "query" parameter as complete or partial asset name.
         if (results.isEmpty()) {
             results = assetRepository.findByNameContainsIgnoreCaseOrderByName(query,
                     PageRequest.of(page - 1, pageSize)).map(ASSET_MAPPER::mapToAssetDTO);
         }
 
-        // Displaying logs.
+        // Displaying logs and return results.
         if (results.isEmpty()) {
             logger.info("For '{}', there is no results", query);
         } else {
@@ -157,10 +161,17 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
             return Optional.empty();
         }
 
-        final Optional<Asset> asset = assetRepository.findByAssetId(assetId.trim());
+        Optional<Asset> asset = assetRepository.findByAssetId(assetId.trim());
         if (asset.isEmpty()) {
-            logger.info("Asset with assetId {} not found", assetId);
-            return Optional.empty();
+            logger.info("Asset with assetId {} not found, searching on assetIdAlias", assetId);
+            asset = assetRepository.findByAssetIdAlias(assetId.trim());
+            if (asset.isPresent()) {
+                logger.info("Asset with assetIdAlias {} found: {}", assetId, asset.get());
+                return asset.map(ASSET_MAPPER::mapToAssetDTO);
+            } else {
+                logger.info("Asset with assetId or assetIdAlias {} not found", assetId);
+                return Optional.empty();
+            }
         } else {
             logger.info("Asset with assetId {} found: {}", assetId, asset.get());
             return asset.map(ASSET_MAPPER::mapToAssetDTO);

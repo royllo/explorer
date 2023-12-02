@@ -22,6 +22,7 @@ import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_OW
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PROOFS_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_STATES_PAGE;
 import static org.royllo.test.TapdData.ROYLLO_NFT_ASSET_ID;
+import static org.royllo.test.TapdData.ROYLLO_NFT_ASSET_ID_ALIAS;
 import static org.royllo.test.TapdData.ROYLLO_NFT_FROM_TEST;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -35,6 +36,7 @@ public class DisplayRoylloNFTTest extends BaseTest {
 
     // Asset tested.
     String assetId = ROYLLO_NFT_ASSET_ID;
+    String assetIdAlias = ROYLLO_NFT_ASSET_ID_ALIAS;
     DecodedProofValueResponse.DecodedProof assetFromTest = ROYLLO_NFT_FROM_TEST.getDecodedProofResponse(0);
 
     @Autowired
@@ -74,6 +76,7 @@ public class DisplayRoylloNFTTest extends BaseTest {
                 // Checking genesis tab data.
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getName() + "<")))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getAssetId() + "<")))
+                .andExpect(content().string(containsString(">" + assetIdAlias + "<")))
                 .andExpect(content().string(containsString(">" + getMessage(messages, "asset.data.assetType.collectible") + "<")))
                 .andExpect(content().string(not(containsString(">" + assetFromTest.getAsset().getAmount() + "<"))))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getMetaDataHash() + "<")))

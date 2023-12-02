@@ -39,7 +39,7 @@ public class AssetGroup extends BaseDomain {
     @JoinColumn(name = "FK_USER_CREATOR", nullable = false)
     private User creator;
 
-    /** Asset group id (=RAW_GROUP_KEY). */
+    /** Asset group id (=TWEAKED_GROUP_KEY). */
     @Column(name = "ASSET_GROUP_ID", updatable = false)
     private String assetGroupId;
 

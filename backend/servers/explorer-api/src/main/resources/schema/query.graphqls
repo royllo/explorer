@@ -10,7 +10,7 @@ type Query {
     "Get an asset group by asset group id"
     assetGroupByAssetGroupId(assetGroupId: ID!): AssetGroup
 
-    "Get an asset by asset id"
+    "Get an asset by asset id (or asset id alias)"
     assetByAssetId(assetId: ID!): Asset
 
     "Returns the asset states of the asset id"

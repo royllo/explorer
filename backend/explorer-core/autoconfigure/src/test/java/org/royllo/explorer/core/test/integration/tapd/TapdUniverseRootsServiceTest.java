@@ -26,13 +26,13 @@ public class TapdUniverseRootsServiceTest {
         String[] validServers = new String[]{
                 "testnet.universe.lightning.finance",
                 "testnet.universe.lightning.finance/",
-                "54.244.179.44",
-                "54.244.179.44/",
+                "52.34.1.134",
+                "52.34.1.134/",
                 // With https in front.
                 "https://testnet.universe.lightning.finance",
                 "https://testnet.universe.lightning.finance/",
-                "https://54.244.179.44",
-                "https://54.244.179.44/",
+                "https://52.34.1.134",
+                "https://52.34.1.134/",
         };
 
         // Testing each server.

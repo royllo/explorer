@@ -1,0 +1,29 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="1.0.0-table-request_add_universe_server">
+
+        <createTable tableName="REQUEST_ADD_UNIVERSE_SERVER"
+                     remarks="A request to add a universe server to royllo explorer">
+
+            <!-- Unique identifier -->
+            <column name="ID" type="BIGINT"
+                    remarks="Unique identifier">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_REQUEST_ADD_UNIVERSE_SERVER"/>
+            </column>
+
+            <!-- Table fields -->
+            <column name="SERVER_ADDRESS" type="TEXT"
+                    remarks="The server address typically consists of both an IP address and a port number"/>
+
+            <!-- Technical fields -->
+            <column name="CREATED_ON" type="TIMESTAMP"
+                    remarks="Data created on"/>
+            <column name="UPDATED_ON" type="TIMESTAMP"
+                    remarks="Data updated on"/>
+
+        </createTable>
+
+    </changeSet>
+</databaseChangeLog>

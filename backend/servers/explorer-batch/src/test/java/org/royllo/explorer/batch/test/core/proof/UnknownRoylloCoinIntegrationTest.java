@@ -3,6 +3,7 @@ package org.royllo.explorer.batch.test.core.proof;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.request.AddProofBatch;
+import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.repository.asset.AssetGroupRepository;
@@ -33,6 +34,7 @@ import static org.royllo.test.MempoolData.UNKNOWN_ROYLLO_COIN_ANCHOR_1_TXID;
 import static org.royllo.test.MempoolData.UNKNOWN_ROYLLO_COIN_ANCHOR_1_VOUT;
 import static org.royllo.test.MempoolData.UNKNOWN_ROYLLO_COIN_GENESIS_TXID;
 import static org.royllo.test.MempoolData.UNKNOWN_ROYLLO_COIN_GENESIS_VOUT;
+import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.UNKNOWN_ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.UNKNOWN_ROYLLO_COIN_FROM_TEST;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
@@ -128,6 +130,9 @@ public class UnknownRoylloCoinIntegrationTest extends TestWithMockServers {
 
         // =============================================================================================================
         // We check the value of what has been created.
+        final Optional<AssetDTO> asset = assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID);
+        assertTrue(asset.isPresent());
+        assertNotNull(asset.get().getAssetIdAlias());
         verifyTransaction(bitcoinService.getBitcoinTransactionOutput(UNKNOWN_ROYLLO_COIN_GENESIS_TXID, UNKNOWN_ROYLLO_COIN_GENESIS_VOUT).get(),
                 UNKNOWN_ROYLLO_COIN_GENESIS_TXID);
         verifyTransaction(bitcoinService.getBitcoinTransactionOutput(UNKNOWN_ROYLLO_COIN_ANCHOR_1_TXID, UNKNOWN_ROYLLO_COIN_ANCHOR_1_VOUT).get(),

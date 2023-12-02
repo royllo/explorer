@@ -41,9 +41,9 @@ public interface AssetService {
     Optional<AssetDTO> getAsset(long id);
 
     /**
-     * Get an asset by its asset id.
+     * Get an asset by its asset id or asset Id alias.
      *
-     * @param assetId asset id
+     * @param assetId asset id or asset id alias
      * @return asset
      */
     Optional<AssetDTO> getAssetByAssetId(String assetId);

@@ -36,6 +36,9 @@ public class AssetDTO {
     @NotBlank(message = "Asset id is required")
     String assetId;
 
+    /** The asset ID alias in Royllo (generated or configured). */
+    String assetIdAlias;
+
     /** The first outpoint of the transaction that created the asset (txid:vout). */
     BitcoinTransactionOutputDTO genesisPoint;
 

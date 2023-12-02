@@ -29,13 +29,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
+import static org.royllo.explorer.core.util.mapper.AssetMapperDecorator.ALIAS_LENGTH;
 import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_TXID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.ROYLLO_NFT_ASSET_ID;
+import static org.royllo.test.TapdData.ROYLLO_NFT_ASSET_ID_ALIAS;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_ASSET_ID;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_FROM_TEST;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_2_ASSET_ID;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_2_ASSET_ID_ALIAS;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_3_ASSET_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID_ALIAS;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
@@ -72,6 +77,12 @@ public class AssetServiceTest extends TestWithMockServers {
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
         assertEquals(1, results.getContent().get(0).getId());
+
+        // Searching for an asset with its asset id alias.
+        results = assetService.queryAssets(TRICKY_ROYLLO_COIN_ASSET_ID_ALIAS, 1, 5);
+        assertEquals(1, results.getTotalElements());
+        assertEquals(1, results.getTotalPages());
+        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, results.getContent().get(0).getAssetId());
 
         // Searching for an asset with its partial name (trickyCoin) - only 1 result.
         results = assetService.queryAssets("ky", 1, 5);
@@ -154,6 +165,8 @@ public class AssetServiceTest extends TestWithMockServers {
         assertNotNull(asset1.getId());
         assertEquals(ANONYMOUS_USER_DTO.getId(), asset1.getCreator().getId());
         assertEquals("my asset id", asset1.getAssetId());
+        assertNotNull(asset1.getAssetIdAlias());
+        assertEquals(ALIAS_LENGTH, asset1.getAssetIdAlias().length());
         // Genesis.
         assertNotNull(asset1.getGenesisPoint());
         assertNotNull(asset1.getGenesisPoint().getId());
@@ -195,6 +208,8 @@ public class AssetServiceTest extends TestWithMockServers {
         assertNotNull(asset2.getId());
         assertEquals(ANONYMOUS_USER_DTO.getId(), asset2.getCreator().getId());
         assertEquals("assetId2", asset2.getAssetId());
+        assertNotNull(asset2.getAssetIdAlias());
+        assertEquals(ALIAS_LENGTH, asset2.getAssetIdAlias().length());
         // Genesis.
         assertNotNull(asset2.getGenesisPoint());
         assertNotNull(asset2.getGenesisPoint().getId());
@@ -238,7 +253,9 @@ public class AssetServiceTest extends TestWithMockServers {
         // Asset group.
         assertNotNull(asset3.getAssetGroup());
         assertEquals(assetGroupCount + 1, assetGroupRepository.findAll().size());
-        assertNotNull(asset3.getAssetGroup().getId());
+        assertEquals("assetId3", asset3.getAssetId());
+        assertNotNull(asset3.getAssetIdAlias());
+        assertEquals(ALIAS_LENGTH, asset3.getAssetIdAlias().length());
         assertEquals("tweakedGroupKey-1", asset3.getAssetGroup().getTweakedGroupKey());
         assertEquals("assetIdSig-1", asset3.getAssetGroup().getAssetWitness());
         assertEquals("rawGroupKey-1", asset3.getAssetGroup().getRawGroupKey());
@@ -329,6 +346,7 @@ public class AssetServiceTest extends TestWithMockServers {
         asset = assetService.getAsset(1);
         assertTrue(asset.isPresent());
         assertEquals(ROYLLO_COIN_ASSET_ID, asset.get().getAssetId());
+        assertEquals("roylloCoin", asset.get().getAssetIdAlias());
         assertNotNull(asset.get().getCreator());
         assertEquals(ANONYMOUS_ID, asset.get().getCreator().getId());
         verifyAsset(asset.get(), ROYLLO_COIN_ASSET_ID);
@@ -360,6 +378,19 @@ public class AssetServiceTest extends TestWithMockServers {
         asset = assetService.getAsset(1);
         assertTrue(asset.isPresent());
         assertNull(asset.get().getAssetGroup());
+
+        // Testing another asset in test data.
+        asset = assetService.getAssetByAssetId(ROYLLO_NFT_ASSET_ID);
+        assertTrue(asset.isPresent());
+        assertNotNull(asset.get().getAssetId());
+        assertEquals(ROYLLO_NFT_ASSET_ID_ALIAS, asset.get().getAssetIdAlias());
+
+        // Testing with an asset id alias
+        asset = assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_2_ASSET_ID_ALIAS);
+        assertTrue(asset.isPresent());
+        assertNotNull(asset.get().getAssetId());
+        assertEquals(SET_OF_ROYLLO_NFT_2_ASSET_ID, asset.get().getAssetId());
+        assertEquals(SET_OF_ROYLLO_NFT_2_ASSET_ID_ALIAS, asset.get().getAssetIdAlias());
     }
 
     @Test
