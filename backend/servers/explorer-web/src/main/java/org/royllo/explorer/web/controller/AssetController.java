@@ -30,8 +30,10 @@ import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASS
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_ID_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_STATES_LIST_ATTRIBUTE;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_URL_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PROOF_ID_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PROOF_LIST_ATTRIBUTE;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.WEB_BASE_URL_ATTRIBUTE;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 /**
@@ -192,7 +194,13 @@ public class AssetController extends BaseController {
     private Optional<AssetDTO> addAssetToModel(final Model model, final String assetId) {
         model.addAttribute(ASSET_ID_ATTRIBUTE, assetId);
         final Optional<AssetDTO> asset = assetService.getAssetByAssetId(assetId);
-        asset.ifPresent(assetDTO -> model.addAttribute(ASSET_ATTRIBUTE, assetDTO));
+        if (asset.isPresent()) {
+            model.addAttribute(ASSET_ATTRIBUTE, asset.get());
+            // We also set the url to share the asset.
+            model.addAttribute(ASSET_URL_ATTRIBUTE,
+                    model.getAttribute(WEB_BASE_URL_ATTRIBUTE) + "/asset/" + asset.get().getAssetIdAlias());
+        }
+
         return asset;
     }
 

@@ -3,6 +3,7 @@ package org.royllo.explorer.core.configuration;
 import org.royllo.explorer.core.util.parameters.IncomingRateLimitsParameters;
 import org.royllo.explorer.core.util.parameters.MempoolParameters;
 import org.royllo.explorer.core.util.parameters.OutgoingRateLimitsParameters;
+import org.royllo.explorer.core.util.parameters.RoylloExplorerParameters;
 import org.royllo.explorer.core.util.parameters.TAPDParameters;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,10 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @EnableConfigurationProperties({
+        // Royllo explorer configuration.
+        RoylloExplorerParameters.class,
+        RoylloExplorerParameters.Api.class,
+        RoylloExplorerParameters.Web.class,
         // Mempool configuration.
         MempoolParameters.class,
         MempoolParameters.Api.class,

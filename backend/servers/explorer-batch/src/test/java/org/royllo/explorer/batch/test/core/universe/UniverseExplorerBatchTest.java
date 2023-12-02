@@ -51,10 +51,10 @@ public class UniverseExplorerBatchTest {
         assertNull(server2.get().getLastSynchronizedOn());
 
         // We check that we don't have the request for the proofs find in universe servers
-        assertEquals(0, findAddProofRequestByRawProof("asset_id_1_proof").size());
-        assertEquals(0, findAddProofRequestByRawProof("asset_id_2_proof").size());
-        assertEquals(0, findAddProofRequestByRawProof("asset_id_3_proof").size());
-        assertEquals(0, findAddProofRequestByRawProof("asset_id_4_proof").size());
+        assertEquals(0, findAddProofRequestByProof("asset_id_1_proof").size());
+        assertEquals(0, findAddProofRequestByProof("asset_id_2_proof").size());
+        assertEquals(0, findAddProofRequestByProof("asset_id_3_proof").size());
+        assertEquals(0, findAddProofRequestByProof("asset_id_4_proof").size());
 
         // In database, we have two universe servers.
         // The first server lists three assets : asset_id_1, asset_id_2 and asset_id_3
@@ -72,26 +72,26 @@ public class UniverseExplorerBatchTest {
 
         // We should have 5 more requests in database.
         assertEquals(count + 6, requestRepository.count());
-        assertEquals(2, findAddProofRequestByRawProof("asset_id_1_proof").size());
-        assertEquals(1, findAddProofRequestByRawProof("asset_id_2_proof").size());
-        assertEquals(1, findAddProofRequestByRawProof("asset_id_3_proof").size());
-        assertEquals(1, findAddProofRequestByRawProof("asset_id_4_proof").size());
-        assertEquals(1, findAddProofRequestByRawProof("asset_id_5_proof").size());
+        assertEquals(2, findAddProofRequestByProof("asset_id_1_proof").size());
+        assertEquals(1, findAddProofRequestByProof("asset_id_2_proof").size());
+        assertEquals(1, findAddProofRequestByProof("asset_id_3_proof").size());
+        assertEquals(1, findAddProofRequestByProof("asset_id_4_proof").size());
+        assertEquals(1, findAddProofRequestByProof("asset_id_5_proof").size());
     }
 
     /**
-     * Find an add proof request by its raw proof.
+     * Find an add proof request by its proof.
      *
-     * @param rawProof the raw proof.
+     * @param proof the proof.
      * @return an add proof request.
      */
-    private List<AddProofRequest> findAddProofRequestByRawProof(final String rawProof) {
+    private List<AddProofRequest> findAddProofRequestByProof(final String proof) {
         return requestRepository.findByStatusOrderById(OPENED)
                 .stream()
                 .filter(request -> request instanceof AddProofRequest)
                 .map(request -> (AddProofRequest) request)
-                .filter(request -> request.getRawProof() != null)
-                .filter(request -> request.getRawProof().equals(rawProof))
+                .filter(request -> request.getProof() != null)
+                .filter(request -> request.getProof().equals(proof))
                 .toList();
     }
 

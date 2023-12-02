@@ -50,7 +50,7 @@ public class RequestServiceTest {
         assertEquals(ANONYMOUS_USER_ID, request1.getCreator().getUserId());
         assertEquals(ANONYMOUS_USER_USERNAME, request1.getCreator().getUsername());
         assertEquals(OPENED, request1.getStatus());
-        assertEquals("P1", request1.getRawProof());
+        assertEquals("P1", request1.getProof());
 
         // Request 2.
         AddAssetMetaDataRequestDTO request2 = (AddAssetMetaDataRequestDTO) openedRequests.get(1);
@@ -71,7 +71,7 @@ public class RequestServiceTest {
         assertEquals(ANONYMOUS_USER_USERNAME, request3.getCreator().getUsername());
         assertEquals(OPENED, request3.getStatus());
         assertNull(request3.getErrorMessage());
-        assertEquals("P4", request3.getRawProof());
+        assertEquals("P4", request3.getProof());
     }
 
     @Test
@@ -121,7 +121,7 @@ public class RequestServiceTest {
         assertEquals(ANONYMOUS_USER_USERNAME, request1Casted.getCreator().getUsername());
         assertEquals(OPENED, request1Casted.getStatus());
         assertNull(request1Casted.getErrorMessage());
-        assertEquals("proof1", request1Casted.getRawProof());
+        assertEquals("proof1", request1Casted.getProof());
 
         // =============================================================================================================
         // Request 2 (addAssetMetaData).
@@ -166,7 +166,7 @@ public class RequestServiceTest {
         assertEquals(ANONYMOUS_USER_USERNAME, request3Casted.getCreator().getUsername());
         assertEquals(OPENED, request3Casted.getStatus());
         assertNull(request3Casted.getErrorMessage());
-        assertEquals("proof2", request3Casted.getRawProof());
+        assertEquals("proof2", request3Casted.getProof());
 
         // =============================================================================================================
         // Request 4 (AddUniverseServerRequest).

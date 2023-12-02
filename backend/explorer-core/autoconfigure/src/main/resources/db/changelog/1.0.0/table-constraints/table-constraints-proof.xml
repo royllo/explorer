@@ -1,0 +1,22 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="1.0.0-table-constraints-proof">
+
+        <!-- Foreign key FK_USER_CREATOR > USER.ID -->
+        <addForeignKeyConstraint constraintName="FK_PROOF_APPLICATION_USER_CREATOR"
+                                 baseColumnNames="FK_USER_CREATOR"
+                                 baseTableName="PROOF"
+                                 referencedTableName="APPLICATION_USER"
+                                 referencedColumnNames="ID"/>
+
+        <!-- Foreign key FK_ASSET > ASSETS.ID -->
+        <addForeignKeyConstraint constraintName="FK_PROOF_ASSET"
+                                 baseColumnNames="FK_ASSET"
+                                 baseTableName="PROOF"
+                                 referencedTableName="ASSET"
+                                 referencedColumnNames="ID"/>
+
+    </changeSet>
+</databaseChangeLog>

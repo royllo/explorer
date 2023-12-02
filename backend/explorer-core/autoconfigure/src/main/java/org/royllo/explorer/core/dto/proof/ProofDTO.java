@@ -20,7 +20,7 @@ import static lombok.AccessLevel.PRIVATE;
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public class ProofDTO {
 
-    /** Proof minimum size - Under this size, the raw proof is displayed without preview. */
+    /** Proof minimum size - Under this size, the proof is displayed without preview. */
     private static final int PROOF_MINIMUM_SIZE = 6;
 
     /** Proof preview size - The size of the preview on both ends. */
@@ -54,11 +54,11 @@ public class ProofDTO {
      */
     @ToString.Include(name = "proofAbstract")
     public String getProofAbstract() {
-        // If raw proof is null, return null.
+        // If proof is null, return null.
         if (proof == null) {
             return null;
         }
-        // If raw proof is too small for substring, return raw proof.
+        // If proof is too small for substring, return proof.
         if (proof.length() <= PROOF_MINIMUM_SIZE) {
             return proof;
         }

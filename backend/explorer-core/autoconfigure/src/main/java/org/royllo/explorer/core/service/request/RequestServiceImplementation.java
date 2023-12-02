@@ -88,14 +88,14 @@ public class RequestServiceImplementation extends BaseService implements Request
 
     @Override
     public AddProofRequestDTO createAddProofRequest(final String proof) {
-        logger.info("Adding proof request with raw proof {}", proof);
+        logger.info("Adding proof request with proof {}", proof);
 
         // Creating and saving the request.
         AddProofRequest request = AddProofRequest.builder()
                 .requestId(UUID.randomUUID().toString())
                 .creator(ANONYMOUS_USER)
                 .status(OPENED)
-                .rawProof(proof)
+                .proof(proof)
                 .build();
 
         AddProofRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetRequestDTO(requestRepository.save(request));

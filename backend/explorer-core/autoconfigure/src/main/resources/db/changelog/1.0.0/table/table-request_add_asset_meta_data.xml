@@ -1,0 +1,33 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="1.0.0-table-request_add_request_meta_data">
+
+        <createTable tableName="REQUEST_ADD_ASSET_META_DATA"
+                     remarks="A request to add asset meta data to an asset already in royllo explorer">
+
+            <!-- Unique identifier -->
+            <column name="ID" type="BIGINT"
+                    remarks="Unique identifier">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_REQUEST_ADD_ASSET_META_DATA"/>
+            </column>
+
+            <!-- Table fields -->
+            <column name="ASSET_ID" type="TEXT"
+                    remarks="The asset ID that uniquely identifies the asset"/>
+            <column name="META_DATA" type="TEXT"
+                    remarks="Asset meta data"/>
+            <column name="FK_ASSET" type="BIGINT"
+                    remarks="The asset created/updated by this request"/>
+
+            <!-- Technical fields -->
+            <column name="CREATED_ON" type="TIMESTAMP"
+                    remarks="Data created on"/>
+            <column name="UPDATED_ON" type="TIMESTAMP"
+                    remarks="Data updated on"/>
+
+        </createTable>
+
+    </changeSet>
+</databaseChangeLog>

@@ -49,6 +49,10 @@ public class Asset extends BaseDomain {
     @Column(name = "ASSET_ID", updatable = false)
     private String assetId;
 
+    /** The asset ID alias in Royllo (generated or configured). */
+    @Column(name = "ASSET_ID_ALIAS", nullable = false)
+    private String assetIdAlias;
+
     /** Asset group. */
     @ManyToOne(fetch = EAGER)
     @JoinColumn(name = "FK_ASSET_GROUP")

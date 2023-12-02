@@ -12,7 +12,7 @@
     <!--/* Right side (links). */-->
     <nav class="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
         <a target="royllo_api"
-           th:href="@{https://api.explorer.royllo.org}">
+           th:href="${apiBaseUrl}">
             <img class="footerIcon"
                  th:alt="#{footer.api}"
                  th:src="@{/svg/footer/api.svg}"/>

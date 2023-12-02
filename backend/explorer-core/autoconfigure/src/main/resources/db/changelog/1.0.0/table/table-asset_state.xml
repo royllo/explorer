@@ -1,0 +1,106 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="1.0.0-table-asset_state">
+
+        <createTable tableName="ASSET_STATE"
+                     remarks="Taproot asset state">
+
+            <!-- Unique identifier -->
+            <column name="ID" type="BIGINT"
+                    remarks="Unique identifier">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ASSET_STATE"/>
+            </column>
+
+            <!-- Table fields -->
+            <column name="FK_USER_CREATOR" type="BIGINT"
+                    remarks="The user who created this asset state">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FK_ASSET" type="BIGINT"
+                    remarks="The asset linked to this asset state">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="ASSET_STATE_ID" type="VARCHAR(64)"
+                    remarks="The asset state ID that uniquely identifies the asset stat (calculated by Royllo)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="UNIQUE_ASSET_STATE_ASSET_STATE_ID"/>
+            </column>
+
+            <!-- Chain anchor - Describes where in the chain the asset is currently anchored -->
+            <column name="ANCHOR_BLOCK_HASH" type="TEXT"
+                    remarks="The block hash the contains the anchor transaction above"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" type="BIGINT"
+                    remarks="The outpoint (txid:vout) that stores the Taproot commitment"/>
+            <column name="ANCHOR_TX" type="TEXT"
+                    remarks="The transaction that anchors the Taproot commitment where the asset resides"/>
+            <column name="INTERNAL_KEY" type="TEXT"
+                    remarks="The raw internal key that was used to create the anchor Taproot output key"/>
+            <column name="MERKLE_ROOT" type="TEXT"
+                    remarks="The Taproot merkle root hash of the anchor output the asset was committed to. If there is no Tapscript sibling, this is equal to the Taproot Asset root commitment hash"/>
+            <column name="TAPSCRIPT_SIBLING" type="TEXT"
+                    remarks="The serialized preimage of a Tapscript sibling, if there was one. If this is empty, then the merkle_root hash is equal to the Taproot root hash of the anchor output"/>
+
+            <!-- State data -->
+            <column name="VERSION" type="TEXT"
+                    remarks="The version of the Taproot Asset"/>
+            <column name="AMOUNT" type="BIGINT"
+                    remarks="The total amount of the asset stored in this Taproot UTXO"/>
+            <column name="LOCK_TIME" type="BIGINT"
+                    remarks="An optional locktime, as with Bitcoin transactions"/>
+            <column name="RELATIVE_LOCK_TIME" type="BIGINT"
+                    remarks="An optional relative lock time, same as Bitcoin transactions"/>
+            <column name="SCRIPT_VERSION" type="INTEGER"
+                    remarks="The version of the script, only version 0 is defined at present"/>
+            <column name="SCRIPT_KEY" type="TEXT"
+                    remarks="The script key of the asset, which can be spent under Taproot semantics"/>
+            <column name="LEASE_OWNER" type="TEXT"
+                    remarks="If the asset has been leased, this is the owner (application ID) of the lease"/>
+            <column name="LEASE_EXPIRY" type="BIGINT"
+                    remarks="If the asset has been leased, this is the expiry of the lease as a Unix timestamp in seconds."/>
+            <column name="TX_MERKLE_PROOF" type="TEXT"
+                    remarks="The merkle root of the transaction that created the asset"/>
+            <column name="INCLUSION_PROOF" type="TEXT"
+                    remarks="The TaprootProof proving the new inclusion of the resulting asset within AnchorTx"/>
+            <column name="EXCLUSION_PROOFS" type="TEXT"
+                    remarks="The TaprootProof proving the exclusion of the resulting asset within AnchorTx"/>
+            <column name="SPLIT_ROOT_PROOF" type="TEXT"
+                    remarks="An optional TaprootProof needed if this asset is the result of a split. SplitRootProof proves inclusion of the root asset of the split"/>
+            <column name="CHALLENGE_WITNESS" type="TEXT"
+                    remarks="ChallengeWitness is an optional virtual transaction witness that serves as an ownership proof for the asset"/>
+
+            <!-- Technical fields -->
+            <column name="CREATED_ON" type="TIMESTAMP"
+                    remarks="Data created on"/>
+            <column name="UPDATED_ON" type="TIMESTAMP"
+                    remarks="Data updated on"/>
+
+        </createTable>
+
+        <!-- Auto increment on the unique identifier -->
+        <addAutoIncrement tableName="ASSET_STATE"
+                          columnName="ID"
+                          columnDataType="BIGINT"
+                          startWith="2"/>
+
+        <!-- Index on FK_ASSET -->
+        <createIndex indexName="IDX_ASSET_STATE_FK_ASSET"
+                     tableName="ASSET_STATE">
+            <column name="FK_ASSET"/>
+        </createIndex>
+
+        <!-- Index on ASSET_STATE_ID -->
+        <createIndex indexName="IDX_ASSET_STATE_ASSET_STATE_ID"
+                     tableName="ASSET_STATE">
+            <column name="ASSET_STATE_ID"/>
+        </createIndex>
+
+        <!-- Index on FK_USER_CREATOR -->
+        <createIndex indexName="IDX_ASSET_STATE_FK_USER_CREATOR"
+                     tableName="ASSET_STATE">
+            <column name="FK_USER_CREATOR"/>
+        </createIndex>
+
+    </changeSet>
+</databaseChangeLog>

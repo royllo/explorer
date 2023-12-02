@@ -1,0 +1,69 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="1.0.0-table-asset_group">
+
+        <createTable tableName="ASSET_GROUP"
+                     remarks="Taproot asset group">
+
+            <!-- Unique identifier -->
+            <column name="ID" type="BIGINT"
+                    remarks="Unique identifier">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ASSET_GROUP"/>
+            </column>
+
+            <!-- Link to other tables -->
+            <column name="FK_USER_CREATOR" type="BIGINT"
+                    remarks="The user who created this asset">
+                <constraints nullable="false"/>
+            </column>
+
+            <!-- Table fields -->
+            <column name="ASSET_GROUP_ID" type="VARCHAR(255)"
+                    remarks="Asset group id (=TWEAKED_GROUP_KEY)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="UNIQUE_ASSET_GROUP_ASSET_GROUP_ID"/>
+            </column>
+            <column name="RAW_GROUP_KEY" type="TEXT"
+                    remarks="The raw group key which is a normal public key"/>
+            <column name="TWEAKED_GROUP_KEY" type="VARCHAR(255)"
+                    remarks="The tweaked group key, which is derived based on the genesis point and also asset type">
+                <constraints nullable="false" unique="true" uniqueConstraintName="UNIQUE_ASSET_GROUP_TWEAKED_GROUP_KEY"/>
+            </column>
+            <column name="ASSET_WITNESS" type="TEXT"
+                    remarks="A signature over the genesis point using the above key"/>
+
+            <!-- Technical fields -->
+            <column name="CREATED_ON" type="TIMESTAMP"
+                    remarks="Data created on"/>
+            <column name="UPDATED_ON" type="TIMESTAMP"
+                    remarks="Data updated on"/>
+
+        </createTable>
+
+        <!-- Auto increment on the unique identifier -->
+        <addAutoIncrement tableName="ASSET_GROUP"
+                          columnName="ID"
+                          columnDataType="BIGINT"
+                          startWith="1"/>
+
+        <!-- Index on ASSET_GROUP_ID -->
+        <createIndex indexName="IDX_ASSET_GROUP_ASSET_GROUP_ID"
+                     tableName="ASSET_GROUP">
+            <column name="ASSET_GROUP_ID"/>
+        </createIndex>
+
+        <!-- Index on TWEAKED_GROUP_KEY -->
+        <createIndex indexName="IDX_ASSET_GROUP_TWEAKED_GROUP_KEY"
+                     tableName="ASSET_GROUP">
+            <column name="TWEAKED_GROUP_KEY"/>
+        </createIndex>
+
+        <!-- Index on FK_USER_CREATOR -->
+        <createIndex indexName="IDX_ASSET_GROUP_FK_USER_CREATOR"
+                     tableName="ASSET_GROUP">
+            <column name="FK_USER_CREATOR"/>
+        </createIndex>
+
+    </changeSet>
+</databaseChangeLog>
