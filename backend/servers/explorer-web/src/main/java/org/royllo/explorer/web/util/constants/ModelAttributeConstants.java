@@ -51,4 +51,7 @@ public class ModelAttributeConstants {
     /** Form attribute. */
     public static final String FORM_ATTRIBUTE = "command";
 
+    /** sitemap urls. */
+    public static final String SITEMAP_URLS_ATTRIBUTE = "urls";
+
 }
