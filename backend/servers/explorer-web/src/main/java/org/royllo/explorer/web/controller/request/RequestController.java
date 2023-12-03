@@ -1,4 +1,4 @@
-package org.royllo.explorer.web.controller;
+package org.royllo.explorer.web.controller.request;
 
 import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;

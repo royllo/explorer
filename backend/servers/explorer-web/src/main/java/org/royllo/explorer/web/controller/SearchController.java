@@ -15,7 +15,6 @@ import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PAG
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.QUERY_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.SearchPageConstants.SEARCH_PAGE;
-import static org.royllo.explorer.web.util.constants.SearchPageConstants.SEARCH_PAGE_FRAGMENT;
 
 /**
  * Search controller.
@@ -50,11 +49,8 @@ public class SearchController extends BaseController {
             // If the query is present, we make the search and add result to the page.
             model.addAttribute(RESULT_ATTRIBUTE, assetService.queryAssets(query.trim(), page, ASSET_SEARCH_DEFAULT_PAGE_SIZE));
         }
-        // If it's an HTMX request, we return the fragment.
-        if (isHtmxRequest(request)) {
-            return SEARCH_PAGE_FRAGMENT;
-        }
-        return SEARCH_PAGE;
+
+        return getPageOrFragment(request, SEARCH_PAGE);
     }
 
 }

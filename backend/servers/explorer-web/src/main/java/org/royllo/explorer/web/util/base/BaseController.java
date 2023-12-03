@@ -40,15 +40,4 @@ public class BaseController {
 
     }
 
-    /**
-     * Returns true is the request is an HTMX request.
-     *
-     * @param request request
-     * @return true is HTMX request
-     */
-    @Deprecated
-    protected final boolean isHtmxRequest(final HttpServletRequest request) {
-        return request != null && request.getHeader(HTMX_REQUEST) != null;
-    }
-
 }

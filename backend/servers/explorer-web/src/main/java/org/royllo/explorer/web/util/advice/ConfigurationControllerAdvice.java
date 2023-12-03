@@ -1,6 +1,5 @@
 package org.royllo.explorer.web.util.advice;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.util.parameters.RoylloExplorerParameters;
 import org.springframework.ui.Model;
@@ -21,8 +20,7 @@ public class ConfigurationControllerAdvice {
     private final RoylloExplorerParameters roylloExplorerParameters;
 
     @ModelAttribute
-    public final void handleRequest(final HttpServletRequest request,
-                                    final Model model) {
+    public final void handleRequest(final Model model) {
 
         // Set the base url for web and API.
         model.addAttribute(API_BASE_URL_ATTRIBUTE, roylloExplorerParameters.getApi().getBaseUrl());

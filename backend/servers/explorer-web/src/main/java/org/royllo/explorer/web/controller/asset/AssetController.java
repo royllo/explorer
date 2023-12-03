@@ -1,4 +1,4 @@
-package org.royllo.explorer.web.controller;
+package org.royllo.explorer.web.controller.asset;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
