@@ -74,29 +74,36 @@
             </div>
             <!--/* =========================================================================================== */-->
 
-
+            <!--/* =========================================================================================== */-->
             <!--/* Pages numbers */-->
             <div class="join" th:if="${result.getTotalPages() > 1}">
-                <div th:each="pageNumber: ${#numbers.sequence(1, result.totalPages)}">
 
-                    <!--/* Current page */-->
-                    <button class="join-item btn"
-                            th:if="${page == pageNumber}"
-                            th:text="${pageNumber}">
-                    </button>
+                <!--/* Previous page */-->
+                <a class="join-item btn"
+                   id="previousPage"
+                   hx-push-url="true"
+                   hx-target="#content"
+                   th:if="${page > 1}"
+                   th:href="@{'/search?query=' + ${query} + '&page=' + ${page - 1}}"
+                   th:hx-get="@{'/search?query=' + ${query} + '&page=' + ${page - 1}}"
+                >«</a>
 
-                    <!--/* Other pages */-->
-                    <a class="join-item btn btn-active"
-                       hx-push-url="true"
-                       hx-target="#content"
-                       th:href="@{'/search?query=' + ${query} + '&page=' + ${pageNumber}}"
-                       th:hx-get="@{'/search?query=' + ${query} + '&page=' + ${pageNumber}}"
-                       th:if="${page != pageNumber}"
-                       th:text="${pageNumber}">
-                    </a>
+                <!--/* Current page */-->
+                <a class="join-item btn" id="currentPage" th:text="${page}"></a>
 
-                </div>
+                <!--/* Next page */-->
+                <a class="join-item btn"
+                   id="nextPage"
+                   hx-push-url="true"
+                   hx-target="#content"
+                   th:if="${page < result.getTotalPages()}"
+                   th:href="@{'/search?query=' + ${query} + '&page=' + ${page + 1}}"
+                   th:hx-get="@{'/search?query=' + ${query} + '&page=' + ${page + 1}}"
+                >»</a>
+
             </div>
+            <!--/* =========================================================================================== */-->
+
             <!--/* TODO Replace this with something more clean */-->
             <div class="my-16">&nbsp</div>
 

@@ -73,7 +73,6 @@ public class UniverseExplorerBatch extends BaseBatch {
                         .filter(universeRoot -> universeRoot.getId() != null)
                         .filter(universeRoot -> universeRoot.getId().getAssetId() != null)
                         .map(universeRoot -> universeRoot.getId().getAssetId())
-                        .distinct()
                         .peek(assetId -> logger.info("Found asset id: {}", assetId))
                         .forEach(assetId -> {
                             try {
