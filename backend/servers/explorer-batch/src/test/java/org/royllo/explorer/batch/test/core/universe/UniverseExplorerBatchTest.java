@@ -8,6 +8,7 @@ import org.royllo.explorer.core.domain.universe.UniverseServer;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.repository.universe.UniverseServerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
@@ -26,6 +27,7 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 @SpringBootTest
 @DisplayName("Universe explorer batch test")
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @ActiveProfiles({"tapdProofServiceMock", "scheduler-disabled"})
 public class UniverseExplorerBatchTest {
 
