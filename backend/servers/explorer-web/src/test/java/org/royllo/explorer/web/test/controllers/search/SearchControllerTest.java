@@ -124,10 +124,9 @@ public class SearchControllerTest extends BaseTest {
                 .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_10")))
                 .andExpect(content().string(not(containsString("/asset/FAKE_ASSET_ID_11"))))
                 // Checking pages.
-                .andExpect(content().string(not(containsString(">0</"))))
+                .andExpect(content().string(not(containsString("previousPage"))))
                 .andExpect(content().string(containsString(">1</")))
-                .andExpect(content().string(containsString(">2</")))
-                .andExpect(content().string(not(containsString(">3</"))))
+                .andExpect(content().string(containsString("nextPage")))
                 // Checking there is no error message.
                 .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noQuery")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "search.error.invalidPage")))))
@@ -152,10 +151,9 @@ public class SearchControllerTest extends BaseTest {
                 .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_10")))
                 .andExpect(content().string(not(containsString("/asset/FAKE_ASSET_ID_11"))))
                 // Checking pages.
-                .andExpect(content().string(not(containsString(">0</"))))
+                .andExpect(content().string(not(containsString("previousPage"))))
                 .andExpect(content().string(containsString(">1</")))
-                .andExpect(content().string(containsString(">2</")))
-                .andExpect(content().string(not(containsString(">3</"))))
+                .andExpect(content().string(containsString("nextPage")))
                 // Checking there is no error message.
                 .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noQuery")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "search.error.invalidPage")))))
@@ -172,10 +170,9 @@ public class SearchControllerTest extends BaseTest {
                 .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_11")))
                 .andExpect(content().string(not(containsString("/asset/FAKE_ASSET_ID_12"))))
                 // Checking pages.
-                .andExpect(content().string(not(containsString(">0</"))))
-                .andExpect(content().string(containsString(">1</")))
+                .andExpect(content().string(containsString("previousPage")))
                 .andExpect(content().string(containsString(">2</")))
-                .andExpect(content().string(not(containsString(">3</"))))
+                .andExpect(content().string(not(containsString("nextPage"))))
                 // Checking there is no error message.
                 .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noQuery")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "search.error.invalidPage")))))
