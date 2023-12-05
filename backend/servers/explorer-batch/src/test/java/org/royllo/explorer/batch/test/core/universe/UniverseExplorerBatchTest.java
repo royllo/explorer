@@ -55,10 +55,12 @@ public class UniverseExplorerBatchTest {
         assertEquals(0, findAddProofRequestByProof("asset_id_2_proof").size());
         assertEquals(0, findAddProofRequestByProof("asset_id_3_proof").size());
         assertEquals(0, findAddProofRequestByProof("asset_id_4_proof").size());
+        assertEquals(0, findAddProofRequestByProof("asset_id_5_proof").size());
 
         // In database, we have two universe servers.
-        // The first server lists three assets : asset_id_1, asset_id_2 and asset_id_3
-        // The second server lists two assets : asset_id_4, asset_id_1 (already defined by the first server)
+        // The first server lists three assets : asset_id_1, asset_id_2 and asset_id_3.
+        // The second server lists three assets : asset_id_1, asset_id_4, asset_id_5.
+        // asset_id_1 is on both servers.
         universeExplorerBatch.processUniverseServers();
         universeExplorerBatch.processUniverseServers();
 
@@ -70,9 +72,18 @@ public class UniverseExplorerBatchTest {
         assertTrue(server2.isPresent());
         assertNotNull(server2.get().getLastSynchronizedOn());
 
-        // We should have 5 more requests in database.
-        assertEquals(count + 6, requestRepository.count());
-        assertEquals(2, findAddProofRequestByProof("asset_id_1_proof").size());
+        // We should have more requests.
+        // universe-roots-response-for-testnet-universe-lightning-finance.json:
+        // - "asset_id": "asset_id_1"
+        // - "asset_id": "asset_id_2"
+        // - "asset_id": "asset_id_3"
+        // universe-roots-response-for-testnet2-universe-lightning-finance.json:
+        // - "asset_id": "asset_id_4"
+        // - "asset_id": "asset_id_1
+        // - "asset_id": "asset_id_5"
+        // - "asset_id": "asset_id_1"
+        assertEquals(count + 7, requestRepository.count());
+        assertEquals(3, findAddProofRequestByProof("asset_id_1_proof").size());
         assertEquals(1, findAddProofRequestByProof("asset_id_2_proof").size());
         assertEquals(1, findAddProofRequestByProof("asset_id_3_proof").size());
         assertEquals(1, findAddProofRequestByProof("asset_id_4_proof").size());
