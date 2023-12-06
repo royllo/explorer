@@ -1,0 +1,26 @@
+<div class="join" th:fragment="pagination(url, pageNumber, pageCount)" th:if="${pageCount > 1}">
+
+    <!--/* Previous page */-->
+    <a class="join-item btn"
+       id="previousPage"
+       hx-push-url="true"
+       hx-target="#content"
+       th:if="${pageNumber > 1}"
+       th:href="@{${url} + '&page=' + ${pageNumber - 1}}"
+       th:hx-get="@{${url} + '&page=' + ${pageNumber - 1}}"
+    >«</a>
+
+    <!--/* Current page */-->
+    <a class="join-item btn" id="currentPage" th:text="@{${pageNumber} + '/' + ${pageCount}}"></a>
+
+    <!--/* Next page */-->
+    <a class="join-item btn"
+       id="nextPage"
+       hx-push-url="true"
+       hx-target="#content"
+       th:if="${pageNumber < pageCount}"
+       th:href="@{${url} + '&page=' + ${pageNumber + 1}}"
+       th:hx-get="@{${url} + '&page=' + ${pageNumber + 1}}"
+    >»</a>
+
+</div>
