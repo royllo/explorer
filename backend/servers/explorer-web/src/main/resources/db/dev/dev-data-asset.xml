@@ -176,19 +176,10 @@
             <column name="SCRIPT_KEY" value="Script key 1"/>
         </insert>
 
-        <insert tableName="ASSET_GROUP">
-            <column name="ID" value="1002"/>
-            <column name="FK_USER_CREATOR" value="2"/>
-
-            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1002"/>
-            <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1002"/>
-            <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1002"/>
-            <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1002"/>
-        </insert>
         <insert tableName="ASSET">
             <column name="ID" value="1002"/>
             <column name="FK_USER_CREATOR" value="2"/>
-            <column name="FK_ASSET_GROUP" value="1002"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_2"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_2"/>
@@ -218,19 +209,10 @@
             <column name="SCRIPT_KEY" value="Script key 2"/>
         </insert>
 
-        <insert tableName="ASSET_GROUP">
-            <column name="ID" value="1003"/>
-            <column name="FK_USER_CREATOR" value="2"/>
-
-            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1003"/>
-            <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1003"/>
-            <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1003"/>
-            <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1003"/>
-        </insert>
         <insert tableName="ASSET">
             <column name="ID" value="1003"/>
             <column name="FK_USER_CREATOR" value="2"/>
-            <column name="FK_ASSET_GROUP" value="1003"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_3"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_3"/>
@@ -260,19 +242,10 @@
             <column name="SCRIPT_KEY" value="Script key 3"/>
         </insert>
 
-        <insert tableName="ASSET_GROUP">
-            <column name="ID" value="1004"/>
-            <column name="FK_USER_CREATOR" value="2"/>
-
-            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1004"/>
-            <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1004"/>
-            <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1004"/>
-            <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1004"/>
-        </insert>
         <insert tableName="ASSET">
             <column name="ID" value="1004"/>
             <column name="FK_USER_CREATOR" value="2"/>
-            <column name="FK_ASSET_GROUP" value="1004"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_4"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_4"/>
@@ -302,19 +275,10 @@
             <column name="SCRIPT_KEY" value="Script key 4"/>
         </insert>
 
-        <insert tableName="ASSET_GROUP">
-            <column name="ID" value="1005"/>
-            <column name="FK_USER_CREATOR" value="2"/>
-
-            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1005"/>
-            <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1005"/>
-            <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1005"/>
-            <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1005"/>
-        </insert>
         <insert tableName="ASSET">
             <column name="ID" value="1005"/>
             <column name="FK_USER_CREATOR" value="2"/>
-            <column name="FK_ASSET_GROUP" value="1005"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_5"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_5"/>
@@ -344,19 +308,10 @@
             <column name="SCRIPT_KEY" value="Script key 5"/>
         </insert>
 
-        <insert tableName="ASSET_GROUP">
-            <column name="ID" value="1006"/>
-            <column name="FK_USER_CREATOR" value="2"/>
-
-            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1006"/>
-            <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1006"/>
-            <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1006"/>
-            <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1006"/>
-        </insert>
         <insert tableName="ASSET">
             <column name="ID" value="1006"/>
             <column name="FK_USER_CREATOR" value="2"/>
-            <column name="FK_ASSET_GROUP" value="1006"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_6"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_6"/>
@@ -386,19 +341,10 @@
             <column name="SCRIPT_KEY" value="Script key 6"/>
         </insert>
 
-        <insert tableName="ASSET_GROUP">
-            <column name="ID" value="1007"/>
-            <column name="FK_USER_CREATOR" value="2"/>
-
-            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1007"/>
-            <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1007"/>
-            <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1007"/>
-            <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1007"/>
-        </insert>
         <insert tableName="ASSET">
             <column name="ID" value="1007"/>
             <column name="FK_USER_CREATOR" value="2"/>
-            <column name="FK_ASSET_GROUP" value="1007"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_7"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_7"/>
@@ -428,19 +374,10 @@
             <column name="SCRIPT_KEY" value="Script key 7"/>
         </insert>
 
-        <insert tableName="ASSET_GROUP">
-            <column name="ID" value="1008"/>
-            <column name="FK_USER_CREATOR" value="2"/>
-
-            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1008"/>
-            <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1008"/>
-            <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1008"/>
-            <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1008"/>
-        </insert>
         <insert tableName="ASSET">
             <column name="ID" value="1008"/>
             <column name="FK_USER_CREATOR" value="2"/>
-            <column name="FK_ASSET_GROUP" value="1008"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_8"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_8"/>
@@ -470,19 +407,10 @@
             <column name="SCRIPT_KEY" value="Script key 8"/>
         </insert>
 
-        <insert tableName="ASSET_GROUP">
-            <column name="ID" value="1009"/>
-            <column name="FK_USER_CREATOR" value="2"/>
-
-            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1009"/>
-            <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1009"/>
-            <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1009"/>
-            <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1009"/>
-        </insert>
         <insert tableName="ASSET">
             <column name="ID" value="1009"/>
             <column name="FK_USER_CREATOR" value="2"/>
-            <column name="FK_ASSET_GROUP" value="1009"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_9"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_9"/>
@@ -515,6 +443,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10002"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10002"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10002"/>
@@ -528,10 +457,10 @@
             <column name="AMOUNT" value="10"/>
         </insert>
 
-
         <insert tableName="ASSET">
             <column name="ID" value="10003"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10003"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10003"/>
@@ -548,6 +477,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10004"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10004"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10004"/>
@@ -564,6 +494,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10005"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10005"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10005"/>
@@ -580,6 +511,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10006"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10006"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10006"/>
@@ -596,6 +528,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10007"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10007"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10007"/>
@@ -612,6 +545,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10008"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10008"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10008"/>
@@ -628,6 +562,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10009"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10009"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10009"/>
@@ -644,6 +579,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10010"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10010"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10010"/>
@@ -660,6 +596,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10011"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10011"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10011"/>
@@ -676,6 +613,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10012"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10012"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10012"/>
@@ -692,6 +630,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10013"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10013"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10013"/>
@@ -708,6 +647,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10014"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10014"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10014"/>
@@ -724,6 +664,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10015"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10015"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10015"/>
@@ -740,6 +681,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10016"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10016"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10016"/>
@@ -756,6 +698,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10017"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10017"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10017"/>
@@ -772,6 +715,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10018"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10018"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10018"/>
@@ -788,6 +732,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10019"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10019"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10019"/>
@@ -804,6 +749,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10020"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10020"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10020"/>
@@ -820,6 +766,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10021"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10021"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10021"/>
@@ -836,6 +783,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10022"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10022"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10022"/>
@@ -852,6 +800,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10023"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10023"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10023"/>
@@ -868,6 +817,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10024"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10024"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10024"/>
@@ -884,6 +834,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10025"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10025"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10025"/>
@@ -900,6 +851,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10026"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10026"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10026"/>
@@ -916,6 +868,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10027"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10027"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10027"/>
@@ -932,6 +885,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10028"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10028"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10028"/>
@@ -948,6 +902,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10029"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10029"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10029"/>
@@ -964,6 +919,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10030"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10030"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10030"/>
@@ -980,6 +936,7 @@
         <insert tableName="ASSET">
             <column name="ID" value="10031"/>
             <column name="FK_USER_CREATOR" value="1"/>
+            <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_10031"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10031"/>

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -31,6 +32,7 @@ import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASS
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_ID_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_STATES_LIST_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_URL_ATTRIBUTE;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PAGE_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PROOF_ID_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PROOF_LIST_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.WEB_BASE_URL_ATTRIBUTE;
@@ -76,24 +78,24 @@ public class AssetController extends BaseController {
      * @param model   model
      * @param request request
      * @param assetId asset id
+     * @param page    page number
      * @return asset group page
      */
     @SuppressWarnings("SameReturnValue")
     @GetMapping(value = {"/asset/{assetId}/group"})
     public String assetGroup(final Model model,
                              final HttpServletRequest request,
-                             @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
+                             @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId,
+                             @RequestParam(defaultValue = "1") final int page) {
         final Optional<AssetDTO> asset = addAssetToModel(model, assetId);
+        model.addAttribute(PAGE_ATTRIBUTE, page);
 
         // We search for the assets in the same asset group.
         if (asset.isPresent() && asset.get().getAssetGroup() != null) {
-            // TODO Use a specific method to get assets from a group instead of the search service.
-            // TODO Add a pagination for this result
             model.addAttribute(ASSETS_IN_GROUP_LIST_ATTRIBUTE,
-                    assetService.queryAssets(asset.get().getAssetGroup().getTweakedGroupKey(),
-                            1,
+                    assetService.getAssetsByAssetGroupId(asset.get().getAssetGroup().getAssetGroupId(),
+                            page,
                             ASSET_GROUP_ASSETS_DEFAULT_PAGE_SIZE));
-
         }
 
         return getPageOrFragment(request, ASSET_GROUP_PAGE);

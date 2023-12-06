@@ -74,35 +74,12 @@
             </div>
             <!--/* =========================================================================================== */-->
 
-            <!--/* =========================================================================================== */-->
-            <!--/* Pages numbers */-->
-            <div class="join" th:if="${result.getTotalPages() > 1}">
-
-                <!--/* Previous page */-->
-                <a class="join-item btn"
-                   id="previousPage"
-                   hx-push-url="true"
-                   hx-target="#content"
-                   th:if="${page > 1}"
-                   th:href="@{'/search?query=' + ${query} + '&page=' + ${page - 1}}"
-                   th:hx-get="@{'/search?query=' + ${query} + '&page=' + ${page - 1}}"
-                >«</a>
-
-                <!--/* Current page */-->
-                <a class="join-item btn" id="currentPage" th:text="${page}"></a>
-
-                <!--/* Next page */-->
-                <a class="join-item btn"
-                   id="nextPage"
-                   hx-push-url="true"
-                   hx-target="#content"
-                   th:if="${page < result.getTotalPages()}"
-                   th:href="@{'/search?query=' + ${query} + '&page=' + ${page + 1}}"
-                   th:hx-get="@{'/search?query=' + ${query} + '&page=' + ${page + 1}}"
-                >»</a>
-
+            <!--/* Pagination */-->
+            <div th:insert="~{util/fragments/components/pagination :: pagination(   @{'/search?query=' + ${query}},
+                                                                                    '#content',
+                                                                                    ${page},
+                                                                                    ${result.getTotalPages()})}">
             </div>
-            <!--/* =========================================================================================== */-->
 
             <!--/* TODO Replace this with something more clean */-->
             <div class="my-16">&nbsp</div>
