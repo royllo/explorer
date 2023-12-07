@@ -38,7 +38,7 @@ public class TapdUniverseRootsServiceTest {
         // Testing each server.
         for (String serverAddress : validServers) {
             // Testing the response of each server.
-            UniverseRootsResponse response = tapdService.getUniverseRoots(serverAddress).block();
+            UniverseRootsResponse response = tapdService.getUniverseRoots(serverAddress, 0, 100).block();
             assertNotNull(response);
             assertTrue(response.getUniverseRoots()
                     .values()

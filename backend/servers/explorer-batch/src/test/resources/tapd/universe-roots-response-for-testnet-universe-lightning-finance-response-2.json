@@ -1,0 +1,14 @@
+{
+  "universe_roots": {
+    "3": {
+      "id": {
+        "asset_id": "asset_id_3"
+      },
+      "mssmt_root": {
+        "root_hash": "7ebc8dbefb1c1b0655c88cf665298d842960ea5ca154f255a1c86ca98e75c693",
+        "root_sum": "100"
+      },
+      "asset_name": "umicoin"
+    }
+  }
+}

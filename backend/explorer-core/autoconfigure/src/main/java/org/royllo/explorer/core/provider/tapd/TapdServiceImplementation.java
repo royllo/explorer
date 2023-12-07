@@ -112,7 +112,9 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
     }
 
     @Override
-    public final Mono<UniverseRootsResponse> getUniverseRoots(final String serverAddress) {
+    public final Mono<UniverseRootsResponse> getUniverseRoots(final String serverAddress,
+                                                              final int offset,
+                                                              final int limit) {
         logger.info("Get universe roots from tapd server: {}", serverAddress);
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
 
@@ -130,7 +132,7 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
                 .baseUrl(serverAddress)
                 .build()
                 .get()
-                .uri("/v1/taproot-assets/universe/roots")
+                .uri("/v1/taproot-assets/universe/roots?offset=" + offset + "&limit=" + limit)
                 .exchangeToFlux(response -> response.bodyToFlux(UniverseRootsResponse.class))
                 .next();
     }

@@ -5,12 +5,13 @@ import org.royllo.explorer.batch.util.base.BaseBatch;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.provider.tapd.TapdService;
 import org.royllo.explorer.core.provider.tapd.UniverseLeavesResponse;
-import org.royllo.explorer.core.provider.tapd.UniverseRootsResponse;
 import org.royllo.explorer.core.repository.proof.ProofRepository;
 import org.royllo.explorer.core.repository.universe.UniverseServerRepository;
 import org.royllo.explorer.core.service.request.RequestService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import java.util.stream.IntStream;
 
 import static java.time.ZonedDateTime.now;
 
@@ -27,6 +28,9 @@ public class UniverseExplorerBatch extends BaseBatch {
 
     /** Delay between two calls to process requests (1 000 ms = 1 second). */
     private static final int DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS = 60_000;
+
+    /** Universe roots results limit. */
+    public static final int UNIVERSE_ROOTS_LIMIT = 100;
 
     /** Proof repository. */
     private final ProofRepository proofRepository;
@@ -54,22 +58,10 @@ public class UniverseExplorerBatch extends BaseBatch {
                 universeServer.setLastSynchronizedOn(now());
                 universeServerRepository.save(universeServer);
 
-                // We retrieve the universe roots.
-                final UniverseRootsResponse universeRoots = tapdService.getUniverseRoots(universeServer.getServerAddress()).block();
-                if (universeRoots == null) {
-                    logger.error("No universe roots found for server - null reply: {}", universeServer.getServerAddress());
-                    return;
-                }
-
-                // if there is none, we stop here.
-                if (universeRoots.getUniverseRoots().isEmpty()) {
-                    logger.error("No universe roots found for server - empty reply: {}", universeServer.getServerAddress());
-                    return;
-                }
-
-                universeRoots.getUniverseRoots()
-                        .values()
-                        .stream()
+                IntStream.iterate(0, offset -> offset + UNIVERSE_ROOTS_LIMIT)
+                        .mapToObj(offset -> tapdService.getUniverseRoots(universeServer.getServerAddress(), offset, UNIVERSE_ROOTS_LIMIT).block())
+                        .takeWhile(universeRoots -> universeRoots != null && !universeRoots.getUniverseRoots().isEmpty())
+                        .flatMap(universeRoots -> universeRoots.getUniverseRoots().values().stream())
                         .filter(universeRoot -> universeRoot.getId() != null)
                         .filter(universeRoot -> universeRoot.getId().getAssetId() != null)
                         .map(universeRoot -> universeRoot.getId().getAssetId())
@@ -81,7 +73,6 @@ public class UniverseExplorerBatch extends BaseBatch {
                                     logger.error("No universe leaves found for asset id - null result: {}", assetId);
                                     return;
                                 }
-
                                 if (leaves.getLeaves().isEmpty()) {
                                     logger.error("No universe leaves found for asset id - empty result: {}", assetId);
                                     return;
@@ -100,7 +91,6 @@ public class UniverseExplorerBatch extends BaseBatch {
                                 logger.error("Error while retrieving leaves for asset id: {}", assetId, e);
                             }
                         });
-
             });
         }
     }

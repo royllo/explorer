@@ -58,7 +58,7 @@ public class AddUniverseServerBatch extends BaseBatch {
                             // We make the call and check the result.
                             try {
                                 // Calling tapd service to see if the server response.
-                                final UniverseRootsResponse response = tapdService.getUniverseRoots(request.getServerAddress()).block();
+                                final UniverseRootsResponse response = tapdService.getUniverseRoots(request.getServerAddress(), 0, 1).block();
 
                                 // if the response is null.
                                 if (response == null) {
