@@ -104,6 +104,10 @@ public class DisplayRoylloCoinTest extends BaseTest {
                 // Checking group tab data.
                 .andExpect(content().string(containsString(getMessage(messages, "asset.view.tabs.group.noAssetGroup"))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.data.tweakedGroupKey")))))
+                // There should be no pagination.
+                .andExpect(content().string(not(containsString("previousPage"))))
+                .andExpect(content().string(not(containsString("currentPage"))))
+                .andExpect(content().string(not(containsString("nextPage"))))
                 // Error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.noAssetId")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));

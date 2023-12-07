@@ -111,6 +111,10 @@ public class DisplaySetRoylloNFT1Test extends BaseTest {
                 .andExpect(content().string(containsString("/asset/" + SET_OF_ROYLLO_NFT_2_ASSET_ID)))
                 .andExpect(content().string(containsString("/asset/" + SET_OF_ROYLLO_NFT_3_ASSET_ID)))
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.tabs.group.noAssetGroup")))))
+                // There should be no pagination.
+                .andExpect(content().string(not(containsString("previousPage"))))
+                .andExpect(content().string(not(containsString("currentPage"))))
+                .andExpect(content().string(not(containsString("nextPage"))))
                 // Error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.noAssetId")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));

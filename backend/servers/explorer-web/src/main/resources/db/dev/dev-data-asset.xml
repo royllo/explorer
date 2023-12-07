@@ -172,6 +172,9 @@
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_1"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_1"/>
 
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
             <column name="SCRIPT_VERSION" value="2"/>
             <column name="SCRIPT_KEY" value="Script key 1"/>
         </insert>
@@ -205,6 +208,9 @@
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_2"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_2"/>
 
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
             <column name="SCRIPT_VERSION" value="2"/>
             <column name="SCRIPT_KEY" value="Script key 2"/>
         </insert>
@@ -238,6 +244,9 @@
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_3"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_3"/>
 
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
             <column name="SCRIPT_VERSION" value="2"/>
             <column name="SCRIPT_KEY" value="Script key 3"/>
         </insert>
@@ -271,6 +280,9 @@
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_4"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_4"/>
 
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
             <column name="SCRIPT_VERSION" value="2"/>
             <column name="SCRIPT_KEY" value="Script key 4"/>
         </insert>
@@ -304,6 +316,9 @@
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_5"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_5"/>
 
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
             <column name="SCRIPT_VERSION" value="2"/>
             <column name="SCRIPT_KEY" value="Script key 5"/>
         </insert>
@@ -337,6 +352,9 @@
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_6"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_6"/>
 
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
             <column name="SCRIPT_VERSION" value="2"/>
             <column name="SCRIPT_KEY" value="Script key 6"/>
         </insert>
@@ -370,6 +388,9 @@
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_7"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_7"/>
 
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
             <column name="SCRIPT_VERSION" value="2"/>
             <column name="SCRIPT_KEY" value="Script key 7"/>
         </insert>
@@ -403,6 +424,9 @@
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_8"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_8"/>
 
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
             <column name="SCRIPT_VERSION" value="2"/>
             <column name="SCRIPT_KEY" value="Script key 8"/>
         </insert>
@@ -436,6 +460,9 @@
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_9"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_9"/>
 
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
             <column name="SCRIPT_VERSION" value="2"/>
             <column name="SCRIPT_KEY" value="Script key 9"/>
         </insert>
@@ -950,5 +977,1055 @@
             <column name="AMOUNT" value="10"/>
         </insert>
 
+        <!-- Asset states used to test pagination -->
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="10001"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10001"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 10001"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 10001"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 10001"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_10001"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_10001"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 10001"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="10002"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10002"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 10002"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 10002"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 10002"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_10002"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_10002"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 10002"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="10003"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10003"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 10003"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 10003"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 10003"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_10003"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_10003"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 10003"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="10004"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10004"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 10004"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 10004"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 10004"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_10004"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_10004"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 10004"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="10005"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10005"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 10005"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 10005"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 10005"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_10005"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_10005"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 10005"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="10006"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10006"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 10006"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 10006"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 10006"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_10006"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_10006"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 10006"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="10007"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10007"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 10007"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 10007"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 10007"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_10007"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_10007"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 10007"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="10008"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10008"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 10008"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 10008"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 10008"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_10008"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_10008"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 10008"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="10009"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10009"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 10009"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 10009"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 10009"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_10009"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_10009"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 10009"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100010"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100010"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100010"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100010"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100010"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100010"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100010"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100010"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100011"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100011"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100011"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100011"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100011"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100011"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100011"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100011"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100012"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100012"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100012"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100012"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100012"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100012"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100012"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100012"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100013"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100013"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100013"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100013"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100013"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100013"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100013"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100013"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100014"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100014"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100014"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100014"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100014"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100014"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100014"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100014"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100015"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100015"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100015"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100015"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100015"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100015"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100015"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100015"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100016"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100016"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100016"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100016"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100016"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100016"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100016"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100016"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100017"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100017"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100017"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100017"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100017"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100017"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100017"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100017"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100018"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100018"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100018"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100018"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100018"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100018"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100018"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100018"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100019"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100019"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100019"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100019"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100019"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100019"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100019"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100019"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100020"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100020"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100020"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100020"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100020"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100020"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100020"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100020"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100021"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100021"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100021"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100021"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100021"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100021"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100021"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100021"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100022"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100022"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100022"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100022"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100022"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100022"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100022"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100022"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100023"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100023"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100023"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100023"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100023"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100023"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100023"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100023"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100024"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100024"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100024"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100024"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100024"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100024"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100024"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100024"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100025"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100025"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100025"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100025"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100025"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100025"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100025"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100025"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100026"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100026"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100026"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100026"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100026"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100026"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100026"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100026"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100027"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100027"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100027"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100027"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100027"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100027"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100027"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100027"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100028"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100028"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100028"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100028"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100028"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100028"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100028"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100028"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100029"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100029"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100029"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100029"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100029"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100029"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100029"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100029"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100030"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100030"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100030"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100030"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100030"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100030"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100030"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100030"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100031"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100031"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100031"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100031"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100031"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100031"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100031"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100031"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100032"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100032"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100032"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100032"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100032"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100032"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100032"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100032"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100033"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100033"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100033"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100033"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100033"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100033"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100033"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100033"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100034"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100034"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100034"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100034"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100034"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100034"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100034"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100034"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100035"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100035"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100035"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100035"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100035"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100035"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100035"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100035"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100036"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100036"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100036"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100036"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100036"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100036"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100036"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100036"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100037"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100037"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100037"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100037"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100037"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100037"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100037"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100037"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100038"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100038"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100038"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100038"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100038"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100038"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100038"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100038"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100039"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100039"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100039"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100039"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100039"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100039"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100039"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100039"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100040"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100040"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100040"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100040"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100040"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100040"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100040"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100040"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100041"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100041"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100041"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100041"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100041"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100041"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100041"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100041"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100042"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100042"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100042"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100042"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100042"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100042"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100042"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100042"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100043"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100043"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100043"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100043"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100043"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100043"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100043"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100043"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100044"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100044"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100044"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100044"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100044"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100044"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100044"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100044"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100045"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100045"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100045"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100045"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100045"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100045"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100045"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100045"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100046"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100046"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100046"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100046"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100046"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100046"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100046"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100046"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100047"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100047"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100047"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100047"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100047"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100047"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100047"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100047"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100048"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100048"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100048"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100048"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100048"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100048"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100048"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100048"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100049"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100049"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100049"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100049"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100049"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100049"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100049"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100049"/>
+        </insert>
+
+
+        <insert tableName="ASSET_STATE">
+            <column name="ID" value="100050"/>
+            <column name="FK_USER_CREATOR" value="2"/>
+            <column name="FK_ASSET" value="1001"/>
+
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100050"/>
+            <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100050"/>
+            <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
+            <column name="ANCHOR_TX" value="Anchor tx 100050"/>
+            <column name="INTERNAL_KEY" value="Anchor internal key 100050"/>
+            <column name="MERKLE_ROOT" value="MERKLE_ROOT_100050"/>
+            <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100050"/>
+
+            <column name="LEASE_EXPIRY" value="0"/>
+            <column name="LOCK_TIME" value="0"/>
+            <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SCRIPT_VERSION" value="2"/>
+            <column name="SCRIPT_KEY" value="Script key 100050"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>

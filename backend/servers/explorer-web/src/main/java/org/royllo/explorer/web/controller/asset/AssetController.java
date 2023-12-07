@@ -92,10 +92,9 @@ public class AssetController extends BaseController {
 
         // We search for the assets in the same asset group.
         if (asset.isPresent() && asset.get().getAssetGroup() != null) {
-            model.addAttribute(ASSETS_IN_GROUP_LIST_ATTRIBUTE,
-                    assetService.getAssetsByAssetGroupId(asset.get().getAssetGroup().getAssetGroupId(),
-                            page,
-                            ASSET_GROUP_ASSETS_DEFAULT_PAGE_SIZE));
+            model.addAttribute(ASSETS_IN_GROUP_LIST_ATTRIBUTE, assetService.getAssetsByAssetGroupId(asset.get().getAssetGroup().getAssetGroupId(),
+                    page,
+                    ASSET_GROUP_ASSETS_DEFAULT_PAGE_SIZE));
         }
 
         return getPageOrFragment(request, ASSET_GROUP_PAGE);
@@ -107,18 +106,21 @@ public class AssetController extends BaseController {
      * @param model   model
      * @param request request
      * @param assetId asset id
+     * @param page    page number
      * @return asset states page
      */
     @SuppressWarnings("SameReturnValue")
     @GetMapping(value = {"/asset/{assetId}/states"})
     public String assetStates(final Model model,
                               final HttpServletRequest request,
-                              @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
+                              @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId,
+                              @RequestParam(defaultValue = "1") final int page) {
         addAssetToModel(model, assetId);
+        model.addAttribute(PAGE_ATTRIBUTE, page);
 
         // We retrieve the asset states.
         model.addAttribute(ASSET_STATES_LIST_ATTRIBUTE, assetStateService.getAssetStatesByAssetId(assetId,
-                1,
+                page,
                 ASSET_STATES_DEFAULT_PAGE_SIZE));
 
         return getPageOrFragment(request, ASSET_STATES_PAGE);

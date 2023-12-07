@@ -1,14 +1,17 @@
 package org.royllo.explorer.web.test.controllers.asset;
 
+import lombok.NonNull;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
+import org.royllo.explorer.core.dto.asset.AssetStateDTO;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.service.asset.AssetGroupService;
 import org.royllo.explorer.core.service.asset.AssetService;
+import org.royllo.explorer.core.service.asset.AssetStateService;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 import org.royllo.explorer.web.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +22,22 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.MockMvc;
 
+import javax.xml.bind.DatatypeConverter;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 import static java.math.BigInteger.ONE;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GROUP_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PAGE;
+import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_STATES_PAGE;
 import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_TXID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_FROM_TEST;
@@ -43,6 +52,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 public class AssetControllerTest extends BaseTest {
 
+    /** Asset state id field separator. */
+    private static final String FIELD_SEPARATOR = "_";
+
     @Autowired
     BitcoinService bitcoinService;
 
@@ -51,6 +63,9 @@ public class AssetControllerTest extends BaseTest {
 
     @Autowired
     AssetService assetService;
+
+    @Autowired
+    AssetStateService assetStateService;
 
     @Autowired
     MockMvc mockMvc;
@@ -146,6 +161,40 @@ public class AssetControllerTest extends BaseTest {
 
     }
 
+    @ParameterizedTest
+    @MethodSource("headers")
+    @DisplayName("Asset states page pagination")
+    void assetStatesPageWithPagination(final HttpHeaders headers) throws Exception {
+        createFakeAssets();
+
+        // Page 1.
+        mockMvc.perform(get("/asset/FAKE_ASSET_ID_01/states").headers(headers))
+                .andExpect(status().isOk())
+                .andExpect(view().name(containsString(ASSET_STATES_PAGE)))
+                // Checking pagination.
+                .andExpect(content().string(not(containsString("previousPage"))))
+                .andExpect(content().string(containsString(">1/5</")))
+                .andExpect(content().string(containsString("nextPage")))
+                .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.tabs.group.noAssetGroup")))))
+                // Error messages.
+                .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.noAssetId")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));
+
+        // Page 5.
+        mockMvc.perform(get("/asset/FAKE_ASSET_ID_01/states?page=5").headers(headers))
+                .andExpect(status().isOk())
+                .andExpect(view().name(containsString(ASSET_STATES_PAGE)))
+                // Checking pagination.
+                .andExpect(content().string(containsString("previousPage")))
+                .andExpect(content().string(containsString(">5/5</")))
+                .andExpect(content().string(not(containsString("nextPage"))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.tabs.group.noAssetGroup")))))
+                // Error messages.
+                .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.noAssetId")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));
+
+    }
+
     /**
      * Create fake assets.
      */
@@ -183,6 +232,46 @@ public class AssetControllerTest extends BaseTest {
                                 .build()
                 );
             }
+        }
+
+        // Create fake asset states.
+        final Optional<AssetDTO> assetForAssetTest = assetService.getAssetByAssetId("FAKE_ASSET_ID_01");
+        if (assetForAssetTest.isPresent()) {
+            for (int i = 1; i <= 50; i++) {
+                final AssetStateDTO assetToCreate = AssetStateDTO.builder()
+                        .creator(ANONYMOUS_USER_DTO)
+                        .asset(assetForAssetTest.get())
+                        .anchorBlockHash("TEST_ANCHOR_BLOCK_HASH" + String.format("%02d", i))
+                        .anchorOutpoint(bto.get())
+                        .anchorTx("TEST_ANCHOR_TX")
+                        .internalKey("TEST_INTERNAL_KEY")
+                        .merkleRoot("TEST_MERKLE_ROOT")
+                        .tapscriptSibling("TEST_TAPSCRIPT_SIBLING")
+                        .scriptVersion(0)
+                        .scriptKey("FAKE_ASSET_STATE_ID_" + String.format("%02d", i))
+                        .build();
+                if (assetStateService.getAssetStateByAssetStateId(calculateAssetStateId(assetToCreate)).isEmpty()) {
+                    assetStateService.addAssetState(assetToCreate);
+                }
+            }
+        } else {
+            fail("Asset FAKE_ASSET_ID_01 not found");
+        }
+
+    }
+
+    private String calculateAssetStateId(@NonNull final AssetStateDTO assetState) {
+        // If we are in an asset state creation, asset state id is null, so we calculate it.
+        // We calculate the asset state id here.
+        String uniqueValue = assetState.getAsset().getAssetId()
+                + FIELD_SEPARATOR + assetState.getAnchorOutpoint().getTxId() + ":" + assetState.getAnchorOutpoint().getVout()
+                + FIELD_SEPARATOR + assetState.getScriptKey();
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] digest = md.digest(uniqueValue.getBytes(StandardCharsets.UTF_8));
+            return DatatypeConverter.printHexBinary(digest).toLowerCase();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("SHA-256 is not available: " + e.getMessage());
         }
     }
 
