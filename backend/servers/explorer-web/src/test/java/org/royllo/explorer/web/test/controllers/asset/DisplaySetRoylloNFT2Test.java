@@ -17,14 +17,17 @@ import static org.hamcrest.Matchers.containsString;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GENESIS_PAGE;
+import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GROUP_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_OWNER_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PROOFS_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_STATES_PAGE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_URL_ATTRIBUTE;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_ASSET_ID;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_FROM_TEST;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_2_ASSET_ID;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_2_ASSET_ID_ALIAS;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_2_FROM_TEST;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_3_ASSET_ID;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_3_FROM_TEST;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -98,17 +101,20 @@ public class DisplaySetRoylloNFT2Test extends BaseTest {
     @DisplayName("Check group page")
     void assetPageGroup(final HttpHeaders headers) throws Exception {
 
-        mockMvc.perform(get("/asset/" + assetId + "/states").headers(headers))
+        mockMvc.perform(get("/asset/" + assetId + "/group").headers(headers))
                 .andExpect(status().isOk())
-                .andExpect(view().name(containsString(ASSET_STATES_PAGE)))
-                // Checking states tab data.
-                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getChainAnchor().getAnchorOutpoint() + "<")))
-                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getScriptKey() + "<")))
-                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getChainAnchor().getAnchorTx() + "<")))
-                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getChainAnchor().getAnchorBlockHash() + "<")))
-                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getChainAnchor().getInternalKey() + "<")))
-                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getChainAnchor().getMerkleRoot() + "<")))
-                .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getChainAnchor().getTapscriptSibling() + "<")))
+                .andExpect(view().name(containsString(ASSET_GROUP_PAGE)))
+                // Checking group tab data.
+                .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.tabs.group.noAssetGroup")))))
+                .andExpect(content().string(containsString(getMessage(messages, "asset.data.tweakedGroupKey") + ": " + assetFromTest.getAsset().getAssetGroup().getTweakedGroupKey())))
+                .andExpect(content().string(containsString("/asset/" + SET_OF_ROYLLO_NFT_1_ASSET_ID)))
+                .andExpect(content().string(containsString("/asset/" + SET_OF_ROYLLO_NFT_2_ASSET_ID)))
+                .andExpect(content().string(containsString("/asset/" + SET_OF_ROYLLO_NFT_3_ASSET_ID)))
+                .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.tabs.group.noAssetGroup")))))
+                // There should be no pagination.
+                .andExpect(content().string(not(containsString("previousPage"))))
+                .andExpect(content().string(not(containsString("currentPage"))))
+                .andExpect(content().string(not(containsString("nextPage"))))
                 // Error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.noAssetId")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));

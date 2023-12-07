@@ -15,8 +15,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -55,7 +53,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         // Search if the "query" parameter is a tweaked group key (asset group) > returns all assets of this asset group.
         final Optional<AssetGroupDTO> assetGroup = assetGroupService.getAssetGroupByAssetGroupId(query);
         if (assetGroup.isPresent()) {
-            results = new PageImpl<>(getAssetsByAssetGroupId(query).stream().toList());
+            results = getAssetsByAssetGroupId(assetGroup.get().getAssetGroupId(), page, pageSize);
         }
 
         // If nothing found, we search if there is this asset in database with this exact asset id.
@@ -164,6 +162,8 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         Optional<Asset> asset = assetRepository.findByAssetId(assetId.trim());
         if (asset.isEmpty()) {
             logger.info("Asset with assetId {} not found, searching on assetIdAlias", assetId);
+
+            // As asset id is not found, we search on asset id alias.
             asset = assetRepository.findByAssetIdAlias(assetId.trim());
             if (asset.isPresent()) {
                 logger.info("Asset with assetIdAlias {} found: {}", assetId, asset.get());
@@ -179,16 +179,19 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
     }
 
     @Override
-    public List<AssetDTO> getAssetsByAssetGroupId(final String assetGroupId) {
+    public Page<AssetDTO> getAssetsByAssetGroupId(final String assetGroupId, final int page, final int pageSize) {
         logger.info("Getting assets with asset group id {}", assetGroupId);
 
+        // Checking constraints.
+        assert page >= 1 : "Page number starts at page 1";
+
+        // If asset group id is null, we return an empty page.
         if (assetGroupId == null) {
-            return Collections.emptyList();
+            return Page.empty();
         }
 
-        return assetRepository.findByAssetGroup_AssetGroupId(assetGroupId.trim()).stream()
-                .map(ASSET_MAPPER::mapToAssetDTO)
-                .toList();
+        return assetRepository.findByAssetGroup_AssetGroupId(assetGroupId.trim(), PageRequest.of(page - 1, pageSize))
+                .map(ASSET_MAPPER::mapToAssetDTO);
     }
 
 }

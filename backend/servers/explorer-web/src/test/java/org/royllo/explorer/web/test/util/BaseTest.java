@@ -1,6 +1,7 @@
 package org.royllo.explorer.web.test.util;
 
 import org.junit.jupiter.params.provider.Arguments;
+import org.royllo.explorer.core.util.base.Base;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
@@ -12,7 +13,7 @@ import static org.royllo.explorer.web.util.base.BaseController.HTMX_REQUEST;
 /**
  * Utility classes for tests.
  */
-public class BaseTest {
+public class BaseTest extends Base {
 
     /**
      * Method used by tests to test htmx and non htmx methods.

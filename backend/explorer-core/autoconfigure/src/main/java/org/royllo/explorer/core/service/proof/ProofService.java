@@ -18,8 +18,7 @@ public interface ProofService {
      * @param decodedProof decoded proof
      * @return the proof created
      */
-    ProofDTO addProof(String proof,
-                      DecodedProofResponse decodedProof);
+    ProofDTO addProof(String proof, DecodedProofResponse decodedProof);
 
     /**
      * Get a proof by its proof id.

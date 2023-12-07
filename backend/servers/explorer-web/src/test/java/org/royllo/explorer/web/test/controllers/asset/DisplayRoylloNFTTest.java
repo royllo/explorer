@@ -56,6 +56,10 @@ public class DisplayRoylloNFTTest extends BaseTest {
                 // Checking tab header.
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getName() + "<")))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getAssetId() + "<")))
+                // There should be no pagination.
+                .andExpect(content().string(not(containsString("previousPage"))))
+                .andExpect(content().string(not(containsString("currentPage"))))
+                .andExpect(content().string(not(containsString("nextPage"))))
                 // Error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.noAssetId")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));
