@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -31,6 +32,7 @@ import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASS
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_ID_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_STATES_LIST_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_URL_ATTRIBUTE;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PAGE_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PROOF_ID_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PROOF_LIST_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.WEB_BASE_URL_ATTRIBUTE;
@@ -76,24 +78,23 @@ public class AssetController extends BaseController {
      * @param model   model
      * @param request request
      * @param assetId asset id
+     * @param page    page number
      * @return asset group page
      */
     @SuppressWarnings("SameReturnValue")
     @GetMapping(value = {"/asset/{assetId}/group"})
     public String assetGroup(final Model model,
                              final HttpServletRequest request,
-                             @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
+                             @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId,
+                             @RequestParam(defaultValue = "1") final int page) {
         final Optional<AssetDTO> asset = addAssetToModel(model, assetId);
+        model.addAttribute(PAGE_ATTRIBUTE, page);
 
         // We search for the assets in the same asset group.
         if (asset.isPresent() && asset.get().getAssetGroup() != null) {
-            // TODO Use a specific method to get assets from a group instead of the search service.
-            // TODO Add a pagination for this result
-            model.addAttribute(ASSETS_IN_GROUP_LIST_ATTRIBUTE,
-                    assetService.queryAssets(asset.get().getAssetGroup().getTweakedGroupKey(),
-                            1,
-                            ASSET_GROUP_ASSETS_DEFAULT_PAGE_SIZE));
-
+            model.addAttribute(ASSETS_IN_GROUP_LIST_ATTRIBUTE, assetService.getAssetsByAssetGroupId(asset.get().getAssetGroup().getAssetGroupId(),
+                    page,
+                    ASSET_GROUP_ASSETS_DEFAULT_PAGE_SIZE));
         }
 
         return getPageOrFragment(request, ASSET_GROUP_PAGE);
@@ -105,18 +106,21 @@ public class AssetController extends BaseController {
      * @param model   model
      * @param request request
      * @param assetId asset id
+     * @param page    page number
      * @return asset states page
      */
     @SuppressWarnings("SameReturnValue")
     @GetMapping(value = {"/asset/{assetId}/states"})
     public String assetStates(final Model model,
                               final HttpServletRequest request,
-                              @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
+                              @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId,
+                              @RequestParam(defaultValue = "1") final int page) {
         addAssetToModel(model, assetId);
+        model.addAttribute(PAGE_ATTRIBUTE, page);
 
         // We retrieve the asset states.
         model.addAttribute(ASSET_STATES_LIST_ATTRIBUTE, assetStateService.getAssetStatesByAssetId(assetId,
-                1,
+                page,
                 ASSET_STATES_DEFAULT_PAGE_SIZE));
 
         return getPageOrFragment(request, ASSET_STATES_PAGE);
@@ -146,20 +150,22 @@ public class AssetController extends BaseController {
      * @param model   model
      * @param request request
      * @param assetId asset id
+     * @param page    page number
      * @return proofs owner page
      */
     @SuppressWarnings("SameReturnValue")
     @GetMapping(value = {"/asset/{assetId}/proofs"})
     public String assetProofs(final Model model,
                               final HttpServletRequest request,
-                              @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
+                              @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId,
+                              @RequestParam(defaultValue = "1") final int page) {
         addAssetToModel(model, assetId);
+        model.addAttribute(PAGE_ATTRIBUTE, page);
 
         // We retrieve the proof files.
-        model.addAttribute(PROOF_LIST_ATTRIBUTE,
-                proofService.getProofByAssetId(assetId.trim(),
-                        1,
-                        ASSET_PROOFS_DEFAULT_PAGE_SIZE));
+        model.addAttribute(PROOF_LIST_ATTRIBUTE, proofService.getProofByAssetId(assetId.trim(),
+                page,
+                ASSET_PROOFS_DEFAULT_PAGE_SIZE));
 
         return getPageOrFragment(request, ASSET_PROOFS_PAGE);
     }
@@ -179,8 +185,7 @@ public class AssetController extends BaseController {
         if (proofFile.isPresent()) {
             return proofFile.get().getProof().getBytes();
         } else {
-            throw new ResponseStatusException(NOT_FOUND,
-                    "Proof not found on asset id:" + assetId + " and proof id:" + proofId);
+            throw new ResponseStatusException(NOT_FOUND, "Proof not found on asset id:" + assetId + " and proof id:" + proofId);
         }
     }
 
@@ -197,8 +202,7 @@ public class AssetController extends BaseController {
         if (asset.isPresent()) {
             model.addAttribute(ASSET_ATTRIBUTE, asset.get());
             // We also set the url to share the asset.
-            model.addAttribute(ASSET_URL_ATTRIBUTE,
-                    model.getAttribute(WEB_BASE_URL_ATTRIBUTE) + "/asset/" + asset.get().getAssetIdAlias());
+            model.addAttribute(ASSET_URL_ATTRIBUTE, model.getAttribute(WEB_BASE_URL_ATTRIBUTE) + "/asset/" + asset.get().getAssetIdAlias());
         }
 
         return asset;

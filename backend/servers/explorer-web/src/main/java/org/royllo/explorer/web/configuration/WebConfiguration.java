@@ -22,13 +22,13 @@ public class WebConfiguration implements WebMvcConfigurer {
     public static final int ASSET_SEARCH_DEFAULT_PAGE_SIZE = 10;
 
     /** Asset group assets default page size. */
-    public static final int ASSET_GROUP_ASSETS_DEFAULT_PAGE_SIZE = 100;
+    public static final int ASSET_GROUP_ASSETS_DEFAULT_PAGE_SIZE = 10;
 
     /** Asset states default page size. */
-    public static final int ASSET_STATES_DEFAULT_PAGE_SIZE = 100;
+    public static final int ASSET_STATES_DEFAULT_PAGE_SIZE = 10;
 
     /** Asset's proofs default page size. */
-    public static final int ASSET_PROOFS_DEFAULT_PAGE_SIZE = 100;
+    public static final int ASSET_PROOFS_DEFAULT_PAGE_SIZE = 10;
 
     /** Incoming rate limits parameters. */
     private final IncomingRateLimitsParameters incomingRateLimitsParameters;

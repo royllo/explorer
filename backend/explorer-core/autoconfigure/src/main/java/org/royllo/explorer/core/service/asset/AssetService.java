@@ -3,7 +3,6 @@ package org.royllo.explorer.core.service.asset;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.springframework.data.domain.Page;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -41,7 +40,7 @@ public interface AssetService {
     Optional<AssetDTO> getAsset(long id);
 
     /**
-     * Get an asset by its asset id or asset Id alias.
+     * Get an asset by its asset id or asset id alias.
      *
      * @param assetId asset id or asset id alias
      * @return asset
@@ -52,8 +51,10 @@ public interface AssetService {
      * Get assets by asset group id.
      *
      * @param assetGroupId asset group id
+     * @param page         page number
+     * @param pageSize     page size
      * @return assets
      */
-    List<AssetDTO> getAssetsByAssetGroupId(String assetGroupId);
+    Page<AssetDTO> getAssetsByAssetGroupId(String assetGroupId, int page, int pageSize);
 
 }

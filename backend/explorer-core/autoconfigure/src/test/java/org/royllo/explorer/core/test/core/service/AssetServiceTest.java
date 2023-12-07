@@ -397,11 +397,13 @@ public class AssetServiceTest extends TestWithMockServers {
     @DisplayName("getAssetByAssetId()")
     public void getAssetsByAssetGroupId() {
         // Test with an asset group that doesn't exist.
-        assertEquals(0, assetService.getAssetsByAssetGroupId("NON_EXISTING_ASSET_GROUP_ID").size());
+        assertEquals(0, assetService.getAssetsByAssetGroupId("NON_EXISTING_ASSET_GROUP_ID", 1, 5).getTotalElements());
 
         // Test with an asset group with three assets.
         final String tweakedGroupKey = SET_OF_ROYLLO_NFT_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup().getTweakedGroupKey();
-        assertEquals(3, assetService.getAssetsByAssetGroupId(tweakedGroupKey).size());
+        // with a page size containing everything.
+        assertEquals(3, assetService.getAssetsByAssetGroupId(tweakedGroupKey, 1, 5).getTotalElements());
+        assertEquals(1, assetService.getAssetsByAssetGroupId(tweakedGroupKey, 1, 5).getTotalPages());
     }
 
 }

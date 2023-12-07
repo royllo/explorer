@@ -14,7 +14,7 @@
         </ul>
     </div>
 
-
+    <!--/* If there are no asset group on this asset */-->
     <div class="overflow-x-auto" th:if="${asset.assetGroup} == null">
         <table class="table table-zebra table-fixed">
             <!--/* Header */-->
@@ -28,10 +28,10 @@
     </div>
 
     <!--/* Display asset group and linked assets */-->
-    <div class="overflow-x-auto" th:if="${asset.assetGroup} != null">
+    <div class="overflow-x-auto mb-5 mt-5" th:if="${asset.assetGroup} != null">
         <table class="table table-zebra table-fixed">
             <!--/* Header */-->
-            <thead class=" w-full">
+            <thead class="w-full">
             <tr>
                 <th class="text-xl font-bold text-ellipsis overflow-hidden"
                     th:text="#{asset.data.tweakedGroupKey} + ': ' + ${asset.assetGroup.tweakedGroupKey}"></th>
@@ -50,6 +50,18 @@
             </tbody>
         </table>
     </div>
+
+    <!--/* Pagination */-->
+    <div th:if="${asset.assetGroup} != null">
+        <div th:insert="~{util/fragments/components/pagination :: pagination(   @{'/asset/' + ${assetId} + '/group'},
+                                                                            '#asset-tab',
+                                                                            ${page},
+                                                                            ${assetsInGroupList.getTotalPages()})}">
+        </div>
+    </div>
+
+    <!--/* TODO Replace this with something more clean */-->
+    <div class="my-16">&nbsp</div>
 
 </div>
 <!--/* =========================================================================================================== */-->

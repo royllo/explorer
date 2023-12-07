@@ -4,7 +4,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
+import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
+import org.royllo.explorer.core.service.asset.AssetGroupService;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 import org.royllo.explorer.web.test.util.BaseTest;
@@ -14,6 +16,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Optional;
@@ -41,6 +44,9 @@ public class SearchControllerTest extends BaseTest {
 
     @Autowired
     BitcoinService bitcoinService;
+
+    @Autowired
+    AssetGroupService assetGroupService;
 
     @Autowired
     AssetService assetService;
@@ -100,6 +106,7 @@ public class SearchControllerTest extends BaseTest {
 
     }
 
+    @DirtiesContext
     @ParameterizedTest
     @MethodSource("headers")
     @DisplayName("Search page with results on several pages")
@@ -125,7 +132,7 @@ public class SearchControllerTest extends BaseTest {
                 .andExpect(content().string(not(containsString("/asset/FAKE_ASSET_ID_11"))))
                 // Checking pages.
                 .andExpect(content().string(not(containsString("previousPage"))))
-                .andExpect(content().string(containsString(">1</")))
+                .andExpect(content().string(containsString(">1/10</")))
                 .andExpect(content().string(containsString("nextPage")))
                 // Checking there is no error message.
                 .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noQuery")))))
@@ -152,7 +159,7 @@ public class SearchControllerTest extends BaseTest {
                 .andExpect(content().string(not(containsString("/asset/FAKE_ASSET_ID_11"))))
                 // Checking pages.
                 .andExpect(content().string(not(containsString("previousPage"))))
-                .andExpect(content().string(containsString(">1</")))
+                .andExpect(content().string(containsString(">1/10</")))
                 .andExpect(content().string(containsString("nextPage")))
                 // Checking there is no error message.
                 .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noQuery")))))
@@ -168,16 +175,33 @@ public class SearchControllerTest extends BaseTest {
                 // Checking results.
                 .andExpect(content().string(not(containsString("/asset/FAKE_ASSET_ID_10"))))
                 .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_11")))
-                .andExpect(content().string(not(containsString("/asset/FAKE_ASSET_ID_12"))))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_20")))
+                .andExpect(content().string(not(containsString("/asset/FAKE_ASSET_ID_21"))))
                 // Checking pages.
                 .andExpect(content().string(containsString("previousPage")))
-                .andExpect(content().string(containsString(">2</")))
-                .andExpect(content().string(not(containsString("nextPage"))))
+                .andExpect(content().string(containsString(">2/10</")))
+                .andExpect(content().string(containsString("nextPage")))
                 // Checking there is no error message.
                 .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noQuery")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "search.error.invalidPage")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noResult")))));
 
+        // Results - Page 10 - Last page
+        mockMvc.perform(get("/search")
+                        .param(QUERY_ATTRIBUTE, " FAKE ")
+                        .param(PAGE_ATTRIBUTE, "10"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(containsString(SEARCH_PAGE)))
+                // Checking results.
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_99")))
+                // Checking pages.
+                .andExpect(content().string(containsString("previousPage")))
+                .andExpect(content().string(containsString(">10/10</")))
+                .andExpect(content().string(not(containsString("nextPage"))))
+                // Checking there is no error message.
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noQuery")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noResult")))));
     }
 
     @ParameterizedTest
@@ -199,20 +223,31 @@ public class SearchControllerTest extends BaseTest {
     }
 
     /**
-     * Create fake assets starting with FAKE_ASSET_%1
+     * Create fake assets.
      */
     private void createFakeAssets() {
         // Transaction used.
         final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 4);
         assertTrue(bto.isPresent());
 
+        // Create a fake asset group.
+        final AssetGroupDTO assetGroupDTO = assetGroupService.getAssetGroupByAssetGroupId("FAKE_ASSET_GROUP_ID")
+                .orElseGet(() -> assetGroupService.addAssetGroup(
+                        AssetGroupDTO.builder()
+                                .assetGroupId("FAKE_ASSET_GROUP_ID")
+                                .tweakedGroupKey("FAKE_TWEAKED_GROUP_KEY")
+                                .creator(ANONYMOUS_USER_DTO)
+                                .build()
+                ));
+
         // Create fake assets.
-        for (int i = 1; i <= 11; i++) {
+        for (int i = 1; i <= 99; i++) {
             final Optional<AssetDTO> assetFound = assetService.getAssetByAssetId("FAKE_ASSET_ID_" + String.format("%02d", i));
             if (assetFound.isEmpty()) {
                 assetService.addAsset(
                         AssetDTO.builder()
                                 .creator(ANONYMOUS_USER_DTO)
+                                .assetGroup(assetGroupDTO)
                                 .assetId("FAKE_ASSET_ID_" + String.format("%02d", i))
                                 .genesisPoint(bto.get())
                                 .metaDataHash("metadata")
