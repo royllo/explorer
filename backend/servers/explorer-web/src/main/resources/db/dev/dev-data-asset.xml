@@ -3,7 +3,6 @@
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet author="straumat" id="test-data-asset">
-
         <!-- ======================================================================================================= -->
         <!-- roylloNFT -->
         <insert tableName="asset">
@@ -23,7 +22,6 @@
             <column name="updated_on"/>
         </insert>
         <!-- ======================================================================================================= -->
-
         <!-- ======================================================================================================= -->
         <!-- setOfRoylloNFT -->
         <insert tableName="asset">
@@ -75,7 +73,6 @@
             <column name="updated_on"/>
         </insert>
         <!-- ======================================================================================================= -->
-
         <!-- ======================================================================================================= -->
         <!-- trickyRoylloCoin -->
         <insert tableName="asset">
@@ -95,7 +92,6 @@
             <column name="updated_on"/>
         </insert>
         <!-- ======================================================================================================= -->
-
         <!-- ======================================================================================================= -->
         <!-- unlimitedRoylloCoin -->
         <insert tableName="asset">
@@ -137,7 +133,6 @@
         <insert tableName="ASSET_GROUP">
             <column name="ID" value="1001"/>
             <column name="FK_USER_CREATOR" value="2"/>
-
             <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1001"/>
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1001"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1001"/>
@@ -147,7 +142,6 @@
             <column name="ID" value="1001"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_1"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_1"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -155,7 +149,6 @@
             <column name="NAME" value="TestPaginationCoin1"/>
             <column name="OUTPUT_INDEX" value="0"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="1001"/>
         </insert>
@@ -163,7 +156,6 @@
             <column name="ID" value="1001"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_1"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -171,19 +163,16 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 1"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_1"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_1"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
             <column name="SCRIPT_VERSION" value="2"/>
             <column name="SCRIPT_KEY" value="Script key 1"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="1002"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_2"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_2"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -191,7 +180,6 @@
             <column name="NAME" value="TestPaginationCoin2"/>
             <column name="OUTPUT_INDEX" value="0"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="1002"/>
         </insert>
@@ -199,7 +187,6 @@
             <column name="ID" value="1002"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1002"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_2"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 2"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -207,19 +194,16 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 2"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_2"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_2"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
             <column name="SCRIPT_VERSION" value="2"/>
             <column name="SCRIPT_KEY" value="Script key 2"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="1003"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_3"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_3"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="3"/>
@@ -227,7 +211,6 @@
             <column name="NAME" value="TestPaginationCoin3"/>
             <column name="OUTPUT_INDEX" value="0"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="1003"/>
         </insert>
@@ -235,7 +218,6 @@
             <column name="ID" value="1003"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1003"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_3"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 3"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -243,19 +225,16 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 3"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_3"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_3"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
             <column name="SCRIPT_VERSION" value="2"/>
             <column name="SCRIPT_KEY" value="Script key 3"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="1004"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_4"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_4"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -263,7 +242,6 @@
             <column name="NAME" value="TestPaginationCoin4"/>
             <column name="OUTPUT_INDEX" value="4"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="1004"/>
         </insert>
@@ -271,7 +249,6 @@
             <column name="ID" value="1004"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1004"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_4"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 4"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -279,19 +256,16 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 4"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_4"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_4"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
             <column name="SCRIPT_VERSION" value="2"/>
             <column name="SCRIPT_KEY" value="Script key 4"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="1005"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_5"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_5"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -299,7 +273,6 @@
             <column name="NAME" value="TestPaginationCoin5"/>
             <column name="OUTPUT_INDEX" value="5"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="1005"/>
         </insert>
@@ -307,7 +280,6 @@
             <column name="ID" value="1005"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1005"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_5"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 5"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -315,19 +287,16 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 5"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_5"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_5"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
             <column name="SCRIPT_VERSION" value="2"/>
             <column name="SCRIPT_KEY" value="Script key 5"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="1006"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_6"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_6"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -335,7 +304,6 @@
             <column name="NAME" value="TestPaginationCoin6"/>
             <column name="OUTPUT_INDEX" value="6"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="1006"/>
         </insert>
@@ -343,7 +311,6 @@
             <column name="ID" value="1006"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1006"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_6"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 6"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -351,19 +318,16 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 6"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_6"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_6"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
             <column name="SCRIPT_VERSION" value="2"/>
             <column name="SCRIPT_KEY" value="Script key 6"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="1007"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_7"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_7"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -371,7 +335,6 @@
             <column name="NAME" value="TestPaginationCoin7"/>
             <column name="OUTPUT_INDEX" value="7"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="1007"/>
         </insert>
@@ -379,7 +342,6 @@
             <column name="ID" value="1007"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1007"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_7"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 7"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -387,19 +349,16 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 7"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_7"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_7"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
             <column name="SCRIPT_VERSION" value="2"/>
             <column name="SCRIPT_KEY" value="Script key 7"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="1008"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_8"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_8"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -407,7 +366,6 @@
             <column name="NAME" value="TestPaginationCoin8"/>
             <column name="OUTPUT_INDEX" value="8"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="1008"/>
         </insert>
@@ -415,7 +373,6 @@
             <column name="ID" value="1008"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1008"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_8"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 8"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -423,19 +380,16 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 8"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_8"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_8"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
             <column name="SCRIPT_VERSION" value="2"/>
             <column name="SCRIPT_KEY" value="Script key 8"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="1009"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_9"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_9"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -443,7 +397,6 @@
             <column name="NAME" value="TestPaginationCoin0"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="1009"/>
         </insert>
@@ -451,7 +404,6 @@
             <column name="ID" value="1009"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1009"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_9"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 9"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -459,19 +411,16 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 9"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_9"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_9"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
             <column name="SCRIPT_VERSION" value="2"/>
             <column name="SCRIPT_KEY" value="Script key 9"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10002"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10002"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10002"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -479,16 +428,13 @@
             <column name="NAME" value="TestPaginationCoin_10002"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10003"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10003"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10003"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -496,16 +442,13 @@
             <column name="NAME" value="TestPaginationCoin_10003"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10004"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10004"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10004"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -513,16 +456,13 @@
             <column name="NAME" value="TestPaginationCoin_10004"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10005"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10005"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10005"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -530,16 +470,13 @@
             <column name="NAME" value="TestPaginationCoin_10005"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10006"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10006"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10006"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -547,16 +484,13 @@
             <column name="NAME" value="TestPaginationCoin_10006"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10007"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10007"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10007"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -564,16 +498,13 @@
             <column name="NAME" value="TestPaginationCoin_10007"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10008"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10008"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10008"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -581,16 +512,13 @@
             <column name="NAME" value="TestPaginationCoin_10008"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10009"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10009"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10009"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -598,16 +526,13 @@
             <column name="NAME" value="TestPaginationCoin_10009"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10010"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10010"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10010"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -615,16 +540,13 @@
             <column name="NAME" value="TestPaginationCoin_10010"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10011"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10011"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10011"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -632,16 +554,13 @@
             <column name="NAME" value="TestPaginationCoin_10011"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10012"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10012"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10012"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -649,16 +568,13 @@
             <column name="NAME" value="TestPaginationCoin_10012"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10013"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10013"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10013"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -666,16 +582,13 @@
             <column name="NAME" value="TestPaginationCoin_10013"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10014"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10014"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10014"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -683,16 +596,13 @@
             <column name="NAME" value="TestPaginationCoin_10014"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10015"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10015"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10015"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -700,16 +610,13 @@
             <column name="NAME" value="TestPaginationCoin_10015"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10016"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10016"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10016"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -717,16 +624,13 @@
             <column name="NAME" value="TestPaginationCoin_10016"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10017"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10017"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10017"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -734,16 +638,13 @@
             <column name="NAME" value="TestPaginationCoin_10017"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10018"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10018"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10018"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -751,16 +652,13 @@
             <column name="NAME" value="TestPaginationCoin_10018"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10019"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10019"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10019"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -768,16 +666,13 @@
             <column name="NAME" value="TestPaginationCoin_10019"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10020"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10020"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10020"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -785,16 +680,13 @@
             <column name="NAME" value="TestPaginationCoin_10020"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10021"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10021"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10021"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -802,16 +694,13 @@
             <column name="NAME" value="TestPaginationCoin_10021"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10022"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10022"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10022"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -819,16 +708,13 @@
             <column name="NAME" value="TestPaginationCoin_10022"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10023"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10023"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10023"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -836,16 +722,13 @@
             <column name="NAME" value="TestPaginationCoin_10023"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10024"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10024"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10024"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -853,16 +736,13 @@
             <column name="NAME" value="TestPaginationCoin_10024"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10025"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10025"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10025"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -870,16 +750,13 @@
             <column name="NAME" value="TestPaginationCoin_10025"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10026"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10026"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10026"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -887,16 +764,13 @@
             <column name="NAME" value="TestPaginationCoin_10026"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10027"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10027"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10027"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -904,16 +778,13 @@
             <column name="NAME" value="TestPaginationCoin_10027"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10028"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10028"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10028"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -921,16 +792,13 @@
             <column name="NAME" value="TestPaginationCoin_10028"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10029"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10029"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10029"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -938,16 +806,13 @@
             <column name="NAME" value="TestPaginationCoin_10029"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10030"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10030"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10030"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -955,16 +820,13 @@
             <column name="NAME" value="TestPaginationCoin_10030"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <insert tableName="ASSET">
             <column name="ID" value="10031"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP" value="1001"/>
-
             <column name="ASSET_ID" value="asset_id_10031"/>
             <column name="ASSET_ID_ALIAS" value="asset_id_10031"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
@@ -972,18 +834,14 @@
             <column name="NAME" value="TestPaginationCoin_10031"/>
             <column name="OUTPUT_INDEX" value="9"/>
             <column name="VERSION" value="0"/>
-
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="AMOUNT" value="10"/>
         </insert>
-
         <!-- Asset states used to test pagination -->
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="10001"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10001"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 10001"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -991,7 +849,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 10001"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_10001"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_10001"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -999,12 +856,10 @@
             <column name="SCRIPT_KEY" value="Script key 10001"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="10002"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10002"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 10002"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1012,7 +867,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 10002"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_10002"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_10002"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1020,12 +874,10 @@
             <column name="SCRIPT_KEY" value="Script key 10002"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="10003"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10003"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 10003"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1033,7 +885,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 10003"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_10003"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_10003"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1041,12 +892,10 @@
             <column name="SCRIPT_KEY" value="Script key 10003"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="10004"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10004"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 10004"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1054,7 +903,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 10004"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_10004"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_10004"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1062,12 +910,10 @@
             <column name="SCRIPT_KEY" value="Script key 10004"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="10005"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10005"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 10005"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1075,7 +921,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 10005"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_10005"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_10005"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1083,12 +928,10 @@
             <column name="SCRIPT_KEY" value="Script key 10005"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="10006"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10006"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 10006"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1096,7 +939,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 10006"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_10006"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_10006"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1104,12 +946,10 @@
             <column name="SCRIPT_KEY" value="Script key 10006"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="10007"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10007"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 10007"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1117,7 +957,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 10007"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_10007"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_10007"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1125,12 +964,10 @@
             <column name="SCRIPT_KEY" value="Script key 10007"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="10008"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10008"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 10008"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1138,7 +975,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 10008"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_10008"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_10008"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1146,12 +982,10 @@
             <column name="SCRIPT_KEY" value="Script key 10008"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="10009"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_10009"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 10009"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1159,7 +993,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 10009"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_10009"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_10009"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1167,12 +1000,10 @@
             <column name="SCRIPT_KEY" value="Script key 10009"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100010"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100010"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100010"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1180,7 +1011,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100010"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100010"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100010"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1188,12 +1018,10 @@
             <column name="SCRIPT_KEY" value="Script key 100010"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100011"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100011"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100011"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1201,7 +1029,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100011"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100011"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100011"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1209,12 +1036,10 @@
             <column name="SCRIPT_KEY" value="Script key 100011"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100012"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100012"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100012"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1222,7 +1047,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100012"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100012"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100012"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1230,12 +1054,10 @@
             <column name="SCRIPT_KEY" value="Script key 100012"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100013"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100013"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100013"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1243,7 +1065,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100013"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100013"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100013"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1251,12 +1072,10 @@
             <column name="SCRIPT_KEY" value="Script key 100013"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100014"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100014"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100014"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1264,7 +1083,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100014"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100014"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100014"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1272,12 +1090,10 @@
             <column name="SCRIPT_KEY" value="Script key 100014"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100015"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100015"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100015"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1285,7 +1101,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100015"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100015"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100015"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1293,12 +1108,10 @@
             <column name="SCRIPT_KEY" value="Script key 100015"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100016"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100016"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100016"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1306,7 +1119,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100016"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100016"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100016"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1314,12 +1126,10 @@
             <column name="SCRIPT_KEY" value="Script key 100016"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100017"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100017"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100017"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1327,7 +1137,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100017"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100017"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100017"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1335,12 +1144,10 @@
             <column name="SCRIPT_KEY" value="Script key 100017"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100018"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100018"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100018"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1348,7 +1155,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100018"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100018"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100018"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1356,12 +1162,10 @@
             <column name="SCRIPT_KEY" value="Script key 100018"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100019"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100019"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100019"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1369,7 +1173,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100019"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100019"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100019"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1377,12 +1180,10 @@
             <column name="SCRIPT_KEY" value="Script key 100019"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100020"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100020"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100020"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1390,7 +1191,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100020"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100020"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100020"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1398,12 +1198,10 @@
             <column name="SCRIPT_KEY" value="Script key 100020"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100021"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100021"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100021"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1411,7 +1209,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100021"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100021"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100021"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1419,12 +1216,10 @@
             <column name="SCRIPT_KEY" value="Script key 100021"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100022"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100022"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100022"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1432,7 +1227,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100022"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100022"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100022"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1440,12 +1234,10 @@
             <column name="SCRIPT_KEY" value="Script key 100022"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100023"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100023"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100023"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1453,7 +1245,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100023"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100023"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100023"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1461,12 +1252,10 @@
             <column name="SCRIPT_KEY" value="Script key 100023"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100024"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100024"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100024"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1474,7 +1263,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100024"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100024"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100024"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1482,12 +1270,10 @@
             <column name="SCRIPT_KEY" value="Script key 100024"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100025"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100025"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100025"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1495,7 +1281,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100025"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100025"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100025"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1503,12 +1288,10 @@
             <column name="SCRIPT_KEY" value="Script key 100025"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100026"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100026"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100026"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1516,7 +1299,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100026"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100026"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100026"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1524,12 +1306,10 @@
             <column name="SCRIPT_KEY" value="Script key 100026"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100027"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100027"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100027"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1537,7 +1317,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100027"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100027"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100027"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1545,12 +1324,10 @@
             <column name="SCRIPT_KEY" value="Script key 100027"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100028"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100028"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100028"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1558,7 +1335,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100028"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100028"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100028"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1566,12 +1342,10 @@
             <column name="SCRIPT_KEY" value="Script key 100028"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100029"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100029"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100029"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1579,7 +1353,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100029"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100029"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100029"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1587,12 +1360,10 @@
             <column name="SCRIPT_KEY" value="Script key 100029"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100030"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100030"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100030"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1600,7 +1371,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100030"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100030"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100030"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1608,12 +1378,10 @@
             <column name="SCRIPT_KEY" value="Script key 100030"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100031"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100031"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100031"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1621,7 +1389,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100031"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100031"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100031"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1629,12 +1396,10 @@
             <column name="SCRIPT_KEY" value="Script key 100031"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100032"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100032"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100032"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1642,7 +1407,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100032"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100032"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100032"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1650,12 +1414,10 @@
             <column name="SCRIPT_KEY" value="Script key 100032"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100033"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100033"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100033"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1663,7 +1425,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100033"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100033"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100033"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1671,12 +1432,10 @@
             <column name="SCRIPT_KEY" value="Script key 100033"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100034"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100034"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100034"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1684,7 +1443,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100034"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100034"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100034"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1692,12 +1450,10 @@
             <column name="SCRIPT_KEY" value="Script key 100034"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100035"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100035"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100035"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1705,7 +1461,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100035"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100035"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100035"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1713,12 +1468,10 @@
             <column name="SCRIPT_KEY" value="Script key 100035"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100036"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100036"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100036"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1726,7 +1479,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100036"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100036"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100036"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1734,12 +1486,10 @@
             <column name="SCRIPT_KEY" value="Script key 100036"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100037"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100037"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100037"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1747,7 +1497,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100037"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100037"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100037"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1755,12 +1504,10 @@
             <column name="SCRIPT_KEY" value="Script key 100037"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100038"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100038"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100038"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1768,7 +1515,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100038"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100038"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100038"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1776,12 +1522,10 @@
             <column name="SCRIPT_KEY" value="Script key 100038"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100039"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100039"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100039"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1789,7 +1533,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100039"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100039"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100039"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1797,12 +1540,10 @@
             <column name="SCRIPT_KEY" value="Script key 100039"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100040"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100040"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100040"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1810,7 +1551,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100040"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100040"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100040"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1818,12 +1558,10 @@
             <column name="SCRIPT_KEY" value="Script key 100040"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100041"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100041"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100041"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1831,7 +1569,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100041"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100041"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100041"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1839,12 +1576,10 @@
             <column name="SCRIPT_KEY" value="Script key 100041"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100042"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100042"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100042"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1852,7 +1587,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100042"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100042"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100042"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1860,12 +1594,10 @@
             <column name="SCRIPT_KEY" value="Script key 100042"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100043"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100043"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100043"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1873,7 +1605,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100043"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100043"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100043"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1881,12 +1612,10 @@
             <column name="SCRIPT_KEY" value="Script key 100043"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100044"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100044"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100044"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1894,7 +1623,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100044"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100044"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100044"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1902,12 +1630,10 @@
             <column name="SCRIPT_KEY" value="Script key 100044"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100045"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100045"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100045"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1915,7 +1641,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100045"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100045"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100045"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1923,12 +1648,10 @@
             <column name="SCRIPT_KEY" value="Script key 100045"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100046"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100046"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100046"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1936,7 +1659,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100046"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100046"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100046"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1944,12 +1666,10 @@
             <column name="SCRIPT_KEY" value="Script key 100046"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100047"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100047"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100047"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1957,7 +1677,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100047"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100047"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100047"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1965,12 +1684,10 @@
             <column name="SCRIPT_KEY" value="Script key 100047"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100048"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100048"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100048"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1978,7 +1695,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100048"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100048"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100048"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -1986,12 +1702,10 @@
             <column name="SCRIPT_KEY" value="Script key 100048"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100049"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100049"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100049"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -1999,7 +1713,6 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100049"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100049"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100049"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
@@ -2007,12 +1720,10 @@
             <column name="SCRIPT_KEY" value="Script key 100049"/>
         </insert>
 
-
         <insert tableName="ASSET_STATE">
             <column name="ID" value="100050"/>
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
-
             <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_100050"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 100050"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
@@ -2020,12 +1731,562 @@
             <column name="INTERNAL_KEY" value="Anchor internal key 100050"/>
             <column name="MERKLE_ROOT" value="MERKLE_ROOT_100050"/>
             <column name="TAPSCRIPT_SIBLING" value="TAPSCRIPT_SIBLING_100050"/>
-
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
             <column name="SCRIPT_VERSION" value="2"/>
             <column name="SCRIPT_KEY" value="Script key 100050"/>
+        </insert>
+
+        <!-- Proofs to test pagination -->
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="10001"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="e443169117a184f91186b401133b20be670c7c0896f9886075e5d9b81e9d076b"/>
+            <column name="proof" value="10001"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="10002"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="56acd2f85500d246e0851f77035f8b4414a57c4f31735c8f37c9cec0f3739d47"/>
+            <column name="proof" value="10002"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="10003"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="e162e30a5a4c1e44a7e04fca063c296001f26636ecf384701ae17849a4f83b11"/>
+            <column name="proof" value="10003"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="10004"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="0d9a5484f79ebe89bed064cf5f71ba2575c3e16cb3f135d8c1fd76e1965e5ec7"/>
+            <column name="proof" value="10004"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="10005"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="a1c5f5584e304e6cf402ea7924ee66c0469679d1dc90486d6524a1aa8ec27b29"/>
+            <column name="proof" value="10005"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="10006"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="a6c9b0f863d3c2056830114bb5edc235eb5257268e8c3e2a0aaf4a61c20730e2"/>
+            <column name="proof" value="10006"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="10007"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="9dddde7e9531b9f9375090d34d68df60e318871bea5f3129962ab4fee8d33033"/>
+            <column name="proof" value="10007"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="10008"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="39346d4953adbb253889a404644dbec64d75777ce1893192f112f6ce0048d925"/>
+            <column name="proof" value="10008"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="10009"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="53a84293ab3ff273bdda0995aa97b22da014323a3fb42a7290d3eb78f4385314"/>
+            <column name="proof" value="10009"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100010"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="a9788e889e31fccc4651902adb05d2f8c4bcc1845694d91202e72716ebe9a4a0"/>
+            <column name="proof" value="100010"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100011"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="8162e509861bf0b9ccdb512d6abb780ed03beacb777c62b761562a9c2458de5d"/>
+            <column name="proof" value="100011"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100012"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="92eed7da0290ed8950c106c08c30b86b42975c23a95acfba509d3088818566d4"/>
+            <column name="proof" value="100012"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100013"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="36209542362787f22054182c3e41409fd1b0486ecb282c02dc57b4f98e47de70"/>
+            <column name="proof" value="100013"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100014"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="81bac4d5e72a902240671a10a7fb277575d9b9365972bd063604429f16bbb0c5"/>
+            <column name="proof" value="100014"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100015"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="0189782e2d72a44a603d97e504deeca637b1bbc6f9d52eb2fb6aff0d27cf8b36"/>
+            <column name="proof" value="100015"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100016"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="87d4a243d01cc915105fb9605df6ff9bfeab911e0b90e7137d4e68482c4510fd"/>
+            <column name="proof" value="100016"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100017"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="1acbb3962a15a2e44003b169c53a252549e1a0a46bc74d381f61cab4a0aa11c4"/>
+            <column name="proof" value="100017"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100018"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="90a39c4f8f2b9420a3d0caaa9bf842210ec967db323c20a206040cf35b590464"/>
+            <column name="proof" value="100018"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100019"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="1dc132aa79c22b2e6ca16c048f22a33faadc5581ecb152e955732f2aea05cba0"/>
+            <column name="proof" value="100019"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100020"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="6404e853cc54939b97d57f059327a092c76c39ad1d16fff53dec151781c5ea9f"/>
+            <column name="proof" value="100020"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100021"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="d9a14448faceec97e5359937305986f77b948c9c9c5c63b0a7564b8cd3cbec8a"/>
+            <column name="proof" value="100021"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100022"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="98d3aa2a2461646c07ba02a03ca716592661148ce41c1ce54a49885ca6b82971"/>
+            <column name="proof" value="100022"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100023"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="37cc4d783c2f0c7993cf9fd37ce08c105e19b65609b5778abaf76843a41d2e23"/>
+            <column name="proof" value="100023"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100024"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="a90260346935a0134bb6835b648da50f2ce636fe364730761a62feb60e67815a"/>
+            <column name="proof" value="100024"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100025"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="ea18c18f33f6443ad78a3fa448b93faa23e3ef8ad36929161a11a8eacf952963"/>
+            <column name="proof" value="100025"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100026"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="3a2973d660e446db44bccc17c08d8f135f440731d6ed0c7b8cd4434ad2a32140"/>
+            <column name="proof" value="100026"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100027"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="31ee8cfc3c4a75d84a0eed3680f6bf25ff94bbefd3dcb410b701804edf230d53"/>
+            <column name="proof" value="100027"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100028"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="57c327ffcc8b5855ff07ff2558e8666a13b87d5730cdbe0d1b3517ab6891a4f5"/>
+            <column name="proof" value="100028"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100029"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="660724a9aea1277ab1096e00f13a9bce6c2792321ef25f7444f4528ba956a9b5"/>
+            <column name="proof" value="100029"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100030"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="24e3ef295497fb46bd6ec4c926e8a42faec3bc9c8158f270cb28b3e140fc8fef"/>
+            <column name="proof" value="100030"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100031"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="c1c44378d8ba1a8389199f6c69e78a6798911f3d21902d4d99ca713d11d8ebf2"/>
+            <column name="proof" value="100031"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100032"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="69f3ce645ebec7841fc4a6e63f5ebdf709beec4ae9af4766c5e3dff7eb452ab0"/>
+            <column name="proof" value="100032"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100033"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="0644ac826b5232b9b680c652e4aaf7a6e9366d84b3e786e586b570045530cf99"/>
+            <column name="proof" value="100033"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100034"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="9654242cd94a7e2a01fa533e9602a2a98675148e65e32d885a168c98a92a0b70"/>
+            <column name="proof" value="100034"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100035"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="fbb6c37ba1b13d1b4de60977e6e338fd8b7d19fbd8d8bf49bfa63b4418190c20"/>
+            <column name="proof" value="100035"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100036"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="30fd67ba2c0a31a8400e557cbd41281d673de1e397b6725d64877ac96613865e"/>
+            <column name="proof" value="100036"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100037"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="61ddd79a3d28252ae7e6cdfece4a2abb6e44527e1b8a1bbfea00f5975ac200f9"/>
+            <column name="proof" value="100037"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100038"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="2646150e111d418bb019f472dece64ccfbbf5e11d6e27c2d9b3f315989a60a44"/>
+            <column name="proof" value="100038"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100039"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="a9bcd7e29196a705cfcb1725e29776989d492ee2b615175c135b4e03d7c76373"/>
+            <column name="proof" value="100039"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100040"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="09cd7494ba6d3a13d8181e6ab41e5d06bab8c876d66acc112c9201ee017bf95e"/>
+            <column name="proof" value="100040"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100041"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="a278fe7f41d196144ab7e25c8bcda763b8ece11ba1d97b4c36a7ee3511fe7a12"/>
+            <column name="proof" value="100041"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100042"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="41f0675ef8c61bf86282af348cc25563c49ffc563c470a41b0bd658e877ab2dc"/>
+            <column name="proof" value="100042"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100043"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="f0a6f19e7358bf2c75ddd7ef42ced97f4a8cd6ec538cdb5cfe01f203e9dfb4ef"/>
+            <column name="proof" value="100043"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100044"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="5644a4eec0549ffbf83ae68eac2e41c98afe31d82e3395f2e658e59fc5d91c8a"/>
+            <column name="proof" value="100044"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100045"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="39d6e9140e1bd1dc6f65b2b26bd39145b5047087456c34573b1739bbba53153b"/>
+            <column name="proof" value="100045"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100046"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="b2e21cba3b9ecbe099d9c8010094aba5e4e2098b48ab58acd9ac165f27447f15"/>
+            <column name="proof" value="100046"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100047"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="be8d4c6bac0310b4c7c34227137b3086c2ed53711d283d4e0d462b7c1f330ac9"/>
+            <column name="proof" value="100047"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100048"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="7bebd2d43e22fcaf15f1ce474a32bd6bed84c8c36f1043458ae3f1fe62f3d114"/>
+            <column name="proof" value="100048"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100049"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="f1f223b07299823dc16da4bbbccd03fbb8098eb09eb5aa2739c0c214e14b7304"/>
+            <column name="proof" value="100049"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
+        </insert>
+
+
+        <insert tableName="proof">
+            <column name="id" valueNumeric="100050"/>
+            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_asset" valueNumeric="1001"/>
+            <column name="proof_id" value="ca459e250ec57a785ab46804d15bf239664a464e6d757c4f3200956a0e490f75"/>
+            <column name="proof" value="100050"/>
+            <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
+            <column name="updated_on"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

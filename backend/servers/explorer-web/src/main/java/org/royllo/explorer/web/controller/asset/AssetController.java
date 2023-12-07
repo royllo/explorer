@@ -150,20 +150,22 @@ public class AssetController extends BaseController {
      * @param model   model
      * @param request request
      * @param assetId asset id
+     * @param page    page number
      * @return proofs owner page
      */
     @SuppressWarnings("SameReturnValue")
     @GetMapping(value = {"/asset/{assetId}/proofs"})
     public String assetProofs(final Model model,
                               final HttpServletRequest request,
-                              @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
+                              @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId,
+                              @RequestParam(defaultValue = "1") final int page) {
         addAssetToModel(model, assetId);
+        model.addAttribute(PAGE_ATTRIBUTE, page);
 
         // We retrieve the proof files.
-        model.addAttribute(PROOF_LIST_ATTRIBUTE,
-                proofService.getProofByAssetId(assetId.trim(),
-                        1,
-                        ASSET_PROOFS_DEFAULT_PAGE_SIZE));
+        model.addAttribute(PROOF_LIST_ATTRIBUTE, proofService.getProofByAssetId(assetId.trim(),
+                page,
+                ASSET_PROOFS_DEFAULT_PAGE_SIZE));
 
         return getPageOrFragment(request, ASSET_PROOFS_PAGE);
     }
@@ -183,8 +185,7 @@ public class AssetController extends BaseController {
         if (proofFile.isPresent()) {
             return proofFile.get().getProof().getBytes();
         } else {
-            throw new ResponseStatusException(NOT_FOUND,
-                    "Proof not found on asset id:" + assetId + " and proof id:" + proofId);
+            throw new ResponseStatusException(NOT_FOUND, "Proof not found on asset id:" + assetId + " and proof id:" + proofId);
         }
     }
 
@@ -201,8 +202,7 @@ public class AssetController extends BaseController {
         if (asset.isPresent()) {
             model.addAttribute(ASSET_ATTRIBUTE, asset.get());
             // We also set the url to share the asset.
-            model.addAttribute(ASSET_URL_ATTRIBUTE,
-                    model.getAttribute(WEB_BASE_URL_ATTRIBUTE) + "/asset/" + asset.get().getAssetIdAlias());
+            model.addAttribute(ASSET_URL_ATTRIBUTE, model.getAttribute(WEB_BASE_URL_ATTRIBUTE) + "/asset/" + asset.get().getAssetIdAlias());
         }
 
         return asset;

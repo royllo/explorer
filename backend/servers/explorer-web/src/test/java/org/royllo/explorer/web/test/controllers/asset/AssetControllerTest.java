@@ -5,10 +5,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.royllo.explorer.core.domain.proof.Proof;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
 import org.royllo.explorer.core.dto.asset.AssetStateDTO;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
+import org.royllo.explorer.core.repository.proof.ProofRepository;
 import org.royllo.explorer.core.service.asset.AssetGroupService;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.asset.AssetStateService;
@@ -33,10 +35,12 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
 import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GROUP_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PAGE;
+import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PROOFS_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_STATES_PAGE;
 import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_TXID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
@@ -54,6 +58,9 @@ public class AssetControllerTest extends BaseTest {
 
     /** Asset state id field separator. */
     private static final String FIELD_SEPARATOR = "_";
+
+    @Autowired
+    ProofRepository proofRepository;
 
     @Autowired
     BitcoinService bitcoinService;
@@ -195,6 +202,40 @@ public class AssetControllerTest extends BaseTest {
 
     }
 
+    @ParameterizedTest
+    @MethodSource("headers")
+    @DisplayName("Asset proofs page pagination")
+    void assetProofsPageWithPagination(final HttpHeaders headers) throws Exception {
+        createFakeAssets();
+
+        // Page 1.
+        mockMvc.perform(get("/asset/FAKE_ASSET_ID_01/proofs").headers(headers))
+                .andExpect(status().isOk())
+                .andExpect(view().name(containsString(ASSET_PROOFS_PAGE)))
+                // Checking pagination.
+                .andExpect(content().string(not(containsString("previousPage"))))
+                .andExpect(content().string(containsString(">1/3</")))
+                .andExpect(content().string(containsString("nextPage")))
+                .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.tabs.group.noAssetGroup")))))
+                // Error messages.
+                .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.noAssetId")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));
+
+        // Page 5.
+        mockMvc.perform(get("/asset/FAKE_ASSET_ID_01/proofs?page=3").headers(headers))
+                .andExpect(status().isOk())
+                .andExpect(view().name(containsString(ASSET_PROOFS_PAGE)))
+                // Checking pagination.
+                .andExpect(content().string(containsString("previousPage")))
+                .andExpect(content().string(containsString(">3/3</")))
+                .andExpect(content().string(not(containsString("nextPage"))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.tabs.group.noAssetGroup")))))
+                // Error messages.
+                .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.noAssetId")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));
+
+    }
+
     /**
      * Create fake assets.
      */
@@ -241,7 +282,7 @@ public class AssetControllerTest extends BaseTest {
                 final AssetStateDTO assetToCreate = AssetStateDTO.builder()
                         .creator(ANONYMOUS_USER_DTO)
                         .asset(assetForAssetTest.get())
-                        .anchorBlockHash("TEST_ANCHOR_BLOCK_HASH" + String.format("%02d", i))
+                        .anchorBlockHash("TEST_ANCHOR_BLOCK_HASH_" + String.format("%02d", i))
                         .anchorOutpoint(bto.get())
                         .anchorTx("TEST_ANCHOR_TX")
                         .internalKey("TEST_INTERNAL_KEY")
@@ -256,6 +297,21 @@ public class AssetControllerTest extends BaseTest {
             }
         } else {
             fail("Asset FAKE_ASSET_ID_01 not found");
+        }
+
+        // Create fake proofs.
+        for (int i = 1; i <= 30; i++) {
+            final String proof = "TEST_ANCHOR_BLOCK_HASH_" + String.format("%02d", i);
+            final Optional<Proof> proofFound = proofRepository.findByProofId(sha256(proof));
+            if (proofFound.isEmpty()) {
+                // Proof doesn't exist, we create the proof.
+                proofRepository.save(Proof.builder()
+                        .proofId(sha256(proof))
+                        .creator(ANONYMOUS_USER)
+                        .asset(ASSET_MAPPER.mapToAsset(assetForAssetTest.get()))
+                        .proof(proof)
+                        .build());
+            }
         }
 
     }
