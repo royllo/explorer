@@ -31,9 +31,13 @@ public interface TapdService {
      * Get universe roots.
      *
      * @param serverAddress server address
+     * @param offset        The offset for the page.
+     * @param limit         The length limit for the page.
      * @return universe roots
      */
-    Mono<UniverseRootsResponse> getUniverseRoots(String serverAddress);
+    Mono<UniverseRootsResponse> getUniverseRoots(String serverAddress,
+                                                 int offset,
+                                                 int limit);
 
     /**
      * Get universe leaves.

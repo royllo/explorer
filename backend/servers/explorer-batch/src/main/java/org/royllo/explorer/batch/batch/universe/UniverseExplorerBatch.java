@@ -28,6 +28,9 @@ public class UniverseExplorerBatch extends BaseBatch {
     /** Delay between two calls to process requests (1 000 ms = 1 second). */
     private static final int DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS = 60_000;
 
+    /** Universe roots results limit. */
+    public static final int UNIVERSE_ROOTS_LIMIT = 100;
+
     /** Proof repository. */
     private final ProofRepository proofRepository;
 
@@ -54,8 +57,9 @@ public class UniverseExplorerBatch extends BaseBatch {
                 universeServer.setLastSynchronizedOn(now());
                 universeServerRepository.save(universeServer);
 
+                
                 // We retrieve the universe roots.
-                final UniverseRootsResponse universeRoots = tapdService.getUniverseRoots(universeServer.getServerAddress()).block();
+                final UniverseRootsResponse universeRoots = tapdService.getUniverseRoots(universeServer.getServerAddress(), 0, UNIVERSE_ROOTS_LIMIT).block();
                 if (universeRoots == null) {
                     logger.error("No universe roots found for server - null reply: {}", universeServer.getServerAddress());
                     return;
