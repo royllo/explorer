@@ -1,6 +1,6 @@
 package org.royllo.explorer.core.provider.tapd;
 
-import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.BandwidthBuilder;
 import io.github.bucket4j.Bucket;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
@@ -46,7 +46,9 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
     @PostConstruct
     private void postConstruct() {
         bucket = Bucket.builder()
-                .addLimit(Bandwidth.simple(1, outgoingRateLimitsParameters.getDelayBetweenRequests()))
+                .addLimit(BandwidthBuilder.builder()
+                        .capacity(1)
+                        .refillGreedy(1, outgoingRateLimitsParameters.getDelayBetweenRequests()).build())
                 .build();
     }
 
