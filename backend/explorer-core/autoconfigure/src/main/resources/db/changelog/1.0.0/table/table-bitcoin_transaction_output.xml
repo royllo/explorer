@@ -10,7 +10,8 @@
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"
                     remarks="Unique identifier">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_BITCOIN_TRANSACTION_OUTPUT"/>
+                <constraints nullable="false" primaryKey="true"
+                             primaryKeyName="PRIMARY_KEY_BITCOIN_TRANSACTION_OUTPUT"/>
             </column>
 
             <!-- Output localisation -->
@@ -47,13 +48,13 @@
                           startWith="3"/>
 
         <!-- Index on TXID -->
-        <createIndex indexName="IDX_BITCOIN_TRANSACTION_OUTPUT_TXID"
+        <createIndex indexName="INDEX_BITCOIN_TRANSACTION_OUTPUT_TXID"
                      tableName="BITCOIN_TRANSACTION_OUTPUT">
             <column name="TXID"/>
         </createIndex>
 
         <!-- Index on TXID, VOUT -->
-        <createIndex indexName="IDX_BITCOIN_TRANSACTION_OUTPUT_TXID_VOUT"
+        <createIndex indexName="INDEX_BITCOIN_TRANSACTION_OUTPUT_TXID_VOUT"
                      tableName="BITCOIN_TRANSACTION_OUTPUT">
             <column name="TXID"/>
             <column name="VOUT"/>

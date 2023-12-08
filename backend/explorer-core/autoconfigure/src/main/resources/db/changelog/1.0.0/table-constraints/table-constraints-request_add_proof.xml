@@ -5,14 +5,14 @@
     <changeSet author="straumat" id="1.0.0-table-constraints-request_add_proof">
 
         <!-- Foreign key REQUEST_ADD_ASSET.ID > REQUEST.ID -->
-        <addForeignKeyConstraint constraintName="FK_REQUEST_ADD_PROOF_REQUEST_ID"
+        <addForeignKeyConstraint constraintName="FOREIGN_KEY_REQUEST_ADD_PROOF_REQUEST_ID"
                                  baseColumnNames="ID"
                                  baseTableName="REQUEST_ADD_PROOF"
                                  referencedTableName="REQUEST"
                                  referencedColumnNames="ID"/>
 
         <!-- Foreign key FK_ASSET > ASSETS.ID -->
-        <addForeignKeyConstraint constraintName="FK_REQUEST_ADD_PROOF_ASSET_ID"
+        <addForeignKeyConstraint constraintName="FOREIGN_KEY_REQUEST_ADD_PROOF_ASSET_ID"
                                  baseColumnNames="FK_ASSET"
                                  baseTableName="REQUEST_ADD_PROOF"
                                  referencedTableName="ASSET"

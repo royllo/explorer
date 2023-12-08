@@ -10,7 +10,8 @@
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"
                     remarks="Unique identifier">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_REQUEST_ADD_UNIVERSE_SERVER"/>
+                <constraints nullable="false" primaryKey="true"
+                             primaryKeyName="PRIMARY_KEY_REQUEST_ADD_UNIVERSE_SERVER"/>
             </column>
 
             <!-- Table fields -->

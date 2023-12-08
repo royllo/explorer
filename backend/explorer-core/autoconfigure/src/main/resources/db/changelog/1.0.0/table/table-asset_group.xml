@@ -10,7 +10,7 @@
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"
                     remarks="Unique identifier">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ASSET_GROUP"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PRIMARY_KEY_ASSET_GROUP"/>
             </column>
 
             <!-- Link to other tables -->
@@ -28,7 +28,8 @@
                     remarks="The raw group key which is a normal public key"/>
             <column name="TWEAKED_GROUP_KEY" type="VARCHAR(255)"
                     remarks="The tweaked group key, which is derived based on the genesis point and also asset type">
-                <constraints nullable="false" unique="true" uniqueConstraintName="UNIQUE_ASSET_GROUP_TWEAKED_GROUP_KEY"/>
+                <constraints nullable="false" unique="true"
+                             uniqueConstraintName="UNIQUE_ASSET_GROUP_TWEAKED_GROUP_KEY"/>
             </column>
             <column name="ASSET_WITNESS" type="TEXT"
                     remarks="A signature over the genesis point using the above key"/>
@@ -48,19 +49,19 @@
                           startWith="1"/>
 
         <!-- Index on ASSET_GROUP_ID -->
-        <createIndex indexName="IDX_ASSET_GROUP_ASSET_GROUP_ID"
+        <createIndex indexName="INDEX_ASSET_GROUP_ASSET_GROUP_ID"
                      tableName="ASSET_GROUP">
             <column name="ASSET_GROUP_ID"/>
         </createIndex>
 
         <!-- Index on TWEAKED_GROUP_KEY -->
-        <createIndex indexName="IDX_ASSET_GROUP_TWEAKED_GROUP_KEY"
+        <createIndex indexName="INDEX_ASSET_GROUP_TWEAKED_GROUP_KEY"
                      tableName="ASSET_GROUP">
             <column name="TWEAKED_GROUP_KEY"/>
         </createIndex>
 
         <!-- Index on FK_USER_CREATOR -->
-        <createIndex indexName="IDX_ASSET_GROUP_FK_USER_CREATOR"
+        <createIndex indexName="INDEX_ASSET_GROUP_FK_USER_CREATOR"
                      tableName="ASSET_GROUP">
             <column name="FK_USER_CREATOR"/>
         </createIndex>

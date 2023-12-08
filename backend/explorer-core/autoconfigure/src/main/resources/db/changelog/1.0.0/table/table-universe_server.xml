@@ -10,13 +10,14 @@
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"
                     remarks="Unique identifier">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_UNIVERSE_SERVER"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PRIMARY_KEY_UNIVERSE_SERVER"/>
             </column>
 
             <!-- Table fields -->
             <column name="UNIVERSE_SERVER_ID" type="VARCHAR(255)"
                     remarks="Universe server UUID">
-                <constraints nullable="false" unique="true" uniqueConstraintName="UK_UNIVERSE_SERVER_UNIVERSE_SERVER_ID"/>
+                <constraints nullable="false" unique="true"
+                             uniqueConstraintName="UK_UNIVERSE_SERVER_UNIVERSE_SERVER_ID"/>
             </column>
             <column name="FK_USER_OWNER" type="BIGINT"
                     remarks="The user who ows this universe server">
@@ -42,7 +43,7 @@
                           startWith="1"/>
 
         <!-- Index on SERVER_ADDRESS -->
-        <createIndex indexName="IDX_UNIVERSE_SERVER_SERVER_ADDRESS"
+        <createIndex indexName="INDEX_UNIVERSE_SERVER_SERVER_ADDRESS"
                      tableName="UNIVERSE_SERVER">
             <column name="SERVER_ADDRESS"/>
         </createIndex>

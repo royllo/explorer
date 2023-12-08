@@ -10,7 +10,7 @@
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"
                     remarks="Unique identifier">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_REQUEST"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PRIMARY_KEY_REQUEST"/>
             </column>
 
             <!-- Foreign keys -->
@@ -50,13 +50,13 @@
                           startWith="1"/>
 
         <!-- Index on STATUS -->
-        <createIndex indexName="IDX_REQUEST_STATUS"
+        <createIndex indexName="INDEX_REQUEST_STATUS"
                      tableName="REQUEST">
             <column name="STATUS"/>
         </createIndex>
 
         <!-- Index on REQUEST_ID -->
-        <createIndex indexName="IDX_REQUEST_REQUEST_ID"
+        <createIndex indexName="INDEX_REQUEST_REQUEST_ID"
                      tableName="REQUEST">
             <column name="REQUEST_ID"/>
         </createIndex>

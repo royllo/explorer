@@ -10,11 +10,11 @@
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"
                     remarks="Unique identifier">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_REQUEST_ADD_PROOF"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PRIMARY_KEY_REQUEST_ADD_PROOF"/>
             </column>
 
             <!-- Table fields -->
-            <column name="proof" type="TEXT"
+            <column name="PROOF" type="TEXT"
                     remarks="Proof"/>
             <column name="FK_ASSET" type="BIGINT"
                     remarks="The asset created/updated by this request"/>
