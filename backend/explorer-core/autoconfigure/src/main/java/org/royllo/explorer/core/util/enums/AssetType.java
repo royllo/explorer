@@ -1,7 +1,7 @@
 package org.royllo.explorer.core.util.enums;
 
 /**
- * The type of the asset.
+ * Asset type.
  */
 public enum AssetType {
 

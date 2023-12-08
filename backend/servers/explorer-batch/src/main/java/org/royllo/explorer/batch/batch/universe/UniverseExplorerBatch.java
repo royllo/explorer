@@ -12,8 +12,11 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static java.time.ZonedDateTime.now;
+import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_ISSUANCE;
+import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_TRANSFER;
 
 /**
  * Batch retrieving data from know universe servers.
@@ -59,37 +62,52 @@ public class UniverseExplorerBatch extends BaseBatch {
                 universeServerRepository.save(universeServer);
 
                 IntStream.iterate(0, offset -> offset + UNIVERSE_ROOTS_LIMIT)
+                        .peek(offset -> logger.info("Processing universe roots with offset: {}", offset))
+                        // For each server, we retrieve the roots.
                         .mapToObj(offset -> tapdService.getUniverseRoots(universeServer.getServerAddress(), offset, UNIVERSE_ROOTS_LIMIT).block())
+                        // We check that we have a result, if not, we stop (this tells us when the offset is too high).
                         .takeWhile(universeRoots -> universeRoots != null && !universeRoots.getUniverseRoots().isEmpty())
+                        // We retrieve all the roots.
                         .flatMap(universeRoots -> universeRoots.getUniverseRoots().values().stream())
+                        // We select only the roots that have an asset id.
                         .filter(universeRoot -> universeRoot.getId() != null)
                         .filter(universeRoot -> universeRoot.getId().getAssetId() != null)
+                        // We retrieve the asset id.
                         .map(universeRoot -> universeRoot.getId().getAssetId())
+                        .distinct()
                         .peek(assetId -> logger.info("Found asset id: {}", assetId))
                         .forEach(assetId -> {
-                            try {
-                                final UniverseLeavesResponse leaves = tapdService.getUniverseLeaves(universeServer.getServerAddress(), assetId).block();
-                                if (leaves == null) {
-                                    logger.error("No universe leaves found for asset id - null result: {}", assetId);
-                                    return;
-                                }
-                                if (leaves.getLeaves().isEmpty()) {
-                                    logger.error("No universe leaves found for asset id - empty result: {}", assetId);
-                                    return;
-                                }
+                            // For each proof type, we retrieve the leaves.
+                            Stream.of(PROOF_TYPE_ISSUANCE, PROOF_TYPE_TRANSFER)
+                                    .forEach(proofType -> {
+                                        try {
+                                            final UniverseLeavesResponse leaves = tapdService.getUniverseLeaves(universeServer.getServerAddress(), assetId, proofType).block();
+                                            if (leaves == null) {
+                                                logger.error("No universe leaves found for asset id - null result: {}", assetId);
+                                                return;
+                                            }
+                                            if (leaves.getLeaves().isEmpty()) {
+                                                logger.error("No universe leaves found for asset id - empty result: {}", assetId);
+                                                return;
+                                            }
 
-                                // We retrieve the proofs for each asset.
-                                leaves.getLeaves()
-                                        .stream()
-                                        .map(UniverseLeavesResponse.Leaf::getProof)
-                                        .filter(proof -> proofRepository.findByProofId(sha256(proof)).isEmpty())
-                                        .forEach(proof -> {
-                                            final AddProofRequestDTO addProofRequest = requestService.createAddProofRequest(proof);
-                                            logger.info("Request created {} for asset: {}", addProofRequest.getId(), assetId);
-                                        });
-                            } catch (Exception e) {
-                                logger.error("Error while retrieving leaves for asset id: {}", assetId, e);
-                            }
+                                            // We retrieve the proofs for each asset.
+                                            leaves.getLeaves()
+                                                    .stream()
+                                                    .map(UniverseLeavesResponse.Leaf::getProof)
+                                                    .filter(proof -> proofRepository.findByProofId(sha256(proof)).isEmpty())
+                                                    .forEach(proof -> {
+                                                        final AddProofRequestDTO addProofRequest = requestService.createAddProofRequest(proof);
+                                                        logger.info("Request created {} for asset: {} ({})", addProofRequest.getId(), assetId, proofType);
+                                                    });
+                                        } catch (Exception e) {
+                                            logger.error("Error while retrieving leaves for asset id {} on {} ({})",
+                                                    assetId,
+                                                    universeServer.getServerAddress(),
+                                                    proofType,
+                                                    e);
+                                        }
+                                    });
                         });
             });
         }

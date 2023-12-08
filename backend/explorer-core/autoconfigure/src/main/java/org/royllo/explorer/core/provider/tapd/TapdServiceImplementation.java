@@ -8,6 +8,7 @@ import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.util.base.BaseProviderService;
+import org.royllo.explorer.core.util.enums.ProofType;
 import org.royllo.explorer.core.util.parameters.OutgoingRateLimitsParameters;
 import org.royllo.explorer.core.util.parameters.TAPDParameters;
 import org.springframework.http.MediaType;
@@ -139,7 +140,8 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
 
     @Override
     public final Mono<UniverseLeavesResponse> getUniverseLeaves(final String serverAddress,
-                                                                final String assetId) {
+                                                                final String assetId,
+                                                                final ProofType proofType) {
         logger.info("Get universe leaves from tapd for asset {}", assetId);
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
 
@@ -157,7 +159,7 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
                 .baseUrl(serverAddress)
                 .build()
                 .get()
-                .uri("/v1/taproot-assets/universe/leaves/asset-id/" + assetId + "?proof_type=PROOF_TYPE_ISSUANCE")
+                .uri("/v1/taproot-assets/universe/leaves/asset-id/" + assetId + "?proof_type=" + proofType)
                 .exchangeToFlux(response -> response.bodyToFlux(UniverseLeavesResponse.class))
                 .next();
     }

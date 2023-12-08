@@ -1,5 +1,6 @@
 package org.royllo.explorer.core.provider.tapd;
 
+import org.royllo.explorer.core.util.enums.ProofType;
 import reactor.core.publisher.Mono;
 
 /**
@@ -44,9 +45,11 @@ public interface TapdService {
      *
      * @param serverAddress server address
      * @param assetId       asset ID
+     * @param proofType     proof type
      * @return universe leaves
      */
     Mono<UniverseLeavesResponse> getUniverseLeaves(String serverAddress,
-                                                   String assetId);
+                                                   String assetId,
+                                                   ProofType proofType);
 
 }
