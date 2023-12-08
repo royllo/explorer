@@ -83,13 +83,12 @@ public class UniverseExplorerBatchTest {
         // - "asset_id": "asset_id_4"
         // - "asset_id": "asset_id_1
         // - "asset_id": "asset_id_5"
-        // - "asset_id": "asset_id_1"
-        assertEquals(count + 7, requestRepository.count());
-        assertEquals(3, findAddProofRequestByProof("asset_id_1_proof").size());
+        assertEquals(2, findAddProofRequestByProof("asset_id_1_proof").size());
         assertEquals(1, findAddProofRequestByProof("asset_id_2_proof").size());
         assertEquals(1, findAddProofRequestByProof("asset_id_3_proof").size());
         assertEquals(1, findAddProofRequestByProof("asset_id_4_proof").size());
         assertEquals(1, findAddProofRequestByProof("asset_id_5_proof").size());
+        assertEquals(count + 6, requestRepository.count());
     }
 
     /**

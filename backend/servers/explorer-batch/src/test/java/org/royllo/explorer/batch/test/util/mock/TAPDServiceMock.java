@@ -16,6 +16,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_ISSUANCE;
+import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_TRANSFER;
+
 @Profile("tapdProofServiceMock")
 @Configuration
 public class TAPDServiceMock {
@@ -58,15 +61,22 @@ public class TAPDServiceMock {
                 .thenReturn(Mono.just(getUniverseRootsResponse("tapd/universe-roots-response-for-testnet-universe-lightning-finance-response-2.json")));
         Mockito.when(mockedService.getUniverseRoots("testnet.universe.lightning.finance", 200, 100))
                 .thenReturn(Mono.just(getUniverseRootsResponse("tapd/universe-roots-response-for-testnet-universe-lightning-finance-response-3.json")));
+
         // testnet.universe.lightning.finance:asset_id_1.
-        Mockito.when(mockedService.getUniverseLeaves("testnet.universe.lightning.finance", "asset_id_1"))
-                .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/universe-leaves-asset-id-1-for-testnet-universe-lightning-finance.json")));
+        Mockito.when(mockedService.getUniverseLeaves("testnet.universe.lightning.finance", "asset_id_1", PROOF_TYPE_ISSUANCE))
+                .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/testnet1-universe-leaves-asset-id-1-issuance.json")));
+        Mockito.when(mockedService.getUniverseLeaves("testnet.universe.lightning.finance", "asset_id_1", PROOF_TYPE_TRANSFER))
+                .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/testnet1-universe-leaves-asset-id-1-transfer.json")));
         // testnet.universe.lightning.finance:asset_id_2.
-        Mockito.when(mockedService.getUniverseLeaves("testnet.universe.lightning.finance", "asset_id_2"))
-                .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/universe-leaves-asset-id-2-for-testnet-universe-lightning-finance.json")));
+        Mockito.when(mockedService.getUniverseLeaves("testnet.universe.lightning.finance", "asset_id_2", PROOF_TYPE_ISSUANCE))
+                .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/testnet1-universe-leaves-asset-id-2-issuance.json")));
+        Mockito.when(mockedService.getUniverseLeaves("testnet.universe.lightning.finance", "asset_id_2", PROOF_TYPE_TRANSFER))
+                .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/testnet1-universe-leaves-asset-id-2-transfer.json")));
         // testnet.universe.lightning.finance:asset_id_3.
-        Mockito.when(mockedService.getUniverseLeaves("testnet.universe.lightning.finance", "asset_id_3"))
-                .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/universe-leaves-asset-id-3-for-testnet-universe-lightning-finance.json")));
+        Mockito.when(mockedService.getUniverseLeaves("testnet.universe.lightning.finance", "asset_id_3", PROOF_TYPE_ISSUANCE))
+                .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/testnet1-universe-leaves-asset-id-3-issuance.json")));
+        Mockito.when(mockedService.getUniverseLeaves("testnet.universe.lightning.finance", "asset_id_3", PROOF_TYPE_TRANSFER))
+                .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/testnet1-universe-leaves-asset-id-3-transfer.json")));
 
         // testnet2.universe.lightning.finance (roots).
         Mockito.when(mockedService.getUniverseRoots("testnet2.universe.lightning.finance", 0, 100))
@@ -75,15 +85,22 @@ public class TAPDServiceMock {
                 .thenReturn(Mono.just(getUniverseRootsResponse("tapd/universe-roots-response-for-testnet2-universe-lightning-finance-response-2.json")));
         Mockito.when(mockedService.getUniverseRoots("testnet2.universe.lightning.finance", 200, 100))
                 .thenReturn(Mono.just(getUniverseRootsResponse("tapd/universe-roots-response-for-testnet2-universe-lightning-finance-response-3.json")));
+
         // testnet2.universe.lightning.finance:asset_id_1.
-        Mockito.when(mockedService.getUniverseLeaves("testnet2.universe.lightning.finance", "asset_id_1"))
-                .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/universe-leaves-asset-id-1-for-testnet2-universe-lightning-finance.json")));
+        Mockito.when(mockedService.getUniverseLeaves("testnet2.universe.lightning.finance", "asset_id_1", PROOF_TYPE_ISSUANCE))
+                .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/testnet2-universe-leaves-asset-id-1-issuance.json")));
+        Mockito.when(mockedService.getUniverseLeaves("testnet2.universe.lightning.finance", "asset_id_1", PROOF_TYPE_TRANSFER))
+                .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/testnet2-universe-leaves-asset-id-1-transfer.json")));
         // testnet2.universe.lightning.finance:asset_id_4.
-        Mockito.when(mockedService.getUniverseLeaves("testnet2.universe.lightning.finance", "asset_id_4"))
-                .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/universe-leaves-asset-id-4-for-testnet2-universe-lightning-finance.json")));
+        Mockito.when(mockedService.getUniverseLeaves("testnet2.universe.lightning.finance", "asset_id_4", PROOF_TYPE_ISSUANCE))
+                .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/testnet2-universe-leaves-asset-id-4-issuance.json")));
+        Mockito.when(mockedService.getUniverseLeaves("testnet2.universe.lightning.finance", "asset_id_4", PROOF_TYPE_TRANSFER))
+                .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/testnet2-universe-leaves-asset-id-4-transfer.json")));
         // testnet2.universe.lightning.finance:asset_id_5.
-        Mockito.when(mockedService.getUniverseLeaves("testnet2.universe.lightning.finance", "asset_id_5"))
-                .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/universe-leaves-asset-id-5-for-testnet2-universe-lightning-finance.json")));
+        Mockito.when(mockedService.getUniverseLeaves("testnet2.universe.lightning.finance", "asset_id_5", PROOF_TYPE_ISSUANCE))
+                .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/testnet2-universe-leaves-asset-id-5-issuance.json")));
+        Mockito.when(mockedService.getUniverseLeaves("testnet2.universe.lightning.finance", "asset_id_5", PROOF_TYPE_TRANSFER))
+                .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/testnet2-universe-leaves-asset-id-5-transfer.json")));
 
         return mockedService;
     }
