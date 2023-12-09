@@ -47,10 +47,10 @@ public class UniverseExplorerBatchTest {
         // We check that the universe servers have never been contacted.
         Optional<UniverseServer> server1 = universeServerRepository.findByServerAddress("testnet.universe.lightning.finance");
         assertTrue(server1.isPresent());
-        assertNull(server1.get().getLastSynchronizedOn());
+        assertNull(server1.get().getLastSynchronizationAttempt());
         Optional<UniverseServer> server2 = universeServerRepository.findByServerAddress("testnet2.universe.lightning.finance");
         assertTrue(server2.isPresent());
-        assertNull(server2.get().getLastSynchronizedOn());
+        assertNull(server2.get().getLastSynchronizationAttempt());
 
         // We check that we don't have the request for the proofs find in universe servers
         assertEquals(0, findAddProofRequestByProof("asset_id_1_proof").size());
@@ -69,10 +69,15 @@ public class UniverseExplorerBatchTest {
         // We check that the universe servers have been contacted.
         server1 = universeServerRepository.findByServerAddress("testnet.universe.lightning.finance");
         assertTrue(server1.isPresent());
-        assertNotNull(server1.get().getLastSynchronizedOn());
+        assertNotNull(server1.get().getLastSynchronizationAttempt());
+        assertNotNull(server1.get().getLastSynchronizationSuccess());
+        assertTrue(server1.get().getLastSynchronizationAttempt().isBefore(server1.get().getLastSynchronizationSuccess()));
+
         server2 = universeServerRepository.findByServerAddress("testnet2.universe.lightning.finance");
         assertTrue(server2.isPresent());
-        assertNotNull(server2.get().getLastSynchronizedOn());
+        assertNotNull(server2.get().getLastSynchronizationAttempt());
+        assertNotNull(server2.get().getLastSynchronizationSuccess());
+        assertTrue(server1.get().getLastSynchronizationAttempt().isBefore(server1.get().getLastSynchronizationSuccess()));
 
         // We should have more requests.
         // universe-roots-response-for-testnet-universe-lightning-finance.json:

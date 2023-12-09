@@ -17,7 +17,7 @@
             <column name="UNIVERSE_SERVER_ID" type="VARCHAR(255)"
                     remarks="Universe server UUID">
                 <constraints nullable="false" unique="true"
-                             uniqueConstraintName="UK_UNIVERSE_SERVER_UNIVERSE_SERVER_ID"/>
+                             uniqueConstraintName="UNIQUE_UNIVERSE_SERVER_UNIVERSE_SERVER_ID"/>
             </column>
             <column name="FK_USER_OWNER" type="BIGINT"
                     remarks="The user who ows this universe server">
@@ -25,8 +25,10 @@
             </column>
             <column name="SERVER_ADDRESS" type="VARCHAR(255)"
                     remarks="The server address typically consists of both an IP address and a port number"/>
-            <column name="LAST_SYNCHRONIZED_ON" type="TIMESTAMP"
-                    remarks="When is the last time we contact the server to synchronize"/>
+            <column name="LAST_SYNCHRONIZATION_ATTEMPT" type="TIMESTAMP"
+                    remarks="When is the last time we try to synchronize with the server"/>
+            <column name="LAST_SYNCHRONIZATION_SUCCESS" type="TIMESTAMP"
+                    remarks="When is the last time we successfully synchronized with the server"/>
 
             <!-- Technical fields -->
             <column name="CREATED_ON" type="TIMESTAMP"
