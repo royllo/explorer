@@ -7,6 +7,7 @@
         <insert tableName="bitcoin_transaction_output">
             <column name="id" valueNumeric="3"/>
             <column name="block_height" valueNumeric="2534237"/>
+            <column name="block_time" valueDate="2023-10-19T20:04:06.0000"/>
             <column name="txid" value="c28a42586b36ac499c6d36da792d98176572573124dbc82526d02bbad5b3d9c7"/>
             <column name="vout" valueNumeric="1"/>
             <column name="scriptpubkey" value="5120d7ab0deb6185088278a66f5599be41510db531fd7f2df39e3b8558e2d2b65b06"/>
@@ -21,6 +22,7 @@
         <insert tableName="bitcoin_transaction_output">
             <column name="id" valueNumeric="4"/>
             <column name="block_height" valueNumeric="2534238"/>
+            <column name="block_time" valueDate="2023-10-19T20:24:08.0000"/>
             <column name="txid" value="6db79f5af2ba65bfb4044ced690f3acb4a791a6fc6a7450664e15559ad770b90"/>
             <column name="vout" valueNumeric="0"/>
             <column name="scriptpubkey" value="51200abf9c151df80edc22d2fd1b8c0dcd07dcdda6e859cdcb513102d50cc5cbfdfe"/>
@@ -35,6 +37,7 @@
         <insert tableName="bitcoin_transaction_output">
             <column name="id" valueNumeric="5"/>
             <column name="block_height" valueNumeric="2534238"/>
+            <column name="block_time" valueDate="2023-10-19T20:24:08.0000"/>
             <column name="txid" value="6db79f5af2ba65bfb4044ced690f3acb4a791a6fc6a7450664e15559ad770b90"/>
             <column name="vout" valueNumeric="1"/>
             <column name="scriptpubkey" value="5120d9c5d97fb55abcdf85102d90fb4c7b76d9f1656ae900d3127c861d0e814fa699"/>
@@ -49,6 +52,7 @@
         <insert tableName="bitcoin_transaction_output">
             <column name="id" valueNumeric="6"/>
             <column name="block_height" valueNumeric="2534319"/>
+            <column name="block_time" valueDate="2023-10-20T07:46:50.0000"/>
             <column name="txid" value="ca93a44b534f410914c18ed4563c97b0a6c31194af236d789a79683c9ec76526"/>
             <column name="vout" valueNumeric="0"/>
             <column name="scriptpubkey" value="5120d6484a40e7a0c5bcb5a958bd6251554feee22c1c94b0c058d7891105b34f309b"/>
@@ -63,6 +67,7 @@
         <insert tableName="bitcoin_transaction_output">
             <column name="id" valueNumeric="7"/>
             <column name="block_height" valueNumeric="2534319"/>
+            <column name="block_time" valueDate="2023-10-20T07:46:50.0000"/>
             <column name="txid" value="2777e306451f6d5231f4b17b8286412e1e13ef153800086cf879baae89d9df76"/>
             <column name="vout" valueNumeric="1"/>
             <column name="scriptpubkey" value="00142e42579b5194674680049c65249edb0893aa2d6b"/>
@@ -76,6 +81,7 @@
         <insert tableName="bitcoin_transaction_output">
             <column name="id" valueNumeric="8"/>
             <column name="block_height" valueNumeric="2534320"/>
+            <column name="block_time" valueDate="2023-10-20T08:03:18.0000"/>
             <column name="txid" value="632d0c3935fff230aa3718e268dce5517786d7976f7aa33efb615b408737b0ad"/>
             <column name="vout" valueNumeric="0"/>
             <column name="scriptpubkey" value="51204251129e0033628da2e8e297ea72bd6675143a881841a655f92b93462d8f3898"/>
@@ -90,6 +96,7 @@
         <insert tableName="bitcoin_transaction_output">
             <column name="id" valueNumeric="9"/>
             <column name="block_height" valueNumeric="2534322"/>
+            <column name="block_time" valueDate="2023-10-20T08:18:24.0000"/>
             <column name="txid" value="f2acf1235882a7683bad5baeb1b84c2f1dbf33f0fc4a7c85f2191aa8d49ce0d3"/>
             <column name="vout" valueNumeric="1"/>
             <column name="scriptpubkey" value="5120e8e257c55806d5091802e9c92c8264153a1778c3d7814c12854f14079cc6c98a"/>
@@ -104,6 +111,7 @@
         <insert tableName="bitcoin_transaction_output">
             <column name="id" valueNumeric="10"/>
             <column name="block_height" valueNumeric="2534322"/>
+            <column name="block_time" valueDate="2023-10-20T08:18:24.0000"/>
             <column name="txid" value="f2acf1235882a7683bad5baeb1b84c2f1dbf33f0fc4a7c85f2191aa8d49ce0d3"/>
             <column name="vout" valueNumeric="0"/>
             <column name="scriptpubkey" value="5120eb93573ac51bf6b65aa4458b0bc48659844f2fd267108c740d130bfe9ac41807"/>
@@ -118,6 +126,7 @@
         <insert tableName="bitcoin_transaction_output">
             <column name="id" valueNumeric="11"/>
             <column name="block_height" valueNumeric="2534327"/>
+            <column name="block_time" valueDate="2023-10-20T08:54:16.0000"/>
             <column name="txid" value="2727229cc771efa552f9232a04b0cd8d16df6d83bd217523888feee6a8553ec8"/>
             <column name="vout" valueNumeric="1"/>
             <column name="scriptpubkey" value="51203f475770dfc8d7e92e93632c251a5c01b6e90670e8522b81cb7b448bf86efffa"/>
@@ -132,6 +141,7 @@
         <insert tableName="bitcoin_transaction_output">
             <column name="id" valueNumeric="12"/>
             <column name="block_height" valueNumeric="2534330"/>
+            <column name="block_time" valueDate="2023-10-20T08:59:35.0000"/>
             <column name="txid" value="77b550de10ad347daf314f4982a979db6d101573afe6fbf20c35935ce4bb0413"/>
             <column name="vout" valueNumeric="1"/>
             <column name="scriptpubkey" value="51202dc635ce603c8c9675f08276f2bb6c796576f80c65fd9a81249549a2488f6ef1"/>
@@ -146,6 +156,7 @@
         <insert tableName="bitcoin_transaction_output">
             <column name="id" valueNumeric="13"/>
             <column name="block_height" valueNumeric="2534338"/>
+            <column name="block_time" valueDate="2023-10-20T09:46:04.0000"/>
             <column name="txid" value="2debb29de64ed7aafaf79c034f1ba22c41f484fafc814cab7b22a97bacfa6825"/>
             <column name="vout" valueNumeric="0"/>
             <column name="scriptpubkey" value="5120e5d4f8a3b6b3087984f36182654e2deb91e2e567cf35f068e6d4362ac7958cce"/>
@@ -160,6 +171,7 @@
         <insert tableName="bitcoin_transaction_output">
             <column name="id" valueNumeric="14"/>
             <column name="block_height" valueNumeric="2534357"/>
+            <column name="block_time" valueDate="2023-10-20T12:10:03.0000"/>
             <column name="txid" value="89cd5498584f217ca77d50e740e56490a710ab7b6988b3cd73aac95b9e077b1f"/>
             <column name="vout" valueNumeric="1"/>
             <column name="scriptpubkey" value="5120ebbbbe5cbf1c801c654895d752c2bcc2bac63f68216ef4e352f748a48b8d6040"/>
@@ -174,6 +186,7 @@
         <insert tableName="bitcoin_transaction_output">
             <column name="id" valueNumeric="15"/>
             <column name="block_height" valueNumeric="2535184"/>
+            <column name="block_time" valueDate="2023-10-25T20:08:07.0000"/>
             <column name="txid" value="0516611bebe6a92675ee7360ad64edf0b3b2e967fe8c474b2d2242d5a349da3d"/>
             <column name="vout" valueNumeric="0"/>
             <column name="scriptpubkey" value="51206f479cbd41e4ffce26c55a28268877fd40b0e64c283c817b875930bed23cea1e"/>

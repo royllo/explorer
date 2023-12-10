@@ -50,6 +50,7 @@ public class MempoolDataTest {
         assertEquals("v0_p2wpkh", genesisVOut.getScriptPubKeyType());
         assertEquals("bc1qwt8pfn05cf948e7yt5dar64fqsg5m6tz8835gs", genesisVOut.getScriptPubKeyAddress());
         assertEquals(0, BigInteger.valueOf(287379).compareTo(genesisVOut.getValue()));
+        assertEquals(1699822321, genesisTransaction.getResponse().getStatus().getBlockTime());
 
         // Anchor 1 txid.
         final TransactionValue anchor1Transaction = MempoolData.findTransactionByTransactionId(ROYLLO_COIN_ANCHOR_1_TXID);
@@ -65,6 +66,7 @@ public class MempoolDataTest {
         assertEquals("v1_p2tr", anchor1VOut.getScriptPubKeyType());
         assertEquals("bc1ppea3c9nkghu0af7h65kel5n9tq3d205l2mnuu5npvdv4t5vfqmcsh2ttkn", anchor1VOut.getScriptPubKeyAddress());
         assertEquals(0, BigInteger.valueOf(1000).compareTo(anchor1VOut.getValue()));
+        assertEquals(1699886669, anchor1Transaction.getResponse().getStatus().getBlockTime());
     }
 
 }

@@ -11,6 +11,7 @@
         <insert tableName="BITCOIN_TRANSACTION_OUTPUT">
             <column name="ID" value="3"/>
             <column name="BLOCK_HEIGHT" value="766"/>
+            <column name="BLOCK_TIME" value="2022-09-14T12:42:19.0000"/>
             <column name="TXID" value="46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946"/>
             <column name="VOUT" value="1"/>
             <column name="SCRIPTPUBKEY" value="0020701a8d401c84fb13e6baf169d59684e17abd9fa216c8cc5b9fc63d622ff8c58d"/>
@@ -23,10 +24,12 @@
 
         <!--
             Transaction on testnet corresponding to asset n°1
+            curl -sSL "https://mempool.space/testnet/api/tx/d8a8016095b9fcd1f63c57342d375026ecbc72c885a54b676c6e62b216e15365"
         -->
         <insert tableName="BITCOIN_TRANSACTION_OUTPUT">
             <column name="ID" value="4"/>
             <column name="BLOCK_HEIGHT" value="2348688"/>
+            <column name="BLOCK_TIME" value="2022-09-29T02:18:18.0000"/>
             <column name="TXID" value="d8a8016095b9fcd1f63c57342d375026ecbc72c885a54b676c6e62b216e15365"/>
             <column name="VOUT" value="1"/>
             <column name="SCRIPTPUBKEY" value="00147fafce6a7ea1541dc33f99ab673dc525ed3a27b3"/>
