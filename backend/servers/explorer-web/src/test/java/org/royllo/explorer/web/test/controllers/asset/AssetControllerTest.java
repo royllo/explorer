@@ -135,7 +135,7 @@ public class AssetControllerTest extends BaseTest {
         createFakeAssets();
 
         // Page 1.
-        mockMvc.perform(get("/asset/FAKE_ASSET_ID_01/group").headers(headers))
+        mockMvc.perform(get("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000001/group").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_GROUP_PAGE)))
                 // Checking group tab data.
@@ -151,7 +151,7 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));
 
         // Page 10.
-        mockMvc.perform(get("/asset/FAKE_ASSET_ID_01/group?page=10").headers(headers))
+        mockMvc.perform(get("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000001/group?page=10").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_GROUP_PAGE)))
                 // Checking group tab data.
@@ -175,7 +175,7 @@ public class AssetControllerTest extends BaseTest {
         createFakeAssets();
 
         // Page 1.
-        mockMvc.perform(get("/asset/FAKE_ASSET_ID_01/states").headers(headers))
+        mockMvc.perform(get("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000001/states").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_STATES_PAGE)))
                 // Checking pagination.
@@ -188,7 +188,7 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));
 
         // Page 5.
-        mockMvc.perform(get("/asset/FAKE_ASSET_ID_01/states?page=5").headers(headers))
+        mockMvc.perform(get("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000001/states?page=5").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_STATES_PAGE)))
                 // Checking pagination.
@@ -209,7 +209,7 @@ public class AssetControllerTest extends BaseTest {
         createFakeAssets();
 
         // Page 1.
-        mockMvc.perform(get("/asset/FAKE_ASSET_ID_01/proofs").headers(headers))
+        mockMvc.perform(get("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000001/proofs").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_PROOFS_PAGE)))
                 // Checking pagination.
@@ -222,7 +222,7 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));
 
         // Page 5.
-        mockMvc.perform(get("/asset/FAKE_ASSET_ID_01/proofs?page=3").headers(headers))
+        mockMvc.perform(get("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000001/proofs?page=3").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_PROOFS_PAGE)))
                 // Checking pagination.
@@ -256,16 +256,16 @@ public class AssetControllerTest extends BaseTest {
 
         // Create fake assets.
         for (int i = 1; i <= 99; i++) {
-            final Optional<AssetDTO> assetFound = assetService.getAssetByAssetId("FAKE_ASSET_ID_" + String.format("%02d", i));
+            final Optional<AssetDTO> assetFound = assetService.getAssetByAssetId("FAKE_ASSET_ID_000000000000000000000000000000000000000000000000" + String.format("%02d", i));
             if (assetFound.isEmpty()) {
                 assetService.addAsset(
                         AssetDTO.builder()
                                 .creator(ANONYMOUS_USER_DTO)
                                 .assetGroup(assetGroupDTO)
-                                .assetId("FAKE_ASSET_ID_" + String.format("%02d", i))
+                                .assetId("FAKE_ASSET_ID_000000000000000000000000000000000000000000000000" + String.format("%02d", i))
                                 .genesisPoint(bto.get())
                                 .metaDataHash("metadata")
-                                .name("FAKE_ASSET_NAME_" + String.format("%02d", i))
+                                .name("FAKE_ASSET_NAME_000000000000000000000000000000000000000000000000" + String.format("%02d", i))
                                 .outputIndex(0)
                                 .version(0)
                                 .type(NORMAL)
@@ -276,7 +276,7 @@ public class AssetControllerTest extends BaseTest {
         }
 
         // Create fake asset states.
-        final Optional<AssetDTO> assetForAssetTest = assetService.getAssetByAssetId("FAKE_ASSET_ID_01");
+        final Optional<AssetDTO> assetForAssetTest = assetService.getAssetByAssetId("FAKE_ASSET_ID_00000000000000000000000000000000000000000000000001");
         if (assetForAssetTest.isPresent()) {
             for (int i = 1; i <= 50; i++) {
                 final AssetStateDTO assetToCreate = AssetStateDTO.builder()

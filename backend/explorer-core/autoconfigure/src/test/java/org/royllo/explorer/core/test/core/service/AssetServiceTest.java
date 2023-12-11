@@ -271,25 +271,25 @@ public class AssetServiceTest extends TestWithMockServers {
 
         // 4 assets : 1 with no asset group, 2 with the same asset group and 1 with another asset group.
         AssetDTO asset1 = AssetDTO.builder()
-                .assetId("asset1")
+                .assetId("asset10000000000000000000000000000000000000000000000000000000000")
                 .genesisPoint(bto.get())
                 .build();
         AssetDTO asset2 = AssetDTO.builder()
-                .assetId("asset2")
+                .assetId("asset20000000000000000000000000000000000000000000000000000000000")
                 .genesisPoint(bto.get())
                 .assetGroup(AssetGroupDTO.builder()
                         .assetGroupId("assetGroupId1")
                         .tweakedGroupKey("assetGroup1").build())
                 .build();
         AssetDTO asset3 = AssetDTO.builder()
-                .assetId("asset3")
+                .assetId("asset30000000000000000000000000000000000000000000000000000000000")
                 .genesisPoint(bto.get())
                 .assetGroup(AssetGroupDTO.builder()
                         .assetGroupId("assetGroupId1")
                         .tweakedGroupKey("assetGroup1").build())
                 .build();
         AssetDTO asset4 = AssetDTO.builder()
-                .assetId("asset4")
+                .assetId("asset40000000000000000000000000000000000000000000000000000000000")
                 .genesisPoint(bto.get())
                 .assetGroup(AssetGroupDTO.builder()
                         .assetGroupId("assetGroupId2")
@@ -303,10 +303,10 @@ public class AssetServiceTest extends TestWithMockServers {
         assetService.addAsset(asset4);
 
         // Asset retrieval.
-        AssetDTO asset1Created = assetService.getAssetByAssetId("asset1").orElse(null);
-        AssetDTO asset2Created = assetService.getAssetByAssetId("asset2").orElse(null);
-        AssetDTO asset3Created = assetService.getAssetByAssetId("asset3").orElse(null);
-        AssetDTO asset4Created = assetService.getAssetByAssetId("asset4").orElse(null);
+        AssetDTO asset1Created = assetService.getAssetByAssetId("asset10000000000000000000000000000000000000000000000000000000000").orElse(null);
+        AssetDTO asset2Created = assetService.getAssetByAssetId("asset20000000000000000000000000000000000000000000000000000000000").orElse(null);
+        AssetDTO asset3Created = assetService.getAssetByAssetId("asset30000000000000000000000000000000000000000000000000000000000").orElse(null);
+        AssetDTO asset4Created = assetService.getAssetByAssetId("asset40000000000000000000000000000000000000000000000000000000000").orElse(null);
 
         // Verification.
         assertNotNull(asset1Created);
