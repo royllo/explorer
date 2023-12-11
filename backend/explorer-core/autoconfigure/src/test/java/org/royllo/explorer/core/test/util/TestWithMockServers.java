@@ -19,6 +19,9 @@ import org.springframework.test.annotation.DirtiesContext;
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -80,6 +83,11 @@ public class TestWithMockServers extends Base {
         assertEquals(bitcoinTransactionOutputDTO.getBlockHeight(),
                 transactionValue.getResponse().getStatus().getBlockHeight(),
                 "Block height are not equals");
+
+        assertEquals(bitcoinTransactionOutputDTO.getBlockTime(),
+                LocalDateTime.ofInstant(Instant.ofEpochSecond(transactionValue.getResponse().getStatus().getBlockTime()),
+                        ZoneId.systemDefault()),
+                "Block time are not equals");
 
         assertEquals(bitcoinTransactionOutputDTO.getTxId(),
                 transactionValue.getResponse().getTxId(),
