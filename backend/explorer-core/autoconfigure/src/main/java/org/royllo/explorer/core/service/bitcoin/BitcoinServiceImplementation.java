@@ -11,8 +11,11 @@ import org.royllo.explorer.core.util.base.BaseService;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.TimeZone;
 
 /**
  * {@link BitcoinService} implementation.
@@ -77,9 +80,12 @@ public class BitcoinServiceImplementation extends BaseService implements Bitcoin
                 // Now, we save it in database and return it.
                 logger.info("The transaction and it's output {}/{} is in the blockchain, we save it", txId, vout);
                 GetTransactionResponse.VOut output = (GetTransactionResponse.VOut) transaction.getVout().toArray()[vout];
+                // TODO Replace wih a mapper in BitcoinMapper.
                 final BitcoinTransactionOutput bto = BITCOIN_MAPPER.mapToBitcoinTransactionOutput(
                         BitcoinTransactionOutputDTO.builder()
                                 .blockHeight(transaction.getStatus().getBlockHeight())
+                                .blockTime(LocalDateTime.ofInstant(Instant.ofEpochSecond(transaction.getStatus().getBlockTime()),
+                                        TimeZone.getDefault().toZoneId()))
                                 .txId(txId)
                                 .vout(vout)
                                 .scriptPubKey(output.getScriptPubKey())

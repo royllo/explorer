@@ -10,7 +10,7 @@
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"
                     remarks="Unique identifier">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_APPLICATION_USER"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PRIMARY_KEY_APPLICATION_USER"/>
             </column>
 
             <!-- Table fields -->
@@ -42,13 +42,13 @@
                           startWith="2"/>
 
         <!-- Index on USER_ID -->
-        <createIndex indexName="IDX_APPLICATION_USER_USER_ID"
+        <createIndex indexName="INDEX_APPLICATION_USER_USER_ID"
                      tableName="APPLICATION_USER">
             <column name="USER_ID"/>
         </createIndex>
 
         <!-- Index on USERNAME -->
-        <createIndex indexName="IDX_APPLICATION_USER_USERNAME"
+        <createIndex indexName="INDEX_APPLICATION_USER_USERNAME"
                      tableName="APPLICATION_USER">
             <column name="USERNAME"/>
         </createIndex>

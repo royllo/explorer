@@ -26,6 +26,7 @@ public class GetTransactionResponse {
 
     /** status. **/
     Status status = null;
+
     /** Outputs. */
     List<VOut> vout = new LinkedList<>();
 
@@ -39,6 +40,10 @@ public class GetTransactionResponse {
         /** Block height. */
         @JsonProperty("block_height")
         Integer blockHeight = null;
+
+        /** Block time. */
+        @JsonProperty("block_time")
+        Long blockTime = null;
 
     }
 

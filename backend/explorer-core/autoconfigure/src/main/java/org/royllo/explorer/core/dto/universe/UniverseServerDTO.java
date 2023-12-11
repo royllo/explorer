@@ -32,7 +32,10 @@ public class UniverseServerDTO {
     @ServerAddress(message = "Server address is invalid")
     String serverAddress;
 
-    /** When is the last time we contact the server to synchronize. */
-    ZonedDateTime lastSynchronizedOn;
+    /** When is the last time we try to synchronize with the server. */
+    ZonedDateTime lastSynchronizationAttempt;
+
+    /** When is the last time we successfully synchronized with the server. */
+    ZonedDateTime lastSynchronizationSuccess;
 
 }

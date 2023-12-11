@@ -5,21 +5,21 @@
     <changeSet author="straumat" id="1.0.0-table-constraints-asset">
 
         <!-- Foreign key FK_ASSET_GROUP > ASSET_GROUP.ID -->
-        <addForeignKeyConstraint constraintName="FK_ASSET_ASSET_GROUP"
+        <addForeignKeyConstraint constraintName="FOREIGN_KEY_ASSET_ASSET_GROUP"
                                  baseColumnNames="FK_ASSET_GROUP"
                                  baseTableName="ASSET"
                                  referencedTableName="ASSET_GROUP"
                                  referencedColumnNames="ID"/>
 
         <!-- Foreign key FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT > BITCOIN_TRANSACTION_OUTPUT.ID -->
-        <addForeignKeyConstraint constraintName="FK_ASSET_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT"
+        <addForeignKeyConstraint constraintName="FOREIGN_KEY_ASSET_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT"
                                  baseColumnNames="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT"
                                  baseTableName="ASSET"
                                  referencedTableName="BITCOIN_TRANSACTION_OUTPUT"
                                  referencedColumnNames="ID"/>
 
         <!-- Foreign key FK_USER_CREATOR > USER.ID -->
-        <addForeignKeyConstraint constraintName="FK_ASSET_APPLICATION_USER_CREATOR"
+        <addForeignKeyConstraint constraintName="FOREIGN_KEY_ASSET_APPLICATION_USER_CREATOR"
                                  baseColumnNames="FK_USER_CREATOR"
                                  baseTableName="ASSET"
                                  referencedTableName="APPLICATION_USER"

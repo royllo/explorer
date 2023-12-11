@@ -10,12 +10,15 @@
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"
                     remarks="Unique identifier">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_BITCOIN_TRANSACTION_OUTPUT"/>
+                <constraints nullable="false" primaryKey="true"
+                             primaryKeyName="PRIMARY_KEY_BITCOIN_TRANSACTION_OUTPUT"/>
             </column>
 
             <!-- Output localisation -->
             <column name="BLOCK_HEIGHT" type="INTEGER"
                     remarks="Block height (where the transaction is)"/>
+            <column name="BLOCK_TIME" type="TIMESTAMP"
+                    remarks="Block time"/>
             <column name="TXID" type="VARCHAR(255)"
                     remarks="Transaction id"/>
             <column name="VOUT" type="INTEGER"
@@ -47,16 +50,22 @@
                           startWith="3"/>
 
         <!-- Index on TXID -->
-        <createIndex indexName="IDX_BITCOIN_TRANSACTION_OUTPUT_TXID"
+        <createIndex indexName="INDEX_BITCOIN_TRANSACTION_OUTPUT_TXID"
                      tableName="BITCOIN_TRANSACTION_OUTPUT">
             <column name="TXID"/>
         </createIndex>
 
         <!-- Index on TXID, VOUT -->
-        <createIndex indexName="IDX_BITCOIN_TRANSACTION_OUTPUT_TXID_VOUT"
+        <createIndex indexName="INDEX_BITCOIN_TRANSACTION_OUTPUT_TXID_VOUT"
                      tableName="BITCOIN_TRANSACTION_OUTPUT">
             <column name="TXID"/>
             <column name="VOUT"/>
+        </createIndex>
+
+        <!-- Index on BLOCK_TIME -->
+        <createIndex indexName="INDEX_BITCOIN_TRANSACTION_OUTPUT_BLOCK_TIME"
+                     tableName="BITCOIN_TRANSACTION_OUTPUT">
+            <column name="BLOCK_TIME"/>
         </createIndex>
 
     </changeSet>
