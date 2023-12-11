@@ -26,6 +26,6 @@ public interface UniverseServerRepository extends JpaRepository<UniverseServer, 
      *
      * @return server to synchronize
      */
-    Optional<UniverseServer> findFirstByOrderByLastSynchronizedOnAsc();
+    Optional<UniverseServer> findFirstByOrderByLastSynchronizationAttemptAsc();
 
 }

@@ -5,14 +5,14 @@
     <changeSet author="straumat" id="1.0.0-table-constraints-request_add_request_meta_data">
 
         <!-- Foreign key REQUEST_ADD_ASSET_META_DATA.ID > REQUEST.ID -->
-        <addForeignKeyConstraint constraintName="FK_REQUEST_ADD_ASSET_META_DATA_REQUEST_ID"
+        <addForeignKeyConstraint constraintName="FOREIGN_KEY_REQUEST_ADD_ASSET_META_DATA_REQUEST_ID"
                                  baseColumnNames="ID"
                                  baseTableName="REQUEST_ADD_ASSET_META_DATA"
                                  referencedTableName="REQUEST"
                                  referencedColumnNames="ID"/>
 
         <!-- Foreign key FK_ASSET > ASSETS.ID -->
-        <addForeignKeyConstraint constraintName="FK_REQUEST_ADD_ASSET_META_DATA_ASSET_ID"
+        <addForeignKeyConstraint constraintName="FOREIGN_KEY_REQUEST_ADD_ASSET_META_DATA_ASSET_ID"
                                  baseColumnNames="FK_ASSET"
                                  baseTableName="REQUEST_ADD_ASSET_META_DATA"
                                  referencedTableName="ASSET"

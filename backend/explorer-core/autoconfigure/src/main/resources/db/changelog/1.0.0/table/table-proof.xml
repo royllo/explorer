@@ -10,7 +10,7 @@
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"
                     remarks="Unique identifier">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PROOF"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PRIMARY_KEY_PROOF"/>
             </column>
 
             <!-- Foreign keys -->
@@ -46,19 +46,19 @@
                           startWith="2"/>
 
         <!-- Index on PROOF_ID -->
-        <createIndex indexName="IDX_PROOF_PROOF_ID"
+        <createIndex indexName="INDEX_PROOF_PROOF_ID"
                      tableName="PROOF">
             <column name="PROOF_ID"/>
         </createIndex>
 
         <!-- Index on FK_ASSET -->
-        <createIndex indexName="IDX_PROOF_FK_ASSET"
+        <createIndex indexName="INDEX_PROOF_FK_ASSET"
                      tableName="PROOF">
             <column name="FK_ASSET"/>
         </createIndex>
 
         <!-- Index on FK_USER_CREATOR -->
-        <createIndex indexName="IDX_PROOF_FK_USER_CREATOR"
+        <createIndex indexName="INDEX_PROOF_FK_USER_CREATOR"
                      tableName="PROOF">
             <column name="FK_USER_CREATOR"/>
         </createIndex>

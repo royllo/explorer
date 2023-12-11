@@ -5,14 +5,14 @@
     <changeSet author="straumat" id="1.0.0-table-constraints-asset_state">
 
         <!-- Foreign key FK_ASSET > ASSET.ID -->
-        <addForeignKeyConstraint constraintName="FK_ASSET_STATE_ASSET"
+        <addForeignKeyConstraint constraintName="FOREIGN_KEY_ASSET_STATE_ASSET"
                                  baseColumnNames="FK_ASSET"
                                  baseTableName="ASSET_STATE"
                                  referencedTableName="ASSET"
                                  referencedColumnNames="ID"/>
 
         <!-- Foreign key FK_USER_CREATOR > USER.ID -->
-        <addForeignKeyConstraint constraintName="FK_ASSET_STATE_APPLICATION_USER_CREATOR"
+        <addForeignKeyConstraint constraintName="FOREIGN_KEY_ASSET_STATE_APPLICATION_USER_CREATOR"
                                  baseColumnNames="FK_USER_CREATOR"
                                  baseTableName="ASSET_STATE"
                                  referencedTableName="APPLICATION_USER"

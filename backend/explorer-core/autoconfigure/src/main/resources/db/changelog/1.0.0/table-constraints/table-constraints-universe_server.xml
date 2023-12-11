@@ -5,7 +5,7 @@
     <changeSet author="straumat" id="1.0.0-table-constraints-universe_server">
 
         <!-- Foreign key FK_USER_OWNER > USER.ID -->
-        <addForeignKeyConstraint constraintName="FK_UNIVERSE_SERVER_APPLICATION_USER_OWNER"
+        <addForeignKeyConstraint constraintName="FOREIGN_KEY_UNIVERSE_SERVER_APPLICATION_USER_OWNER"
                                  baseColumnNames="FK_USER_OWNER"
                                  baseTableName="UNIVERSE_SERVER"
                                  referencedTableName="APPLICATION_USER"

@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Value;
 
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -23,6 +24,10 @@ public class BitcoinTransactionOutputDTO {
 
     /** Block height. */
     Integer blockHeight;
+
+    /** Block time. */
+    @NotBlank(message = "Block time is mandatory")
+    LocalDateTime blockTime;
 
     /** Transaction id. */
     @NotBlank(message = "Transaction id is mandatory")

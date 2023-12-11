@@ -5,7 +5,7 @@
     <changeSet author="straumat" id="1.0.0-table-constraints-request_add_universe_server">
 
         <!-- Foreign key REQUEST_ADD_UNIVERSE_SERVER.ID > REQUEST.ID -->
-        <addForeignKeyConstraint constraintName="FK_REQUEST_ADD_UNIVERSE_SERVER_REQUEST_ID"
+        <addForeignKeyConstraint constraintName="FOREIGN_KEY_REQUEST_ADD_UNIVERSE_SERVER_REQUEST_ID"
                                  baseColumnNames="ID"
                                  baseTableName="REQUEST_ADD_UNIVERSE_SERVER"
                                  referencedTableName="REQUEST"

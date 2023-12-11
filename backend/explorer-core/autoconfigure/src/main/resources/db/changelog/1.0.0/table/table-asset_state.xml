@@ -10,7 +10,7 @@
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"
                     remarks="Unique identifier">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ASSET_STATE"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PRIMARY_KEY_ASSET_STATE"/>
             </column>
 
             <!-- Table fields -->
@@ -85,19 +85,19 @@
                           startWith="2"/>
 
         <!-- Index on FK_ASSET -->
-        <createIndex indexName="IDX_ASSET_STATE_FK_ASSET"
+        <createIndex indexName="INDEX_ASSET_STATE_FK_ASSET"
                      tableName="ASSET_STATE">
             <column name="FK_ASSET"/>
         </createIndex>
 
         <!-- Index on ASSET_STATE_ID -->
-        <createIndex indexName="IDX_ASSET_STATE_ASSET_STATE_ID"
+        <createIndex indexName="INDEX_ASSET_STATE_ASSET_STATE_ID"
                      tableName="ASSET_STATE">
             <column name="ASSET_STATE_ID"/>
         </createIndex>
 
         <!-- Index on FK_USER_CREATOR -->
-        <createIndex indexName="IDX_ASSET_STATE_FK_USER_CREATOR"
+        <createIndex indexName="INDEX_ASSET_STATE_FK_USER_CREATOR"
                      tableName="ASSET_STATE">
             <column name="FK_USER_CREATOR"/>
         </createIndex>

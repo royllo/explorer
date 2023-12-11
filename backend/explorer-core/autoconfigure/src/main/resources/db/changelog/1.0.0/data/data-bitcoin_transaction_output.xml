@@ -10,6 +10,7 @@
         <insert tableName="BITCOIN_TRANSACTION_OUTPUT">
             <column name="ID" value="1"/>
             <column name="BLOCK_HEIGHT" value="816513"/>
+            <column name="BLOCK_TIME" valueDate="2023-11-12T20:52:01.0000"/>
             <column name="TXID" value="d22de9a2de657c262a2c20c14500b8adca593c96f3fb85bfd756ba66626b9fcb"/>
             <column name="VOUT" value="4"/>
             <column name="SCRIPTPUBKEY" value="001472ce14cdf4c24b53e7c45d1bd1eaa904114de962"/>
@@ -25,6 +26,7 @@
         <insert tableName="BITCOIN_TRANSACTION_OUTPUT">
             <column name="ID" value="2"/>
             <column name="BLOCK_HEIGHT" value="816610"/>
+            <column name="BLOCK_TIME" valueDate="2023-11-13T14:44:29.0000"/>
             <column name="TXID" value="ca8d2eb13b25fd0b363d92de2655988b49bc5b519f282d41e10ce117beb97558"/>
             <column name="VOUT" value="0"/>
             <column name="SCRIPTPUBKEY" value="51200e7b1c167645f8fea7d7d52d9fd2655822d53e9f56e7ce5261635955d18906f1"/>

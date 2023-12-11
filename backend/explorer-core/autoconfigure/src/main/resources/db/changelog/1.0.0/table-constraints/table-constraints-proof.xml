@@ -5,14 +5,14 @@
     <changeSet author="straumat" id="1.0.0-table-constraints-proof">
 
         <!-- Foreign key FK_USER_CREATOR > USER.ID -->
-        <addForeignKeyConstraint constraintName="FK_PROOF_APPLICATION_USER_CREATOR"
+        <addForeignKeyConstraint constraintName="FOREIGN_KEY_PROOF_APPLICATION_USER_CREATOR"
                                  baseColumnNames="FK_USER_CREATOR"
                                  baseTableName="PROOF"
                                  referencedTableName="APPLICATION_USER"
                                  referencedColumnNames="ID"/>
 
         <!-- Foreign key FK_ASSET > ASSETS.ID -->
-        <addForeignKeyConstraint constraintName="FK_PROOF_ASSET"
+        <addForeignKeyConstraint constraintName="FOREIGN_KEY_PROOF_ASSET"
                                  baseColumnNames="FK_ASSET"
                                  baseTableName="PROOF"
                                  referencedTableName="ASSET"

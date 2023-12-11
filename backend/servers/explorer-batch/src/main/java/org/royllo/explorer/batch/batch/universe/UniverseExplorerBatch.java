@@ -53,12 +53,12 @@ public class UniverseExplorerBatch extends BaseBatch {
     @Scheduled(initialDelay = START_DELAY_IN_MILLISECONDS, fixedDelay = DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS)
     public void processUniverseServers() {
         if (enabled.get()) {
-            universeServerRepository.findFirstByOrderByLastSynchronizedOnAsc().ifPresent(universeServer -> {
+            universeServerRepository.findFirstByOrderByLastSynchronizationAttemptAsc().ifPresent(universeServer -> {
                 // For each server we have in our databases.
                 logger.info("Processing universe server: {}", universeServer.getServerAddress());
 
                 // We indicate that we are working on this universe server by updating its last sync date.
-                universeServer.setLastSynchronizedOn(now());
+                universeServer.setLastSynchronizationAttempt(now());
                 universeServerRepository.save(universeServer);
 
                 IntStream.iterate(0, offset -> offset + UNIVERSE_ROOTS_LIMIT)
@@ -109,6 +109,10 @@ public class UniverseExplorerBatch extends BaseBatch {
                                         }
                                     });
                         });
+
+                // We indicate that the server was successfully synchronized.
+                universeServer.setLastSynchronizationSuccess(now());
+                universeServerRepository.save(universeServer);
             });
         }
     }
