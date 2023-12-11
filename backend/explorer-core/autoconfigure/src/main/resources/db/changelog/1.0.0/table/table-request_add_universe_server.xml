@@ -16,6 +16,8 @@
             <!-- Table fields -->
             <column name="SERVER_ADDRESS" type="TEXT"
                     remarks="The server address typically consists of both an IP address and a port number"/>
+            <column name="FK_UNIVERSE_SERVER" type="BIGINT"
+                    remarks="The universe server created/updated by this request"/>
 
             <!-- Technical fields -->
             <column name="CREATED_ON" type="TIMESTAMP"

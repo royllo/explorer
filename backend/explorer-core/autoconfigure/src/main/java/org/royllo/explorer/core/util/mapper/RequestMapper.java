@@ -17,7 +17,8 @@ import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
  * Request related mapper.
  */
 @SuppressWarnings("unused")
-@Mapper(nullValuePropertyMappingStrategy = IGNORE, uses = {UserMapper.class, BitcoinMapper.class, AssetMapper.class})
+@Mapper(nullValuePropertyMappingStrategy = IGNORE,
+        uses = {UserMapper.class, BitcoinMapper.class, AssetMapper.class, UserMapper.class})
 public interface RequestMapper {
 
     // =================================================================================================================
@@ -36,7 +37,7 @@ public interface RequestMapper {
     }
 
     // =================================================================================================================
-    // Add asset Mapper.
+    // Add asset mapper.
     @Mapping(target = "createdOn", ignore = true)
     @Mapping(target = "updatedOn", ignore = true)
     AddProofRequest mapToAddAssetRequest(AddProofRequestDTO source);
@@ -44,7 +45,7 @@ public interface RequestMapper {
     AddProofRequestDTO mapToAddAssetRequestDTO(AddProofRequest source);
 
     // =================================================================================================================
-    // Add asset meta Mapper.
+    // Add asset meta mapper.
     @Mapping(target = "createdOn", ignore = true)
     @Mapping(target = "updatedOn", ignore = true)
     AddAssetMetaDataRequest mapToAddAssetMetaRequest(AddAssetMetaDataRequestDTO source);
@@ -52,7 +53,7 @@ public interface RequestMapper {
     AddAssetMetaDataRequestDTO mapToAddAssetMetaRequestDTO(AddAssetMetaDataRequest source);
 
     // =================================================================================================================
-    // Add universe server Mapper.
+    // Add universe server mapper.
     @Mapping(target = "createdOn", ignore = true)
     @Mapping(target = "updatedOn", ignore = true)
     AddUniverseServerRequest mapToAddUniverseServerRequest(AddUniverseServerRequestDTO source);
