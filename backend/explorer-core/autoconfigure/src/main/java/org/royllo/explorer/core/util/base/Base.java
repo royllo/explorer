@@ -1,6 +1,5 @@
 package org.royllo.explorer.core.util.base;
 
-import lombok.NonNull;
 import org.mapstruct.factory.Mappers;
 import org.royllo.explorer.core.util.mapper.AssetGroupMapper;
 import org.royllo.explorer.core.util.mapper.AssetMapper;
@@ -56,7 +55,7 @@ public abstract class Base {
      * @param value value
      * @return sha256 of value
      */
-    protected static String sha256(@NonNull final String value) {
+    protected static String sha256(final String value) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] digest = md.digest(value.getBytes(StandardCharsets.UTF_8));

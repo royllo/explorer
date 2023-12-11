@@ -39,7 +39,10 @@ finish_release:
     mvn gitflow:release-finish
 
 # ======================================================================================================================
-# Utils
+# Docker
+view_batch_server_logs:
+    docker-compose logs -f royllo-explorer-batch-server
+
 remove_docker_content:
     docker stop $(docker ps -qa)
     docker rm $(docker ps -qa)
@@ -47,6 +50,8 @@ remove_docker_content:
     docker volume rm $(docker volume ls -q)
     docker network rm $(docker network ls -q)
 
+# ======================================================================================================================
+# Utils
 download_dependencies:
     mvn dependency:sources dependency:resolve -Dclassifier=javadoc
 
