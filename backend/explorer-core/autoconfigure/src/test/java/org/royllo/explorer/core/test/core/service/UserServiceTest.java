@@ -13,10 +13,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
+import static org.royllo.explorer.core.util.constants.AdministratorUserConstants.ADMINISTRATOR_ID;
+import static org.royllo.explorer.core.util.constants.AdministratorUserConstants.ADMINISTRATOR_USER;
+import static org.royllo.explorer.core.util.constants.AdministratorUserConstants.ADMINISTRATOR_USER_ID;
+import static org.royllo.explorer.core.util.constants.AdministratorUserConstants.ADMINISTRATOR_USER_USERNAME;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_ID;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_ID;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_USERNAME;
 import static org.royllo.explorer.core.util.enums.UserRole.ADMINISTRATOR;
-import static org.royllo.explorer.core.util.enums.UserRole.USER;
 
 @SpringBootTest
 @DisplayName("UserService tests")
@@ -26,13 +31,25 @@ public class UserServiceTest {
     private UserService userService;
 
     @Test
+    @DisplayName("getAdministratorUser()")
+    public void getAdministratorUser() {
+        final UserDTO administratorUser = userService.getAdministratorUser();
+        assertNotNull(administratorUser);
+        assertEquals(ADMINISTRATOR_ID, administratorUser.getId().longValue());
+        assertEquals(ADMINISTRATOR_USER_ID, administratorUser.getUserId());
+        assertEquals(ADMINISTRATOR_USER_USERNAME, administratorUser.getUsername());
+        assertEquals(ADMINISTRATOR_USER.getRole(), administratorUser.getRole());
+    }
+
+    @Test
     @DisplayName("getAnonymousUser()")
     public void getAnonymousUserTest() {
         final UserDTO anonymousUser = userService.getAnonymousUser();
         assertNotNull(anonymousUser);
         assertEquals(ANONYMOUS_ID, anonymousUser.getId().longValue());
+        assertEquals(ANONYMOUS_USER_ID, anonymousUser.getUserId());
         assertEquals(ANONYMOUS_USER_USERNAME, anonymousUser.getUsername());
-        assertEquals(USER, anonymousUser.getRole());
+        assertEquals(ANONYMOUS_USER.getRole(), anonymousUser.getRole());
     }
 
     @Test

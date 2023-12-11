@@ -10,6 +10,13 @@ import java.util.Optional;
 public interface UserService {
 
     /**
+     * Get administrator user.
+     *
+     * @return administrator user
+     */
+    UserDTO getAdministratorUser();
+
+    /**
      * Get anonymous user.
      *
      * @return anonymous user

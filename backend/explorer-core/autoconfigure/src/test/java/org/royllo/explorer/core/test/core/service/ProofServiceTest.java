@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_ID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_FROM_TEST;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;

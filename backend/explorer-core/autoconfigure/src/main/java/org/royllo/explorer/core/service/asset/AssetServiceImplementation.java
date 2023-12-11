@@ -19,7 +19,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import static java.util.stream.Collectors.joining;
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
 
 /**
  * {@link AssetService} implementation.

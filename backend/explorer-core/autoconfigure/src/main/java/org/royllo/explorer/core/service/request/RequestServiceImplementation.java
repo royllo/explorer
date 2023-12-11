@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static java.util.stream.Collectors.joining;
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.openedStatus;
 

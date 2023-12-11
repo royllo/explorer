@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
 
 /**
  * {@link AssetStateService} implementation.
