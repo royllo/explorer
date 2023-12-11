@@ -31,9 +31,11 @@ public class MempoolTransactionServiceTestnetTest {
 
         // =============================================================================================================
         // Testing a taproot transaction.
+        // curl https://mempool.space/testnet/api/tx/d8a8016095b9fcd1f63c57342d375026ecbc72c885a54b676c6e62b216e15365 | jq
         GetTransactionResponse taprootTransaction = mempoolTransactionService.getTransaction("d8a8016095b9fcd1f63c57342d375026ecbc72c885a54b676c6e62b216e15365").block();
         assertNotNull(taprootTransaction);
         assertEquals(2348688, taprootTransaction.getStatus().getBlockHeight().intValue());
+        assertEquals(1664417898, taprootTransaction.getStatus().getBlockTime().longValue());
         assertEquals(2, taprootTransaction.getVout().size());
 
         // vOut 0.

@@ -31,27 +31,33 @@ public class TapdData {
     // =================================================================================================================
     // For RoylloCoin
     public static final String ROYLLO_COIN_ASSET_ID = "24a27ab522c9c33e64f4462f2acee01571e014ccbbac075786d1deae033a128d";
+    public static final String ROYLLO_COIN_ASSET_ALIAS = "roylloCoin";
     public static final AssetValue ROYLLO_COIN_FROM_TEST;
 
     // =================================================================================================================
     // For roylloNFT
     public static final String ROYLLO_NFT_ASSET_ID = "89c9d3ff7cb9dbc4615f854f7127e94db10edd430f8bcf82d7309d0c8b750051";
+    public static final String ROYLLO_NFT_ASSET_ID_ALIAS = "alias001";
     public static final AssetValue ROYLLO_NFT_FROM_TEST;
 
     // =================================================================================================================
     // For setOfRoylloNFT
     public static final String SET_OF_ROYLLO_NFT_1_ASSET_ID = "f643450242bb302284bab17e097982ad89790f94a9ad53db34d1902dfcccae5b";
+    public static final String SET_OF_ROYLLO_NFT_1_ASSET_ID_ALIAS = "alias002";
     public static final AssetValue SET_OF_ROYLLO_NFT_1_FROM_TEST;
 
     public static final String SET_OF_ROYLLO_NFT_2_ASSET_ID = "84be6e5954af62b40d1ea25f289e05414d579116e00b9fcaa76453efe8ee39ff";
+    public static final String SET_OF_ROYLLO_NFT_2_ASSET_ID_ALIAS = "alias003";
     public static final AssetValue SET_OF_ROYLLO_NFT_2_FROM_TEST;
 
     public static final String SET_OF_ROYLLO_NFT_3_ASSET_ID = "23577de9f41b99b03ad8ed10e09120bf949f956b0702133102a566f5d33f2bd7";
+    public static final String SET_OF_ROYLLO_NFT_3_ASSET_ID_ALIAS = "alias004";
     public static final AssetValue SET_OF_ROYLLO_NFT_3_FROM_TEST;
 
     // =================================================================================================================
     // For trickyRoylloCoin
     public static final String TRICKY_ROYLLO_COIN_ASSET_ID = "e16029acc4d2cf0505857265442344efb5547f2047a3fc1c4822683f7c57820e";
+    public static final String TRICKY_ROYLLO_COIN_ASSET_ID_ALIAS = "alias005";
     public static final AssetValue TRICKY_ROYLLO_COIN_FROM_TEST;
 
     // =================================================================================================================
@@ -62,9 +68,11 @@ public class TapdData {
     // =================================================================================================================
     // For unlimitedRoylloCoin
     public static final String UNLIMITED_ROYLLO_COIN_1_ASSET_ID = "ce2d57a6bef7668a781bc149f5491aab7392b30a2f4368f013722f46a57abc70";
+    public static final String UNLIMITED_ROYLLO_COIN_1_ASSET_ID_ALIAS = "alias006";
     public static final AssetValue UNLIMITED_ROYLLO_COIN_1_FROM_TEST;
 
     public static final String UNLIMITED_ROYLLO_COIN_2_ASSET_ID = "fdf6f8c41602ccdad237305a05e41868ba267947d152a1cacfaf3b5045a84a04";
+    public static final String UNLIMITED_ROYLLO_COIN_2_ASSET_ID_ALIAS = "alias007";
     public static final AssetValue UNLIMITED_ROYLLO_COIN_2_FROM_TEST;
 
     /** Static logger. */

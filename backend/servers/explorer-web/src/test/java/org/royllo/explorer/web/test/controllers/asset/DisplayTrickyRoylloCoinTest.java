@@ -14,17 +14,20 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.containsString;
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_ID;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_USERNAME;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GENESIS_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GROUP_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_OWNER_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PROOFS_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_STATES_PAGE;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_URL_ATTRIBUTE;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID_ALIAS;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_FROM_TEST;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -35,6 +38,7 @@ public class DisplayTrickyRoylloCoinTest extends BaseTest {
 
     // Asset tested.
     String assetId = TRICKY_ROYLLO_COIN_ASSET_ID;
+    String assetIdAlias = TRICKY_ROYLLO_COIN_ASSET_ID_ALIAS;
     DecodedProofValueResponse.DecodedProof assetFromTest = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(0);
 
     @Autowired
@@ -51,6 +55,7 @@ public class DisplayTrickyRoylloCoinTest extends BaseTest {
         mockMvc.perform(get("/asset/" + assetId).headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_GENESIS_PAGE)))
+                .andExpect(model().attribute(ASSET_URL_ATTRIBUTE, containsString("http://localhost:8080/asset/" + assetIdAlias)))
                 // Checking tab header.
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getName() + "<")))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getAssetId() + "<")))
@@ -74,6 +79,7 @@ public class DisplayTrickyRoylloCoinTest extends BaseTest {
                 // Checking genesis tab data.
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getName() + "<")))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getAssetId() + "<")))
+                .andExpect(content().string(containsString(">" + assetIdAlias + "<")))
                 .andExpect(content().string(containsString(">" + getMessage(messages, "asset.data.assetType.normal") + "<")))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAmount() + "<")))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getMetaDataHash() + "<")))
@@ -97,6 +103,10 @@ public class DisplayTrickyRoylloCoinTest extends BaseTest {
                 // Checking group tab data.
                 .andExpect(content().string(containsString(getMessage(messages, "asset.view.tabs.group.noAssetGroup"))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.data.tweakedGroupKey")))))
+                // There should be no pagination.
+                .andExpect(content().string(not(containsString("previousPage"))))
+                .andExpect(content().string(not(containsString("currentPage"))))
+                .andExpect(content().string(not(containsString("nextPage"))))
                 // Error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.noAssetId")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));

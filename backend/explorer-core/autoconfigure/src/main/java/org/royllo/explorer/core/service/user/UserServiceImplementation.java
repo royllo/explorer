@@ -6,10 +6,12 @@ import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.dto.user.UserDTO;
 import org.royllo.explorer.core.repository.user.UserRepository;
 import org.royllo.explorer.core.util.base.BaseService;
-import org.royllo.explorer.core.util.constants.UserConstants;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
+import static org.royllo.explorer.core.util.constants.AdministratorUserConstants.ADMINISTRATOR_ID;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_ID;
 
 /**
  * {@link UserService} implementation.
@@ -23,10 +25,24 @@ public class UserServiceImplementation extends BaseService implements UserServic
     private final UserRepository userRepository;
 
     @Override
+    public final UserDTO getAdministratorUser() {
+        logger.info("Getting administrator user");
+
+        final Optional<User> administratorUser = userRepository.findById(ADMINISTRATOR_ID);
+        if (administratorUser.isPresent()) {
+            logger.info("Returning administrator user");
+            return USER_MAPPER.mapToUserDTO(administratorUser.get());
+        } else {
+            logger.error("Administrator user not found - This should never happened");
+            throw new RuntimeException("Administrator user not found");
+        }
+    }
+
+    @Override
     public final UserDTO getAnonymousUser() {
         logger.info("Getting anonymous user");
 
-        final Optional<User> anonymousUser = userRepository.findById(UserConstants.ANONYMOUS_ID);
+        final Optional<User> anonymousUser = userRepository.findById(ANONYMOUS_ID);
         if (anonymousUser.isPresent()) {
             logger.info("Returning anonymous user");
             return USER_MAPPER.mapToUserDTO(anonymousUser.get());

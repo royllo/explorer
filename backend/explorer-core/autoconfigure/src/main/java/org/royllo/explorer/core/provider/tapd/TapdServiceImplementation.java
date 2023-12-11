@@ -1,6 +1,6 @@
 package org.royllo.explorer.core.provider.tapd;
 
-import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.BandwidthBuilder;
 import io.github.bucket4j.Bucket;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
@@ -8,6 +8,7 @@ import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.util.base.BaseProviderService;
+import org.royllo.explorer.core.util.enums.ProofType;
 import org.royllo.explorer.core.util.parameters.OutgoingRateLimitsParameters;
 import org.royllo.explorer.core.util.parameters.TAPDParameters;
 import org.springframework.http.MediaType;
@@ -46,7 +47,9 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
     @PostConstruct
     private void postConstruct() {
         bucket = Bucket.builder()
-                .addLimit(Bandwidth.simple(1, outgoingRateLimitsParameters.getDelayBetweenRequests()))
+                .addLimit(BandwidthBuilder.builder()
+                        .capacity(1)
+                        .refillGreedy(1, outgoingRateLimitsParameters.getDelayBetweenRequests()).build())
                 .build();
     }
 
@@ -78,7 +81,7 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
 
     @Override
     public final Mono<DecodedProofResponse> decode(final String proof, final long proofAtDepth) {
-        logger.info("Calling decode for proof from tapd with raw proof {} at {} depth", proof, proofAtDepth);
+        logger.info("Calling decode for proof from tapd with proof {} at {} depth", proof, proofAtDepth);
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
 
         // Consume a token from the token bucket.
@@ -110,7 +113,9 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
     }
 
     @Override
-    public final Mono<UniverseRootsResponse> getUniverseRoots(final String serverAddress) {
+    public final Mono<UniverseRootsResponse> getUniverseRoots(final String serverAddress,
+                                                              final int offset,
+                                                              final int limit) {
         logger.info("Get universe roots from tapd server: {}", serverAddress);
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
 
@@ -128,14 +133,15 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
                 .baseUrl(serverAddress)
                 .build()
                 .get()
-                .uri("/v1/taproot-assets/universe/roots")
+                .uri("/v1/taproot-assets/universe/roots?offset=" + offset + "&limit=" + limit)
                 .exchangeToFlux(response -> response.bodyToFlux(UniverseRootsResponse.class))
                 .next();
     }
 
     @Override
     public final Mono<UniverseLeavesResponse> getUniverseLeaves(final String serverAddress,
-                                                                final String assetId) {
+                                                                final String assetId,
+                                                                final ProofType proofType) {
         logger.info("Get universe leaves from tapd for asset {}", assetId);
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
 
@@ -153,7 +159,7 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
                 .baseUrl(serverAddress)
                 .build()
                 .get()
-                .uri("/v1/taproot-assets/universe/leaves/asset-id/" + assetId + "?proof_type=PROOF_TYPE_ISSUANCE")
+                .uri("/v1/taproot-assets/universe/leaves/asset-id/" + assetId + "?proof_type=" + proofType)
                 .exchangeToFlux(response -> response.bodyToFlux(UniverseLeavesResponse.class))
                 .next();
     }

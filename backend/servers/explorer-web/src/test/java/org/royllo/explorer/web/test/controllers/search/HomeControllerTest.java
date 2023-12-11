@@ -52,7 +52,7 @@ public class HomeControllerTest extends BaseTest {
                 .andExpect(content().string(containsString(getMessage(messages, "home.message"))))
                 // Checking the footer is here.
                 .andExpect(content().string(containsString("https://www.royllo.org")))
-                .andExpect(content().string(containsString("https://api.explorer.royllo.org")))
+                .andExpect(content().string(containsString("http://localhost:9090/api")))
                 .andExpect(content().string(containsString("https://github.com/royllo/explorer")))
                 .andExpect(content().string(containsString("https://twitter.com/royllo_org")));
 
@@ -78,7 +78,7 @@ public class HomeControllerTest extends BaseTest {
                 .andExpect(content().string(containsString(getMessage(messages, "home.message"))))
                 // Checking the footer is NOT RETURNED.
                 .andExpect(content().string(not(containsString("https://www.royllo.org"))))
-                .andExpect(content().string(not(containsString("https://api.explorer.royllo.org"))))
+                .andExpect(content().string(not(containsString("http://localhost:9090/api"))))
                 .andExpect(content().string(not(containsString("https://github.com/royllo/explorer"))))
                 .andExpect(content().string(not(containsString("https://twitter.com/royllo_org"))));
 
@@ -101,20 +101,13 @@ public class HomeControllerTest extends BaseTest {
     @DisplayName("Images available")
     void images() throws Exception {
 
-        mockMvc.perform(get("/images/logo/royllo_logo_homepage.png"))
-                .andExpect(status().isOk());
-        mockMvc.perform(get("/images/logo/royllo_logo_horizontal_with_title.png"))
-                .andExpect(status().isOk());
-        mockMvc.perform(get("/svg/footer/api.svg"))
-                .andExpect(status().isOk());
-        mockMvc.perform(get("/svg/footer/github.svg"))
-                .andExpect(status().isOk());
-        mockMvc.perform(get("/svg/footer/twitter.svg"))
-                .andExpect(status().isOk());
-        mockMvc.perform(get("/svg/type_collectible_asset.svg"))
-                .andExpect(status().isOk());
-        mockMvc.perform(get("/svg/type_normal_asset.svg"))
-                .andExpect(status().isOk());
+        mockMvc.perform(get("/images/logo/royllo_logo_homepage.png")).andExpect(status().isOk());
+        mockMvc.perform(get("/images/logo/royllo_logo_horizontal_with_title.png")).andExpect(status().isOk());
+        mockMvc.perform(get("/svg/footer/api.svg")).andExpect(status().isOk());
+        mockMvc.perform(get("/svg/footer/github.svg")).andExpect(status().isOk());
+        mockMvc.perform(get("/svg/footer/twitter.svg")).andExpect(status().isOk());
+        mockMvc.perform(get("/svg/type_collectible_asset.svg")).andExpect(status().isOk());
+        mockMvc.perform(get("/svg/type_normal_asset.svg")).andExpect(status().isOk());
 
     }
 

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
 import static org.royllo.explorer.core.util.validator.ServerAddressValidator.HOSTNAME_OR_IP_PATTERN;
 
 /**

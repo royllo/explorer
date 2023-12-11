@@ -22,17 +22,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.royllo.explorer.api.configuration.APIConfiguration.MAXIMUM_PAGE_SIZE;
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_ID;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_USERNAME;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_ASSET_ID;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_ASSET_ID_ALIAS;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_FROM_TEST;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_2_ASSET_ID;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_2_ASSET_ID_ALIAS;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_3_ASSET_ID;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_3_ASSET_ID_ALIAS;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_ASSET_ID;
+import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_ASSET_ID_ALIAS;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_FROM_TEST;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_2_ASSET_ID;
+import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_2_ASSET_ID_ALIAS;
 
 @SpringBootTest
 @DisplayName("AssetDataFetcher tests")
@@ -82,6 +87,7 @@ public class AssetDataFetcherTest {
                                 .name()
                                 .metaDataHash()
                                 .assetId()
+                                .assetIdAlias()
                                 .outputIndex()
                                 .parent()
                                 .totalElements()
@@ -95,8 +101,11 @@ public class AssetDataFetcherTest {
         assertEquals(3, assetPage.getTotalElements());
         assertEquals(1, assetPage.getTotalPages());
         assertEquals(SET_OF_ROYLLO_NFT_1_ASSET_ID, assetPage.getContent().get(0).getAssetId());
+        assertEquals(SET_OF_ROYLLO_NFT_1_ASSET_ID_ALIAS, assetPage.getContent().get(0).getAssetIdAlias());
         assertEquals(SET_OF_ROYLLO_NFT_2_ASSET_ID, assetPage.getContent().get(1).getAssetId());
+        assertEquals(SET_OF_ROYLLO_NFT_2_ASSET_ID_ALIAS, assetPage.getContent().get(1).getAssetIdAlias());
         assertEquals(SET_OF_ROYLLO_NFT_3_ASSET_ID, assetPage.getContent().get(2).getAssetId());
+        assertEquals(SET_OF_ROYLLO_NFT_3_ASSET_ID_ALIAS, assetPage.getContent().get(2).getAssetIdAlias());
     }
 
     @Test
@@ -239,12 +248,15 @@ public class AssetDataFetcherTest {
     @Test
     @DisplayName("assetByAssetId()")
     public void assetByAssetId() {
+
+        // Searching with an asset id.
         Asset asset = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
                         AssetByAssetIdGraphQLQuery.newRequest().assetId(UNLIMITED_ROYLLO_COIN_1_ASSET_ID).build(),
                         new AssetByAssetIdProjectionRoot<>()
                                 .creator().userId().username().parent()
                                 .assetId()
+                                .assetIdAlias()
                                 .genesisPoint().txId().vout().parent()
                                 .metaDataHash()
                                 .name()
@@ -270,6 +282,7 @@ public class AssetDataFetcherTest {
         assertEquals(ANONYMOUS_USER_ID, asset.getCreator().getUserId());
         assertEquals(ANONYMOUS_USER_USERNAME, asset.getCreator().getUsername());
         assertEquals(UNLIMITED_ROYLLO_COIN_1_ASSET_ID, asset.getAssetId());
+        assertEquals(UNLIMITED_ROYLLO_COIN_1_ASSET_ID_ALIAS, asset.getAssetIdAlias());
         assertEquals(assetFromTestData.getAsset().getAssetGenesis().getGenesisPoint(), asset.getGenesisPoint().getTxId() + ":" + asset.getGenesisPoint().getVout());
         assertEquals(assetFromTestData.getAsset().getAssetGenesis().getMetaDataHash(), asset.getMetaDataHash());
         assertEquals(assetFromTestData.getAsset().getAssetGenesis().getName(), asset.getName());
@@ -302,6 +315,25 @@ public class AssetDataFetcherTest {
                 });
         assertNotNull(asset);
         assertNull(asset.getAssetGroup());
+
+        // Searching with an asset id alias.
+        asset = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+                new GraphQLQueryRequest(
+                        AssetByAssetIdGraphQLQuery.newRequest().assetId(UNLIMITED_ROYLLO_COIN_2_ASSET_ID_ALIAS).build(),
+                        new AssetByAssetIdProjectionRoot<>()
+                                .assetId()
+                                .assetIdAlias()
+                ).serialize(),
+                "data." + DgsConstants.QUERY.AssetByAssetId,
+                new TypeRef<>() {
+                });
+
+        // Testing results.
+        assertNotNull(asset);
+
+        // Asset.
+        assertEquals(UNLIMITED_ROYLLO_COIN_2_ASSET_ID, asset.getAssetId());
+        assertEquals(UNLIMITED_ROYLLO_COIN_2_ASSET_ID_ALIAS, asset.getAssetIdAlias());
     }
 
 }

@@ -55,6 +55,7 @@
             <column name="ID" value="1001"/>
             <column name="FK_USER_CREATOR" value="2"/>
 
+            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1001"/>
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1001"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1001"/>
             <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1001"/>
@@ -65,6 +66,7 @@
             <column name="FK_ASSET_GROUP" value="1001"/>
 
             <column name="ASSET_ID" value="asset_id_1"/>
+            <column name="ASSET_ID_ALIAS" value="asset_id_1"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="META_DATA_HASH" value="meta_data_1"/>
             <column name="NAME" value="TestPaginationCoin1"/>
@@ -79,6 +81,7 @@
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1001"/>
 
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_1"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 1"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX" value="Anchor tx 1"/>
@@ -94,6 +97,7 @@
             <column name="ID" value="1002"/>
             <column name="FK_USER_CREATOR" value="2"/>
 
+            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1002"/>
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1002"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1002"/>
             <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1002"/>
@@ -104,6 +108,7 @@
             <column name="FK_ASSET_GROUP" value="1002"/>
 
             <column name="ASSET_ID" value="asset_id_2"/>
+            <column name="ASSET_ID_ALIAS" value="asset_id_2"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="META_DATA_HASH" value="meta_data_2"/>
             <column name="NAME" value="TestPaginationCoin2"/>
@@ -118,6 +123,7 @@
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1002"/>
 
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_2"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 2"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX" value="Anchor tx 2"/>
@@ -133,6 +139,7 @@
             <column name="ID" value="1003"/>
             <column name="FK_USER_CREATOR" value="2"/>
 
+            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1003"/>
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1003"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1003"/>
             <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1003"/>
@@ -143,6 +150,7 @@
             <column name="FK_ASSET_GROUP" value="1003"/>
 
             <column name="ASSET_ID" value="asset_id_3"/>
+            <column name="ASSET_ID_ALIAS" value="asset_id_3"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="3"/>
             <column name="META_DATA_HASH" value="meta_data_13"/>
             <column name="NAME" value="TestPaginationCoin3"/>
@@ -157,6 +165,7 @@
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1003"/>
 
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_3"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 3"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX" value="Anchor tx 3"/>
@@ -172,6 +181,7 @@
             <column name="ID" value="1004"/>
             <column name="FK_USER_CREATOR" value="2"/>
 
+            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1004"/>
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1004"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1004"/>
             <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1004"/>
@@ -182,6 +192,7 @@
             <column name="FK_ASSET_GROUP" value="1004"/>
 
             <column name="ASSET_ID" value="asset_id_4"/>
+            <column name="ASSET_ID_ALIAS" value="asset_id_4"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="META_DATA_HASH" value="meta_data_4"/>
             <column name="NAME" value="TestPaginationCoin4"/>
@@ -196,6 +207,7 @@
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1004"/>
 
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_4"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 4"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX" value="Anchor tx 4"/>
@@ -211,6 +223,7 @@
             <column name="ID" value="1005"/>
             <column name="FK_USER_CREATOR" value="2"/>
 
+            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1005"/>
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1005"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1005"/>
             <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1005"/>
@@ -221,6 +234,7 @@
             <column name="FK_ASSET_GROUP" value="1005"/>
 
             <column name="ASSET_ID" value="asset_id_5"/>
+            <column name="ASSET_ID_ALIAS" value="asset_id_5"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="META_DATA_HASH" value="meta_data_5"/>
             <column name="NAME" value="TestPaginationCoin5"/>
@@ -235,6 +249,7 @@
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1005"/>
 
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_5"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 5"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX" value="Anchor tx 5"/>
@@ -250,6 +265,7 @@
             <column name="ID" value="1006"/>
             <column name="FK_USER_CREATOR" value="2"/>
 
+            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1006"/>
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1006"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1006"/>
             <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1006"/>
@@ -260,6 +276,7 @@
             <column name="FK_ASSET_GROUP" value="1006"/>
 
             <column name="ASSET_ID" value="asset_id_6"/>
+            <column name="ASSET_ID_ALIAS" value="asset_id_6"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="META_DATA_HASH" value="meta_data_6"/>
             <column name="NAME" value="TestPaginationCoin6"/>
@@ -274,6 +291,7 @@
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1006"/>
 
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_6"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 6"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX" value="Anchor tx 6"/>
@@ -289,6 +307,7 @@
             <column name="ID" value="1007"/>
             <column name="FK_USER_CREATOR" value="2"/>
 
+            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1007"/>
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1007"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1007"/>
             <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1007"/>
@@ -299,6 +318,7 @@
             <column name="FK_ASSET_GROUP" value="1007"/>
 
             <column name="ASSET_ID" value="asset_id_7"/>
+            <column name="ASSET_ID_ALIAS" value="asset_id_7"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="META_DATA_HASH" value="meta_data_7"/>
             <column name="NAME" value="TestPaginationCoin7"/>
@@ -313,6 +333,7 @@
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1007"/>
 
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_7"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 7"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX" value="Anchor tx 7"/>
@@ -328,6 +349,7 @@
             <column name="ID" value="1008"/>
             <column name="FK_USER_CREATOR" value="2"/>
 
+            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1008"/>
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1008"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1008"/>
             <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1008"/>
@@ -338,6 +360,7 @@
             <column name="FK_ASSET_GROUP" value="1008"/>
 
             <column name="ASSET_ID" value="asset_id_8"/>
+            <column name="ASSET_ID_ALIAS" value="asset_id_8"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="META_DATA_HASH" value="meta_data_8"/>
             <column name="NAME" value="TestPaginationCoin8"/>
@@ -352,6 +375,7 @@
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1008"/>
 
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_8"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 8"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX" value="Anchor tx 8"/>
@@ -367,6 +391,7 @@
             <column name="ID" value="1009"/>
             <column name="FK_USER_CREATOR" value="2"/>
 
+            <column name="ASSET_GROUP_ID" value="RAW_GROUP_KEY_1009"/>
             <column name="RAW_GROUP_KEY" value="RAW_GROUP_KEY_1009"/>
             <column name="TWEAKED_GROUP_KEY" value="RAW_GROUP_KEY_1009"/>
             <column name="ASSET_WITNESS" value="RAW_GROUP_KEY_1009"/>
@@ -377,6 +402,7 @@
             <column name="FK_ASSET_GROUP" value="1009"/>
 
             <column name="ASSET_ID" value="asset_id_9"/>
+            <column name="ASSET_ID_ALIAS" value="asset_id_9"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="2"/>
             <column name="META_DATA_HASH" value="meta_data_9"/>
             <column name="NAME" value="TestPaginationCoin0"/>
@@ -391,6 +417,7 @@
             <column name="FK_USER_CREATOR" value="2"/>
             <column name="FK_ASSET" value="1009"/>
 
+            <column name="ASSET_STATE_ID" value="ASSET_STATE_ID_9"/>
             <column name="ANCHOR_BLOCK_HASH" value="Anchor block hash 9"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_ANCHOR_OUTPOINT" value="2"/>
             <column name="ANCHOR_TX" value="Anchor tx 9"/>

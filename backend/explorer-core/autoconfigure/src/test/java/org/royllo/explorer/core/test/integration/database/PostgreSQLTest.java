@@ -15,8 +15,7 @@ import java.sql.SQLException;
 @Testcontainers
 @SpringBootTest(properties = {
         "spring.datasource.url=jdbc:tc:postgresql:16:///explorer",
-        "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver",
-        "spring.liquibase.change-log=db/changelog/db.changelog-master.yaml"
+        "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver"
 })
 @DisplayName("PostgreSQL test")
 public class PostgreSQLTest {
@@ -40,8 +39,8 @@ public class PostgreSQLTest {
     }
 
     @Test
-    @DisplayName("LTree found in pg_extension")
-    public void lTreeFoundInPGExtension() throws SQLException {
+    @DisplayName("LTree installed")
+    public void lTreeInstalled() throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             final ResultSet results = connection.createStatement()
                     .executeQuery("""

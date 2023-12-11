@@ -22,8 +22,8 @@ import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_ID;
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_ID;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_USERNAME;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.FORM_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
@@ -111,7 +111,7 @@ public class AddProofRequestRequestControllerTest extends BaseTest {
         assertEquals(OPENED, proof.get().getStatus());
         assertNull(proof.get().getAsset());
         assertNull(proof.get().getErrorMessage());
-        assertEquals("simple proof", proof.get().getRawProof());
+        assertEquals("simple proof", proof.get().getProof());
 
     }
 

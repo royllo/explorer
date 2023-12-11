@@ -29,7 +29,7 @@ public class UserDataFetcherTest {
     public void userByUserId() {
         User user = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        UserByUserIdGraphQLQuery.newRequest().userId("11111111-1111-1111-1111-111111111111").build(),
+                        UserByUserIdGraphQLQuery.newRequest().userId("22222222-2222-2222-2222-222222222222").build(),
                         new UserByUserIdProjectionRoot<>().userId().username())
                         .serialize(),
                 "data." + DgsConstants.QUERY.UserByUserId,
@@ -38,7 +38,7 @@ public class UserDataFetcherTest {
 
         // Testing the results.
         assertNotNull(user);
-        assertEquals("11111111-1111-1111-1111-111111111111", user.getUserId());
+        assertEquals("22222222-2222-2222-2222-222222222222", user.getUserId());
         assertEquals("straumat", user.getUsername());
     }
 
@@ -56,7 +56,7 @@ public class UserDataFetcherTest {
 
         // Testing the results.
         assertNotNull(user);
-        assertEquals("11111111-1111-1111-1111-111111111111", user.getUserId());
+        assertEquals("22222222-2222-2222-2222-222222222222", user.getUserId());
         assertEquals("straumat", user.getUsername());
     }
 

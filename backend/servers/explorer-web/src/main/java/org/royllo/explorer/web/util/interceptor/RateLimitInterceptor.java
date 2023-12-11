@@ -2,10 +2,9 @@ package org.royllo.explorer.web.util.interceptor;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
-import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.BandwidthBuilder;
 import io.github.bucket4j.Bucket;
 import io.github.bucket4j.ConsumptionProbe;
-import io.github.bucket4j.Refill;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;
@@ -31,8 +30,9 @@ public final class RateLimitInterceptor implements HandlerInterceptor {
                 .maximumSize(incomingRateLimitsParameters.getCache().getMaximumSize())
                 .expireAfterWrite(incomingRateLimitsParameters.getCache().getExpireAfterWrite())
                 .build(key -> Bucket.builder()
-                        .addLimit(Bandwidth.classic(incomingRateLimitsParameters.getBandwidth().getCapacity(),
-                                Refill.intervally(1, incomingRateLimitsParameters.getBandwidth().getRefillPeriod())))
+                        .addLimit(BandwidthBuilder.builder()
+                                .capacity(incomingRateLimitsParameters.getBandwidth().getCapacity())
+                                .refillIntervally(1, incomingRateLimitsParameters.getBandwidth().getRefillPeriod()).build())
                         .build());
     }
 

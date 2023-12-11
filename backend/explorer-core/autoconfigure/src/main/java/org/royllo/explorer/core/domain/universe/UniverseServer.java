@@ -51,8 +51,12 @@ public class UniverseServer extends BaseDomain {
     @Column(name = "SERVER_ADDRESS", updatable = false)
     private String serverAddress;
 
-    /** When is the last time we contact the server to synchronize. */
-    @Column(name = "LAST_SYNCHRONIZED_ON")
-    private ZonedDateTime lastSynchronizedOn;
+    /** When is the last time we try to synchronize with the server. */
+    @Column(name = "LAST_SYNCHRONIZATION_ATTEMPT")
+    private ZonedDateTime lastSynchronizationAttempt;
+
+    /** When is the last time we successfully synchronized with the server. */
+    @Column(name = "LAST_SYNCHRONIZATION_SUCCESS")
+    private ZonedDateTime lastSynchronizationSuccess;
 
 }

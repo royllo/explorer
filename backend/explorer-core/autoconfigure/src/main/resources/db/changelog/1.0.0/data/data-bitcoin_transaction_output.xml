@@ -1,0 +1,41 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="1.0.0-data-bitcoin_transaction_output">
+
+        <!--
+        roylloCoin - Genesis transaction on mainnet.
+        -->
+        <insert tableName="BITCOIN_TRANSACTION_OUTPUT">
+            <column name="ID" value="1"/>
+            <column name="BLOCK_HEIGHT" value="816513"/>
+            <column name="BLOCK_TIME" valueDate="2023-11-12T20:52:01.0000"/>
+            <column name="TXID" value="d22de9a2de657c262a2c20c14500b8adca593c96f3fb85bfd756ba66626b9fcb"/>
+            <column name="VOUT" value="4"/>
+            <column name="SCRIPTPUBKEY" value="001472ce14cdf4c24b53e7c45d1bd1eaa904114de962"/>
+            <column name="SCRIPTPUBKEY_ASM" value="OP_0 OP_PUSHBYTES_20 72ce14cdf4c24b53e7c45d1bd1eaa904114de962"/>
+            <column name="SCRIPTPUBKEY_TYPE" value="v0_p2wpkh"/>
+            <column name="SCRIPTPUBKEY_ADDRESS" value="bc1qwt8pfn05cf948e7yt5dar64fqsg5m6tz8835gs"/>
+            <column name="VALUE" value="287379"/>
+        </insert>
+
+        <!--
+        roylloCoin - Anchor transaction on mainnet.
+        -->
+        <insert tableName="BITCOIN_TRANSACTION_OUTPUT">
+            <column name="ID" value="2"/>
+            <column name="BLOCK_HEIGHT" value="816610"/>
+            <column name="BLOCK_TIME" valueDate="2023-11-13T14:44:29.0000"/>
+            <column name="TXID" value="ca8d2eb13b25fd0b363d92de2655988b49bc5b519f282d41e10ce117beb97558"/>
+            <column name="VOUT" value="0"/>
+            <column name="SCRIPTPUBKEY" value="51200e7b1c167645f8fea7d7d52d9fd2655822d53e9f56e7ce5261635955d18906f1"/>
+            <column name="SCRIPTPUBKEY_ASM"
+                    value="OP_PUSHNUM_1 OP_PUSHBYTES_32 0e7b1c167645f8fea7d7d52d9fd2655822d53e9f56e7ce5261635955d18906f1"/>
+            <column name="SCRIPTPUBKEY_TYPE" value="v1_p2tr"/>
+            <column name="SCRIPTPUBKEY_ADDRESS" value="bc1ppea3c9nkghu0af7h65kel5n9tq3d205l2mnuu5npvdv4t5vfqmcsh2ttkn"/>
+            <column name="VALUE" value="1000"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

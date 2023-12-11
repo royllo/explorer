@@ -100,7 +100,16 @@
         </div>
     </details>
 
-    <div class="mt-16">&nbsp;</div>
+
+    <!--/* Pagination */-->
+    <div th:insert="~{util/fragments/components/pagination :: pagination(   @{'/asset/' + ${assetId} + '/states'},
+                                                                            '#asset-tab',
+                                                                            ${page},
+                                                                            ${assetStatesList.getTotalPages()})}">
+    </div>
+
+    <!--/* TODO Replace this with something more clean */-->
+    <div class="my-16">&nbsp</div>
 
 </div>
 <!--/* =========================================================================================================== */-->

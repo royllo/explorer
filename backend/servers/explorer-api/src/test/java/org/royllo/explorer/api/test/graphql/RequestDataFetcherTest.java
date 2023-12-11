@@ -28,8 +28,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_ID;
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_ID;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_USERNAME;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
@@ -53,7 +53,7 @@ public class RequestDataFetcherTest {
                                 .creator().userId().username().parent()
                                 .status().getParent()
                                 .errorMessage()
-                                .onAddProofRequest().rawProof().parent()
+                                .onAddProofRequest().proof().parent()
                                 .onAddAssetMetaDataRequest().assetId().metaData()
                 ).serialize(),
                 "data." + DgsConstants.QUERY.RequestByRequestId,
@@ -67,7 +67,7 @@ public class RequestDataFetcherTest {
         assertEquals(ANONYMOUS_USER_USERNAME, addAssetRequest.getCreator().getUsername());
         assertEquals(OPENED.toString(), addAssetRequest.getStatus().toString());
         assertNull(addAssetRequest.getErrorMessage());
-        assertEquals("P4", addAssetRequest.getRawProof());
+        assertEquals("P4", addAssetRequest.getProof());
     }
 
     @Test
@@ -85,7 +85,7 @@ public class RequestDataFetcherTest {
                                 .requestId()
                                 .creator().userId().username().parent()
                                 .status().getParent()
-                                .errorMessage().rawProof()
+                                .errorMessage().proof()
                 ).serialize(),
                 "data." + DgsConstants.MUTATION.CreateAddProofRequest,
                 new TypeRef<>() {
@@ -97,7 +97,7 @@ public class RequestDataFetcherTest {
         assertEquals(ANONYMOUS_USER_USERNAME, requestCreated.getCreator().getUsername());
         assertEquals(OPENED.toString(), requestCreated.getStatus().toString());
         assertNull(requestCreated.getErrorMessage());
-        assertEquals("6", requestCreated.getRawProof());
+        assertEquals("6", requestCreated.getProof());
     }
 
     @Test

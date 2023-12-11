@@ -18,8 +18,8 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER_USERNAME;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_USERNAME;
 import static org.royllo.explorer.core.util.enums.RequestStatus.FAILURE;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
@@ -45,7 +45,7 @@ public class RequestRepositoryTest extends TestWithMockServers {
         request1.setRequestId(UUID.randomUUID().toString());
         request1.setCreator(ANONYMOUS_USER);
         request1.setStatus(OPENED);
-        request1.setRawProof("Proof1");
+        request1.setProof("Proof1");
         long request1ID = requestRepository.save(request1).getId();
 
         // See what's in database with JPA.
@@ -56,7 +56,7 @@ public class RequestRepositoryTest extends TestWithMockServers {
         assertEquals(ANONYMOUS_USER_USERNAME, addProofRequest1FromJPA.getCreator().getUsername());
         assertEquals(OPENED, addProofRequest1FromJPA.getStatus());
         assertNull(addProofRequest1FromJPA.getErrorMessage());
-        assertEquals("Proof1", addProofRequest1FromJPA.getRawProof());
+        assertEquals("Proof1", addProofRequest1FromJPA.getProof());
 
         // See what's in database with JDBC.
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
@@ -99,7 +99,7 @@ public class RequestRepositoryTest extends TestWithMockServers {
         request3.setRequestId(UUID.randomUUID().toString());
         request3.setCreator(ANONYMOUS_USER);
         request3.setStatus(FAILURE);
-        request3.setRawProof("Proof2");
+        request3.setProof("Proof2");
         long request3ID = requestRepository.save(request3).getId();
 
         // See what's in database with JPA.
@@ -110,7 +110,7 @@ public class RequestRepositoryTest extends TestWithMockServers {
         assertEquals(ANONYMOUS_USER_USERNAME, addProofRequest2FromJPA.getCreator().getUsername());
         assertEquals(FAILURE, addProofRequest2FromJPA.getStatus());
         assertNull(addProofRequest2FromJPA.getErrorMessage());
-        assertEquals("Proof2", addProofRequest2FromJPA.getRawProof());
+        assertEquals("Proof2", addProofRequest2FromJPA.getProof());
 
         // See what's in database with JDBC.
         jdbcTemplate = new JdbcTemplate(dataSource);

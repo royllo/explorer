@@ -9,17 +9,26 @@ import lombok.experimental.UtilityClass;
 @SuppressWarnings("checkstyle:HideUtilityClassConstructor")
 public class ModelAttributeConstants {
 
+    /** API base url. */
+    public static final String API_BASE_URL_ATTRIBUTE = "apiBaseUrl";
+
+    /** Web base url. */
+    public static final String WEB_BASE_URL_ATTRIBUTE = "webBaseUrl";
+
     /** Query attribute. */
     public static final String QUERY_ATTRIBUTE = "query";
 
     /** Page attribute. */
     public static final String PAGE_ATTRIBUTE = "page";
 
+    /** Asset attribute. */
+    public static final String ASSET_ATTRIBUTE = "asset";
+
     /** Asset id attribute. */
     public static final String ASSET_ID_ATTRIBUTE = "assetId";
 
-    /** Asset attribute. */
-    public static final String ASSET_ATTRIBUTE = "asset";
+    /** Asset url attribute. */
+    public static final String ASSET_URL_ATTRIBUTE = "assetUrl";
 
     /** Proof id attribute. */
     public static final String PROOF_ID_ATTRIBUTE = "proofId";
@@ -41,5 +50,8 @@ public class ModelAttributeConstants {
 
     /** Form attribute. */
     public static final String FORM_ATTRIBUTE = "command";
+
+    /** sitemap urls. */
+    public static final String SITEMAP_URLS_ATTRIBUTE = "urls";
 
 }

@@ -1,6 +1,6 @@
 "Taproot asset group"
 type AssetGroup {
-    "Asset group id (=RAW_GROUP_KEY)"
+    "Asset group id (=TWEAKED_GROUP_KEY)"
     assetGroupId: ID!
     "The asset group creator"
     creator: User!

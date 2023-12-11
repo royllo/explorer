@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * {@link Asset} repository.
@@ -24,6 +23,14 @@ public interface AssetRepository extends JpaRepository<Asset, Long> {
     Optional<Asset> findByAssetId(String assetId);
 
     /**
+     * find by asset id.
+     *
+     * @param assetIdAlias asset id alias
+     * @return asset
+     */
+    Optional<Asset> findByAssetIdAlias(String assetIdAlias);
+
+    /**
      * Find an asset by its complete or partial name.
      *
      * @param name     complete or partial name
@@ -36,9 +43,10 @@ public interface AssetRepository extends JpaRepository<Asset, Long> {
      * Find assets by asset group id.
      *
      * @param assetGroupId asset group id
+     * @param pageable     page parameters
      * @return assets
      */
     @SuppressWarnings("checkstyle:MethodName")
-    Set<Asset> findByAssetGroup_AssetGroupId(String assetGroupId);
+    Page<Asset> findByAssetGroup_AssetGroupId(String assetGroupId, Pageable pageable);
 
 }

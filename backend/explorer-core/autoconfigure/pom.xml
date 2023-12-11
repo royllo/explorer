@@ -217,13 +217,13 @@
                             <goal>jar</goal>
                         </goals>
                     </execution>
-                    <!-- This is your test JAR configuration -->
+                    <!-- This is our test JAR configuration -->
                     <execution>
                         <id>royllo-test-util</id>
                         <phase>package</phase>
                         <configuration>
                             <excludes>
-                                <exclude>**/Application*</exclude>
+                                <exclude>**/Application.class</exclude>
                             </excludes>
                         </configuration>
                         <goals>
@@ -274,7 +274,7 @@
     <parent>
         <groupId>org.royllo.explorer</groupId>
         <artifactId>explorer</artifactId>
-        <version>0.0.20</version>
+        <version>0.0.21</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
     <!-- =========================================================================================================== -->

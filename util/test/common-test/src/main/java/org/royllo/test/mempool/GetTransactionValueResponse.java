@@ -45,6 +45,10 @@ public class GetTransactionValueResponse {
         @JsonProperty("block_height")
         Integer blockHeight = null;
 
+        /** Block time. */
+        @JsonProperty("block_time")
+        Long blockTime = null;
+
     }
 
     @Getter

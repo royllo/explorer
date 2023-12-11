@@ -3,6 +3,7 @@ package org.royllo.explorer.batch.test.core.proof;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.request.AddProofBatch;
+import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.repository.asset.AssetGroupRepository;
@@ -36,6 +37,7 @@ import static org.royllo.test.MempoolData.TRICKY_ROYLLO_COIN_ANCHOR_1_TXID;
 import static org.royllo.test.MempoolData.TRICKY_ROYLLO_COIN_ANCHOR_2_TXID;
 import static org.royllo.test.MempoolData.TRICKY_ROYLLO_COIN_ANCHOR_3_TXID;
 import static org.royllo.test.MempoolData.TRICKY_ROYLLO_COIN_GENESIS_TXID;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_ASSET_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_FROM_TEST;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
@@ -225,6 +227,10 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
 
         // =============================================================================================================
         // We check what has been created.
+        final Optional<AssetDTO> asset = assetService.getAssetByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID);
+        assertTrue(asset.isPresent());
+        assertNotNull(asset.get().getAssetIdAlias());
+
         assertEquals(assetGroupCountBefore, assetGroupRepository.count());
         assertEquals(assetCountBefore + 1, assetRepository.count());
         assertEquals(assetStateCountBefore + 4, assetStateRepository.count());

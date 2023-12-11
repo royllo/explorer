@@ -12,6 +12,7 @@ import lombok.ToString;
 import org.royllo.explorer.core.util.base.BaseDomain;
 
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -35,6 +36,10 @@ public class BitcoinTransactionOutput extends BaseDomain {
     /** Block height. */
     @Column(name = "BLOCK_HEIGHT")
     private Integer blockHeight;
+
+    /** Block time. */
+    @Column(name = "BLOCK_TIME")
+    private LocalDateTime blockTime;
 
     /** Transaction id. */
     @Column(name = "TXID", updatable = false)

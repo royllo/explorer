@@ -1,6 +1,6 @@
 package org.royllo.explorer.core.provider.mempool;
 
-import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.BandwidthBuilder;
 import io.github.bucket4j.Bucket;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,9 @@ public class ProviderTransactionServiceImplementation extends BaseProviderServic
     @PostConstruct
     private void postConstruct() {
         bucket = Bucket.builder()
-                .addLimit(Bandwidth.simple(1, outgoingRateLimitsParameters.getDelayBetweenRequests()))
+                .addLimit(BandwidthBuilder.builder()
+                        .capacity(1)
+                        .refillGreedy(1, outgoingRateLimitsParameters.getDelayBetweenRequests()).build())
                 .build();
     }
 

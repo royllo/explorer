@@ -1,0 +1,67 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="1.0.0-table-proof">
+
+        <createTable tableName="PROOF"
+                     remarks="Taproot assets proof">
+
+            <!-- Unique identifier -->
+            <column name="ID" type="BIGINT"
+                    remarks="Unique identifier">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PRIMARY_KEY_PROOF"/>
+            </column>
+
+            <!-- Foreign keys -->
+            <column name="FK_USER_CREATOR" type="BIGINT"
+                    remarks="The user who created this proof">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FK_ASSET" type="BIGINT"
+                    remarks="The asset linked to this proof">
+                <constraints nullable="false"/>
+            </column>
+
+            <!-- Table fields -->
+            <column name="PROOF_ID" type="VARCHAR(255)"
+                    remarks="Calculated value: sha256(proof)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="UNIQUE_PROOF_PROOF_ID"/>
+            </column>
+            <column name="PROOF" type="TEXT"
+                    remarks="Proof"/>
+
+            <!-- Technical fields -->
+            <column name="CREATED_ON" type="TIMESTAMP"
+                    remarks="Data created on"/>
+            <column name="UPDATED_ON" type="TIMESTAMP"
+                    remarks="Data updated on"/>
+
+        </createTable>
+
+        <!-- Auto increment on the unique identifier -->
+        <addAutoIncrement tableName="PROOF"
+                          columnName="ID"
+                          columnDataType="BIGINT"
+                          startWith="2"/>
+
+        <!-- Index on PROOF_ID -->
+        <createIndex indexName="INDEX_PROOF_PROOF_ID"
+                     tableName="PROOF">
+            <column name="PROOF_ID"/>
+        </createIndex>
+
+        <!-- Index on FK_ASSET -->
+        <createIndex indexName="INDEX_PROOF_FK_ASSET"
+                     tableName="PROOF">
+            <column name="FK_ASSET"/>
+        </createIndex>
+
+        <!-- Index on FK_USER_CREATOR -->
+        <createIndex indexName="INDEX_PROOF_FK_USER_CREATOR"
+                     tableName="PROOF">
+            <column name="FK_USER_CREATOR"/>
+        </createIndex>
+
+    </changeSet>
+</databaseChangeLog>

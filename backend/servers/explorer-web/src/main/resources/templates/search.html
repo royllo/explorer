@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--/* =========================================================================================================== */-->
-<div layout:fragment="content" th:fragment="search-results">
+<div layout:fragment="content" th:fragment="search-fragment">
 
     <div class="mx-auto w-5/6">
 
@@ -74,29 +74,13 @@
             </div>
             <!--/* =========================================================================================== */-->
 
-
-            <!--/* Pages numbers */-->
-            <div class="join" th:if="${result.getTotalPages() > 1}">
-                <div th:each="pageNumber: ${#numbers.sequence(1, result.totalPages)}">
-
-                    <!--/* Current page */-->
-                    <button class="join-item btn"
-                            th:if="${page == pageNumber}"
-                            th:text="${pageNumber}">
-                    </button>
-
-                    <!--/* Other pages */-->
-                    <a class="join-item btn btn-active"
-                       hx-push-url="true"
-                       hx-target="#content"
-                       th:href="@{'/search?query=' + ${query} + '&page=' + ${pageNumber}}"
-                       th:hx-get="@{'/search?query=' + ${query} + '&page=' + ${pageNumber}}"
-                       th:if="${page != pageNumber}"
-                       th:text="${pageNumber}">
-                    </a>
-
-                </div>
+            <!--/* Pagination */-->
+            <div th:insert="~{util/fragments/components/pagination :: pagination(   @{'/search?query=' + ${query}},
+                                                                                    '#content',
+                                                                                    ${page},
+                                                                                    ${result.getTotalPages()})}">
             </div>
+
             <!--/* TODO Replace this with something more clean */-->
             <div class="my-16">&nbsp</div>
 

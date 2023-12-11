@@ -32,9 +32,11 @@ public class MempoolTransactionServiceMainnetTest {
 
         // =============================================================================================================
         // Getting a transaction and checking the results.
+        // curl https://mempool.space/api/tx/46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946 | jq
         GetTransactionResponse normalTransaction = mempoolTransactionService.getTransaction("46804b8a193cae200c99531f0ea90d81cc0c0e44e718b57e7b9ab5bb3926b946").block();
         assertNotNull(normalTransaction);
         assertEquals(754059, normalTransaction.getStatus().getBlockHeight().intValue());
+        assertEquals(1663159339, normalTransaction.getStatus().getBlockTime().longValue());
         assertEquals(2, normalTransaction.getVout().size());
         Iterator<GetTransactionResponse.VOut> vOutsIterator = normalTransaction.getVout().iterator();
 
@@ -56,9 +58,11 @@ public class MempoolTransactionServiceMainnetTest {
 
         // =============================================================================================================
         // Testing a taproot transaction.
+        // curl https://mempool.space/api/tx/d61a4957e5e756a7631246b1a00d685e4854f98f8c2835bafafed8b1d1e26be5 | jq
         GetTransactionResponse taprootTransaction = mempoolTransactionService.getTransaction("d61a4957e5e756a7631246b1a00d685e4854f98f8c2835bafafed8b1d1e26be5").block();
         assertNotNull(taprootTransaction);
         assertEquals(742158, taprootTransaction.getStatus().getBlockHeight().intValue());
+        assertEquals(1656093866, taprootTransaction.getStatus().getBlockTime().longValue());
         assertEquals(2, taprootTransaction.getVout().size());
 
         // Taproot vOut.

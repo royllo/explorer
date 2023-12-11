@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
 
 /**
  * {@link AssetStateService} implementation.
@@ -107,13 +107,18 @@ public class AssetStateServiceImplementation extends BaseService implements Asse
     }
 
     @Override
-    public Page<AssetStateDTO> getAssetStatesByAssetId(@NonNull final String assetId,
+    public Page<AssetStateDTO> getAssetStatesByAssetId(final String assetId,
                                                        final int page,
                                                        final int pageSize) {
         logger.info("Getting asset states where asset state id = {}", assetId);
 
         // Checking constraints.
         assert page >= 1 : "Page number starts at page 1";
+
+        // If the asset id is null, we return an empty page.
+        if (assetId == null) {
+            return Page.empty();
+        }
 
         // Results.
         return assetStateRepository.findByAsset_AssetIdOrderById(assetId, PageRequest.of(page - 1, pageSize))

@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
-import org.royllo.explorer.core.domain.user.User;
+import org.royllo.explorer.core.dto.user.UserDTO;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -22,9 +22,9 @@ public class AssetGroupDTO {
 
     /** Asset creator. */
     @NotNull(message = "Asset group creator is required")
-    User creator;
+    UserDTO creator;
 
-    /** Asset group id (=RAW_GROUP_KEY). */
+    /** Asset group id (=TWEAKED_GROUP_KEY). */
     @NotNull(message = "Asset group id is required")
     String assetGroupId;
 

@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * "taproot-assets/universe/leaves/asset-id" response.
@@ -41,9 +42,22 @@ public class UniverseLeavesResponse {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Leaf {
 
+        /** Proof - Can be deleted - Was used in 0.3. */
+        @JsonProperty("issuance_proof")
+        private String issuanceProof;
+
         /** Proof. */
         @JsonProperty("proof")
         private String proof;
+
+        /**
+         * Getter proof.
+         *
+         * @return proof
+         */
+        public final String getProof() {
+            return Objects.requireNonNullElse(proof, issuanceProof);
+        }
 
     }
 

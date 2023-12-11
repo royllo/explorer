@@ -16,9 +16,8 @@ import org.royllo.explorer.core.dto.asset.AssetDTO;
 public class AddProofRequestDTO extends RequestDTO {
 
     /** Proof that validates the asset information. */
-    @NotBlank(message = "Raw proof is required")
-    String rawProof;
-
+    @NotBlank(message = "Proof is required")
+    String proof;
 
     /** The asset created/updated by this request. */
     AssetDTO asset;

@@ -1,0 +1,15 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="1.0.0-table-constraints-asset_group">
+
+        <!-- Foreign key FK_USER_CREATOR > USER.ID -->
+        <addForeignKeyConstraint constraintName="FOREIGN_KEY_ASSET_GROUP_APPLICATION_USER_CREATOR"
+                                 baseColumnNames="FK_USER_CREATOR"
+                                 baseTableName="ASSET_GROUP"
+                                 referencedTableName="APPLICATION_USER"
+                                 referencedColumnNames="ID"/>
+
+    </changeSet>
+</databaseChangeLog>

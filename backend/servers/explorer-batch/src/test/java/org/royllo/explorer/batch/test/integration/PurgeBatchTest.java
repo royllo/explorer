@@ -15,7 +15,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.royllo.explorer.core.util.constants.UserConstants.ANONYMOUS_USER;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
 import static org.royllo.explorer.core.util.enums.RequestStatus.FAILURE;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
@@ -49,7 +49,7 @@ public class PurgeBatchTest extends BaseTest {
             request.setRequestId("ID_" + i);
             request.setCreator(ANONYMOUS_USER);
             request.setStatus(OPENED);
-            request.setRawProof("Request n°" + i);
+            request.setProof("Request n°" + i);
             requestRepository.save(request);
         }
         // We should have 10 000 requests.
@@ -81,7 +81,7 @@ public class PurgeBatchTest extends BaseTest {
             request.setRequestId("ID_" + i);
             request.setCreator(ANONYMOUS_USER);
             request.setStatus(FAILURE);
-            request.setRawProof("Request n°" + i);
+            request.setProof("Request n°" + i);
             requestRepository.save(request);
         }
         // We should have 30 000 requests.
@@ -113,7 +113,7 @@ public class PurgeBatchTest extends BaseTest {
             request.setRequestId("ID_" + i);
             request.setCreator(ANONYMOUS_USER);
             request.setStatus(SUCCESS);
-            request.setRawProof("Request n°" + i);
+            request.setProof("Request n°" + i);
             requestRepository.save(request);
         }
         // We should have 30 000 requests.

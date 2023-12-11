@@ -16,7 +16,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public abstract class AssetStateMapperDecorator implements AssetStateMapper {
 
-    /** Asset state field separator. */
+    /** Asset state id field separator. */
     private static final String FIELD_SEPARATOR = "_";
 
     /** Delegate asset state mapper. */

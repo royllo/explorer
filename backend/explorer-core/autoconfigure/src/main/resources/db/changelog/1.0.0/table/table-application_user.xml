@@ -1,0 +1,57 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="1.0.0-table-application_user">
+
+        <createTable tableName="APPLICATION_USER"
+                     remarks="Application user">
+
+            <!-- Unique identifier -->
+            <column name="ID" type="BIGINT"
+                    remarks="Unique identifier">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PRIMARY_KEY_APPLICATION_USER"/>
+            </column>
+
+            <!-- Table fields -->
+            <column name="USER_ID" type="VARCHAR(255)"
+                    remarks="User UUID">
+                <constraints nullable="false" unique="true" uniqueConstraintName="UNIQUE_APPLICATION_USER_USER_ID"/>
+            </column>
+            <column name="USERNAME" type="VARCHAR(255)"
+                    remarks="Username">
+                <constraints nullable="false" unique="true" uniqueConstraintName="UNIQUE_APPLICATION_USER_USERNAME"/>
+            </column>
+            <column name="ROLE" type="TEXT"
+                    remarks="User role">
+                <constraints nullable="false"/>
+            </column>
+
+            <!-- Technical fields -->
+            <column name="CREATED_ON" type="TIMESTAMP"
+                    remarks="Data created on"/>
+            <column name="UPDATED_ON" type="TIMESTAMP"
+                    remarks="Data updated on"/>
+
+        </createTable>
+
+        <!-- Auto increment on the unique identifier -->
+        <addAutoIncrement tableName="APPLICATION_USER"
+                          columnName="ID"
+                          columnDataType="BIGINT"
+                          startWith="2"/>
+
+        <!-- Index on USER_ID -->
+        <createIndex indexName="INDEX_APPLICATION_USER_USER_ID"
+                     tableName="APPLICATION_USER">
+            <column name="USER_ID"/>
+        </createIndex>
+
+        <!-- Index on USERNAME -->
+        <createIndex indexName="INDEX_APPLICATION_USER_USERNAME"
+                     tableName="APPLICATION_USER">
+            <column name="USERNAME"/>
+        </createIndex>
+
+    </changeSet>
+</databaseChangeLog>

@@ -3,6 +3,7 @@ package org.royllo.explorer.batch.batch.request;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.batch.util.base.BaseBatch;
 import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
+import org.royllo.explorer.core.dto.universe.UniverseServerDTO;
 import org.royllo.explorer.core.provider.tapd.TapdService;
 import org.royllo.explorer.core.provider.tapd.UniverseRootsResponse;
 import org.royllo.explorer.core.repository.request.RequestRepository;
@@ -58,7 +59,7 @@ public class AddUniverseServerBatch extends BaseBatch {
                             // We make the call and check the result.
                             try {
                                 // Calling tapd service to see if the server response.
-                                final UniverseRootsResponse response = tapdService.getUniverseRoots(request.getServerAddress()).block();
+                                final UniverseRootsResponse response = tapdService.getUniverseRoots(request.getServerAddress(), 0, 1).block();
 
                                 // if the response is null.
                                 if (response == null) {
@@ -73,7 +74,8 @@ public class AddUniverseServerBatch extends BaseBatch {
                                         request.failure(response.getErrorMessage());
                                     } else {
                                         // No error -  We create it.
-                                        universeServerService.addUniverseServer(request.getServerAddress());
+                                        final UniverseServerDTO universeServerCreated = universeServerService.addUniverseServer(request.getServerAddress());
+                                        request.setUniverseServer(universeServerCreated);
                                         request.success();
                                     }
                                 }

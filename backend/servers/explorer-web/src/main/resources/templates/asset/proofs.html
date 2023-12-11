@@ -29,6 +29,17 @@
         </table>
     </div>
 
+
+    <!--/* Pagination */-->
+    <div th:insert="~{util/fragments/components/pagination :: pagination(   @{'/asset/' + ${assetId} + '/proofs'},
+                                                                            '#asset-tab',
+                                                                            ${page},
+                                                                            ${proofsList.getTotalPages()})}">
+    </div>
+
+    <!--/* TODO Replace this with something more clean */-->
+    <div class="my-16">&nbsp</div>
+
 </div>
 <!--/* =========================================================================================================== */-->
 
