@@ -9,7 +9,7 @@ The Key features for users include:
 
 - Search for Taproot assets and proofs using our user-friendly web interface.
 - Add your proofs to our database to let the world discover and learn about your assets.
-- Add universe servers to let us discover new data automatically (Work in progress).
+- Add your universe server to let us discover new assets automatically.
 - Build new applications, services, and tools effortlessly using our GraphQL API
 
 A live version is available here: [https://explorer.royllo.org/](https://explorer.royllo.org/)
