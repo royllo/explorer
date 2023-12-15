@@ -55,10 +55,14 @@
                     remarks="The version of the script, only version 0 is defined at present"/>
             <column name="SCRIPT_KEY" type="TEXT"
                     remarks="The script key of the asset, which can be spent under Taproot semantics"/>
+            <column name="SPENT" type="BOOLEAN"
+                    remarks="Indicates whether the asset has been spent."/>
             <column name="LEASE_OWNER" type="TEXT"
                     remarks="If the asset has been leased, this is the owner (application ID) of the lease"/>
             <column name="LEASE_EXPIRY" type="BIGINT"
                     remarks="If the asset has been leased, this is the expiry of the lease as a Unix timestamp in seconds."/>
+            <column name="BURN" type="BOOLEAN"
+                    remarks="Indicates whether this transfer was an asset burn. If true, the number of assets in this output are destroyed and can no longer be spent."/>
             <column name="TX_MERKLE_PROOF" type="TEXT"
                     remarks="The merkle root of the transaction that created the asset"/>
             <column name="INCLUSION_PROOF" type="TEXT"

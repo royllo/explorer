@@ -79,11 +79,17 @@ public class AssetStateDTO {
     @NotNull(message = "Script key is required")
     String scriptKey;
 
+    /** Indicates whether the asset has been spent. */
+    boolean spent;
+
     /** If the asset has been leased, this is the owner (application ID) of the lease. */
     String leaseOwner;
 
     /** If the asset has been leased, this is the expiry of the lease as a Unix timestamp in seconds. */
     Long leaseExpiry;
+
+    /** Indicates whether this transfer was an asset burn. If true, the number of assets in this output are destroyed and can no longer be spent. */
+    boolean burn;
 
     /** The merkle proof for AnchorTx used to prove its inclusion within BlockHeader. */
     String txMerkleProof;

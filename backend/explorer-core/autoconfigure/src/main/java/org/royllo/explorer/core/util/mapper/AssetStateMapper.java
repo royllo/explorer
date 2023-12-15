@@ -45,8 +45,10 @@ public interface AssetStateMapper {
     @Mapping(source = "asset.scriptVersion", target = "scriptVersion")
     @Mapping(source = "asset.scriptKey", target = "scriptKey")
 
+    @Mapping(source = "asset.isSpent", target = "spent")
     @Mapping(source = "asset.leaseOwner", target = "leaseOwner")
     @Mapping(source = "asset.leaseExpiryTimestamp", target = "leaseExpiry")
+    @Mapping(source = "asset.isBurn", target = "burn")
 
     @Mapping(source = "txMerkleProof", target = "txMerkleProof")
     @Mapping(source = "inclusionProof", target = "inclusionProof")

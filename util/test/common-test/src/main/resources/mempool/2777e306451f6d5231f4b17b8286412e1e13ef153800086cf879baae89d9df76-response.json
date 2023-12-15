@@ -41,6 +41,7 @@
   ],
   "size": 222,
   "weight": 561,
+  "sigops": 1,
   "fee": 14100,
   "status": {
     "confirmed": true,

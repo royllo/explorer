@@ -257,6 +257,10 @@ public class TestWithMockServers extends Base {
                 assetFromTest.get().getAsset().getScriptKey(),
                 "Script key are not equals");
 
+        assertEquals(assetStateDTO.isSpent(),
+                assetFromTest.get().getAsset().getIsSpent(),
+                "spent are not equals");
+
         assertEquals(assetStateDTO.getLeaseOwner(),
                 assetFromTest.get().getAsset().getLeaseOwner(),
                 "Lease owner are not equals");
@@ -264,6 +268,10 @@ public class TestWithMockServers extends Base {
         assertEquals(assetStateDTO.getLeaseExpiry(),
                 assetFromTest.get().getAsset().getLeaseExpiryTimestamp(),
                 "Lease expiry are not equals");
+
+        assertEquals(assetStateDTO.isBurn(),
+                assetFromTest.get().getAsset().getIsBurn(),
+                "Burn are not equals");
 
         assertEquals(assetStateDTO.getTxMerkleProof(),
                 assetFromTest.get().getTxMerkleProof(),
