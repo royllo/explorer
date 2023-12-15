@@ -33,7 +33,20 @@
         "tapscript_sibling": "",
         "block_height": 2535184
       },
-      "prev_witnesses": [],
+      "prev_witnesses": [
+        {
+          "prev_id": {
+            "anchor_point": "0000000000000000000000000000000000000000000000000000000000000000:0",
+            "asset_id": "0000000000000000000000000000000000000000000000000000000000000000",
+            "script_key": "000000000000000000000000000000000000000000000000000000000000000000",
+            "amount": "0"
+          },
+          "tx_witness": [
+            "3c027fc40af5c14afedbbd9e08d61017ed36780f0b92d94ac97bb0f81fc8bf63a7c75c65bf37ee41be7a5287e1da049a8ccea15053ac2c11f0ad6a5000bc0659"
+          ],
+          "split_commitment": null
+        }
+      ],
       "is_spent": false,
       "lease_owner": "",
       "lease_expiry": "0",

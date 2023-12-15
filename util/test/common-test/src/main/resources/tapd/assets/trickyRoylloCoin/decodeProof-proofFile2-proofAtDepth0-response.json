@@ -29,7 +29,57 @@
         "tapscript_sibling": "",
         "block_height": 2534322
       },
-      "prev_witnesses": [],
+      "prev_witnesses": [
+        {
+          "prev_id": {
+            "anchor_point": "0000000000000000000000000000000000000000000000000000000000000000:0",
+            "asset_id": "0000000000000000000000000000000000000000000000000000000000000000",
+            "script_key": "000000000000000000000000000000000000000000000000000000000000000000",
+            "amount": "0"
+          },
+          "tx_witness": [],
+          "split_commitment": {
+            "root_asset": {
+              "version": "ASSET_VERSION_V0",
+              "asset_genesis": {
+                "genesis_point": "2777e306451f6d5231f4b17b8286412e1e13ef153800086cf879baae89d9df76:1",
+                "name": "trickyRoylloCoin",
+                "meta_hash": "13a16f12767ad6fbafcfd69fd12fc19747ac35749b1b6806c74dd4a07d2e4b41",
+                "asset_id": "e16029acc4d2cf0505857265442344efb5547f2047a3fc1c4822683f7c57820e",
+                "asset_type": "NORMAL",
+                "output_index": 0,
+                "version": 0
+              },
+              "amount": "10950",
+              "lock_time": 0,
+              "relative_lock_time": 0,
+              "script_version": 0,
+              "script_key": "022dcc33d4e29c5d322277b9404ced5c67790fe1e31e234fecb3d06239caf3eddb",
+              "script_key_is_local": false,
+              "asset_group": null,
+              "chain_anchor": null,
+              "prev_witnesses": [
+                {
+                  "prev_id": {
+                    "anchor_point": "632d0c3935fff230aa3718e268dce5517786d7976f7aa33efb615b408737b0ad:0",
+                    "asset_id": "e16029acc4d2cf0505857265442344efb5547f2047a3fc1c4822683f7c57820e",
+                    "script_key": "023a8d9bc352eb3f5f69b798a941f06244b3633a8fd2cf82406132504ff08e23ff",
+                    "amount": "0"
+                  },
+                  "tx_witness": [
+                    "098e4ab4d1370e834542ac40fe2ef80d48f9b5bc4c484375342928e1fb07cdc8f5e49a077ddcee12dd92f2b3c57a06dad10c33f19512db42662d3d8b9016fd5a"
+                  ],
+                  "split_commitment": null
+                }
+              ],
+              "is_spent": false,
+              "lease_owner": "",
+              "lease_expiry": "0",
+              "is_burn": false
+            }
+          }
+        }
+      ],
       "is_spent": false,
       "lease_owner": "",
       "lease_expiry": "0",

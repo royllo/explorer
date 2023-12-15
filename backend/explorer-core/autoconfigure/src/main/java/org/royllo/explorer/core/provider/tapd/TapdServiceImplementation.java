@@ -104,7 +104,7 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
                 .body(BodyInserters.fromValue(DecodedProofRequest.builder()
                         .rawProof(proof)
                         .proofAtDepth(proofAtDepth)
-                        .withPrevWitnesses(false)
+                        .withPrevWitnesses(true)
                         .withMetaReveal(false)
                         .build()
                 ))

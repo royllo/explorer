@@ -29,7 +29,18 @@
         "tapscript_sibling": "",
         "block_height": 2534238
       },
-      "prev_witnesses": [],
+      "prev_witnesses": [
+        {
+          "prev_id": {
+            "anchor_point": "0000000000000000000000000000000000000000000000000000000000000000:0",
+            "asset_id": "0000000000000000000000000000000000000000000000000000000000000000",
+            "script_key": "000000000000000000000000000000000000000000000000000000000000000000",
+            "amount": "0"
+          },
+          "tx_witness": [],
+          "split_commitment": null
+        }
+      ],
       "is_spent": false,
       "lease_owner": "",
       "lease_expiry": "0",

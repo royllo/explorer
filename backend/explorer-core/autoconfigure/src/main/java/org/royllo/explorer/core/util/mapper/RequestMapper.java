@@ -18,7 +18,7 @@ import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
  */
 @SuppressWarnings("unused")
 @Mapper(nullValuePropertyMappingStrategy = IGNORE,
-        uses = {UserMapper.class, BitcoinMapper.class, AssetMapper.class, UserMapper.class})
+        uses = {UserMapper.class, BitcoinMapper.class, AssetMapper.class, UserMapper.class, UniverseServerMapper.class})
 public interface RequestMapper {
 
     // =================================================================================================================

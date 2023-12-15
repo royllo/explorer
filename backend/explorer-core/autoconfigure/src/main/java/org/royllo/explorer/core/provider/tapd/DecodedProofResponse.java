@@ -7,7 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.xml.bind.DatatypeConverter;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
@@ -125,7 +129,7 @@ public class DecodedProofResponse {
 
             /** Previous witnesses. */
             @JsonProperty("prev_witnesses")
-            List<String> prevWitnesses;
+            List<PrevWitness> prevWitnesses;
 
             /** Indicates whether the asset has been spent. */
             @JsonProperty("is_spent")
@@ -158,6 +162,53 @@ public class DecodedProofResponse {
                         return 0L;
                     }
                 }
+            }
+
+            /**
+             * Returns the calculated state id.
+             *
+             * @return asset state id (calculated)
+             */
+            public String getAssetStateId() {
+                // If we are in an asset state creation, asset state id is null, so we calculate it.
+                // We calculate the asset state id here.
+                String uniqueValue = assetGenesis.getAssetId()
+                        + "_" + chainAnchor.getAnchorOutpoint()
+                        + "_" + scriptKey;
+
+                try {
+                    MessageDigest md = MessageDigest.getInstance("SHA-256");
+                    byte[] digest = md.digest(uniqueValue.getBytes(StandardCharsets.UTF_8));
+                    return DatatypeConverter.printHexBinary(digest).toLowerCase();
+                } catch (NoSuchAlgorithmException e) {
+                    throw new RuntimeException("SHA-256 is not available: " + e.getMessage());
+                }
+            }
+
+            @Getter
+            @Setter
+            @NoArgsConstructor
+            @ToString
+            @JsonIgnoreProperties(ignoreUnknown = true)
+            public static class PrevWitness {
+
+                /** Split commitment. */
+                @JsonProperty("split_commitment")
+                private SplitCommitment splitCommitment;
+
+            }
+
+            @Getter
+            @Setter
+            @NoArgsConstructor
+            @ToString
+            @JsonIgnoreProperties(ignoreUnknown = true)
+            public static class SplitCommitment {
+
+                /** Script key. */
+                @JsonProperty("script_key")
+                private String scriptKey;
+
             }
 
             @Getter

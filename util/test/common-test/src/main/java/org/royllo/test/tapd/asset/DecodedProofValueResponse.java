@@ -129,7 +129,7 @@ public class DecodedProofValueResponse {
 
             /** Previous witnesses. */
             @JsonProperty("prev_witnesses")
-            List<String> prevWitnesses;
+            List<PrevWitness> prevWitnesses;
 
             /** Indicates whether the asset has been spent. */
             @JsonProperty("is_spent")
@@ -183,6 +183,32 @@ public class DecodedProofValueResponse {
                 } catch (NoSuchAlgorithmException e) {
                     throw new RuntimeException("SHA-256 is not available: " + e.getMessage());
                 }
+            }
+
+            @Getter
+            @Setter
+            @NoArgsConstructor
+            @ToString
+            @JsonIgnoreProperties(ignoreUnknown = true)
+            public static class PrevWitness {
+
+                /** Split commitment. */
+                @JsonProperty("split_commitment")
+                private SplitCommitment splitCommitment;
+
+            }
+
+            @Getter
+            @Setter
+            @NoArgsConstructor
+            @ToString
+            @JsonIgnoreProperties(ignoreUnknown = true)
+            public static class SplitCommitment {
+
+                /** Script key. */
+                @JsonProperty("script_key")
+                private String scriptKey;
+
             }
 
             @Getter
