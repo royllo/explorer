@@ -1,0 +1,18 @@
+<div class="stats shadow" th:if="${globalStatistics} != null">
+
+    <div class="stat place-items-center">
+        <div class="stat-title" th:text="#{statistics.global.universeCount}"></div>
+        <div class="stat-value text-secondary" th:text="${globalStatistics.universeCount}"></div>
+    </div>
+
+    <div class="stat place-items-center">
+        <div class="stat-title" th:text="#{statistics.global.assetCount}"></div>
+        <div class="stat-value text-primary" th:text="${globalStatistics.assetCount}"></div>
+    </div>
+
+    <div class="stat place-items-center">
+        <div class="stat-title" th:text="#{statistics.global.assetStateCount}">New</div>
+        <div class="stat-value text-secondary" th:text="${globalStatistics.assetStateCount}"></div>
+    </div>
+
+</div>

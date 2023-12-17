@@ -53,11 +53,6 @@
             <artifactId>bucket4j-core</artifactId>
             <version>${bucket4j-core.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.github.ben-manes.caffeine</groupId>
-            <artifactId>caffeine</artifactId>
-            <version>${caffeine.version}</version>
-        </dependency>
 
         <!-- Util dependencies -->
         <dependency>
@@ -130,6 +125,11 @@
                 <configuration>
                     <image>
                         <name>royllo/explorer-web:latest</name>
+                        <!--
+                        <env>
+                            <BP_JVM_JLINK_ENABLED>true</BP_JVM_JLINK_ENABLED>
+                        </env>
+                        -->
                     </image>
                     <mainClass>org.royllo.explorer.web.Application</mainClass>
                 </configuration>
