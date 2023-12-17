@@ -110,6 +110,9 @@
                 <configuration>
                     <image>
                         <name>royllo/explorer-batch:latest</name>
+                        <env>
+                            <BP_JVM_JLINK_ENABLED>true</BP_JVM_JLINK_ENABLED>
+                        </env>
                     </image>
                     <mainClass>org.royllo.explorer.batch.Application</mainClass>
                 </configuration>
