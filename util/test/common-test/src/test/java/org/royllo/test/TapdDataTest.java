@@ -111,6 +111,13 @@ public class TapdDataTest {
         assertEquals("", unlimitedRoylloCoin1Proof.getAsset().getAssetGroup().getRawGroupKey());
         assertEquals("0349d60c6689bbbb2ffc9b30b45b96a3d6e5fd5fd01c867344c0054f6105048241", unlimitedRoylloCoin1Proof.getAsset().getAssetGroup().getTweakedGroupKey());
         assertEquals("", unlimitedRoylloCoin1Proof.getAsset().getAssetGroup().getAssetWitness());
+
+        // Meta reveal
+        assertNotNull(roylloCoinProof.getMetaReveal());
+        assertEquals("726f796c6c6f436f696e206f6e206d61696e6e657420627920526f796c6c6f", roylloCoinProof.getMetaReveal().getData());
+        assertEquals("META_TYPE_OPAQUE", roylloCoinProof.getMetaReveal().getType());
+        assertEquals("e08c74d75554e2c9d6d8452a3584d191f8727963b05e497bba84ada8ae829208", roylloCoinProof.getMetaReveal().getMetaHash());
+
     }
 
     @Test

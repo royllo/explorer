@@ -46,7 +46,11 @@
       "lease_expiry": "0",
       "is_burn": false
     },
-    "meta_reveal": null,
+    "meta_reveal": {
+      "data": "756e6b6e6f776e526f796c6c6f436f696e20627920526f796c6c6f",
+      "type": "META_TYPE_OPAQUE",
+      "meta_hash": "548c3d99c0f06a858b564e035f7bccb4354eb89f5cd044d0ba78b9fbd7152882"
+    },
     "tx_merkle_proof": "05a99726a7ab1cfa6c0ad3cee5656f2e388d4b480d105df5d2eb307e7f68343f654c39a67f84c69fb0a45d3a7bedb1aad6062b6af1ab37f207986f4b74aabd371726ee0f70f0b608092b89446916403bbbb2dbf220b4d57905d4cd73efdb2eecd50aa80180053bcd4fd5d7a739983d842d6b62d4884ac09529e01e946e59ac705467caa6de490c506af99211ad73742d51e380d233618fcbefabefd3a1aed9166e14",
     "inclusion_proof": "0004000000000221027fb809fa2c53a98906e9d3fbbc56019a32fd8bef11d3fd5b5657c1f849e32f74037401490001000220a8e1cd6961301e8ef91df4f902f7af0bf261e30c122d85ebf7abc32c15bee00204220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff022700010002220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
     "exclusion_proofs": [

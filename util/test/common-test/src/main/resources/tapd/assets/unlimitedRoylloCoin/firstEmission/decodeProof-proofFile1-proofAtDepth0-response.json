@@ -52,7 +52,11 @@
       "lease_expiry": "0",
       "is_burn": false
     },
-    "meta_reveal": null,
+    "meta_reveal": {
+      "data": "756e6c696d69746564526f796c6c6f436f696e20656d697373696f6e203120627920526f796c6c6f",
+      "type": "META_TYPE_OPAQUE",
+      "meta_hash": "ef35cbdef9f461dee0ad1c4753a481e30fb7b02d6356f342e573671f8044af5e"
+    },
     "tx_merkle_proof": "0612f24121b3b09bca8dfd619a8412521cd5a0df3c3530e2f2e5aa7a4beebac8ba4ccd82f747699a0a1d1e4a99819fda33c8c9cccbc6b92e2e2ee6f7018ea3862b0574ac6910af8096a5531d803cad77a8a878972091f4a11404ecd009e75ebe40afd73ec375e791f7d7de16bee7fcb6e6e412a1fb03bd363f4a997af477ffe5caa538f8705031ec8da6da106429c44b289ef68e0cce784d0d91a47589b86ed27dbd5f81607a2e8dd37cb256c4179c5980ae45e8dff592a5dfea2ad06c9a8c4b412d",
     "inclusion_proof": "00040000000002210261592c195dc3af641d2808184301edacd7596c7096358042c7873bee0ac110cf0374014900010002203eb8c5d0a5cf2a1c3ffbf1ad097e22260c783d2a2d6222a23647ff6791a6a04004220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff022700010002220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
     "exclusion_proofs": [
