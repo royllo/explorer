@@ -72,7 +72,6 @@ public class RequestRepositoryTest extends TestWithMockServers {
         request2.setCreator(ANONYMOUS_USER);
         request2.setStatus(SUCCESS);
         request2.setAssetId("TaprootAssetId1");
-        request2.setMetaData("Meta1");
         long request2ID = requestRepository.save(request2).getId();
 
         // See what's in database with JPA.
@@ -84,7 +83,6 @@ public class RequestRepositoryTest extends TestWithMockServers {
         assertEquals(SUCCESS, addAssetMeatRequest2FromJPA.getStatus());
         assertNull(addAssetMeatRequest2FromJPA.getErrorMessage());
         assertEquals("TaprootAssetId1", addAssetMeatRequest2FromJPA.getAssetId());
-        assertEquals("Meta1", addAssetMeatRequest2FromJPA.getMetaData());
 
         // See what's in database with JDBC.
         jdbcTemplate = new JdbcTemplate(dataSource);

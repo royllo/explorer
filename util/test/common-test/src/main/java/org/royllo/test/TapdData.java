@@ -91,66 +91,81 @@ public class TapdData {
         // RoylloCoin.
         LOGGER.info("Loading RoylloCoin...");
         ROYLLO_COIN_FROM_TEST = new AssetValue();
-        ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("roylloCoin", 1, 0));
+        ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("roylloCoin", 1, 0, true));
+        ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("roylloCoin", 1, 0, false));
         ASSETS.put(ROYLLO_COIN_ASSET_ID, ROYLLO_COIN_FROM_TEST);
 
         // =============================================================================================================
-        // roylloNFT
+        // roylloNFT.
         LOGGER.info("Loading roylloNFT...");
         ROYLLO_NFT_FROM_TEST = new AssetValue();
-        ROYLLO_NFT_FROM_TEST.addDecodedProofValue(getDecodedProofValue("roylloNFT", 1, 0));
+        ROYLLO_NFT_FROM_TEST.addDecodedProofValue(getDecodedProofValue("roylloNFT", 1, 0, true));
+        ROYLLO_NFT_FROM_TEST.addDecodedProofValue(getDecodedProofValue("roylloNFT", 1, 0, false));
         ASSETS.put(ROYLLO_NFT_ASSET_ID, ROYLLO_NFT_FROM_TEST);
 
         // =============================================================================================================
-        // setOfRoylloNFT
+        // setOfRoylloNFT.
         LOGGER.info("Loading setOfRoylloNFT...");
         SET_OF_ROYLLO_NFT_1_FROM_TEST = new AssetValue();
-        SET_OF_ROYLLO_NFT_1_FROM_TEST.addDecodedProofValue(getDecodedProofValue("setOfRoylloNFT", 1, 0));
+        SET_OF_ROYLLO_NFT_1_FROM_TEST.addDecodedProofValue(getDecodedProofValue("setOfRoylloNFT", 1, 0, true));
+        SET_OF_ROYLLO_NFT_1_FROM_TEST.addDecodedProofValue(getDecodedProofValue("setOfRoylloNFT", 1, 0, false));
         ASSETS.put(SET_OF_ROYLLO_NFT_1_ASSET_ID, SET_OF_ROYLLO_NFT_1_FROM_TEST);
 
         SET_OF_ROYLLO_NFT_2_FROM_TEST = new AssetValue();
-        SET_OF_ROYLLO_NFT_2_FROM_TEST.addDecodedProofValue(getDecodedProofValue("setOfRoylloNFT", 2, 0));
+        SET_OF_ROYLLO_NFT_2_FROM_TEST.addDecodedProofValue(getDecodedProofValue("setOfRoylloNFT", 2, 0, true));
+        SET_OF_ROYLLO_NFT_2_FROM_TEST.addDecodedProofValue(getDecodedProofValue("setOfRoylloNFT", 2, 0, false));
         ASSETS.put(SET_OF_ROYLLO_NFT_2_ASSET_ID, SET_OF_ROYLLO_NFT_2_FROM_TEST);
 
         SET_OF_ROYLLO_NFT_3_FROM_TEST = new AssetValue();
-        SET_OF_ROYLLO_NFT_3_FROM_TEST.addDecodedProofValue(getDecodedProofValue("setOfRoylloNFT", 3, 0));
+        SET_OF_ROYLLO_NFT_3_FROM_TEST.addDecodedProofValue(getDecodedProofValue("setOfRoylloNFT", 3, 0, true));
+        SET_OF_ROYLLO_NFT_3_FROM_TEST.addDecodedProofValue(getDecodedProofValue("setOfRoylloNFT", 3, 0, false));
         ASSETS.put(SET_OF_ROYLLO_NFT_3_ASSET_ID, SET_OF_ROYLLO_NFT_3_FROM_TEST);
 
         // =============================================================================================================
         // trickyRoylloCoin.
         LOGGER.info("Loading trickyRoylloCoin...");
         TRICKY_ROYLLO_COIN_FROM_TEST = new AssetValue();
-        TRICKY_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("trickyRoylloCoin", 1, 0));
-        TRICKY_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("trickyRoylloCoin", 2, 0));
-        TRICKY_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("trickyRoylloCoin", 2, 1));
-        TRICKY_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("trickyRoylloCoin", 3, 0));
-        TRICKY_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("trickyRoylloCoin", 3, 1));
-        TRICKY_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("trickyRoylloCoin", 3, 2));
+        TRICKY_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("trickyRoylloCoin", 1, 0, true));
+        TRICKY_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("trickyRoylloCoin", 1, 0, false));
+        TRICKY_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("trickyRoylloCoin", 2, 0, true));
+        TRICKY_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("trickyRoylloCoin", 2, 0, false));
+        TRICKY_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("trickyRoylloCoin", 2, 1, true));
+        TRICKY_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("trickyRoylloCoin", 2, 1, false));
+        TRICKY_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("trickyRoylloCoin", 3, 0, true));
+        TRICKY_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("trickyRoylloCoin", 3, 0, false));
+        TRICKY_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("trickyRoylloCoin", 3, 1, true));
+        TRICKY_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("trickyRoylloCoin", 3, 1, false));
+        TRICKY_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("trickyRoylloCoin", 3, 2, true));
+        TRICKY_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("trickyRoylloCoin", 3, 2, false));
         ASSETS.put(TRICKY_ROYLLO_COIN_ASSET_ID, TRICKY_ROYLLO_COIN_FROM_TEST);
 
         // =============================================================================================================
         // UnknownRoylloCoin.
         LOGGER.info("Loading unknownRoylloCoin...");
         UNKNOWN_ROYLLO_COIN_FROM_TEST = new AssetValue();
-        UNKNOWN_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("unknownRoylloCoin", 1, 0));
+        UNKNOWN_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("unknownRoylloCoin", 1, 0, true));
+        UNKNOWN_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("unknownRoylloCoin", 1, 0, false));
         ASSETS.put(UNKNOWN_ROYLLO_COIN_ASSET_ID, UNKNOWN_ROYLLO_COIN_FROM_TEST);
 
         // =============================================================================================================
         // unlimitedRoylloCoin.
         LOGGER.info("Loading unlimitedRoylloCoin...");
         UNLIMITED_ROYLLO_COIN_1_FROM_TEST = new AssetValue();
-        UNLIMITED_ROYLLO_COIN_1_FROM_TEST.addDecodedProofValue(getDecodedProofValue("unlimitedRoylloCoin/firstEmission", 1, 0));
+        UNLIMITED_ROYLLO_COIN_1_FROM_TEST.addDecodedProofValue(getDecodedProofValue("unlimitedRoylloCoin/firstEmission", 1, 0, true));
+        UNLIMITED_ROYLLO_COIN_1_FROM_TEST.addDecodedProofValue(getDecodedProofValue("unlimitedRoylloCoin/firstEmission", 1, 0, false));
         ASSETS.put(UNLIMITED_ROYLLO_COIN_1_ASSET_ID, UNLIMITED_ROYLLO_COIN_1_FROM_TEST);
 
         UNLIMITED_ROYLLO_COIN_2_FROM_TEST = new AssetValue();
-        UNLIMITED_ROYLLO_COIN_2_FROM_TEST.addDecodedProofValue(getDecodedProofValue("unlimitedRoylloCoin/secondEmission", 1, 0));
+        UNLIMITED_ROYLLO_COIN_2_FROM_TEST.addDecodedProofValue(getDecodedProofValue("unlimitedRoylloCoin/secondEmission", 1, 0, true));
+        UNLIMITED_ROYLLO_COIN_2_FROM_TEST.addDecodedProofValue(getDecodedProofValue("unlimitedRoylloCoin/secondEmission", 1, 0, false));
         ASSETS.put(UNLIMITED_ROYLLO_COIN_2_ASSET_ID, UNLIMITED_ROYLLO_COIN_2_FROM_TEST);
 
         // =============================================================================================================
-        // Invalid proof
+        // Invalid proof.
         LOGGER.info("Loading invalidProof...");
         final AssetValue invalidProof = new AssetValue();
-        invalidProof.addDecodedProofValue(getDecodedProofValue("invalidProof", 1, 0));
+        invalidProof.addDecodedProofValue(getDecodedProofValue("invalidProof", 1, 0, true));
+        invalidProof.addDecodedProofValue(getDecodedProofValue("invalidProof", 1, 0, false));
         ASSETS.put("invalidProof", invalidProof);
 
         LOGGER.info("TapdData loaded.");
@@ -184,7 +199,7 @@ public class TapdData {
      */
     public static Optional<DecodedProofValueResponse.DecodedProof> findAssetStateByAssetStateId(final String assetStateId) {
         return ASSETS.values().stream()
-                .flatMap(assetValue -> assetValue.getDecodedProofValues().stream())
+                .flatMap(assetValue -> assetValue.getDecodedProofValuesWithoutMetaReveal().stream())
                 .filter(decodedProofValue -> decodedProofValue.getAssetStateId().equals(assetStateId))
                 .map(DecodedProofValue::getResponse)
                 .map(DecodedProofValueResponse::getDecodedProof)
@@ -202,20 +217,42 @@ public class TapdData {
         for (Map.Entry<String, AssetValue> entry : ASSETS.entrySet()) {
             // For each decoded proof values, we mock the request.
             AtomicInteger i = new AtomicInteger(0);
-            entry.getValue().getDecodedProofValues().forEach(decodedProofValue -> {
+
+            // Adding decoded proof values without meta reveal.
+            entry.getValue().getDecodedProofValuesWithoutMetaReveal().forEach(decodedProofValue -> {
                 int index = i.getAndIncrement();
                 mockServer.when(request().withBody(
                                 JsonBody.json(
                                         "{"
-                                                + "\"raw_proof\" : \"" + entry.getValue().getDecodedProofValues().get(index).getRequest().getRawProof() + "\","
-                                                + "\"proof_at_depth\" : " + entry.getValue().getDecodedProofValues().get(index).getRequest().getProofAtDepth()
+                                                + "\"raw_proof\" : \"" + entry.getValue().getDecodedProofValuesWithoutMetaReveal().get(index).getRequest().getRawProof() + "\","
+                                                + "\"proof_at_depth\" : " + entry.getValue().getDecodedProofValuesWithoutMetaReveal().get(index).getRequest().getProofAtDepth() + ","
+                                                + "\"with_meta_reveal\" : " + entry.getValue().getDecodedProofValuesWithoutMetaReveal().get(index).getRequest().isWithMetaReveal()
                                                 + "}",
                                         MatchType.ONLY_MATCHING_FIELDS
                                 )
                         ))
                         .respond(response().withStatusCode(200)
                                 .withContentType(APPLICATION_JSON)
-                                .withBody(entry.getValue().getDecodedProofValues().get(index).getJSONResponse()));
+                                .withBody(entry.getValue().getDecodedProofValuesWithoutMetaReveal().get(index).getJSONResponse()));
+            });
+
+            // Adding decoded proof values with meta reveal.
+            i.set(0);
+            entry.getValue().getDecodedProofValuesWithMetaReveal().forEach(decodedProofValue -> {
+                int index = i.getAndIncrement();
+                mockServer.when(request().withBody(
+                                JsonBody.json(
+                                        "{"
+                                                + "\"raw_proof\" : \"" + entry.getValue().getDecodedProofValuesWithMetaReveal().get(index).getRequest().getRawProof() + "\","
+                                                + "\"proof_at_depth\" : " + entry.getValue().getDecodedProofValuesWithMetaReveal().get(index).getRequest().getProofAtDepth() + ","
+                                                + "\"with_meta_reveal\" : " + entry.getValue().getDecodedProofValuesWithMetaReveal().get(index).getRequest().isWithMetaReveal()
+                                                + "}",
+                                        MatchType.ONLY_MATCHING_FIELDS
+                                )
+                        ))
+                        .respond(response().withStatusCode(200)
+                                .withContentType(APPLICATION_JSON)
+                                .withBody(entry.getValue().getDecodedProofValuesWithoutMetaReveal().get(index).getJSONResponse()));
             });
         }
     }
@@ -226,12 +263,19 @@ public class TapdData {
      * @param coinName       coin name
      * @param proofFileIndex proof file index
      * @param proofAtDepth   proof at depth
+     * @param withMetaReveal with meta reveal
      * @return decoded proof value
      */
     private static DecodedProofValue getDecodedProofValue(final String coinName,
                                                           final int proofFileIndex,
-                                                          final int proofAtDepth) {
-        final String baseFileName = "/tapd/assets/" + coinName + "/decodeProof-proofFile" + proofFileIndex + "-proofAtDepth" + proofAtDepth;
+                                                          final int proofAtDepth,
+                                                          final boolean withMetaReveal) {
+        String baseFileName = "/tapd/assets/" + coinName + "/decodeProof-proofFile" + proofFileIndex + "-proofAtDepth" + proofAtDepth;
+        if (withMetaReveal) {
+            baseFileName += "-withMetaReveal";
+        } else {
+            baseFileName += "-withoutMetaReveal";
+        }
         try {
             return new DecodedProofValue(
                     getDecodedProofRequestFromFile(baseFileName + "-request.json"),

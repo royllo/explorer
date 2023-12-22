@@ -15,13 +15,9 @@ import org.royllo.explorer.core.dto.asset.AssetDTO;
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public class AddAssetMetaDataRequestDTO extends RequestDTO {
 
-    /** Taproot asset id. */
+    /** Taproot asset id set by the user. */
     @NotBlank(message = "Asset id is required")
     String assetId;
-
-    /** Metadata corresponding to the meta hash stored in the genesis information. */
-    @NotBlank(message = "Metadata is required")
-    String metaData;
 
     /** The asset created/updated by this request. */
     AssetDTO asset;

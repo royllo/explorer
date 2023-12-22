@@ -114,7 +114,6 @@ public class RequestServiceImplementation extends BaseService implements Request
                 .creator(ANONYMOUS_USER)
                 .status(OPENED)
                 .assetId(assetId)
-                .metaData(metaData)
                 .build();
 
         AddAssetMetaDataRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetMetaRequestDTO(requestRepository.save(request));

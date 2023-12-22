@@ -74,6 +74,7 @@ public class RequestDataFetcher extends BaseDataFetcher {
      */
     @DgsMutation
     public final AddAssetMetaDataRequestDTO createAddAssetMetaDataRequest(final @InputArgument AddAssetMetaDataRequestInputs input) {
+        // TODO Manage file upload.
         return requestService.createAddAssetMetaDataRequest(input.getAssetId(), input.getMetaData());
     }
 

@@ -139,6 +139,21 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
     }
 
     @Override
+    public boolean addMetaDataToAsset(final String assetId, final String filename) {
+        // We check that the asset exists.
+
+        // We get the content of the file.
+
+        // We calculate the hash of the file and compare it with the metaDataHash of the asset in database.
+
+        // We use tika to extract the file type of filename.
+
+        // We rename the file to assetId.fileType and set the filename on the asset object.
+
+        return true;
+    }
+
+    @Override
     public Optional<AssetDTO> getAsset(final long id) {
         logger.info("Getting asset with id {}", id);
 

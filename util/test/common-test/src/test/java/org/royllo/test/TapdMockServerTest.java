@@ -41,7 +41,7 @@ public class TapdMockServerTest {
         assertNotNull(roylloCoin);
         Request request = new Request.Builder()
                 .url("http://localhost:" + MOCK_SERVER_PORT + "/v1/taproot-assets/proofs/decode")
-                .post(RequestBody.create(roylloCoin.getDecodedProofValues().get(0).getJSONRequest(), MediaType.parse("application/json; charset=utf-8")))
+                .post(RequestBody.create(roylloCoin.getDecodedProofValuesWithoutMetaReveal().get(0).getJSONRequest(), MediaType.parse("application/json; charset=utf-8")))
                 .build();
         try (Response response = client.newCall(request).execute()) {
             assertTrue(response.body().string().contains("\"genesis_point\" : \"" + ROYLLO_COIN_GENESIS_TXID + ":" + ROYLLO_COIN_GENESIS_VOUT + "" + "\""));
@@ -54,7 +54,7 @@ public class TapdMockServerTest {
         assertNotNull(testCoin);
         request = new Request.Builder()
                 .url("http://localhost:" + MOCK_SERVER_PORT + "/v1/taproot-assets/proofs/decode")
-                .post(RequestBody.create(testCoin.getDecodedProofValues().get(2).getJSONRequest(), MediaType.parse("application/json; charset=utf-8")))
+                .post(RequestBody.create(testCoin.getDecodedProofValuesWithoutMetaReveal().get(2).getJSONRequest(), MediaType.parse("application/json; charset=utf-8")))
                 .build();
         try (Response response = client.newCall(request).execute()) {
             assertTrue(response.body().string().contains("\"script_key\" : \"023a8d9bc352eb3f5f69b798a941f06244b3633a8fd2cf82406132504ff08e23ff\""));

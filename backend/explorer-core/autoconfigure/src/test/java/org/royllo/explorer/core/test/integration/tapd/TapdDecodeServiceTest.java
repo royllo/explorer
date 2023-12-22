@@ -32,7 +32,7 @@ public class TapdDecodeServiceTest {
         assertNotNull(response);
 
         // Value coming from our test data.
-        final DecodedProofValue decodedProofValueFromTest = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofValues().get(0);
+        final DecodedProofValue decodedProofValueFromTest = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofValuesWithoutMetaReveal().get(0);
         assertNotNull(decodedProofValueFromTest);
 
         // =============================================================================================================

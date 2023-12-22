@@ -32,6 +32,15 @@ public interface AssetService {
     AssetDTO addAsset(AssetDTO newAsset);
 
     /**
+     * add metadata to an asset.
+     *
+     * @param assetId  asset id
+     * @param filename filename
+     * @return true if metadata added
+     */
+    boolean addMetaDataToAsset(String assetId, String filename);
+
+    /**
      * Get an asset.
      *
      * @param id id in database

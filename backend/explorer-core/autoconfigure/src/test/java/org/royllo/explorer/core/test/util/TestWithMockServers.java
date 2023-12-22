@@ -150,7 +150,7 @@ public class TestWithMockServers extends Base {
         final AssetValue assetValue = TapdData.findAssetValueByAssetId(assetId);
 
         // We retrieve an asset value from test data. We should to get the data from the first decioded proof.
-        final DecodedProofValueResponse.DecodedProof.Asset assetFromTest = assetValue.getDecodedProofValues().get(0).getResponse().getDecodedProof().getAsset();
+        final DecodedProofValueResponse.DecodedProof.Asset assetFromTest = assetValue.getDecodedProofValuesWithoutMetaReveal().get(0).getResponse().getDecodedProof().getAsset();
 
         // We check asset group.
         boolean assetGroupEquality = true;

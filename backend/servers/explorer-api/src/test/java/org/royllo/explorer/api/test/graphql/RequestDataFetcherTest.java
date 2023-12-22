@@ -54,7 +54,7 @@ public class RequestDataFetcherTest {
                                 .status().getParent()
                                 .errorMessage()
                                 .onAddProofRequest().proof().parent()
-                                .onAddAssetMetaDataRequest().assetId().metaData()
+                                .onAddAssetMetaDataRequest().assetId()
                 ).serialize(),
                 "data." + DgsConstants.QUERY.RequestByRequestId,
                 new TypeRef<>() {
@@ -118,7 +118,6 @@ public class RequestDataFetcherTest {
                                 .status().getParent()
                                 .errorMessage()
                                 .assetId()
-                                .metaData()
                 ).serialize(),
                 "data." + DgsConstants.MUTATION.CreateAddAssetMetaDataRequest,
                 new TypeRef<>() {
@@ -131,7 +130,6 @@ public class RequestDataFetcherTest {
         assertEquals(OPENED.toString(), requestCreated.getStatus().toString());
         assertNull(requestCreated.getErrorMessage());
         assertEquals("AssetID1", requestCreated.getAssetId());
-        assertEquals("MetaData01", requestCreated.getMetaData());
     }
 
     @Test

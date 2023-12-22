@@ -61,7 +61,6 @@ public class RequestServiceTest {
         assertEquals(OPENED, request2.getStatus());
         assertNull(request2.getErrorMessage());
         assertEquals("AI2", request2.getAssetId());
-        assertEquals("MD2", request2.getMetaData());
 
         // Request 3.
         AddProofRequestDTO request3 = (AddProofRequestDTO) openedRequests.get(2);
@@ -144,7 +143,6 @@ public class RequestServiceTest {
         assertEquals(OPENED, request2Casted.getStatus());
         assertNull(request2Casted.getErrorMessage());
         assertEquals("TaprootAssetId1", request2Casted.getAssetId());
-        assertEquals("meta1", request2Casted.getMetaData());
 
         // =============================================================================================================
         // Request 3 (addAssetDTO).

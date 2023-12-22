@@ -50,7 +50,7 @@ public class InvalidProofTest extends TestWithMockServers {
         assertTrue(invalidProofRequestTreated.isPresent());
         assertFalse(invalidProofRequestTreated.get().isSuccessful());
         assertEquals(FAILURE, invalidProofRequestTreated.get().getStatus());
-        assertEquals("proto: (line 1:17): invalid value for bytes type: \"INVALID_PROOF\"", invalidProofRequestTreated.get().getErrorMessage());
+        assertEquals("proto: (line 1:17): invalid value for bytes type: \"INVALID_PROOF\"", invalidProofRequestTreated.get().getErrorMessage());
     }
 
 }
