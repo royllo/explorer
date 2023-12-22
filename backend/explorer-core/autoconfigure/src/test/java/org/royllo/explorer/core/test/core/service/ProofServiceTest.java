@@ -80,9 +80,6 @@ public class ProofServiceTest extends TestWithMockServers {
     @Test
     @DisplayName("getProofByAssetId()")
     public void getProofByAssetId() {
-        // Retrieved data from TAPD.
-        final String ROYLLO_COIN_RAW_PROOF = ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getRawProof();
-
         // =============================================================================================================
         // First case: asset id not found in database.
         AssertionError e = assertThrows(AssertionError.class, () -> proofService.getProofByAssetId(ROYLLO_COIN_ASSET_ID, 0, 1));

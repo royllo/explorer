@@ -82,7 +82,7 @@ public class AddProofBatch extends BaseBatch {
                             // Now, we decode all proofs, one by one, starting by the oldest (issuance proof).
                             boolean proofAdded = false;
                             for (long i = numberOfProofs; i > 0; i--) {
-                                response = tapdService.decode(request.getProof(), i - 1).block();
+                                response = tapdService.decode(request.getProof(), i - 1, false).block();
 
                                 // We check if we have a decoded proof response.
                                 if (response == null) {

@@ -20,13 +20,14 @@ public interface TapdService {
 
     /**
      * Decode proof at a certain depth.
-     * If there are several proofs, is the latest proof is returned.
+     * If there are several proofs, the latest proof is returned.
      *
      * @param proof        proof
      * @param proofAtDepth proof at depth
+     * @param metaReveal   meta reveal
      * @return decoded proof
      */
-    Mono<DecodedProofResponse> decode(String proof, long proofAtDepth);
+    Mono<DecodedProofResponse> decode(String proof, long proofAtDepth, boolean metaReveal);
 
     /**
      * Get universe roots.
