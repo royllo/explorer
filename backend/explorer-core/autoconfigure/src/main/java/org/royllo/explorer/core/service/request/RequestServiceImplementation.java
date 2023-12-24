@@ -20,6 +20,7 @@ import java.util.UUID;
 
 import static java.util.stream.Collectors.joining;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
+import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_UNSPECIFIED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.openedStatus;
 
@@ -96,6 +97,7 @@ public class RequestServiceImplementation extends BaseService implements Request
                 .creator(ANONYMOUS_USER)
                 .status(OPENED)
                 .proof(proof)
+                .proofType(PROOF_TYPE_UNSPECIFIED)
                 .build();
 
         AddProofRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetRequestDTO(requestRepository.save(request));

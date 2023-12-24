@@ -19,6 +19,7 @@ import java.util.Optional;
 
 import static java.util.stream.Collectors.joining;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
+import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_UNSPECIFIED;
 
 /**
  * {@link ProofService} implementation.
@@ -59,6 +60,7 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
                     .creator(ANONYMOUS_USER)
                     .asset(asset.get())
                     .proof(proof)
+                    .proofType(PROOF_TYPE_UNSPECIFIED)
                     .build());
             final ProofDTO proofDTO = PROOF_MAPPER.mapToProofDTO(proofToCreate);
             logger.info("Proof created with id {} : {}", proofDTO.getId(), proofDTO);

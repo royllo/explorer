@@ -5,6 +5,9 @@ package org.royllo.explorer.core.util.enums;
  */
 public enum ProofType {
 
+    /** Proof type: PROOF_TYPE_UNSPECIFIED. */
+    PROOF_TYPE_UNSPECIFIED,
+
     /** Proof type: PROOF_TYPE_ISSUANCE. */
     PROOF_TYPE_ISSUANCE,
 

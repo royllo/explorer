@@ -107,6 +107,7 @@ public class UniverseExplorerBatch extends BaseBatch {
                                                         final AddProofRequestDTO addProofRequest = requestService.createAddProofRequest(proof);
                                                         logger.info("Request created {} for asset: {} ({})", addProofRequest.getId(), assetId, proofType);
                                                     });
+
                                         } catch (Exception e) {
                                             logger.error("Error while retrieving leaves for asset id {} on {} ({})",
                                                     assetId,

@@ -8,6 +8,7 @@ import lombok.ToString;
 import lombok.Value;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.user.UserDTO;
+import org.royllo.explorer.core.util.enums.ProofType;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -45,6 +46,10 @@ public class ProofDTO {
     @ToString.Exclude
     @NotBlank(message = "Proof is required")
     String proof;
+
+    /** Proof type. */
+    @NotNull(message = "Proof type is required")
+    ProofType proofType;
 
     /**
      * Returns an abstract of proof (for logs).

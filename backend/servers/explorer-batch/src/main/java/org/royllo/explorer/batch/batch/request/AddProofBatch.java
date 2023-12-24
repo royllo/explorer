@@ -84,6 +84,16 @@ public class AddProofBatch extends BaseBatch {
                             for (long i = numberOfProofs; i > 0; i--) {
                                 response = tapdService.decode(request.getProof(), i - 1, false).block();
 
+                                // We check if it's an issuance proof, if so, we will ask for meta reveal and replace the response.
+                                // And we will specify it as issuance proof of the asset.
+                                if (true) {
+                                    response = tapdService.decode(request.getProof(), i - 1, true).block();
+
+                                    // We treat the meta.
+
+
+                                }
+
                                 // We check if we have a decoded proof response.
                                 if (response == null) {
                                     logger.info("Decoded proof for request {} is null", request.getId());
