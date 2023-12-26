@@ -104,7 +104,7 @@ public class UniverseExplorerBatch extends BaseBatch {
                                                     .map(UniverseLeavesResponse.Leaf::getProof)
                                                     .filter(proof -> proofRepository.findByProofId(sha256(proof)).isEmpty())
                                                     .forEach(proof -> {
-                                                        final AddProofRequestDTO addProofRequest = requestService.createAddProofRequest(proof);
+                                                        final AddProofRequestDTO addProofRequest = requestService.createAddProofRequest(proof, proofType);
                                                         logger.info("Request created {} for asset: {} ({})", addProofRequest.getId(), assetId, proofType);
                                                     });
 

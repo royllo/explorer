@@ -9,6 +9,7 @@ import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.repository.proof.ProofRepository;
 import org.royllo.explorer.core.util.base.BaseService;
+import org.royllo.explorer.core.util.enums.ProofType;
 import org.royllo.explorer.core.util.exceptions.proof.ProofCreationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,7 +20,6 @@ import java.util.Optional;
 
 import static java.util.stream.Collectors.joining;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
-import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_UNSPECIFIED;
 
 /**
  * {@link ProofService} implementation.
@@ -37,6 +37,7 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
 
     @Override
     public ProofDTO addProof(@NonNull final String proof,
+                             @NonNull final ProofType proofType,
                              @NonNull final DecodedProofResponse decodedProof) {
         logger.info("Adding {} with {}", proof, decodedProof);
 
@@ -60,7 +61,7 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
                     .creator(ANONYMOUS_USER)
                     .asset(asset.get())
                     .proof(proof)
-                    .proofType(PROOF_TYPE_UNSPECIFIED)
+                    .proofType(proofType)
                     .build());
             final ProofDTO proofDTO = PROOF_MAPPER.mapToProofDTO(proofToCreate);
             logger.info("Proof created with id {} : {}", proofDTO.getId(), proofDTO);

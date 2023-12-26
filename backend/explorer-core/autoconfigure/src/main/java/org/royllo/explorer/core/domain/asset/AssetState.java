@@ -144,4 +144,8 @@ public class AssetState extends BaseDomain {
     @Column(name = "CHALLENGE_WITNESS")
     private List<String> challengeWitness = new ArrayList<>();
 
+    /** Indicates if this asset state is an issuance or a transfer. */
+    @Column(name = "ISSUANCE")
+    private boolean issuance;
+
 }

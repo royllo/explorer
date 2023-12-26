@@ -60,6 +60,11 @@ public class DecodedProofResponse {
         @JsonProperty("meta_reveal")
         Asset.MetaReveal metaReveal;
 
+        /** Indicates whether this proof is an issuance. */
+        public boolean isIssuance() {
+            return metaReveal != null;
+        }
+
         /** The merkle proof for AnchorTx used to prove its inclusion within BlockHeader. */
         @JsonProperty("tx_merkle_proof")
         String txMerkleProof;

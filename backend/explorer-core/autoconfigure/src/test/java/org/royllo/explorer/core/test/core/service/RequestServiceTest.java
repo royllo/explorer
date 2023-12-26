@@ -18,12 +18,16 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_ID;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_USERNAME;
+import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_ISSUANCE;
+import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_TRANSFER;
+import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_UNSPECIFIED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 
 @SpringBootTest
@@ -109,7 +113,7 @@ public class RequestServiceTest {
         // Use getRequest().
         Optional<RequestDTO> request1 = requestService.getRequest(request1Id);
         assertTrue(request1.isPresent());
-        assertTrue(request1.get() instanceof AddProofRequestDTO);
+        assertInstanceOf(AddProofRequestDTO.class, request1.get());
 
         // We cast and check of all the data is here.
         AddProofRequestDTO request1Casted = (AddProofRequestDTO) request1.get();
@@ -121,6 +125,7 @@ public class RequestServiceTest {
         assertEquals(OPENED, request1Casted.getStatus());
         assertNull(request1Casted.getErrorMessage());
         assertEquals("proof1", request1Casted.getProof());
+        assertEquals(PROOF_TYPE_UNSPECIFIED, request1Casted.getProofType());
 
         // =============================================================================================================
         // Request 2 (addAssetMetaData).
@@ -131,7 +136,7 @@ public class RequestServiceTest {
         // Use getRequest().
         Optional<RequestDTO> request2 = requestService.getRequest(request2Id);
         assertTrue(request2.isPresent());
-        assertTrue(request2.get() instanceof AddAssetMetaDataRequestDTO);
+        assertInstanceOf(AddAssetMetaDataRequestDTO.class, request2.get());
 
         // We cast and check of all the data is here.
         AddAssetMetaDataRequestDTO request2Casted = (AddAssetMetaDataRequestDTO) request2.get();
@@ -153,7 +158,7 @@ public class RequestServiceTest {
         // Use getRequest().
         Optional<RequestDTO> request3 = requestService.getRequest(request3Id);
         assertTrue(request3.isPresent());
-        assertTrue(request3.get() instanceof AddProofRequestDTO);
+        assertInstanceOf(AddProofRequestDTO.class, request3.get());
 
         // We cast and check of all the data is here.
         AddProofRequestDTO request3Casted = (AddProofRequestDTO) request3.get();
@@ -165,6 +170,7 @@ public class RequestServiceTest {
         assertEquals(OPENED, request3Casted.getStatus());
         assertNull(request3Casted.getErrorMessage());
         assertEquals("proof2", request3Casted.getProof());
+        assertEquals(PROOF_TYPE_UNSPECIFIED, request3Casted.getProofType());
 
         // =============================================================================================================
         // Request 4 (AddUniverseServerRequest).
@@ -175,7 +181,7 @@ public class RequestServiceTest {
         // Use getRequest().
         Optional<RequestDTO> request4 = requestService.getRequest(request4Id);
         assertTrue(request4.isPresent());
-        assertTrue(request4.get() instanceof AddUniverseServerRequestDTO);
+        assertInstanceOf(AddUniverseServerRequestDTO.class, request4.get());
 
         // We cast and check of all the data is here.
         AddUniverseServerRequestDTO request4Casted = (AddUniverseServerRequestDTO) request4.get();
@@ -187,6 +193,15 @@ public class RequestServiceTest {
         assertEquals(OPENED, request4Casted.getStatus());
         assertNull(request4Casted.getErrorMessage());
         assertEquals("1.1.1.1:8080", request4Casted.getServerAddress());
+
+        // Testing createAddProofRequest(String proof, ProofType proofType).
+        AddProofRequestDTO request5DTO = requestService.createAddProofRequest("proof", PROOF_TYPE_ISSUANCE);
+        assertNotNull(request5DTO.getId());
+        assertEquals(PROOF_TYPE_ISSUANCE, request5DTO.getProofType());
+
+        AddProofRequestDTO request6DTO = requestService.createAddProofRequest("proof", PROOF_TYPE_TRANSFER);
+        assertNotNull(request6DTO.getId());
+        assertEquals(PROOF_TYPE_TRANSFER, request6DTO.getProofType());
     }
 
 }

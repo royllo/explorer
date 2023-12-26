@@ -16,6 +16,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_ISSUANCE;
+
 /**
  * Batch treating {@link AddProofRequestDTO}.
  */
@@ -82,16 +84,12 @@ public class AddProofBatch extends BaseBatch {
                             // Now, we decode all proofs, one by one, starting by the oldest (issuance proof).
                             boolean proofAdded = false;
                             for (long i = numberOfProofs; i > 0; i--) {
-                                response = tapdService.decode(request.getProof(), i - 1, false).block();
 
-                                // We check if it's an issuance proof, if so, we will ask for meta reveal and replace the response.
-                                // And we will specify it as issuance proof of the asset.
-                                if (true) {
+                                // We check if it's an issuance proof, if so, we will ask for meta reveal.
+                                if (PROOF_TYPE_ISSUANCE.equals(request.getProofType())) {
                                     response = tapdService.decode(request.getProof(), i - 1, true).block();
-
-                                    // We treat the meta.
-
-
+                                } else {
+                                    response = tapdService.decode(request.getProof(), i - 1, false).block();
                                 }
 
                                 // We check if we have a decoded proof response.
@@ -122,7 +120,7 @@ public class AddProofBatch extends BaseBatch {
 
                                         // If not already added, we add the proof.
                                         if (!proofAdded) {
-                                            proofService.addProof(request.getProof(), response);
+                                            proofService.addProof(request.getProof(), request.getProofType(), response);
                                             request.setAsset(assetStateCreated.get().getAsset());
                                             proofAdded = true;
                                         }

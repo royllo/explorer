@@ -2,6 +2,7 @@ package org.royllo.explorer.core.service.proof;
 
 import org.royllo.explorer.core.dto.proof.ProofDTO;
 import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
+import org.royllo.explorer.core.util.enums.ProofType;
 import org.springframework.data.domain.Page;
 
 import java.util.Optional;
@@ -15,10 +16,13 @@ public interface ProofService {
      * Add a new proof to the database.
      *
      * @param proof        proof
+     * @param proofType    proof type
      * @param decodedProof decoded proof
      * @return the proof created
      */
-    ProofDTO addProof(String proof, DecodedProofResponse decodedProof);
+    ProofDTO addProof(String proof,
+                      ProofType proofType,
+                      DecodedProofResponse decodedProof);
 
     /**
      * Get a proof by its proof id.

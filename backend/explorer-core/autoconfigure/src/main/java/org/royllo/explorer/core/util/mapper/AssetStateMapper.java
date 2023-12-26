@@ -55,6 +55,8 @@ public interface AssetStateMapper {
     @Mapping(source = "exclusionProofs", target = "exclusionProofs")
     @Mapping(source = "splitRootProof", target = "splitRootProof")
     @Mapping(source = "challengeWitness", target = "challengeWitness")
+
+    @Mapping(source = "issuance", target = "issuance")
     AssetStateDTO mapToAssetStateDTO(DecodedProofResponse.DecodedProof source);
 
 }

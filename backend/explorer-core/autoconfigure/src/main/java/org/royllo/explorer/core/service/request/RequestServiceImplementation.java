@@ -12,6 +12,7 @@ import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.util.base.BaseService;
+import org.royllo.explorer.core.util.enums.ProofType;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -89,6 +90,12 @@ public class RequestServiceImplementation extends BaseService implements Request
 
     @Override
     public AddProofRequestDTO createAddProofRequest(final String proof) {
+        return createAddProofRequest(proof, PROOF_TYPE_UNSPECIFIED);
+    }
+
+    @Override
+    public AddProofRequestDTO createAddProofRequest(final String proof,
+                                                    final ProofType proofType) {
         logger.info("Adding proof request with proof {}", proof);
 
         // Creating and saving the request.
@@ -97,7 +104,7 @@ public class RequestServiceImplementation extends BaseService implements Request
                 .creator(ANONYMOUS_USER)
                 .status(OPENED)
                 .proof(proof)
-                .proofType(PROOF_TYPE_UNSPECIFIED)
+                .proofType(proofType)
                 .build();
 
         AddProofRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetRequestDTO(requestRepository.save(request));
