@@ -99,6 +99,11 @@
             <artifactId>mapstruct</artifactId>
             <version>${mapstruct.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-core</artifactId>
+            <version>${tika-core.version}</version>
+        </dependency>
 
         <!-- Test dependencies -->
         <dependency>

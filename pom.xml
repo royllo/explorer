@@ -81,7 +81,7 @@
         <lombok.mapstruct.version>0.2.0</lombok.mapstruct.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
 
-        <tika.version>2.9.1</tika.version>
+        <tika-core.version>2.9.1</tika-core.version>
 
         <!-- ======================================================================================================= -->
         <!-- Web libraries -->

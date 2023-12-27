@@ -1,32 +1,46 @@
 # Getting meta-data from the API
 
+Let's take an asset: 5630236058450d73ef22ca1e4bea24b5fc05f98688fa6502775f79275445222f
+We download the proof from explorer.
+
+The proof is named: `punk-proof`
+
+You then insert it in the request: `punk-request.json`
+
+We then call the decode method:
+
+    ```bash
+        curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 IdeaProjects/royllo/explorer/util/test/common-test/src/main/resources/tapd/admin-mainnet.macaroon)" \
+                --data @punk-request.json \
+                --insecure https://universe.royllo.org:8089/v1/taproot-assets/proofs/decode | jq 
+    ```
+
+We retrieve the meta field and we do `xxd -r -p` on it
+
+## Getting meta data
+
+### Getting issuance proof
+
+Getting issuance proof of AdamCoin (an asset):
+
 ```bash
-curl --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./src/main/resources/tapd/admin-mainnet.macaroon)" \
---insecure https://universe.royllo.org:8089/v1/taproot-assets/assets/meta/asset-id/24a27ab522c9c33e64f4462f2acee01571e014ccbbac075786d1deae033a128d | \
-jq '.data' | tr -d '"' | xxd -r -p
+curl --insecure https://universe.tiramisuwallet.com:8089/v1/taproot-assets/universe/leaves/asset-id/3b7693c532a59186a56c25b39328bb1801b052ca960a7effd25724f3074eeda9?proof_type=PROOF_TYPE_ISSUANCE | jq .leaves[0].issuance_proof  | tr -d '"'
 ```
 
-Asset meta data can be added by adding a specific request.
+Getting issuance proof of tiramisuwallet (an NFT):
 
-A menu "Add meta data" is added to the "add data" button you can find on the homepage.
-A form is displayed to add the meta data with three fields:
+```bash
+curl --insecure https://universe.tiramisuwallet.com:8089/v1/taproot-assets/universe/leaves/asset-id/74b0bcd927fd5a8b296c5e859293639578c459611419988e5a2cab4fff18f7d3?proof_type=PROOF_TYPE_ISSUANCE | jq .leaves[0].issuance_proof  | tr -d '"'
+```
 
-- asset id: the asset id of the asset you want to add meta data to.
-- meta data file: a file containing the meta you want to add.
+### Decoding proof
 
-When you click on the "Add meta data" button, a request is sent to the API to create the add meta data request.
-If a meta data file is present, the file will be put in our storage system.
+Decoding AdamCoin proof:
 
-note : on an asset page, next to the meta data hash field :
+```bash
+    curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./src/main/resources/tapd/admin-mainnet.macaroon)" \
+            --data @adamCoin-request.json \
+            --insecure https://universe.royllo.org:8089/v1/taproot-assets/proofs/decode
+```
 
-- if meta data is known: a button "Get meta data" is displayed. When you click on it, a request is sent to the API to
-  get the meta data of the asset.
-- If meta data is not known: a button "Add meta data" is displayed. When you click on it, the form is displayed (and
-  asset id is already filled).
-
-A batch is in charge of getting all request to add meta data.
-For each one, we search for the asset id in our database. If it's found, we calculate the hash of the meta data and
-compare it to the one in the asset.
-If it's the same, we add the file to our storage service and update the asset with the meta data file name.
-
-
+We can decode the meta with: `xxd -r -p`
