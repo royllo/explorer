@@ -139,8 +139,9 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
     }
 
     @Override
-    public boolean addMetaDataToAsset(final String assetId, final String filename) {
+    public boolean addMetaDataToAsset(final String assetId, final String metadata) {
         // We check that the asset exists.
+        assert assetRepository.findByAssetId(assetId).isPresent() : assetId + " not found";
 
         // We get the content of the file.
 

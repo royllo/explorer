@@ -71,6 +71,14 @@ public class Asset extends BaseDomain {
     @Column(name = "META_DATA_HASH", updatable = false)
     private String metaDataHash;
 
+    /** Meta data file name. */
+    @Column(name = "META_DATA_FILE_NAME")
+    private String metaDataFileName;
+
+    /** Meta data file mime type. */
+    @Column(name = "META_DATA_FILE_MIME_TYPE")
+    private String metaDataFileMimeType;
+
     /** Asset genesis: The index of the output that carries the unique Taproot commitment in the genesis transaction. */
     @Column(name = "OUTPUT_INDEX", updatable = false)
     private int outputIndex;
@@ -84,7 +92,7 @@ public class Asset extends BaseDomain {
     @Column(name = "ASSET_TYPE", updatable = false)
     private AssetType type;
 
-    /** The total amount of the asset stored in this Taproot asset UTXO. */
+    /** The total amount minted for this asset. */
     @Column(name = "AMOUNT")
     private BigInteger amount;
 

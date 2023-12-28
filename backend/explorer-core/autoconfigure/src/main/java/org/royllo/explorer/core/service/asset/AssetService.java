@@ -35,10 +35,10 @@ public interface AssetService {
      * add metadata to an asset.
      *
      * @param assetId  asset id
-     * @param filename filename
+     * @param metadata meta data
      * @return true if metadata added
      */
-    boolean addMetaDataToAsset(String assetId, String filename);
+    boolean addMetaDataToAsset(String assetId, String metadata);
 
     /**
      * Get an asset.
