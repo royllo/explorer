@@ -60,7 +60,11 @@ public class DecodedProofValueResponse {
         @JsonProperty("meta_reveal")
         Asset.MetaReveal metaReveal;
 
-        /** Indicates whether this proof is an issuance. */
+        /**
+         * Indicates whether this proof is an issuance.
+         *
+         * @return true if issuance
+         */
         boolean isIssuance() {
             return metaReveal != null;
         }
