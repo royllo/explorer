@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
-import java.nio.file.Path;
 
 /**
  * Local file service - Used for local development.
@@ -54,14 +53,12 @@ public class LocalFileService implements FileService {
         fileSystem.close();
     }
 
-
     @Override
     @SuppressWarnings("checkstyle:DesignForExtension")
     public void storeFile(final byte[] fileContent,
                           final String fileName) {
-        Path file = fileSystem.getPath(".").resolve(fileName);
         try {
-            Files.write(file, fileContent);
+            Files.write(fileSystem.getPath(".").resolve(fileName), fileContent);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
