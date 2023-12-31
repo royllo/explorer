@@ -30,10 +30,9 @@ import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_ISSUANCE;
 import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_TRANSFER;
 import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_UNSPECIFIED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
+@DirtiesContext
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @DisplayName("RequestService tests")

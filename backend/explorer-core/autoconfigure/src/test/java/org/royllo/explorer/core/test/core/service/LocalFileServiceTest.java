@@ -44,7 +44,7 @@ public class LocalFileServiceTest extends TestWithMockServers {
             fail("Error while retrieving the file" + e.getMessage());
         }
 
-        // We try to retrieve another file that doesn't exists, so we should get a 404 error.
+        // We try to retrieve another file that doesn't exist, so we should get a 404 error.
         request = new Request.Builder()
                 .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/non_existing_file.txt")
                 .build();
@@ -54,6 +54,8 @@ public class LocalFileServiceTest extends TestWithMockServers {
             fail("Error while retrieving the file" + e.getMessage());
         }
 
+        // We try to store again the same file.
+        localFileService.storeFile("Hello World!".getBytes(), "hello.txt");
     }
 
 }

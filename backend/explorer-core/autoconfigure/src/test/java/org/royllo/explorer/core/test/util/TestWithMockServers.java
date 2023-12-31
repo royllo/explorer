@@ -42,13 +42,12 @@ import static org.aspectj.bridge.MessageUtil.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockserver.integration.ClientAndServer.startClientAndServer;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 /**
  * Utility classes for tests.
  */
 @SuppressWarnings("SpellCheckingInspection")
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
+@DirtiesContext
 public class TestWithMockServers extends Base {
 
     /** Mempool server port. */
