@@ -52,9 +52,6 @@ public class AssetDTO {
     /** Meta data file name. */
     String metaDataFileName;
 
-    /** Meta data file mime type. */
-    String metaDataFileMimeType;
-
     /** The index of the output that carries the unique Taproot asset commitment in the genesis transaction. */
     @NotNull(message = "Output index is required")
     Integer outputIndex;

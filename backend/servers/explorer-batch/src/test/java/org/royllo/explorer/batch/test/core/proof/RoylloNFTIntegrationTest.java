@@ -37,11 +37,10 @@ import static org.royllo.test.MempoolData.ROYLLO_NFT_GENESIS_TXID;
 import static org.royllo.test.MempoolData.ROYLLO_NFT_GENESIS_VOUT;
 import static org.royllo.test.TapdData.ROYLLO_NFT_ASSET_ID;
 import static org.royllo.test.TapdData.ROYLLO_NFT_FROM_TEST;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
+@DirtiesContext
 @DisplayName("roylloNFT integration test")
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles({"scheduler-disabled"})
 public class RoylloNFTIntegrationTest extends TestWithMockServers {
 

@@ -37,8 +37,6 @@
                     remarks="The hash of the meta data for this genesis asset"/>
             <column name="META_DATA_FILE_NAME" type="TEXT"
                     remarks="Meta data file name"/>
-            <column name="META_DATA_FILE_MIME_TYPE" type="TEXT"
-                    remarks="Meta data file mime type"/>
 
             <column name="NAME" type="VARCHAR(1000)"
                     remarks="The name of the asset"/>

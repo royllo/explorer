@@ -39,17 +39,14 @@ import static org.royllo.test.MempoolData.UNLIMITED_ROYLLO_COIN_2_ANCHOR_1_GENES
 import static org.royllo.test.MempoolData.UNLIMITED_ROYLLO_COIN_2_ANCHOR_1_TXID;
 import static org.royllo.test.MempoolData.UNLIMITED_ROYLLO_COIN_2_GENESIS_TXID;
 import static org.royllo.test.MempoolData.UNLIMITED_ROYLLO_COIN_2_GENESIS_VOUT;
-import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_ASSET_ID;
-import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_2_ASSET_ID;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_ASSET_ID;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_FROM_TEST;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_2_ASSET_ID;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_2_FROM_TEST;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
+@DirtiesContext
 @DisplayName("unlimitedRoylloCoin test")
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles({"scheduler-disabled"})
 public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
 

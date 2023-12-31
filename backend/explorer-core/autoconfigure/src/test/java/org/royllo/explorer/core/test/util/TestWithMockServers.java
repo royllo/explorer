@@ -64,10 +64,10 @@ public class TestWithMockServers extends Base {
     public static final String S3_BUCKET_NAME = "royllo-explorer";
 
     /** S3 user name. */
-    public static final String S3_USER_NAME = "user";
+    public static final String S3_USER_NAME = "royllo-access-key";
 
     /** S3 password. */
-    public static final String S3_PASSWORD = "password";
+    public static final String S3_PASSWORD = "royllo-secret-key";
 
     /** Mempool mock server. */
     private ClientAndServer mempoolMockServer;

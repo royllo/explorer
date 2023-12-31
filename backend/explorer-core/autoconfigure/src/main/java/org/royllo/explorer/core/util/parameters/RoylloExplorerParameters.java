@@ -51,4 +51,21 @@ public class RoylloExplorerParameters {
 
     }
 
+    /** content. */
+    @Valid
+    private RoylloExplorerParameters.Content content = new Content();
+
+    /** Content parameters. */
+    @Validated
+    @Getter
+    @Setter
+    @ToString
+    @ConfigurationProperties(prefix = "content")
+    public static class Content {
+
+        /** Royllo explorer content base url. */
+        private String baseUrl;
+
+    }
+
 }

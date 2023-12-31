@@ -21,11 +21,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.enums.RequestStatus.FAILURE;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.test.TapdData.ROYLLO_COIN_FROM_TEST;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
+@DirtiesContext
 @DisplayName("roylloCoin integration test")
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles({"scheduler-disabled"})
 public class RoylloCoinIntegrationTest extends TestWithMockServers {
 

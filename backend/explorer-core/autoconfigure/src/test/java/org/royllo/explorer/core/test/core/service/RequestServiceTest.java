@@ -11,8 +11,8 @@ import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.service.request.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +31,7 @@ import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_UNSPECIFI
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 
 @SpringBootTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+@DirtiesContext
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("RequestService tests")
 public class RequestServiceTest {

@@ -34,14 +34,12 @@ import static org.royllo.test.MempoolData.UNKNOWN_ROYLLO_COIN_ANCHOR_1_TXID;
 import static org.royllo.test.MempoolData.UNKNOWN_ROYLLO_COIN_ANCHOR_1_VOUT;
 import static org.royllo.test.MempoolData.UNKNOWN_ROYLLO_COIN_GENESIS_TXID;
 import static org.royllo.test.MempoolData.UNKNOWN_ROYLLO_COIN_GENESIS_VOUT;
-import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.UNKNOWN_ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.UNKNOWN_ROYLLO_COIN_FROM_TEST;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
+@DirtiesContext
 @DisplayName("unknownRoylloCoin test")
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles({"scheduler-disabled"})
 public class UnknownRoylloCoinIntegrationTest extends TestWithMockServers {
 

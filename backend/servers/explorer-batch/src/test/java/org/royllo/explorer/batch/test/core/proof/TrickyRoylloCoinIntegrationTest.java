@@ -37,14 +37,13 @@ import static org.royllo.test.MempoolData.TRICKY_ROYLLO_COIN_ANCHOR_1_TXID;
 import static org.royllo.test.MempoolData.TRICKY_ROYLLO_COIN_ANCHOR_2_TXID;
 import static org.royllo.test.MempoolData.TRICKY_ROYLLO_COIN_ANCHOR_3_TXID;
 import static org.royllo.test.MempoolData.TRICKY_ROYLLO_COIN_GENESIS_TXID;
-import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_ASSET_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_FROM_TEST;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
-@DisplayName("trickyRoylloCoin test")
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
+@DisplayName("trickyRoylloCoin test")
 @ActiveProfiles({"scheduler-disabled"})
 public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
 

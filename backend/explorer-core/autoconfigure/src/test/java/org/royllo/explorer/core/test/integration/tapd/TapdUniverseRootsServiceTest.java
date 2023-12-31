@@ -6,6 +6,7 @@ import org.royllo.explorer.core.provider.tapd.TapdService;
 import org.royllo.explorer.core.provider.tapd.UniverseRootsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.concurrent.TimeUnit;
 
@@ -13,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(properties = {"tapd.api.base-url=https://157.230.85.88:8089"})
+@DirtiesContext
 @DisplayName("Lightning TAPD Universe roots service test")
 public class TapdUniverseRootsServiceTest {
 

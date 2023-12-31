@@ -85,6 +85,8 @@
         <!-- ======================================================================================================= -->
         <!-- Cloud libraries -->
         <minio.version>8.5.7</minio.version>
+        <jimfs.version>1.3.0</jimfs.version>
+        <undertow.version>2.3.10.Final</undertow.version>
 
         <!-- ======================================================================================================= -->
         <!-- Web libraries -->
@@ -101,6 +103,7 @@
         <!-- Test libraries -->
         <testcontainers.version>1.19.3</testcontainers.version>
         <mockito-core.version>5.8.0</mockito-core.version>
+        <okhttp.version>5.0.0-alpha.12</okhttp.version>
 
         <!-- ======================================================================================================= -->
         <!-- Maven plugins -->

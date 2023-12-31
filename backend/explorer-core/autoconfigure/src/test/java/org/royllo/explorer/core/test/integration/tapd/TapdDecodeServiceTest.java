@@ -8,6 +8,7 @@ import org.royllo.test.tapd.asset.DecodedProofValue;
 import org.royllo.test.tapd.asset.DecodedProofValueResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -18,6 +19,7 @@ import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_FROM_TEST;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_FROM_TEST;
 
 @SpringBootTest(properties = {"tapd.api.base-url=https://testnet.universe.royllo.org:8089"})
+@DirtiesContext
 @DisplayName("TAPD decode proof service test")
 public class TapdDecodeServiceTest {
 

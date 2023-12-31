@@ -75,10 +75,6 @@ public class Asset extends BaseDomain {
     @Column(name = "META_DATA_FILE_NAME")
     private String metaDataFileName;
 
-    /** Meta data file mime type. */
-    @Column(name = "META_DATA_FILE_MIME_TYPE")
-    private String metaDataFileMimeType;
-
     /** Asset genesis: The index of the output that carries the unique Taproot commitment in the genesis transaction. */
     @Column(name = "OUTPUT_INDEX", updatable = false)
     private int outputIndex;
