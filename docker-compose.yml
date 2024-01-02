@@ -49,8 +49,8 @@ services:
       - royllo-explorer-storage-volume:/data
     environment:
       - TZ=Europe/Paris
-      - MINIO_ROOT_USER=royllo_explorer_username
-      - MINIO_ROOT_PASSWORD=t?T:X4$(L!D-7gYaQb^#hZ
+      - MINIO_ROOT_USER=royllo
+      - MINIO_ROOT_PASSWORD=tTX4LD7gYaQbhZ
     command: server --console-address ":9001" /data
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
@@ -60,11 +60,14 @@ services:
 
   createRoylloBucket:
     image: minio/mc:RELEASE.2023-12-29T20-15-29Z.fips
+    networks:
+      - royllo-explorer-network
     depends_on:
       - royllo-explorer-storage-server
     entrypoint: >
       /bin/sh -c "
-      /usr/bin/mc alias set myminio http://minio:9000 royllo_explorer_username t?T:X4$(L!D-7gYaQb^#hZ;
+      sleep 10;
+      /usr/bin/mc alias set myminio http://royllo-explorer-storage-server:9000 royllo tTX4LD7gYaQbhZ;
       /usr/bin/mc mb myminio/royllo-explorer;
       /usr/bin/mc anonymous set public myminio/royllo-explorer;
       exit 0;
@@ -88,10 +91,10 @@ services:
       - TAPD_API_MACAROON=0201047461706402A301030A1004650A26E6928A4C60E007BDA107389E1201301A180A09616464726573736573120472656164120577726974651A150A06617373657473120472656164120577726974651A150A066461656D6F6E120472656164120577726974651A130A046D696E74120472656164120577726974651A150A0670726F6F6673120472656164120577726974651A170A08756E6976657273651204726561641205777269746500000620A28CB923A36B8B86E03C47E5275CA31104A6065401227FFD068BC545DFAB383F
       - SPRING_LIQUIBASE_ENABLED=true
       - SPRING_PROFILES_ACTIVE=s3-storage
-      - S3_ACCESS_KEY=royllo_explorer_username
-      - S3_SECRET_KEY=t?T:X4$(L!D-7gYaQb^#hZ
+      - S3_ACCESS_KEY=royllo
+      - S3_SECRET_KEY=tTX4LD7gYaQbhZ
       - S3_BUCKET_NAME=royllo-explorer
-      - S3_ENDPOINTURL=https://royllo-explorer-storage-server:9000
+      - S3_ENDPOINTURL=http://royllo-explorer-storage-server:9000
 
   # ====================================================================================================================
   # Royllo explorer API server ( https://hub.docker.com/r/royllo/explorer-api ).
@@ -111,10 +114,10 @@ services:
       - SPRING_DATASOURCE_PASSWORD=Q5QnE5S%Y]qt7
       - SPRING_LIQUIBASE_ENABLED=false
       - SPRING_PROFILES_ACTIVE=s3-storage
-      - S3_ACCESS_KEY=royllo_explorer_username
-      - S3_SECRET_KEY=t?T:X4$(L!D-7gYaQb^#hZ
+      - S3_ACCESS_KEY=royllo
+      - S3_SECRET_KEY=tTX4LD7gYaQbhZ
       - S3_BUCKET_NAME=royllo-explorer
-      - S3_ENDPOINTURL=https://royllo-explorer-storage-server:9000
+      - S3_ENDPOINTURL=http://royllo-explorer-storage-server:9000
 
   # ====================================================================================================================
   # Royllo explorer web server ( https://hub.docker.com/r/royllo/explorer-web ).
@@ -134,7 +137,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=Q5QnE5S%Y]qt7
       - SPRING_LIQUIBASE_ENABLED=false
       - SPRING_PROFILES_ACTIVE=s3-storage
-      - S3_ACCESS_KEY=royllo_explorer_username
-      - S3_SECRET_KEY=t?T:X4$(L!D-7gYaQb^#hZ
+      - S3_ACCESS_KEY=royllo
+      - S3_SECRET_KEY=tTX4LD7gYaQbhZ
       - S3_BUCKET_NAME=royllo-explorer
-      - S3_ENDPOINTURL=https://royllo-explorer-storage-server:9000
+      - S3_ENDPOINTURL=http://royllo-explorer-storage-server:9000
