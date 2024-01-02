@@ -32,13 +32,12 @@ public interface AssetService {
     AssetDTO addAsset(AssetDTO newAsset);
 
     /**
-     * add metadata to an asset.
+     * Update an asset.
      *
      * @param assetId  asset id
      * @param metadata meta data
-     * @return true if metadata added
      */
-    boolean addMetaDataToAsset(String assetId, String metadata);
+    void updateAsset(String assetId, String metadata);
 
     /**
      * Get an asset.

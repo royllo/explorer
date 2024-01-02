@@ -1,12 +1,12 @@
 package org.royllo.explorer.core.provider.storage;
 
 /**
- * File service.
+ * Content service.
  */
-public interface FileService {
+public interface ContentService {
 
     /**
-     * Store file.
+     * Store a file.
      *
      * @param fileContent file content
      * @param fileName    file name

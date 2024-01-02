@@ -16,7 +16,7 @@ import java.nio.file.Files;
  * It also includes a web server to serve content and simulate a s3 CDN.
  */
 @Service
-public class LocalFileService implements FileService {
+public class LocalFileServiceImplementation implements ContentService {
 
     /** Web server port. */
     public static final int WEB_SERVER_PORT = 9093;
@@ -33,9 +33,17 @@ public class LocalFileService implements FileService {
     /**
      * Constructor.
      */
-    public LocalFileService() {
+    public LocalFileServiceImplementation() {
         // Starting an in-memory file system.
         fileSystem = Jimfs.newFileSystem(Configuration.unix());
+
+        // For our tests, we create the asset data for RoylloCoin.
+        try {
+            Files.write(fileSystem.getPath(".").resolve("24a27ab522c9c33e64f4462f2acee01571e014ccbbac075786d1deae033a128d.txt"),
+                    "roylloCoin on mainnet by Royllo".getBytes());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         // Starting a web server to serve content.
         PathResourceManager resourceManager = new PathResourceManager(fileSystem.getPath("."));

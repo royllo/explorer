@@ -3,10 +3,16 @@ package org.royllo.explorer.core.service.asset;
 import io.micrometer.common.util.StringUtils;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
+import org.apache.tika.Tika;
+import org.apache.tika.mime.MimeTypeException;
+import org.apache.tika.mime.MimeTypes;
 import org.royllo.explorer.core.domain.asset.Asset;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
+import org.royllo.explorer.core.provider.storage.ContentService;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 import org.royllo.explorer.core.util.base.BaseService;
@@ -38,6 +44,9 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
 
     /** Bitcoin service. */
     private final BitcoinService bitcoinService;
+
+    /** File service. */
+    private final ContentService fileService;
 
     @Override
     public Page<AssetDTO> queryAssets(@NonNull final String query,
@@ -139,19 +148,33 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
     }
 
     @Override
-    public boolean addMetaDataToAsset(final String assetId, final String metadata) {
+    public void updateAsset(final String assetId, final String metadata) {
+        final Optional<Asset> assetToUpdate = assetRepository.findByAssetId(assetId);
+
         // We check that the asset exists.
-        assert assetRepository.findByAssetId(assetId).isPresent() : assetId + " not found";
+        assert assetToUpdate.isPresent() : assetId + " not found";
 
-        // We get the content of the file.
+        // We save the data as a file.
+        try {
+            // Decoding (same as using xxd -r -p)
+            byte[] decodedBytes = Hex.decodeHex(metadata);
 
-        // We calculate the hash of the file and compare it with the metaDataHash of the asset in database.
+            // Detecting the file type.
+            final String mimeType = new Tika().detect(decodedBytes);
+            final String extension = MimeTypes.getDefaultMimeTypes().forName(mimeType).getExtension();
 
-        // We use tika to extract the file type of filename.
+            // Saving the file.
+            final String fileName = assetId + extension;
+            fileService.storeFile(decodedBytes, fileName);
 
-        // We rename the file to assetId.fileType and set the filename on the asset object.
+            // Saving the name of the file.
+            assetToUpdate.get().setMetaDataFileName(fileName);
+            assetRepository.save(assetToUpdate.get());
 
-        return true;
+        } catch (DecoderException | MimeTypeException e) {
+            logger.error("Error decoding and saving metadata {}", e.getMessage());
+        }
+
     }
 
     @Override

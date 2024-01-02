@@ -1,5 +1,8 @@
 package org.royllo.explorer.batch.test.core.proof;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.request.AddProofBatch;
@@ -22,12 +25,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
+import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 import static org.royllo.explorer.core.util.mapper.AssetMapperDecorator.ALIAS_LENGTH;
@@ -191,6 +198,31 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
         assertEquals(ALIAS_LENGTH, asset2.get().getAssetIdAlias().length());
         assertNotNull(asset2.get().getAssetGroup());
         assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, asset2.get().getAssetGroup().getTweakedGroupKey());
+
+        // We check if we have the meta-data file for UNLIMITED_ROYLLO_COIN_1_ASSET_ID.
+        var client = new OkHttpClient();
+        assertNotNull(asset1.get().getMetaDataFileName());
+        Request request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + asset1.get().getMetaDataFileName())
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(200, response.code());
+            assertEquals("unlimitedRoylloCoin emission 1 by Royllo", response.body().string());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
+
+        // And then for UNLIMITED_ROYLLO_COIN_2_ASSET_ID.
+        assertNotNull(asset2.get().getMetaDataFileName());
+        request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + asset2.get().getMetaDataFileName())
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(200, response.code());
+            assertEquals("unlimitedRoylloCoin emission 2 by Royllo", response.body().string());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
     }
 
 }

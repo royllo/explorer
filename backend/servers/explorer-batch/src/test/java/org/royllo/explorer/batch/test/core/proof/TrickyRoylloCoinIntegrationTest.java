@@ -1,5 +1,8 @@
 package org.royllo.explorer.batch.test.core.proof;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.request.AddProofBatch;
@@ -21,12 +24,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
+import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 import static org.royllo.test.MempoolData.SET_OF_ROYLLO_NFT_ANCHOR_1_VOUT;
@@ -246,6 +253,21 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
                 TRICKY_ROYLLO_COIN_3_ASSET_STATE_ID);
         verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_4_ASSET_STATE_ID).get(),
                 TRICKY_ROYLLO_COIN_4_ASSET_STATE_ID);
+
+        // =============================================================================================================
+        // We check meta-data file for TRICKY_ROYLLO_COIN_ASSET_ID.
+        var client = new OkHttpClient();
+        assertNotNull(asset.get().getMetaDataFileName());
+        Request request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + asset.get().getMetaDataFileName())
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(200, response.code());
+            assertEquals("trickyRoylloCoin by Royllo", response.body().string());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
+
     }
 
     @Test
@@ -279,7 +301,7 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
         final long assetStateCountBefore = assetStateRepository.count();
 
         // =============================================================================================================
-        // We add the three proofs.
+        // We add the latest proof.
         AddProofRequestDTO addTrickyCoinProof3Request = requestService.createAddProofRequest(TRICKY_ROYLLO_COIN_3_RAW_PROOF);
         assertNotNull(addTrickyCoinProof3Request);
         assertEquals(OPENED, addTrickyCoinProof3Request.getStatus());
@@ -318,7 +340,9 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
         assertEquals(assetStateCountBefore + 3, assetStateRepository.count());
 
         // Verify asset.
-        verifyAsset(assetService.getAssetByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID).get(), TRICKY_ROYLLO_COIN_ASSET_ID);
+        Optional<AssetDTO> asset = assetService.getAssetByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID);
+        assertTrue(asset.isPresent());
+        verifyAsset(asset.get(), TRICKY_ROYLLO_COIN_ASSET_ID);
 
         // Verify asset states.
         verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID).get(),
@@ -327,6 +351,21 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
                 TRICKY_ROYLLO_COIN_3_ASSET_STATE_ID);
         verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_4_ASSET_STATE_ID).get(),
                 TRICKY_ROYLLO_COIN_4_ASSET_STATE_ID);
+
+        // =============================================================================================================
+        // We check meta-data file for TRICKY_ROYLLO_COIN_ASSET_ID.
+        var client = new OkHttpClient();
+        assertNotNull(asset.get().getMetaDataFileName());
+        Request request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + asset.get().getMetaDataFileName())
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(200, response.code());
+            assertEquals("trickyRoylloCoin by Royllo", response.body().string());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
+
     }
 
 }

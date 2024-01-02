@@ -5,7 +5,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.royllo.explorer.core.provider.storage.LocalFileService;
+import org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation;
 import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,22 +16,22 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.royllo.explorer.core.provider.storage.LocalFileService.WEB_SERVER_HOST;
-import static org.royllo.explorer.core.provider.storage.LocalFileService.WEB_SERVER_PORT;
+import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
+import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
 
 @SpringBootTest
 @DirtiesContext
-@DisplayName("LocalFileServiceTest tests")
+@DisplayName("LocalFileService tests")
 public class LocalFileServiceTest extends TestWithMockServers {
 
     @Autowired
-    private LocalFileService localFileService;
+    private LocalFileServiceImplementation localFileServiceImplementation;
 
     @Test
     @DisplayName("Store and get file")
     public void storeAndGetFile() {
         // We store a file.
-        localFileService.storeFile("Hello World!".getBytes(), "hello.txt");
+        localFileServiceImplementation.storeFile("Hello World!".getBytes(), "hello.txt");
 
         // We try retrieve hello.txt from the webserver.
         var client = new OkHttpClient();
@@ -55,7 +55,19 @@ public class LocalFileServiceTest extends TestWithMockServers {
         }
 
         // We try to store again the same file.
-        localFileService.storeFile("Hello World!".getBytes(), "hello.txt");
+        localFileServiceImplementation.storeFile("Hello World!".getBytes(), "hello.txt");
+
+        // We test that the 24a27ab522c9c33e64f4462f2acee01571e014ccbbac075786d1deae033a128d.txt file for Royllo coin
+        // exists and the content is correct.
+        request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/24a27ab522c9c33e64f4462f2acee01571e014ccbbac075786d1deae033a128d.txt")
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertTrue(response.body().string().contains("roylloCoin on mainnet by Royllo"));
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
+
     }
 
 }

@@ -1,5 +1,8 @@
 package org.royllo.explorer.core.test.core.service;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
@@ -14,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.test.annotation.DirtiesContext;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Optional;
 import java.util.Set;
@@ -26,6 +30,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
+import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
@@ -330,6 +337,62 @@ public class AssetServiceTest extends TestWithMockServers {
         assertNotNull(asset4Created.getAssetGroup());
         assertNotNull(asset4Created.getAssetGroup().getId());
         assertEquals("assetGroup2", asset4Created.getAssetGroup().getTweakedGroupKey());
+    }
+
+    @Test
+    @DisplayName("updateAsset()")
+    public void updateAsset() {
+        // We create an asset.
+        final AssetDTO asset1 = assetService.addAsset(AssetDTO.builder()
+                .creator(ANONYMOUS_USER_DTO)
+                .assetId("asset00000000000000000000000000000000000000000000000000000000001")
+                .genesisPoint(BitcoinTransactionOutputDTO.builder()
+                        .txId(ROYLLO_COIN_GENESIS_TXID)
+                        .vout(0)
+                        .build())
+                .metaDataHash("my meta data hash")
+                .name("testCoin")
+                .outputIndex(8)
+                .version(0)
+                .type(NORMAL)
+                .amount(ONE)
+                .build());
+
+        // The asset should not have a metadata file.
+        assertNotNull(asset1.getId());
+        assertNotNull(asset1.getAssetId());
+        assertNull(asset1.getMetaDataFileName());
+
+        // Now, we update the asset with the metadata.
+        final String imageMeta = "89504e470d0a1a0a0000000d4948445200000018000000180806000000e0773df80000006e4944415478da63601805a360d880ff38304d0da78a25ff89c4941b5e682f8b81a9660136c3d12ca1cc029b0c75304636182646ae0528ae07d11ef9da182e078951c5025a04d1c059802e36b47c704451008e29cd07ff89f105552dc011f6d4f50135cb229c41448b229ba25403006cf5f5c3b61b973a0000000049454e44ae426082";
+        assetService.updateAsset(asset1.getAssetId(), imageMeta);
+
+        // We test the data.
+        final Optional<AssetDTO> assetUpdated = assetService.getAssetByAssetId(asset1.getAssetId());
+        assertTrue(assetUpdated.isPresent());
+        assertEquals(asset1.getAssetId() + ".png", assetUpdated.get().getMetaDataFileName());
+
+        // The file should be available.
+        var client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + assetUpdated.get().getMetaDataFileName())
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(200, response.code());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
+
+        // We test that it gives a 404 error if you search for a non-existing file.
+        request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/NON_EXISTING_FILE.png")
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(404, response.code());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
+
     }
 
     @Test

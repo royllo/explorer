@@ -16,6 +16,7 @@ We then call the decode method:
     ```
 
 We retrieve the meta field and we do `xxd -r -p` on it
+726f796c6c6f436f696e206f6e206d61696e6e657420627920526f796c6c6f
 
 ## Getting meta data
 

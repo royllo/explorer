@@ -106,7 +106,6 @@ public class TestWithMockServers extends Base {
             s3Client.makeBucket(MakeBucketArgs.builder().bucket(S3_BUCKET_NAME).build());
         }
 
-
     }
 
     @AfterEach
