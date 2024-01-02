@@ -16,9 +16,7 @@
 
             <!-- Table fields -->
             <column name="ASSET_ID" type="TEXT"
-                    remarks="The asset ID that uniquely identifies the asset"/>
-            <column name="META_DATA" type="TEXT"
-                    remarks="Asset meta data"/>
+                    remarks="Taproot asset id set by the user"/>
             <column name="FK_ASSET" type="BIGINT"
                     remarks="The asset created/updated by this request"/>
 

@@ -16,6 +16,8 @@
             <!-- Table fields -->
             <column name="PROOF" type="TEXT"
                     remarks="Proof"/>
+            <column name="PROOF_TYPE" type="TEXT"
+                    remarks="Proof type (PROOF_TYPE_UNSPECIFIED, PROOF_TYPE_ISSUANCE or PROOF_TYPE_TRANSFER)"/>
             <column name="FK_ASSET" type="BIGINT"
                     remarks="The asset created/updated by this request"/>
 

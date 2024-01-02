@@ -28,13 +28,9 @@ import static jakarta.persistence.FetchType.EAGER;
 @DiscriminatorValue("ADD_ASSET_META_DATA")
 public class AddAssetMetaDataRequest extends Request {
 
-    /** Taproot asset id. */
+    /** Taproot asset id set by the user. */
     @Column(name = "ASSET_ID", updatable = false)
     private String assetId;
-
-    /** Metadata corresponding to the meta hash stored in the genesis information. */
-    @Column(name = "META_DATA", updatable = false)
-    private String metaData;
 
     /** The asset created/updated by this request. */
     @ManyToOne(fetch = EAGER)

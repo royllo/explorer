@@ -73,6 +73,8 @@
                     remarks="An optional TaprootProof needed if this asset is the result of a split. SplitRootProof proves inclusion of the root asset of the split"/>
             <column name="CHALLENGE_WITNESS" type="TEXT"
                     remarks="ChallengeWitness is an optional virtual transaction witness that serves as an ownership proof for the asset"/>
+            <column name="ISSUANCE" type="BOOLEAN"
+                    remarks="Indicates if this asset state is an issuance or a transfer"/>
 
             <!-- Technical fields -->
             <column name="CREATED_ON" type="TIMESTAMP"

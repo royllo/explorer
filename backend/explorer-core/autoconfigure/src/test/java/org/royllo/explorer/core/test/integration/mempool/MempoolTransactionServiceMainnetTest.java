@@ -6,6 +6,7 @@ import org.royllo.explorer.core.provider.mempool.GetTransactionResponse;
 import org.royllo.explorer.core.provider.mempool.MempoolTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.math.BigInteger;
 import java.util.Iterator;
@@ -15,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest(properties = {"mempool.api.base-url=https://mempool.space/api"})
+@DirtiesContext
 @DisplayName("Mempool transaction service on mainnet")
 public class MempoolTransactionServiceMainnetTest {
 

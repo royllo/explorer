@@ -20,11 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.enums.RequestStatus.FAILURE;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
+@DirtiesContext
 @DisplayName("Invalid proof test")
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles({"scheduler-disabled"})
 public class InvalidProofTest extends TestWithMockServers {
 
@@ -50,7 +49,7 @@ public class InvalidProofTest extends TestWithMockServers {
         assertTrue(invalidProofRequestTreated.isPresent());
         assertFalse(invalidProofRequestTreated.get().isSuccessful());
         assertEquals(FAILURE, invalidProofRequestTreated.get().getStatus());
-        assertEquals("proto: (line 1:17): invalid value for bytes type: \"INVALID_PROOF\"", invalidProofRequestTreated.get().getErrorMessage());
+        assertEquals("proto: (line 1:17): invalid value for bytes type: \"INVALID_PROOF\"", invalidProofRequestTreated.get().getErrorMessage());
     }
 
 }

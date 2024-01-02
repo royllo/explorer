@@ -32,6 +32,14 @@ public interface AssetService {
     AssetDTO addAsset(AssetDTO newAsset);
 
     /**
+     * Update an asset.
+     *
+     * @param assetId  asset id
+     * @param metadata meta data
+     */
+    void updateAsset(String assetId, String metadata);
+
+    /**
      * Get an asset.
      *
      * @param id id in database

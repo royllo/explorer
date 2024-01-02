@@ -15,6 +15,7 @@
         <insert tableName="REQUEST_ADD_PROOF">
             <column name="ID" value="1"/>
             <column name="proof" value="P1"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
         </insert>
 
         <!-- Add proof request n°2 ( Closed add proof ) -->
@@ -29,6 +30,7 @@
         <insert tableName="REQUEST_ADD_PROOF">
             <column name="ID" value="2"/>
             <column name="proof" value="P2"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
         </insert>
 
         <!-- Add asset request n°3 ( Success addAssetMetaData GI3/P3 ) -->
@@ -42,7 +44,6 @@
         <insert tableName="REQUEST_ADD_ASSET_META_DATA">
             <column name="ID" value="3"/>
             <column name="ASSET_ID" value="AI2"/>
-            <column name="META_DATA" value="MD2"/>
         </insert>
 
         <!-- Add proof request n°4 ( Opened proof GI4/P4 ) -->
@@ -57,6 +58,7 @@
             <column name="ID" value="4"/>
             <column name="FK_ASSET" value="1"/>
             <column name="proof" value="P4"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
         </insert>
 
     </changeSet>

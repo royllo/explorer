@@ -1,6 +1,6 @@
 # roylloCoin
 
-**This coin has been minted on the mainnet**
+**This coin has been minted on the mainnet with the following meta: `roylloCoin on mainnet by Royllo`**
 
 ```json
 {

@@ -10,6 +10,4 @@ type AddAssetMetaDataRequest implements Request {
     errorMessage: String
     "Taproot asset id"
     assetId: String!
-    "Metadata corresponding to the meta hash stored in the genesis information"
-    metaData: String!
 }

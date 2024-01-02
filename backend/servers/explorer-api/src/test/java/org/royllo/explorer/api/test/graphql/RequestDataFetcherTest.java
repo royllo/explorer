@@ -31,11 +31,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_ID;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_USERNAME;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
+@DirtiesContext
 @DisplayName("RequestDataFetcher tests")
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 public class RequestDataFetcherTest {
 
     @Autowired
@@ -54,7 +53,7 @@ public class RequestDataFetcherTest {
                                 .status().getParent()
                                 .errorMessage()
                                 .onAddProofRequest().proof().parent()
-                                .onAddAssetMetaDataRequest().assetId().metaData()
+                                .onAddAssetMetaDataRequest().assetId()
                 ).serialize(),
                 "data." + DgsConstants.QUERY.RequestByRequestId,
                 new TypeRef<>() {
@@ -118,7 +117,6 @@ public class RequestDataFetcherTest {
                                 .status().getParent()
                                 .errorMessage()
                                 .assetId()
-                                .metaData()
                 ).serialize(),
                 "data." + DgsConstants.MUTATION.CreateAddAssetMetaDataRequest,
                 new TypeRef<>() {
@@ -131,7 +129,6 @@ public class RequestDataFetcherTest {
         assertEquals(OPENED.toString(), requestCreated.getStatus().toString());
         assertNull(requestCreated.getErrorMessage());
         assertEquals("AssetID1", requestCreated.getAssetId());
-        assertEquals("MetaData01", requestCreated.getMetaData());
     }
 
     @Test

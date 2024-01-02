@@ -1746,6 +1746,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="e443169117a184f91186b401133b20be670c7c0896f9886075e5d9b81e9d076b"/>
             <column name="proof" value="10001"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1757,6 +1758,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="56acd2f85500d246e0851f77035f8b4414a57c4f31735c8f37c9cec0f3739d47"/>
             <column name="proof" value="10002"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1768,6 +1770,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="e162e30a5a4c1e44a7e04fca063c296001f26636ecf384701ae17849a4f83b11"/>
             <column name="proof" value="10003"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1779,6 +1782,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="0d9a5484f79ebe89bed064cf5f71ba2575c3e16cb3f135d8c1fd76e1965e5ec7"/>
             <column name="proof" value="10004"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1790,6 +1794,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="a1c5f5584e304e6cf402ea7924ee66c0469679d1dc90486d6524a1aa8ec27b29"/>
             <column name="proof" value="10005"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1801,6 +1806,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="a6c9b0f863d3c2056830114bb5edc235eb5257268e8c3e2a0aaf4a61c20730e2"/>
             <column name="proof" value="10006"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1812,6 +1818,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="9dddde7e9531b9f9375090d34d68df60e318871bea5f3129962ab4fee8d33033"/>
             <column name="proof" value="10007"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1823,6 +1830,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="39346d4953adbb253889a404644dbec64d75777ce1893192f112f6ce0048d925"/>
             <column name="proof" value="10008"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1834,6 +1842,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="53a84293ab3ff273bdda0995aa97b22da014323a3fb42a7290d3eb78f4385314"/>
             <column name="proof" value="10009"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1845,6 +1854,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="a9788e889e31fccc4651902adb05d2f8c4bcc1845694d91202e72716ebe9a4a0"/>
             <column name="proof" value="100010"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1856,6 +1866,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="8162e509861bf0b9ccdb512d6abb780ed03beacb777c62b761562a9c2458de5d"/>
             <column name="proof" value="100011"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1867,6 +1878,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="92eed7da0290ed8950c106c08c30b86b42975c23a95acfba509d3088818566d4"/>
             <column name="proof" value="100012"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1878,6 +1890,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="36209542362787f22054182c3e41409fd1b0486ecb282c02dc57b4f98e47de70"/>
             <column name="proof" value="100013"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1889,6 +1902,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="81bac4d5e72a902240671a10a7fb277575d9b9365972bd063604429f16bbb0c5"/>
             <column name="proof" value="100014"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1900,6 +1914,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="0189782e2d72a44a603d97e504deeca637b1bbc6f9d52eb2fb6aff0d27cf8b36"/>
             <column name="proof" value="100015"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1911,6 +1926,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="87d4a243d01cc915105fb9605df6ff9bfeab911e0b90e7137d4e68482c4510fd"/>
             <column name="proof" value="100016"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1922,6 +1938,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="1acbb3962a15a2e44003b169c53a252549e1a0a46bc74d381f61cab4a0aa11c4"/>
             <column name="proof" value="100017"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1933,6 +1950,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="90a39c4f8f2b9420a3d0caaa9bf842210ec967db323c20a206040cf35b590464"/>
             <column name="proof" value="100018"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1944,6 +1962,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="1dc132aa79c22b2e6ca16c048f22a33faadc5581ecb152e955732f2aea05cba0"/>
             <column name="proof" value="100019"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1955,6 +1974,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="6404e853cc54939b97d57f059327a092c76c39ad1d16fff53dec151781c5ea9f"/>
             <column name="proof" value="100020"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1966,6 +1986,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="d9a14448faceec97e5359937305986f77b948c9c9c5c63b0a7564b8cd3cbec8a"/>
             <column name="proof" value="100021"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1977,6 +1998,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="98d3aa2a2461646c07ba02a03ca716592661148ce41c1ce54a49885ca6b82971"/>
             <column name="proof" value="100022"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1988,6 +2010,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="37cc4d783c2f0c7993cf9fd37ce08c105e19b65609b5778abaf76843a41d2e23"/>
             <column name="proof" value="100023"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -1999,6 +2022,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="a90260346935a0134bb6835b648da50f2ce636fe364730761a62feb60e67815a"/>
             <column name="proof" value="100024"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2010,6 +2034,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="ea18c18f33f6443ad78a3fa448b93faa23e3ef8ad36929161a11a8eacf952963"/>
             <column name="proof" value="100025"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2021,6 +2046,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="3a2973d660e446db44bccc17c08d8f135f440731d6ed0c7b8cd4434ad2a32140"/>
             <column name="proof" value="100026"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2032,6 +2058,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="31ee8cfc3c4a75d84a0eed3680f6bf25ff94bbefd3dcb410b701804edf230d53"/>
             <column name="proof" value="100027"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2043,6 +2070,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="57c327ffcc8b5855ff07ff2558e8666a13b87d5730cdbe0d1b3517ab6891a4f5"/>
             <column name="proof" value="100028"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2054,6 +2082,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="660724a9aea1277ab1096e00f13a9bce6c2792321ef25f7444f4528ba956a9b5"/>
             <column name="proof" value="100029"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2065,6 +2094,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="24e3ef295497fb46bd6ec4c926e8a42faec3bc9c8158f270cb28b3e140fc8fef"/>
             <column name="proof" value="100030"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2076,6 +2106,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="c1c44378d8ba1a8389199f6c69e78a6798911f3d21902d4d99ca713d11d8ebf2"/>
             <column name="proof" value="100031"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2087,6 +2118,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="69f3ce645ebec7841fc4a6e63f5ebdf709beec4ae9af4766c5e3dff7eb452ab0"/>
             <column name="proof" value="100032"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2098,6 +2130,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="0644ac826b5232b9b680c652e4aaf7a6e9366d84b3e786e586b570045530cf99"/>
             <column name="proof" value="100033"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2109,6 +2142,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="9654242cd94a7e2a01fa533e9602a2a98675148e65e32d885a168c98a92a0b70"/>
             <column name="proof" value="100034"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2120,6 +2154,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="fbb6c37ba1b13d1b4de60977e6e338fd8b7d19fbd8d8bf49bfa63b4418190c20"/>
             <column name="proof" value="100035"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2131,6 +2166,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="30fd67ba2c0a31a8400e557cbd41281d673de1e397b6725d64877ac96613865e"/>
             <column name="proof" value="100036"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2142,6 +2178,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="61ddd79a3d28252ae7e6cdfece4a2abb6e44527e1b8a1bbfea00f5975ac200f9"/>
             <column name="proof" value="100037"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2153,6 +2190,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="2646150e111d418bb019f472dece64ccfbbf5e11d6e27c2d9b3f315989a60a44"/>
             <column name="proof" value="100038"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2164,6 +2202,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="a9bcd7e29196a705cfcb1725e29776989d492ee2b615175c135b4e03d7c76373"/>
             <column name="proof" value="100039"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2175,6 +2214,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="09cd7494ba6d3a13d8181e6ab41e5d06bab8c876d66acc112c9201ee017bf95e"/>
             <column name="proof" value="100040"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2186,6 +2226,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="a278fe7f41d196144ab7e25c8bcda763b8ece11ba1d97b4c36a7ee3511fe7a12"/>
             <column name="proof" value="100041"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2197,6 +2238,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="41f0675ef8c61bf86282af348cc25563c49ffc563c470a41b0bd658e877ab2dc"/>
             <column name="proof" value="100042"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2208,6 +2250,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="f0a6f19e7358bf2c75ddd7ef42ced97f4a8cd6ec538cdb5cfe01f203e9dfb4ef"/>
             <column name="proof" value="100043"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2219,6 +2262,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="5644a4eec0549ffbf83ae68eac2e41c98afe31d82e3395f2e658e59fc5d91c8a"/>
             <column name="proof" value="100044"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2230,6 +2274,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="39d6e9140e1bd1dc6f65b2b26bd39145b5047087456c34573b1739bbba53153b"/>
             <column name="proof" value="100045"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2241,6 +2286,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="b2e21cba3b9ecbe099d9c8010094aba5e4e2098b48ab58acd9ac165f27447f15"/>
             <column name="proof" value="100046"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2252,6 +2298,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="be8d4c6bac0310b4c7c34227137b3086c2ed53711d283d4e0d462b7c1f330ac9"/>
             <column name="proof" value="100047"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2263,6 +2310,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="7bebd2d43e22fcaf15f1ce474a32bd6bed84c8c36f1043458ae3f1fe62f3d114"/>
             <column name="proof" value="100048"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2274,6 +2322,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="f1f223b07299823dc16da4bbbccd03fbb8098eb09eb5aa2739c0c214e14b7304"/>
             <column name="proof" value="100049"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>
@@ -2285,6 +2334,7 @@
             <column name="fk_asset" valueNumeric="1001"/>
             <column name="proof_id" value="ca459e250ec57a785ab46804d15bf239664a464e6d757c4f3200956a0e490f75"/>
             <column name="proof" value="100050"/>
+            <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
             <column name="created_on" valueDate="2023-10-27T19:27:24.539618"/>
             <column name="updated_on"/>
         </insert>

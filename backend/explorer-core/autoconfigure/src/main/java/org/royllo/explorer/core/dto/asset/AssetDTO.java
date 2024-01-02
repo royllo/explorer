@@ -49,6 +49,9 @@ public class AssetDTO {
     /** The hash of the metadata for this genesis asset. */
     String metaDataHash;
 
+    /** Meta data file name. */
+    String metaDataFileName;
+
     /** The index of the output that carries the unique Taproot asset commitment in the genesis transaction. */
     @NotNull(message = "Output index is required")
     Integer outputIndex;
@@ -61,8 +64,8 @@ public class AssetDTO {
     @NotNull(message = "Asset type is required")
     AssetType type;
 
-    /** The total amount of the asset stored in this Taproot asset UTXO. */
-    @NotNull(message = "Total amount is required")
+    /** The total amount minted for this asset. */
+    @NotNull(message = "Amount is required")
     BigInteger amount;
 
 }
