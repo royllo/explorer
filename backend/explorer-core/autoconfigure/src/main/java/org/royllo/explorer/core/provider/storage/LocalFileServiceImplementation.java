@@ -6,16 +6,18 @@ import io.undertow.Undertow;
 import io.undertow.server.handlers.resource.PathResourceManager;
 import io.undertow.server.handlers.resource.ResourceHandler;
 import jakarta.annotation.PreDestroy;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 
 /**
- * Local file service - Used for local development.
+ * Content service - Local file implementation - Used for local development.
  * It also includes a web server to serve content and simulate a s3 CDN.
  */
 @Service
+@Profile("!s3-storage")
 public class LocalFileServiceImplementation implements ContentService {
 
     /** Web server port. */

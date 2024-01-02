@@ -1,14 +1,5 @@
 package org.royllo.explorer.core.test.util;
 
-import io.minio.BucketExistsArgs;
-import io.minio.MakeBucketArgs;
-import io.minio.MinioClient;
-import io.minio.errors.ErrorResponseException;
-import io.minio.errors.InsufficientDataException;
-import io.minio.errors.InternalException;
-import io.minio.errors.InvalidResponseException;
-import io.minio.errors.ServerException;
-import io.minio.errors.XmlParserException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockserver.integration.ClientAndServer;
@@ -24,11 +15,8 @@ import org.royllo.test.mempool.TransactionValue;
 import org.royllo.test.tapd.asset.AssetValue;
 import org.royllo.test.tapd.asset.DecodedProofValueResponse;
 import org.springframework.test.annotation.DirtiesContext;
-import org.testcontainers.containers.MinIOContainer;
 
 import javax.xml.bind.DatatypeConverter;
-import java.io.IOException;
-import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
@@ -56,29 +44,14 @@ public class TestWithMockServers extends Base {
     /** Tapd server port. */
     public static final int TAPD_MOCK_SERVER_PORT = 9092;
 
-    /** S3 minio image. */
-    public static final String MINIO_RELEASE = "minio/minio:RELEASE.2023-09-04T19-57-37Z";
-
-    /** S3 bucket name. */
-    public static final String S3_BUCKET_NAME = "royllo-explorer";
-
-    /** S3 user name. */
-    public static final String S3_USER_NAME = "royllo-access-key";
-
-    /** S3 password. */
-    public static final String S3_PASSWORD = "royllo-secret-key";
-
     /** Mempool mock server. */
     private ClientAndServer mempoolMockServer;
 
     /** Tapd mock server. */
     private ClientAndServer tapdMockServer;
 
-    /** S3 mock server. */
-    public MinIOContainer s3MockServer;
-
     @BeforeEach
-    public void startServers() throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+    public void startServers() {
 
         // =============================================================================================================
         // Mempool mock server.
@@ -89,30 +62,12 @@ public class TestWithMockServers extends Base {
         // Tapd mock server.
         tapdMockServer = startClientAndServer(TAPD_MOCK_SERVER_PORT);
         TapdData.setMockServerRules(tapdMockServer);
-
-        // =============================================================================================================
-        // S3 mock server;
-        s3MockServer = new MinIOContainer(MINIO_RELEASE).withUserName(S3_USER_NAME).withPassword(S3_PASSWORD);
-        s3MockServer.start();
-
-        // Creating the client.
-        MinioClient s3Client = MinioClient.builder()
-                .endpoint(s3MockServer.getS3URL())
-                .credentials(S3_USER_NAME, S3_PASSWORD)
-                .build();
-
-        // Creating the bucket if it doesn't exist.
-        if (!s3Client.bucketExists(BucketExistsArgs.builder().bucket(S3_BUCKET_NAME).build())) {
-            s3Client.makeBucket(MakeBucketArgs.builder().bucket(S3_BUCKET_NAME).build());
-        }
-
     }
 
     @AfterEach
     public void stopServers() {
         mempoolMockServer.stop();
         tapdMockServer.stop();
-        //s3MockServer.stop();
     }
 
     /**
