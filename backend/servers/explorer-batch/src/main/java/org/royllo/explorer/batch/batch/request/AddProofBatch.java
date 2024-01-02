@@ -124,6 +124,8 @@ public class AddProofBatch extends BaseBatch {
                                             logger.info("Creating meta data file");
                                             assetService.updateAsset(response.getDecodedProof().getAsset().getAssetGenesis().getAssetId(),
                                                     response.getDecodedProof().getMetaReveal().getData());
+                                        } else {
+                                            logger.info("No meta data file to create");
                                         }
 
                                         // If not already added, we add the proof.
