@@ -252,7 +252,7 @@ public class TapdData {
                         ))
                         .respond(response().withStatusCode(200)
                                 .withContentType(APPLICATION_JSON)
-                                .withBody(entry.getValue().getDecodedProofValuesWithoutMetaReveal().get(index).getJSONResponse()));
+                                .withBody(entry.getValue().getDecodedProofValuesWithMetaReveal().get(index).getJSONResponse()));
             });
         }
     }

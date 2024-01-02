@@ -50,14 +50,27 @@ public class TapdMockServerTest {
         }
 
         // Testing with tricky royllo coin.
-        AssetValue testCoin = TapdData.findAssetValueByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID);
-        assertNotNull(testCoin);
+        AssetValue trickyRoylloCoin = TapdData.findAssetValueByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID);
+        assertNotNull(trickyRoylloCoin);
         request = new Request.Builder()
                 .url("http://localhost:" + MOCK_SERVER_PORT + "/v1/taproot-assets/proofs/decode")
-                .post(RequestBody.create(testCoin.getDecodedProofValuesWithoutMetaReveal().get(2).getJSONRequest(), MediaType.parse("application/json; charset=utf-8")))
+                .post(RequestBody.create(trickyRoylloCoin.getDecodedProofValuesWithoutMetaReveal().get(2).getJSONRequest(), MediaType.parse("application/json; charset=utf-8")))
                 .build();
         try (Response response = client.newCall(request).execute()) {
             assertTrue(response.body().string().contains("\"script_key\" : \"023a8d9bc352eb3f5f69b798a941f06244b3633a8fd2cf82406132504ff08e23ff\""));
+        } catch (IOException e) {
+            fail("Error while calling the mock server");
+        }
+
+        // Testing with tricky royllo coin and meta-reveal.
+        trickyRoylloCoin = TapdData.findAssetValueByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID);
+        assertNotNull(trickyRoylloCoin);
+        request = new Request.Builder()
+                .url("http://localhost:" + MOCK_SERVER_PORT + "/v1/taproot-assets/proofs/decode")
+                .post(RequestBody.create(trickyRoylloCoin.getDecodedProofValuesWithMetaReveal().get(0).getJSONRequest(), MediaType.parse("application/json; charset=utf-8")))
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertTrue(response.body().string().contains("\"data\" : \"747269636b79526f796c6c6f436f696e20627920526f796c6c6f\""));
         } catch (IOException e) {
             fail("Error while calling the mock server");
         }
