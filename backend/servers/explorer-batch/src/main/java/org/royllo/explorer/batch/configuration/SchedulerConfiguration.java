@@ -19,7 +19,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 public class SchedulerConfiguration extends BaseConfiguration {
 
     /** Scheduler pool size. */
-    private static final int SCHEDULER_POOL_SIZE = 3;
+    private static final int SCHEDULER_POOL_SIZE = 5;
 
     /** Termination delay in milliseconds (10 000 ms = 10 seconds). */
     private static final int TERMINATION_DELAY_IN_MILLISECONDS = 10_000;
@@ -34,7 +34,7 @@ public class SchedulerConfiguration extends BaseConfiguration {
         ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
         scheduler.setWaitForTasksToCompleteOnShutdown(true);
         scheduler.setAwaitTerminationMillis(TERMINATION_DELAY_IN_MILLISECONDS);
-        scheduler.setThreadNamePrefix("royllo-processor-");
+        scheduler.setThreadNamePrefix("royllo-process-");
         scheduler.setPoolSize(SCHEDULER_POOL_SIZE);
         scheduler.setErrorHandler(throwable -> {
             try {

@@ -8,14 +8,18 @@ import org.royllo.test.tapd.asset.DecodedProofValue;
 import org.royllo.test.tapd.asset.DecodedProofValueResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_FROM_TEST;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_FROM_TEST;
 
 @SpringBootTest(properties = {"tapd.api.base-url=https://testnet.universe.royllo.org:8089"})
+@DirtiesContext
 @DisplayName("TAPD decode proof service test")
 public class TapdDecodeServiceTest {
 
@@ -32,7 +36,7 @@ public class TapdDecodeServiceTest {
         assertNotNull(response);
 
         // Value coming from our test data.
-        final DecodedProofValue decodedProofValueFromTest = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofValues().get(0);
+        final DecodedProofValue decodedProofValueFromTest = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofValuesWithoutMetaReveal().get(0);
         assertNotNull(decodedProofValueFromTest);
 
         // =============================================================================================================
@@ -86,12 +90,12 @@ public class TapdDecodeServiceTest {
     public void proofAtDepthTest() {
         final String TRICKY_ROYLLO_COIN_3_RAW_PROOF = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(2).getRawProof();
 
-        final DecodedProofResponse response1 = tapdService.decode(TRICKY_ROYLLO_COIN_3_RAW_PROOF, 0).block();
+        final DecodedProofResponse response1 = tapdService.decode(TRICKY_ROYLLO_COIN_3_RAW_PROOF, 0, false).block();
         assertNotNull(response1);
         assertEquals(2, response1.getDecodedProof().getNumberOfProofs());
         assertEquals(0, response1.getDecodedProof().getProofAtDepth());
 
-        final DecodedProofResponse response2 = tapdService.decode(TRICKY_ROYLLO_COIN_3_RAW_PROOF, 1).block();
+        final DecodedProofResponse response2 = tapdService.decode(TRICKY_ROYLLO_COIN_3_RAW_PROOF, 1, false).block();
         assertNotNull(response2);
         assertEquals(2, response1.getDecodedProof().getNumberOfProofs());
         assertEquals(1, response2.getDecodedProof().getProofAtDepth());
@@ -106,6 +110,52 @@ public class TapdDecodeServiceTest {
         assertNotNull(response);
         assertNotNull(response.getErrorCode());
         assertNotNull(response.getErrorMessage());
+    }
+
+    @Test
+    @DisplayName("decode() on tapd with meta reveal")
+    public void decodeMetaRevealTest() {
+        // Case tests on tricky coin.
+
+        // Proof file 1.
+        // Issuance proof with meta reveal ==> We should be able to get the meta information.
+        final String issuanceProof1 = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getRawProof();
+        DecodedProofResponse response = tapdService.decode(issuanceProof1, 0, true).block();
+        assertNotNull(response);
+        assertNull(response.getErrorCode());
+        assertNotNull(response.getDecodedProof().getMetaReveal());
+        assertEquals("747269636b79526f796c6c6f436f696e20627920526f796c6c6f", response.getDecodedProof().getMetaReveal().getData());
+        assertEquals("META_TYPE_OPAQUE", response.getDecodedProof().getMetaReveal().getType());
+        assertEquals("13a16f12767ad6fbafcfd69fd12fc19747ac35749b1b6806c74dd4a07d2e4b41", response.getDecodedProof().getMetaReveal().getMetaHash());
+        assertTrue(response.getDecodedProof().isIssuance());
+
+        // If we do the same without asking for meta reveal, we should not get it.
+        response = tapdService.decode(issuanceProof1, 0, false).block();
+        assertNotNull(response);
+        assertNull(response.getErrorCode());
+        assertNull(response.getDecodedProof().getMetaReveal());
+        assertFalse(response.getDecodedProof().isIssuance());
+
+        // Proof file 2.
+        // We get the proof file 2 (with two proofs) and we decode the last one, which is the issuance proof.
+        final String issuanceProof2 = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(1).getRawProof();
+        response = tapdService.decode(issuanceProof2, 1, true).block();
+        assertNotNull(response);
+        assertNull(response.getErrorCode());
+        assertNotNull(response.getDecodedProof().getMetaReveal());
+        assertEquals("747269636b79526f796c6c6f436f696e20627920526f796c6c6f", response.getDecodedProof().getMetaReveal().getData());
+        assertEquals("META_TYPE_OPAQUE", response.getDecodedProof().getMetaReveal().getType());
+        assertEquals("13a16f12767ad6fbafcfd69fd12fc19747ac35749b1b6806c74dd4a07d2e4b41", response.getDecodedProof().getMetaReveal().getMetaHash());
+
+        // If we get a transfer proof, we should not get the meta reveal and have a code error instead.
+        response = tapdService.decode(issuanceProof2, 0, true).block();
+        assertNotNull(response);
+        assertNotNull(response.getErrorCode());
+
+        // But we should not have a problem if we set meta reveal to false.
+        response = tapdService.decode(issuanceProof2, 1, false).block();
+        assertNotNull(response);
+        assertNull(response.getErrorCode());
     }
 
 }

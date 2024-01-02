@@ -26,6 +26,7 @@
             <column name="LEASE_OWNER" value=""/>
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="BURN" valueBoolean="false"/>
+            <column name="ISSUANCE" valueBoolean="true"/>
             <column name="created_on" valueDate="2023-10-27T19:25:35.954915"/>
             <column name="updated_on"/>
         </insert>
@@ -53,6 +54,7 @@
             <column name="LEASE_OWNER" value=""/>
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="BURN" valueBoolean="false"/>
+            <column name="ISSUANCE" valueBoolean="true"/>
             <column name="created_on" valueDate="2023-10-27T19:25:59.566748"/>
             <column name="updated_on"/>
         </insert>
@@ -76,6 +78,7 @@
             <column name="LEASE_OWNER" value=""/>
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="BURN" valueBoolean="false"/>
+            <column name="ISSUANCE" valueBoolean="true"/>
             <column name="created_on" valueDate="2023-10-27T19:26:07.044232"/>
             <column name="updated_on"/>
         </insert>
@@ -99,6 +102,7 @@
             <column name="LEASE_OWNER" value=""/>
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="BURN" valueBoolean="false"/>
+            <column name="ISSUANCE" valueBoolean="true"/>
             <column name="created_on" valueDate="2023-10-27T19:26:16.510311"/>
             <column name="updated_on"/>
         </insert>
@@ -143,6 +147,7 @@
             <column name="LEASE_OWNER" value=""/>
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="BURN" valueBoolean="false"/>
+            <column name="ISSUANCE" valueBoolean="true"/>
             <column name="created_on" valueDate="2023-10-27T19:26:37.423946"/>
             <column name="updated_on"/>
         </insert>
@@ -166,6 +171,7 @@
             <column name="LEASE_OWNER" value=""/>
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="BURN" valueBoolean="false"/>
+            <column name="ISSUANCE" valueBoolean="true"/>
             <column name="created_on" valueDate="2023-10-27T19:26:53.231409"/>
             <column name="updated_on"/>
         </insert>
@@ -189,6 +195,7 @@
             <column name="LEASE_OWNER" value=""/>
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="BURN" valueBoolean="false"/>
+            <column name="ISSUANCE" valueBoolean="true"/>
             <column name="created_on" valueDate="2023-10-27T19:26:54.286399"/>
             <column name="updated_on"/>
         </insert>
@@ -233,6 +240,7 @@
             <column name="LEASE_OWNER" value=""/>
             <column name="LEASE_EXPIRY" value="0"/>
             <column name="BURN" valueBoolean="false"/>
+            <column name="ISSUANCE" valueBoolean="true"/>
             <column name="created_on" valueDate="2023-10-27T19:27:32.971393"/>
             <column name="updated_on"/>
         </insert>

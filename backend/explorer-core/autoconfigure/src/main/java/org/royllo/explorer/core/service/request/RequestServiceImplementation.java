@@ -12,6 +12,7 @@ import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.util.base.BaseService;
+import org.royllo.explorer.core.util.enums.ProofType;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.UUID;
 
 import static java.util.stream.Collectors.joining;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
+import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_UNSPECIFIED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.openedStatus;
 
@@ -88,6 +90,12 @@ public class RequestServiceImplementation extends BaseService implements Request
 
     @Override
     public AddProofRequestDTO createAddProofRequest(final String proof) {
+        return createAddProofRequest(proof, PROOF_TYPE_UNSPECIFIED);
+    }
+
+    @Override
+    public AddProofRequestDTO createAddProofRequest(final String proof,
+                                                    final ProofType proofType) {
         logger.info("Adding proof request with proof {}", proof);
 
         // Creating and saving the request.
@@ -96,6 +104,7 @@ public class RequestServiceImplementation extends BaseService implements Request
                 .creator(ANONYMOUS_USER)
                 .status(OPENED)
                 .proof(proof)
+                .proofType(proofType)
                 .build();
 
         AddProofRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetRequestDTO(requestRepository.save(request));
@@ -114,7 +123,6 @@ public class RequestServiceImplementation extends BaseService implements Request
                 .creator(ANONYMOUS_USER)
                 .status(OPENED)
                 .assetId(assetId)
-                .metaData(metaData)
                 .build();
 
         AddAssetMetaDataRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetMetaRequestDTO(requestRepository.save(request));

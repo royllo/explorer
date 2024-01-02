@@ -6,6 +6,7 @@ import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANO
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_USERNAME;
 
 @SpringBootTest
+@DirtiesContext
 @DisplayName("UserRepository tests")
 public class UserRepositoryTest {
 

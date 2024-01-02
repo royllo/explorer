@@ -112,4 +112,7 @@ public class AssetStateDTO {
     @NotBlank(message = "Asset state id is required")
     String assetStateId;
 
+    /** Indicates if this asset state is an issuance or a transfer. */
+    boolean issuance;
+
 }

@@ -13,6 +13,7 @@ import org.royllo.explorer.core.util.exceptions.proof.ProofCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Optional;
 
@@ -22,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_ID;
+import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_UNSPECIFIED;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_FROM_TEST;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
@@ -30,6 +32,7 @@ import static org.royllo.test.TapdData.UNKNOWN_ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.UNKNOWN_ROYLLO_COIN_FROM_TEST;
 
 @SpringBootTest
+@DirtiesContext
 @DisplayName("ProofService tests")
 public class ProofServiceTest extends TestWithMockServers {
 
@@ -56,7 +59,7 @@ public class ProofServiceTest extends TestWithMockServers {
 
         // We add our proof but our an asset doesn't exist yet --> an error must occur.
         assertFalse(assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
-        ProofCreationException e = assertThrows(ProofCreationException.class, () -> proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, unknownRoylloCoinDecodedProof));
+        ProofCreationException e = assertThrows(ProofCreationException.class, () -> proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, PROOF_TYPE_UNSPECIFIED, unknownRoylloCoinDecodedProof));
         assertEquals(e.getMessage(), "Asset " + UNKNOWN_ROYLLO_COIN_ASSET_ID + " is not registered in our database");
 
         // We add the asset of our proof, and then, our proof --> No error and proof should be added.
@@ -65,24 +68,22 @@ public class ProofServiceTest extends TestWithMockServers {
         verifyAsset(unknownRoylloCoin, UNKNOWN_ROYLLO_COIN_ASSET_ID);
 
         // Then, our proof that should be added without any problem.
-        final ProofDTO proofAdded = proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, unknownRoylloCoinDecodedProof);
+        final ProofDTO proofAdded = proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, PROOF_TYPE_UNSPECIFIED, unknownRoylloCoinDecodedProof);
         assertNotNull(proofAdded.getId());
         assertEquals(UNKNOWN_ROYLLO_COIN_PROOF_ID, proofAdded.getProofId());
         assertEquals(UNKNOWN_ROYLLO_COIN_RAW_PROOF, proofAdded.getProof());
         assertEquals(UNKNOWN_ROYLLO_COIN_ASSET_ID, proofAdded.getAsset().getAssetId());
         assertEquals(ANONYMOUS_ID, proofAdded.getCreator().getId());
+        assertEquals(PROOF_TYPE_UNSPECIFIED, proofAdded.getProofType());
 
         // We add again our proof as it's already in our database --> an error must occur.
-        e = assertThrows(ProofCreationException.class, () -> proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, unknownRoylloCoinDecodedProof));
+        e = assertThrows(ProofCreationException.class, () -> proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, PROOF_TYPE_UNSPECIFIED, unknownRoylloCoinDecodedProof));
         assertEquals(e.getMessage(), "This proof is already registered with proof id: " + UNKNOWN_ROYLLO_COIN_PROOF_ID);
     }
 
     @Test
     @DisplayName("getProofByAssetId()")
     public void getProofByAssetId() {
-        // Retrieved data from TAPD.
-        final String ROYLLO_COIN_RAW_PROOF = ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getRawProof();
-
         // =============================================================================================================
         // First case: asset id not found in database.
         AssertionError e = assertThrows(AssertionError.class, () -> proofService.getProofByAssetId(ROYLLO_COIN_ASSET_ID, 0, 1));

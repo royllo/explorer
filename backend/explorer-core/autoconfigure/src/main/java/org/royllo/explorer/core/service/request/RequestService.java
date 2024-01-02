@@ -4,6 +4,7 @@ import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
+import org.royllo.explorer.core.util.enums.ProofType;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +44,15 @@ public interface RequestService {
      * @return id The request created
      */
     AddProofRequestDTO createAddProofRequest(String proof);
+
+    /**
+     * Creates a request to add a proof.
+     *
+     * @param proof     proof that validates the asset information
+     * @param proofType proof type
+     * @return id of the request created
+     */
+    AddProofRequestDTO createAddProofRequest(String proof, ProofType proofType);
 
     /**
      * Creates a request to add an asset meta data.

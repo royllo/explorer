@@ -3,10 +3,16 @@ package org.royllo.explorer.core.service.asset;
 import io.micrometer.common.util.StringUtils;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
+import org.apache.tika.Tika;
+import org.apache.tika.mime.MimeTypeException;
+import org.apache.tika.mime.MimeTypes;
 import org.royllo.explorer.core.domain.asset.Asset;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
+import org.royllo.explorer.core.provider.storage.ContentService;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 import org.royllo.explorer.core.util.base.BaseService;
@@ -38,6 +44,9 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
 
     /** Bitcoin service. */
     private final BitcoinService bitcoinService;
+
+    /** File service. */
+    private final ContentService fileService;
 
     @Override
     public Page<AssetDTO> queryAssets(@NonNull final String query,
@@ -136,6 +145,36 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         final AssetDTO assetCreated = ASSET_MAPPER.mapToAssetDTO(assetRepository.save(assetToCreate));
         logger.info("Asset created with id {} : {}", assetCreated.getId(), assetCreated);
         return assetCreated;
+    }
+
+    @Override
+    public void updateAsset(final String assetId, final String metadata) {
+        final Optional<Asset> assetToUpdate = assetRepository.findByAssetId(assetId);
+
+        // We check that the asset exists.
+        assert assetToUpdate.isPresent() : assetId + " not found";
+
+        // We save the data as a file.
+        try {
+            // Decoding (same as using xxd -r -p)
+            byte[] decodedBytes = Hex.decodeHex(metadata);
+
+            // Detecting the file type.
+            final String mimeType = new Tika().detect(decodedBytes);
+            final String extension = MimeTypes.getDefaultMimeTypes().forName(mimeType).getExtension();
+
+            // Saving the file.
+            final String fileName = assetId + extension;
+            fileService.storeFile(decodedBytes, fileName);
+
+            // Saving the name of the file.
+            assetToUpdate.get().setMetaDataFileName(fileName);
+            assetRepository.save(assetToUpdate.get());
+
+        } catch (DecoderException | MimeTypeException e) {
+            logger.error("Error decoding and saving metadata {}", e.getMessage());
+        }
+
     }
 
     @Override

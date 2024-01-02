@@ -10,6 +10,7 @@ import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.annotation.DirtiesContext;
 
 import javax.sql.DataSource;
 import java.util.Optional;
@@ -25,6 +26,7 @@ import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 
 @SpringBootTest
+@DirtiesContext
 @DisplayName("RequestRepository tests")
 public class RequestRepositoryTest extends TestWithMockServers {
 
@@ -72,7 +74,6 @@ public class RequestRepositoryTest extends TestWithMockServers {
         request2.setCreator(ANONYMOUS_USER);
         request2.setStatus(SUCCESS);
         request2.setAssetId("TaprootAssetId1");
-        request2.setMetaData("Meta1");
         long request2ID = requestRepository.save(request2).getId();
 
         // See what's in database with JPA.
@@ -84,7 +85,6 @@ public class RequestRepositoryTest extends TestWithMockServers {
         assertEquals(SUCCESS, addAssetMeatRequest2FromJPA.getStatus());
         assertNull(addAssetMeatRequest2FromJPA.getErrorMessage());
         assertEquals("TaprootAssetId1", addAssetMeatRequest2FromJPA.getAssetId());
-        assertEquals("Meta1", addAssetMeatRequest2FromJPA.getMetaData());
 
         // See what's in database with JDBC.
         jdbcTemplate = new JdbcTemplate(dataSource);

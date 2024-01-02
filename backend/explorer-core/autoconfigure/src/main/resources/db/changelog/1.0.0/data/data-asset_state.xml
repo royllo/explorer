@@ -46,6 +46,7 @@
                     value="00040000000102210238636cf0d229ba3c9c46e2d832db0f41a827de003ff5a16edc0611e1b71806f10503040101"/>
             <column name="SPLIT_ROOT_PROOF" value=""/>
             <column name="CHALLENGE_WITNESS" value=""/>
+            <column name="ISSUANCE" valueBoolean="true"/>
 
         </insert>
 

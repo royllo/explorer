@@ -1,0 +1,85 @@
+{
+  "decoded_proof": {
+    "proof_at_depth": 0,
+    "number_of_proofs": 1,
+    "asset": {
+      "version": "ASSET_VERSION_V0",
+      "asset_genesis": {
+        "genesis_point": "77b550de10ad347daf314f4982a979db6d101573afe6fbf20c35935ce4bb0413:1",
+        "name": "unlimitedRoylloCoin1",
+        "meta_hash": "ef35cbdef9f461dee0ad1c4753a481e30fb7b02d6356f342e573671f8044af5e",
+        "asset_id": "ce2d57a6bef7668a781bc149f5491aab7392b30a2f4368f013722f46a57abc70",
+        "asset_type": "NORMAL",
+        "output_index": 0,
+        "version": 0
+      },
+      "amount": "499",
+      "lock_time": 0,
+      "relative_lock_time": 0,
+      "script_version": 0,
+      "script_key": "025f121b76e25840b5fbe620ef331ac834abd964a35fff72bbae207bfe2bad9a43",
+      "script_key_is_local": false,
+      "asset_group": {
+        "raw_group_key": "",
+        "tweaked_group_key": "0349d60c6689bbbb2ffc9b30b45b96a3d6e5fd5fd01c867344c0054f6105048241",
+        "asset_witness": ""
+      },
+      "chain_anchor": {
+        "anchor_tx": "020000000001011304bbe45c93350cf2fbe6af7315106ddb79a982494f31af7d34ad10de50b5770100000000ffffffff02e803000000000000225120e5d4f8a3b6b3087984f36182654e2deb91e2e567cf35f068e6d4362ac7958cceef9a1600000000002251207a9d28abfb419fa691b22c3967b61d8d358ed65031f92740604875e29aa0ff2801407fc9e637deacd43c5434d35a9db8f6634d049f30f9aa2f8521944b4654bad147848d20f1b96e081fa23604e3ad610c5b9b16fd553ec751e608ee79bd622dcca800000000",
+        "anchor_block_hash": "0000000000000009390988cc23c5e128cdfc113cc68ec6df914a8374069f7304",
+        "anchor_outpoint": "2debb29de64ed7aafaf79c034f1ba22c41f484fafc814cab7b22a97bacfa6825:0",
+        "internal_key": "0261592c195dc3af641d2808184301edacd7596c7096358042c7873bee0ac110cf",
+        "merkle_root": "3fa4228e159176962d03aa19d09f160839076f242dc5943aebe70b6bc13ff4e1",
+        "tapscript_sibling": "",
+        "block_height": 2534338
+      },
+      "prev_witnesses": [
+        {
+          "prev_id": {
+            "anchor_point": "0000000000000000000000000000000000000000000000000000000000000000:0",
+            "asset_id": "0000000000000000000000000000000000000000000000000000000000000000",
+            "script_key": "000000000000000000000000000000000000000000000000000000000000000000",
+            "amount": "0"
+          },
+          "tx_witness": [
+            "e0c383aaecabb44bee72683d825118b7ef7124a9c8be149c82b7c4c525340aceb4194a177bc1e13e0bee7df5425720f4b5f30335faed586bef129780146b7a2c"
+          ],
+          "split_commitment": null
+        }
+      ],
+      "is_spent": false,
+      "lease_owner": "",
+      "lease_expiry": "0",
+      "is_burn": false
+    },
+    "meta_reveal": {
+      "data": "756e6c696d69746564526f796c6c6f436f696e20656d697373696f6e203120627920526f796c6c6f",
+      "type": "META_TYPE_OPAQUE",
+      "meta_hash": "ef35cbdef9f461dee0ad1c4753a481e30fb7b02d6356f342e573671f8044af5e"
+    },
+    "tx_merkle_proof": "0612f24121b3b09bca8dfd619a8412521cd5a0df3c3530e2f2e5aa7a4beebac8ba4ccd82f747699a0a1d1e4a99819fda33c8c9cccbc6b92e2e2ee6f7018ea3862b0574ac6910af8096a5531d803cad77a8a878972091f4a11404ecd009e75ebe40afd73ec375e791f7d7de16bee7fcb6e6e412a1fb03bd363f4a997af477ffe5caa538f8705031ec8da6da106429c44b289ef68e0cce784d0d91a47589b86ed27dbd5f81607a2e8dd37cb256c4179c5980ae45e8dff592a5dfea2ad06c9a8c4b412d",
+    "inclusion_proof": "00040000000002210261592c195dc3af641d2808184301edacd7596c7096358042c7873bee0ac110cf0374014900010002203eb8c5d0a5cf2a1c3ffbf1ad097e22260c783d2a2d6222a23647ff6791a6a04004220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff022700010002220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "exclusion_proofs": [
+      "0004000000010221027b00a63bfb5c13093652e488eca57c924355d2f190f2a814982d193773e3d2760503040101"
+    ],
+    "split_root_proof": "",
+    "num_additional_inputs": 0,
+    "challenge_witness": [],
+    "is_burn": false,
+    "genesis_reveal": {
+      "genesis_base_reveal": {
+        "genesis_point": "77b550de10ad347daf314f4982a979db6d101573afe6fbf20c35935ce4bb0413:1",
+        "name": "unlimitedRoylloCoin1",
+        "meta_hash": "ef35cbdef9f461dee0ad1c4753a481e30fb7b02d6356f342e573671f8044af5e",
+        "asset_id": "ce2d57a6bef7668a781bc149f5491aab7392b30a2f4368f013722f46a57abc70",
+        "asset_type": "NORMAL",
+        "output_index": 0,
+        "version": 0
+      }
+    },
+    "group_key_reveal": {
+      "raw_group_key": "036c1fb8f682b877b9caa27ddb7068a242f662332ea7eb99e3c32c12170c15a0bc",
+      "tapscript_root": ""
+    }
+  }
+}

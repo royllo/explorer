@@ -6,9 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.extern.jackson.Jacksonized;
 
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * Decoded proof request (for tests).
@@ -43,11 +44,15 @@ public class DecodedProofValueRequest {
     @JsonProperty("with_meta_reveal")
     boolean withMetaReveal;
 
-    // sha256 of rawProof field
+    /**
+     * Returns proof id.
+     *
+     * @return proof id
+     */
     public final String getProofId() {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] digest = md.digest(rawProof.getBytes(StandardCharsets.UTF_8));
+            byte[] digest = md.digest(rawProof.getBytes(UTF_8));
             return DatatypeConverter.printHexBinary(digest).toLowerCase();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("SHA-256 is not available: " + e.getMessage());
