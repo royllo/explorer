@@ -8,6 +8,7 @@ import lombok.Value;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.dto.user.UserDTO;
 import org.royllo.explorer.core.util.enums.AssetType;
+import org.royllo.explorer.core.util.enums.FileType;
 
 import java.math.BigInteger;
 
@@ -67,5 +68,17 @@ public class AssetDTO {
     /** The total amount minted for this asset. */
     @NotNull(message = "Amount is required")
     BigInteger amount;
+
+    /**
+     * Returns the type of the metadata file.
+     *
+     * @return file type
+     */
+    public FileType getMetaDataFileType() {
+        if (metaDataFileName == null || metaDataFileName.isEmpty()) {
+            return FileType.UNKNOWN;
+        }
+        return FileType.getTypeByExtension(metaDataFileName.substring(metaDataFileName.lastIndexOf(".") + 1));
+    }
 
 }

@@ -36,6 +36,9 @@ import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplemen
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
+import static org.royllo.explorer.core.util.enums.FileType.IMAGE;
+import static org.royllo.explorer.core.util.enums.FileType.TEXT;
+import static org.royllo.explorer.core.util.enums.FileType.UNKNOWN;
 import static org.royllo.explorer.core.util.mapper.AssetMapperDecorator.ALIAS_LENGTH;
 import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_TXID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
@@ -436,6 +439,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertNotNull(asset.get().getCreator());
         assertEquals(ANONYMOUS_ID, asset.get().getCreator().getId());
         verifyAsset(asset.get(), ROYLLO_COIN_ASSET_ID);
+        assertEquals(TEXT, asset.get().getMetaDataFileType());
 
         // getAsset() on an asset that has no asset group
         asset = assetService.getAsset(1);
@@ -447,6 +451,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertTrue(asset.isPresent());
         assertNotNull(asset.get().getAssetId());
         assertEquals(ROYLLO_NFT_ASSET_ID_ALIAS, asset.get().getAssetIdAlias());
+        assertEquals(IMAGE, asset.get().getMetaDataFileType());
 
         // Testing with an asset id alias
         asset = assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_2_ASSET_ID_ALIAS);
@@ -454,6 +459,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertNotNull(asset.get().getAssetId());
         assertEquals(SET_OF_ROYLLO_NFT_2_ASSET_ID, asset.get().getAssetId());
         assertEquals(SET_OF_ROYLLO_NFT_2_ASSET_ID_ALIAS, asset.get().getAssetIdAlias());
+        assertEquals(UNKNOWN, asset.get().getMetaDataFileType());
     }
 
     @Test

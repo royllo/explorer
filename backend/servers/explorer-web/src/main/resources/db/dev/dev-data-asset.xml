@@ -13,6 +13,8 @@
             <column name="asset_id_alias" value="alias001"/>
             <column name="fk_bitcoin_transaction_output_genesis_point" valueNumeric="3"/>
             <column name="meta_data_hash" value="30ae42839b3e9022afee9193d3ad170ab280a96b1543847d281bf0e46ffc9336"/>
+            <column name="meta_data_file_name"
+                    value="89c9d3ff7cb9dbc4615f854f7127e94db10edd430f8bcf82d7309d0c8b750051.png"/>
             <column name="name" value="roylloNFT"/>
             <column name="output_index" valueNumeric="0"/>
             <column name="version" valueNumeric="0"/>

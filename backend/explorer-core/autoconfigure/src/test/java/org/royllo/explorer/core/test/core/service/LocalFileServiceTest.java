@@ -18,6 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
 import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
+import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.ROYLLO_NFT_ASSET_ID;
 
 @SpringBootTest
 @DirtiesContext
@@ -60,7 +62,7 @@ public class LocalFileServiceTest extends TestWithMockServers {
         // We test that the 24a27ab522c9c33e64f4462f2acee01571e014ccbbac075786d1deae033a128d.txt file for Royllo coin
         // exists and the content is correct.
         request = new Request.Builder()
-                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/24a27ab522c9c33e64f4462f2acee01571e014ccbbac075786d1deae033a128d.txt")
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + ROYLLO_COIN_ASSET_ID + ".txt")
                 .build();
         try (Response response = client.newCall(request).execute()) {
             assertTrue(response.body().string().contains("roylloCoin on mainnet by Royllo"));
@@ -68,6 +70,16 @@ public class LocalFileServiceTest extends TestWithMockServers {
             fail("Error while retrieving the file" + e.getMessage());
         }
 
-    }
+        // For Royllo NFT, we will store an image instead of the text we set.
+        // We check if we retrieve the image correctly.
+        request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + ROYLLO_NFT_ASSET_ID + ".png")
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertTrue(response.body().string().contains("PNG"));
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
 
+    }
 }
