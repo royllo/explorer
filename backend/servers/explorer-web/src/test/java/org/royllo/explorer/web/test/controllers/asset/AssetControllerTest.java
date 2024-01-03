@@ -10,6 +10,7 @@ import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
 import org.royllo.explorer.core.dto.asset.AssetStateDTO;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
+import org.royllo.explorer.core.provider.storage.ContentService;
 import org.royllo.explorer.core.repository.proof.ProofRepository;
 import org.royllo.explorer.core.service.asset.AssetGroupService;
 import org.royllo.explorer.core.service.asset.AssetService;
@@ -35,6 +36,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.royllo.explorer.core.dto.proof.ProofDTO.PROOF_FILE_NAME_EXTENSION;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
@@ -79,6 +81,9 @@ public class AssetControllerTest extends BaseTest {
 
     @Autowired
     MessageSource messages;
+
+    @Autowired
+    ContentService contentService;
 
     @Test
     @DisplayName("Asset page without parameter")
@@ -304,12 +309,13 @@ public class AssetControllerTest extends BaseTest {
             final String proof = "TEST_ANCHOR_BLOCK_HASH_" + String.format("%02d", i);
             final Optional<Proof> proofFound = proofRepository.findByProofId(sha256(proof));
             if (proofFound.isEmpty()) {
+                contentService.storeFile(proof.getBytes(), sha256(proof) + PROOF_FILE_NAME_EXTENSION);
+
                 // Proof doesn't exist, we create the proof.
                 proofRepository.save(Proof.builder()
                         .proofId(sha256(proof))
                         .creator(ANONYMOUS_USER)
                         .asset(ASSET_MAPPER.mapToAsset(assetForAssetTest.get()))
-                        .proof(proof)
                         .build());
             }
         }

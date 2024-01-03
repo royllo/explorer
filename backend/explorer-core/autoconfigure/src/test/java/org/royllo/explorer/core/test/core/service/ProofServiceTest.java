@@ -1,5 +1,8 @@
 package org.royllo.explorer.core.test.core.service;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
@@ -15,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.test.annotation.DirtiesContext;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,6 +26,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
+import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_UNSPECIFIED;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
@@ -71,7 +78,7 @@ public class ProofServiceTest extends TestWithMockServers {
         final ProofDTO proofAdded = proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, PROOF_TYPE_UNSPECIFIED, unknownRoylloCoinDecodedProof);
         assertNotNull(proofAdded.getId());
         assertEquals(UNKNOWN_ROYLLO_COIN_PROOF_ID, proofAdded.getProofId());
-        assertEquals(UNKNOWN_ROYLLO_COIN_RAW_PROOF, proofAdded.getProof());
+        assertEquals(UNKNOWN_ROYLLO_COIN_RAW_PROOF, getProofFromContentService(proofAdded.getProofFileName()));
         assertEquals(UNKNOWN_ROYLLO_COIN_ASSET_ID, proofAdded.getAsset().getAssetId());
         assertEquals(ANONYMOUS_ID, proofAdded.getCreator().getId());
         assertEquals(PROOF_TYPE_UNSPECIFIED, proofAdded.getProofType());
@@ -105,7 +112,7 @@ public class ProofServiceTest extends TestWithMockServers {
         assertEquals(ANONYMOUS_ID, proof1.get().getCreator().getId());
         assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof1.get().getAsset().getAssetId());
         assertEquals(sha256(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getRawProof()), proof1.get().getProofId());
-        assertEquals(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getRawProof(), proof1.get().getProof());
+        assertEquals(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getRawProof(), getProofFromContentService(proof1.get().getProofFileName()));
 
         // Proof 2.
         Optional<ProofDTO> proof2 = trickyRoylloCoinProofs.getContent().stream().filter(proofDTO -> proofDTO.getId() == 7).findFirst();
@@ -113,7 +120,7 @@ public class ProofServiceTest extends TestWithMockServers {
         assertEquals(ANONYMOUS_ID, proof2.get().getCreator().getId());
         assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof2.get().getAsset().getAssetId());
         assertEquals(sha256(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(2).getRawProof()), proof2.get().getProofId());
-        assertEquals(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(2).getRawProof(), proof2.get().getProof());
+        assertEquals(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(2).getRawProof(), getProofFromContentService(proof2.get().getProofFileName()));
 
         // Proof 3.
         Optional<ProofDTO> proof3 = trickyRoylloCoinProofs.getContent().stream().filter(proofDTO -> proofDTO.getId() == 8).findFirst();
@@ -121,7 +128,7 @@ public class ProofServiceTest extends TestWithMockServers {
         assertEquals(ANONYMOUS_ID, proof3.get().getCreator().getId());
         assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof3.get().getAsset().getAssetId());
         assertEquals(sha256(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(4).getRawProof()), proof3.get().getProofId());
-        assertEquals(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(4).getRawProof(), proof3.get().getProof());
+        assertEquals(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(4).getRawProof(), getProofFromContentService(proof3.get().getProofFileName()));
     }
 
     @Test
@@ -136,11 +143,30 @@ public class ProofServiceTest extends TestWithMockServers {
         // Checking proof.
         assertTrue(roylloCoinProof.isPresent());
         assertEquals(ROYLLO_COIN_PROOF_ID, roylloCoinProof.get().getProofId());
-        assertEquals(ROYLLO_COIN_RAW_PROOF, roylloCoinProof.get().getProof());
+        assertEquals(ROYLLO_COIN_RAW_PROOF, getProofFromContentService(roylloCoinProof.get().getProofFileName()));
 
         // Checking asset.
         assertEquals(1, roylloCoinProof.get().getAsset().getId());
         verifyAsset(roylloCoinProof.get().getAsset(), ROYLLO_COIN_ASSET_ID);
+    }
+
+    /**
+     * Returns the proof content from the content service.
+     *
+     * @param filename filename of the proof
+     * @return proof
+     */
+    private String getProofFromContentService(final String filename) {
+        var client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + filename)
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            return response.body().string();
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
+        return "";
     }
 
 }

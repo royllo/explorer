@@ -57,10 +57,6 @@ public class Proof extends BaseDomain {
     @Column(name = "PROOF_ID", updatable = false)
     private String proofId;
 
-    /** Proof. */
-    @Column(name = "PROOF", updatable = false)
-    private String proof;
-
     /** Proof type. */
     @Enumerated(STRING)
     @Column(name = "PROOF_TYPE", updatable = false)

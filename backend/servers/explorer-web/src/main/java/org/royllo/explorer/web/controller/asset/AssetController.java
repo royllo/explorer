@@ -183,7 +183,9 @@ public class AssetController extends BaseController {
                                          @PathVariable(value = PROOF_ID_ATTRIBUTE) final String proofId) {
         final Optional<ProofDTO> proofFile = proofService.getProofByProofId(proofId);
         if (proofFile.isPresent()) {
-            return proofFile.get().getProof().getBytes();
+            // TODO Useless
+            return null;
+            //return proofFile.get().getProof().getBytes();
         } else {
             throw new ResponseStatusException(NOT_FOUND, "Proof not found on asset id:" + assetId + " and proof id:" + proofId);
         }

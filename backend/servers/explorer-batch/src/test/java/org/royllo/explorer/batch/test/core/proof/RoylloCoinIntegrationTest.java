@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.royllo.explorer.core.dto.proof.ProofDTO.PROOF_FILE_NAME_EXTENSION;
 import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
 import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
 import static org.royllo.explorer.core.util.enums.RequestStatus.FAILURE;
@@ -82,6 +83,16 @@ public class RoylloCoinIntegrationTest extends TestWithMockServers {
             fail("Error while retrieving the file" + e.getMessage());
         }
 
+        // We should have the proof file on our content service.
+        request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + sha256(ROYLLO_COIN_RAW_PROOF) + PROOF_FILE_NAME_EXTENSION)
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(200, response.code());
+            assertEquals(ROYLLO_COIN_RAW_PROOF, response.body().string());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
     }
 
 }

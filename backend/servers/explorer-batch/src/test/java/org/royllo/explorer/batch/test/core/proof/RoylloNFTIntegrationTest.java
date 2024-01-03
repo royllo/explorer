@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.request.AddProofBatch;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
+import org.royllo.explorer.core.dto.proof.ProofDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.repository.asset.AssetGroupRepository;
@@ -33,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.royllo.explorer.core.dto.proof.ProofDTO.PROOF_FILE_NAME_EXTENSION;
 import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
 import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
@@ -169,6 +171,19 @@ public class RoylloNFTIntegrationTest extends TestWithMockServers {
             fail("Error while retrieving the file" + e.getMessage());
         }
 
+        // We should have the proof file on our content service.
+        final Optional<ProofDTO> proofCreated = proofService.getProofByProofId(ROYLLO_NFT_PROOF_ID);
+        assertTrue(proofCreated.isPresent());
+        assertEquals(ROYLLO_NFT_PROOF_ID + PROOF_FILE_NAME_EXTENSION, proofCreated.get().getProofFileName());
+        request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + proofCreated.get().getProofFileName())
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(200, response.code());
+            assertEquals(ROYLLO_NFT_RAW_PROOF, response.body().string());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
     }
 
 }

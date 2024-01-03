@@ -45,8 +45,8 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
     /** Bitcoin service. */
     private final BitcoinService bitcoinService;
 
-    /** File service. */
-    private final ContentService fileService;
+    /** Content service. */
+    private final ContentService contentService;
 
     @Override
     public Page<AssetDTO> queryAssets(@NonNull final String query,
@@ -165,7 +165,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
 
             // Saving the file.
             final String fileName = assetId + extension;
-            fileService.storeFile(decodedBytes, fileName);
+            contentService.storeFile(decodedBytes, fileName);
 
             // Saving the name of the file.
             assetToUpdate.get().setMetaDataFileName(fileName);

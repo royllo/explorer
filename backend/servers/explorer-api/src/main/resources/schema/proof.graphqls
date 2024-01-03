@@ -6,8 +6,8 @@ type Proof {
     creator: User!
     "Target asset"
     asset: Asset!
-    "Proof"
-    proof: String!
+    "Proof file name"
+    proofFileName: String!
 }
 
 "Proof page - Container used to return proof results"

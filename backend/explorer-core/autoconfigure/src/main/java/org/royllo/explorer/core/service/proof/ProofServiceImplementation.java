@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.asset.Asset;
 import org.royllo.explorer.core.domain.proof.Proof;
 import org.royllo.explorer.core.dto.proof.ProofDTO;
+import org.royllo.explorer.core.provider.storage.ContentService;
 import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.repository.proof.ProofRepository;
@@ -19,6 +20,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import static java.util.stream.Collectors.joining;
+import static org.royllo.explorer.core.dto.proof.ProofDTO.PROOF_FILE_NAME_EXTENSION;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
 
 /**
@@ -29,21 +31,30 @@ import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANO
 @SuppressWarnings({"checkstyle:DesignForExtension", "unused"})
 public class ProofServiceImplementation extends BaseService implements ProofService {
 
+    /** Proof minimum size - Under this size, the proof is displayed without preview. */
+    private static final int PROOF_MINIMUM_SIZE = 6;
+
+    /** Proof preview size - The size of the preview on both ends. */
+    private static final int PROOF_PREVIEW_SIZE = 3;
+
     /** Asset repository. */
     private final AssetRepository assetRepository;
 
     /** Proof repository. */
     private final ProofRepository proofRepository;
 
+    /** Content service. */
+    private final ContentService contentService;
+
     @Override
     public ProofDTO addProof(@NonNull final String proof,
                              @NonNull final ProofType proofType,
                              @NonNull final DecodedProofResponse decodedProof) {
-        logger.info("Adding {} with {}", proof, decodedProof);
+        logger.info("Adding {} with {}", getProofAbstract(proof), decodedProof);
 
         // We check that the proof is not in our database.
         proofRepository.findByProofId(sha256(proof)).ifPresent(existingProof -> {
-            logger.info("Proof {} is already registered", proof);
+            logger.info("Proof {} is already registered", getProofAbstract(proof));
             throw new ProofCreationException("This proof is already registered with proof id: " + existingProof.getProofId());
         });
 
@@ -55,16 +66,17 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
             logger.info("Asset {} is not registered in our database", assetId);
             throw new ProofCreationException("Asset " + assetId + " is not registered in our database");
         } else {
-            // Asset exists, we create the proof.
+            // Asset exists, we create the proof (in content service and database).
+            contentService.storeFile(proof.getBytes(), sha256(proof) + PROOF_FILE_NAME_EXTENSION);
+
             final Proof proofToCreate = proofRepository.save(Proof.builder()
                     .proofId(sha256(proof))
                     .creator(ANONYMOUS_USER)
                     .asset(asset.get())
-                    .proof(proof)
                     .proofType(proofType)
                     .build());
             final ProofDTO proofDTO = PROOF_MAPPER.mapToProofDTO(proofToCreate);
-            logger.info("Proof created with id {} : {}", proofDTO.getId(), proofDTO);
+            logger.info("Proof '{}' with id {}", getProofAbstract(proof), proofDTO.getId());
             return proofDTO;
         }
     }
@@ -112,6 +124,24 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
         }
 
         return results;
+    }
+
+    /**
+     * Returns an abstract of proof (for logs).
+     *
+     * @param proof proof
+     * @return proof abstract
+     */
+    private String getProofAbstract(final String proof) {
+        // If proof is null, return null.
+        if (proof == null) {
+            return null;
+        }
+        // If proof is too small for substring, return proof.
+        if (proof.length() <= PROOF_MINIMUM_SIZE) {
+            return proof;
+        }
+        return proof.substring(0, PROOF_PREVIEW_SIZE) + "..." + proof.substring(proof.length() - PROOF_PREVIEW_SIZE);
     }
 
 }

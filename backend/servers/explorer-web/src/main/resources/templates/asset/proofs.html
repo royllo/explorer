@@ -21,7 +21,8 @@
             <!--/* Proofs */-->
             <tr th:each="proof: ${proofsList.content}">
                 <td class="text-ellipsis overflow-hidden">
-                    <a th:href="@{'/asset/' + ${assetId} + '/proof/' + ${proof.proofId}}"
+                    <a th:href="${contentBaseUrl} + '/' + ${proof.proofFileName}"
+                       th:target="${proof.proofFileName}"
                        th:text="${proof.proofId}"></a>
                 </td>
             </tr>
