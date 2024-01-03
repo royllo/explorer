@@ -120,7 +120,7 @@ public class AddProofBatch extends BaseBatch {
                                         }
 
                                         // We update the data and the file if we have meta-data.
-                                        if (response.getDecodedProof().getMetaReveal() != null) {
+                                        if (assetStateCreated.get().getAsset().getMetaDataFileName() == null && response.getDecodedProof().getMetaReveal() != null) {
                                             logger.info("Creating meta data file");
                                             assetService.updateAsset(response.getDecodedProof().getAsset().getAssetGenesis().getAssetId(),
                                                     response.getDecodedProof().getMetaReveal().getData());

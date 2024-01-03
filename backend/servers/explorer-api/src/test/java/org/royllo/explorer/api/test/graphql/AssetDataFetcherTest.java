@@ -261,6 +261,7 @@ public class AssetDataFetcherTest {
                                 .assetIdAlias()
                                 .genesisPoint().txId().vout().parent()
                                 .metaDataHash()
+                                .metaDataFileName()
                                 .name()
                                 .outputIndex()
                                 .version()

@@ -10,6 +10,8 @@ type Asset {
     genesisPoint: BitcoinTransactionOutput!
     "The hash of the metadata for this genesis asset"
     metaDataHash: String!
+    "Meta data file name"
+    metaDataFileName: String
     "The name of the asset"
     name: String!
     "The index of the output that carries the unique Taproot commitment in the genesis transaction"
