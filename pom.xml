@@ -96,7 +96,7 @@
         <thymeleaf-layout-dialect.version>3.3.0</thymeleaf-layout-dialect.version>
         <htmx-spring-boot-thymeleaf.version>3.2.0</htmx-spring-boot-thymeleaf.version>
         <webjars-locator.version>0.50</webjars-locator.version>
-        <htmx.version>1.9.9</htmx.version>
+        <htmx.version>1.9.10</htmx.version>
         <alpinejs.version>3.13.3</alpinejs.version>
 
         <!-- ======================================================================================================= -->
