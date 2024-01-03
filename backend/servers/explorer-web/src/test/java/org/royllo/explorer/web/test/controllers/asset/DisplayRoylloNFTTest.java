@@ -85,6 +85,8 @@ public class DisplayRoylloNFTTest extends BaseTest {
                 .andExpect(content().string(containsString(">" + assetIdAlias + "<")))
                 .andExpect(content().string(containsString(">" + getMessage(messages, "asset.data.assetType.collectible") + "<")))
                 .andExpect(content().string(not(containsString(">" + assetFromTest.getAsset().getAmount() + "<"))))
+                .andExpect(content().string(containsString("src=" + "\"" + "null/" + assetFromTest.getAsset().getAssetGenesis().getAssetId() + ".png")))
+                .andExpect(content().string(containsString("href=" + "\"" + "null/" + assetFromTest.getAsset().getAssetGenesis().getAssetId() + ".png")))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getMetaDataHash() + "<")))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getVersion() + "<")))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getGenesisPoint() + "<")))

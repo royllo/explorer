@@ -13,6 +13,7 @@ import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.util.base.BaseService;
 import org.royllo.explorer.core.util.enums.ProofType;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,6 +34,9 @@ import static org.royllo.explorer.core.util.enums.RequestStatus.openedStatus;
 @SuppressWarnings({"checkstyle:DesignForExtension", "unused"})
 public class RequestServiceImplementation extends BaseService implements RequestService {
 
+    /** Maximum number of opened requests results. */
+    public static final int MAXIMUM_OPENED_REQUESTS_RESULTS = 100;
+
     /** Request repository. */
     private final RequestRepository requestRepository;
 
@@ -41,7 +45,8 @@ public class RequestServiceImplementation extends BaseService implements Request
         logger.info("Getting opened requests");
 
         // Getting results.
-        final List<RequestDTO> results = requestRepository.findByStatusInOrderById(openedStatus())
+        final List<RequestDTO> results = requestRepository.findByStatusInOrderById(openedStatus(),
+                        Pageable.ofSize(MAXIMUM_OPENED_REQUESTS_RESULTS))
                 .stream()
                 .map(REQUEST_MAPPER::mapToRequestDTO)
                 .toList();

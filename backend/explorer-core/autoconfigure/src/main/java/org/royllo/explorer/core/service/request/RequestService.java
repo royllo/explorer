@@ -16,6 +16,7 @@ public interface RequestService {
 
     /**
      * Returns the list of opened requests.
+     * (will return a max of 100 requests)
      *
      * @return opened requests
      */

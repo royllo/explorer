@@ -221,6 +221,29 @@ public class SearchControllerTest extends BaseTest {
 
     }
 
+
+    @DirtiesContext
+    @ParameterizedTest
+    @MethodSource("headers")
+    @DisplayName("Search page with images on results")
+    void searchPageWithImageInResults(final HttpHeaders headers) throws Exception {
+
+        // We check in the result.
+        mockMvc.perform(get("/search")
+                        .headers(headers)
+                        .param(QUERY_ATTRIBUTE, "roylloNFT")
+                        .param(PAGE_ATTRIBUTE, "1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(containsString(SEARCH_PAGE)))
+                // Check image link
+                .andExpect(content().string(containsString("/89c9d3ff7cb9dbc4615f854f7127e94db10edd430f8bcf82d7309d0c8b750051.png")))
+                // Checking error message.
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noQuery")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noResult")))));
+
+    }
+
     /**
      * Create fake assets.
      */
