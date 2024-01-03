@@ -205,13 +205,6 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.npmjs.org/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-axios@0.21.4:
-  version "0.21.4"
-  resolved "https://registry.npmjs.org/axios/-/axios-0.21.4.tgz"
-  integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
-  dependencies:
-    follow-redirects "^1.14.0"
-
 balanced-match@^1.0.0:
   version "1.0.2"
   resolved "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz"
@@ -252,19 +245,19 @@ braces@^3.0.2, braces@~3.0.2:
   dependencies:
     fill-range "^7.0.1"
 
-browser-sync-client@^2.29.3:
-  version "2.29.3"
-  resolved "https://registry.npmjs.org/browser-sync-client/-/browser-sync-client-2.29.3.tgz"
-  integrity sha512-4tK5JKCl7v/3aLbmCBMzpufiYLsB1+UI+7tUXCCp5qF0AllHy/jAqYu6k7hUF3hYtlClKpxExWaR+rH+ny07wQ==
+browser-sync-client@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.npmjs.org/browser-sync-client/-/browser-sync-client-3.0.2.tgz"
+  integrity sha512-tBWdfn9L0wd2Pjuz/NWHtNEKthVb1Y67vg8/qyGNtCqetNz5lkDkFnrsx5UhPNPYUO8vci50IWC/BhYaQskDiQ==
   dependencies:
     etag "1.8.1"
     fresh "0.5.2"
     mitt "^1.1.3"
 
-browser-sync-ui@^2.29.3:
-  version "2.29.3"
-  resolved "https://registry.npmjs.org/browser-sync-ui/-/browser-sync-ui-2.29.3.tgz"
-  integrity sha512-kBYOIQjU/D/3kYtUIJtj82e797Egk1FB2broqItkr3i4eF1qiHbFCG6srksu9gWhfmuM/TNG76jMfzAdxEPakg==
+browser-sync-ui@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.npmjs.org/browser-sync-ui/-/browser-sync-ui-3.0.2.tgz"
+  integrity sha512-V3FwWAI+abVbFLTyJjXJlCMBwjc3GXf/BPGfwO2fMFACWbIGW9/4SrBOFYEOOtqzCjQE0Di+U3VIb7eES4omNA==
   dependencies:
     async-each-series "0.1.1"
     chalk "4.1.2"
@@ -274,13 +267,13 @@ browser-sync-ui@^2.29.3:
     socket.io-client "^4.4.1"
     stream-throttle "^0.1.3"
 
-browser-sync@^2.29.3:
-  version "2.29.3"
-  resolved "https://registry.npmjs.org/browser-sync/-/browser-sync-2.29.3.tgz"
-  integrity sha512-NiM38O6XU84+MN+gzspVmXV2fTOoe+jBqIBx3IBdhZrdeURr6ZgznJr/p+hQ+KzkKEiGH/GcC4SQFSL0jV49bg==
+browser-sync@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.npmjs.org/browser-sync/-/browser-sync-3.0.2.tgz"
+  integrity sha512-PC9c7aWJFVR4IFySrJxOqLwB9ENn3/TaXCXtAa0SzLwocLN3qMjN+IatbjvtCX92BjNXsY6YWg9Eb7F3Wy255g==
   dependencies:
-    browser-sync-client "^2.29.3"
-    browser-sync-ui "^2.29.3"
+    browser-sync-client "^3.0.2"
+    browser-sync-ui "^3.0.2"
     bs-recipes "1.3.4"
     chalk "4.1.2"
     chokidar "^3.5.1"
@@ -294,7 +287,6 @@ browser-sync@^2.29.3:
     fs-extra "3.0.1"
     http-proxy "^1.18.1"
     immutable "^3"
-    localtunnel "^2.0.1"
     micromatch "^4.0.2"
     opn "5.3.0"
     portscanner "2.2.0"
@@ -388,15 +380,6 @@ chokidar@^3.3.0, chokidar@^3.3.1, chokidar@^3.5.1, chokidar@^3.5.3:
     readdirp "~3.6.0"
   optionalDependencies:
     fsevents "~2.3.2"
-
-cliui@^7.0.2:
-  version "7.0.4"
-  resolved "https://registry.npmjs.org/cliui/-/cliui-7.0.4.tgz"
-  integrity sha512-OcRE68cOsVMXp1Yvonl/fzkQOyjLSu/8bhPDfQt0e0/Eb283TKP20Fs2MqoPsr9SwA595rRCA+QMzYc9nBP+JQ==
-  dependencies:
-    string-width "^4.2.0"
-    strip-ansi "^6.0.0"
-    wrap-ansi "^7.0.0"
 
 cliui@^8.0.1:
   version "8.0.1"
@@ -645,13 +628,6 @@ debug@2.6.9:
   dependencies:
     ms "2.0.0"
 
-debug@4.3.2:
-  version "4.3.2"
-  resolved "https://registry.npmjs.org/debug/-/debug-4.3.2.tgz"
-  integrity sha512-mOp8wKcvj7XxC78zLgw/ZA+6TSgkoE2C/ienthhRD298T7UNwAg9diBpLRxC0mOezLl4B0xV7M0cCO6P/O0Xhw==
-  dependencies:
-    ms "2.1.2"
-
 define-properties@^1.1.3, define-properties@^1.1.4:
   version "1.1.4"
   resolved "https://registry.npmjs.org/define-properties/-/define-properties-1.1.4.tgz"
@@ -759,14 +735,14 @@ encodeurl@~1.0.1, encodeurl@~1.0.2:
   resolved "https://registry.npmjs.org/encodeurl/-/encodeurl-1.0.2.tgz"
   integrity sha512-TPJXq8JqFaVYm2CWmPvnP2Iyo4ZSM7/QKcSmuMLDObfpH5fi7RUGmd/rTDf+rut/saiDiQEeVTNgAmJEdAOx0w==
 
-engine.io-client@~6.4.0:
-  version "6.4.0"
-  resolved "https://registry.npmjs.org/engine.io-client/-/engine.io-client-6.4.0.tgz"
-  integrity sha512-GyKPDyoEha+XZ7iEqam49vz6auPnNJ9ZBfy89f+rMMas8AuiMWOZ9PVzu8xb9ZC6rafUqiGHSCfu22ih66E+1g==
+engine.io-client@~6.5.2:
+  version "6.5.3"
+  resolved "https://registry.npmjs.org/engine.io-client/-/engine.io-client-6.5.3.tgz"
+  integrity sha512-9Z0qLB0NIisTRt1DZ/8U2k12RJn8yls/nXMZLn+/N8hANT3TcYjKFKcwbw5zFQiN4NTde3TSY9zb79e1ij6j9Q==
   dependencies:
     "@socket.io/component-emitter" "~3.1.0"
     debug "~4.3.1"
-    engine.io-parser "~5.0.3"
+    engine.io-parser "~5.2.1"
     ws "~8.11.0"
     xmlhttprequest-ssl "~2.0.0"
 
@@ -774,6 +750,11 @@ engine.io-parser@~5.0.3:
   version "5.0.6"
   resolved "https://registry.npmjs.org/engine.io-parser/-/engine.io-parser-5.0.6.tgz"
   integrity sha512-tjuoZDMAdEhVnSFleYPCtdL2GXwVTGtNjoeJd9IhIG3C1xs9uwxqRNEu5WpnDZCaozwVlK/nuQhpodhXSIMaxw==
+
+engine.io-parser@~5.2.1:
+  version "5.2.1"
+  resolved "https://registry.npmjs.org/engine.io-parser/-/engine.io-parser-5.2.1.tgz"
+  integrity sha512-9JktcM3u18nU9N2Lz3bWeBgxVgOKpw7yhRaoxQA3FUDZzzw+9WlA6p4G4u0RixNkg14fH7EfEc/RhpurtiROTQ==
 
 engine.io@~6.4.1:
   version "6.4.2"
@@ -928,7 +909,7 @@ finalhandler@1.1.0:
     statuses "~1.3.1"
     unpipe "~1.0.0"
 
-follow-redirects@^1.0.0, follow-redirects@^1.14.0:
+follow-redirects@^1.0.0:
   version "1.15.2"
   resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.2.tgz"
   integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
@@ -1411,16 +1392,6 @@ load-json-file@^4.0.0:
     pify "^3.0.0"
     strip-bom "^3.0.0"
 
-localtunnel@^2.0.1:
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/localtunnel/-/localtunnel-2.0.2.tgz"
-  integrity sha512-n418Cn5ynvJd7m/N1d9WVJISLJF/ellZnfsLnx8WBWGzxv/ntNcFkJ1o6se5quUhCplfLGBNL5tYHiq5WF3Nug==
-  dependencies:
-    axios "0.21.4"
-    debug "4.3.2"
-    openurl "1.1.1"
-    yargs "17.1.1"
-
 lodash.castarray@^4.4.0:
   version "4.4.0"
   resolved "https://registry.npmjs.org/lodash.castarray/-/lodash.castarray-4.4.0.tgz"
@@ -1665,11 +1636,6 @@ onchange@^7.1.0:
     cross-spawn "^7.0.1"
     ignore "^5.1.4"
     tree-kill "^1.2.2"
-
-openurl@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/openurl/-/openurl-1.1.1.tgz"
-  integrity sha512-d/gTkTb1i1GKz5k3XE3XFV/PxQ1k45zDqGP2OA7YhgsaLoqm6qRvARAZOFer1fcXritWlGBRCu/UgeS4HAnXAA==
 
 opn@5.3.0:
   version "5.3.0"
@@ -2285,19 +2251,19 @@ socket.io-adapter@~2.5.2:
     ws "~8.11.0"
 
 socket.io-client@^4.4.1:
-  version "4.6.1"
-  resolved "https://registry.npmjs.org/socket.io-client/-/socket.io-client-4.6.1.tgz"
-  integrity sha512-5UswCV6hpaRsNg5kkEHVcbBIXEYoVbMQaHJBXJCyEQ+CiFPV1NIOY0XOFWG4XR4GZcB8Kn6AsRs/9cy9TbqVMQ==
+  version "4.7.2"
+  resolved "https://registry.npmjs.org/socket.io-client/-/socket.io-client-4.7.2.tgz"
+  integrity sha512-vtA0uD4ibrYD793SOIAwlo8cj6haOeMHrGvwPxJsxH7CeIksqJ+3Zc06RvWTIFgiSqx4A3sOnTXpfAEE2Zyz6w==
   dependencies:
     "@socket.io/component-emitter" "~3.1.0"
     debug "~4.3.2"
-    engine.io-client "~6.4.0"
-    socket.io-parser "~4.2.1"
+    engine.io-client "~6.5.2"
+    socket.io-parser "~4.2.4"
 
-socket.io-parser@~4.2.1:
-  version "4.2.3"
-  resolved "https://registry.npmjs.org/socket.io-parser/-/socket.io-parser-4.2.3.tgz"
-  integrity sha512-JMafRntWVO2DCJimKsRTh/wnqVvO4hrfwOqtO7f+uzwsQMuxO6VwImtYxaQ+ieoyshWOTJyV0fA21lccEXRPpQ==
+socket.io-parser@~4.2.1, socket.io-parser@~4.2.4:
+  version "4.2.4"
+  resolved "https://registry.npmjs.org/socket.io-parser/-/socket.io-parser-4.2.4.tgz"
+  integrity sha512-/GbIKmo8ioc+NIWIhwdecY0ge+qVBSMdgxGygevmdHj24bsfgtCmcUUcQ5ZzcylGFHsN3k4HB4Cgkl96KVnuew==
   dependencies:
     "@socket.io/component-emitter" "~3.1.0"
     debug "~4.3.1"
@@ -2468,10 +2434,11 @@ svgo@^3.0.5:
     css-what "^6.1.0"
     csso "5.0.5"
     picocolors "^1.0.0"
-tailwindcss@^3.3.7:
-  version "3.3.7"
-  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.3.7.tgz#9e3c0cb7c6867b4cda4557a447bd2bb6fe20c6fa"
-  integrity sha512-pjgQxDZPvyS/nG3ZYkyCvsbONJl7GdOejfm24iMt2ElYQQw8Jc4p0m8RdMp7mznPD0kUhfzwV3zAwa80qI0zmQ==
+
+tailwindcss@^3.4.0, "tailwindcss@>=3.0.0 || >= 3.0.0-alpha.1", "tailwindcss@>=3.0.0 || insiders":
+  version "3.4.0"
+  resolved "https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.4.0.tgz"
+  integrity sha512-VigzymniH77knD1dryXbyxR+ePHihHociZbXnLZHUyzf2MMs2ZVqlUrZ3FvpXP8pno9JzmILt1sZPD19M3IxtA==
   dependencies:
     "@alloc/quick-lru" "^5.2.0"
     arg "^5.0.2"
@@ -2683,11 +2650,6 @@ yaml@^2.1.1, yaml@^2.3.4:
   resolved "https://registry.npmjs.org/yaml/-/yaml-2.3.4.tgz"
   integrity sha512-8aAvwVUSHpfEqTQ4w/KMlf3HcRdt50E5ODIQJBw1fQ5RL34xabzxtUlzTXVqc4rkZsPbvrXKWnABCD7kWSmocA==
 
-yargs-parser@^20.2.2:
-  version "20.2.9"
-  resolved "https://registry.npmjs.org/yargs-parser/-/yargs-parser-20.2.9.tgz"
-  integrity sha512-y11nGElTIV+CT3Zv9t7VKl+Q3hTQoT9a1Qzezhhl6Rp21gJ/IVTW7Z3y9EWXhuUBC2Shnf+DX0antecpAwSP8w==
-
 yargs-parser@^21.1.1:
   version "21.1.1"
   resolved "https://registry.npmjs.org/yargs-parser/-/yargs-parser-21.1.1.tgz"
@@ -2705,16 +2667,3 @@ yargs@^17.0.0, yargs@^17.3.1:
     string-width "^4.2.3"
     y18n "^5.0.5"
     yargs-parser "^21.1.1"
-
-yargs@17.1.1:
-  version "17.1.1"
-  resolved "https://registry.npmjs.org/yargs/-/yargs-17.1.1.tgz"
-  integrity sha512-c2k48R0PwKIqKhPMWjeiF6y2xY/gPMUlro0sgxqXpbOIohWiLNXWslsootttv7E1e73QPAMQSg5FeySbVcpsPQ==
-  dependencies:
-    cliui "^7.0.2"
-    escalade "^3.1.1"
-    get-caller-file "^2.0.5"
-    require-directory "^2.1.1"
-    string-width "^4.2.0"
-    y18n "^5.0.5"
-    yargs-parser "^20.2.2"

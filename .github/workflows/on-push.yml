@@ -93,7 +93,7 @@ jobs:
       - name: Retrieving request status
         id: requestByRequestId
         run: |
-          sleep 60
+          sleep 90
           status=$(curl -H "Content-Type: application/json" \
               -d '{ "query": "{ requestByRequestId(requestId: \"${{ steps.addProofRequest.outputs.requestId }}\") { status }}" }' \
               http://localhost:9090/graphql | jq -r '.data.requestByRequestId.status')
