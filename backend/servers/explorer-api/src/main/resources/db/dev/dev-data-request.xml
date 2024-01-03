@@ -32,17 +32,17 @@
             <column name="proof_type" value="PROOF_TYPE_UNSPECIFIED"/>
         </insert>
 
-        <!-- Add asset request n°3 ( Opened addAssetMetaData GI3/P3 ) -->
+        <!-- Add universe server request n°3 ( Opened universe server ) -->
         <insert tableName="REQUEST">
             <column name="ID" value="3"/>
             <column name="REQUEST_ID" value="91425ba6-8b16-46a8-baa6-request_m_01"/>
-            <column name="TYPE" value="ADD_ASSET_META_DATA"/>
+            <column name="TYPE" value="ADD_UNIVERSE_SERVER"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="STATUS" value="OPENED"/>
         </insert>
-        <insert tableName="REQUEST_ADD_ASSET_META_DATA">
+        <insert tableName="REQUEST_ADD_UNIVERSE_SERVER">
             <column name="ID" value="3"/>
-            <column name="ASSET_ID" value="AI2"/>
+            <column name="SERVER_ADDRESS" value="SERVER_3"/>
         </insert>
 
         <!-- Add proof request n°4 ( Opened proof GI4/P4 ) -->

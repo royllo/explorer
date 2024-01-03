@@ -6,16 +6,12 @@ import com.netflix.graphql.dgs.client.codegen.GraphQLQueryRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.api.graphql.generated.DgsConstants;
-import org.royllo.explorer.api.graphql.generated.client.CreateAddAssetMetaDataRequestGraphQLQuery;
-import org.royllo.explorer.api.graphql.generated.client.CreateAddAssetMetaDataRequestProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.client.CreateAddProofRequestGraphQLQuery;
 import org.royllo.explorer.api.graphql.generated.client.CreateAddProofRequestProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.client.CreateAddUniverseServerRequestGraphQLQuery;
 import org.royllo.explorer.api.graphql.generated.client.CreateAddUniverseServerRequestProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.client.RequestByRequestIdGraphQLQuery;
 import org.royllo.explorer.api.graphql.generated.client.RequestByRequestIdProjectionRoot;
-import org.royllo.explorer.api.graphql.generated.types.AddAssetMetaDataRequest;
-import org.royllo.explorer.api.graphql.generated.types.AddAssetMetaDataRequestInputs;
 import org.royllo.explorer.api.graphql.generated.types.AddProofRequest;
 import org.royllo.explorer.api.graphql.generated.types.AddProofRequestInputs;
 import org.royllo.explorer.api.graphql.generated.types.AddUniverseServerRequest;
@@ -53,7 +49,7 @@ public class RequestDataFetcherTest {
                                 .status().getParent()
                                 .errorMessage()
                                 .onAddProofRequest().proof().parent()
-                                .onAddAssetMetaDataRequest().assetId()
+                                .onAddUniverseServerRequest().serverAddress()
                 ).serialize(),
                 "data." + DgsConstants.QUERY.RequestByRequestId,
                 new TypeRef<>() {
@@ -97,38 +93,6 @@ public class RequestDataFetcherTest {
         assertEquals(OPENED.toString(), requestCreated.getStatus().toString());
         assertNull(requestCreated.getErrorMessage());
         assertEquals("6", requestCreated.getProof());
-    }
-
-    @Test
-    @DisplayName("createAddAssetMetaDataRequest()")
-    public void createAddAssetMetaDataRequest() {
-        // Creating a new request to add meta data.
-        AddAssetMetaDataRequest requestCreated = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
-                new GraphQLQueryRequest(
-                        CreateAddAssetMetaDataRequestGraphQLQuery.newRequest()
-                                .input(AddAssetMetaDataRequestInputs.newBuilder()
-                                        .assetId("AssetID1")
-                                        .metaData("MetaData01")
-                                        .build())
-                                .build(),
-                        new CreateAddAssetMetaDataRequestProjectionRoot<>()
-                                .requestId()
-                                .creator().userId().username().parent()
-                                .status().getParent()
-                                .errorMessage()
-                                .assetId()
-                ).serialize(),
-                "data." + DgsConstants.MUTATION.CreateAddAssetMetaDataRequest,
-                new TypeRef<>() {
-                });
-
-        // Testing results.
-        assertNotNull(requestCreated.getRequestId());
-        assertEquals(ANONYMOUS_USER_ID, requestCreated.getCreator().getUserId());
-        assertEquals(ANONYMOUS_USER_USERNAME, requestCreated.getCreator().getUsername());
-        assertEquals(OPENED.toString(), requestCreated.getStatus().toString());
-        assertNull(requestCreated.getErrorMessage());
-        assertEquals("AssetID1", requestCreated.getAssetId());
     }
 
     @Test

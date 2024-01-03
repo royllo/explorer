@@ -5,7 +5,6 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
@@ -59,14 +58,14 @@ public class RequestServiceTest {
         assertEquals("P1", request1.getProof());
 
         // Request 2.
-        AddAssetMetaDataRequestDTO request2 = (AddAssetMetaDataRequestDTO) openedRequests.get(1);
+        AddUniverseServerRequestDTO request2 = (AddUniverseServerRequestDTO) openedRequests.get(1);
         assertEquals(3, request2.getId());
         assertEquals(ANONYMOUS_ID, request2.getCreator().getId());
         assertEquals(ANONYMOUS_USER_ID, request2.getCreator().getUserId());
         assertEquals(ANONYMOUS_USER_USERNAME, request2.getCreator().getUsername());
         assertEquals(OPENED, request2.getStatus());
         assertNull(request2.getErrorMessage());
-        assertEquals("AI2", request2.getAssetId());
+        assertEquals("SERVER_3", request2.getServerAddress());
 
         // Request 3.
         AddProofRequestDTO request3 = (AddProofRequestDTO) openedRequests.get(2);
@@ -96,7 +95,7 @@ public class RequestServiceTest {
         assertTrue(requestService.getRequestByRequestId(request1DTO.getRequestId()).isPresent());
 
         // We create a new "add medata data" request, and we should find it.
-        RequestDTO request2DTO = requestService.createAddAssetMetaDataRequest("TaprootAssetId1", "meta1");
+        RequestDTO request2DTO = requestService.createAddUniverseServerRequest("server4");
         assertNotNull(request2DTO);
         assertNotNull(request2DTO.getRequestId());
         assertTrue(requestService.getRequestByRequestId(request2DTO.getRequestId()).isPresent());
@@ -131,17 +130,17 @@ public class RequestServiceTest {
 
         // =============================================================================================================
         // Request 2 (addAssetMetaData).
-        RequestDTO request2DTO = requestService.createAddAssetMetaDataRequest("TaprootAssetId1", "meta1");
+        RequestDTO request2DTO = requestService.createAddUniverseServerRequest("universe1");
         assertNotNull(request2DTO);
         long request2Id = request2DTO.getId();
 
         // Use getRequest().
         Optional<RequestDTO> request2 = requestService.getRequest(request2Id);
         assertTrue(request2.isPresent());
-        assertInstanceOf(AddAssetMetaDataRequestDTO.class, request2.get());
+        assertInstanceOf(AddUniverseServerRequestDTO.class, request2.get());
 
         // We cast and check of all the data is here.
-        AddAssetMetaDataRequestDTO request2Casted = (AddAssetMetaDataRequestDTO) request2.get();
+        AddUniverseServerRequestDTO request2Casted = (AddUniverseServerRequestDTO) request2.get();
         assertEquals(request2Id, request2Casted.getId());
         assertNotNull(request2Casted.getRequestId());
         assertEquals(ANONYMOUS_ID, request2Casted.getCreator().getId());
@@ -149,7 +148,7 @@ public class RequestServiceTest {
         assertEquals(ANONYMOUS_USER_USERNAME, request2Casted.getCreator().getUsername());
         assertEquals(OPENED, request2Casted.getStatus());
         assertNull(request2Casted.getErrorMessage());
-        assertEquals("TaprootAssetId1", request2Casted.getAssetId());
+        assertEquals("universe1", request2Casted.getServerAddress());
 
         // =============================================================================================================
         // Request 3 (addAssetDTO).

@@ -2,11 +2,9 @@ package org.royllo.explorer.core.service.request;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.royllo.explorer.core.domain.request.AddAssetMetaDataRequest;
 import org.royllo.explorer.core.domain.request.AddProofRequest;
 import org.royllo.explorer.core.domain.request.AddUniverseServerRequest;
 import org.royllo.explorer.core.domain.request.Request;
-import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
@@ -113,24 +111,6 @@ public class RequestServiceImplementation extends BaseService implements Request
                 .build();
 
         AddProofRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetRequestDTO(requestRepository.save(request));
-        logger.info("Request {} saved", savedRequest);
-        return savedRequest;
-    }
-
-    @Override
-    public AddAssetMetaDataRequestDTO createAddAssetMetaDataRequest(@NonNull final String assetId,
-                                                                    final String metaData) {
-        logger.info("Adding metadata request for Taproot asset id {}", assetId);
-
-        // Creating and saving the request.
-        AddAssetMetaDataRequest request = AddAssetMetaDataRequest.builder()
-                .requestId(UUID.randomUUID().toString())
-                .creator(ANONYMOUS_USER)
-                .status(OPENED)
-                .assetId(assetId)
-                .build();
-
-        AddAssetMetaDataRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetMetaRequestDTO(requestRepository.save(request));
         logger.info("Request {} saved", savedRequest);
         return savedRequest;
     }
