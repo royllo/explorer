@@ -96,8 +96,9 @@ services:
       - S3_SECRET_KEY=tTX4LD7gYaQbhZ
       - S3_BUCKET_NAME=royllo-explorer
       - S3_ENDPOINTURL=http://royllo-explorer-storage-server:9000
-      - # ====================================================================================================================
-      # Royllo explorer API server ( https://hub.docker.com/r/royllo/explorer-api ).
+
+  # ====================================================================================================================
+  # Royllo explorer API server ( https://hub.docker.com/r/royllo/explorer-api ).
   royllo-explorer-api-server:
     image: royllo/explorer-api:latest
     depends_on:
