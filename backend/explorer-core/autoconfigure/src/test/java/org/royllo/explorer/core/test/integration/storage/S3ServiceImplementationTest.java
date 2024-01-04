@@ -1,6 +1,7 @@
 package org.royllo.explorer.core.test.integration.storage;
 
 import io.minio.BucketExistsArgs;
+import io.minio.GetObjectArgs;
 import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
 import io.minio.StatObjectArgs;
@@ -11,6 +12,7 @@ import io.minio.errors.InvalidResponseException;
 import io.minio.errors.MinioException;
 import io.minio.errors.ServerException;
 import io.minio.errors.XmlParserException;
+import org.apache.commons.codec.DecoderException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -26,9 +28,12 @@ import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.containers.MinIOContainer;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -61,7 +66,7 @@ public class S3ServiceImplementationTest extends TestWithMockServers {
 
     @Test
     @DisplayName("S3 implementation test")
-    public void s3ImplementationTest() {
+    public void s3ImplementationTest() throws DecoderException {
         // Getting a connexion to do some verification.
         MinioClient minioClient = MinioClient.builder()
                 .endpoint(s3MockServer.getS3URL())
@@ -84,6 +89,7 @@ public class S3ServiceImplementationTest extends TestWithMockServers {
         final S3ServiceImplementation s3ServiceImplementation = (S3ServiceImplementation) contentService;
         s3ServiceImplementation.updateS3Parameters(parameters);
 
+        // =============================================================================================================
         // Checking that a file doesn't exist in minio.
         try {
             minioClient.statObject(StatObjectArgs.builder().bucket(S3_BUCKET_NAME).object("test.txt").build());
@@ -95,15 +101,26 @@ public class S3ServiceImplementationTest extends TestWithMockServers {
         // Adding the file.
         contentService.storeFile("test".getBytes(), "test.txt");
 
+        // Adding the file (again) - Checking there is no exception.
+        contentService.storeFile("test".getBytes(), "test.txt");
+
         // Checking that the file now exists.
         try {
+            // File exists ?
             minioClient.statObject(StatObjectArgs.builder().bucket(S3_BUCKET_NAME).object("test.txt").build());
+
+            // Retrieving the file.
+            InputStream stream = minioClient.getObject(
+                    GetObjectArgs.builder()
+                            .bucket(S3_BUCKET_NAME)
+                            .object("test.txt")
+                            .build());
+            String content = new String(stream.readAllBytes(), StandardCharsets.UTF_8);
+            assertEquals("test", content);
         } catch (MinioException | InvalidKeyException | IOException | NoSuchAlgorithmException e) {
             fail("The file should now exist");
         }
 
-        // Adding the file (again) - Checking there is no exception.
-        contentService.storeFile("test".getBytes(), "test.txt");
     }
 
     @BeforeAll

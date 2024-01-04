@@ -3,14 +3,13 @@ package org.royllo.explorer.core.provider.storage;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import lombok.NonNull;
-import org.apache.commons.io.IOUtils;
 import org.apache.tika.Tika;
 import org.royllo.explorer.core.util.base.BaseService;
 import org.royllo.explorer.core.util.parameters.S3Parameters;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
+import java.io.ByteArrayInputStream;
 
 
 /**
@@ -57,7 +56,7 @@ public class S3ServiceImplementation extends BaseService implements ContentServi
         try {
             minioClient.putObject(PutObjectArgs.builder()
                     .bucket(s3Parameters.getBucketName())
-                    .object(fileName).stream(IOUtils.toInputStream(new String(fileContent), UTF_8), -1, PART_SIZE)
+                    .object(fileName).stream(new ByteArrayInputStream(fileContent), fileContent.length, -1)
                     .contentType(new Tika().detect(fileContent))
                     .build());
         } catch (Exception e) {

@@ -82,6 +82,7 @@ services:
       - royllo-explorer-network
     environment:
       - TZ=Europe/Paris
+      - ROYLLO_EXPLORER_CONTENT_BASE_URL=http://localhost:9000/royllo-explorer
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
       - SPRING_DATASOURCE_URL=jdbc:postgresql://royllo-explorer-database-server/royllo_explorer_database
       - SPRING_DATASOURCE_USERNAME=royllo_explorer_username
@@ -95,9 +96,8 @@ services:
       - S3_SECRET_KEY=tTX4LD7gYaQbhZ
       - S3_BUCKET_NAME=royllo-explorer
       - S3_ENDPOINTURL=http://royllo-explorer-storage-server:9000
-
-  # ====================================================================================================================
-  # Royllo explorer API server ( https://hub.docker.com/r/royllo/explorer-api ).
+      - # ====================================================================================================================
+      # Royllo explorer API server ( https://hub.docker.com/r/royllo/explorer-api ).
   royllo-explorer-api-server:
     image: royllo/explorer-api:latest
     depends_on:
@@ -108,6 +108,7 @@ services:
       - "9090:8080"
     environment:
       - TZ=Europe/Paris
+      - ROYLLO_EXPLORER_CONTENT_BASE_URL=http://localhost:9000/royllo-explorer
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
       - SPRING_DATASOURCE_URL=jdbc:postgresql://royllo-explorer-database-server/royllo_explorer_database
       - SPRING_DATASOURCE_USERNAME=royllo_explorer_username
@@ -131,6 +132,7 @@ services:
       - "8080:8080"
     environment:
       - TZ=Europe/Paris
+      - ROYLLO_EXPLORER_CONTENT_BASE_URL=http://localhost:9000/royllo-explorer
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
       - SPRING_DATASOURCE_URL=jdbc:postgresql://royllo-explorer-database-server/royllo_explorer_database
       - SPRING_DATASOURCE_USERNAME=royllo_explorer_username
