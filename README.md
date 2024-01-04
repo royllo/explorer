@@ -7,10 +7,10 @@ Google" for Taproot Assets, providing you with a web interface and an API to sea
 
 The Key features for users include:
 
-- Search for Taproot assets and proofs using our user-friendly web interface.
+- Search for Taproot assets information using our user-friendly web interface.
 - Add your proofs to our database to let the world discover and learn about your assets.
 - Add your universe server to let us discover new assets automatically.
-- Build new applications, services, and tools effortlessly using our GraphQL API
+- Build new applications, services, and tools effortlessly using our GraphQL API.
 
 A live version is available here: [https://explorer.royllo.org/](https://explorer.royllo.org/)
 
@@ -23,17 +23,20 @@ A live version is available here: [https://explorer.royllo.org/](https://explore
 
 ```mermaid
 graph LR
+    S3Storage(S3 storage) --- BatchServer(Batch server);
     BatchServer(Batch server) --- database[(Database)];
     database[(Database)] --- APIServers(API servers);
     database[(Database)] --- WebServers(Web servers);
+    contentServer(Content server) --- S3Storage(S3 storage);
 ```
 
-Royllo has four components:
+Royllo has several servers:
 
-- A Postgresql Database Server ([Release 15](https://hub.docker.com/_/postgres)).
-- A Batch server ([royllo/explorer-batch](https://hub.docker.com/r/royllo/explorer-batch)).
-- An API server ([royllo/explorer-api](https://hub.docker.com/r/royllo/explorer-api)).
-- A Web server ([royllo/explorer-web](https://hub.docker.com/r/royllo/explorer-web)).
+- Database Server ([Postgresql](https://hub.docker.com/_/postgres)).
+- S3 storage Server (For example [Minio](https://hub.docker.com/r/minio/minio)).
+- Batch server ([royllo/explorer-batch](https://hub.docker.com/r/royllo/explorer-batch)).
+- API server ([royllo/explorer-api](https://hub.docker.com/r/royllo/explorer-api)).
+- Web server ([royllo/explorer-web](https://hub.docker.com/r/royllo/explorer-web)).
 
 Royllo also needs to access to three external
 services: [Lnd, Tapd](https://github.com/royllo/lnd-taro-with-docker) & [Mempool](https://mempool.space/).
