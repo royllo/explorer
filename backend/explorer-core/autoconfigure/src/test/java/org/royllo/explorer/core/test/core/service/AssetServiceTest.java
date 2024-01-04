@@ -19,11 +19,16 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.math.BigInteger.ONE;
+import static java.util.Calendar.MARCH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -345,6 +350,12 @@ public class AssetServiceTest extends TestWithMockServers {
     @Test
     @DisplayName("updateAsset()")
     public void updateAsset() {
+        // Date used for test.
+        LocalDate localDate = LocalDate.of(2019, MARCH, 12);
+        LocalTime localTime = LocalTime.of(12, 44);
+        ZoneId zoneId = ZoneId.of("GMT+05:30");
+        ZonedDateTime testDate = ZonedDateTime.of(localDate, localTime, zoneId);
+
         // We create an asset.
         final AssetDTO asset1 = assetService.addAsset(AssetDTO.builder()
                 .creator(ANONYMOUS_USER_DTO)
@@ -361,19 +372,23 @@ public class AssetServiceTest extends TestWithMockServers {
                 .amount(ONE)
                 .build());
 
-        // The asset should not have a metadata file.
+        // We test the data of our created asset.
         assertNotNull(asset1.getId());
         assertNotNull(asset1.getAssetId());
         assertNull(asset1.getMetaDataFileName());
+        assertEquals(0, ONE.compareTo(asset1.getAmount()));
+        assertNull(asset1.getIssuanceDate());
 
-        // Now, we update the asset with the metadata.
+        // Now, we update the asset with the metadata, the new amount, the new creation date.
         final String imageMeta = "89504e470d0a1a0a0000000d4948445200000018000000180806000000e0773df80000006e4944415478da63601805a360d880ff38304d0da78a25ff89c4941b5e682f8b81a9660136c3d12ca1cc029b0c75304636182646ae0528ae07d11ef9da182e078951c5025a04d1c059802e36b47c704451008e29cd07ff89f105552dc011f6d4f50135cb229c41448b229ba25403006cf5f5c3b61b973a0000000049454e44ae426082";
-        assetService.updateAsset(asset1.getAssetId(), imageMeta);
+        assetService.updateAsset(asset1.getAssetId(), imageMeta, new BigInteger("100"), testDate);
 
         // We test the data.
-        final Optional<AssetDTO> assetUpdated = assetService.getAssetByAssetId(asset1.getAssetId());
+        Optional<AssetDTO> assetUpdated = assetService.getAssetByAssetId(asset1.getAssetId());
         assertTrue(assetUpdated.isPresent());
         assertEquals(asset1.getAssetId() + ".png", assetUpdated.get().getMetaDataFileName());
+        assertEquals(0, new BigInteger("100").compareTo(assetUpdated.get().getAmount()));
+        assertTrue(testDate.isEqual(assetUpdated.get().getIssuanceDate()));
 
         // The file should be available.
         var client = new OkHttpClient();
@@ -396,6 +411,15 @@ public class AssetServiceTest extends TestWithMockServers {
             fail("Error while retrieving the file" + e.getMessage());
         }
 
+        // We update with nothing, nothing should change.
+        assetService.updateAsset(asset1.getAssetId(), null, null, null);
+
+        // We test the data.
+        assetUpdated = assetService.getAssetByAssetId(asset1.getAssetId());
+        assertTrue(assetUpdated.isPresent());
+        assertEquals(asset1.getAssetId() + ".png", assetUpdated.get().getMetaDataFileName());
+        assertEquals(0, new BigInteger("100").compareTo(assetUpdated.get().getAmount()));
+        assertTrue(testDate.isEqual(assetUpdated.get().getIssuanceDate()));
     }
 
     @Test

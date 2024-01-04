@@ -144,6 +144,8 @@ public class RoylloNFTIntegrationTest extends TestWithMockServers {
         assertTrue(asset.isPresent());
         assertNotNull(asset.get().getAssetIdAlias());
         assertEquals(ALIAS_LENGTH, asset.get().getAssetIdAlias().length());
+        assertNotNull(asset.get().getAmount());
+        assertNotNull(asset.get().getIssuanceDate());
         verifyTransaction(bitcoinService.getBitcoinTransactionOutput(ROYLLO_NFT_GENESIS_TXID, ROYLLO_NFT_GENESIS_VOUT).get(),
                 ROYLLO_NFT_GENESIS_TXID);
         verifyTransaction(bitcoinService.getBitcoinTransactionOutput(ROYLLO_NFT_ANCHOR_1_TXID, ROYLLO_NFT_ANCHOR_1_VOUT).get(),

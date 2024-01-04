@@ -252,6 +252,13 @@ public class SetOfRoylloNFTIntegrationTest extends TestWithMockServers {
                 SET_OF_ROYLLO_NFT_ANCHOR_3_VOUT,
                 SET_OF_ROYLLO_NFT_3_FROM_TEST.getDecodedProofResponse(0).getAsset().getScriptKey());
 
+        assertNotNull(asset1.get().getIssuanceDate());
+        assertNotNull(asset1.get().getAmount());
+        assertNotNull(asset2.get().getIssuanceDate());
+        assertNotNull(asset2.get().getAmount());
+        assertNotNull(asset3.get().getIssuanceDate());
+        assertNotNull(asset3.get().getAmount());
+
         // =============================================================================================================
         // We check meta-data file for our three assets
         var client = new OkHttpClient();

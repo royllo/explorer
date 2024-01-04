@@ -50,6 +50,8 @@
                     remarks="The type of the asset: normal or a collectible"/>
             <column name="AMOUNT" type="BIGINT"
                     remarks="The total amount minted for this asset"/>
+            <column name="ISSUANCE_DATE" type="TIMESTAMP WITH TIME ZONE"
+                    remarks="The date and time when the asset was created"/>
 
             <!-- Technical fields -->
             <column name="CREATED_ON" type="TIMESTAMP"

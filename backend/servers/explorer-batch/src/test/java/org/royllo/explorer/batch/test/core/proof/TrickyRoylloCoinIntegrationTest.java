@@ -245,6 +245,8 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
 
         // Verify asset.
         verifyAsset(assetService.getAssetByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID).get(), TRICKY_ROYLLO_COIN_ASSET_ID);
+        assertNotNull(asset.get().getAmount());
+        assertNotNull(asset.get().getIssuanceDate());
 
         // Verify asset states.
         verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID).get(),

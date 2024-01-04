@@ -21,6 +21,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -148,33 +150,52 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
     }
 
     @Override
-    public void updateAsset(final String assetId, final String metadata) {
+    public void updateAsset(final String assetId,
+                            final String metadata,
+                            final BigInteger amount,
+                            final ZonedDateTime issuanceDate) {
         final Optional<Asset> assetToUpdate = assetRepository.findByAssetId(assetId);
 
         // We check that the asset exists.
         assert assetToUpdate.isPresent() : assetId + " not found";
 
-        // We save the data as a file.
-        try {
-            // Decoding (same as using xxd -r -p)
-            byte[] decodedBytes = Hex.decodeHex(metadata);
+        // =============================================================================================================
+        // If we have the metadata.
+        if (metadata != null) {
 
-            // Detecting the file type.
-            final String mimeType = new Tika().detect(decodedBytes);
-            final String extension = MimeTypes.getDefaultMimeTypes().forName(mimeType).getExtension();
+            try {
+                // Decoding (same as using xxd -r -p)
+                byte[] decodedBytes = Hex.decodeHex(metadata);
 
-            // Saving the file.
-            final String fileName = assetId + extension;
-            contentService.storeFile(decodedBytes, fileName);
+                // Detecting the file type.
+                final String mimeType = new Tika().detect(decodedBytes);
+                final String extension = MimeTypes.getDefaultMimeTypes().forName(mimeType).getExtension();
 
-            // Saving the name of the file.
-            assetToUpdate.get().setMetaDataFileName(fileName);
-            assetRepository.save(assetToUpdate.get());
+                // Saving the file.
+                final String fileName = assetId + extension;
+                contentService.storeFile(decodedBytes, fileName);
 
-        } catch (DecoderException | MimeTypeException e) {
-            logger.error("Error decoding and saving metadata {}", e.getMessage());
+                // Setting the name of the file.
+                assetToUpdate.get().setMetaDataFileName(fileName);
+            } catch (DecoderException | MimeTypeException e) {
+                logger.error("Error decoding and saving metadata {}", e.getMessage());
+            }
         }
 
+        // =============================================================================================================
+        // If we have the new amount.
+        if (amount != null) {
+            assetToUpdate.get().setAmount(amount);
+        }
+
+        // =============================================================================================================
+        // If we have the issuance date.
+        if (issuanceDate != null) {
+            assetToUpdate.get().setIssuanceDate(issuanceDate);
+        }
+
+        // We save the asset with the new information.
+        assetRepository.save(assetToUpdate.get());
     }
 
     @Override

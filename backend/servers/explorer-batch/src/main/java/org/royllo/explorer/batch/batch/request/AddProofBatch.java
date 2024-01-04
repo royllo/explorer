@@ -15,6 +15,7 @@ import org.royllo.explorer.core.util.exceptions.proof.ProofCreationException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.ZoneId;
 import java.util.Optional;
 
 /**
@@ -119,11 +120,13 @@ public class AddProofBatch extends BaseBatch {
                                             logger.info("For request {}, asset state {} already exists", request.getId(), assetStateToCreate.getAssetStateId());
                                         }
 
-                                        // We update the data and the file if we have meta-data.
+                                        // We update the data and the file if we have the issuance proof
                                         if (assetStateCreated.get().getAsset().getMetaDataFileName() == null && response.getDecodedProof().getMetaReveal() != null) {
                                             logger.info("Creating meta data file");
                                             assetService.updateAsset(response.getDecodedProof().getAsset().getAssetGenesis().getAssetId(),
-                                                    response.getDecodedProof().getMetaReveal().getData());
+                                                    response.getDecodedProof().getMetaReveal().getData(),
+                                                    response.getDecodedProof().getAsset().getAmount(),
+                                                    assetStateCreated.get().getAnchorOutpoint().getBlockTime().atZone(ZoneId.of("Europe/Paris")));
                                         } else {
                                             logger.info("No meta data file to create");
                                         }

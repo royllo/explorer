@@ -145,6 +145,8 @@ public class UnknownRoylloCoinIntegrationTest extends TestWithMockServers {
         verifyTransaction(bitcoinService.getBitcoinTransactionOutput(UNKNOWN_ROYLLO_COIN_ANCHOR_1_TXID, UNKNOWN_ROYLLO_COIN_ANCHOR_1_VOUT).get(),
                 UNKNOWN_ROYLLO_COIN_ANCHOR_1_TXID);
         verifyAsset(assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID).get(), UNKNOWN_ROYLLO_COIN_ASSET_ID);
+        assertNotNull(asset.get().getAmount());
+        assertNotNull(asset.get().getIssuanceDate());
         verifyAssetState(assetStateService.getAssetStateByAssetStateId(UNKNOWN_ROYLLO_COIN_STATE_ID).get(),
                 UNKNOWN_ROYLLO_COIN_ASSET_ID,
                 UNKNOWN_ROYLLO_COIN_ANCHOR_1_TXID,

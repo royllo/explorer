@@ -18,6 +18,7 @@ import org.royllo.explorer.core.util.base.BaseDomain;
 import org.royllo.explorer.core.util.enums.AssetType;
 
 import java.math.BigInteger;
+import java.time.ZonedDateTime;
 
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.FetchType.EAGER;
@@ -91,5 +92,9 @@ public class Asset extends BaseDomain {
     /** The total amount minted for this asset. */
     @Column(name = "AMOUNT")
     private BigInteger amount;
+
+    /** The date and time when the asset was created. */
+    @Column(name = "ISSUANCE_DATE")
+    private ZonedDateTime issuanceDate;
 
 }

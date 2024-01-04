@@ -193,6 +193,8 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
         assertEquals(ALIAS_LENGTH, asset1.get().getAssetIdAlias().length());
         assertNotNull(asset1.get().getAssetGroup());
         assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, asset1.get().getAssetGroup().getTweakedGroupKey());
+        assertNotNull(asset1.get().getAmount());
+        assertNotNull(asset1.get().getIssuanceDate());
 
         final Optional<AssetDTO> asset2 = assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_2_ASSET_ID);
         assertTrue(asset2.isPresent());
@@ -200,6 +202,8 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
         assertEquals(ALIAS_LENGTH, asset2.get().getAssetIdAlias().length());
         assertNotNull(asset2.get().getAssetGroup());
         assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, asset2.get().getAssetGroup().getTweakedGroupKey());
+        assertNotNull(asset2.get().getAmount());
+        assertNotNull(asset2.get().getIssuanceDate());
 
         // We check if we have the meta-data file for UNLIMITED_ROYLLO_COIN_1_ASSET_ID.
         var client = new OkHttpClient();

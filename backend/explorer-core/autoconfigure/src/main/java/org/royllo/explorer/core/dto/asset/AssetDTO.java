@@ -5,12 +5,14 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
+import org.apache.commons.lang3.StringUtils;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.dto.user.UserDTO;
 import org.royllo.explorer.core.util.enums.AssetType;
 import org.royllo.explorer.core.util.enums.FileType;
 
 import java.math.BigInteger;
+import java.time.ZonedDateTime;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -66,8 +68,10 @@ public class AssetDTO {
     AssetType type;
 
     /** The total amount minted for this asset. */
-    @NotNull(message = "Amount is required")
     BigInteger amount;
+
+    /** The date and time when the asset was created. */
+    ZonedDateTime issuanceDate;
 
     /**
      * Returns the type of the metadata file.
@@ -75,7 +79,7 @@ public class AssetDTO {
      * @return file type
      */
     public FileType getMetaDataFileType() {
-        if (metaDataFileName == null || metaDataFileName.isEmpty()) {
+        if (StringUtils.isBlank(metaDataFileName) || metaDataFileName.lastIndexOf(".") == -1) {
             return FileType.UNKNOWN;
         }
         return FileType.getTypeByExtension(metaDataFileName.substring(metaDataFileName.lastIndexOf(".") + 1));
