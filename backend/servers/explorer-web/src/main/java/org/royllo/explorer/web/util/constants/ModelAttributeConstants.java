@@ -15,6 +15,9 @@ public class ModelAttributeConstants {
     /** Web base url. */
     public static final String WEB_BASE_URL_ATTRIBUTE = "webBaseUrl";
 
+    /** Content base url. */
+    public static final String CONTENT_BASE_URL_ATTRIBUTE = "contentBaseUrl";
+
     /** Query attribute. */
     public static final String QUERY_ATTRIBUTE = "query";
 

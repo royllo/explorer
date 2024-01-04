@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.API_BASE_URL_ATTRIBUTE;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.CONTENT_BASE_URL_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.WEB_BASE_URL_ATTRIBUTE;
 
 /**
@@ -22,9 +23,10 @@ public class ConfigurationControllerAdvice {
     @ModelAttribute
     public final void handleRequest(final Model model) {
 
-        // Set the base url for web and API.
+        // Set the base url for web, API and assets.
         model.addAttribute(API_BASE_URL_ATTRIBUTE, roylloExplorerParameters.getApi().getBaseUrl());
         model.addAttribute(WEB_BASE_URL_ATTRIBUTE, roylloExplorerParameters.getWeb().getBaseUrl());
+        model.addAttribute(CONTENT_BASE_URL_ATTRIBUTE, roylloExplorerParameters.getContent().getBaseUrl());
 
     }
 

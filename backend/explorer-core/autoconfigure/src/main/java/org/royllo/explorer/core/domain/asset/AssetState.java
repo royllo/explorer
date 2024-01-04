@@ -106,6 +106,10 @@ public class AssetState extends BaseDomain {
     @Column(name = "SCRIPT_KEY")
     private String scriptKey;
 
+    /** Indicates whether the asset has been spent. */
+    @Column(name = "SPENT")
+    private boolean spent;
+
     /** If the asset has been leased, this is the owner (application ID) of the lease. */
     @Column(name = "LEASE_OWNER")
     private String leaseOwner;
@@ -113,6 +117,10 @@ public class AssetState extends BaseDomain {
     /** If the asset has been leased, this is the expiry of the lease as a Unix timestamp in seconds. */
     @Column(name = "LEASE_EXPIRY")
     private long leaseExpiry;
+
+    /** Indicates whether this transfer was an asset burn. If true, the number of assets in this output are destroyed and can no longer be spent. */
+    @Column(name = "BURN")
+    private boolean burn;
 
     /** The merkle proof for AnchorTx used to prove its inclusion within BlockHeader. */
     @Column(name = "TX_MERKLE_PROOF")
@@ -135,5 +143,9 @@ public class AssetState extends BaseDomain {
     @Convert(converter = StringListConverter.class)
     @Column(name = "CHALLENGE_WITNESS")
     private List<String> challengeWitness = new ArrayList<>();
+
+    /** Indicates if this asset state is an issuance or a transfer. */
+    @Column(name = "ISSUANCE")
+    private boolean issuance;
 
 }

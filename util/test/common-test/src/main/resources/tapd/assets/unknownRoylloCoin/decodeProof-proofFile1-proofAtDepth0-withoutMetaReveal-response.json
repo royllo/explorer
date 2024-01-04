@@ -1,0 +1,75 @@
+{
+  "decoded_proof": {
+    "proof_at_depth": 0,
+    "number_of_proofs": 1,
+    "asset": {
+      "version": "ASSET_VERSION_V0",
+      "asset_genesis": {
+        "genesis_point": "2727229cc771efa552f9232a04b0cd8d16df6d83bd217523888feee6a8553ec8:2",
+        "name": "unknownRoylloCoin",
+        "meta_hash": "548c3d99c0f06a858b564e035f7bccb4354eb89f5cd044d0ba78b9fbd7152882",
+        "asset_id": "a8e1cd6961301e8ef91df4f902f7af0bf261e30c122d85ebf7abc32c15bee002",
+        "asset_type": "NORMAL",
+        "output_index": 0,
+        "version": 0
+      },
+      "amount": "12000",
+      "lock_time": 0,
+      "relative_lock_time": 0,
+      "script_version": 0,
+      "script_key": "0216fbf08fd0d3caf518a605c7e93587e7f66deb2460eb235fc54c151967cf69de",
+      "script_key_is_local": false,
+      "asset_group": null,
+      "chain_anchor": {
+        "anchor_tx": "02000000000101c83e55a8e6ee8f88237521bd836ddf168dcdb0042a23f952a5ef71c79c2227270200000000ffffffff02e8030000000000002251208d9cac51eda33283c63419190f12ffb2bf2ec5ac337ac8c9ea677b2af17e4a1079a21600000000002251202dc635ce603c8c9675f08276f2bb6c796576f80c65fd9a81249549a2488f6ef101404d19858b4046fb71ecbfffe5b8ed78baf5159cba1298e21a22c055307b549792f434178b2469a53dc3dc5b24a4311e3cef9f8075d47fe08796335ddd8d44b4df00000000",
+        "anchor_block_hash": "00000000000000234003091791b7f3184360e92e4c9a5aad3947178c89b7e6e3",
+        "anchor_outpoint": "77b550de10ad347daf314f4982a979db6d101573afe6fbf20c35935ce4bb0413:0",
+        "internal_key": "027fb809fa2c53a98906e9d3fbbc56019a32fd8bef11d3fd5b5657c1f849e32f74",
+        "merkle_root": "1e29ca25477ad7dcdf6593a00bd1b8bfa0fc98754ca5990e00c02358e26db61c",
+        "tapscript_sibling": "",
+        "block_height": 2534330
+      },
+      "prev_witnesses": [
+        {
+          "prev_id": {
+            "anchor_point": "0000000000000000000000000000000000000000000000000000000000000000:0",
+            "asset_id": "0000000000000000000000000000000000000000000000000000000000000000",
+            "script_key": "000000000000000000000000000000000000000000000000000000000000000000",
+            "amount": "0"
+          },
+          "tx_witness": [],
+          "split_commitment": null
+        }
+      ],
+      "is_spent": false,
+      "lease_owner": "",
+      "lease_expiry": "0",
+      "is_burn": false
+    },
+    "meta_reveal": null,
+    "tx_merkle_proof": "05a99726a7ab1cfa6c0ad3cee5656f2e388d4b480d105df5d2eb307e7f68343f654c39a67f84c69fb0a45d3a7bedb1aad6062b6af1ab37f207986f4b74aabd371726ee0f70f0b608092b89446916403bbbb2dbf220b4d57905d4cd73efdb2eecd50aa80180053bcd4fd5d7a739983d842d6b62d4884ac09529e01e946e59ac705467caa6de490c506af99211ad73742d51e380d233618fcbefabefd3a1aed9166e14",
+    "inclusion_proof": "0004000000000221027fb809fa2c53a98906e9d3fbbc56019a32fd8bef11d3fd5b5657c1f849e32f74037401490001000220a8e1cd6961301e8ef91df4f902f7af0bf261e30c122d85ebf7abc32c15bee00204220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff022700010002220000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "exclusion_proofs": [
+      "000400000001022102ac43972a2a4868a12d41db303d3d93ad0d86c251336e3ed69b0528f7d578a81b0503040101"
+    ],
+    "split_root_proof": "",
+    "num_additional_inputs": 0,
+    "challenge_witness": [],
+    "is_burn": false,
+    "genesis_reveal": {
+      "genesis_base_reveal": {
+        "genesis_point": "2727229cc771efa552f9232a04b0cd8d16df6d83bd217523888feee6a8553ec8:2",
+        "name": "unknownRoylloCoin",
+        "meta_hash": "548c3d99c0f06a858b564e035f7bccb4354eb89f5cd044d0ba78b9fbd7152882",
+        "asset_id": "a8e1cd6961301e8ef91df4f902f7af0bf261e30c122d85ebf7abc32c15bee002",
+        "asset_type": "NORMAL",
+        "output_index": 0,
+        "version": 0
+      }
+    },
+    "group_key_reveal": {
+      "raw_group_key": "",
+      "tapscript_root": ""
+    }
+  }
+}

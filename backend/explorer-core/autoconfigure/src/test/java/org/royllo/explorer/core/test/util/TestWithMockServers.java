@@ -30,13 +30,12 @@ import static org.aspectj.bridge.MessageUtil.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockserver.integration.ClientAndServer.startClientAndServer;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 /**
  * Utility classes for tests.
  */
 @SuppressWarnings("SpellCheckingInspection")
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
+@DirtiesContext
 public class TestWithMockServers extends Base {
 
     /** Mempool server port. */
@@ -53,10 +52,13 @@ public class TestWithMockServers extends Base {
 
     @BeforeEach
     public void startServers() {
+
+        // =============================================================================================================
         // Mempool mock server.
         mempoolMockServer = startClientAndServer(MEMPOOL_MOCK_SERVER_PORT);
         MempoolData.setMockServerRules(mempoolMockServer);
 
+        // =============================================================================================================
         // Tapd mock server.
         tapdMockServer = startClientAndServer(TAPD_MOCK_SERVER_PORT);
         TapdData.setMockServerRules(tapdMockServer);
@@ -150,7 +152,7 @@ public class TestWithMockServers extends Base {
         final AssetValue assetValue = TapdData.findAssetValueByAssetId(assetId);
 
         // We retrieve an asset value from test data. We should to get the data from the first decioded proof.
-        final DecodedProofValueResponse.DecodedProof.Asset assetFromTest = assetValue.getDecodedProofValues().get(0).getResponse().getDecodedProof().getAsset();
+        final DecodedProofValueResponse.DecodedProof.Asset assetFromTest = assetValue.getDecodedProofValuesWithoutMetaReveal().get(0).getResponse().getDecodedProof().getAsset();
 
         // We check asset group.
         boolean assetGroupEquality = true;
@@ -257,6 +259,10 @@ public class TestWithMockServers extends Base {
                 assetFromTest.get().getAsset().getScriptKey(),
                 "Script key are not equals");
 
+        assertEquals(assetStateDTO.isSpent(),
+                assetFromTest.get().getAsset().getIsSpent(),
+                "spent are not equals");
+
         assertEquals(assetStateDTO.getLeaseOwner(),
                 assetFromTest.get().getAsset().getLeaseOwner(),
                 "Lease owner are not equals");
@@ -264,6 +270,10 @@ public class TestWithMockServers extends Base {
         assertEquals(assetStateDTO.getLeaseExpiry(),
                 assetFromTest.get().getAsset().getLeaseExpiryTimestamp(),
                 "Lease expiry are not equals");
+
+        assertEquals(assetStateDTO.isBurn(),
+                assetFromTest.get().getAsset().getIsBurn(),
+                "Burn are not equals");
 
         assertEquals(assetStateDTO.getTxMerkleProof(),
                 assetFromTest.get().getTxMerkleProof(),

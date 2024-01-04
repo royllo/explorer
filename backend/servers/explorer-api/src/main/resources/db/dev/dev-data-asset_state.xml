@@ -22,8 +22,11 @@
             <column name="script_key" value="02368d08b148b5a0867e38a1187f9fb4ab0a36c21159502e701beafc8cdda1dec9"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SPENT" valueBoolean="false"/>
             <column name="LEASE_OWNER" value=""/>
             <column name="LEASE_EXPIRY" value="0"/>
+            <column name="BURN" valueBoolean="false"/>
+            <column name="ISSUANCE" valueBoolean="true"/>
             <column name="created_on" valueDate="2023-10-27T19:25:35.954915"/>
             <column name="updated_on"/>
         </insert>
@@ -47,8 +50,11 @@
             <column name="script_key" value="022dd926192ebdfd038b85ae326efd0ee3919c435da9e1d43186f994706cf24508"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SPENT" valueBoolean="false"/>
             <column name="LEASE_OWNER" value=""/>
             <column name="LEASE_EXPIRY" value="0"/>
+            <column name="BURN" valueBoolean="false"/>
+            <column name="ISSUANCE" valueBoolean="true"/>
             <column name="created_on" valueDate="2023-10-27T19:25:59.566748"/>
             <column name="updated_on"/>
         </insert>
@@ -68,8 +74,11 @@
             <column name="script_key" value="0217c46686156f732035981526ea4f7e4cf5055fbdb6eeaa0254ea2b111b69328e"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SPENT" valueBoolean="false"/>
             <column name="LEASE_OWNER" value=""/>
             <column name="LEASE_EXPIRY" value="0"/>
+            <column name="BURN" valueBoolean="false"/>
+            <column name="ISSUANCE" valueBoolean="true"/>
             <column name="created_on" valueDate="2023-10-27T19:26:07.044232"/>
             <column name="updated_on"/>
         </insert>
@@ -89,8 +98,11 @@
             <column name="script_key" value="02c8c3e030404c7f117a62aeebca5926a1693f917121465938cc5f215a8a3dc7e1"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SPENT" valueBoolean="false"/>
             <column name="LEASE_OWNER" value=""/>
             <column name="LEASE_EXPIRY" value="0"/>
+            <column name="BURN" valueBoolean="false"/>
+            <column name="ISSUANCE" valueBoolean="true"/>
             <column name="created_on" valueDate="2023-10-27T19:26:16.510311"/>
             <column name="updated_on"/>
         </insert>
@@ -131,8 +143,11 @@
             <column name="script_key" value="026e6f1ce5a4cf58f63f1c6d2421aaf3d011e3811bab92122cffd67dada97ab610"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SPENT" valueBoolean="false"/>
             <column name="LEASE_OWNER" value=""/>
             <column name="LEASE_EXPIRY" value="0"/>
+            <column name="BURN" valueBoolean="false"/>
+            <column name="ISSUANCE" valueBoolean="true"/>
             <column name="created_on" valueDate="2023-10-27T19:26:37.423946"/>
             <column name="updated_on"/>
         </insert>
@@ -152,8 +167,11 @@
             <column name="script_key" value="022dcc33d4e29c5d322277b9404ced5c67790fe1e31e234fecb3d06239caf3eddb"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SPENT" valueBoolean="false"/>
             <column name="LEASE_OWNER" value=""/>
             <column name="LEASE_EXPIRY" value="0"/>
+            <column name="BURN" valueBoolean="false"/>
+            <column name="ISSUANCE" valueBoolean="true"/>
             <column name="created_on" valueDate="2023-10-27T19:26:53.231409"/>
             <column name="updated_on"/>
         </insert>
@@ -173,8 +191,11 @@
             <column name="script_key" value="02629f225f4ef29972e703b1086796dbe47e881ae913904a1c2eec15df35361fb6"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SPENT" valueBoolean="false"/>
             <column name="LEASE_OWNER" value=""/>
             <column name="LEASE_EXPIRY" value="0"/>
+            <column name="BURN" valueBoolean="false"/>
+            <column name="ISSUANCE" valueBoolean="true"/>
             <column name="created_on" valueDate="2023-10-27T19:26:54.286399"/>
             <column name="updated_on"/>
         </insert>
@@ -215,8 +236,11 @@
             <column name="script_key" value="02ea041c360a308ee44466ca4e2b07c5692c02a8d01f0720982dcd0642366546ff"/>
             <column name="LOCK_TIME" value="0"/>
             <column name="RELATIVE_LOCK_TIME" value="0"/>
+            <column name="SPENT" valueBoolean="false"/>
             <column name="LEASE_OWNER" value=""/>
             <column name="LEASE_EXPIRY" value="0"/>
+            <column name="BURN" valueBoolean="false"/>
+            <column name="ISSUANCE" valueBoolean="true"/>
             <column name="created_on" valueDate="2023-10-27T19:27:32.971393"/>
             <column name="updated_on"/>
         </insert>

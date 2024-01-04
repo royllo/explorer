@@ -7,6 +7,7 @@ import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 import org.royllo.explorer.core.provider.tapd.TapdService;
 import org.royllo.explorer.core.repository.request.RequestRepository;
+import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.asset.AssetStateService;
 import org.royllo.explorer.core.service.proof.ProofService;
 import org.royllo.explorer.core.service.request.RequestService;
@@ -14,6 +15,7 @@ import org.royllo.explorer.core.util.exceptions.proof.ProofCreationException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.ZoneId;
 import java.util.Optional;
 
 /**
@@ -38,6 +40,9 @@ public class AddProofBatch extends BaseBatch {
 
     /** Request service. */
     private final RequestService requestService;
+
+    /** Asset service. */
+    private final AssetService assetService;
 
     /** Asset state service. */
     private final AssetStateService assetStateService;
@@ -82,7 +87,12 @@ public class AddProofBatch extends BaseBatch {
                             // Now, we decode all proofs, one by one, starting by the oldest (issuance proof).
                             boolean proofAdded = false;
                             for (long i = numberOfProofs; i > 0; i--) {
-                                response = tapdService.decode(request.getProof(), i - 1).block();
+
+                                // We check if it's an issuance proof, if so, we will ask for meta reveal.
+                                response = tapdService.decode(request.getProof(), i - 1, true).block();
+                                if (response == null || response.getErrorCode() != null) {
+                                    response = tapdService.decode(request.getProof(), i - 1, false).block();
+                                }
 
                                 // We check if we have a decoded proof response.
                                 if (response == null) {
@@ -110,9 +120,20 @@ public class AddProofBatch extends BaseBatch {
                                             logger.info("For request {}, asset state {} already exists", request.getId(), assetStateToCreate.getAssetStateId());
                                         }
 
+                                        // We update the data and the file if we have the issuance proof
+                                        if (assetStateCreated.get().getAsset().getMetaDataFileName() == null && response.getDecodedProof().getMetaReveal() != null) {
+                                            logger.info("Creating meta data file");
+                                            assetService.updateAsset(response.getDecodedProof().getAsset().getAssetGenesis().getAssetId(),
+                                                    response.getDecodedProof().getMetaReveal().getData(),
+                                                    response.getDecodedProof().getAsset().getAmount(),
+                                                    assetStateCreated.get().getAnchorOutpoint().getBlockTime().atZone(ZoneId.of("Europe/Paris")));
+                                        } else {
+                                            logger.info("No meta data file to create");
+                                        }
+
                                         // If not already added, we add the proof.
                                         if (!proofAdded) {
-                                            proofService.addProof(request.getProof(), response);
+                                            proofService.addProof(request.getProof(), request.getProofType(), response);
                                             request.setAsset(assetStateCreated.get().getAsset());
                                             proofAdded = true;
                                         }

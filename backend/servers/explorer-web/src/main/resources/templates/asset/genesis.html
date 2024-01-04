@@ -55,6 +55,33 @@
                 </td>
             </th:block>
 
+            <!--/* Asset metadata (image or file) */-->
+            <th:block th:if="${#strings.equalsIgnoreCase(asset.MetaDataFileType, 'IMAGE')}">
+                <tr>
+                    <td>
+                        <div class="font-bold" th:text="#{asset.data.metaDataImage}"></div>
+                        <div class="text-ellipsis overflow-hidden">
+                            <img class="h-12 w-12 flex-none bg-gray-50"
+                                 th:alt="${asset.name}"
+                                 th:if="${#strings.equalsIgnoreCase(asset.MetaDataFileType, 'IMAGE')}"
+                                 th:src="${contentBaseUrl} + '/' + ${asset.MetaDataFileName}"/>
+                        </div>
+                    </td>
+                </tr>
+            </th:block>
+            <th:block th:if="${asset.metaDataFileName != null}">
+                <tr>
+                    <td>
+                        <div class="font-bold" th:text="#{asset.data.metaDataFile}"></div>
+                        <div class="text-ellipsis overflow-hidden">
+                            <a th:href="${contentBaseUrl} + '/' + ${asset.MetaDataFileName}"
+                               th:target="${asset.metaDataFileName}"
+                               th:text="${asset.metaDataFileName}"></a>
+                        </div>
+                    </td>
+                </tr>
+            </th:block>
+
             <tr th:replace="~{util/fragments/layouts/asset/table_line ::
                             table_line(#{asset.data.metaDataHash}, ${asset.metaDataHash})}"></tr>
 

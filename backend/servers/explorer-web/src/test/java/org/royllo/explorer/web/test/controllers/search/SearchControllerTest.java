@@ -11,7 +11,6 @@ import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 import org.royllo.explorer.web.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
@@ -37,9 +36,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @SpringBootTest
+@DirtiesContext
 @DisplayName("Search controller tests")
 @AutoConfigureMockMvc
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 public class SearchControllerTest extends BaseTest {
 
     @Autowired
@@ -119,17 +118,17 @@ public class SearchControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(SEARCH_PAGE)))
                 // Checking results.
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_01")))
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_02")))
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_03")))
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_04")))
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_05")))
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_06")))
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_07")))
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_08")))
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_09")))
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_10")))
-                .andExpect(content().string(not(containsString("/asset/FAKE_ASSET_ID_11"))))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000001")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000002")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000003")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000004")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000005")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000006")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000007")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000008")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000009")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000010")))
+                .andExpect(content().string(not(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000011"))))
                 // Checking pages.
                 .andExpect(content().string(not(containsString("previousPage"))))
                 .andExpect(content().string(containsString(">1/10</")))
@@ -146,17 +145,17 @@ public class SearchControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(SEARCH_PAGE)))
                 // Checking results.
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_01")))
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_02")))
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_03")))
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_04")))
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_05")))
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_06")))
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_07")))
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_08")))
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_09")))
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_10")))
-                .andExpect(content().string(not(containsString("/asset/FAKE_ASSET_ID_11"))))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000001")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000002")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000003")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000004")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000005")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000006")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000007")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000008")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000009")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000010")))
+                .andExpect(content().string(not(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000011"))))
                 // Checking pages.
                 .andExpect(content().string(not(containsString("previousPage"))))
                 .andExpect(content().string(containsString(">1/10</")))
@@ -173,10 +172,10 @@ public class SearchControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(SEARCH_PAGE)))
                 // Checking results.
-                .andExpect(content().string(not(containsString("/asset/FAKE_ASSET_ID_10"))))
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_11")))
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_20")))
-                .andExpect(content().string(not(containsString("/asset/FAKE_ASSET_ID_21"))))
+                .andExpect(content().string(not(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000010"))))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000011")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000020")))
+                .andExpect(content().string(not(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000021"))))
                 // Checking pages.
                 .andExpect(content().string(containsString("previousPage")))
                 .andExpect(content().string(containsString(">2/10</")))
@@ -193,7 +192,7 @@ public class SearchControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(SEARCH_PAGE)))
                 // Checking results.
-                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_99")))
+                .andExpect(content().string(containsString("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000099")))
                 // Checking pages.
                 .andExpect(content().string(containsString("previousPage")))
                 .andExpect(content().string(containsString(">10/10</")))
@@ -222,6 +221,29 @@ public class SearchControllerTest extends BaseTest {
 
     }
 
+
+    @DirtiesContext
+    @ParameterizedTest
+    @MethodSource("headers")
+    @DisplayName("Search page with images on results")
+    void searchPageWithImageInResults(final HttpHeaders headers) throws Exception {
+
+        // We check in the result.
+        mockMvc.perform(get("/search")
+                        .headers(headers)
+                        .param(QUERY_ATTRIBUTE, "roylloNFT")
+                        .param(PAGE_ATTRIBUTE, "1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(containsString(SEARCH_PAGE)))
+                // Check image link
+                .andExpect(content().string(containsString("/89c9d3ff7cb9dbc4615f854f7127e94db10edd430f8bcf82d7309d0c8b750051.png")))
+                // Checking error message.
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.invalidPage")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noQuery")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "search.error.noResult")))));
+
+    }
+
     /**
      * Create fake assets.
      */
@@ -242,16 +264,16 @@ public class SearchControllerTest extends BaseTest {
 
         // Create fake assets.
         for (int i = 1; i <= 99; i++) {
-            final Optional<AssetDTO> assetFound = assetService.getAssetByAssetId("FAKE_ASSET_ID_" + String.format("%02d", i));
+            final Optional<AssetDTO> assetFound = assetService.getAssetByAssetId("FAKE_ASSET_ID_000000000000000000000000000000000000000000000000" + String.format("%02d", i));
             if (assetFound.isEmpty()) {
                 assetService.addAsset(
                         AssetDTO.builder()
                                 .creator(ANONYMOUS_USER_DTO)
                                 .assetGroup(assetGroupDTO)
-                                .assetId("FAKE_ASSET_ID_" + String.format("%02d", i))
+                                .assetId("FAKE_ASSET_ID_000000000000000000000000000000000000000000000000" + String.format("%02d", i))
                                 .genesisPoint(bto.get())
                                 .metaDataHash("metadata")
-                                .name("FAKE_ASSET_NAME_" + String.format("%02d", i))
+                                .name("FAKE_ASSET_NAME_000000000000000000000000000000000000000000000000" + String.format("%02d", i))
                                 .outputIndex(0)
                                 .version(0)
                                 .type(NORMAL)

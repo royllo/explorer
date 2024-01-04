@@ -1,9 +1,13 @@
 package org.royllo.explorer.batch.test.core.proof;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.request.AddProofBatch;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
+import org.royllo.explorer.core.dto.proof.ProofDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.repository.asset.AssetGroupRepository;
@@ -21,12 +25,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.royllo.explorer.core.dto.proof.ProofDTO.PROOF_FILE_NAME_EXTENSION;
+import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
+import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 import static org.royllo.test.MempoolData.SET_OF_ROYLLO_NFT_ANCHOR_1_VOUT;
@@ -37,14 +46,13 @@ import static org.royllo.test.MempoolData.TRICKY_ROYLLO_COIN_ANCHOR_1_TXID;
 import static org.royllo.test.MempoolData.TRICKY_ROYLLO_COIN_ANCHOR_2_TXID;
 import static org.royllo.test.MempoolData.TRICKY_ROYLLO_COIN_ANCHOR_3_TXID;
 import static org.royllo.test.MempoolData.TRICKY_ROYLLO_COIN_GENESIS_TXID;
-import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_ASSET_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_FROM_TEST;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
-@DisplayName("trickyRoylloCoin test")
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
+@DisplayName("trickyRoylloCoin test")
 @ActiveProfiles({"scheduler-disabled"})
 public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
 
@@ -237,6 +245,8 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
 
         // Verify asset.
         verifyAsset(assetService.getAssetByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID).get(), TRICKY_ROYLLO_COIN_ASSET_ID);
+        assertNotNull(asset.get().getAmount());
+        assertNotNull(asset.get().getIssuanceDate());
 
         // Verify asset states.
         verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID).get(),
@@ -247,6 +257,61 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
                 TRICKY_ROYLLO_COIN_3_ASSET_STATE_ID);
         verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_4_ASSET_STATE_ID).get(),
                 TRICKY_ROYLLO_COIN_4_ASSET_STATE_ID);
+
+        // =============================================================================================================
+        // We check meta-data file for TRICKY_ROYLLO_COIN_ASSET_ID.
+        var client = new OkHttpClient();
+        assertNotNull(asset.get().getMetaDataFileName());
+        Request request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + asset.get().getMetaDataFileName())
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(200, response.code());
+            assertEquals("trickyRoylloCoin by Royllo", response.body().string());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
+
+        // =============================================================================================================
+        // We should have the proof file on our content service.
+        final Optional<ProofDTO> proof1Created = proofService.getProofByProofId(TRICKY_ROYLLO_COIN_1_PROOF_ID);
+        assertTrue(proof1Created.isPresent());
+        assertEquals(TRICKY_ROYLLO_COIN_1_PROOF_ID + PROOF_FILE_NAME_EXTENSION, proof1Created.get().getProofFileName());
+        request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + proof1Created.get().getProofFileName())
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(200, response.code());
+            assertEquals(TRICKY_ROYLLO_COIN_1_RAW_PROOF, response.body().string());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
+
+        final Optional<ProofDTO> proof2Created = proofService.getProofByProofId(TRICKY_ROYLLO_COIN_2_PROOF_ID);
+        assertTrue(proof2Created.isPresent());
+        assertEquals(TRICKY_ROYLLO_COIN_2_PROOF_ID + PROOF_FILE_NAME_EXTENSION, proof2Created.get().getProofFileName());
+        request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + proof2Created.get().getProofFileName())
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(200, response.code());
+            assertEquals(TRICKY_ROYLLO_COIN_2_RAW_PROOF, response.body().string());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
+
+        final Optional<ProofDTO> proof3Created = proofService.getProofByProofId(TRICKY_ROYLLO_COIN_3_PROOF_ID);
+        assertTrue(proof3Created.isPresent());
+        assertEquals(TRICKY_ROYLLO_COIN_3_PROOF_ID + PROOF_FILE_NAME_EXTENSION, proof3Created.get().getProofFileName());
+        request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + proof3Created.get().getProofFileName())
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(200, response.code());
+            assertEquals(TRICKY_ROYLLO_COIN_3_RAW_PROOF, response.body().string());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
     }
 
     @Test
@@ -280,7 +345,7 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
         final long assetStateCountBefore = assetStateRepository.count();
 
         // =============================================================================================================
-        // We add the three proofs.
+        // We add the latest proof.
         AddProofRequestDTO addTrickyCoinProof3Request = requestService.createAddProofRequest(TRICKY_ROYLLO_COIN_3_RAW_PROOF);
         assertNotNull(addTrickyCoinProof3Request);
         assertEquals(OPENED, addTrickyCoinProof3Request.getStatus());
@@ -319,7 +384,9 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
         assertEquals(assetStateCountBefore + 3, assetStateRepository.count());
 
         // Verify asset.
-        verifyAsset(assetService.getAssetByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID).get(), TRICKY_ROYLLO_COIN_ASSET_ID);
+        Optional<AssetDTO> asset = assetService.getAssetByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID);
+        assertTrue(asset.isPresent());
+        verifyAsset(asset.get(), TRICKY_ROYLLO_COIN_ASSET_ID);
 
         // Verify asset states.
         verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID).get(),
@@ -328,6 +395,36 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
                 TRICKY_ROYLLO_COIN_3_ASSET_STATE_ID);
         verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_4_ASSET_STATE_ID).get(),
                 TRICKY_ROYLLO_COIN_4_ASSET_STATE_ID);
+
+        // =============================================================================================================
+        // We check meta-data file for TRICKY_ROYLLO_COIN_ASSET_ID.
+        var client = new OkHttpClient();
+        assertNotNull(asset.get().getMetaDataFileName());
+        Request request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + asset.get().getMetaDataFileName())
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(200, response.code());
+            assertEquals("trickyRoylloCoin by Royllo", response.body().string());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
+
+        // =============================================================================================================
+        // We should have the proof file on our content service.
+
+        final Optional<ProofDTO> proof3Created = proofService.getProofByProofId(TRICKY_ROYLLO_COIN_3_PROOF_ID);
+        assertTrue(proof3Created.isPresent());
+        assertEquals(TRICKY_ROYLLO_COIN_3_PROOF_ID + PROOF_FILE_NAME_EXTENSION, proof3Created.get().getProofFileName());
+        request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + proof3Created.get().getProofFileName())
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(200, response.code());
+            assertEquals(TRICKY_ROYLLO_COIN_3_RAW_PROOF, response.body().string());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
     }
 
 }

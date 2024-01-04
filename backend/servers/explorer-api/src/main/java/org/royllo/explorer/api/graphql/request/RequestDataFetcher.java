@@ -9,7 +9,6 @@ import com.netflix.graphql.dgs.InputArgument;
 import com.netflix.graphql.dgs.exceptions.DgsEntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.api.util.base.BaseDataFetcher;
-import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
@@ -35,8 +34,6 @@ public class RequestDataFetcher extends BaseDataFetcher {
     public String resolveRequest(final RequestDTO requestDTO) {
         if (requestDTO instanceof AddProofRequestDTO) {
             return "AddProofRequest";
-        } else if (requestDTO instanceof AddAssetMetaDataRequestDTO) {
-            return "AddAssetMetaDataRequest";
         } else if (requestDTO instanceof AddUniverseServerRequestDTO) {
             return "AddUniverseServerRequest";
         } else {
@@ -64,17 +61,6 @@ public class RequestDataFetcher extends BaseDataFetcher {
     @DgsMutation
     public final AddProofRequestDTO createAddProofRequest(final @InputArgument AddProofRequestInputs input) {
         return requestService.createAddProofRequest(input.getProof());
-    }
-
-    /**
-     * Creates a request to add an asset meta data.
-     *
-     * @param input add asset meta data request inputs
-     * @return request created
-     */
-    @DgsMutation
-    public final AddAssetMetaDataRequestDTO createAddAssetMetaDataRequest(final @InputArgument AddAssetMetaDataRequestInputs input) {
-        return requestService.createAddAssetMetaDataRequest(input.getAssetId(), input.getMetaData());
     }
 
     /**

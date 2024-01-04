@@ -4,10 +4,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.ToString;
 import lombok.Value;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.user.UserDTO;
+import org.royllo.explorer.core.util.enums.ProofType;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -20,11 +20,8 @@ import static lombok.AccessLevel.PRIVATE;
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public class ProofDTO {
 
-    /** Proof minimum size - Under this size, the proof is displayed without preview. */
-    private static final int PROOF_MINIMUM_SIZE = 6;
-
-    /** Proof preview size - The size of the preview on both ends. */
-    private static final int PROOF_PREVIEW_SIZE = 3;
+    /** Proof file name extension. */
+    public static final String PROOF_FILE_NAME_EXTENSION = ".proof";
 
     /** Unique identifier. */
     Long id;
@@ -41,28 +38,17 @@ public class ProofDTO {
     @NotBlank(message = "Proof file ID is required")
     String proofId;
 
-    /** Proof. */
-    @ToString.Exclude
-    @NotBlank(message = "Proof is required")
-    String proof;
+    /** Proof type. */
+    @NotNull(message = "Proof type is required")
+    ProofType proofType;
 
     /**
-     * Returns an abstract of proof (for logs).
-     * Three first characters, three dots, three last characters.
+     * Returns the proof file name.
      *
-     * @return proof abstract
+     * @return the proof file name
      */
-    @ToString.Include(name = "proofAbstract")
-    public String getProofAbstract() {
-        // If proof is null, return null.
-        if (proof == null) {
-            return null;
-        }
-        // If proof is too small for substring, return proof.
-        if (proof.length() <= PROOF_MINIMUM_SIZE) {
-            return proof;
-        }
-        return proof.substring(0, PROOF_PREVIEW_SIZE) + "..." + proof.substring(proof.length() - PROOF_PREVIEW_SIZE);
+    public String getProofFileName() {
+        return proofId + PROOF_FILE_NAME_EXTENSION;
     }
 
 }

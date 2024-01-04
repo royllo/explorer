@@ -19,10 +19,9 @@ import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANO
 import static org.royllo.explorer.core.util.enums.RequestStatus.FAILURE;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @DisplayName("Purge batch test")
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
+@DirtiesContext
 @ActiveProfiles("scheduler-disabled")
 @Testcontainers
 @SpringBootTest(properties = {"spring.datasource.url=jdbc:tc:postgresql:16:///explorer",

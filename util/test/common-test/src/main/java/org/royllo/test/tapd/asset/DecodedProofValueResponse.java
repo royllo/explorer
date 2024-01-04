@@ -56,7 +56,20 @@ public class DecodedProofValueResponse {
         @JsonProperty("asset")
         Asset asset;
 
-        /** Transaction merkle proof. */
+        /** The reveal meta-data associated with the proof, if available. */
+        @JsonProperty("meta_reveal")
+        Asset.MetaReveal metaReveal;
+
+        /**
+         * Indicates whether this proof is an issuance.
+         *
+         * @return true if issuance
+         */
+        boolean isIssuance() {
+            return metaReveal != null;
+        }
+
+        /** The merkle proof for AnchorTx used to prove its inclusion within BlockHeader. */
         @JsonProperty("tx_merkle_proof")
         String txMerkleProof;
 
@@ -129,7 +142,7 @@ public class DecodedProofValueResponse {
 
             /** Previous witnesses. */
             @JsonProperty("prev_witnesses")
-            List<String> prevWitnesses;
+            List<PrevWitness> prevWitnesses;
 
             /** Indicates whether the asset has been spent. */
             @JsonProperty("is_spent")
@@ -183,6 +196,53 @@ public class DecodedProofValueResponse {
                 } catch (NoSuchAlgorithmException e) {
                     throw new RuntimeException("SHA-256 is not available: " + e.getMessage());
                 }
+            }
+
+            @Getter
+            @Setter
+            @NoArgsConstructor
+            @ToString
+            @JsonIgnoreProperties(ignoreUnknown = true)
+            public static class MetaReveal {
+
+                /** The raw data of the asset meta-data. Based on the type below, this may be structured data such as a text file or PDF. The size of the data is limited to 1MiB. */
+                @JsonProperty("data")
+                private String data;
+
+                /** The type of the meta-data. */
+                @JsonProperty("type")
+                private String type;
+
+                /** The hash of the meta. This is the hash of the TLV serialization of the meta itself. */
+                @JsonProperty("meta_hash")
+                private String metaHash;
+
+            }
+
+            @Getter
+            @Setter
+            @NoArgsConstructor
+            @ToString
+            @JsonIgnoreProperties(ignoreUnknown = true)
+            public static class PrevWitness {
+
+                /** Split commitment. */
+                @JsonProperty("split_commitment")
+                private SplitCommitment splitCommitment;
+
+            }
+
+            @Getter
+            @Setter
+            @NoArgsConstructor
+            @ToString
+            @JsonIgnoreProperties(ignoreUnknown = true)
+            public static class SplitCommitment {
+
+                /** Script key. */
+                @JsonProperty("script_key")
+                private String scriptKey;
+
             }
 
             @Getter

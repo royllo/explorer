@@ -2,14 +2,15 @@ package org.royllo.explorer.core.test.core.repository;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.royllo.explorer.core.domain.request.AddAssetMetaDataRequest;
 import org.royllo.explorer.core.domain.request.AddProofRequest;
+import org.royllo.explorer.core.domain.request.AddUniverseServerRequest;
 import org.royllo.explorer.core.domain.request.Request;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.annotation.DirtiesContext;
 
 import javax.sql.DataSource;
 import java.util.Optional;
@@ -25,6 +26,7 @@ import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 
 @SpringBootTest
+@DirtiesContext
 @DisplayName("RequestRepository tests")
 public class RequestRepositoryTest extends TestWithMockServers {
 
@@ -66,31 +68,29 @@ public class RequestRepositoryTest extends TestWithMockServers {
         assertEquals(request1ID, addAssetRequest1IDFromJDBC);
 
         // =============================================================================================================
-        // Creating request 2 (ADD_ASSET_META_DATA type).
-        AddAssetMetaDataRequest request2 = new AddAssetMetaDataRequest();
+        // Creating request 2 (ADD_UNIVERSE_SERVER type).
+        AddUniverseServerRequest request2 = new AddUniverseServerRequest();
         request2.setRequestId(UUID.randomUUID().toString());
         request2.setCreator(ANONYMOUS_USER);
         request2.setStatus(SUCCESS);
-        request2.setAssetId("TaprootAssetId1");
-        request2.setMetaData("Meta1");
+        request2.setServerAddress("serverAddress1");
         long request2ID = requestRepository.save(request2).getId();
 
         // See what's in database with JPA.
         Optional<Request> request2FromJPA = requestRepository.findById(request2ID);
         assertTrue(request2FromJPA.isPresent());
-        AddAssetMetaDataRequest addAssetMeatRequest2FromJPA = (AddAssetMetaDataRequest) request2FromJPA.get();
-        assertEquals(request2ID, addAssetMeatRequest2FromJPA.getId());
-        assertEquals(ANONYMOUS_USER_USERNAME, addAssetMeatRequest2FromJPA.getCreator().getUsername());
-        assertEquals(SUCCESS, addAssetMeatRequest2FromJPA.getStatus());
-        assertNull(addAssetMeatRequest2FromJPA.getErrorMessage());
-        assertEquals("TaprootAssetId1", addAssetMeatRequest2FromJPA.getAssetId());
-        assertEquals("Meta1", addAssetMeatRequest2FromJPA.getMetaData());
+        AddUniverseServerRequest addUniverseServerRequest2FromJPA = (AddUniverseServerRequest) request2FromJPA.get();
+        assertEquals(request2ID, addUniverseServerRequest2FromJPA.getId());
+        assertEquals(ANONYMOUS_USER_USERNAME, addUniverseServerRequest2FromJPA.getCreator().getUsername());
+        assertEquals(SUCCESS, addUniverseServerRequest2FromJPA.getStatus());
+        assertNull(addUniverseServerRequest2FromJPA.getErrorMessage());
+        assertEquals("serverAddress1", addUniverseServerRequest2FromJPA.getServerAddress());
 
         // See what's in database with JDBC.
         jdbcTemplate = new JdbcTemplate(dataSource);
         Long request2IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUEST", Long.class);
         assertEquals(request2ID, request2IDFromJDBC);
-        Long addAssetRequest2IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUEST_ADD_ASSET_META_DATA", Long.class);
+        Long addAssetRequest2IDFromJDBC = jdbcTemplate.queryForObject("SELECT MAX(ID) FROM REQUEST_ADD_UNIVERSE_SERVER", Long.class);
         assertEquals(request2ID, addAssetRequest2IDFromJDBC);
 
         // =============================================================================================================

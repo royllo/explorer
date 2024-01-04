@@ -3,6 +3,7 @@ package org.royllo.explorer.core.domain.request;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -12,7 +13,9 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.royllo.explorer.core.domain.asset.Asset;
+import org.royllo.explorer.core.util.enums.ProofType;
 
+import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.FetchType.EAGER;
 
 /**
@@ -29,8 +32,13 @@ import static jakarta.persistence.FetchType.EAGER;
 public class AddProofRequest extends Request {
 
     /** Proof that validates the asset information. */
-    @Column(name = "proof", updatable = false)
+    @Column(name = "PROOF", updatable = false)
     private String proof;
+
+    /** Proof type. */
+    @Enumerated(STRING)
+    @Column(name = "PROOF_TYPE", updatable = false)
+    private ProofType proofType;
 
     /** The asset created/updated by this request. */
     @ManyToOne(fetch = EAGER)

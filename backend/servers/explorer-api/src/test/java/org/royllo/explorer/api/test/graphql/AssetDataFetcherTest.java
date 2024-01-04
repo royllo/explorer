@@ -16,6 +16,7 @@ import org.royllo.explorer.api.graphql.generated.types.AssetPage;
 import org.royllo.test.tapd.asset.DecodedProofValueResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import static graphql.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,6 +41,7 @@ import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_2_ASSET_ID;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_2_ASSET_ID_ALIAS;
 
 @SpringBootTest
+@DirtiesContext
 @DisplayName("AssetDataFetcher tests")
 public class AssetDataFetcherTest {
 
@@ -259,6 +261,7 @@ public class AssetDataFetcherTest {
                                 .assetIdAlias()
                                 .genesisPoint().txId().vout().parent()
                                 .metaDataHash()
+                                .metaDataFileName()
                                 .name()
                                 .outputIndex()
                                 .version()

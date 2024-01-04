@@ -1,9 +1,13 @@
 package org.royllo.explorer.batch.test.core.proof;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.request.AddProofBatch;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
+import org.royllo.explorer.core.dto.proof.ProofDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.repository.asset.AssetGroupRepository;
@@ -22,12 +26,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.royllo.explorer.core.dto.proof.ProofDTO.PROOF_FILE_NAME_EXTENSION;
+import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
+import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 import static org.royllo.explorer.core.util.mapper.AssetMapperDecorator.ALIAS_LENGTH;
@@ -37,11 +46,10 @@ import static org.royllo.test.MempoolData.ROYLLO_NFT_GENESIS_TXID;
 import static org.royllo.test.MempoolData.ROYLLO_NFT_GENESIS_VOUT;
 import static org.royllo.test.TapdData.ROYLLO_NFT_ASSET_ID;
 import static org.royllo.test.TapdData.ROYLLO_NFT_FROM_TEST;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
+@DirtiesContext
 @DisplayName("roylloNFT integration test")
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles({"scheduler-disabled"})
 public class RoylloNFTIntegrationTest extends TestWithMockServers {
 
@@ -136,6 +144,8 @@ public class RoylloNFTIntegrationTest extends TestWithMockServers {
         assertTrue(asset.isPresent());
         assertNotNull(asset.get().getAssetIdAlias());
         assertEquals(ALIAS_LENGTH, asset.get().getAssetIdAlias().length());
+        assertNotNull(asset.get().getAmount());
+        assertNotNull(asset.get().getIssuanceDate());
         verifyTransaction(bitcoinService.getBitcoinTransactionOutput(ROYLLO_NFT_GENESIS_TXID, ROYLLO_NFT_GENESIS_VOUT).get(),
                 ROYLLO_NFT_GENESIS_TXID);
         verifyTransaction(bitcoinService.getBitcoinTransactionOutput(ROYLLO_NFT_ANCHOR_1_TXID, ROYLLO_NFT_ANCHOR_1_VOUT).get(),
@@ -146,6 +156,36 @@ public class RoylloNFTIntegrationTest extends TestWithMockServers {
                 ROYLLO_NFT_ANCHOR_1_TXID,
                 ROYLLO_NFT_ANCHOR_1_VOUT,
                 ROYLLO_NFT_FROM_TEST.getDecodedProofResponse(0).getAsset().getScriptKey());
+
+        // =============================================================================================================
+        // We check meta-data file for our three assets
+        var client = new OkHttpClient();
+
+        // Asset 1.
+        assertNotNull(asset.get().getMetaDataFileName());
+        Request request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + asset.get().getMetaDataFileName())
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(200, response.code());
+            assertEquals("roylloNFT by Royllo", response.body().string());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
+
+        // We should have the proof file on our content service.
+        final Optional<ProofDTO> proofCreated = proofService.getProofByProofId(ROYLLO_NFT_PROOF_ID);
+        assertTrue(proofCreated.isPresent());
+        assertEquals(ROYLLO_NFT_PROOF_ID + PROOF_FILE_NAME_EXTENSION, proofCreated.get().getProofFileName());
+        request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + proofCreated.get().getProofFileName())
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(200, response.code());
+            assertEquals(ROYLLO_NFT_RAW_PROOF, response.body().string());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
     }
 
 }

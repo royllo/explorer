@@ -5,11 +5,14 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
+import org.apache.commons.lang3.StringUtils;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.dto.user.UserDTO;
 import org.royllo.explorer.core.util.enums.AssetType;
+import org.royllo.explorer.core.util.enums.FileType;
 
 import java.math.BigInteger;
+import java.time.ZonedDateTime;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -49,6 +52,9 @@ public class AssetDTO {
     /** The hash of the metadata for this genesis asset. */
     String metaDataHash;
 
+    /** Meta data file name. */
+    String metaDataFileName;
+
     /** The index of the output that carries the unique Taproot asset commitment in the genesis transaction. */
     @NotNull(message = "Output index is required")
     Integer outputIndex;
@@ -61,8 +67,22 @@ public class AssetDTO {
     @NotNull(message = "Asset type is required")
     AssetType type;
 
-    /** The total amount of the asset stored in this Taproot asset UTXO. */
-    @NotNull(message = "Total amount is required")
+    /** The total amount minted for this asset. */
     BigInteger amount;
+
+    /** The date and time when the asset was created. */
+    ZonedDateTime issuanceDate;
+
+    /**
+     * Returns the type of the metadata file.
+     *
+     * @return file type
+     */
+    public FileType getMetaDataFileType() {
+        if (StringUtils.isBlank(metaDataFileName) || metaDataFileName.lastIndexOf(".") == -1) {
+            return FileType.UNKNOWN;
+        }
+        return FileType.getTypeByExtension(metaDataFileName.substring(metaDataFileName.lastIndexOf(".") + 1));
+    }
 
 }

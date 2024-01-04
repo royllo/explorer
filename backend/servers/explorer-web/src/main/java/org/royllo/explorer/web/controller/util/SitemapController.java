@@ -37,10 +37,11 @@ public class SitemapController {
     public String sitemap(final Model model) {
 
         // Get all asset ids and generate the corresponding urls.
+        final String baseUrl = roylloExplorerParameters.getWeb().getBaseUrl() + "/asset/";
         List<String> urls = assetRepository.findAll()
                 .stream()
                 .map(Asset::getAssetId)
-                .map(assetId -> roylloExplorerParameters.getWeb().getBaseUrl() + "/asset/" + assetId)
+                .map(assetId -> baseUrl + assetId)
                 .toList();
         model.addAttribute(SITEMAP_URLS_ATTRIBUTE, urls);
 

@@ -3,10 +3,16 @@ package org.royllo.explorer.core.service.asset;
 import io.micrometer.common.util.StringUtils;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
+import org.apache.tika.Tika;
+import org.apache.tika.mime.MimeTypeException;
+import org.apache.tika.mime.MimeTypes;
 import org.royllo.explorer.core.domain.asset.Asset;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
+import org.royllo.explorer.core.provider.storage.ContentService;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 import org.royllo.explorer.core.util.base.BaseService;
@@ -15,11 +21,14 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
 import static java.util.stream.Collectors.joining;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
+import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_SIZE;
 
 /**
  * {@link AssetService} implementation.
@@ -37,6 +46,9 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
 
     /** Bitcoin service. */
     private final BitcoinService bitcoinService;
+
+    /** Content service. */
+    private final ContentService contentService;
 
     @Override
     public Page<AssetDTO> queryAssets(@NonNull final String query,
@@ -138,6 +150,55 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
     }
 
     @Override
+    public void updateAsset(final String assetId,
+                            final String metadata,
+                            final BigInteger amount,
+                            final ZonedDateTime issuanceDate) {
+        final Optional<Asset> assetToUpdate = assetRepository.findByAssetId(assetId);
+
+        // We check that the asset exists.
+        assert assetToUpdate.isPresent() : assetId + " not found";
+
+        // =============================================================================================================
+        // If we have the metadata.
+        if (metadata != null) {
+
+            try {
+                // Decoding (same as using xxd -r -p)
+                byte[] decodedBytes = Hex.decodeHex(metadata);
+
+                // Detecting the file type.
+                final String mimeType = new Tika().detect(decodedBytes);
+                final String extension = MimeTypes.getDefaultMimeTypes().forName(mimeType).getExtension();
+
+                // Saving the file.
+                final String fileName = assetId + extension;
+                contentService.storeFile(decodedBytes, fileName);
+
+                // Setting the name of the file.
+                assetToUpdate.get().setMetaDataFileName(fileName);
+            } catch (DecoderException | MimeTypeException e) {
+                logger.error("Error decoding and saving metadata {}", e.getMessage());
+            }
+        }
+
+        // =============================================================================================================
+        // If we have the new amount.
+        if (amount != null) {
+            assetToUpdate.get().setAmount(amount);
+        }
+
+        // =============================================================================================================
+        // If we have the issuance date.
+        if (issuanceDate != null) {
+            assetToUpdate.get().setIssuanceDate(issuanceDate);
+        }
+
+        // We save the asset with the new information.
+        assetRepository.save(assetToUpdate.get());
+    }
+
+    @Override
     public Optional<AssetDTO> getAsset(final long id) {
         logger.info("Getting asset with id {}", id);
 
@@ -159,23 +220,28 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
             return Optional.empty();
         }
 
-        Optional<Asset> asset = assetRepository.findByAssetId(assetId.trim());
-        if (asset.isEmpty()) {
-            logger.info("Asset with assetId {} not found, searching on assetIdAlias", assetId);
-
-            // As asset id is not found, we search on asset id alias.
-            asset = assetRepository.findByAssetIdAlias(assetId.trim());
+        if (assetId.length() == ASSET_ID_SIZE) {
+            // We received an asset id (we know it because of the size).
+            Optional<Asset> asset = assetRepository.findByAssetId(assetId.trim());
+            if (asset.isPresent()) {
+                logger.info("Asset with assetId {} found: {}", assetId, asset.get());
+                return asset.map(ASSET_MAPPER::mapToAssetDTO);
+            } else {
+                logger.info("Asset with assetId {} not found", assetId);
+                return Optional.empty();
+            }
+        } else {
+            // it's not an asset id (the size is not the good one), so we search on asset id alias.
+            Optional<Asset> asset = assetRepository.findByAssetIdAlias(assetId.trim());
             if (asset.isPresent()) {
                 logger.info("Asset with assetIdAlias {} found: {}", assetId, asset.get());
                 return asset.map(ASSET_MAPPER::mapToAssetDTO);
             } else {
-                logger.info("Asset with assetId or assetIdAlias {} not found", assetId);
+                logger.info("Asset with assetIdAlias {} not found", assetId);
                 return Optional.empty();
             }
-        } else {
-            logger.info("Asset with assetId {} found: {}", assetId, asset.get());
-            return asset.map(ASSET_MAPPER::mapToAssetDTO);
         }
+
     }
 
     @Override

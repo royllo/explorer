@@ -13,16 +13,19 @@ import org.royllo.explorer.api.graphql.generated.types.ProofPage;
 import org.royllo.explorer.core.util.base.Base;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.royllo.explorer.core.dto.proof.ProofDTO.PROOF_FILE_NAME_EXTENSION;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_FROM_TEST;
 
 @SpringBootTest
+@DirtiesContext
 @DisplayName("ProofDataFetcher tests")
 public class ProofDataFetcherTest extends Base {
 
@@ -53,7 +56,7 @@ public class ProofDataFetcherTest extends Base {
                                 .creator().userId().username().parent()
                                 .asset().assetId().parent()
                                 .proofId()
-                                .proof()
+                                .proofFileName()
                                 .parent()
                                 .totalElements()
                                 .totalPages()
@@ -75,7 +78,7 @@ public class ProofDataFetcherTest extends Base {
         assertEquals(ANONYMOUS_USER_ID, proof1.get().getCreator().getUserId());
         assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof1.get().getAsset().getAssetId());
         assertEquals(TRICKY_ROYLLO_COIN_1_PROOF_ID, proof1.get().getProofId());
-        assertEquals(TRICKY_ROYLLO_COIN_1_RAW_PROOF, proof1.get().getProof());
+        assertEquals(sha256(TRICKY_ROYLLO_COIN_1_RAW_PROOF) + PROOF_FILE_NAME_EXTENSION, proof1.get().getProofFileName());
 
         // Testing proof 2.
         final Optional<Proof> proof2 = proofPage.getContent().stream()
@@ -85,7 +88,7 @@ public class ProofDataFetcherTest extends Base {
         assertEquals(ANONYMOUS_USER_ID, proof2.get().getCreator().getUserId());
         assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof2.get().getAsset().getAssetId());
         assertEquals(TRICKY_ROYLLO_COIN_2_PROOF_ID, proof2.get().getProofId());
-        assertEquals(TRICKY_ROYLLO_COIN_2_RAW_PROOF, proof2.get().getProof());
+        assertEquals(sha256(TRICKY_ROYLLO_COIN_2_RAW_PROOF) + PROOF_FILE_NAME_EXTENSION, proof2.get().getProofFileName());
 
 
         // Testing proof 3.
@@ -96,8 +99,7 @@ public class ProofDataFetcherTest extends Base {
         assertEquals(ANONYMOUS_USER_ID, proof3.get().getCreator().getUserId());
         assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof3.get().getAsset().getAssetId());
         assertEquals(TRICKY_ROYLLO_COIN_3_PROOF_ID, proof3.get().getProofId());
-        assertEquals(TRICKY_ROYLLO_COIN_3_RAW_PROOF, proof3.get().getProof());
-
+        assertEquals(sha256(TRICKY_ROYLLO_COIN_3_RAW_PROOF) + PROOF_FILE_NAME_EXTENSION, proof3.get().getProofFileName());
 
         // Checking page management results.
         proofPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
@@ -107,7 +109,7 @@ public class ProofDataFetcherTest extends Base {
                                 .creator().userId().username().parent()
                                 .asset().assetId().parent()
                                 .proofId()
-                                .proof()
+                                .proofFileName()
                                 .parent()
                                 .totalElements()
                                 .totalPages()

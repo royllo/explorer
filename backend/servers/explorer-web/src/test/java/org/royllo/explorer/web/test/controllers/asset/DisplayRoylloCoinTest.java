@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.CoreMatchers.not;
@@ -32,6 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @SpringBootTest
+@DirtiesContext
 @DisplayName("Display roylloCoin page tests")
 @AutoConfigureMockMvc
 public class DisplayRoylloCoinTest extends BaseTest {
@@ -83,6 +85,8 @@ public class DisplayRoylloCoinTest extends BaseTest {
                 .andExpect(content().string(containsString(">" + assetIdAlias + "<")))
                 .andExpect(content().string(containsString(">" + getMessage(messages, "asset.data.assetType.normal") + "<")))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAmount() + "<")))
+                .andExpect(content().string(not(containsString("src=" + "\"" + "null/" + assetFromTest.getAsset().getAssetGenesis().getAssetId() + ".txt"))))
+                .andExpect(content().string(containsString("href=" + "\"" + "null/" + assetFromTest.getAsset().getAssetGenesis().getAssetId() + ".txt")))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getMetaDataHash() + "<")))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getVersion() + "<")))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getGenesisPoint() + "<")))

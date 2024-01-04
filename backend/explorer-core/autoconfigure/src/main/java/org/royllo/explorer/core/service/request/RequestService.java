@@ -1,9 +1,9 @@
 package org.royllo.explorer.core.service.request;
 
-import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
+import org.royllo.explorer.core.util.enums.ProofType;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +15,7 @@ public interface RequestService {
 
     /**
      * Returns the list of opened requests.
+     * (will return a max of 100 requests)
      *
      * @return opened requests
      */
@@ -45,14 +46,13 @@ public interface RequestService {
     AddProofRequestDTO createAddProofRequest(String proof);
 
     /**
-     * Creates a request to add an asset meta data.
+     * Creates a request to add a proof.
      *
-     * @param assetId  asset id
-     * @param metaData Metadata corresponding to the meta hash stored in the genesis information
+     * @param proof     proof that validates the asset information
+     * @param proofType proof type
      * @return id of the request created
      */
-    AddAssetMetaDataRequestDTO createAddAssetMetaDataRequest(String assetId,
-                                                             String metaData);
+    AddProofRequestDTO createAddProofRequest(String proof, ProofType proofType);
 
     /**
      * Creates a request to add a royllo universe server to royllo database.

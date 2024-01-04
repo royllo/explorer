@@ -2,16 +2,16 @@ package org.royllo.explorer.core.service.request;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.royllo.explorer.core.domain.request.AddAssetMetaDataRequest;
 import org.royllo.explorer.core.domain.request.AddProofRequest;
 import org.royllo.explorer.core.domain.request.AddUniverseServerRequest;
 import org.royllo.explorer.core.domain.request.Request;
-import org.royllo.explorer.core.dto.request.AddAssetMetaDataRequestDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.util.base.BaseService;
+import org.royllo.explorer.core.util.enums.ProofType;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +20,7 @@ import java.util.UUID;
 
 import static java.util.stream.Collectors.joining;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
+import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_UNSPECIFIED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.openedStatus;
 
@@ -31,6 +32,9 @@ import static org.royllo.explorer.core.util.enums.RequestStatus.openedStatus;
 @SuppressWarnings({"checkstyle:DesignForExtension", "unused"})
 public class RequestServiceImplementation extends BaseService implements RequestService {
 
+    /** Maximum number of opened requests results. */
+    public static final int MAXIMUM_OPENED_REQUESTS_RESULTS = 100;
+
     /** Request repository. */
     private final RequestRepository requestRepository;
 
@@ -39,7 +43,8 @@ public class RequestServiceImplementation extends BaseService implements Request
         logger.info("Getting opened requests");
 
         // Getting results.
-        final List<RequestDTO> results = requestRepository.findByStatusInOrderById(openedStatus())
+        final List<RequestDTO> results = requestRepository.findByStatusInOrderById(openedStatus(),
+                        Pageable.ofSize(MAXIMUM_OPENED_REQUESTS_RESULTS))
                 .stream()
                 .map(REQUEST_MAPPER::mapToRequestDTO)
                 .toList();
@@ -88,6 +93,12 @@ public class RequestServiceImplementation extends BaseService implements Request
 
     @Override
     public AddProofRequestDTO createAddProofRequest(final String proof) {
+        return createAddProofRequest(proof, PROOF_TYPE_UNSPECIFIED);
+    }
+
+    @Override
+    public AddProofRequestDTO createAddProofRequest(final String proof,
+                                                    final ProofType proofType) {
         logger.info("Adding proof request with proof {}", proof);
 
         // Creating and saving the request.
@@ -96,28 +107,10 @@ public class RequestServiceImplementation extends BaseService implements Request
                 .creator(ANONYMOUS_USER)
                 .status(OPENED)
                 .proof(proof)
+                .proofType(proofType)
                 .build();
 
         AddProofRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetRequestDTO(requestRepository.save(request));
-        logger.info("Request {} saved", savedRequest);
-        return savedRequest;
-    }
-
-    @Override
-    public AddAssetMetaDataRequestDTO createAddAssetMetaDataRequest(@NonNull final String assetId,
-                                                                    final String metaData) {
-        logger.info("Adding metadata request for Taproot asset id {}", assetId);
-
-        // Creating and saving the request.
-        AddAssetMetaDataRequest request = AddAssetMetaDataRequest.builder()
-                .requestId(UUID.randomUUID().toString())
-                .creator(ANONYMOUS_USER)
-                .status(OPENED)
-                .assetId(assetId)
-                .metaData(metaData)
-                .build();
-
-        AddAssetMetaDataRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetMetaRequestDTO(requestRepository.save(request));
         logger.info("Request {} saved", savedRequest);
         return savedRequest;
     }

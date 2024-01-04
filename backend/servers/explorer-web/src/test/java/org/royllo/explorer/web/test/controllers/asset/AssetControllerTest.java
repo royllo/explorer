@@ -10,6 +10,7 @@ import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
 import org.royllo.explorer.core.dto.asset.AssetStateDTO;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
+import org.royllo.explorer.core.provider.storage.ContentService;
 import org.royllo.explorer.core.repository.proof.ProofRepository;
 import org.royllo.explorer.core.service.asset.AssetGroupService;
 import org.royllo.explorer.core.service.asset.AssetService;
@@ -17,11 +18,11 @@ import org.royllo.explorer.core.service.asset.AssetStateService;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 import org.royllo.explorer.web.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.xml.bind.DatatypeConverter;
@@ -35,6 +36,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.royllo.explorer.core.dto.proof.ProofDTO.PROOF_FILE_NAME_EXTENSION;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
@@ -51,9 +53,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @SpringBootTest
+@DirtiesContext
 @DisplayName("Asset controller tests")
 @AutoConfigureMockMvc
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 public class AssetControllerTest extends BaseTest {
 
     /** Asset state id field separator. */
@@ -79,6 +81,9 @@ public class AssetControllerTest extends BaseTest {
 
     @Autowired
     MessageSource messages;
+
+    @Autowired
+    ContentService contentService;
 
     @Test
     @DisplayName("Asset page without parameter")
@@ -135,7 +140,7 @@ public class AssetControllerTest extends BaseTest {
         createFakeAssets();
 
         // Page 1.
-        mockMvc.perform(get("/asset/FAKE_ASSET_ID_01/group").headers(headers))
+        mockMvc.perform(get("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000001/group").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_GROUP_PAGE)))
                 // Checking group tab data.
@@ -151,7 +156,7 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));
 
         // Page 10.
-        mockMvc.perform(get("/asset/FAKE_ASSET_ID_01/group?page=10").headers(headers))
+        mockMvc.perform(get("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000001/group?page=10").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_GROUP_PAGE)))
                 // Checking group tab data.
@@ -175,7 +180,7 @@ public class AssetControllerTest extends BaseTest {
         createFakeAssets();
 
         // Page 1.
-        mockMvc.perform(get("/asset/FAKE_ASSET_ID_01/states").headers(headers))
+        mockMvc.perform(get("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000001/states").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_STATES_PAGE)))
                 // Checking pagination.
@@ -188,7 +193,7 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));
 
         // Page 5.
-        mockMvc.perform(get("/asset/FAKE_ASSET_ID_01/states?page=5").headers(headers))
+        mockMvc.perform(get("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000001/states?page=5").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_STATES_PAGE)))
                 // Checking pagination.
@@ -209,7 +214,7 @@ public class AssetControllerTest extends BaseTest {
         createFakeAssets();
 
         // Page 1.
-        mockMvc.perform(get("/asset/FAKE_ASSET_ID_01/proofs").headers(headers))
+        mockMvc.perform(get("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000001/proofs").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_PROOFS_PAGE)))
                 // Checking pagination.
@@ -222,7 +227,7 @@ public class AssetControllerTest extends BaseTest {
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));
 
         // Page 5.
-        mockMvc.perform(get("/asset/FAKE_ASSET_ID_01/proofs?page=3").headers(headers))
+        mockMvc.perform(get("/asset/FAKE_ASSET_ID_00000000000000000000000000000000000000000000000001/proofs?page=3").headers(headers))
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_PROOFS_PAGE)))
                 // Checking pagination.
@@ -256,16 +261,16 @@ public class AssetControllerTest extends BaseTest {
 
         // Create fake assets.
         for (int i = 1; i <= 99; i++) {
-            final Optional<AssetDTO> assetFound = assetService.getAssetByAssetId("FAKE_ASSET_ID_" + String.format("%02d", i));
+            final Optional<AssetDTO> assetFound = assetService.getAssetByAssetId("FAKE_ASSET_ID_000000000000000000000000000000000000000000000000" + String.format("%02d", i));
             if (assetFound.isEmpty()) {
                 assetService.addAsset(
                         AssetDTO.builder()
                                 .creator(ANONYMOUS_USER_DTO)
                                 .assetGroup(assetGroupDTO)
-                                .assetId("FAKE_ASSET_ID_" + String.format("%02d", i))
+                                .assetId("FAKE_ASSET_ID_000000000000000000000000000000000000000000000000" + String.format("%02d", i))
                                 .genesisPoint(bto.get())
                                 .metaDataHash("metadata")
-                                .name("FAKE_ASSET_NAME_" + String.format("%02d", i))
+                                .name("FAKE_ASSET_NAME_000000000000000000000000000000000000000000000000" + String.format("%02d", i))
                                 .outputIndex(0)
                                 .version(0)
                                 .type(NORMAL)
@@ -276,7 +281,7 @@ public class AssetControllerTest extends BaseTest {
         }
 
         // Create fake asset states.
-        final Optional<AssetDTO> assetForAssetTest = assetService.getAssetByAssetId("FAKE_ASSET_ID_01");
+        final Optional<AssetDTO> assetForAssetTest = assetService.getAssetByAssetId("FAKE_ASSET_ID_00000000000000000000000000000000000000000000000001");
         if (assetForAssetTest.isPresent()) {
             for (int i = 1; i <= 50; i++) {
                 final AssetStateDTO assetToCreate = AssetStateDTO.builder()
@@ -304,12 +309,13 @@ public class AssetControllerTest extends BaseTest {
             final String proof = "TEST_ANCHOR_BLOCK_HASH_" + String.format("%02d", i);
             final Optional<Proof> proofFound = proofRepository.findByProofId(sha256(proof));
             if (proofFound.isEmpty()) {
+                contentService.storeFile(proof.getBytes(), sha256(proof) + PROOF_FILE_NAME_EXTENSION);
+
                 // Proof doesn't exist, we create the proof.
                 proofRepository.save(Proof.builder()
                         .proofId(sha256(proof))
                         .creator(ANONYMOUS_USER)
                         .asset(ASSET_MAPPER.mapToAsset(assetForAssetTest.get()))
-                        .proof(proof)
                         .build());
             }
         }

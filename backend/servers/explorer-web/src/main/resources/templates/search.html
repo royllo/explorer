@@ -34,18 +34,32 @@
         <!--/* Results */-->
         <div th:if="${result != null && !result.getContent().isEmpty()}">
 
-            <!--/* =========================================================================================== */-->
+            <!--/* =============================================================================================== */-->
             <div class="alert shadow-lg mb-5 mt-5" role="alert" th:each="asset: ${result.content}">
+
+                <!--/* =========================================================================================== */-->
                 <!--/* Icon */-->
+
+                <!--/* If we have an image type, we display it */-->
                 <img class="h-12 w-12 flex-none bg-gray-50"
                      th:alt="${asset.name}"
-                     th:if="${#strings.equalsIgnoreCase(asset.type, 'NORMAL')}"
+                     th:if="${#strings.equalsIgnoreCase(asset.MetaDataFileType, 'IMAGE')}"
+                     th:src="${contentBaseUrl} + '/' + ${asset.MetaDataFileName}"/>
+
+                <!--/* If we don't have an image for the asset, we use "uknown icon" */-->
+                <img class="h-12 w-12 flex-none bg-gray-50"
+                     th:alt="${asset.name}"
+                     th:if="${!#strings.equalsIgnoreCase(asset.MetaDataFileType, 'IMAGE') && #strings.equalsIgnoreCase(asset.type, 'NORMAL')}"
                      th:src="@{/svg/type_normal_asset.svg}"/>
 
                 <img class="h-12 w-12 flex-none bg-gray-50"
                      th:alt="${asset.name}"
-                     th:if="${#strings.equalsIgnoreCase(asset.type, 'COLLECTIBLE')}"
+                     th:if="${!#strings.equalsIgnoreCase(asset.MetaDataFileType, 'IMAGE') && #strings.equalsIgnoreCase(asset.type, 'COLLECTIBLE')}"
                      th:src="@{/svg/type_collectible_asset.svg}"/>
+
+                <!--/* =========================================================================================== */-->
+
+                <!--/* =========================================================================================== */-->
                 <!--/* Text */-->
                 <div>
                     <h3 class="font-bold">
@@ -70,6 +84,8 @@
                         </span>
                     </div>
                 </div>
+                <!--/* =========================================================================================== */-->
+
                 <!--/* <button class="btn btn-sm">See</button> */-->
             </div>
             <!--/* =========================================================================================== */-->

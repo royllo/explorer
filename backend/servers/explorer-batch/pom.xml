@@ -71,6 +71,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>minio</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.royllo.test</groupId>
             <artifactId>common-test</artifactId>
             <version>0.1</version>
@@ -110,6 +115,11 @@
                 <configuration>
                     <image>
                         <name>royllo/explorer-batch:latest</name>
+                        <!--
+                        <env>
+                            <BP_JVM_JLINK_ENABLED>true</BP_JVM_JLINK_ENABLED>
+                        </env>
+                        -->
                     </image>
                     <mainClass>org.royllo.explorer.batch.Application</mainClass>
                 </configuration>
@@ -227,7 +237,7 @@
     <parent>
         <groupId>org.royllo.explorer</groupId>
         <artifactId>explorer</artifactId>
-        <version>0.0.22</version>
+        <version>0.1.0</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
     <!-- =========================================================================================================== -->

@@ -7,6 +7,7 @@ import org.royllo.explorer.core.repository.universe.UniverseServerRepository;
 import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.time.ZonedDateTime;
 import java.util.Optional;
@@ -16,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
 
 @SpringBootTest
+@DirtiesContext
 @DisplayName("UniverseServerRepository tests")
 public class UniverseServerRepositoryTest extends TestWithMockServers {
 

@@ -1,5 +1,8 @@
 package org.royllo.explorer.core.test.core.service;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
@@ -10,25 +13,37 @@ import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
+import org.springframework.test.annotation.DirtiesContext;
 
+import java.io.IOException;
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.math.BigInteger.ONE;
+import static java.util.Calendar.MARCH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
+import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
+import static org.royllo.explorer.core.util.enums.FileType.IMAGE;
+import static org.royllo.explorer.core.util.enums.FileType.TEXT;
+import static org.royllo.explorer.core.util.enums.FileType.UNKNOWN;
 import static org.royllo.explorer.core.util.mapper.AssetMapperDecorator.ALIAS_LENGTH;
 import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_TXID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
@@ -43,7 +58,7 @@ import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID_ALIAS;
 
 @SpringBootTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+@DirtiesContext
 @DisplayName("AssetService tests")
 public class AssetServiceTest extends TestWithMockServers {
 
@@ -271,25 +286,25 @@ public class AssetServiceTest extends TestWithMockServers {
 
         // 4 assets : 1 with no asset group, 2 with the same asset group and 1 with another asset group.
         AssetDTO asset1 = AssetDTO.builder()
-                .assetId("asset1")
+                .assetId("asset10000000000000000000000000000000000000000000000000000000000")
                 .genesisPoint(bto.get())
                 .build();
         AssetDTO asset2 = AssetDTO.builder()
-                .assetId("asset2")
+                .assetId("asset20000000000000000000000000000000000000000000000000000000000")
                 .genesisPoint(bto.get())
                 .assetGroup(AssetGroupDTO.builder()
                         .assetGroupId("assetGroupId1")
                         .tweakedGroupKey("assetGroup1").build())
                 .build();
         AssetDTO asset3 = AssetDTO.builder()
-                .assetId("asset3")
+                .assetId("asset30000000000000000000000000000000000000000000000000000000000")
                 .genesisPoint(bto.get())
                 .assetGroup(AssetGroupDTO.builder()
                         .assetGroupId("assetGroupId1")
                         .tweakedGroupKey("assetGroup1").build())
                 .build();
         AssetDTO asset4 = AssetDTO.builder()
-                .assetId("asset4")
+                .assetId("asset40000000000000000000000000000000000000000000000000000000000")
                 .genesisPoint(bto.get())
                 .assetGroup(AssetGroupDTO.builder()
                         .assetGroupId("assetGroupId2")
@@ -303,10 +318,10 @@ public class AssetServiceTest extends TestWithMockServers {
         assetService.addAsset(asset4);
 
         // Asset retrieval.
-        AssetDTO asset1Created = assetService.getAssetByAssetId("asset1").orElse(null);
-        AssetDTO asset2Created = assetService.getAssetByAssetId("asset2").orElse(null);
-        AssetDTO asset3Created = assetService.getAssetByAssetId("asset3").orElse(null);
-        AssetDTO asset4Created = assetService.getAssetByAssetId("asset4").orElse(null);
+        AssetDTO asset1Created = assetService.getAssetByAssetId("asset10000000000000000000000000000000000000000000000000000000000").orElse(null);
+        AssetDTO asset2Created = assetService.getAssetByAssetId("asset20000000000000000000000000000000000000000000000000000000000").orElse(null);
+        AssetDTO asset3Created = assetService.getAssetByAssetId("asset30000000000000000000000000000000000000000000000000000000000").orElse(null);
+        AssetDTO asset4Created = assetService.getAssetByAssetId("asset40000000000000000000000000000000000000000000000000000000000").orElse(null);
 
         // Verification.
         assertNotNull(asset1Created);
@@ -330,6 +345,81 @@ public class AssetServiceTest extends TestWithMockServers {
         assertNotNull(asset4Created.getAssetGroup());
         assertNotNull(asset4Created.getAssetGroup().getId());
         assertEquals("assetGroup2", asset4Created.getAssetGroup().getTweakedGroupKey());
+    }
+
+    @Test
+    @DisplayName("updateAsset()")
+    public void updateAsset() {
+        // Date used for test.
+        LocalDate localDate = LocalDate.of(2019, MARCH, 12);
+        LocalTime localTime = LocalTime.of(12, 44);
+        ZoneId zoneId = ZoneId.of("GMT+05:30");
+        ZonedDateTime testDate = ZonedDateTime.of(localDate, localTime, zoneId);
+
+        // We create an asset.
+        final AssetDTO asset1 = assetService.addAsset(AssetDTO.builder()
+                .creator(ANONYMOUS_USER_DTO)
+                .assetId("asset00000000000000000000000000000000000000000000000000000000001")
+                .genesisPoint(BitcoinTransactionOutputDTO.builder()
+                        .txId(ROYLLO_COIN_GENESIS_TXID)
+                        .vout(0)
+                        .build())
+                .metaDataHash("my meta data hash")
+                .name("testCoin")
+                .outputIndex(8)
+                .version(0)
+                .type(NORMAL)
+                .amount(ONE)
+                .build());
+
+        // We test the data of our created asset.
+        assertNotNull(asset1.getId());
+        assertNotNull(asset1.getAssetId());
+        assertNull(asset1.getMetaDataFileName());
+        assertEquals(0, ONE.compareTo(asset1.getAmount()));
+        assertNull(asset1.getIssuanceDate());
+
+        // Now, we update the asset with the metadata, the new amount, the new creation date.
+        final String imageMeta = "89504e470d0a1a0a0000000d4948445200000018000000180806000000e0773df80000006e4944415478da63601805a360d880ff38304d0da78a25ff89c4941b5e682f8b81a9660136c3d12ca1cc029b0c75304636182646ae0528ae07d11ef9da182e078951c5025a04d1c059802e36b47c704451008e29cd07ff89f105552dc011f6d4f50135cb229c41448b229ba25403006cf5f5c3b61b973a0000000049454e44ae426082";
+        assetService.updateAsset(asset1.getAssetId(), imageMeta, new BigInteger("100"), testDate);
+
+        // We test the data.
+        Optional<AssetDTO> assetUpdated = assetService.getAssetByAssetId(asset1.getAssetId());
+        assertTrue(assetUpdated.isPresent());
+        assertEquals(asset1.getAssetId() + ".png", assetUpdated.get().getMetaDataFileName());
+        assertEquals(0, new BigInteger("100").compareTo(assetUpdated.get().getAmount()));
+        assertTrue(testDate.isEqual(assetUpdated.get().getIssuanceDate()));
+
+        // The file should be available.
+        var client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + assetUpdated.get().getMetaDataFileName())
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(200, response.code());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
+
+        // We test that it gives a 404 error if you search for a non-existing file.
+        request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/NON_EXISTING_FILE.png")
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(404, response.code());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
+
+        // We update with nothing, nothing should change.
+        assetService.updateAsset(asset1.getAssetId(), null, null, null);
+
+        // We test the data.
+        assetUpdated = assetService.getAssetByAssetId(asset1.getAssetId());
+        assertTrue(assetUpdated.isPresent());
+        assertEquals(asset1.getAssetId() + ".png", assetUpdated.get().getMetaDataFileName());
+        assertEquals(0, new BigInteger("100").compareTo(assetUpdated.get().getAmount()));
+        assertTrue(testDate.isEqual(assetUpdated.get().getIssuanceDate()));
     }
 
     @Test
@@ -373,6 +463,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertNotNull(asset.get().getCreator());
         assertEquals(ANONYMOUS_ID, asset.get().getCreator().getId());
         verifyAsset(asset.get(), ROYLLO_COIN_ASSET_ID);
+        assertEquals(TEXT, asset.get().getMetaDataFileType());
 
         // getAsset() on an asset that has no asset group
         asset = assetService.getAsset(1);
@@ -384,6 +475,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertTrue(asset.isPresent());
         assertNotNull(asset.get().getAssetId());
         assertEquals(ROYLLO_NFT_ASSET_ID_ALIAS, asset.get().getAssetIdAlias());
+        assertEquals(IMAGE, asset.get().getMetaDataFileType());
 
         // Testing with an asset id alias
         asset = assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_2_ASSET_ID_ALIAS);
@@ -391,6 +483,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertNotNull(asset.get().getAssetId());
         assertEquals(SET_OF_ROYLLO_NFT_2_ASSET_ID, asset.get().getAssetId());
         assertEquals(SET_OF_ROYLLO_NFT_2_ASSET_ID_ALIAS, asset.get().getAssetIdAlias());
+        assertEquals(UNKNOWN, asset.get().getMetaDataFileType());
     }
 
     @Test

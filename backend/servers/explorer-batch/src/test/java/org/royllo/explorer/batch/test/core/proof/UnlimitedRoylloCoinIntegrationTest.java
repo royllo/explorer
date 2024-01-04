@@ -1,10 +1,14 @@
 package org.royllo.explorer.batch.test.core.proof;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.request.AddProofBatch;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.asset.AssetStateDTO;
+import org.royllo.explorer.core.dto.proof.ProofDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.repository.asset.AssetGroupRepository;
@@ -22,12 +26,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.royllo.explorer.core.dto.proof.ProofDTO.PROOF_FILE_NAME_EXTENSION;
+import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
+import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 import static org.royllo.explorer.core.util.mapper.AssetMapperDecorator.ALIAS_LENGTH;
@@ -39,17 +48,14 @@ import static org.royllo.test.MempoolData.UNLIMITED_ROYLLO_COIN_2_ANCHOR_1_GENES
 import static org.royllo.test.MempoolData.UNLIMITED_ROYLLO_COIN_2_ANCHOR_1_TXID;
 import static org.royllo.test.MempoolData.UNLIMITED_ROYLLO_COIN_2_GENESIS_TXID;
 import static org.royllo.test.MempoolData.UNLIMITED_ROYLLO_COIN_2_GENESIS_VOUT;
-import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_ASSET_ID;
-import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_2_ASSET_ID;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_ASSET_ID;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_FROM_TEST;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_2_ASSET_ID;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_2_FROM_TEST;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 @SpringBootTest
+@DirtiesContext
 @DisplayName("unlimitedRoylloCoin test")
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles({"scheduler-disabled"})
 public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
 
@@ -187,6 +193,8 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
         assertEquals(ALIAS_LENGTH, asset1.get().getAssetIdAlias().length());
         assertNotNull(asset1.get().getAssetGroup());
         assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, asset1.get().getAssetGroup().getTweakedGroupKey());
+        assertNotNull(asset1.get().getAmount());
+        assertNotNull(asset1.get().getIssuanceDate());
 
         final Optional<AssetDTO> asset2 = assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_2_ASSET_ID);
         assertTrue(asset2.isPresent());
@@ -194,6 +202,62 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
         assertEquals(ALIAS_LENGTH, asset2.get().getAssetIdAlias().length());
         assertNotNull(asset2.get().getAssetGroup());
         assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, asset2.get().getAssetGroup().getTweakedGroupKey());
+        assertNotNull(asset2.get().getAmount());
+        assertNotNull(asset2.get().getIssuanceDate());
+
+        // We check if we have the meta-data file for UNLIMITED_ROYLLO_COIN_1_ASSET_ID.
+        var client = new OkHttpClient();
+        assertNotNull(asset1.get().getMetaDataFileName());
+        Request request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + asset1.get().getMetaDataFileName())
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(200, response.code());
+            assertEquals("unlimitedRoylloCoin emission 1 by Royllo", response.body().string());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
+
+        // And then for UNLIMITED_ROYLLO_COIN_2_ASSET_ID.
+        assertNotNull(asset2.get().getMetaDataFileName());
+        request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + asset2.get().getMetaDataFileName())
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(200, response.code());
+            assertEquals("unlimitedRoylloCoin emission 2 by Royllo", response.body().string());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
+
+        // =============================================================================================================
+        // We should have the proof file on our content service.
+        final Optional<ProofDTO> proof1Created = proofService.getProofByProofId(UNLIMITED_ROYLLO_COIN_1_PROOF_ID);
+        assertTrue(proof1Created.isPresent());
+        assertEquals(UNLIMITED_ROYLLO_COIN_1_PROOF_ID + PROOF_FILE_NAME_EXTENSION, proof1Created.get().getProofFileName());
+        request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + proof1Created.get().getProofFileName())
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(200, response.code());
+            assertEquals(UNLIMITED_ROYLLO_COIN_1_RAW_PROOF, response.body().string());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
+
+        final Optional<ProofDTO> proof2Created = proofService.getProofByProofId(UNLIMITED_ROYLLO_COIN_2_PROOF_ID);
+        assertTrue(proof2Created.isPresent());
+        assertEquals(UNLIMITED_ROYLLO_COIN_2_PROOF_ID + PROOF_FILE_NAME_EXTENSION, proof2Created.get().getProofFileName());
+        request = new Request.Builder()
+                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + proof2Created.get().getProofFileName())
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertEquals(200, response.code());
+            assertEquals(UNLIMITED_ROYLLO_COIN_2_RAW_PROOF, response.body().string());
+        } catch (IOException e) {
+            fail("Error while retrieving the file" + e.getMessage());
+        }
+
     }
 
 }

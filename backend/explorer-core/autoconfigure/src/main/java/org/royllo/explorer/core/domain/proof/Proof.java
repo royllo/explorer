@@ -2,6 +2,7 @@ package org.royllo.explorer.core.domain.proof;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -17,7 +18,9 @@ import lombok.ToString;
 import org.royllo.explorer.core.domain.asset.Asset;
 import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.util.base.BaseDomain;
+import org.royllo.explorer.core.util.enums.ProofType;
 
+import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.FetchType.EAGER;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -54,8 +57,9 @@ public class Proof extends BaseDomain {
     @Column(name = "PROOF_ID", updatable = false)
     private String proofId;
 
-    /** Proof. */
-    @Column(name = "PROOF", updatable = false)
-    private String proof;
+    /** Proof type. */
+    @Enumerated(STRING)
+    @Column(name = "PROOF_TYPE", updatable = false)
+    private ProofType proofType;
 
 }

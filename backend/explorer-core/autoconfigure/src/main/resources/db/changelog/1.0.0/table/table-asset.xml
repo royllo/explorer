@@ -32,8 +32,12 @@
             </column>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" type="BIGINT"
                     remarks="The first outpoint of the transaction that created the asset (txid:vout)"/>
+
             <column name="META_DATA_HASH" type="TEXT"
                     remarks="The hash of the meta data for this genesis asset"/>
+            <column name="META_DATA_FILE_NAME" type="TEXT"
+                    remarks="Meta data file name"/>
+
             <column name="NAME" type="VARCHAR(1000)"
                     remarks="The name of the asset"/>
             <column name="OUTPUT_INDEX" type="INTEGER"
@@ -45,7 +49,9 @@
             <column name="ASSET_TYPE" type="TEXT"
                     remarks="The type of the asset: normal or a collectible"/>
             <column name="AMOUNT" type="BIGINT"
-                    remarks="The total amount minted of the asset"/>
+                    remarks="The total amount minted for this asset"/>
+            <column name="ISSUANCE_DATE" type="TIMESTAMP WITH TIME ZONE"
+                    remarks="The date and time when the asset was created"/>
 
             <!-- Technical fields -->
             <column name="CREATED_ON" type="TIMESTAMP"

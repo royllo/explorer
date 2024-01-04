@@ -5,7 +5,7 @@
     <changeSet author="straumat" id="1.0.0-data-asset">
 
         <!--
-        roylloCoin - On mainnet.
+        roylloCoin - Created on mainnet.
         Asset id : 24a27ab522c9c33e64f4462f2acee01571e014ccbbac075786d1deae033a128d
         -->
         <insert tableName="ASSET">
@@ -13,18 +13,19 @@
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="FK_ASSET_GROUP"/>
 
-            <!-- Asset genesis -->
+            <!-- Asset data -->
             <column name="ASSET_ID" value="24a27ab522c9c33e64f4462f2acee01571e014ccbbac075786d1deae033a128d"/>
             <column name="ASSET_ID_ALIAS" value="roylloCoin"/>
             <column name="FK_BITCOIN_TRANSACTION_OUTPUT_GENESIS_POINT" value="1"/>
             <column name="META_DATA_HASH" value="e08c74d75554e2c9d6d8452a3584d191f8727963b05e497bba84ada8ae829208"/>
+            <column name="META_DATA_FILE_NAME"
+                    value="24a27ab522c9c33e64f4462f2acee01571e014ccbbac075786d1deae033a128d.txt"/>
             <column name="NAME" value="roylloCoin"/>
             <column name="ASSET_TYPE" value="NORMAL"/>
             <column name="OUTPUT_INDEX" value="0"/>
             <column name="VERSION" value="0"/>
-
-            <!-- Asset characteristics -->
             <column name="AMOUNT" value="100000"/>
+            <column name="ISSUANCE_DATE" value="2023-11-13 15:44:00"/>
         </insert>
 
     </changeSet>

@@ -2,6 +2,7 @@ package org.royllo.explorer.core.util.validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.regex.Pattern;
 
@@ -20,7 +21,7 @@ public class ServerAddressValidator implements ConstraintValidator<ServerAddress
     @Override
     public final boolean isValid(final String serverAddress,
                                  final ConstraintValidatorContext constraintValidatorContext) {
-        if (serverAddress == null || serverAddress.isEmpty()) {
+        if (StringUtils.isBlank(serverAddress)) {
             return false; // Empty server address is considered invalid
         }
         return HOSTNAME_OR_IP_PATTERN.matcher(serverAddress).matches();

@@ -3,6 +3,8 @@ package org.royllo.explorer.core.service.asset;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.springframework.data.domain.Page;
 
+import java.math.BigInteger;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 
 /**
@@ -30,6 +32,21 @@ public interface AssetService {
      * @return asset created
      */
     AssetDTO addAsset(AssetDTO newAsset);
+
+    /**
+     * Update an asset.
+     * Some data can only be retrieved from issuance proof.
+     * This method is used to update the asset when we encounter the asset issuance proof.
+     *
+     * @param assetId      asset id
+     * @param metadata     meta data
+     * @param amount       amount minted
+     * @param issuanceDate asset issuance date
+     */
+    void updateAsset(String assetId,
+                     String metadata,
+                     BigInteger amount,
+                     ZonedDateTime issuanceDate);
 
     /**
      * Get an asset.
