@@ -35,8 +35,10 @@
         <div class="flex items-center justify-center mx-auto mt-12 text-sm" th:utext="#{home.message}"></div>
 
         <!--/* Global statistics */-->
-        <div class="flex items-center justify-center mx-auto mt-12">
-            <div th:insert="~{util/fragments/components/global_statistics :: div}"></div>
+        <div class="hidden md:block ">
+            <div class="flex items-center justify-center mx-auto mt-12">
+                <div th:insert="~{util/fragments/components/global_statistics :: div}"></div>
+            </div>
         </div>
 
     </div>
