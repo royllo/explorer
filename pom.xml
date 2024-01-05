@@ -8,7 +8,7 @@
     <!-- Project information -->
     <groupId>org.royllo.explorer</groupId>
     <artifactId>explorer</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <name>Royllo - A Taproot asset explorer</name>
     <description>Royllo explorer allows you to search for Taproot assets created on the Bitcoin blockchain</description>
     <packaging>pom</packaging>
@@ -109,7 +109,7 @@
         <!-- Maven plugins -->
         <maven.checkstyle.plugin.version>3.3.1</maven.checkstyle.plugin.version>
         <maven.graphqlcodegen.plugin.version>1.50</maven.graphqlcodegen.plugin.version>
-        <maven.puppycrawl.checkstyle.version>10.12.6</maven.puppycrawl.checkstyle.version>
+        <maven.puppycrawl.checkstyle.version>10.12.7</maven.puppycrawl.checkstyle.version>
         <maven.compiler.plugin.version>3.12.1</maven.compiler.plugin.version>
 
         <maven.source.plugin.version>3.3.0</maven.source.plugin.version>

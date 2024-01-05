@@ -20,9 +20,6 @@ import java.io.ByteArrayInputStream;
 @SuppressWarnings("checkstyle:DesignForExtension")
 public class S3ServiceImplementation extends BaseService implements ContentService {
 
-    /** Part size. */
-    public static final int PART_SIZE = 10485760;
-
     /** S3 parameters. */
     private S3Parameters s3Parameters;
 

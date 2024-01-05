@@ -11,7 +11,6 @@ import org.royllo.explorer.core.service.request.RequestService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -35,9 +34,6 @@ public class UniverseExplorerBatch extends BaseBatch {
 
     /** Universe roots results limit. */
     public static final int UNIVERSE_ROOTS_LIMIT = 100;
-
-    /** Maximum number of calls we can make to a server (in case the server don't support offset). */
-    public static final int UNIVERSE_MAXIMUM_CALLS = 100;
 
     /** Proof repository. */
     private final ProofRepository proofRepository;
@@ -65,15 +61,13 @@ public class UniverseExplorerBatch extends BaseBatch {
                 universeServer.setLastSynchronizationAttempt(now());
                 universeServerRepository.save(universeServer);
 
-
                 // We retrieve all the roots.
-                AtomicInteger numberOfCalls = new AtomicInteger(0);
                 IntStream.iterate(0, offset -> offset + UNIVERSE_ROOTS_LIMIT)
                         .peek(offset -> logger.info("Processing universe roots with offset: {}", offset))
                         // For each server, we retrieve the roots.
                         .mapToObj(offset -> tapdService.getUniverseRoots(universeServer.getServerAddress(), offset, UNIVERSE_ROOTS_LIMIT).block())
                         // We check that we have a result, if not, we stop (this tells us when the offset is too high).
-                        .takeWhile(universeRoots -> universeRoots != null && !universeRoots.getUniverseRoots().isEmpty() && numberOfCalls.getAndIncrement() < UNIVERSE_MAXIMUM_CALLS)
+                        .takeWhile(universeRoots -> universeRoots != null && !universeRoots.getUniverseRoots().isEmpty())
                         // We retrieve all the roots.
                         .flatMap(universeRoots -> universeRoots.getUniverseRoots().values().stream())
                         // We select only the roots that have an asset id.
@@ -81,7 +75,6 @@ public class UniverseExplorerBatch extends BaseBatch {
                         .filter(universeRoot -> universeRoot.getId().getAssetId() != null)
                         // We retrieve the asset id.
                         .map(universeRoot -> universeRoot.getId().getAssetId())
-                        .distinct()
                         .peek(assetId -> logger.info("Found asset id: {}", assetId))
                         .forEach(assetId -> {
                             // For each proof type, we retrieve the leaves.
