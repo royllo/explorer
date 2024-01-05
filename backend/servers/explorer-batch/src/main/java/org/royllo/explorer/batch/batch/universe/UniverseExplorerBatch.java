@@ -65,7 +65,6 @@ public class UniverseExplorerBatch extends BaseBatch {
                 universeServer.setLastSynchronizationAttempt(now());
                 universeServerRepository.save(universeServer);
 
-
                 // We retrieve all the roots.
                 AtomicInteger numberOfCalls = new AtomicInteger(0);
                 IntStream.iterate(0, offset -> offset + UNIVERSE_ROOTS_LIMIT)
@@ -81,7 +80,6 @@ public class UniverseExplorerBatch extends BaseBatch {
                         .filter(universeRoot -> universeRoot.getId().getAssetId() != null)
                         // We retrieve the asset id.
                         .map(universeRoot -> universeRoot.getId().getAssetId())
-                        .distinct()
                         .peek(assetId -> logger.info("Found asset id: {}", assetId))
                         .forEach(assetId -> {
                             // For each proof type, we retrieve the leaves.
