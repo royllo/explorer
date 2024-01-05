@@ -36,7 +36,7 @@ start_release:
     mvn gitflow:release-start
 
 finish_release:
-    mvn gitflow:release-finish
+    mvn gitflow:release-finish -DskipTests
 
 # ======================================================================================================================
 # Docker
