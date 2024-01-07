@@ -1,14 +1,14 @@
-package org.royllo.explorer.api;
+package org.royllo.explorer.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * API application.
+ * Web application.
  */
 @SpringBootApplication(scanBasePackages = "org.royllo.explorer")
 @SuppressWarnings({"checkstyle:FinalClass", "checkstyle:HideUtilityClassConstructor"})
-public class Application {
+public class WebApplication {
 
     /**
      * Main.
@@ -16,7 +16,7 @@ public class Application {
      * @param args command line arguments.
      */
     public static void main(final String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(WebApplication.class, args);
     }
 
 }

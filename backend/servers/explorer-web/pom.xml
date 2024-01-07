@@ -15,7 +15,7 @@
     <!-- =========================================================================================================== -->
     <!-- Properties -->
     <properties>
-        <start-class>org.royllo.explorer.web.Application</start-class>
+        <start-class>org.royllo.explorer.web.WebApplication</start-class>
     </properties>
     <!-- =========================================================================================================== -->
 
@@ -131,7 +131,7 @@
                         </env>
                         -->
                     </image>
-                    <mainClass>org.royllo.explorer.web.Application</mainClass>
+                    <mainClass>org.royllo.explorer.web.WebApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
