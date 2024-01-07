@@ -14,6 +14,11 @@
 <!--/* Body */-->
 <body>
 
+<!--/* Analytics */-->
+<th:block th:if="${!#strings.isEmpty(piwikAnalyticsTrackingId)}">
+    <script th:replace="~{util/fragments/components/analytics_piwik :: script}"></script>
+</th:block>
+
 <!--/* Header */-->
 <header th:replace="~{util/fragments/layouts/default/header :: header}"></header>
 

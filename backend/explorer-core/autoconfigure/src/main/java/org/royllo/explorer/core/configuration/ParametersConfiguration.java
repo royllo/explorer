@@ -3,6 +3,7 @@ package org.royllo.explorer.core.configuration;
 import org.royllo.explorer.core.util.parameters.IncomingRateLimitsParameters;
 import org.royllo.explorer.core.util.parameters.MempoolParameters;
 import org.royllo.explorer.core.util.parameters.OutgoingRateLimitsParameters;
+import org.royllo.explorer.core.util.parameters.RoylloExplorerAnalyticsParameters;
 import org.royllo.explorer.core.util.parameters.RoylloExplorerParameters;
 import org.royllo.explorer.core.util.parameters.S3Parameters;
 import org.royllo.explorer.core.util.parameters.TAPDParameters;
@@ -19,6 +20,9 @@ import org.springframework.context.annotation.Configuration;
         RoylloExplorerParameters.Api.class,
         RoylloExplorerParameters.Web.class,
         RoylloExplorerParameters.Content.class,
+        // Royllo explorer analytics configuration.
+        RoylloExplorerAnalyticsParameters.class,
+        RoylloExplorerAnalyticsParameters.Piwik.class,
         // S3 configuration.
         S3Parameters.class,
         // Mempool configuration.
