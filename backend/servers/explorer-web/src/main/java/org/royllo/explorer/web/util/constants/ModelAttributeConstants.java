@@ -18,6 +18,9 @@ public class ModelAttributeConstants {
     /** Content base url. */
     public static final String CONTENT_BASE_URL_ATTRIBUTE = "contentBaseUrl";
 
+    /** Piwik analytics tracking id. */
+    public static final String PIWIK_ANALYTICS_TRACKING_ID_ATTRIBUTE = "piwikAnalyticsTrackingId";
+
     /** Query attribute. */
     public static final String QUERY_ATTRIBUTE = "query";
 
