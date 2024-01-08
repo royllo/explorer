@@ -22,7 +22,6 @@ public interface RequestMapper {
     // =================================================================================================================
     // Generic mapper.
     default RequestDTO mapToRequestDTO(Request source) {
-        // TODO Change this with the new Java release
         if (source instanceof AddProofRequest) {
             return mapToAddAssetRequestDTO((AddProofRequest) source);
         }
