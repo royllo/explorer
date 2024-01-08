@@ -10,7 +10,7 @@ import static org.royllo.explorer.core.util.enums.UserRole.ADMINISTRATOR;
  * Administrator user constants.
  */
 @UtilityClass
-@SuppressWarnings("checkstyle:HideUtilityClassConstructor")
+@SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused"})
 public class AdministratorUserConstants {
 
     /** Administrator user ID in database. */

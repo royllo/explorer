@@ -48,7 +48,7 @@
             <column name="AMOUNT" type="BIGINT"
                     remarks="The total amount of the asset stored in this Taproot UTXO"/>
             <column name="LOCK_TIME" type="BIGINT"
-                    remarks="An optional locktime, as with Bitcoin transactions"/>
+                    remarks="An optional lock time, as with Bitcoin transactions"/>
             <column name="RELATIVE_LOCK_TIME" type="BIGINT"
                     remarks="An optional relative lock time, same as Bitcoin transactions"/>
             <column name="SCRIPT_VERSION" type="INTEGER"

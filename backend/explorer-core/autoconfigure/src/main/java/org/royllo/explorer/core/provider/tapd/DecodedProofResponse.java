@@ -97,6 +97,7 @@ public class DecodedProofResponse {
         @JsonProperty("is_burn")
         Boolean isBurn;
 
+        @SuppressWarnings("unused")
         @Getter
         @Setter
         @NoArgsConstructor
@@ -182,6 +183,7 @@ public class DecodedProofResponse {
              *
              * @return asset state id (calculated)
              */
+            @SuppressWarnings("DuplicatedCode")
             public String getAssetStateId() {
                 // If we are in an asset state creation, asset state id is null, so we calculate it.
                 // We calculate the asset state id here.
@@ -198,6 +200,7 @@ public class DecodedProofResponse {
                 }
             }
 
+            @SuppressWarnings("unused")
             @Getter
             @Setter
             @NoArgsConstructor

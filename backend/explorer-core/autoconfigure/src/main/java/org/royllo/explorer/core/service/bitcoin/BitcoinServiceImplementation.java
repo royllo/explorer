@@ -80,7 +80,6 @@ public class BitcoinServiceImplementation extends BaseService implements Bitcoin
                 // Now, we save it in database and return it.
                 logger.info("The transaction and it's output {}/{} is in the blockchain, we save it", txId, vout);
                 GetTransactionResponse.VOut output = (GetTransactionResponse.VOut) transaction.getVout().toArray()[vout];
-                // TODO Replace wih a mapper in BitcoinMapper.
                 final BitcoinTransactionOutput bto = BITCOIN_MAPPER.mapToBitcoinTransactionOutput(
                         BitcoinTransactionOutputDTO.builder()
                                 .blockHeight(transaction.getStatus().getBlockHeight())

@@ -6,7 +6,7 @@ import lombok.experimental.UtilityClass;
  * Taproot assets constants.
  */
 @UtilityClass
-@SuppressWarnings("checkstyle:HideUtilityClassConstructor")
+@SuppressWarnings({"checkstyle:HideUtilityClassConstructor", "unused"})
 public class TaprootAssetsConstants {
 
     /** Tweaked group key size is always 33 bytes (66 characters) and hexadecimal. */

@@ -24,6 +24,7 @@ import static org.royllo.explorer.core.dto.proof.ProofDTO.PROOF_FILE_NAME_EXTENS
  * Content service - Local file implementation - Used for local development.
  * It also includes a web server to serve content and simulate a s3 CDN.
  */
+@SuppressWarnings("SpellCheckingInspection")
 @Service
 @Profile("!s3-storage")
 public class LocalFileServiceImplementation implements ContentService {

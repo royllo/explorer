@@ -15,7 +15,7 @@
     <!-- =========================================================================================================== -->
     <!-- Properties -->
     <properties>
-        <start-class>org.royllo.explorer.batch.Application</start-class>
+        <start-class>org.royllo.explorer.batch.BatchApplication</start-class>
     </properties>
     <!-- =========================================================================================================== -->
 
@@ -121,7 +121,7 @@
                         </env>
                         -->
                     </image>
-                    <mainClass>org.royllo.explorer.batch.Application</mainClass>
+                    <mainClass>org.royllo.explorer.batch.BatchApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
@@ -237,7 +237,7 @@
     <parent>
         <groupId>org.royllo.explorer</groupId>
         <artifactId>explorer</artifactId>
-        <version>0.1.2</version>
+        <version>0.2.0</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
     <!-- =========================================================================================================== -->

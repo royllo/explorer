@@ -32,13 +32,11 @@ public class RequestDataFetcher extends BaseDataFetcher {
      */
     @DgsTypeResolver(name = "Request")
     public String resolveRequest(final RequestDTO requestDTO) {
-        if (requestDTO instanceof AddProofRequestDTO) {
-            return "AddProofRequest";
-        } else if (requestDTO instanceof AddUniverseServerRequestDTO) {
-            return "AddUniverseServerRequest";
-        } else {
-            throw new RuntimeException("Invalid type: " + requestDTO.getClass().getName() + " found in resolveRequest");
-        }
+        return switch (requestDTO) {
+            case AddProofRequestDTO ignored -> "AddProofRequest";
+            case AddUniverseServerRequestDTO ignored -> "AddUniverseServerRequest";
+            default -> throw new RuntimeException("Invalid type: " + requestDTO.getClass().getName());
+        };
     }
 
     /**

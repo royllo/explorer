@@ -34,18 +34,6 @@
             <version>${caffeine.version}</version>
         </dependency>
 
-        <!-- Reactor -->
-        <dependency>
-            <groupId>io.projectreactor</groupId>
-            <artifactId>reactor-core</artifactId>
-            <version>${reactor-core.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.projectreactor.netty</groupId>
-            <artifactId>reactor-netty</artifactId>
-            <version>${reactor-netty.version}</version>
-        </dependency>
-
         <!-- Database dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -308,7 +296,7 @@
     <parent>
         <groupId>org.royllo.explorer</groupId>
         <artifactId>explorer</artifactId>
-        <version>0.1.2</version>
+        <version>0.2.0</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
     <!-- =========================================================================================================== -->
