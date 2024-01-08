@@ -11,10 +11,12 @@ import org.royllo.explorer.core.service.request.RequestService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.Random;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.time.ZonedDateTime.now;
+import static java.time.temporal.ChronoUnit.WEEKS;
 import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_ISSUANCE;
 import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_TRANSFER;
 
@@ -35,6 +37,9 @@ public class UniverseExplorerBatch extends BaseBatch {
     /** Universe roots results limit. */
     public static final int UNIVERSE_ROOTS_LIMIT = 100;
 
+    /** When a server fails for too long, this is the probability to retry connecting to it. */
+    public static final int PROBABILITY_TO_RETRY = 10_000;
+
     /** Proof repository. */
     private final ProofRepository proofRepository;
 
@@ -54,12 +59,26 @@ public class UniverseExplorerBatch extends BaseBatch {
     public void processUniverseServers() {
         if (enabled.get()) {
             universeServerRepository.findFirstByOrderByLastSynchronizationAttemptAsc().ifPresent(universeServer -> {
+
                 // For each server we have in our databases.
                 logger.info("Processing universe server: {}", universeServer.getServerAddress());
 
                 // We indicate that we are working on this universe server by updating its last sync date.
                 universeServer.setLastSynchronizationAttempt(now());
                 universeServerRepository.save(universeServer);
+
+                // We have two fields:
+                // - lastSynchronizationAttempt: the last time we tried to synchronize with the universe server.
+                // - lastSynchronizationSuccess: the last time we successfully synchronized with the universe server.
+                // If we did not succeed in synchronizing with the universe server for more than 1 week, we will only try to synchronize with it again one of 1000 times.
+                if (universeServer.getLastSynchronizationSuccess() != null) {
+                    if (WEEKS.between(universeServer.getLastSynchronizationSuccess(), now()) >= 1) {
+                        if (new Random().nextInt(PROBABILITY_TO_RETRY) != 0) {
+                            logger.info("Skipping universe server {}", universeServer.getServerAddress());
+                            return;
+                        }
+                    }
+                }
 
                 // We retrieve all the roots.
                 IntStream.iterate(0, offset -> offset + UNIVERSE_ROOTS_LIMIT)

@@ -12,9 +12,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import static java.time.ZonedDateTime.now;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -90,6 +92,49 @@ public class UniverseExplorerBatchTest {
         assertEquals(1, findAddProofRequestByProof("asset_id_4_proof").size());
         assertEquals(1, findAddProofRequestByProof("asset_id_5_proof").size());
         assertEquals(count + 7, requestRepository.count());
+    }
+
+    @Test
+    @DisplayName("Universe ban after 1 week failure")
+    public void universeBan() {
+        // We have two servers.
+        Optional<UniverseServer> server1 = universeServerRepository.findByServerAddress("testnet.universe.lightning.finance");
+        Optional<UniverseServer> server2 = universeServerRepository.findByServerAddress("testnet2.universe.lightning.finance");
+
+        // We sync, their dates must now be updated.
+        universeExplorerBatch.processUniverseServers();
+        universeExplorerBatch.processUniverseServers();
+        server1 = universeServerRepository.findByServerAddress("testnet.universe.lightning.finance");
+        assertTrue(server1.isPresent());
+        assertNotNull(server1.get().getLastSynchronizationAttempt());
+        assertNotNull(server1.get().getLastSynchronizationSuccess());
+        server2 = universeServerRepository.findByServerAddress("testnet2.universe.lightning.finance");
+        assertTrue(server2.isPresent());
+        assertNotNull(server2.get().getLastSynchronizationAttempt());
+        assertNotNull(server2.get().getLastSynchronizationSuccess());
+
+        // We update the last sync date of the first server to more than 1 week ago.
+        // We update the last sync date of the first server to less than 1 week ago.
+        ZonedDateTime server1FirstDate = now().minusDays(8);
+        ZonedDateTime server2FirstDate = now().minusDays(6);
+        server1.get().setLastSynchronizationSuccess(server1FirstDate);
+        server2.get().setLastSynchronizationSuccess(server2FirstDate);
+        universeServerRepository.save(server1.get());
+        universeServerRepository.save(server2.get());
+
+        // We sync. The first server should not be UPDATED.
+        ZonedDateTime newNow = now();
+        universeExplorerBatch.processUniverseServers();
+        universeExplorerBatch.processUniverseServers();
+
+        server1 = universeServerRepository.findByServerAddress("testnet.universe.lightning.finance");
+        assertTrue(server1.isPresent());
+        assertTrue(server1.get().getLastSynchronizationSuccess().toLocalDate().isEqual(server1FirstDate.toLocalDate()));
+
+        server2 = universeServerRepository.findByServerAddress("testnet2.universe.lightning.finance");
+        assertTrue(server2.isPresent());
+        assertTrue(server2.get().getLastSynchronizationSuccess().isAfter(newNow));
+
     }
 
     /**
