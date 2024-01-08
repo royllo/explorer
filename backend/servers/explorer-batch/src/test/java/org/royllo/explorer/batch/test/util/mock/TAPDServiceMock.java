@@ -1,6 +1,7 @@
 package org.royllo.explorer.batch.test.util.mock;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.jetbrains.annotations.NotNull;
 import org.mockito.Mockito;
 import org.royllo.explorer.core.provider.tapd.TapdService;
 import org.royllo.explorer.core.provider.tapd.UniverseLeavesResponse;
@@ -33,14 +34,7 @@ public class TAPDServiceMock {
         // Mocks for AddUniverseServerBatchTest.
 
         // - 1.1.1.1: Server is responding.
-        UniverseRootsResponse universeRootsResponse = new UniverseRootsResponse();
-        UniverseRootsResponse.UniverseRoot universeRoot = new UniverseRootsResponse.UniverseRoot();
-        UniverseRootsResponse.ID id = new UniverseRootsResponse.ID();
-        id.setAssetId("asset1");
-        universeRoot.setId(id);
-        Map<String, UniverseRootsResponse.UniverseRoot> map = new HashMap<>();
-        map.put("asset1", universeRoot);
-        universeRootsResponse.setUniverseRoots(map);
+        final UniverseRootsResponse universeRootsResponse = getUniverseRootsResponse();
         Mockito.when(mockedService.getUniverseRoots("1.1.1.1:8080", 0, 1)).thenReturn(Mono.just(universeRootsResponse));
 
         // - 1.1.1.2: Error code.
@@ -104,6 +98,19 @@ public class TAPDServiceMock {
                 .thenReturn(Mono.just(getUniverseLeavesResponse("tapd/testnet2-universe-leaves-asset-id-5-transfer.json")));
 
         return mockedService;
+    }
+
+    @NotNull
+    private static UniverseRootsResponse getUniverseRootsResponse() {
+        UniverseRootsResponse universeRootsResponse = new UniverseRootsResponse();
+        UniverseRootsResponse.UniverseRoot universeRoot = new UniverseRootsResponse.UniverseRoot();
+        UniverseRootsResponse.ID id = new UniverseRootsResponse.ID();
+        id.setAssetId("asset1");
+        universeRoot.setId(id);
+        Map<String, UniverseRootsResponse.UniverseRoot> map = new HashMap<>();
+        map.put("asset1", universeRoot);
+        universeRootsResponse.setUniverseRoots(map);
+        return universeRootsResponse;
     }
 
     /**

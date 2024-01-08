@@ -7,7 +7,7 @@ import io.github.bucket4j.Bucket;
 import io.github.bucket4j.ConsumptionProbe;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.constraints.NotNull;
+import org.jetbrains.annotations.NotNull;
 import org.royllo.explorer.core.util.parameters.IncomingRateLimitsParameters;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -39,8 +39,8 @@ public final class RateLimitInterceptor implements HandlerInterceptor {
     @SuppressWarnings("checkstyle:MagicNumber")
     @Override
     public boolean preHandle(final HttpServletRequest request,
-                             final @NotNull HttpServletResponse response,
-                             final @NotNull Object handler) throws Exception {
+                             @NotNull final HttpServletResponse response,
+                             @NotNull final Object handler) throws Exception {
         // We check in the cache if the IP address is already present with a bucket.
         ConsumptionProbe probe = cache.get(request.getRemoteAddr()).tryConsumeAndReturnRemaining(1);
         if (probe.isConsumed()) {

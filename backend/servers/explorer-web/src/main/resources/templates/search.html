@@ -46,7 +46,7 @@
                      th:if="${#strings.equalsIgnoreCase(asset.MetaDataFileType, 'IMAGE')}"
                      th:src="${contentBaseUrl} + '/' + ${asset.MetaDataFileName}"/>
 
-                <!--/* If we don't have an image for the asset, we use "uknown icon" */-->
+                <!--/* If we don't have an image for the asset, we use "unknown icon" */-->
                 <img class="h-12 w-12 flex-none bg-gray-50"
                      th:alt="${asset.name}"
                      th:if="${!#strings.equalsIgnoreCase(asset.MetaDataFileType, 'IMAGE') && #strings.equalsIgnoreCase(asset.type, 'NORMAL')}"
