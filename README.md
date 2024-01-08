@@ -27,7 +27,6 @@ graph LR
     BatchServer(Batch server) --- database[(Database)];
     database[(Database)] --- APIServers(API servers);
     database[(Database)] --- WebServers(Web servers);
-    contentServer(Content server) --- S3Storage(S3 storage);
 ```
 
 Royllo has several servers:

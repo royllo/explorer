@@ -26,7 +26,6 @@
                    type="text"/>
 
             <!--/* Error messages */-->
-            <!--/* TODO Replace with inserting "error_message.html" */-->
             <div th:each="error: ${#fields.errors('*')}"
                  th:if="${#fields.hasErrors('serverAddress')}">
                 <div class="alert alert-error my-4" th:fragment="error_message(message)">
@@ -45,8 +44,6 @@
                     th:text="#{request.view.universeServer.submit}"
                     type="submit"></button>
 
-            <!--/* TODO Replace this with something more clean */-->
-            <div class="my-16">&nbsp</div>
         </form>
     </div>
 

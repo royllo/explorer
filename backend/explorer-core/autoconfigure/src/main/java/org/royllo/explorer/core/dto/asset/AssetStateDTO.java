@@ -65,7 +65,7 @@ public class AssetStateDTO {
     @NotNull(message = "Amount is required")
     BigInteger amount;
 
-    /** An optional locktime, as with Bitcoin transactions. */
+    /** An optional lock time, as with Bitcoin transactions. */
     int lockTime;
 
     /** An optional relative lock time, same as Bitcoin transactions. */

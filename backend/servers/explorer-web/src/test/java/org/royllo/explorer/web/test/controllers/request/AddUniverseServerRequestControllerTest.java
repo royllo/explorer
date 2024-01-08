@@ -141,8 +141,6 @@ public class AddUniverseServerRequestControllerTest extends BaseTest {
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_SUCCESS_PAGE))
-                // TODO This should fail.
-                .andExpect(flash().attribute(FORM_ATTRIBUTE, hasProperty("serverAddress", equalTo("1.1.1.1:8080").toString())))
                 .andExpect(model().attributeExists(RESULT_ATTRIBUTE))
                 .andExpect(model().hasNoErrors());
 
@@ -151,8 +149,6 @@ public class AddUniverseServerRequestControllerTest extends BaseTest {
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_SUCCESS_PAGE))
-                // TODO This should fail.
-                .andExpect(flash().attribute(FORM_ATTRIBUTE, hasProperty("serverAddress", equalTo("1.1.1.1:8080").toString())))
                 .andExpect(model().attributeExists(RESULT_ATTRIBUTE))
                 .andExpect(model().hasNoErrors());
     }

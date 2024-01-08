@@ -3,19 +3,15 @@ package org.royllo.explorer.web.controller.asset;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
-import org.royllo.explorer.core.dto.proof.ProofDTO;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.asset.AssetStateService;
 import org.royllo.explorer.core.service.proof.ProofService;
 import org.royllo.explorer.web.util.base.BaseController;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -33,10 +29,8 @@ import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASS
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_STATES_LIST_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_URL_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PAGE_ATTRIBUTE;
-import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PROOF_ID_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PROOF_LIST_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.WEB_BASE_URL_ATTRIBUTE;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 /**
  * Asset controller.
@@ -168,27 +162,6 @@ public class AssetController extends BaseController {
                 ASSET_PROOFS_DEFAULT_PAGE_SIZE));
 
         return getPageOrFragment(request, ASSET_PROOFS_PAGE);
-    }
-
-    /**
-     * Download a proof.
-     *
-     * @param assetId asset id
-     * @param proofId proof id
-     * @return proof
-     */
-    @GetMapping(value = "/asset/{assetId}/proof/{proofId}",
-            produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public @ResponseBody byte[] getProof(@PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId,
-                                         @PathVariable(value = PROOF_ID_ATTRIBUTE) final String proofId) {
-        final Optional<ProofDTO> proofFile = proofService.getProofByProofId(proofId);
-        if (proofFile.isPresent()) {
-            // TODO Useless
-            return null;
-            //return proofFile.get().getProof().getBytes();
-        } else {
-            throw new ResponseStatusException(NOT_FOUND, "Proof not found on asset id:" + assetId + " and proof id:" + proofId);
-        }
     }
 
     /**

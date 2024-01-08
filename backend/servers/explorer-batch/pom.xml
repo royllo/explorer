@@ -15,7 +15,7 @@
     <!-- =========================================================================================================== -->
     <!-- Properties -->
     <properties>
-        <start-class>org.royllo.explorer.batch.Application</start-class>
+        <start-class>org.royllo.explorer.batch.BatchApplication</start-class>
     </properties>
     <!-- =========================================================================================================== -->
 
@@ -121,7 +121,7 @@
                         </env>
                         -->
                     </image>
-                    <mainClass>org.royllo.explorer.batch.Application</mainClass>
+                    <mainClass>org.royllo.explorer.batch.BatchApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

@@ -56,17 +56,15 @@
     <properties>
         <!-- ======================================================================================================= -->
         <!-- Java build configuration -->
-        <java.version>17</java.version>
-        <maven.compiler.target>17</maven.compiler.target>
-        <maven.compiler.source>17</maven.compiler.source>
+        <java.version>21</java.version>
+        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- ======================================================================================================= -->
         <!-- Project libraries -->
-        <spring.version>3.1.7</spring.version>
-        <reactor-core.version>3.6.1</reactor-core.version>
-        <reactor-netty.version>1.1.14</reactor-netty.version>
+        <spring.version>3.2.1</spring.version>
 
         <graphql-dgs-platform-dependencies.version>8.2.0</graphql-dgs-platform-dependencies.version>
         <graphql-dgs-codegen-core.version>6.1.1</graphql-dgs-codegen-core.version>
@@ -179,7 +177,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.7</version>
+        <version>3.2.1</version>
         <relativePath/>
     </parent>
     <!-- =========================================================================================================== -->

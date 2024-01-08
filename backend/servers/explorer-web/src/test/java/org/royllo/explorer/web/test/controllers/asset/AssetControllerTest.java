@@ -45,8 +45,6 @@ import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PA
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PROOFS_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_STATES_PAGE;
 import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_TXID;
-import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
-import static org.royllo.test.TapdData.ROYLLO_COIN_FROM_TEST;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -121,15 +119,6 @@ public class AssetControllerTest extends BaseTest {
                 // Checking error message.
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.noAssetId")))))
                 .andExpect(content().string(containsString(getMessage(messages, "asset.view.error.assetNotFound"))));
-
-    }
-
-    @Test
-    @DisplayName("Download proof")
-    void downloadProof() throws Exception {
-
-        mockMvc.perform(get("/asset/" + ROYLLO_COIN_ASSET_ID + "/proof/" + ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getProofId()))
-                .andExpect(status().isOk());
 
     }
 

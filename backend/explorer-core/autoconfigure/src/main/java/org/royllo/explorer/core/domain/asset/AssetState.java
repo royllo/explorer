@@ -90,7 +90,7 @@ public class AssetState extends BaseDomain {
     @Column(name = "AMOUNT")
     private BigInteger amount;
 
-    /** An optional locktime, as with Bitcoin transactions. */
+    /** An optional lock time, as with Bitcoin transactions. */
     @Column(name = "LOCK_TIME")
     private int lockTime;
 

@@ -34,6 +34,7 @@ public class AssetStateDataFetcher extends BaseDataFetcher {
      * @param pageSize the page size you want
      * @return list of assets corresponding to the search
      */
+    @SuppressWarnings("DuplicatedCode")
     @DgsQuery
     public final Page<AssetStateDTO> assetStatesByAssetId(final @InputArgument String assetId,
                                                           final @InputArgument Integer page,

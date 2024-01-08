@@ -30,6 +30,7 @@ public class GetTransactionResponse {
     /** Outputs. */
     List<VOut> vout = new LinkedList<>();
 
+    @SuppressWarnings("unused")
     @Getter
     @Setter
     @NoArgsConstructor

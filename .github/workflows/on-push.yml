@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-java@v4.0.0
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
 
       # ================================================================================================================
       - name: build and run tests
@@ -42,7 +42,7 @@ jobs:
         uses: actions/setup-java@v4.0.0
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
 
       # ================================================================================================================
       - name: build and run tests
@@ -64,7 +64,7 @@ jobs:
         uses: actions/setup-java@v4.0.0
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
 
       # ================================================================================================================
       - name: Build docker images
@@ -138,7 +138,7 @@ jobs:
         uses: actions/setup-java@v4.0.0
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
 
       # ================================================================================================================
       # Using CodeQL.
@@ -178,7 +178,7 @@ jobs:
         uses: actions/setup-java@v4.0.0
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
 
       # ================================================================================================================
       - name: Build docker images
@@ -219,7 +219,7 @@ jobs:
         uses: actions/setup-java@v4.0.0
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
 
       # ================================================================================================================
       - name: Build docker images

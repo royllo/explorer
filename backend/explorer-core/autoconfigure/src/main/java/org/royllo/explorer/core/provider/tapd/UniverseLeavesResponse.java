@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * "taproot-assets/universe/leaves/asset-id" response.
+ * Response to "taproot-assets/universe/leaves/asset-id".
  * <a href="https://lightning.engineering/api-docs/api/taproot-assets/universe/asset-leaves">Documentation</a>
  * <a href="curl https://testnet.universe.lightning.finance/v1/taproot-assets/universe/leaves/asset-id/f84238ffd7838b663f1800d8147c9338f15688b430f6e9d8d53f148049ef3bcb | jq">Test call</a>
  */

@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication(scanBasePackages = "org.royllo.explorer")
 @SuppressWarnings({"checkstyle:FinalClass", "checkstyle:HideUtilityClassConstructor"})
-public class Application {
+public class BatchApplication {
 
     /**
      * Main.
@@ -16,7 +16,7 @@ public class Application {
      * @param args command line arguments.
      */
     public static void main(final String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(BatchApplication.class, args);
     }
 
 }
