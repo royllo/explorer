@@ -3,7 +3,7 @@ package org.royllo.explorer.web.controller;
 import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.royllo.explorer.core.service.asset.AssetService;
+import org.royllo.explorer.core.service.search.SearchService;
 import org.royllo.explorer.web.util.base.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,8 +23,8 @@ import static org.royllo.explorer.web.util.constants.SearchPageConstants.SEARCH_
 @RequiredArgsConstructor
 public class SearchController extends BaseController {
 
-    /** Asset service. */
-    private final AssetService assetService;
+    /** Search service. */
+    private final SearchService searchService;
 
     /**
      * Page displaying search results.
@@ -47,7 +47,7 @@ public class SearchController extends BaseController {
             model.addAttribute(PAGE_ATTRIBUTE, page);
 
             // If the query is present, we make the search and add result to the page.
-            model.addAttribute(RESULT_ATTRIBUTE, assetService.queryAssets(query.trim(), page, ASSET_SEARCH_DEFAULT_PAGE_SIZE));
+            model.addAttribute(RESULT_ATTRIBUTE, searchService.queryAssets(query.trim(), page, ASSET_SEARCH_DEFAULT_PAGE_SIZE));
         }
 
         return getPageOrFragment(request, SEARCH_PAGE);

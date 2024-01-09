@@ -11,6 +11,7 @@ import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.repository.asset.AssetGroupRepository;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
+import org.royllo.explorer.core.service.search.SearchService;
 import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -71,16 +72,19 @@ public class AssetServiceTest extends TestWithMockServers {
     @Autowired
     private AssetService assetService;
 
+    @Autowired
+    private SearchService searchService;
+
     @Test
     @DisplayName("queryAssets()")
     public void queryAssets() {
         // Searching for an asset that doesn't exist.
-        Page<AssetDTO> results = assetService.queryAssets("NON_EXISTING_ASSET_ID", 1, 5);
+        Page<AssetDTO> results = searchService.queryAssets("NON_EXISTING_ASSET_ID", 1, 5);
         assertEquals(0, results.getTotalElements());
         assertEquals(0, results.getTotalPages());
 
         // Searching for an asset with its group asset id
-        results = assetService.queryAssets(SET_OF_ROYLLO_NFT_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup().getTweakedGroupKey(), 1, 5);
+        results = searchService.queryAssets(SET_OF_ROYLLO_NFT_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup().getTweakedGroupKey(), 1, 5);
         assertEquals(3, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
         assertEquals(SET_OF_ROYLLO_NFT_1_ASSET_ID, results.getContent().get(0).getAssetId());
@@ -88,31 +92,31 @@ public class AssetServiceTest extends TestWithMockServers {
         assertEquals(SET_OF_ROYLLO_NFT_3_ASSET_ID, results.getContent().get(2).getAssetId());
 
         // Searching for an asset with its asset id.
-        results = assetService.queryAssets(ROYLLO_COIN_ASSET_ID, 1, 5);
+        results = searchService.queryAssets(ROYLLO_COIN_ASSET_ID, 1, 5);
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
         assertEquals(1, results.getContent().get(0).getId());
 
         // Searching for an asset with its asset id alias.
-        results = assetService.queryAssets(TRICKY_ROYLLO_COIN_ASSET_ID_ALIAS, 1, 5);
+        results = searchService.queryAssets(TRICKY_ROYLLO_COIN_ASSET_ID_ALIAS, 1, 5);
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
         assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, results.getContent().get(0).getAssetId());
 
         // Searching for an asset with its partial name (trickyCoin) - only 1 result.
-        results = assetService.queryAssets("ky", 1, 5);
+        results = searchService.queryAssets("ky", 1, 5);
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
         assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, results.getContent().get(0).getAssetId());
 
         // Searching for an asset with its partial name uppercase (trickyRoylloCoin) - only 1 result.
-        results = assetService.queryAssets("kyR", 1, 5);
+        results = searchService.queryAssets("kyR", 1, 5);
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
         assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, results.getContent().get(0).getAssetId());
 
         // Searching for an asset with its partial name corresponding to eight assets.
-        results = assetService.queryAssets("royllo", 1, 4);
+        results = searchService.queryAssets("royllo", 1, 4);
         assertEquals(8, results.getTotalElements());
         assertEquals(2, results.getTotalPages());
         Set<Long> ids = results.stream()
