@@ -10,9 +10,12 @@ import lombok.experimental.UtilityClass;
 public class TaprootAssetsConstants {
 
     /** Tweaked group key size is always 33 bytes (66 characters) and hexadecimal. */
-    public static final int TWEAKED_GROUP_KEY_SIZE = 66;
+    public static final int TWEAKED_GROUP_KEY_LENGTH = 66;
 
     /** Asset id size is always 32 bytes (64 characters) and hexadecimal. */
-    public static final int ASSET_ID_SIZE = 64;
+    public static final int ASSET_ID_LENGTH = 64;
+
+    /** The length of the asset id alias. */
+    public static final int ASSET_ALIAS_LENGTH = 8;
 
 }

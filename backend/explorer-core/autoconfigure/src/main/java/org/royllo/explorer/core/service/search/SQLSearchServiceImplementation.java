@@ -1,5 +1,7 @@
 package org.royllo.explorer.core.service.search;
 
+import jakarta.annotation.PostConstruct;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.asset.Asset;
@@ -8,31 +10,53 @@ import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.service.asset.AssetGroupService;
 import org.royllo.explorer.core.util.base.BaseService;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.sql.DataSource;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Optional;
 
 import static java.util.stream.Collectors.joining;
+import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ALIAS_LENGTH;
+import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_LENGTH;
+import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.TWEAKED_GROUP_KEY_LENGTH;
 
 /**
  * {@link SearchService} SQL implementation.
  */
 @Service
 @RequiredArgsConstructor
-@Profile("!redis-search-engine")
 @SuppressWarnings("checkstyle:DesignForExtension")
 public class SQLSearchServiceImplementation extends BaseService implements SearchService {
+
+    /** Datasource. */
+    private final DataSource dataSource;
 
     /** Assert repository. */
     private final AssetRepository assetRepository;
 
     /** Asset group service. */
     private final AssetGroupService assetGroupService;
+
+    /** Indicates if it's a postgresql database. */
+    @Getter
+    private boolean isUsingPostgreSQL = false;
+
+    @PostConstruct
+    public void init() {
+        try {
+            DatabaseMetaData metaData = dataSource.getConnection().getMetaData();
+            String databaseProductName = metaData.getDatabaseProductName();
+            isUsingPostgreSQL = "PostgreSQL".equals(databaseProductName);
+        } catch (SQLException e) {
+            logger.error("Impossible to retrieve database metadata {}", e.getMessage());
+        }
+    }
 
     @Override
     public Page<AssetDTO> queryAssets(@NonNull final String query,
@@ -43,55 +67,71 @@ public class SQLSearchServiceImplementation extends BaseService implements Searc
         // Checking constraints.
         assert page >= 1 : "Page number starts at page 1";
 
-        // Results.
-        Page<AssetDTO> results = Page.empty();
+        // Cleaning the query.
+        final String cleanedQuery = query.trim();
 
-        // Search if the "query" parameter is a tweaked group key (asset group) > returns all assets of this asset group.
-        final Optional<AssetGroupDTO> assetGroup = assetGroupService.getAssetGroupByAssetGroupId(query);
-        if (assetGroup.isPresent()) {
-            results = assetRepository.findByAssetGroup_AssetGroupId(assetGroup.get().getAssetGroupId(),
-                            PageRequest.of(page - 1, pageSize))
-                    .map(ASSET_MAPPER::mapToAssetDTO);
+        // =============================================================================================================
+        // TWEAKED_GROUP_KEY_SIZE search.
+        if (cleanedQuery.length() == TWEAKED_GROUP_KEY_LENGTH) {
+            // Search if the "query" parameter is a tweaked group key (asset group) > returns all assets of this asset group.
+            final Optional<AssetGroupDTO> assetGroup = assetGroupService.getAssetGroupByAssetGroupId(cleanedQuery);
+            if (assetGroup.isPresent()) {
+                logger.info("The query '{}' corresponds to a tweaked group key", cleanedQuery);
+                return assetRepository.findByAssetGroup_AssetGroupId(assetGroup.get().getAssetGroupId(), PageRequest.of(page - 1, pageSize))
+                        .map(ASSET_MAPPER::mapToAssetDTO);
+            }
         }
 
-        // If nothing found, we search if there is this asset in database with this exact asset id.
-        if (results.isEmpty()) {
-            final Optional<Asset> assetIdSearch = assetRepository.findByAssetId(query);
+        // =============================================================================================================
+        // ASSET_ID search.
+        if (cleanedQuery.length() == ASSET_ID_LENGTH) {
+            // Search if the "query" parameter is an asset id.
+            final Optional<Asset> assetIdSearch = assetRepository.findByAssetId(cleanedQuery);
             if (assetIdSearch.isPresent()) {
-                results = new PageImpl<>(assetIdSearch.stream()
+                logger.info("The query '{}' corresponds to an asset id", cleanedQuery);
+                return new PageImpl<>(assetIdSearch.stream()
                         .map(ASSET_MAPPER::mapToAssetDTO)
                         .toList());
             }
         }
 
-        // If nothing found, we will search on asset id alias.
-        if (results.isEmpty()) {
-            final Optional<Asset> assetIdAliasSearch = assetRepository.findByAssetIdAlias(query);
+        // =============================================================================================================
+        // ASSET_ID_ALIAS search.
+        if (cleanedQuery.length() == ASSET_ALIAS_LENGTH) {
+            // If nothing found, we will search on asset id alias.
+            final Optional<Asset> assetIdAliasSearch = assetRepository.findByAssetIdAlias(cleanedQuery);
             if (assetIdAliasSearch.isPresent()) {
-                results = new PageImpl<>(assetIdAliasSearch.stream()
+                logger.info("The query '{}' corresponds to an asset id alias", cleanedQuery);
+                return new PageImpl<>(assetIdAliasSearch.stream()
                         .map(ASSET_MAPPER::mapToAssetDTO)
                         .toList());
             }
         }
 
         // If nothing found, we search if there is an asset with "query" parameter as complete or partial asset name.
-        if (results.isEmpty()) {
-            results = assetRepository.findByNameContainsIgnoreCaseOrderByName(query,
+        Page<AssetDTO> results;
+        if (isUsingPostgreSQL) {
+            // PostgreSQL "ILIKE" search.
+            results = assetRepository.findByName(cleanedQuery,
+                    PageRequest.of(page - 1, pageSize)).map(ASSET_MAPPER::mapToAssetDTO);
+        } else {
+            results = assetRepository.findByNameContainsIgnoreCaseOrderByName(cleanedQuery,
                     PageRequest.of(page - 1, pageSize)).map(ASSET_MAPPER::mapToAssetDTO);
         }
 
         // Displaying logs and return results.
         if (results.isEmpty()) {
-            logger.info("For '{}', there is no results", query);
+            logger.info("For '{}', there is no results", cleanedQuery);
         } else {
             logger.info("For '{}', {} result(s) with assets id(s): {}",
-                    query,
+                    cleanedQuery,
                     results.getTotalElements(),
                     results.stream()
                             .map(AssetDTO::getId)
                             .map(Objects::toString)
                             .collect(joining(", ")));
         }
+
         return results;
     }
 

@@ -4,8 +4,13 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet author="straumat" id="1.0.0-postgresql" dbms="postgresql" failOnError="false">
 
-        <!-- LTree extension installation -->
-        <sql dbms="postgresql">create extension ltree;</sql>
+        <!-- Extension installation -->
+        <sql dbms="postgresql">create extension if not exists pg_trgm;</sql>
+
+        <!-- Add a GIN index on ASSET.NAME -->
+        <sql dbms="postgresql">
+            CREATE INDEX INDEX_ASSET_GIN_NAME ON ASSET USING GIN (NAME gin_trgm_ops);
+        </sql>
 
     </changeSet>
 </databaseChangeLog>

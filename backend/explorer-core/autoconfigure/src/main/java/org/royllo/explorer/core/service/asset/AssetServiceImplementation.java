@@ -25,7 +25,7 @@ import java.time.ZonedDateTime;
 import java.util.Optional;
 
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
-import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_SIZE;
+import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_LENGTH;
 
 /**
  * {@link AssetService} implementation.
@@ -158,7 +158,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
             return Optional.empty();
         }
 
-        if (assetId.length() == ASSET_ID_SIZE) {
+        if (assetId.length() == ASSET_ID_LENGTH) {
             // We received an asset id (we know it because of the size).
             Optional<Asset> asset = assetRepository.findByAssetId(assetId.trim());
             if (asset.isPresent()) {
