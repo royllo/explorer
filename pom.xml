@@ -8,7 +8,7 @@
     <!-- Project information -->
     <groupId>org.royllo.explorer</groupId>
     <artifactId>explorer</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1</version>
     <name>Royllo - A Taproot asset explorer</name>
     <description>Royllo explorer allows you to search for Taproot assets created on the Bitcoin blockchain</description>
     <packaging>pom</packaging>
@@ -67,7 +67,7 @@
         <spring.version>3.2.1</spring.version>
 
         <graphql-dgs-platform-dependencies.version>8.2.0</graphql-dgs-platform-dependencies.version>
-        <graphql-dgs-codegen-core.version>6.1.1</graphql-dgs-codegen-core.version>
+        <graphql-dgs-codegen-core.version>6.1.2</graphql-dgs-codegen-core.version>
         <graphql-dgs-codegen-client-core.version>5.1.17</graphql-dgs-codegen-client-core.version>
 
         <liquibase.version>4.25.1</liquibase.version>
@@ -106,7 +106,7 @@
         <!-- ======================================================================================================= -->
         <!-- Maven plugins -->
         <maven.checkstyle.plugin.version>3.3.1</maven.checkstyle.plugin.version>
-        <maven.graphqlcodegen.plugin.version>1.51.1</maven.graphqlcodegen.plugin.version>
+        <maven.graphqlcodegen.plugin.version>1.51.2</maven.graphqlcodegen.plugin.version>
         <maven.puppycrawl.checkstyle.version>10.12.7</maven.puppycrawl.checkstyle.version>
         <maven.compiler.plugin.version>3.12.1</maven.compiler.plugin.version>
 
