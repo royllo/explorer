@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.api.util.base.BaseDataFetcher;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.service.asset.AssetService;
+import org.royllo.explorer.core.service.search.SearchService;
 import org.springframework.data.domain.Page;
 
 import java.util.Objects;
@@ -26,6 +27,9 @@ public class AssetDataFetcher extends BaseDataFetcher {
 
     /** Asset service. */
     private final AssetService assetService;
+
+    /** Search service. */
+    private final SearchService searchService;
 
     /**
      * Query assets.
@@ -55,7 +59,7 @@ public class AssetDataFetcher extends BaseDataFetcher {
         }
 
         // Return the results.
-        return assetService.queryAssets(query,
+        return searchService.queryAssets(query,
                 finalPage,
                 finalPageSize);
     }

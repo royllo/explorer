@@ -8,6 +8,8 @@ import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 
 import java.util.Random;
 
+import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ALIAS_LENGTH;
+
 /**
  * Asset mapper decorator.
  * This is used to calculate the asset id alias if not set.
@@ -16,9 +18,6 @@ public abstract class AssetMapperDecorator implements AssetMapper {
 
     /** Characters to choose from when generating an asset id alias. */
     private static final String CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-    /** The length of the asset id alias. */
-    public static final int ALIAS_LENGTH = 8;
 
     /** Random number generator. */
     private final Random random = new Random();
@@ -61,12 +60,13 @@ public abstract class AssetMapperDecorator implements AssetMapper {
 
     /**
      * Returns a random alias.
+     *
      * @return random alias
      */
     private String getAssetIdAlias() {
-        StringBuilder assetIdAlias = new StringBuilder(ALIAS_LENGTH);
+        StringBuilder assetIdAlias = new StringBuilder(ASSET_ALIAS_LENGTH);
 
-        for (int i = 0; i < ALIAS_LENGTH; i++) {
+        for (int i = 0; i < ASSET_ALIAS_LENGTH; i++) {
             int index = random.nextInt(CHARACTERS.length());
             assetIdAlias.append(CHARACTERS.charAt(index));
         }

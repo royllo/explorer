@@ -36,9 +36,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.royllo.explorer.core.dto.proof.ProofDTO.PROOF_FILE_NAME_EXTENSION;
 import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
 import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
+import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ALIAS_LENGTH;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
-import static org.royllo.explorer.core.util.mapper.AssetMapperDecorator.ALIAS_LENGTH;
 import static org.royllo.test.MempoolData.SET_OF_ROYLLO_NFT_ANCHOR_1_TXID;
 import static org.royllo.test.MempoolData.SET_OF_ROYLLO_NFT_ANCHOR_1_VOUT;
 import static org.royllo.test.MempoolData.SET_OF_ROYLLO_NFT_ANCHOR_2_TXID;
@@ -207,15 +207,15 @@ public class SetOfRoylloNFTIntegrationTest extends TestWithMockServers {
         final Optional<AssetDTO> asset1 = assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_1_ASSET_ID);
         assertTrue(asset1.isPresent());
         assertNotNull(asset1.get().getAssetIdAlias());
-        assertEquals(ALIAS_LENGTH, asset1.get().getAssetIdAlias().length());
+        assertEquals(ASSET_ALIAS_LENGTH, asset1.get().getAssetIdAlias().length());
         final Optional<AssetDTO> asset2 = assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_2_ASSET_ID);
         assertTrue(asset2.isPresent());
         assertNotNull(asset2.get().getAssetIdAlias());
-        assertEquals(ALIAS_LENGTH, asset2.get().getAssetIdAlias().length());
+        assertEquals(ASSET_ALIAS_LENGTH, asset2.get().getAssetIdAlias().length());
         final Optional<AssetDTO> asset3 = assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_3_ASSET_ID);
         assertTrue(asset3.isPresent());
         assertNotNull(asset3.get().getAssetIdAlias());
-        assertEquals(ALIAS_LENGTH, asset3.get().getAssetIdAlias().length());
+        assertEquals(ASSET_ALIAS_LENGTH, asset3.get().getAssetIdAlias().length());
 
         verifyTransaction(bitcoinService.getBitcoinTransactionOutput(SET_OF_ROYLLO_NFT_GENESIS_TXID, SET_OF_ROYLLO_NFT_GENESIS_VOUT).get(),
                 SET_OF_ROYLLO_NFT_GENESIS_TXID);

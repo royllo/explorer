@@ -4,6 +4,7 @@ import org.royllo.explorer.core.domain.asset.Asset;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -31,7 +32,20 @@ public interface AssetRepository extends JpaRepository<Asset, Long> {
     Optional<Asset> findByAssetIdAlias(String assetIdAlias);
 
     /**
-     * Find an asset by its complete or partial name.
+     * Find assets by its complete or partial name.
+     * Takes advantage of PostgreSQL "pg_trgm" and "ILIKE".
+     *
+     * @param searchTerm search term
+     * @param pageable   pagination
+     * @return results
+     */
+    @Query(value = "SELECT * FROM ASSET WHERE NAME ILIKE %?1%",
+            countQuery = "SELECT count(*) FROM ASSET WHERE NAME ILIKE %?1%",
+            nativeQuery = true)
+    Page<Asset> findByName(String searchTerm, Pageable pageable);
+
+    /**
+     * Find assets by its complete or partial name.
      *
      * @param name     complete or partial name
      * @param pageable page parameters
