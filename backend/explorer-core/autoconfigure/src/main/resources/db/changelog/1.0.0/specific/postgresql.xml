@@ -3,6 +3,7 @@
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet author="straumat" id="1.0.0-postgresql" dbms="postgresql" failOnError="false">
+        <validCheckSum>1:any</validCheckSum>
 
         <!-- Extension installation -->
         <sql dbms="postgresql">create extension if not exists pg_trgm;</sql>
