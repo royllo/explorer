@@ -29,6 +29,7 @@ import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASS
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_STATES_LIST_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_URL_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PAGE_ATTRIBUTE;
+import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PAGE_TITLE_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PROOF_LIST_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.WEB_BASE_URL_ATTRIBUTE;
 
@@ -178,6 +179,7 @@ public class AssetController extends BaseController {
             model.addAttribute(ASSET_ATTRIBUTE, asset.get());
             // We also set the url to share the asset.
             model.addAttribute(ASSET_URL_ATTRIBUTE, model.getAttribute(WEB_BASE_URL_ATTRIBUTE) + "/asset/" + asset.get().getAssetIdAlias());
+            model.addAttribute(PAGE_TITLE_ATTRIBUTE, asset.get().getName() + " - " + asset.get().getAssetId());
         }
 
         return asset;

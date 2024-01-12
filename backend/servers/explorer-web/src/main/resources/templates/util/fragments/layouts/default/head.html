@@ -6,12 +6,12 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
 
     <!--/* Page description */-->
-    <title th:text="#{head.title}"></title>
+    <title th:text="${pageTitle} ?: #{head.title}"></title>
     <meta name="description" th:content="#{head.description}">
     <meta name="author" th:content="#{head.author}">
 
     <!--/* Open Graph */-->
-    <meta property="og:title" th:content="#{og.title}">
+    <meta property="og:title" th:content="${pageTitle} ?: #{og.title}">
     <meta property="og:type" th:content="#{og.type}">
     <meta property="og:url" th:content="#{og.url}">
     <meta property="og:description" th:content="#{og.description}">
