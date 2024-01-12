@@ -27,4 +27,5 @@ public class AssetPageConstants {
     /** Asset proofs page. */
     public static final String ASSET_PROOFS_PAGE = "asset/proofs";
 
+
 }

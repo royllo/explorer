@@ -36,9 +36,6 @@ public class ModelAttributeConstants {
     /** Asset url attribute. */
     public static final String ASSET_URL_ATTRIBUTE = "assetUrl";
 
-    /** Proof id attribute. */
-    public static final String PROOF_ID_ATTRIBUTE = "proofId";
-
     /** Request id attribute. */
     public static final String REQUEST_ID_ATTRIBUTE = "requestId";
 
@@ -59,5 +56,8 @@ public class ModelAttributeConstants {
 
     /** sitemap urls. */
     public static final String SITEMAP_URLS_ATTRIBUTE = "urls";
+
+    /** Page title attribute. */
+    public static final String PAGE_TITLE_ATTRIBUTE = "pageTitle";
 
 }
