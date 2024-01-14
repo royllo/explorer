@@ -23,10 +23,13 @@ public class SecurityConfiguration {
 
     @Bean
     public UserDetailsService userDetailsService() {
+        // The primary purpose of the UserDetailsService is to load user-specific data.
+        // It is used by the AuthenticationManager to authenticate a user during the login process.
+        // When a username and password are submitted (e.g., via a login form), Spring Security's AuthenticationManager
+        // uses the UserDetailsService to load the user details.
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("password")
+        manager.createUser(User.withUsername("user")
+                .password("{bcrypt}$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG")
                 .roles("USER")
                 .build());
         return manager;
@@ -34,15 +37,16 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
+        //  Each request that comes in passes through this chain of filters before reaching your application.
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((authorize) -> authorize
-                        .anyRequest().permitAll()
-                );
+                .cors(AbstractHttpConfigurer::disable)
+                // No authentication required for the public website.
+                .authorizeHttpRequests((authorize) -> authorize.anyRequest().permitAll());
         return http.build();
     }
 
     /**
-     * K1 manager.
+     * K1 manager. "k1" refers to a one-time, randomly generated key or token.
      *
      * @return k1 manager
      */
