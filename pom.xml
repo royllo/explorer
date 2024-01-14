@@ -100,7 +100,7 @@
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
         <testcontainers.version>1.19.3</testcontainers.version>
-        <mockito-core.version>5.8.0</mockito-core.version>
+        <mockito-core.version>5.9.0</mockito-core.version>
         <okhttp.version>5.0.0-alpha.12</okhttp.version>
 
         <!-- ======================================================================================================= -->
