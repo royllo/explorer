@@ -16,6 +16,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Value
 @Builder
 @AllArgsConstructor(access = PRIVATE)
+@SuppressWarnings("checkstyle:VisibilityModifier")
 public class UserLnurlAuthKeyDTO {
 
     /** Unique identifier. */
