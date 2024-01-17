@@ -29,7 +29,7 @@ import static lombok.AccessLevel.PACKAGE;
 @AllArgsConstructor(access = PACKAGE)
 @Builder
 @Entity
-@Table(name = "USER")
+@Table(name = "APPLICATION_USER")
 public class User extends BaseDomain {
 
     /** Unique identifier. */
