@@ -5,12 +5,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.stereotype.Controller;
-import org.tbk.lnurl.auth.SimpleK1Manager;
+import org.tbk.lnurl.auth.K1Manager;
+import org.tbk.lnurl.auth.LnurlAuthFactory;
+import org.tbk.lnurl.auth.LnurlAuthPairingService;
+import org.tbk.spring.lnurl.security.LnurlAuthConfigurer;
+
+import static org.royllo.explorer.web.util.constants.AuthenticationPageConstants.LNURL_AUTH_LOGIN_PAGE_PATH;
+import static org.royllo.explorer.web.util.constants.AuthenticationPageConstants.LNURL_AUTH_SESSION_K1_KEY;
+import static org.royllo.explorer.web.util.constants.AuthenticationPageConstants.LNURL_AUTH_SESSION_LOGIN_PATH;
+import static org.royllo.explorer.web.util.constants.AuthenticationPageConstants.LNURL_AUTH_WALLET_LOGIN_PATH;
+import static org.royllo.explorer.web.util.constants.UtilPagesConstants.ERROR_403_PAGE;
+import static org.springframework.security.config.http.SessionCreationPolicy.NEVER;
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
 /**
  * Security configuration.
@@ -21,38 +30,75 @@ import org.tbk.lnurl.auth.SimpleK1Manager;
 @SuppressWarnings({"checkstyle:DesignForExtension"})
 public class SecurityConfiguration {
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        // The primary purpose of the UserDetailsService is to load user-specific data.
-        // It is used by the AuthenticationManager to authenticate a user during the login process.
-        // When a username and password are submitted (e.g., via a login form), Spring Security's AuthenticationManager
-        // uses the UserDetailsService to load the user details.
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername("user")
-                .password("{bcrypt}$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG")
-                .roles("USER")
-                .build());
-        return manager;
-    }
+    /** LNURL Auth factory. */
+    private final LnurlAuthFactory lnurlAuthFactory;
+
+    /** K1 manager. "k1" refers to a one-time, randomly generated key or token. */
+    private final K1Manager lnurlAuthk1Manager;
+
+    /** This service acts like a user detail service for LNURL-auth. */
+    private final LnurlAuthPairingService lnurlAuthPairingService;
+
+    /** User details service. */
+    private final UserDetailsService userDetailsService;
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
         //  Each request that comes in passes through this chain of filters before reaching your application.
-        http.csrf(AbstractHttpConfigurer::disable)
+        return http.csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
-                // No authentication required for the public website.
-                .authorizeHttpRequests((authorize) -> authorize.anyRequest().permitAll());
-        return http.build();
-    }
-
-    /**
-     * K1 manager. "k1" refers to a one-time, randomly generated key or token.
-     *
-     * @return k1 manager
-     */
-    @Bean
-    SimpleK1Manager k1Manager() {
-        return new SimpleK1Manager();
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(NEVER)
+                        .sessionFixation().migrateSession()
+                )
+                // Page authorisations.
+                .authorizeHttpRequests((authorize) -> authorize
+                        // Public website.
+                        .requestMatchers(
+                                // Pages.
+                                antMatcher("/"),
+                                antMatcher("/search"),
+                                antMatcher("/asset/**"),
+                                antMatcher("/request/**"),
+                                // Static content.
+                                antMatcher("/css/**"),
+                                antMatcher("/images/**"),
+                                antMatcher("/svg/**"),
+                                antMatcher("/webjars/**"),
+                                // Util.
+                                antMatcher("/sitemap.xml")
+                        ).permitAll()
+                        // User account pages (Requires authorizations).
+                        .requestMatchers(
+                                antMatcher("/account/**")
+                        ).authenticated()
+                )
+                // If the user is not authenticated when accessing a protected page, redirect to the login page.
+                .exceptionHandling((exceptionHandling) -> exceptionHandling
+                        .accessDeniedPage(ERROR_403_PAGE)
+                        .authenticationEntryPoint((request, response, authenticationException) -> response.sendRedirect(LNURL_AUTH_LOGIN_PAGE_PATH))
+                )
+                // LNURL Auth configuration.
+                .with(new LnurlAuthConfigurer(), lnurlAuthConfigurer ->
+                        lnurlAuthConfigurer.k1Manager(lnurlAuthk1Manager)
+                                .pairingService(lnurlAuthPairingService)
+                                .lnurlAuthFactory(lnurlAuthFactory)
+                                .authenticationUserDetailsService(userDetailsService)
+                                .loginPageEndpoint(login -> login
+                                        .enable(true)
+                                        .baseUri(LNURL_AUTH_LOGIN_PAGE_PATH)
+                                )
+                                .sessionEndpoint(session -> session
+                                        .baseUri(LNURL_AUTH_SESSION_LOGIN_PATH)
+                                        .sessionK1Key(LNURL_AUTH_SESSION_K1_KEY)
+                                        .successHandlerCustomizer(successHandler -> {
+                                            successHandler.setDefaultTargetUrl("/");
+                                            successHandler.setTargetUrlParameter("redirect");
+                                            successHandler.setAlwaysUseDefaultTargetUrl(false);
+                                            successHandler.setUseReferer(false);
+                                        })
+                                ).walletEndpoint(wallet -> wallet.baseUri(LNURL_AUTH_WALLET_LOGIN_PATH))
+                ).build();
     }
 
 }

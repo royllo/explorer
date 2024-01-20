@@ -15,6 +15,9 @@ public class UtilPagesConstants {
     /** Generic error page. */
     public static final String ERROR_PAGE = "util/errors/error";
 
+    /** Error 403 page. */
+    public static final String ERROR_403_PAGE = "/error/403";
+
     /** Error 404 page. */
     public static final String ERROR_404_PAGE = "util/errors/error-404";
 

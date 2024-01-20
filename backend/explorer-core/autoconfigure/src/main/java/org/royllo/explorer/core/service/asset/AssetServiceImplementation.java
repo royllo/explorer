@@ -1,5 +1,6 @@
 package org.royllo.explorer.core.service.asset;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micrometer.common.util.StringUtils;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.time.ZonedDateTime;
 import java.util.Optional;
@@ -102,21 +104,29 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         if (metadata != null) {
 
             try {
-                // Decoding (same as using xxd -r -p)
+                // Decoding (same as using xxd -r -p).
                 byte[] decodedBytes = Hex.decodeHex(metadata);
 
                 // Detecting the file type.
                 final String mimeType = new Tika().detect(decodedBytes);
-                final String extension = MimeTypes.getDefaultMimeTypes().forName(mimeType).getExtension();
+                String extension = MimeTypes.getDefaultMimeTypes().forName(mimeType).getExtension();
+
+                // If we have a file extension ".txt", we check if it's a JSON.
+                if (".txt".equalsIgnoreCase(extension)) {
+                    if (isJSONValid(new String(decodedBytes))) {
+                        extension = ".json";
+                    }
+                }
 
                 // Saving the file.
                 final String fileName = assetId + extension;
                 contentService.storeFile(decodedBytes, fileName);
+                logger.info("Asset id update for {}: Metadata saved as {}", assetId, fileName);
 
                 // Setting the name of the file.
                 assetToUpdate.get().setMetaDataFileName(fileName);
             } catch (DecoderException | MimeTypeException e) {
-                logger.error("Error decoding and saving metadata {}", e.getMessage());
+                logger.error("Asset id update for {}: Error decoding and saving metadata {}", assetId, e.getMessage());
             }
         }
 
@@ -124,12 +134,14 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         // If we have the new amount.
         if (amount != null) {
             assetToUpdate.get().setAmount(amount);
+            logger.info("Asset id update for {}: Amount updated to {}", assetId, amount);
         }
 
         // =============================================================================================================
         // If we have the issuance date.
         if (issuanceDate != null) {
             assetToUpdate.get().setIssuanceDate(issuanceDate);
+            logger.info("Asset id update for {}: Issuance date updated to {}", assetId, issuanceDate);
         }
 
         // We save the asset with the new information.
@@ -196,6 +208,22 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
 
         return assetRepository.findByAssetGroup_AssetGroupId(assetGroupId.trim(), PageRequest.of(page - 1, pageSize))
                 .map(ASSET_MAPPER::mapToAssetDTO);
+    }
+
+
+    /**
+     * Returns true if the string is a valid JSON.
+     *
+     * @param content string to check
+     * @return true if content is a valid JSON
+     */
+    private boolean isJSONValid(final String content) {
+        try {
+            new ObjectMapper().readTree(content);
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
     }
 
 }
