@@ -3,7 +3,6 @@
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet author="straumat" id="1.0.0-table-asset_state">
-        <validCheckSum>1:any</validCheckSum>
 
         <createTable tableName="ASSET_STATE"
                      remarks="Taproot asset state">
