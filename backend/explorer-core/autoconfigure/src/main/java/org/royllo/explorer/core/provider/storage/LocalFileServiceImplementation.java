@@ -6,12 +6,14 @@ import io.undertow.Undertow;
 import io.undertow.server.handlers.resource.PathResourceManager;
 import io.undertow.server.handlers.resource.ResourceHandler;
 import jakarta.annotation.PreDestroy;
+import lombok.NonNull;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.DatatypeConverter;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
@@ -100,10 +102,26 @@ public class LocalFileServiceImplementation implements ContentService {
     @Override
     @SuppressWarnings("checkstyle:DesignForExtension")
     public void storeFile(final byte[] fileContent,
-                          final String fileName) {
+                          @NonNull final String fileName) {
         try {
             Files.write(fileSystem.getPath(".").resolve(fileName), fileContent);
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    @SuppressWarnings("checkstyle:DesignForExtension")
+    public boolean fileExists(@NonNull final String fileName) {
+        return Files.exists(fileSystem.getPath(".").resolve(fileName));
+    }
+
+    @Override
+    @SuppressWarnings("checkstyle:DesignForExtension")
+    public void deleteFile(@NonNull final String fileName) {
+        try {
+            Files.delete(fileSystem.getPath(".").resolve(fileName));
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

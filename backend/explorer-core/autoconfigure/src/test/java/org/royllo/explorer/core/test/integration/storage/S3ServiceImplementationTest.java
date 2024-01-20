@@ -34,6 +34,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -99,6 +100,7 @@ public class S3ServiceImplementationTest extends TestWithMockServers {
         }
 
         // Adding the file.
+        assertFalse(contentService.fileExists("test.txt"));
         contentService.storeFile("test".getBytes(), "test.txt");
 
         // Adding the file (again) - Checking there is no exception.
@@ -107,6 +109,7 @@ public class S3ServiceImplementationTest extends TestWithMockServers {
         // Checking that the file now exists.
         try {
             // File exists ?
+            assertTrue(contentService.fileExists("test.txt"));
             minioClient.statObject(StatObjectArgs.builder().bucket(S3_BUCKET_NAME).object("test.txt").build());
 
             // Retrieving the file.
@@ -121,6 +124,10 @@ public class S3ServiceImplementationTest extends TestWithMockServers {
             fail("The file should now exist");
         }
 
+        // Testing file deletion.
+        assertTrue(contentService.fileExists("test.txt"));
+        contentService.deleteFile("test.txt");
+        assertFalse(contentService.fileExists("test.txt"));
     }
 
     @BeforeAll
