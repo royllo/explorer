@@ -6,7 +6,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "sunday"
-      time: "20:45"
+      time: "20:30"
       timezone: "Europe/Paris"
     target-branch: development
 
@@ -15,7 +15,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "sunday"
-      time: "20:45"
+      time: "20:30"
       timezone: "Europe/Paris"
     target-branch: development
 
@@ -24,15 +24,6 @@ updates:
     schedule:
       interval: "weekly"
       day: "sunday"
-      time: "20:45"
-      timezone: "Europe/Paris"
-    target-branch: development
-
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "sunday"
-      time: "20:45"
+      time: "20:30"
       timezone: "Europe/Paris"
     target-branch: development
