@@ -9,7 +9,6 @@ updates:
       time: "20:45"
       timezone: "Europe/Paris"
     target-branch: development
-    open-pull-requests-limit: 10
 
   - package-ecosystem: maven
     directory: "/"
@@ -19,7 +18,6 @@ updates:
       time: "20:45"
       timezone: "Europe/Paris"
     target-branch: development
-    open-pull-requests-limit: 10
 
   - package-ecosystem: npm
     directory: "/backend/servers/explorer-web"
@@ -29,4 +27,12 @@ updates:
       time: "20:45"
       timezone: "Europe/Paris"
     target-branch: development
-    open-pull-requests-limit: 10
+
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      time: "20:45"
+      timezone: "Europe/Paris"
+    target-branch: development
