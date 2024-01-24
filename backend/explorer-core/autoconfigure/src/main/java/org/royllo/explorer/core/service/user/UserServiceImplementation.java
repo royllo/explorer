@@ -19,16 +19,16 @@ import static org.royllo.explorer.core.util.enums.UserRole.USER;
 /**
  * {@link UserService} implementation.
  */
-@SuppressWarnings("unused")
 @Service
 @RequiredArgsConstructor
+@SuppressWarnings({"checkstyle:DesignForExtension", "unused"})
 public class UserServiceImplementation extends BaseService implements UserService {
 
     /** User repository. */
     private final UserRepository userRepository;
 
     @Override
-    public final UserDTO getAdministratorUser() {
+    public UserDTO getAdministratorUser() {
         logger.info("Getting administrator user");
 
         final Optional<User> administratorUser = userRepository.findById(ADMINISTRATOR_ID);
@@ -42,7 +42,7 @@ public class UserServiceImplementation extends BaseService implements UserServic
     }
 
     @Override
-    public final UserDTO getAnonymousUser() {
+    public UserDTO getAnonymousUser() {
         logger.info("Getting anonymous user");
 
         final Optional<User> anonymousUser = userRepository.findById(ANONYMOUS_ID);
@@ -75,7 +75,7 @@ public class UserServiceImplementation extends BaseService implements UserServic
     }
 
     @Override
-    public final Optional<UserDTO> getUserByUserId(@NonNull final String userId) {
+    public Optional<UserDTO> getUserByUserId(@NonNull final String userId) {
         logger.info("Getting user with userId: {}", userId);
 
         final Optional<User> user = userRepository.findByUserId(userId);
@@ -89,7 +89,7 @@ public class UserServiceImplementation extends BaseService implements UserServic
     }
 
     @Override
-    public final Optional<UserDTO> getUserByUsername(@NonNull final String username) {
+    public Optional<UserDTO> getUserByUsername(@NonNull final String username) {
         logger.info("Getting user with username: {}", username);
 
         final Optional<User> user = userRepository.findByUsernameIgnoreCase(username);
