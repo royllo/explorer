@@ -4,10 +4,10 @@ import jakarta.servlet.ServletContext;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.stereotype.Controller;
 import org.tbk.lnurl.auth.InMemoryLnurlAuthPairingService;
 import org.tbk.lnurl.auth.K1Manager;
 import org.tbk.lnurl.auth.LnurlAuthFactory;
@@ -18,10 +18,12 @@ import org.tbk.lnurl.auth.SimpleLnurlAuthFactory;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import static org.royllo.explorer.web.util.constants.AuthenticationPageConstants.LNURL_AUTH_WALLET_LOGIN_PATH;
+
 /**
  * Configuration for LNURL-auth.
  */
-@Controller
+@Configuration
 @RequiredArgsConstructor
 @SuppressWarnings({"checkstyle:DesignForExtension"})
 public class LnurlAuthConfiguration {
@@ -37,7 +39,8 @@ public class LnurlAuthConfiguration {
     @SneakyThrows(URISyntaxException.class)
     LnurlAuthFactory lnurlAuthFactory(final K1Manager k1Manager,
                                       final ServletContext servletContext) {
-        URI callbackUrl = new URI(servletContext.getContextPath() + "/api/v1/lnurl/auth/callback");
+        // TODO This should be the url of the explorer-web server.
+        URI callbackUrl = new URI("https://dd37-2001-861-5300-9e20-306c-27e-9058-e459.ngrok-free.app" + servletContext.getContextPath() + LNURL_AUTH_WALLET_LOGIN_PATH);
         return new SimpleLnurlAuthFactory(callbackUrl, k1Manager);
     }
 
@@ -61,7 +64,7 @@ public class LnurlAuthConfiguration {
      * @return k1 manager
      */
     @Bean
-    SimpleK1Manager k1Manager() {
+    K1Manager k1Manager() {
         return new SimpleK1Manager();
     }
 

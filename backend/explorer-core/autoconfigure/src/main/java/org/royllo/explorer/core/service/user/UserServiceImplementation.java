@@ -1,5 +1,6 @@
 package org.royllo.explorer.core.service.user;
 
+import io.micrometer.common.util.StringUtils;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.user.User;
@@ -9,9 +10,11 @@ import org.royllo.explorer.core.util.base.BaseService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.royllo.explorer.core.util.constants.AdministratorUserConstants.ADMINISTRATOR_ID;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_ID;
+import static org.royllo.explorer.core.util.enums.UserRole.USER;
 
 /**
  * {@link UserService} implementation.
@@ -50,6 +53,25 @@ public class UserServiceImplementation extends BaseService implements UserServic
             logger.error("Anonymous user not found - This should never happened");
             throw new RuntimeException("Anonymous user not found");
         }
+    }
+
+    @Override
+    public UserDTO createUser(final String username) {
+        logger.info("Creating a user with username: {}", username);
+
+        // Verification.
+        assert StringUtils.isNotEmpty(username) : "Username is required";
+        assert userRepository.findByUsernameIgnoreCase(username.trim()).isEmpty() : "Username '" + username + "' already registered";
+
+        // Creation.
+        final User userCreated = userRepository.save(User.builder()
+                .userId(UUID.randomUUID().toString())
+                .username(username.toLowerCase().trim())
+                .role(USER)
+                .build());
+
+        logger.info("User created: {}", userCreated);
+        return USER_MAPPER.mapToUserDTO(userCreated);
     }
 
     @Override

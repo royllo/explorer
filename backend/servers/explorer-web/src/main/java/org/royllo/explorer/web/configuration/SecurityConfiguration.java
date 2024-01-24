@@ -60,7 +60,7 @@ public class SecurityConfiguration {
                                 antMatcher("/search"),
                                 antMatcher("/asset/**"),
                                 antMatcher("/request/**"),
-                                // Static content.
+                                // CSS, images and javascript libraries.
                                 antMatcher("/css/**"),
                                 antMatcher("/images/**"),
                                 antMatcher("/svg/**"),
@@ -97,8 +97,10 @@ public class SecurityConfiguration {
                                             successHandler.setAlwaysUseDefaultTargetUrl(false);
                                             successHandler.setUseReferer(false);
                                         })
-                                ).walletEndpoint(wallet -> wallet.baseUri(LNURL_AUTH_WALLET_LOGIN_PATH))
-                ).build();
+                                )
+                                .walletEndpoint(wallet -> wallet.baseUri(LNURL_AUTH_WALLET_LOGIN_PATH))
+                )
+                .build();
     }
 
 }
