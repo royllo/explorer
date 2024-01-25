@@ -4,7 +4,8 @@
 signature only. The protocol can be used as a replacement for email/username, password, social media, 2FA, forgotten
 password... A big win for security and privacy. All the user need to have is a lightning wallet that supports LNURL.
 
-This is the solution I choose for my project Royllo: a search engine / explorer for Taproot Assets living on the
+This is the solution I choose for my
+project [Royllo: a search engine / explorer for Taproot Assets](https://explorer.royllo.org/) living on the
 Bitcoin blockchain. To implement it, I used a great spring boot
 starter: [https://github.com/theborakompanioni/bitcoin-spring-boot-starter](https://github.com/theborakompanioni/bitcoin-spring-boot-starter).
 
