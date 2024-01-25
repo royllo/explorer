@@ -47,4 +47,8 @@ public class UserLnurlAuthKey {
     @Column(name = "LINKING_KEY", nullable = false)
     private String linkingKey;
 
+    /** K1: Randomly generated token that served as a challenge. */
+    @Column(name = "K1", nullable = false)
+    private String k1;
+
 }

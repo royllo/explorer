@@ -20,6 +20,11 @@
                 <constraints nullable="false" unique="true"
                              uniqueConstraintName="UNIQUE_APPLICATION_USER_LINKING_KEY"/>
             </column>
+            <column name="K1" type="VARCHAR(255)"
+                    remarks="K1: Randomly generated token that served as a challenge">
+                <constraints nullable="false" unique="true"
+                             uniqueConstraintName="UNIQUE_APPLICATION_USER_LINKING_KEY_K1"/>
+            </column>
             <column name="FK_USER_OWNER" type="BIGINT"
                     remarks="The user who owns this linking key">
                 <constraints nullable="false"/>

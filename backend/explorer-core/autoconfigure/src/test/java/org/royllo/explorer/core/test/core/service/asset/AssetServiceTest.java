@@ -1,4 +1,4 @@
-package org.royllo.explorer.core.test.core.service;
+package org.royllo.explorer.core.test.core.service.asset;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

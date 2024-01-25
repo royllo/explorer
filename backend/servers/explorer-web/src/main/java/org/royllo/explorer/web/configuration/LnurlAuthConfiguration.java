@@ -8,11 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.tbk.lnurl.auth.InMemoryLnurlAuthPairingService;
 import org.tbk.lnurl.auth.K1Manager;
 import org.tbk.lnurl.auth.LnurlAuthFactory;
-import org.tbk.lnurl.auth.LnurlAuthPairingService;
-import org.tbk.lnurl.auth.SimpleK1Manager;
 import org.tbk.lnurl.auth.SimpleLnurlAuthFactory;
 
 import java.net.URI;
@@ -42,30 +39,6 @@ public class LnurlAuthConfiguration {
         // TODO This should be the url of the explorer-web server.
         URI callbackUrl = new URI("https://dd37-2001-861-5300-9e20-306c-27e-9058-e459.ngrok-free.app" + servletContext.getContextPath() + LNURL_AUTH_WALLET_LOGIN_PATH);
         return new SimpleLnurlAuthFactory(callbackUrl, k1Manager);
-    }
-
-    /**
-     * This service acts like a user detail service for LNURL-auth.
-     * It has two methods to see if a k1 is paired with a linking key and to find a linking key by k1.
-     * boolean pairK1WithLinkingKey(K1 k1, LinkingKey linkingKey);
-     * Optional<LinkingKey> findPairedLinkingKeyByK1(K1 k1);
-     *
-     * @return lnurl auth security service
-     */
-    @Bean
-    LnurlAuthPairingService lnurlAuthSecurityService() {
-        // TODO Implement this.
-        return new InMemoryLnurlAuthPairingService();
-    }
-
-    /**
-     * K1 manager. "k1" refers to a one-time, randomly generated key or token.
-     *
-     * @return k1 manager
-     */
-    @Bean
-    K1Manager k1Manager() {
-        return new SimpleK1Manager();
     }
 
     @Bean

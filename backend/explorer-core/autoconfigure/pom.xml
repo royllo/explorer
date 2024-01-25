@@ -59,6 +59,17 @@
             <version>${jdbc.driver.postgresql.version}</version>
         </dependency>
 
+        <!-- Security dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.theborakompanioni</groupId>
+            <artifactId>spring-lnurl-auth-starter</artifactId>
+            <version>${bitcoin-spring-boot-starter.version}</version>
+        </dependency>
+
         <!-- Cloud dependencies -->
         <dependency>
             <groupId>io.minio</groupId>

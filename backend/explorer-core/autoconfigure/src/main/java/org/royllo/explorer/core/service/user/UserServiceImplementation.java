@@ -4,10 +4,15 @@ import io.micrometer.common.util.StringUtils;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.user.User;
+import org.royllo.explorer.core.domain.user.UserLnurlAuthKey;
 import org.royllo.explorer.core.dto.user.UserDTO;
+import org.royllo.explorer.core.repository.user.UserLnurlAuthKeyRepository;
 import org.royllo.explorer.core.repository.user.UserRepository;
 import org.royllo.explorer.core.util.base.BaseService;
 import org.springframework.stereotype.Service;
+import org.tbk.lnurl.auth.K1;
+import org.tbk.lnurl.auth.LinkingKey;
+import org.tbk.lnurl.auth.LnurlAuthPairingService;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -22,10 +27,13 @@ import static org.royllo.explorer.core.util.enums.UserRole.USER;
 @Service
 @RequiredArgsConstructor
 @SuppressWarnings({"checkstyle:DesignForExtension", "unused"})
-public class UserServiceImplementation extends BaseService implements UserService {
+public class UserServiceImplementation extends BaseService implements UserService, LnurlAuthPairingService {
 
     /** User repository. */
     private final UserRepository userRepository;
+
+    /** User lnurl-auth key repository. */
+    private final UserLnurlAuthKeyRepository userLnurlAuthKeyRepository;
 
     @Override
     public UserDTO getAdministratorUser() {
@@ -66,7 +74,7 @@ public class UserServiceImplementation extends BaseService implements UserServic
         // Creation.
         final User userCreated = userRepository.save(User.builder()
                 .userId(UUID.randomUUID().toString())
-                .username(username.toLowerCase().trim())
+                .username(username.trim().toLowerCase())
                 .role(USER)
                 .build());
 
@@ -100,6 +108,37 @@ public class UserServiceImplementation extends BaseService implements UserServic
             logger.info("User with username '{}' found: {}", username, user.get());
             return user.map(USER_MAPPER::mapToUserDTO);
         }
+    }
+
+    @Override
+    public boolean pairK1WithLinkingKey(@NonNull final K1 k1, @NonNull final LinkingKey linkingKey) {
+        // This method is called by the spring boot starter when a user has provided a k1 signed with a linking key and everything is valid.
+        // Usually, this is where you search if the linking key already exists in the database.
+        // If not, you create a new user and store the linking key.
+        // If yes, you just return the user, and you update the k1 used.
+        final Optional<UserLnurlAuthKey> linkingKeyInDatabase = userLnurlAuthKeyRepository.findByLinkingKey(linkingKey.toHex());
+        if (linkingKeyInDatabase.isEmpty()) {
+            logger.info("Creating the user for the linking key: {}", linkingKey.toHex());
+            // We create the user.
+            final UserDTO user = createUser(linkingKey.toHex());
+            // We create the user lnurl-auth key.
+            userLnurlAuthKeyRepository.save(UserLnurlAuthKey.builder()
+                    .owner(USER_MAPPER.mapToUser(user))
+                    .linkingKey(linkingKey.toHex())
+                    .k1(k1.toHex())
+                    .build());
+        } else {
+            logger.info("User with the linking key {} exists", linkingKey.toHex());
+            // TODO Update the k1 used.
+        }
+        return true;
+    }
+
+    @Override
+    public Optional<LinkingKey> findPairedLinkingKeyByK1(@NonNull final K1 k1) {
+        // This method returns the linking key associated with the k1 passed as parameter.
+        // TODO What is it used for ? who calls this method ?
+        return Optional.empty();
     }
 
 }
