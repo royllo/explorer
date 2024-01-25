@@ -130,5 +130,5 @@ Usually, this is where you search if the linking key already exists in the datab
 If not, you create a new user and store the linking key.
 If yes, you just return the user, and you update the k1 used.
 
-We decided to implement direct it in our existing [UserService](https://github.
-com/royllo/explorer/blob/461-user-asset-data-management/backend/explorer-core/autoconfigure/src/main/java/org/royllo/explorer/core/service/user/UserServiceImplementation.java).
+We decided to implement direct it in our
+existing [UserService](https://github.com/royllo/explorer/blob/461-user-asset-data-management/backend/explorer-core/autoconfigure/src/main/java/org/royllo/explorer/core/service/user/UserServiceImplementation.java).
