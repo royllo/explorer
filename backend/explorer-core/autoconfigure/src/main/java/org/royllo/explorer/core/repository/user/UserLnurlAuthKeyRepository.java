@@ -20,4 +20,12 @@ public interface UserLnurlAuthKeyRepository extends JpaRepository<UserLnurlAuthK
      */
     Optional<UserLnurlAuthKey> findByLinkingKey(String linkingKey);
 
+    /**
+     * Find a user lnurl-auth by the k1.
+     *
+     * @param k1 k1
+     * @return user lnurl-auth key
+     */
+    Optional<UserLnurlAuthKey> findByK1(String k1);
+
 }

@@ -103,6 +103,10 @@ Adding bitcoin-spring-boot-starter is quite easy, add this dependency to your ja
     <groupId>io.github.theborakompanioni</groupId>
     <artifactId>spring-lnurl-auth-starter</artifactId>
 </dependency>
+<dependency>
+<groupId>io.github.theborakompanioni</groupId>
+<artifactId>lnurl-simple</artifactId>
+</dependency>
 ```
 
 ### Database & domain objects modification.
@@ -120,6 +124,8 @@ its [sql creation script]https://github.com/royllo/explorer/blob/461-user-asset-
 
 This object is used to store all the linking keys and corresponding k1 of users.
 
+TODO : adding a k1 store
+
 ### Implements LnurlAuthPairingService.
 
 LnurlAuthPairingService is an interface provided by bitcoin-spring-boot-starter that you must implement. It declares two
@@ -133,3 +139,5 @@ If yes, you just return the user, and you update the k1 used.
 
 We decided to implement direct it in our
 existing [UserService](https://github.com/royllo/explorer/blob/461-user-asset-data-management/backend/explorer-core/autoconfigure/src/main/java/org/royllo/explorer/core/service/user/UserServiceImplementation.java).
+
+ADD https://github.com/theborakompanioni/bitcoin-spring-boot-starter/issues/112

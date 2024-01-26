@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.tbk.lnurl.auth.K1;
 import org.tbk.lnurl.auth.LinkingKey;
 import org.tbk.lnurl.auth.LnurlAuthPairingService;
+import org.tbk.lnurl.simple.auth.SimpleLinkingKey;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -129,7 +130,8 @@ public class UserServiceImplementation extends BaseService implements UserServic
                     .build());
         } else {
             logger.info("User with the linking key {} exists", linkingKey.toHex());
-            // TODO Update the k1 used.
+            linkingKeyInDatabase.get().setK1(k1.toHex());
+            userLnurlAuthKeyRepository.save(linkingKeyInDatabase.get());
         }
         return true;
     }
@@ -137,8 +139,15 @@ public class UserServiceImplementation extends BaseService implements UserServic
     @Override
     public Optional<LinkingKey> findPairedLinkingKeyByK1(@NonNull final K1 k1) {
         // This method returns the linking key associated with the k1 passed as parameter.
-        // TODO What is it used for ? who calls this method ?
-        return Optional.empty();
+        logger.info("Finding the paired linking key for k1 {}", k1.toHex());
+        final Optional<UserLnurlAuthKey> linkingKey = userLnurlAuthKeyRepository.findByLinkingKey(k1.toHex());
+        if (linkingKey.isPresent()) {
+            logger.info("Linking key found: {}", linkingKey.get().getLinkingKey());
+            return Optional.of(SimpleLinkingKey.fromHex(linkingKey.get().getLinkingKey()));
+        } else {
+            logger.info("Linking key not found");
+            return Optional.empty();
+        }
     }
 
 }

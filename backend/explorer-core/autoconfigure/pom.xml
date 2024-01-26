@@ -69,6 +69,11 @@
             <artifactId>spring-lnurl-auth-starter</artifactId>
             <version>${bitcoin-spring-boot-starter.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.github.theborakompanioni</groupId>
+            <artifactId>lnurl-simple</artifactId>
+            <version>${bitcoin-spring-boot-starter.version}</version>
+        </dependency>
 
         <!-- Cloud dependencies -->
         <dependency>
