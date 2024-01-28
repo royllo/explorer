@@ -24,6 +24,7 @@ import static org.royllo.explorer.core.util.enums.UserRole.USER;
 
 /**
  * {@link UserService} implementation.
+ * Also implements {@link LnurlAuthPairingService} that brings the wallet and the web session together.
  */
 @Service
 @RequiredArgsConstructor

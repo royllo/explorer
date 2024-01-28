@@ -1,0 +1,25 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="straumat" id="1.0.0-table-util_k1_cache">
+
+        <createTable tableName="UTIL_K1_CACHE"
+                     remarks="K1 cache used by the k1 manager">
+
+            <!-- Unique identifier -->
+            <column name="K1" type="VARCHAR(255)"
+                    remarks="K1 value">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PRIMARY_KEY_UTIL_K1_CACHE"/>
+            </column>
+
+            <!-- Technical fields -->
+            <column name="CREATED_ON" type="TIMESTAMP"
+                    remarks="Data created on"/>
+            <column name="UPDATED_ON" type="TIMESTAMP"
+                    remarks="Data updated on"/>
+
+        </createTable>
+
+    </changeSet>
+</databaseChangeLog>

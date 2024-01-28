@@ -1,3 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 org.royllo.explorer.core.configuration.DatabaseConfiguration,\
-org.royllo.explorer.core.configuration.ParametersConfiguration
+org.royllo.explorer.core.configuration.ParametersConfiguration,\
+org.royllo.explorer.core.configuration.LnurlAuthConfiguration,\
+org.royllo.explorer.core.configuration.CachingConfiguration

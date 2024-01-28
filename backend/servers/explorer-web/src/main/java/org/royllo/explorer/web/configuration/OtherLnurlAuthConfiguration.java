@@ -23,7 +23,7 @@ import static org.royllo.explorer.web.util.constants.AuthenticationPageConstants
 @Configuration
 @RequiredArgsConstructor
 @SuppressWarnings({"checkstyle:DesignForExtension"})
-public class LnurlAuthConfiguration {
+public class OtherLnurlAuthConfiguration {
 
     /**
      * This factory creates a LNURL-auth callback url for the given k1.

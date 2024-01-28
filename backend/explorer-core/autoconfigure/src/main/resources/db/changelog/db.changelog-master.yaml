@@ -35,6 +35,11 @@ databaseChangeLog:
   - include:
       file: /db/changelog/1.0.0/table/table-proof.xml
 
+  # Users.
+  - include:
+      file:
+        /db/changelog/1.0.0/table/table-util_k1_cache.xml
+
   # ====================================================================================================================
   # 1.0.0 Table constraints definition
 

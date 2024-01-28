@@ -124,7 +124,22 @@ its [sql creation script]https://github.com/royllo/explorer/blob/461-user-asset-
 
 This object is used to store all the linking keys and corresponding k1 of users.
 
-TODO : adding a k1 store
+### Adding a k1 manager.
+
+Your application will generate k1 values for each login request. Maybe a wallet will call your url with a k1 value
+or maybe not but for sure, if your server receives an authentication attempt from a wallet, it will need to verify
+the k1 value's have been generated.
+
+To keep it simple, you can use a simple k1 manager like the one provided by the spring boot
+starter: [SimpleK1Manager](https://github.com/theborakompanioni/bitcoin-spring-boot-starter/blob/master/incubator/spring-lnurl/spring-lnurl-auth-simple/src/main/java/org/tbk/lnurl/auth/SimpleK1Manager.java)
+
+In my case, I have several front servers and I need to share the k1 values between them. So I build a K1 store to
+manage using a database:
+
+- I have a very simple table `UTIL_K1_CACHE` to store k1 values [Database script]().
+- A [K1Value]() object to represent a k1 value in database.
+- A simple [K1ValueRepository]() to manage the k1 values in database.
+- A [DatabaseK1Manager]() to create, valid and invalid k1 in the database.
 
 ### Implements LnurlAuthPairingService.
 
@@ -140,4 +155,5 @@ If yes, you just return the user, and you update the k1 used.
 We decided to implement direct it in our
 existing [UserService](https://github.com/royllo/explorer/blob/461-user-asset-data-management/backend/explorer-core/autoconfigure/src/main/java/org/royllo/explorer/core/service/user/UserServiceImplementation.java).
 
-ADD https://github.com/theborakompanioni/bitcoin-spring-boot-starter/issues/112
+Please, not that when you create the user, we don't know anything about the user except the linking key. So we use
+this key as the username.

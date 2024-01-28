@@ -50,17 +50,17 @@ public class LnurlAuthPairingServiceTest {
         final long userLnurlAuthKeyCount = userLnurlAuthKeyRepository.count();
 
         // Unknown user login information.
-        String SimpleK1Value = "e2af6254a8df433264fa23f67eb8188635d15ce883e8fc020989d5f82ae6f11e";
+        String simpleK1Value = "e2af6254a8df433264fa23f67eb8188635d15ce883e8fc020989d5f82ae6f11e";
         String anotherK1Value = "d4f067cf72b94baddac1b3856b231669c3239d59cce95ef260da58363fb01822";
         String linkingKey1Value = "02c3b844b8104f0c1b15c507774c9ba7fc609f58f343b9b149122e944dd20c9362";
-        K1 k1Test1 = SimpleK1.fromHex(SimpleK1Value);
+        K1 k1Test1 = SimpleK1.fromHex(simpleK1Value);
         K1 k1Test2 = SimpleK1.fromHex(anotherK1Value);
         LinkingKey linkingKeyTest1 = SimpleLinkingKey.fromHex(linkingKey1Value);
 
         // =============================================================================================================
         // Test 1 : a new user logs in (it doesn't exist in database).
         assertFalse(userService.getUserByUsername(linkingKey1Value).isPresent());
-        assertFalse(userLnurlAuthKeyRepository.findByK1(SimpleK1Value).isPresent());
+        assertFalse(userLnurlAuthKeyRepository.findByK1(simpleK1Value).isPresent());
 
         // We pair & check if the data is here.
         lnurlAuthPairingService.pairK1WithLinkingKey(k1Test1, linkingKeyTest1);
@@ -81,9 +81,9 @@ public class LnurlAuthPairingServiceTest {
         assertTrue(newUserLinkingKeyCreated.isPresent());
         assertNotNull(newUserLinkingKeyCreated.get().getId());
         assertEquals(newUserCreated.get().getId(), newUserLinkingKeyCreated.get().getOwner().getId());
-        assertEquals(SimpleK1Value, newUserLinkingKeyCreated.get().getK1());
+        assertEquals(simpleK1Value, newUserLinkingKeyCreated.get().getK1());
         assertEquals(linkingKey1Value, newUserLinkingKeyCreated.get().getLinkingKey());
-        assertTrue(userLnurlAuthKeyRepository.findByK1(SimpleK1Value).isPresent());
+        assertTrue(userLnurlAuthKeyRepository.findByK1(simpleK1Value).isPresent());
 
         // =============================================================================================================
         // Test 2 : the same user logs again with another k1 - No new data but k1 updated.
