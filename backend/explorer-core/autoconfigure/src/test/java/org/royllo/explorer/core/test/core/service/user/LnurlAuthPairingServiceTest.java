@@ -45,10 +45,6 @@ public class LnurlAuthPairingServiceTest {
     @Test
     @DisplayName("pairK1WithLinkingKey() and findPairedLinkingKeyByK1()")
     void lnurlAuthPairingService() {
-        // We check the data we have.
-        final long userCount = userRepository.count();
-        final long userLnurlAuthKeyCount = userLnurlAuthKeyRepository.count();
-
         // Unknown user login information.
         String simpleK1Value = "e2af6254a8df433264fa23f67eb8188635d15ce883e8fc020989d5f82ae6f11e";
         String anotherK1Value = "d4f067cf72b94baddac1b3856b231669c3239d59cce95ef260da58363fb01822";
@@ -56,6 +52,15 @@ public class LnurlAuthPairingServiceTest {
         K1 k1Test1 = SimpleK1.fromHex(simpleK1Value);
         K1 k1Test2 = SimpleK1.fromHex(anotherK1Value);
         LinkingKey linkingKeyTest1 = SimpleLinkingKey.fromHex(linkingKey1Value);
+
+        // We clean the data.
+        userLnurlAuthKeyRepository.findByLinkingKey(linkingKey1Value).ifPresent(userLnurlAuthKey -> userLnurlAuthKeyRepository.delete(userLnurlAuthKey));
+        userRepository.findByUsernameIgnoreCase(linkingKey1Value).ifPresent(user -> userRepository.delete(user));
+
+        // We check the data we have.
+        final long userCount = userRepository.count();
+        final long userLnurlAuthKeyCount = userLnurlAuthKeyRepository.count();
+
 
         // =============================================================================================================
         // Test 1 : a new user logs in (it doesn't exist in database).

@@ -9,12 +9,17 @@ import org.royllo.explorer.core.dto.user.UserDTO;
 import org.royllo.explorer.core.repository.user.UserLnurlAuthKeyRepository;
 import org.royllo.explorer.core.repository.user.UserRepository;
 import org.royllo.explorer.core.util.base.BaseService;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.tbk.lnurl.auth.K1;
 import org.tbk.lnurl.auth.LinkingKey;
 import org.tbk.lnurl.auth.LnurlAuthPairingService;
 import org.tbk.lnurl.simple.auth.SimpleLinkingKey;
 
+import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,7 +34,7 @@ import static org.royllo.explorer.core.util.enums.UserRole.USER;
 @Service
 @RequiredArgsConstructor
 @SuppressWarnings({"checkstyle:DesignForExtension", "unused"})
-public class UserServiceImplementation extends BaseService implements UserService, LnurlAuthPairingService {
+public class UserServiceImplementation extends BaseService implements UserService, LnurlAuthPairingService, UserDetailsService {
 
     /** User repository. */
     private final UserRepository userRepository;
@@ -149,6 +154,17 @@ public class UserServiceImplementation extends BaseService implements UserServic
             logger.info("Linking key not found");
             return Optional.empty();
         }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+        // Search for the user with it's linking key.
+        final UserLnurlAuthKey userLinkingKey = userLnurlAuthKeyRepository.findByLinkingKey(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+
+        return new org.springframework.security.core.userdetails.User(userLinkingKey.getOwner().getUsername(),
+                UUID.randomUUID().toString(),
+                Collections.singletonList((new SimpleGrantedAuthority(userLinkingKey.getOwner().getRole().toString()))));
     }
 
 }
