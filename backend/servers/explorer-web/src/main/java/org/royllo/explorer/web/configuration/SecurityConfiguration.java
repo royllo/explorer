@@ -60,10 +60,15 @@ public class SecurityConfiguration {
                                 antMatcher("/search"),
                                 antMatcher("/asset/**"),
                                 antMatcher("/request/**"),
+                                // Login pages
+                                antMatcher(LNURL_AUTH_LOGIN_PAGE_PATH + "/**"),
+                                antMatcher(LNURL_AUTH_WALLET_LOGIN_PATH + "/**"),
+                                antMatcher("/api/v1/lnurl-auth/login/**"),
                                 // CSS, images and javascript libraries.
                                 antMatcher("/css/**"),
                                 antMatcher("/images/**"),
                                 antMatcher("/svg/**"),
+                                antMatcher("/favicon/**"),
                                 antMatcher("/webjars/**"),
                                 // Util.
                                 antMatcher("/sitemap.xml")

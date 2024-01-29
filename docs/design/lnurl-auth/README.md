@@ -99,14 +99,18 @@ Adding bitcoin-spring-boot-starter is quite easy, add this dependency to your ja
 
 ```xml
 
-<dependency>
-    <groupId>io.github.theborakompanioni</groupId>
-    <artifactId>spring-lnurl-auth-starter</artifactId>
-</dependency>
-<dependency>
-<groupId>io.github.theborakompanioni</groupId>
-<artifactId>lnurl-simple</artifactId>
-</dependency>
+<dependencies>
+    ...
+    <dependency>
+        <groupId>io.github.theborakompanioni</groupId>
+        <artifactId>spring-lnurl-auth-starter</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.github.theborakompanioni</groupId>
+        <artifactId>lnurl-simple</artifactId>
+    </dependency>
+    ...
+</dependencies>
 ```
 
 ### Database & domain objects modification.
@@ -157,3 +161,11 @@ existing [UserService](https://github.com/royllo/explorer/blob/461-user-asset-da
 
 Please, not that when you create the user, we don't know anything about the user except the linking key. So we use
 this key as the username.
+
+### Implements UserDetailsService.
+
+`UserDetailsService` is used throughout the Spring framework as a user DAO. The method `UserDetails loadUserByUsername(
+String username)` we must
+
+### lnurlAuthFactory
+

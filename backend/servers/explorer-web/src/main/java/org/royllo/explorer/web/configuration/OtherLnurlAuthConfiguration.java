@@ -34,7 +34,7 @@ public class OtherLnurlAuthConfiguration {
     LnurlAuthFactory lnurlAuthFactory(final K1Manager k1Manager,
                                       final ServletContext servletContext) {
         // TODO This should be the url of the explorer-web server.
-        URI callbackUrl = new URI("https://cae7-2001-861-5300-9e20-5f30-7557-dde7-7080.ngrok-free.app" + servletContext.getContextPath() + LNURL_AUTH_WALLET_LOGIN_PATH);
+        URI callbackUrl = new URI("https://3d28-2001-861-5300-9e20-3a75-b2e0-d13a-27f5.ngrok-free.app" + servletContext.getContextPath() + LNURL_AUTH_WALLET_LOGIN_PATH);
         return new SimpleLnurlAuthFactory(callbackUrl, k1Manager);
     }
 

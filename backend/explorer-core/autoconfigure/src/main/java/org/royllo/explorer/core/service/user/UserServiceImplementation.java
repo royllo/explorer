@@ -146,12 +146,12 @@ public class UserServiceImplementation extends BaseService implements UserServic
     public Optional<LinkingKey> findPairedLinkingKeyByK1(@NonNull final K1 k1) {
         // This method returns the linking key associated with the k1 passed as parameter.
         logger.info("Finding the paired linking key for k1 {}", k1.toHex());
-        final Optional<UserLnurlAuthKey> linkingKey = userLnurlAuthKeyRepository.findByLinkingKey(k1.toHex());
+        final Optional<UserLnurlAuthKey> linkingKey = userLnurlAuthKeyRepository.findByK1(k1.toHex());
         if (linkingKey.isPresent()) {
             logger.info("Linking key found: {}", linkingKey.get().getLinkingKey());
             return Optional.of(SimpleLinkingKey.fromHex(linkingKey.get().getLinkingKey()));
         } else {
-            logger.info("Linking key not found");
+            logger.info("Linking key NOT found: {}", k1.toHex());
             return Optional.empty();
         }
     }
