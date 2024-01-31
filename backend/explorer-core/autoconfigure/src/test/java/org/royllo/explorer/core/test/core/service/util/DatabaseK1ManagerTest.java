@@ -30,12 +30,11 @@ public class DatabaseK1ManagerTest {
     @Autowired
     private K1ValueRepository k1ValueRepository;
 
-    @Autowired
-    private DatabaseK1Manager databaseK1Manager;
-
     @Test
     @DisplayName("Create, retrieve and delete a K1 value")
     public void databaseK1Manager() {
+        DatabaseK1Manager databaseK1Manager = new DatabaseK1Manager(k1ValueRepository);
+
         k1ValueRepository.deleteAll();
 
         // K1 value for test.
@@ -62,6 +61,7 @@ public class DatabaseK1ManagerTest {
     @Test
     @DisplayName("Purge old K1 values")
     public void oldK1Purge() throws SQLException {
+        DatabaseK1Manager databaseK1Manager = new DatabaseK1Manager(k1ValueRepository);
         k1ValueRepository.deleteAll();
 
         // Test values.
