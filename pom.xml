@@ -97,7 +97,7 @@
 
         <webjars-locator.version>0.50</webjars-locator.version>
         <htmx.version>1.9.10</htmx.version>
-        <alpinejs.version>3.13.3</alpinejs.version>
+        <alpinejs.version>3.13.5</alpinejs.version>
 
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
