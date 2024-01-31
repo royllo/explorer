@@ -67,7 +67,7 @@
         <spring.version>3.2.2</spring.version>
 
         <graphql-dgs-platform-dependencies.version>8.2.2</graphql-dgs-platform-dependencies.version>
-        <graphql-dgs-codegen-core.version>6.1.3</graphql-dgs-codegen-core.version>
+        <graphql-dgs-codegen-core.version>6.1.4</graphql-dgs-codegen-core.version>
         <graphql-dgs-codegen-client-core.version>5.1.17</graphql-dgs-codegen-client-core.version>
 
         <liquibase.version>4.25.1</liquibase.version>
