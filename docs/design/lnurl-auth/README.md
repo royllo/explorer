@@ -165,7 +165,41 @@ this key as the username.
 ### Implements UserDetailsService.
 
 `UserDetailsService` is used throughout the Spring framework as a user DAO. The method `UserDetails loadUserByUsername(
-String username)` we must
+String username)` should be implemented to return a `UserDetails` object that matches the provided username.
+
+Again, We decided to implement direct it in our
+existing [UserService](https://github.com/royllo/explorer/blob/461-user-asset-data-management/backend/explorer-core
+/autoconfigure/src/main/java/org/royllo/explorer/core/service/user/UserServiceImplementation.java).
+
+The implementation is quite simple, the `username` parameter will be filled by the framework with the linking key,
+so we just search the corresponding user by its linking key thanks to
+our [UserLnurlAuthKey](https://github.com/royllo/explorer/blob/461-user-asset-data-management/backend/explorer-core
+/autoconfigure/src/main/java/org/royllo/explorer/core/domain/user/UserLnurlAuthKey.java) object.
+
+### SecurityConfiguration
+
+To secure our application, we use spring security and, to configure it, we declare a SecurityConfiguration class with
+the `@EnableWebSecurity` annotation.
+
+The method to implement is `public SecurityFilterChain filterChain(final HttpSecurity http)`.
+
+Two things are important:
+
+- The `.authorizeHttpRequests` method that declares the url that should be secured. In our case, we want to secure all
+  the urls behind `account` and allow anything else;
+- The `.with(new LnurlAuthConfigurer(), lnurlAuthConfigurer -> ...)` method that declares the lnurl-auth
+  configuration. First, we declare all the services we build before and the URL configuration.
 
 ### lnurlAuthFactory
 
+The `LnurlAuthFactory` is the class that will generate the lnurl-auth url. It is used by the controller to generate the
+qr code. It takes the full login url (this url will be used by the wallet to login) and a k1 manager to generate the
+associated k1 in the qr code.
+
+## Conclusion
+
+LNURL-auth is a great protocol to authenticate users without exchanging any personal information. It is quite easy
+to implement in Java/Spring boot with the bitcoin-spring-boot-starter and @theborakompanioni provides an amazing
+support !
+
+So let's go and let's build a future where we don't need to give our email, phone number, password, social media... !

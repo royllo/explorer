@@ -23,7 +23,6 @@ import static java.util.concurrent.TimeUnit.DAYS;
 @RequiredArgsConstructor
 public class WebConfiguration implements WebMvcConfigurer {
 
-
     /** Assets search results default page size. */
     public static final int ASSET_SEARCH_DEFAULT_PAGE_SIZE = 10;
 

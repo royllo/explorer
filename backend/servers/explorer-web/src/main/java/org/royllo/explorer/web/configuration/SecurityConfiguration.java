@@ -17,12 +17,12 @@ import static org.royllo.explorer.web.util.constants.AuthenticationPageConstants
 import static org.royllo.explorer.web.util.constants.AuthenticationPageConstants.LNURL_AUTH_SESSION_K1_KEY;
 import static org.royllo.explorer.web.util.constants.AuthenticationPageConstants.LNURL_AUTH_SESSION_LOGIN_PATH;
 import static org.royllo.explorer.web.util.constants.AuthenticationPageConstants.LNURL_AUTH_WALLET_LOGIN_PATH;
-import static org.royllo.explorer.web.util.constants.UtilPagesConstants.ERROR_403_PAGE;
 import static org.springframework.security.config.http.SessionCreationPolicy.NEVER;
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
 /**
  * Security configuration.
+ * TODO remove @Controller
  */
 @Controller
 @EnableWebSecurity
@@ -45,8 +45,12 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
         //  Each request that comes in passes through this chain of filters before reaching your application.
-        return http.csrf(AbstractHttpConfigurer::disable)
+        return http
+                // TODO Is it necessary to disable CSRF and CORS protection?
+                .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
+                // Specifying that the application should not create new HTTP sessions on its own, but can use existing ones if they are present.
+                // Additionally, it protects against session fixation attacks by migrating the session (i.e., changing the session ID) upon authentication.
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(NEVER)
                         .sessionFixation().migrateSession()
@@ -61,6 +65,7 @@ public class SecurityConfiguration {
                                 antMatcher("/asset/**"),
                                 antMatcher("/request/**"),
                                 // Login pages
+                                // TODO Try to remove those lines.
                                 antMatcher(LNURL_AUTH_LOGIN_PAGE_PATH + "/**"),
                                 antMatcher(LNURL_AUTH_WALLET_LOGIN_PATH + "/**"),
                                 antMatcher("/api/v1/lnurl-auth/login/**"),
@@ -79,20 +84,24 @@ public class SecurityConfiguration {
                         ).authenticated()
                 )
                 // If the user is not authenticated when accessing a protected page, redirect to the login page.
-                .exceptionHandling((exceptionHandling) -> exceptionHandling
-                        .accessDeniedPage(ERROR_403_PAGE)
-                        .authenticationEntryPoint((request, response, authenticationException) -> response.sendRedirect(LNURL_AUTH_LOGIN_PAGE_PATH))
-                )
+//                .exceptionHandling((exceptionHandling) -> exceptionHandling
+//                        .accessDeniedPage(ERROR_403_PAGE)
+//                        .authenticationEntryPoint((request, response, authenticationException) -> response.sendRedirect(LNURL_AUTH_LOGIN_PAGE_PATH))
+//                )
                 // LNURL Auth configuration.
                 .with(new LnurlAuthConfigurer(), lnurlAuthConfigurer ->
-                        lnurlAuthConfigurer.k1Manager(lnurlAuthk1Manager)
+                        lnurlAuthConfigurer
+                                // Specify the services we built.
+                                .k1Manager(lnurlAuthk1Manager)
                                 .pairingService(lnurlAuthPairingService)
                                 .lnurlAuthFactory(lnurlAuthFactory)
                                 .authenticationUserDetailsService(userDetailsService)
+                                // Set the login page endpoint.
                                 .loginPageEndpoint(login -> login
                                         .enable(true)
                                         .baseUri(LNURL_AUTH_LOGIN_PAGE_PATH)
                                 )
+                                // Configures the LNURL Authorization Server's Session Endpoint.
                                 .sessionEndpoint(session -> session
                                         .baseUri(LNURL_AUTH_SESSION_LOGIN_PATH)
                                         .sessionK1Key(LNURL_AUTH_SESSION_K1_KEY)
@@ -103,6 +112,7 @@ public class SecurityConfiguration {
                                             successHandler.setUseReferer(false);
                                         })
                                 )
+                                // Configures the LNURL Authorization Server's Wallet Endpoint.
                                 .walletEndpoint(wallet -> wallet.baseUri(LNURL_AUTH_WALLET_LOGIN_PATH))
                 )
                 .build();

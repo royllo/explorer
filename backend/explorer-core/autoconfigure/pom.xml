@@ -64,10 +64,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+        <!--    TODO Put this back when 0.13 will be released
+                <dependency>
+                    <groupId>io.github.theborakompanioni</groupId>
+                    <artifactId>spring-lnurl-auth-starter</artifactId>
+                    <version>${bitcoin-spring-boot-starter.version}</version>
+                </dependency>-->
         <dependency>
-            <groupId>io.github.theborakompanioni</groupId>
+            <groupId>com.github.theborakompanioni.bitcoin-spring-boot-starter</groupId>
             <artifactId>spring-lnurl-auth-starter</artifactId>
-            <version>${bitcoin-spring-boot-starter.version}</version>
+            <version>devel-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.github.theborakompanioni</groupId>
@@ -169,6 +175,14 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <!-- TODO Remove later -->
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
     <!-- =========================================================================================================== -->
 
     <!-- =========================================================================================================== -->

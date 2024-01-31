@@ -16,7 +16,13 @@
     <!--/* Right side (Use flex-none to prevent a flex item from growing or shrinking) */-->
     <div class="flex-none" hx-boost="true">
 
-        <p sec:authentication="name"></p> <!-- Displays the username -->
+        <div sec:authorize="isAuthenticated()">
+            User authenticated
+        </div>
+
+        &nbsp;
+        &nbsp;
+        &nbsp;
 
         <details class="dropdown dropdown-end">
             <summary class="m-1 btn btn-secondary" th:text="#{request.view.addData}"></summary>
