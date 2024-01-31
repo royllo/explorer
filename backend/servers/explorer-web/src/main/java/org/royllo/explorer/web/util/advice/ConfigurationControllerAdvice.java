@@ -28,13 +28,14 @@ public class ConfigurationControllerAdvice {
     @ModelAttribute
     public final void handleRequest(final Model model) {
 
-        // Set the base url for web, API and assets.
+        // Set the base url for web, api and contents.
         model.addAttribute(API_BASE_URL_ATTRIBUTE, roylloExplorerParameters.getApi().getBaseUrl());
         model.addAttribute(WEB_BASE_URL_ATTRIBUTE, roylloExplorerParameters.getWeb().getBaseUrl());
         model.addAttribute(CONTENT_BASE_URL_ATTRIBUTE, roylloExplorerParameters.getContent().getBaseUrl());
 
         // Set the analytics parameters.
         model.addAttribute(PIWIK_ANALYTICS_TRACKING_ID_ATTRIBUTE, roylloExplorerAnalyticsParameters.getPiwik().getTrackingId());
+
     }
 
 }

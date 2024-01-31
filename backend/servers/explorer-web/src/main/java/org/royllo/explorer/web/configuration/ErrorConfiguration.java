@@ -2,6 +2,7 @@ package org.royllo.explorer.web.configuration;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.royllo.explorer.core.util.base.Base;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
  */
 @Controller
 @RequiredArgsConstructor
-public class ErrorConfiguration implements ErrorController {
+public class ErrorConfiguration extends Base implements ErrorController {
 
     /**
      * Handle error.
@@ -32,6 +33,7 @@ public class ErrorConfiguration implements ErrorController {
         if (status != null) {
             int statusCode = Integer.parseInt(status.toString());
             if (statusCode == NOT_FOUND.value()) {
+                logger.error("Error 404: Page not found: {}", request.getRequestURI());
                 return ERROR_404_PAGE;
             }
             if (statusCode == INTERNAL_SERVER_ERROR.value()) {

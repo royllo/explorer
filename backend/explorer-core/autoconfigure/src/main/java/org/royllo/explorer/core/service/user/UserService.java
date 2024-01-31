@@ -24,6 +24,14 @@ public interface UserService {
     UserDTO getAnonymousUser();
 
     /**
+     * Create user.
+     *
+     * @param username user name
+     * @return user created
+     */
+    UserDTO createUser(String username);
+
+    /**
      * Get user by its user id.
      *
      * @param userId exact user id to find

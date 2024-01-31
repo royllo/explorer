@@ -6,7 +6,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,6 +17,7 @@ import org.royllo.explorer.core.util.enums.UserRole;
 
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.GenerationType.IDENTITY;
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * Application user.
@@ -26,7 +26,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = PACKAGE)
 @Builder
 @Entity
 @Table(name = "APPLICATION_USER")

@@ -1,4 +1,4 @@
-#org.springframework.boot.diagnostics.FailureAnalyzer=tech.cassandre.trading.bot.util.exception.ConfigurationFailureAnalyzer
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 org.royllo.explorer.core.configuration.DatabaseConfiguration,\
-org.royllo.explorer.core.configuration.ParametersConfiguration
+org.royllo.explorer.core.configuration.ParametersConfiguration,\
+org.royllo.explorer.core.configuration.CachingConfiguration

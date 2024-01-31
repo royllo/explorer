@@ -1,4 +1,4 @@
-package org.royllo.explorer.core.test.core.service;
+package org.royllo.explorer.core.test.core.service.storage;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -14,6 +14,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
@@ -82,4 +83,37 @@ public class LocalFileServiceTest extends TestWithMockServers {
         }
 
     }
+
+    @Test
+    @DisplayName("File exists")
+    public void fileExists() {
+        // The file should not exist.
+        assertFalse(localFileServiceImplementation.fileExists("fileExistsTest.txt"));
+
+        // We create the file.
+        localFileServiceImplementation.storeFile("Hello World!".getBytes(), "fileExistsTest.txt");
+
+        // The file should now exist.
+        assertTrue(localFileServiceImplementation.fileExists("fileExistsTest.txt"));
+    }
+
+    @Test
+    @DisplayName("Delete file")
+    public void deleteFile() {
+        // The file should not exist.
+        assertFalse(localFileServiceImplementation.fileExists("fileDeleteTest.txt"));
+
+        // We create the file.
+        localFileServiceImplementation.storeFile("Hello World!".getBytes(), "fileDeleteTest.txt");
+
+        // The file should now exist.
+        assertTrue(localFileServiceImplementation.fileExists("fileDeleteTest.txt"));
+
+        // We delete the file.
+        localFileServiceImplementation.deleteFile("fileDeleteTest.txt");
+
+        // The file should not exist anymore.
+        assertFalse(localFileServiceImplementation.fileExists("fileDeleteTest.txt"));
+    }
+
 }

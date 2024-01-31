@@ -5,7 +5,11 @@ databaseChangeLog:
 
   # Users.
   - include:
-      file: /db/changelog/1.0.0/table/table-application_user.xml
+      file:
+        /db/changelog/1.0.0/table/table-application_user.xml
+  - include:
+      file:
+        /db/changelog/1.0.0/table/table-application_user_lnurl_auth_linking_key.xml
 
   # Assets.
   - include:
@@ -31,6 +35,11 @@ databaseChangeLog:
   - include:
       file: /db/changelog/1.0.0/table/table-proof.xml
 
+  # Users.
+  - include:
+      file:
+        /db/changelog/1.0.0/table/table-util_k1_cache.xml
+
   # ====================================================================================================================
   # 1.0.0 Table constraints definition
 
@@ -45,6 +54,8 @@ databaseChangeLog:
       file: /db/changelog/1.0.0/table-constraints/table-constraints-bitcoin_transaction_output.xml
   - include:
       file: /db/changelog/1.0.0/table-constraints/table-constraints-application_user.xml
+  - include:
+      file: /db/changelog/1.0.0/table-constraints/table-constraints-application_user_lnurl_auth_linking_key.xml
   - include:
       file: /db/changelog/1.0.0/table-constraints/table-constraints-universe_server.xml
   - include:

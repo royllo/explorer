@@ -2,6 +2,9 @@ package org.royllo.explorer.core.provider.storage;
 
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
+import io.minio.RemoveObjectArgs;
+import io.minio.StatObjectArgs;
+import io.minio.errors.ErrorResponseException;
 import lombok.NonNull;
 import org.apache.tika.Tika;
 import org.royllo.explorer.core.util.base.BaseService;
@@ -41,23 +44,58 @@ public class S3ServiceImplementation extends BaseService implements ContentServi
         this.s3Parameters = newS3Parameters;
     }
 
-    @Override
-    public void storeFile(final byte[] fileContent, @NonNull final String fileName) {
-        // Creating a client.
-        MinioClient minioClient = MinioClient.builder()
+    /**
+     * Get Minio client.
+     *
+     * @return Minio client.
+     */
+    private MinioClient getMinioClient() {
+        return MinioClient.builder()
                 .endpoint(s3Parameters.getEndpointURL())
                 .credentials(s3Parameters.getAccessKey(), s3Parameters.getSecretKey())
                 .build();
+    }
 
-        // Adding the file to the bucket.
+    @Override
+    public void storeFile(final byte[] fileContent, @NonNull final String fileName) {
         try {
-            minioClient.putObject(PutObjectArgs.builder()
+            getMinioClient().putObject(PutObjectArgs.builder()
                     .bucket(s3Parameters.getBucketName())
                     .object(fileName).stream(new ByteArrayInputStream(fileContent), fileContent.length, -1)
                     .contentType(new Tika().detect(fileContent))
                     .build());
         } catch (Exception e) {
             logger.error("Error while storing file {} in S3: {}", fileName, e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean fileExists(@NonNull final String fileName) {
+        try {
+            getMinioClient().statObject(StatObjectArgs.builder()
+                    .bucket(s3Parameters.getBucketName())
+                    .object(fileName)
+                    .build());
+            return true;
+        } catch (ErrorResponseException e) {
+            return false;
+        } catch (Exception e) {
+            logger.error("Error checking if file exists {} in S3: {}", fileName, e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteFile(@NonNull final String fileName) {
+        try {
+            getMinioClient().removeObject(
+                    RemoveObjectArgs.builder()
+                            .bucket(s3Parameters.getBucketName())
+                            .object(fileName)
+                            .build());
+        } catch (Exception e) {
+            logger.error("Error deleting file {} in S3: {}", fileName, e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 

@@ -2,7 +2,14 @@
 <databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
-    <changeSet author="straumat" id="1.0.0-table-constraints-application_user">
+    <changeSet author="straumat" id="1.0.0-table-constraints-application_user_lnurl_auth_linking_key">
+
+        <!-- Foreign key FK_USER > USER.ID -->
+        <addForeignKeyConstraint constraintName="FOREIGN_KEY_APPLICATION_USER_LNURL_AUTH_LINKING_KEY_USER_OWNER"
+                                 baseColumnNames="FK_USER_OWNER"
+                                 baseTableName="APPLICATION_USER_LNURL_AUTH_LINKING_KEY"
+                                 referencedTableName="APPLICATION_USER"
+                                 referencedColumnNames="ID"/>
 
     </changeSet>
 </databaseChangeLog>

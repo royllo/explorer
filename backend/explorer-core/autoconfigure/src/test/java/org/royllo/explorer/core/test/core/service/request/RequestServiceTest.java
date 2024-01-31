@@ -1,4 +1,4 @@
-package org.royllo.explorer.core.test.core.service;
+package org.royllo.explorer.core.test.core.service.request;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;

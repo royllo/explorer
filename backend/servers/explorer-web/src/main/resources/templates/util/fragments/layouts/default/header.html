@@ -4,10 +4,7 @@
     <div class="flex-1">
 
         <!--/* Left side with logo & link */-->
-        <a hx-get="/"
-           hx-push-url="true"
-           hx-target="#content"
-           th:href="@{/}">
+        <a th:href="@{/}">
             <img alt="Royllo Logo"
                  height="52"
                  th:src="@{/images/logo/royllo_logo_horizontal_with_title.png}"
@@ -18,6 +15,14 @@
 
     <!--/* Right side (Use flex-none to prevent a flex item from growing or shrinking) */-->
     <div class="flex-none" hx-boost="true">
+
+        <div sec:authorize="isAuthenticated()">
+            User authenticated
+        </div>
+
+        &nbsp;
+        &nbsp;
+        &nbsp;
 
         <details class="dropdown dropdown-end">
             <summary class="m-1 btn btn-secondary" th:text="#{request.view.addData}"></summary>

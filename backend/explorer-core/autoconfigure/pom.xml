@@ -59,6 +59,28 @@
             <version>${jdbc.driver.postgresql.version}</version>
         </dependency>
 
+        <!-- Security dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!--    TODO Put this back when 0.13 will be released
+                <dependency>
+                    <groupId>io.github.theborakompanioni</groupId>
+                    <artifactId>spring-lnurl-auth-starter</artifactId>
+                    <version>${bitcoin-spring-boot-starter.version}</version>
+                </dependency>-->
+        <dependency>
+            <groupId>com.github.theborakompanioni.bitcoin-spring-boot-starter</groupId>
+            <artifactId>spring-lnurl-auth-starter</artifactId>
+            <version>devel-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.theborakompanioni</groupId>
+            <artifactId>lnurl-simple</artifactId>
+            <version>${bitcoin-spring-boot-starter.version}</version>
+        </dependency>
+
         <!-- Cloud dependencies -->
         <dependency>
             <groupId>io.minio</groupId>
@@ -153,6 +175,14 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <!-- TODO Remove later -->
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
     <!-- =========================================================================================================== -->
 
     <!-- =========================================================================================================== -->

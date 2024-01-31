@@ -26,6 +26,9 @@ run_web_backend:
 run_web_frontend:
     npm run --prefix backend/servers/explorer-web build && npm run --prefix backend/servers/explorer-web watch
 
+run_ngrok:
+    ngrok http 8080
+
 # ======================================================================================================================
 # Release
 start_release:
