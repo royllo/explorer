@@ -16,39 +16,69 @@
     <!--/* Right side (Use flex-none to prevent a flex item from growing or shrinking) */-->
     <div class="flex items-center gap-1">
 
-        <!--/* Authentication. */-->
+        <!--/* =================================================================================================== */-->
+        <!--/* Unauthenticated. */-->
         <div sec:authorize="!isAuthenticated()">
+            <!--/* Login. */-->
             <a th:href="@{/login}">
                 <button class="btn btn-primary" th:text="#{user.login}"></button>
             </a>
+            <!--/* Add data. */-->
+            <details class="dropdown dropdown-end">
+                <summary class="m-1 btn btn-secondary" th:text="#{request.view.addData}"></summary>
+                <ul class="dropdown-content z-[1] menu p-2 shadow rounded-box w-52">
+
+                    <!--/* Add proof. */-->
+                    <li>
+                        <a th:href="@{/request/proof/add}"
+                           th:text="#{request.view.proof.add}">
+                        </a>
+                    </li>
+
+                    <!--/* Add universe server. */-->
+                    <li>
+                        <a th:href="@{/request/universe_server/add}"
+                           th:text="#{request.view.universeServer.add}">
+                        </a>
+                    </li>
+
+                </ul>
+            </details>
         </div>
+        <!--/* =================================================================================================== */-->
+
+        <!--/* =================================================================================================== */-->
+        <!--/* Authenticated. */-->
         <div sec:authorize="isAuthenticated()">
-            <a th:href="@{/logout}">
-                <button class="btn btn-primary" th:text="#{user.logout}"></button>
-            </a>
+            <details class="dropdown dropdown-end">
+                <summary class="m-1 btn btn-secondary" th:text="#{user.account}"></summary>
+                <ul class="dropdown-content z-[1] menu p-2 shadow rounded-box w-52">
+
+                    <!--/* Add proof. */-->
+                    <li>
+                        <a th:href="@{/request/proof/add}"
+                           th:text="#{request.view.proof.add}">
+                        </a>
+                    </li>
+
+                    <!--/* Add universe server. */-->
+                    <li>
+                        <a th:href="@{/request/universe_server/add}"
+                           th:text="#{request.view.universeServer.add}">
+                        </a>
+                    </li>
+
+                    <!--/* Add universe server. */-->
+                    <li>
+                        <a th:href="@{/logout}"
+                           th:text="#{user.logout}">
+                        </a>
+                    </li>
+
+                </ul>
+            </details>
         </div>
-
-        <!--/* Add data. */-->
-        <details class="dropdown dropdown-end">
-            <summary class="m-1 btn btn-secondary" th:text="#{request.view.addData}"></summary>
-            <ul class="dropdown-content z-[1] menu p-2 shadow rounded-box w-52">
-
-                <!--/* Add proof. */-->
-                <li>
-                    <a th:href="@{/request/proof/add}"
-                       th:text="#{request.view.proof.add}">
-                    </a>
-                </li>
-
-                <!--/* Add universe server. */-->
-                <li>
-                    <a th:href="@{/request/universe_server/add}"
-                       th:text="#{request.view.universeServer.add}">
-                    </a>
-                </li>
-
-            </ul>
-        </details>
+        <!--/* =================================================================================================== */-->
 
     </div>
 

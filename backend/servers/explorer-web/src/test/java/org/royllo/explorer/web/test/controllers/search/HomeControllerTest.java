@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -47,14 +48,55 @@ public class HomeControllerTest extends BaseTest {
     AssetStateRepository assetStateRepository;
 
     @Test
-    @DisplayName("Display home page")
-    void homePage() throws Exception {
+    @DisplayName("Display home page (unauthenticated)")
+    void homePageUnauthenticated() throws Exception {
 
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(HOME_PAGE))
                 // Checking the button in the header.
                 .andExpect(content().string(containsString(getMessage(messages, "request.view.addData"))))
+                .andExpect(content().string(containsString(getMessage(messages, "user.login"))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "user.account")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "user.logout")))))
+                .andExpect(content().string(containsString("\"/request/proof/add\"")))
+                .andExpect(content().string(containsString("\"/request/universe_server/add\"")))
+                // Checking the search form is here and empty.
+                .andExpect(content().string(containsString("form")))
+                .andExpect(content().string(containsString("input")))
+                .andExpect(content().string(containsString("query")))
+                .andExpect(content().string(containsString("value=\"\"")))
+                // Checking the message on the homepage.
+                .andExpect(content().string(containsString(getMessage(messages, "home.message"))))
+                // Checking the statistics are here.
+                .andExpect(content().string(containsString(getMessage(messages, "statistics.global.universeCount"))))
+                .andExpect(content().string(containsString(">" + universeServerRepository.count() + "<")))
+                .andExpect(content().string(containsString(getMessage(messages, "statistics.global.assetCount"))))
+                .andExpect(content().string(containsString(">" + assetRepository.count() + "<")))
+                .andExpect(content().string(containsString(getMessage(messages, "statistics.global.assetStateCount"))))
+                .andExpect(content().string(containsString(">" + assetStateRepository.count() + "<")))
+                // Checking the footer is here.
+                .andExpect(content().string(containsString("https://www.royllo.org")))
+                .andExpect(content().string(containsString("http://localhost:9090/api")))
+                .andExpect(content().string(containsString("https://github.com/royllo/explorer")))
+                .andExpect(content().string(containsString("https://twitter.com/royllo_org")));
+
+    }
+
+    @Test
+    @DisplayName("Display home page (authenticated)")
+    @WithMockUser(username = "straumat", roles = {"USER"})
+    void homePageAuthenticated() throws Exception {
+
+        mockMvc.perform(get("/"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(HOME_PAGE))
+                // Checking the button in the header.
+                .andExpect(content().string(not(containsString(getMessage(messages, "request.view.addData")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "user.login")))))
+                .andExpect(content().string(containsString(getMessage(messages, "user.account"))))
+                .andExpect(content().string(containsString(getMessage(messages, "user.logout"))))
+                .andExpect(content().string(containsString("\"/logout\"")))
                 .andExpect(content().string(containsString("\"/request/proof/add\"")))
                 .andExpect(content().string(containsString("\"/request/universe_server/add\"")))
                 // Checking the search form is here and empty.
