@@ -1,4 +1,4 @@
-<header class="navbar">
+<header class="navbar" xmlns:sec="http://www.w3.org/1999/xhtml">
 
     <!--/* Left side (Use flex-1 to allow a flex item to grow and shrink as needed, ignoring its initial size) */-->
     <div class="flex-1">
@@ -14,28 +14,33 @@
     </div>
 
     <!--/* Right side (Use flex-none to prevent a flex item from growing or shrinking) */-->
-    <div class="flex-none" hx-boost="true">
+    <div class="flex items-center gap-1">
 
+        <!--/* Authentication. */-->
+        <div sec:authorize="!isAuthenticated()">
+            <a th:href="@{/login}">
+                <button class="btn btn-primary" th:text="#{user.login}"></button>
+            </a>
+        </div>
         <div sec:authorize="isAuthenticated()">
-            User authenticated
+            <a th:href="@{/logout}">
+                <button class="btn btn-primary" th:text="#{user.logout}"></button>
+            </a>
         </div>
 
-        &nbsp;
-        &nbsp;
-        &nbsp;
-
+        <!--/* Add data. */-->
         <details class="dropdown dropdown-end">
             <summary class="m-1 btn btn-secondary" th:text="#{request.view.addData}"></summary>
             <ul class="dropdown-content z-[1] menu p-2 shadow rounded-box w-52">
 
-                <!--/* Add proof */-->
+                <!--/* Add proof. */-->
                 <li>
                     <a th:href="@{/request/proof/add}"
                        th:text="#{request.view.proof.add}">
                     </a>
                 </li>
 
-                <!--/* Add universe server */-->
+                <!--/* Add universe server. */-->
                 <li>
                     <a th:href="@{/request/universe_server/add}"
                        th:text="#{request.view.universeServer.add}">

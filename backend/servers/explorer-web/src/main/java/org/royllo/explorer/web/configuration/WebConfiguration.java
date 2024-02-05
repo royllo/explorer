@@ -70,7 +70,8 @@ public class WebConfiguration implements WebMvcConfigurer {
                 "classpath:/i18n/html",
                 "classpath:/i18n/request",
                 "classpath:/i18n/search",
-                "classpath:/i18n/statistic"
+                "classpath:/i18n/statistic",
+                "classpath:/i18n/user"
         );
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;

@@ -13,7 +13,7 @@
     "watch:html": "onchange 'src/main/resources/templates/**/*.html' -- npm-run-all --serial build:css build:html",
     "watch:css": "onchange 'src/main/resources/static/css/**/*.css' -- npm run build:css",
     "watch:svg": "onchange 'src/main/resources/static/svg/**/*.svg' -- npm run build:svg",
-    "watch:serve": "browser-sync start --no-inject-changes --proxy localhost:8080 --files 'target/classes/templates' 'target/classes/static'"
+    "watch:serve": "browser-sync start --no-inject-changes --no-notify --proxy localhost:8080 --files 'target/classes/templates' 'target/classes/static'"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",

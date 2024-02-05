@@ -46,7 +46,6 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
         //  Each request that comes in passes through this chain of filters before reaching your application.
         return http
-                // TODO Is it necessary to disable CSRF and CORS protection?
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 // Specifying that the application should not create new HTTP sessions on its own, but can use existing ones if they are present.
@@ -66,9 +65,10 @@ public class SecurityConfiguration {
                                 antMatcher("/request/**"),
                                 // Login pages
                                 // TODO Try to remove those lines.
-                                antMatcher(LNURL_AUTH_LOGIN_PAGE_PATH + "/**"),
-                                antMatcher(LNURL_AUTH_WALLET_LOGIN_PATH + "/**"),
+                                antMatcher(LNURL_AUTH_LOGIN_PAGE_PATH + "*"),
+                                antMatcher(LNURL_AUTH_WALLET_LOGIN_PATH + "*"),
                                 antMatcher("/api/v1/lnurl-auth/login/**"),
+                                antMatcher("/logout"),
                                 // CSS, images and javascript libraries.
                                 antMatcher("/css/**"),
                                 antMatcher("/images/**"),
@@ -115,6 +115,9 @@ public class SecurityConfiguration {
                                 // Configures the LNURL Authorization Server's Wallet Endpoint.
                                 .walletEndpoint(wallet -> wallet.baseUri(LNURL_AUTH_WALLET_LOGIN_PATH))
                 )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/"))
                 .build();
     }
 
