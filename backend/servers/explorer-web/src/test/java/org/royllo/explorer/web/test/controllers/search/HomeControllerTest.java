@@ -85,7 +85,7 @@ public class HomeControllerTest extends BaseTest {
 
     @Test
     @DisplayName("Display home page (authenticated)")
-    @WithMockUser(username = "straumat", roles = {"USER"})
+    @WithMockUser(username = "abcedefghijklmnopqrstuvwxyz", roles = {"USER"})
     void homePageAuthenticated() throws Exception {
 
         mockMvc.perform(get("/"))
@@ -96,9 +96,10 @@ public class HomeControllerTest extends BaseTest {
                 .andExpect(content().string(not(containsString(getMessage(messages, "user.login")))))
                 .andExpect(content().string(containsString(getMessage(messages, "user.account"))))
                 .andExpect(content().string(containsString(getMessage(messages, "user.logout"))))
-                .andExpect(content().string(containsString("\"/logout\"")))
+                .andExpect(content().string(containsString("abc...xyz")))
                 .andExpect(content().string(containsString("\"/request/proof/add\"")))
                 .andExpect(content().string(containsString("\"/request/universe_server/add\"")))
+                .andExpect(content().string(containsString("\"/logout\"")))
                 // Checking the search form is here and empty.
                 .andExpect(content().string(containsString("form")))
                 .andExpect(content().string(containsString("input")))

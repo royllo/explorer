@@ -21,4 +21,7 @@ public class AuthenticationPageConstants {
     /** Authentication session K1 key. */
     public static final String LNURL_AUTH_SESSION_K1_KEY = "k1";
 
+    /** Shortened username. */
+    public static final String USERNAME = "username";
+
 }

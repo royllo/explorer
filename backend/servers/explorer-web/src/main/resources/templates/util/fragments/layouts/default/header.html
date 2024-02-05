@@ -50,9 +50,12 @@
         <!--/* =================================================================================================== */-->
         <!--/* Authenticated. */-->
         <div sec:authorize="isAuthenticated()">
-            <details class="dropdown dropdown-end">
-                <summary class="m-1 btn btn-secondary" th:text="#{user.account}"></summary>
-                <ul class="dropdown-content z-[1] menu p-2 shadow rounded-box w-52">
+            <div class="dropdown dropdown-bottom dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-secondary m-1" th:text="#{user.account}"></div>
+                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-blue-100 rounded-box w-52">
+
+                    <!--/* User. */-->
+                    <h2 class="menu-title" th:utext="#{user.signed.as(${username})}"></h2>
 
                     <!--/* Add proof. */-->
                     <li>
@@ -74,9 +77,9 @@
                            th:text="#{user.logout}">
                         </a>
                     </li>
-
                 </ul>
-            </details>
+            </div>
+
         </div>
         <!--/* =================================================================================================== */-->
 
