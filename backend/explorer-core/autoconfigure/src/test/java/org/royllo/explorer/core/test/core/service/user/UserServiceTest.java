@@ -132,7 +132,6 @@ public class UserServiceTest {
         assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("biography")));
         assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getMessage().contains("website")));
 
-
         // We go back to normal.
         existingUser.get().setFullName("Stéphane Traumat");
         existingUser.get().setBiography("I'm a developer");
