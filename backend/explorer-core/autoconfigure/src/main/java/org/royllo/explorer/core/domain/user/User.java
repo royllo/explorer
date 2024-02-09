@@ -51,4 +51,16 @@ public class User extends BaseDomain {
     @Column(name = "ROLE", nullable = false)
     private UserRole role;
 
+    /** Full name. */
+    @Column(name = "FULL_NAME", nullable = false)
+    private String fullName;
+
+    /** Biography. */
+    @Column(name = "BIOGRAPHY")
+    private String biography;
+
+    /** Website. */
+    @Column(name = "WEBSITE")
+    private String website;
+
 }

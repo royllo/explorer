@@ -27,6 +27,16 @@
                 <constraints nullable="false"/>
             </column>
 
+            <column name="FULL_NAME" type="TEXT"
+                    remarks="Full name">
+            </column>
+            <column name="BIOGRAPHY" type="TEXT"
+                    remarks="Biography">
+            </column>
+            <column name="WEBSITE" type="TEXT"
+                    remarks="User website">
+            </column>
+
             <!-- Technical fields -->
             <column name="CREATED_ON" type="TIMESTAMP"
                     remarks="Data created on"/>

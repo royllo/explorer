@@ -93,6 +93,9 @@ public class UserServiceTest {
         assertTrue(existingUser.isPresent());
         assertEquals(2, existingUser.get().getId().longValue());
         assertEquals("straumat", existingUser.get().getUsername());
+        assertEquals("Stéphane Traumat", existingUser.get().getFullName());
+        assertEquals("I'm a developer", existingUser.get().getBiography());
+        assertEquals("https://github.com/straumat", existingUser.get().getWebsite());
         assertEquals(ADMINISTRATOR, existingUser.get().getRole());
 
         // Existing user (Uppercase).
@@ -100,6 +103,9 @@ public class UserServiceTest {
         assertTrue(existingUserUppercase.isPresent());
         assertEquals(2, existingUserUppercase.get().getId().longValue());
         assertEquals("straumat", existingUserUppercase.get().getUsername());
+        assertEquals("Stéphane Traumat", existingUserUppercase.get().getFullName());
+        assertEquals("I'm a developer", existingUser.get().getBiography());
+        assertEquals("https://github.com/straumat", existingUser.get().getWebsite());
         assertEquals(ADMINISTRATOR, existingUserUppercase.get().getRole());
     }
 

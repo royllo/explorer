@@ -39,21 +39,26 @@ public class UserDTO {
     @NotNull(message = "Role is mandatory")
     UserRole role;
 
+    /** Full name. */
+    String fullName;
+
+    /** Biography. */
+    String biography;
+
+    /** Website. */
+    String website;
+
     /**
      * Returns the shortened username.
      *
      * @return the shortened username
      */
     public String getShortenedUsername() {
-        // If username is null, return null (it should never append).
-        if (username == null) {
-            return null;
+        // If username is too long, cut it.
+        if (username != null && username.length() >= USERNAME_MAXIMUM_SIZE) {
+            return username.substring(0, USERNAME_PREVIEW_SIZE) + "..." + username.substring(username.length() - USERNAME_PREVIEW_SIZE);
         }
-        // If username proof is too small for substring, return raw proof.
-        if (username.length() <= USERNAME_MAXIMUM_SIZE) {
-            return username;
-        }
-        return username.substring(0, USERNAME_PREVIEW_SIZE) + "..." + username.substring(username.length() - USERNAME_PREVIEW_SIZE);
+        return username;
     }
 
 }
