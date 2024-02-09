@@ -1,5 +1,6 @@
 package org.royllo.explorer.core.service.user;
 
+import jakarta.validation.Valid;
 import org.royllo.explorer.core.dto.user.UserDTO;
 
 import java.util.Optional;
@@ -30,6 +31,14 @@ public interface UserService {
      * @return user created
      */
     UserDTO createUser(String username);
+
+    /**
+     * Update user.
+     *
+     * @param username user name
+     * @param userData user data
+     */
+    void updateUser(String username, @Valid UserDTO userData);
 
     /**
      * Get user by its user id.

@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import org.tbk.lnurl.auth.K1;
 import org.tbk.lnurl.auth.LinkingKey;
 import org.tbk.lnurl.auth.LnurlAuthPairingService;
@@ -23,8 +24,8 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.royllo.explorer.core.util.constants.AdministratorUserConstants.ADMINISTRATOR_ID;
-import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_ID;
+import static org.royllo.explorer.core.util.constants.AdministratorUserConstants.ADMINISTRATOR_USER_ID;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_ID;
 import static org.royllo.explorer.core.util.enums.UserRole.USER;
 
 /**
@@ -32,6 +33,7 @@ import static org.royllo.explorer.core.util.enums.UserRole.USER;
  * Also implements {@link LnurlAuthPairingService} that brings the wallet and the web session together.
  */
 @Service
+@Validated
 @RequiredArgsConstructor
 @SuppressWarnings({"checkstyle:DesignForExtension", "unused"})
 public class UserServiceImplementation extends BaseService implements UserService, LnurlAuthPairingService, UserDetailsService {
@@ -46,10 +48,10 @@ public class UserServiceImplementation extends BaseService implements UserServic
     public UserDTO getAdministratorUser() {
         logger.info("Getting administrator user");
 
-        final Optional<User> administratorUser = userRepository.findById(ADMINISTRATOR_ID);
+        final Optional<UserDTO> administratorUser = getUserByUserId(ADMINISTRATOR_USER_ID);
         if (administratorUser.isPresent()) {
             logger.info("Returning administrator user");
-            return USER_MAPPER.mapToUserDTO(administratorUser.get());
+            return administratorUser.get();
         } else {
             logger.error("Administrator user not found - This should never happened");
             throw new RuntimeException("Administrator user not found");
@@ -60,10 +62,10 @@ public class UserServiceImplementation extends BaseService implements UserServic
     public UserDTO getAnonymousUser() {
         logger.info("Getting anonymous user");
 
-        final Optional<User> anonymousUser = userRepository.findById(ANONYMOUS_ID);
+        final Optional<UserDTO> anonymousUser = getUserByUserId(ANONYMOUS_USER_ID);
         if (anonymousUser.isPresent()) {
             logger.info("Returning anonymous user");
-            return USER_MAPPER.mapToUserDTO(anonymousUser.get());
+            return anonymousUser.get();
         } else {
             logger.error("Anonymous user not found - This should never happened");
             throw new RuntimeException("Anonymous user not found");
@@ -87,6 +89,21 @@ public class UserServiceImplementation extends BaseService implements UserServic
 
         logger.info("User created: {}", userCreated);
         return USER_MAPPER.mapToUserDTO(userCreated);
+    }
+
+    @Override
+    public void updateUser(final String username, final UserDTO userData) {
+        logger.info("Update a user with username: {}, new value is {}", username, userData);
+        Optional<User> user = userRepository.findByUsernameIgnoreCase(username);
+
+        // Verification.
+        assert user.isPresent() : "User not found with username: " + username;
+
+        // We update the data.
+        user.get().setFullName(userData.getFullName());
+        user.get().setBiography(userData.getBiography());
+        user.get().setWebsite(userData.getWebsite());
+        userRepository.save(user.get());
     }
 
     @Override

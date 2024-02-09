@@ -2,9 +2,12 @@ package org.royllo.explorer.core.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Setter;
 import lombok.Value;
+import lombok.experimental.NonFinal;
 import org.royllo.explorer.core.util.enums.UserRole;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -17,6 +20,15 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor(access = PRIVATE)
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public class UserDTO {
+
+    /** Full name maximum size. */
+    private static final int FULL_NAME_MAX_SIZE = 40;
+
+    /** Biography maximum size. */
+    private static final int BIOGRAPHY_MAXIMUM_SIZE = 255;
+
+    /** Website maximum size. */
+    private static final int WEBSITE_MAXIMUM_SIZE = 50;
 
     /** Username maximum size - If longer thant this, the username must be shortened. */
     public static final int USERNAME_MAXIMUM_SIZE = 20;
@@ -40,12 +52,21 @@ public class UserDTO {
     UserRole role;
 
     /** Full name. */
+    @Setter
+    @NonFinal
+    @Size(max = FULL_NAME_MAX_SIZE, message = "{validation.fullName.size.too_long}")
     String fullName;
 
     /** Biography. */
+    @Setter
+    @NonFinal
+    @Size(max = BIOGRAPHY_MAXIMUM_SIZE, message = "{validation.biography.size.too_long}")
     String biography;
 
     /** Website. */
+    @Setter
+    @NonFinal
+    @Size(max = WEBSITE_MAXIMUM_SIZE, message = "{validation.website.size.too_long}")
     String website;
 
     /**
