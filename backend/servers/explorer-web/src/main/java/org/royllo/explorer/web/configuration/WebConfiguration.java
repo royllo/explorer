@@ -69,6 +69,7 @@ public class WebConfiguration implements WebMvcConfigurer {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasenames(
                 "classpath:/i18n/asset",
+                "classpath:/i18n/errors",
                 "classpath:/i18n/html",
                 "classpath:/i18n/request",
                 "classpath:/i18n/search",

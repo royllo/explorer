@@ -55,39 +55,14 @@ public class SecurityConfiguration {
                         .sessionFixation().migrateSession()
                 )
                 // Page authorisations.
-                .authorizeHttpRequests((authorize) -> authorize
-                        // Public website.
-                        .requestMatchers(
-                                // Pages.
-                                antMatcher("/"),
-                                antMatcher("/search"),
-                                antMatcher("/asset/**"),
-                                antMatcher("/request/**"),
-                                // Login pages
-                                // TODO Try to remove those lines.
-                                antMatcher(LNURL_AUTH_LOGIN_PAGE_PATH + "*"),
-                                antMatcher(LNURL_AUTH_WALLET_LOGIN_PATH + "*"),
-                                antMatcher("/api/v1/lnurl-auth/login/**"),
-                                antMatcher("/logout"),
-                                // CSS, images and javascript libraries.
-                                antMatcher("/css/**"),
-                                antMatcher("/images/**"),
-                                antMatcher("/svg/**"),
-                                antMatcher("/favicon/**"),
-                                antMatcher("/webjars/**"),
-                                // Util.
-                                antMatcher("/sitemap.xml")
-                        ).permitAll()
+                .authorizeHttpRequests(authorize -> authorize
                         // User account pages (Requires authorizations).
-                        .requestMatchers(
-                                antMatcher("/account/**")
-                        ).authenticated()
+                        .requestMatchers(antMatcher("/account/**"))
+                        .authenticated()
+                        // Public pages (Permit all).
+                        .anyRequest()
+                        .permitAll()
                 )
-                // If the user is not authenticated when accessing a protected page, redirect to the login page.
-//                .exceptionHandling((exceptionHandling) -> exceptionHandling
-//                        .accessDeniedPage(ERROR_403_PAGE)
-//                        .authenticationEntryPoint((request, response, authenticationException) -> response.sendRedirect(LNURL_AUTH_LOGIN_PAGE_PATH))
-//                )
                 // LNURL Auth configuration.
                 .with(new LnurlAuthConfigurer(), lnurlAuthConfigurer ->
                         lnurlAuthConfigurer
@@ -115,8 +90,11 @@ public class SecurityConfiguration {
                                 // Configures the LNURL Authorization Server's Wallet Endpoint.
                                 .walletEndpoint(wallet -> wallet.baseUri(LNURL_AUTH_WALLET_LOGIN_PATH))
                 )
+                // Logout configuration.
                 .logout(logout -> logout
                         .logoutUrl("/logout")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
                         .logoutSuccessUrl("/"))
                 .build();
     }

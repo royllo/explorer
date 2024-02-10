@@ -8,9 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import static jakarta.servlet.RequestDispatcher.ERROR_STATUS_CODE;
+import static org.royllo.explorer.web.util.constants.UtilPagesConstants.ERROR_403_PAGE;
 import static org.royllo.explorer.web.util.constants.UtilPagesConstants.ERROR_404_PAGE;
 import static org.royllo.explorer.web.util.constants.UtilPagesConstants.ERROR_500_PAGE;
 import static org.royllo.explorer.web.util.constants.UtilPagesConstants.ERROR_PAGE;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -32,6 +34,9 @@ public class ErrorConfiguration extends Base implements ErrorController {
         Object status = request.getAttribute(ERROR_STATUS_CODE);
         if (status != null) {
             int statusCode = Integer.parseInt(status.toString());
+            if (statusCode == FORBIDDEN.value()) {
+                return ERROR_403_PAGE;
+            }
             if (statusCode == NOT_FOUND.value()) {
                 logger.error("Error 404: Page not found: {}", request.getRequestURI());
                 return ERROR_404_PAGE;

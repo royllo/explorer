@@ -49,6 +49,7 @@
 
         <!--/* =================================================================================================== */-->
         <!--/* Authenticated. */-->
+        <!-- Dropdown menu -->
         <div sec:authorize="isAuthenticated()">
             <div class="dropdown dropdown-bottom dropdown-end">
                 <div tabindex="0" role="button" class="btn btn-secondary m-1" th:text="#{user.account}"></div>
@@ -71,7 +72,14 @@
                         </a>
                     </li>
 
-                    <!--/* Add universe server. */-->
+                    <!--/* Profile. */-->
+                    <li>
+                        <a th:href="@{/account/settings}"
+                           th:text="#{account.settings}">
+                        </a>
+                    </li>
+
+                    <!--/* Logout. */-->
                     <li>
                         <a th:href="@{/logout}"
                            th:text="#{user.logout}">

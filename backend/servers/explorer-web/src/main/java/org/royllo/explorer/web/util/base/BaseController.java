@@ -2,11 +2,12 @@ package org.royllo.explorer.web.util.base;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.NonNull;
+import org.royllo.explorer.core.util.base.Base;
 
 /**
  * Base controller.
  */
-public class BaseController {
+public class BaseController extends Base {
 
     /** HTMX request header. */
     public static final String HTMX_REQUEST = "HX-Request";
