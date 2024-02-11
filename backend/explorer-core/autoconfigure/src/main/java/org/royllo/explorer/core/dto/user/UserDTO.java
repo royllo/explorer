@@ -40,33 +40,33 @@ public class UserDTO {
     Long id;
 
     /** User UUID. */
-    @NotNull(message = "User ID is required")
+    @NotNull(message = "{validation.user.userId.required}")
     String userId;
 
     /** Username. */
-    @NotBlank(message = "Username is mandatory")
+    @NotBlank(message = "{validation.user.username.required}")
     String username;
 
     /** User role. */
-    @NotNull(message = "Role is mandatory")
+    @NotNull(message = "{validation.user.role.required}")
     UserRole role;
 
     /** Full name. */
     @Setter
     @NonFinal
-    @Size(max = FULL_NAME_MAXIMUM_SIZE, message = "{validation.fullName.size.too_long}")
+    @Size(max = FULL_NAME_MAXIMUM_SIZE, message = "{validation.user.fullName.size.too_long}")
     String fullName;
 
     /** Biography. */
     @Setter
     @NonFinal
-    @Size(max = BIOGRAPHY_MAXIMUM_SIZE, message = "{validation.biography.size.too_long}")
+    @Size(max = BIOGRAPHY_MAXIMUM_SIZE, message = "{validation.user.biography.size.too_long}")
     String biography;
 
     /** Website. */
     @Setter
     @NonFinal
-    @Size(max = WEBSITE_MAXIMUM_SIZE, message = "{validation.website.size.too_long}")
+    @Size(max = WEBSITE_MAXIMUM_SIZE, message = "{validation.user.website.size.too_long}")
     String website;
 
     /**

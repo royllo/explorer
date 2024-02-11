@@ -23,15 +23,15 @@ public abstract class RequestDTO {
     Long id;
 
     /** Request UUID. */
-    @NotNull(message = "Request ID is required")
+    @NotNull(message = "{validation.request.requestId.required}")
     String requestId;
 
     /** Request creator. */
-    @NotNull(message = "Request creator is required")
+    @NotNull(message = "{validation.request.creator.required}")
     UserDTO creator;
 
     /** Request status. */
-    @NotNull(message = "Request status is mandatory")
+    @NotNull(message = "{validation.request.status.required}")
     RequestStatus status;
 
     /** Error message - Not empty if status is equals to ERROR. */

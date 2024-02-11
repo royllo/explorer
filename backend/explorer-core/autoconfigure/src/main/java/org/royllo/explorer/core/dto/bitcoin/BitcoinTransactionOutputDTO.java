@@ -26,11 +26,11 @@ public class BitcoinTransactionOutputDTO {
     Integer blockHeight;
 
     /** Block time. */
-    @NotBlank(message = "Block time is mandatory")
+    @NotBlank(message = "{validation.bitcoin.blockTime.required}")
     LocalDateTime blockTime;
 
     /** Transaction id. */
-    @NotBlank(message = "Transaction id is mandatory")
+    @NotBlank(message = "{validation.bitcoin.txId.required}")
     String txId;
 
     /** Output index (starts at 0). */

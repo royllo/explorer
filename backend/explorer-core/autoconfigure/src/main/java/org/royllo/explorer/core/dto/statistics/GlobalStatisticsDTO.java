@@ -1,7 +1,6 @@
 package org.royllo.explorer.core.dto.statistics;
 
 import lombok.Getter;
-import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 /**
@@ -9,17 +8,16 @@ import lombok.experimental.SuperBuilder;
  */
 @Getter
 @SuperBuilder
-@ToString(callSuper = true)
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public class GlobalStatisticsDTO {
 
     /** Total number of universes. */
-    long universeCount;
+    int universeCount;
 
     /** Total number of assets. */
-    long assetCount;
+    int assetCount;
 
     /** Total number of asset states. */
-    long assetStateCount;
+    int assetStateCount;
 
 }

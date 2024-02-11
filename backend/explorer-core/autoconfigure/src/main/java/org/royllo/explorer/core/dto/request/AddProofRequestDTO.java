@@ -18,11 +18,12 @@ import org.royllo.explorer.core.util.enums.ProofType;
 public class AddProofRequestDTO extends RequestDTO {
 
     /** Proof that validates the asset information. */
-    @NotBlank(message = "Proof is required")
+    @NotBlank(message = "{validation.request.proof.required}")
     String proof;
 
     /** Proof type. */
-    @NotNull(message = "Proof type is required")
+    // TODO Change to TYPE
+    @NotNull(message = "{validation.request.type.required}")
     ProofType proofType;
 
     /** The asset created/updated by this request. */

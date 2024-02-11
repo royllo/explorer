@@ -27,19 +27,20 @@ public class ProofDTO {
     Long id;
 
     /** The proof creator. */
-    @NotNull(message = "Proof creator is required")
+    @NotNull(message = "{validation.proof.creator.required}")
     UserDTO creator;
 
     /** Target asset. */
-    @NotNull(message = "Target asset is required")
+    @NotNull(message = "{validation.proof.asset.required}")
     AssetDTO asset;
 
     /** Proof id - sha256(proof). */
-    @NotBlank(message = "Proof file ID is required")
+    @NotBlank(message = "{validation.proof.proofId.required}")
     String proofId;
 
     /** Proof type. */
-    @NotNull(message = "Proof type is required")
+    // TODO Rename to TYPE
+    @NotNull(message = "{validation.proof.proofType.required}")
     ProofType proofType;
 
     /**

@@ -29,14 +29,14 @@ public class AssetDTO {
     Long id;
 
     /** The asset creator. */
-    @NotNull(message = "Asset creator is required")
+    @NotNull(message = "{validation.asset.creator.required}")
     UserDTO creator;
 
     /** Asset group. */
     AssetGroupDTO assetGroup;
 
     /** The asset ID that uniquely identifies the asset. */
-    @NotBlank(message = "Asset id is required")
+    @NotBlank(message = "{validation.asset.assetId.required}")
     String assetId;
 
     /** The asset ID alias in Royllo (generated or configured). */
@@ -46,7 +46,7 @@ public class AssetDTO {
     BitcoinTransactionOutputDTO genesisPoint;
 
     /** The name of the asset. */
-    @NotBlank(message = "Asset name is required")
+    @NotBlank(message = "{validation.asset.assetName.required}")
     String name;
 
     /** The hash of the metadata for this genesis asset. */
@@ -56,15 +56,15 @@ public class AssetDTO {
     String metaDataFileName;
 
     /** The index of the output that carries the unique Taproot asset commitment in the genesis transaction. */
-    @NotNull(message = "Output index is required")
+    @NotNull(message = "{validation.asset.outputIndex.required}")
     Integer outputIndex;
 
     /** The version of the Taproot asset. */
-    @NotNull(message = "The version of the Taproot asset is required")
+    @NotNull(message = "{validation.asset.version.required}")
     Integer version;
 
     /** The type of the asset: normal or a collectible. */
-    @NotNull(message = "Asset type is required")
+    @NotNull(message = "{validation.asset.assetType.required}")
     AssetType type;
 
     /** The total amount minted for this asset. */

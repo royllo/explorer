@@ -29,7 +29,7 @@ public class UniverseServerDTO {
     User owner;
 
     /** The universe server address (consists of both an IP address and a port number). */
-    @ServerAddress(message = "Server address is invalid")
+    @ServerAddress(message = "{validation.universe.invalid}")
     String serverAddress;
 
     /** When is the last time we try to synchronize with the server. */

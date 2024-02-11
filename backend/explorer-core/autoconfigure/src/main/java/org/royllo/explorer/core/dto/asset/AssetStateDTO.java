@@ -28,27 +28,27 @@ public class AssetStateDTO {
     Long id;
 
     /** The asset creator. */
-    @NotNull(message = "Asset state creator is required")
+    @NotNull(message = "{validation.assetState.creator.required}")
     UserDTO creator;
 
     /** The asset. */
-    @NotNull(message = "Linked asset is required")
+    @NotNull(message = "{validation.assetState.asset.required}")
     AssetDTO asset;
 
     /** The transaction that anchors the Taproot asset commitment where the asset resides. */
-    @NotNull(message = "Anchor transaction is required")
+    @NotNull(message = "{validation.assetState.anchorTx.required}")
     String anchorTx;
 
     /** The block hash the contains the anchor transaction above. */
-    @NotNull(message = "Anchor block hash is required")
+    @NotNull(message = "{validation.assetState.anchorBlockHash.required}")
     String anchorBlockHash;
 
     /** Outpoint (txid:vout) that stores the Taproot asset commitment. */
-    @NotNull(message = "Anchor outpoint is required")
+    @NotNull(message = "{validation.assetState.anchorOutpoint.required}")
     BitcoinTransactionOutputDTO anchorOutpoint;
 
     /** The raw internal key that was used to create the anchor Taproot output key. */
-    @NotNull(message = "Anchor internal key is required")
+    @NotNull(message = "{validation.assetState.internalKey.required}")
     String internalKey;
 
     /** The Taproot merkle root hash of the anchor output the asset was committed to. */
@@ -58,11 +58,11 @@ public class AssetStateDTO {
     String tapscriptSibling;
 
     /** The version of the Taproot Asset. */
-    @NotNull(message = "Version is required")
+    @NotNull(message = "{validation.assetState.version.required}")
     String version;
 
     /** The total amount of the asset stored in this Taproot asset UTXO. */
-    @NotNull(message = "Amount is required")
+    @NotNull(message = "{validation.assetState.amount.required}")
     BigInteger amount;
 
     /** An optional lock time, as with Bitcoin transactions. */
@@ -72,11 +72,11 @@ public class AssetStateDTO {
     int relativeLockTime;
 
     /** The version of the script, only version 0 is defined at present. */
-    @NotNull(message = "Script version is required")
+    @NotNull(message = "{validation.assetState.scriptVersion.required}")
     Integer scriptVersion;
 
     /** The script key of the asset, which can be spent under Taproot semantics. */
-    @NotNull(message = "Script key is required")
+    @NotNull(message = "{validation.assetState.scriptKey.required}")
     String scriptKey;
 
     /** Indicates whether the asset has been spent. */
@@ -109,7 +109,7 @@ public class AssetStateDTO {
     /** The asset state ID that uniquely identifies the asset state (calculated by Royllo). */
     @Setter
     @NonFinal
-    @NotBlank(message = "Asset state id is required")
+    @NotBlank(message = "{validation.assetState.assetStateId.required}")
     String assetStateId;
 
     /** Indicates if this asset state is an issuance or a transfer. */
