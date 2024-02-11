@@ -10,9 +10,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.annotation.DirtiesContext;
 import org.tbk.lnurl.auth.K1;
 import org.tbk.lnurl.auth.LinkingKey;
-import org.tbk.lnurl.auth.LnurlAuthPairingService;
 import org.tbk.lnurl.simple.auth.SimpleK1;
 import org.tbk.lnurl.simple.auth.SimpleLinkingKey;
+import org.tbk.lnurl.simple.auth.SimpleSignedLnurlAuth;
+import org.tbk.spring.lnurl.security.userdetails.LnurlAuthUserPairingService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -24,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class UserDetailsServiceTest {
 
     @Autowired
-    private LnurlAuthPairingService lnurlAuthPairingService;
+    private LnurlAuthUserPairingService lnurlAuthPairingService;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -39,6 +40,8 @@ public class UserDetailsServiceTest {
         LinkingKey user1LinkingKeyTest1 = SimpleLinkingKey.fromHex(user1linkingKey1Value);
 
         // We create a new user.
+        var a = SimpleSignedLnurlAuth.create(user1K1Test1, user1LinkingKeyTest1);
+
         lnurlAuthPairingService.pairK1WithLinkingKey(user1K1Test1, user1LinkingKeyTest1);
 
         // We try the load the user created.

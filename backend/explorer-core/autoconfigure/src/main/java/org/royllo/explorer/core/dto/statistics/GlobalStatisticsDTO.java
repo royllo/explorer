@@ -12,12 +12,12 @@ import lombok.experimental.SuperBuilder;
 public class GlobalStatisticsDTO {
 
     /** Total number of universes. */
-    int universeCount;
+    long universeCount;
 
     /** Total number of assets. */
-    int assetCount;
+    long assetCount;
 
     /** Total number of asset states. */
-    int assetStateCount;
+    long assetStateCount;
 
 }

@@ -73,7 +73,7 @@
         <dependency>
             <groupId>com.github.theborakompanioni.bitcoin-spring-boot-starter</groupId>
             <artifactId>spring-lnurl-auth-starter</artifactId>
-            <version>devel-SNAPSHOT</version>
+            <version>refactor~lnurl-auth-pairing-service-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.github.theborakompanioni</groupId>

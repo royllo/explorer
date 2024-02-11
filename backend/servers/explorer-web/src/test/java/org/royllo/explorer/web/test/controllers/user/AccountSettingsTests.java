@@ -1,5 +1,6 @@
 package org.royllo.explorer.web.test.controllers.user;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.dto.user.UserDTO;
@@ -68,6 +69,18 @@ public class AccountSettingsTests extends BaseTest {
         // =============================================================================================================
         // When there are an error on fields.
 
+        mockMvc.perform(post("/account/settings")
+                        .param("fullName", RandomStringUtils.randomAlphanumeric(41))
+                        .param("biography", RandomStringUtils.randomAlphanumeric(256))
+                        .param("website", RandomStringUtils.randomAlphanumeric(51))
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                .andExpect(status().isOk())
+                .andExpect(view().name(ACCOUNT_SETTINGS_PAGE))
+                .andExpect(model().attributeExists(FORM_ATTRIBUTE))
+                .andExpect(model().hasErrors())
+                .andExpect(model().attributeHasFieldErrors(FORM_ATTRIBUTE, "fullName"))
+                .andExpect(model().attributeHasFieldErrors(FORM_ATTRIBUTE, "biography"))
+                .andExpect(model().attributeHasFieldErrors(FORM_ATTRIBUTE, "website"));
 
         // =============================================================================================================
         // When it works.

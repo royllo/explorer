@@ -5,6 +5,8 @@ package org.royllo.explorer.core.util.enums;
  */
 public enum FileType {
 
+    // TODO Add JSON.
+
     /** Image file. */
     IMAGE("png", "jpg", "jpeg", "gif", "bmp"),
 

@@ -12,9 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.tbk.lnurl.auth.K1;
 import org.tbk.lnurl.auth.LinkingKey;
-import org.tbk.lnurl.auth.LnurlAuthPairingService;
 import org.tbk.lnurl.simple.auth.SimpleK1;
 import org.tbk.lnurl.simple.auth.SimpleLinkingKey;
+import org.tbk.spring.lnurl.security.userdetails.LnurlAuthUserPairingService;
 
 import java.util.Optional;
 
@@ -40,7 +40,7 @@ public class LnurlAuthPairingServiceTest {
     private UserService userService;
 
     @Autowired
-    private LnurlAuthPairingService lnurlAuthPairingService;
+    private LnurlAuthUserPairingService lnurlAuthUserPairingService;
 
     @Test
     @DisplayName("pairK1WithLinkingKey() and findPairedLinkingKeyByK1()")
@@ -61,14 +61,13 @@ public class LnurlAuthPairingServiceTest {
         final long userCount = userRepository.count();
         final long userLnurlAuthKeyCount = userLnurlAuthKeyRepository.count();
 
-
         // =============================================================================================================
         // Test 1 : a new user logs in (it doesn't exist in database).
         assertFalse(userService.getUserByUsername(linkingKey1Value).isPresent());
         assertFalse(userLnurlAuthKeyRepository.findByK1(simpleK1Value).isPresent());
 
         // We pair & check if the data is here.
-        lnurlAuthPairingService.pairK1WithLinkingKey(k1Test1, linkingKeyTest1);
+        lnurlAuthUserPairingService.pairUserWithK1(k1Test1, linkingKeyTest1);
 
         // We check the number of data created.
         assertEquals(userCount + 1, userRepository.count());
@@ -92,7 +91,7 @@ public class LnurlAuthPairingServiceTest {
 
         // =============================================================================================================
         // Test 2 : the same user logs again with another k1 - No new data but k1 updated.
-        lnurlAuthPairingService.pairK1WithLinkingKey(k1Test2, linkingKeyTest1);
+        lnurlAuthUserPairingService.pairK1WithLinkingKey(k1Test2, linkingKeyTest1);
         assertEquals(userCount + 1, userRepository.count());
         assertEquals(userLnurlAuthKeyCount + 1, userLnurlAuthKeyRepository.count());
 

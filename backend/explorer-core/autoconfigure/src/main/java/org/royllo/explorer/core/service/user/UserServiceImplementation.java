@@ -16,9 +16,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.tbk.lnurl.auth.K1;
-import org.tbk.lnurl.auth.LinkingKey;
-import org.tbk.lnurl.auth.LnurlAuthPairingService;
-import org.tbk.lnurl.simple.auth.SimpleLinkingKey;
+import org.tbk.lnurl.auth.SignedLnurlAuth;
+import org.tbk.spring.lnurl.security.userdetails.LnurlAuthUserPairingService;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -30,13 +29,13 @@ import static org.royllo.explorer.core.util.enums.UserRole.USER;
 
 /**
  * {@link UserService} implementation.
- * Also implements {@link LnurlAuthPairingService} that brings the wallet and the web session together.
+ * Also implements {@link LnurlAuthUserPairingService} that brings the wallet and the web session together.
  */
 @Service
 @Validated
 @RequiredArgsConstructor
 @SuppressWarnings({"checkstyle:DesignForExtension", "unused"})
-public class UserServiceImplementation extends BaseService implements UserService, LnurlAuthPairingService, UserDetailsService {
+public class UserServiceImplementation extends BaseService implements UserService, LnurlAuthUserPairingService, UserDetailsService {
 
     /** User repository. */
     private final UserRepository userRepository;
@@ -135,38 +134,48 @@ public class UserServiceImplementation extends BaseService implements UserServic
     }
 
     @Override
-    public boolean pairK1WithLinkingKey(@NonNull final K1 k1, @NonNull final LinkingKey linkingKey) {
+    public UserDetails pairUserWithK1(final SignedLnurlAuth auth) {
         // This method is called by the spring boot starter when a user has provided a k1 signed with a linking key and everything is valid.
         // Usually, this is where you search if the linking key already exists in the database.
         // If not, you create a new user and store the linking key.
         // If yes, you just return the user, and you update the k1 used.
-        final Optional<UserLnurlAuthKey> linkingKeyInDatabase = userLnurlAuthKeyRepository.findByLinkingKey(linkingKey.toHex());
+        final Optional<UserLnurlAuthKey> linkingKeyInDatabase = userLnurlAuthKeyRepository.findByLinkingKey(auth.getLinkingKey().toHex());
         if (linkingKeyInDatabase.isEmpty()) {
-            logger.info("Creating the user for the linking key: {}", linkingKey.toHex());
+            logger.info("Creating the user for the linking key: {}", auth.getLinkingKey().toHex());
             // We create the user.
-            final UserDTO user = createUser(linkingKey.toHex());
+            final UserDTO user = createUser(auth.getLinkingKey().toHex());
             // We create the user lnurl-auth key.
             userLnurlAuthKeyRepository.save(UserLnurlAuthKey.builder()
                     .owner(USER_MAPPER.mapToUser(user))
-                    .linkingKey(linkingKey.toHex())
-                    .k1(k1.toHex())
+                    .linkingKey(auth.getLinkingKey().toHex())
+                    .k1(auth.getK1().toHex())
                     .build());
+
+            return new org.springframework.security.core.userdetails.User(user.getUsername(),
+                    UUID.randomUUID().toString(),
+                    Collections.singletonList((new SimpleGrantedAuthority(user.getRole().toString()))));
         } else {
-            logger.info("User with the linking key {} exists", linkingKey.toHex());
-            linkingKeyInDatabase.get().setK1(k1.toHex());
+            logger.info("User with the linking key {} exists", auth.getLinkingKey().toHex());
+            linkingKeyInDatabase.get().setK1(auth.getK1().toHex());
             userLnurlAuthKeyRepository.save(linkingKeyInDatabase.get());
+
+            return new org.springframework.security.core.userdetails.User(linkingKeyInDatabase.get().getOwner().getUsername(),
+                    UUID.randomUUID().toString(),
+                    // TODO Simplify this long line
+                    Collections.singletonList((new SimpleGrantedAuthority(linkingKeyInDatabase.get().getOwner().getRole().toString()))));
         }
-        return true;
     }
 
     @Override
-    public Optional<LinkingKey> findPairedLinkingKeyByK1(@NonNull final K1 k1) {
+    public Optional<UserDetails> findPairedUserByK1(final K1 k1) {
         // This method returns the linking key associated with the k1 passed as parameter.
         logger.info("Finding the paired linking key for k1 {}", k1.toHex());
         final Optional<UserLnurlAuthKey> linkingKey = userLnurlAuthKeyRepository.findByK1(k1.toHex());
         if (linkingKey.isPresent()) {
             logger.info("Linking key found: {}", linkingKey.get().getLinkingKey());
-            return Optional.of(SimpleLinkingKey.fromHex(linkingKey.get().getLinkingKey()));
+            return Optional.of(new org.springframework.security.core.userdetails.User(linkingKey.get().getOwner().getUsername(),
+                    UUID.randomUUID().toString(),
+                    Collections.singletonList((new SimpleGrantedAuthority(linkingKey.get().getOwner().getRole().toString())))));
         } else {
             logger.info("Linking key NOT found: {}", k1.toHex());
             return Optional.empty();
