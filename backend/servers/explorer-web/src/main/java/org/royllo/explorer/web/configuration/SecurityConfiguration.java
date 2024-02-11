@@ -10,8 +10,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.stereotype.Controller;
 import org.tbk.lnurl.auth.K1Manager;
 import org.tbk.lnurl.auth.LnurlAuthFactory;
-import org.tbk.lnurl.auth.LnurlAuthPairingService;
 import org.tbk.spring.lnurl.security.LnurlAuthConfigurer;
+import org.tbk.spring.lnurl.security.userdetails.LnurlAuthUserPairingService;
 
 import static org.royllo.explorer.web.util.constants.AuthenticationPageConstants.LNURL_AUTH_LOGIN_PAGE_PATH;
 import static org.royllo.explorer.web.util.constants.AuthenticationPageConstants.LNURL_AUTH_SESSION_K1_KEY;
@@ -37,7 +37,7 @@ public class SecurityConfiguration {
     private final K1Manager lnurlAuthk1Manager;
 
     /** This service acts like a user detail service for LNURL-auth. */
-    private final LnurlAuthPairingService lnurlAuthPairingService;
+    private final LnurlAuthUserPairingService lnurlAuthUserPairingService;
 
     /** User details service. */
     private final UserDetailsService userDetailsService;
@@ -68,9 +68,8 @@ public class SecurityConfiguration {
                         lnurlAuthConfigurer
                                 // Specify the services we built.
                                 .k1Manager(lnurlAuthk1Manager)
-                                .pairingService(lnurlAuthPairingService)
+                                .pairingService(lnurlAuthUserPairingService)
                                 .lnurlAuthFactory(lnurlAuthFactory)
-                                .authenticationUserDetailsService(userDetailsService)
                                 // Set the login page endpoint.
                                 .loginPageEndpoint(login -> login
                                         .enable(true)

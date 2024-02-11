@@ -161,8 +161,7 @@ public class UserServiceImplementation extends BaseService implements UserServic
 
             return new org.springframework.security.core.userdetails.User(linkingKeyInDatabase.get().getOwner().getUsername(),
                     UUID.randomUUID().toString(),
-                    // TODO Simplify this long line
-                    Collections.singletonList((new SimpleGrantedAuthority(linkingKeyInDatabase.get().getOwner().getRole().toString()))));
+                    linkingKeyInDatabase.get().getOwner().getRole().asGrantedAuthorityList());
         }
     }
 
@@ -175,7 +174,7 @@ public class UserServiceImplementation extends BaseService implements UserServic
             logger.info("Linking key found: {}", linkingKey.get().getLinkingKey());
             return Optional.of(new org.springframework.security.core.userdetails.User(linkingKey.get().getOwner().getUsername(),
                     UUID.randomUUID().toString(),
-                    Collections.singletonList((new SimpleGrantedAuthority(linkingKey.get().getOwner().getRole().toString())))));
+                    linkingKey.get().getOwner().getRole().asGrantedAuthorityList()));
         } else {
             logger.info("Linking key NOT found: {}", k1.toHex());
             return Optional.empty();
@@ -185,12 +184,13 @@ public class UserServiceImplementation extends BaseService implements UserServic
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         // Search for the user with it's linking key.
-        final UserLnurlAuthKey userLinkingKey = userLnurlAuthKeyRepository.findByLinkingKey(username)
+        final UserLnurlAuthKey userLinkingKey = userLnurlAuthKeyRepository
+                .findByLinkingKey(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
         return new org.springframework.security.core.userdetails.User(userLinkingKey.getOwner().getUsername(),
                 UUID.randomUUID().toString(),
-                Collections.singletonList((new SimpleGrantedAuthority(userLinkingKey.getOwner().getRole().toString()))));
+                userLinkingKey.getOwner().getRole().asGrantedAuthorityList());
     }
 
 }
