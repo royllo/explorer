@@ -25,5 +25,26 @@
             <column name="UPDATED_ON"/>
         </insert>
 
+        <!-- New user -->
+        <insert tableName="APPLICATION_USER">
+            <column name="ID" value="3"/>
+            <column name="USER_ID" value="33333333-3333-3333-3333-333333333333"/>
+            <column name="USERNAME" value="newuser"/>
+            <column name="ROLE" value="USER"/>
+            <column name="FULL_NAME" value=""/>
+            <column name="BIOGRAPHY" value=""/>
+            <column name="WEBSITE" value=""/>
+            <column name="CREATED_ON"/>
+            <column name="UPDATED_ON"/>
+        </insert>
+        <insert tableName="APPLICATION_USER_LNURL_AUTH_LINKING_KEY">
+            <column name="ID" value="100001"/>
+            <column name="LINKING_KEY" value="newuser"/>
+            <column name="K1" value="RANDOM_K1_NUMBER_2"/>
+            <column name="FK_USER_OWNER" value="3"/>
+            <column name="CREATED_ON"/>
+            <column name="UPDATED_ON"/>
+        </insert>
+
     </changeSet>
 </databaseChangeLog>

@@ -33,29 +33,80 @@
 
             <!--/* Account settings form */-->
             <form action="#" th:action="@{/account/settings}" th:object="${command}" method="post">
-                <label class="form-control w-full">
-                    <div class="label">
-                        <span class="label-text" th:text="#{account.settings.information.name.label}"></span>
-                    </div>
-                    <input type="text" class="input input-bordered w-full" autofocus th:field="*{fullName}"/>
-                </label>
+                <div class="space-y-3"
+                     x-data="{
+                        fullName: '',
+                        biography: '',
+                        website: '',
+                        formChanged: false,
+                        init() {
+                            // Initialize Alpine.js data with Thymeleaf value.
+                            this.fullName = this.$refs.fullName.value;
+                            this.biography = this.$refs.biography.value;
+                            this.website = this.$refs.website.value;
+                            // Add even management. If the form is changed, set the formChanged variable to true.
+                            this.$watch('fullName', () => this.formChanged = true);
+                            this.$watch('biography', () => this.formChanged = true);
+                            this.$watch('website', () => this.formChanged = true);
+                        }
+                    }">
 
-                <label class="form-control w-full">
-                    <div class="label">
-                        <span class="label-text" th:text="#{account.settings.information.biography.label}"></span>
-                    </div>
-                    <textarea class="textarea textarea-bordered textarea-md" th:field="*{biography}"></textarea>
-                </label>
+                    <!--/* Full name */-->
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text" th:text="#{account.settings.information.name.label}"></span>
+                        </div>
+                        <input type="text" class="input input-bordered w-full" autofocus
+                               th:field="*{fullName}"
+                               x-model="fullName" x-ref="fullName" onClick="this.select();"
+                               onFocus="this.select();"/>
+                    </label>
+                    <p th:if="${#fields.hasErrors('fullName')}" class="fieldError"
+                       th:text="#{validation.user.fullName.size.too_long}"></p>
 
-                <label class="form-control w-full">
-                    <div class="label">
-                        <span class="label-text" th:text="#{account.settings.information.website.label}"></span>
-                    </div>
-                    <input type="text" class="input input-bordered w-full" th:field="*{website}"/>
-                </label>
+                    <!--/* Biography */-->
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text" th:text="#{account.settings.information.biography.label}"></span>
+                        </div>
+                        <textarea class="textarea textarea-bordered textarea-md" th:field="*{biography}"
+                                  x-model="biography" x-ref="biography" onClick="this.select();"
+                                  onFocus="this.select();"></textarea>
+                    </label>
+                    <p th:if="${#fields.hasErrors('biography')}" class="fieldError"
+                       th:text="#{validation.user.biography.size.too_long}"></p>
 
-                <button class="btn btn-primary" th:text="#{account.settings.information.updateButton}"
-                        type="submit"></button>
+                    <!--/* Website */-->
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text" th:text="#{account.settings.information.website.label}"></span>
+                        </div>
+                        <input type="text" class="input input-bordered w-full" th:field="*{website}" x-model="website"
+                               x-ref="website" onClick="this.select();"
+                               onFocus="this.select();"/>
+                    </label>
+                    <ul th:if="${#fields.hasErrors('website')}" class="fieldError">
+                        <li th:each="error : ${#fields.errors('website')}" th:text="${error}"></li>
+                    </ul>
+
+                    <!--/* Successful update confirmation */-->
+                    <div role="alert" class="alert alert-success" th:if="${successfulOperation} == true">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
+                             viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span th:text="#{account.settings.information.success}"></span>
+                    </div>
+
+                    <!--/* Submit button */-->
+                    <p>
+                        <button class="btn btn-primary" th:text="#{account.settings.information.updateButton}"
+                                :disabled="!formChanged"
+                                type="submit"></button>
+                    </p>
+                </div>
+
             </form>
             <!--/* =============================================================================================== */-->
 

@@ -60,4 +60,7 @@ public class ModelAttributeConstants {
     /** Page title attribute. */
     public static final String PAGE_TITLE_ATTRIBUTE = "pageTitle";
 
+    /** Operation successful attribute. */
+    public static final String SUCCESSFUL_OPERATION_ATTRIBUTE = "successfulOperation";
+
 }

@@ -20,6 +20,10 @@
 /* Tailwind's component classes and any component classes registered by plugins. */
 @layer components {
 
+    .fieldError {
+        @apply text-left mt-2 text-sm text-red-600
+    }
+
 }
 
 /* ================================================================================================================== */

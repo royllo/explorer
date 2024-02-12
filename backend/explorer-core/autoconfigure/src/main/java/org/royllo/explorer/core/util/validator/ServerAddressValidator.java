@@ -22,7 +22,7 @@ public class ServerAddressValidator implements ConstraintValidator<ServerAddress
     public final boolean isValid(final String serverAddress,
                                  final ConstraintValidatorContext constraintValidatorContext) {
         if (StringUtils.isBlank(serverAddress)) {
-            return false; // Empty server address is considered invalid
+            return false; // Empty server address is considered invalid.
         }
         return HOSTNAME_OR_IP_PATTERN.matcher(serverAddress).matches();
     }

@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Optional;
 
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -45,7 +46,7 @@ public class AccountSettingsTests extends BaseTest {
     UserService userService;
 
     @Test
-    @DisplayName("Account settings page")
+    @DisplayName("Account settings form")
     @WithMockUser(username = "straumat")
     void accountSettingsForm() throws Exception {
 
@@ -57,7 +58,12 @@ public class AccountSettingsTests extends BaseTest {
                 .andExpect(content().string(containsString(getMessage(messages, "account.settings.title"))))
                 .andExpect(content().string(containsString("Traumat")))
                 .andExpect(content().string(containsString("developer")))
-                .andExpect(content().string(containsString("github.com/straumat")));
+                .andExpect(content().string(containsString("github.com/straumat")))
+                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.fullName.size.too_long")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.biography.size.too_long")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.website.invalid")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.website.size.too_long")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "account.settings.information.success")))));
 
     }
 
@@ -67,7 +73,7 @@ public class AccountSettingsTests extends BaseTest {
     void accountSettingsSaved() throws Exception {
 
         // =============================================================================================================
-        // When there are an error on fields.
+        // When there are error on fields.
 
         mockMvc.perform(post("/account/settings")
                         .param("fullName", RandomStringUtils.randomAlphanumeric(41))
@@ -79,8 +85,13 @@ public class AccountSettingsTests extends BaseTest {
                 .andExpect(model().attributeExists(FORM_ATTRIBUTE))
                 .andExpect(model().hasErrors())
                 .andExpect(model().attributeHasFieldErrors(FORM_ATTRIBUTE, "fullName"))
+                .andExpect(content().string(containsString(getMessage(messages, "validation.user.fullName.size.too_long"))))
                 .andExpect(model().attributeHasFieldErrors(FORM_ATTRIBUTE, "biography"))
-                .andExpect(model().attributeHasFieldErrors(FORM_ATTRIBUTE, "website"));
+                .andExpect(content().string(containsString(getMessage(messages, "validation.user.biography.size.too_long"))))
+                .andExpect(model().attributeHasFieldErrors(FORM_ATTRIBUTE, "website"))
+                .andExpect(content().string(containsString(getMessage(messages, "validation.user.website.invalid"))))
+                .andExpect(content().string(containsString(getMessage(messages, "validation.user.website.size.too_long"))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "account.settings.information.success")))));
 
         // =============================================================================================================
         // When it works.
@@ -101,7 +112,12 @@ public class AccountSettingsTests extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(ACCOUNT_SETTINGS_PAGE))
                 .andExpect(model().attributeExists(FORM_ATTRIBUTE))
-                .andExpect(model().hasNoErrors());
+                .andExpect(model().hasNoErrors())
+                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.fullName.size.too_long")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.biography.size.too_long")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.website.invalid")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.website.size.too_long")))))
+                .andExpect(content().string(containsString(getMessage(messages, "account.settings.information.success"))));
 
         // We check the updated values.
         Optional<UserDTO> userUpdated = userService.getUserByUsername("straumat");
