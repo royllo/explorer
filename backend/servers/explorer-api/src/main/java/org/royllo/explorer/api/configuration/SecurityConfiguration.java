@@ -8,8 +8,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.stereotype.Controller;
 
-import static org.springframework.security.config.http.SessionCreationPolicy.NEVER;
-import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 /**
  * Security configuration.
@@ -23,12 +22,14 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
         //  Each request that comes in passes through this chain of filters before reaching your application.
-        return http.csrf(AbstractHttpConfigurer::disable)
+        return http
+                .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
-                .sessionManagement(session -> session.sessionCreationPolicy(NEVER))
+                .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 // Page authorisations.
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers(antMatcher("/**")).permitAll()
+                        .anyRequest()
+                        .permitAll()
                 ).build();
     }
 
