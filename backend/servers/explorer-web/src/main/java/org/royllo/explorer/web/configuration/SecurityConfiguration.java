@@ -46,7 +46,6 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
         //  Each request that comes in passes through this chain of filters before reaching your application.
         return http
-                .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 // Specifying that the application should not create new HTTP sessions on its own, but can use existing ones if they are present.
                 // Additionally, it protects against session fixation attacks by migrating the session (i.e., changing the session ID) upon authentication.
