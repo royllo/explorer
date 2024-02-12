@@ -66,7 +66,7 @@
         <!-- Project libraries -->
         <spring.version>3.2.2</spring.version>
 
-        <graphql-dgs-platform-dependencies.version>8.2.5</graphql-dgs-platform-dependencies.version>
+        <graphql-dgs-platform-dependencies.version>8.3.0</graphql-dgs-platform-dependencies.version>
         <graphql-dgs-codegen-core.version>6.1.4</graphql-dgs-codegen-core.version>
         <graphql-dgs-codegen-client-core.version>5.1.17</graphql-dgs-codegen-client-core.version>
 
