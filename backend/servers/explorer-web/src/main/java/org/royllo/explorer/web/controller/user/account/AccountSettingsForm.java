@@ -29,7 +29,7 @@ public class AccountSettingsForm {
     String biography;
 
     /** Website. */
-    @Pattern(regexp = "^(https?://)?(www\\.)?[-a-zA-Z0-9%_]+(\\.[a-zA-Z]{2,})/?.*$", message = "{validation.user.website.invalid}")
+    @Pattern(regexp = "^(?:(https?://)?(www\\.)?[-a-zA-Z0-9%_]+(\\.[a-zA-Z]{2,})/?.*)?$", message = "{validation.user.website.invalid}")
     @Size(max = WEBSITE_MAXIMUM_SIZE, message = "{validation.user.website.size.too_long}")
     String website;
 
