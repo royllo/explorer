@@ -55,29 +55,30 @@ public class SearchServiceTest {
         results = searchService.queryAssets(ROYLLO_COIN_ASSET_ID, 1, 5);
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
-        assertEquals(1, results.getContent().get(0).getId());
+        assertEquals(1, results.getContent().getFirst().getId());
 
         // Searching for an asset with its asset id alias.
         results = searchService.queryAssets(TRICKY_ROYLLO_COIN_ASSET_ID_ALIAS, 1, 5);
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
-        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, results.getContent().get(0).getAssetId());
+        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, results.getContent().getFirst().getAssetId());
 
         // Searching for an asset with its partial name (trickyCoin) - only 1 result.
         results = searchService.queryAssets("ky", 1, 5);
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
-        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, results.getContent().get(0).getAssetId());
+        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, results.getContent().getFirst().getAssetId());
 
         // Searching for an asset with its partial name uppercase (trickyRoylloCoin) - only 1 result.
         results = searchService.queryAssets("kyR", 1, 5);
         assertEquals(1, results.getTotalElements());
         assertEquals(1, results.getTotalPages());
-        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, results.getContent().get(0).getAssetId());
+        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, results.getContent().getFirst().getAssetId());
 
         // Searching for an asset with its partial name corresponding to eight assets.
-        results = searchService.queryAssets("royllo", 1, 4);
-        assertEquals(8, results.getTotalElements());
+        // If addProof() is called before this test, then we should have one more assets in our database, so 9.
+        results = searchService.queryAssets("royllo", 1, 5);
+        assertTrue(results.getTotalElements() >= 8);
         assertEquals(2, results.getTotalPages());
         Set<Long> ids = results.stream()
                 .map(AssetDTO::getId)
@@ -86,6 +87,7 @@ public class SearchServiceTest {
         assertTrue(ids.contains(2L));
         assertTrue(ids.contains(3L));
         assertTrue(ids.contains(4L));
+        assertTrue(ids.contains(5L));
     }
 
 }

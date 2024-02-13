@@ -16,6 +16,7 @@ import static org.royllo.explorer.web.util.constants.AuthenticationPageConstants
 import static org.royllo.explorer.web.util.constants.AuthenticationPageConstants.LNURL_AUTH_SESSION_K1_KEY;
 import static org.royllo.explorer.web.util.constants.AuthenticationPageConstants.LNURL_AUTH_SESSION_LOGIN_PATH;
 import static org.royllo.explorer.web.util.constants.AuthenticationPageConstants.LNURL_AUTH_WALLET_LOGIN_PATH;
+import static org.royllo.explorer.web.util.constants.UtilPagesConstants.ERROR_403_PAGE;
 import static org.springframework.security.config.http.SessionCreationPolicy.NEVER;
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
@@ -57,6 +58,11 @@ public class SecurityConfiguration {
                         // Public pages (Permit all).
                         .anyRequest()
                         .permitAll()
+                )
+                // If the user is not authenticated when accessing a protected page, redirect to the login page.
+                .exceptionHandling((exceptionHandling) -> exceptionHandling
+                        .accessDeniedPage(ERROR_403_PAGE)
+                        .authenticationEntryPoint((request, response, authenticationException) -> response.sendRedirect(LNURL_AUTH_LOGIN_PAGE_PATH))
                 )
                 // LNURL Auth configuration.
                 .with(new LnurlAuthConfigurer(), lnurlAuthConfigurer ->
