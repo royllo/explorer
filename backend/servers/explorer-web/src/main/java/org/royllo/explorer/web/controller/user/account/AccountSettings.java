@@ -7,6 +7,8 @@ import org.royllo.explorer.core.service.user.UserService;
 import org.royllo.explorer.web.util.base.BaseController;
 import org.royllo.explorer.web.util.exception.AccessForbiddenException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,18 +35,15 @@ public class AccountSettings extends BaseController {
     /**
      * Display account settings.
      *
-     * @param model model
+     * @param model       model
+     * @param currentUser current user
      * @return account settings
      */
     @GetMapping("/account/settings")
     @PreAuthorize("isAuthenticated()")
-    public String displayAccountSettings(final Model model
-                                         //final @AuthenticationPrincipal(errorOnInvalidType = true) UserDetails currentUser
-    ) {
-        // TODO Go back to "normal user".
-        // Optional<UserDTO> connectedUser = userService.getUserByUsername(currentUser.getUsername());
-        final String currentUser = "straumat";
-        Optional<UserDTO> connectedUser = userService.getUserByUsername("straumat");
+    public String displayAccountSettings(final Model model,
+                                         final @AuthenticationPrincipal(errorOnInvalidType = true) UserDetails currentUser) {
+        Optional<UserDTO> connectedUser = userService.getUserByUsername(currentUser.getUsername());
         if (connectedUser.isPresent()) {
             logger.info("Displaying account settings for user {}: {}", connectedUser.get().getUsername(), connectedUser.get());
             AccountSettingsForm accountSettingsForm = new AccountSettingsForm();
@@ -63,6 +62,7 @@ public class AccountSettings extends BaseController {
      * Account settings update.
      *
      * @param model         model
+     * @param currentUser   current user
      * @param form          form
      * @param bindingResult binding result
      * @return account settings
@@ -70,13 +70,10 @@ public class AccountSettings extends BaseController {
     @PostMapping("/account/settings")
     @PreAuthorize("isAuthenticated()")
     public String updateAccountSettings(final Model model,
-                                        // final @AuthenticationPrincipal(errorOnInvalidType = true) UserDetails currentUser,
+                                        final @AuthenticationPrincipal(errorOnInvalidType = true) UserDetails currentUser,
                                         @Valid @ModelAttribute(FORM_ATTRIBUTE) final AccountSettingsForm form,
                                         final BindingResult bindingResult) {
-        // TODO Go back to "normal user".
-        // Optional<UserDTO> connectedUser = userService.getUserByUsername(currentUser.getUsername());
-        final String currentUser = "straumat";
-        Optional<UserDTO> connectedUser = userService.getUserByUsername(currentUser);
+        Optional<UserDTO> connectedUser = userService.getUserByUsername(currentUser.getUsername());
         if (connectedUser.isPresent()) {
             logger.info("Displaying account settings for user {}: {}", connectedUser.get().getUsername(), connectedUser.get());
             if (!bindingResult.hasErrors()) {

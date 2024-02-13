@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.stereotype.Controller;
 import org.tbk.lnurl.auth.K1Manager;
@@ -22,7 +21,6 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 
 /**
  * Security configuration.
- * TODO remove @Controller
  */
 @Controller
 @EnableWebSecurity
@@ -38,9 +36,6 @@ public class SecurityConfiguration {
 
     /** This service acts like a user detail service for LNURL-auth. */
     private final LnurlAuthUserPairingService lnurlAuthUserPairingService;
-
-    /** User details service. */
-    private final UserDetailsService userDetailsService;
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
