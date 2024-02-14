@@ -42,7 +42,7 @@ public class DatabaseK1Manager implements K1Manager {
 
     @Override
     public K1 create() {
-        K1 k1 = factory.create();
+        final K1 k1 = factory.create();
         repository.save(K1Value.builder().k1(k1.toHex()).build());
         return k1;
     }

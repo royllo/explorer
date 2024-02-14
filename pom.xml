@@ -93,7 +93,7 @@
 
         <thymeleaf-layout-dialect.version>3.3.0</thymeleaf-layout-dialect.version>
         <htmx-spring-boot-thymeleaf.version>3.2.0</htmx-spring-boot-thymeleaf.version>
-        <bitcoin-spring-boot-starter.version>0.12.0</bitcoin-spring-boot-starter.version>
+        <bitcoin-spring-boot-starter.version>0.13.0</bitcoin-spring-boot-starter.version>
 
         <webjars-locator.version>0.50</webjars-locator.version>
         <htmx.version>1.9.10</htmx.version>
