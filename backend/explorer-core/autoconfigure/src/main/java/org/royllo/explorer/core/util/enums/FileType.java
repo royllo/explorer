@@ -5,13 +5,14 @@ package org.royllo.explorer.core.util.enums;
  */
 public enum FileType {
 
-    // TODO Add JSON.
-
     /** Image file. */
     IMAGE("png", "jpg", "jpeg", "gif", "bmp"),
 
     /** Text file. */
     TEXT("txt"),
+
+    /** JSON file. */
+    JSON("json"),
 
     /** Video file. */
     VIDEO("mp4", "avi", "mkv", "mov", "wmv"),

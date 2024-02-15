@@ -40,6 +40,7 @@ import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANO
 import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ALIAS_LENGTH;
 import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
 import static org.royllo.explorer.core.util.enums.FileType.IMAGE;
+import static org.royllo.explorer.core.util.enums.FileType.JSON;
 import static org.royllo.explorer.core.util.enums.FileType.TEXT;
 import static org.royllo.explorer.core.util.enums.FileType.UNKNOWN;
 import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_TXID;
@@ -370,6 +371,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assetUpdated = assetService.getAssetByAssetId(asset1.getAssetId());
         assertTrue(assetUpdated.isPresent());
         assertEquals(asset1.getAssetId() + ".json", assetUpdated.get().getMetaDataFileName());
+        assertEquals(JSON, assetUpdated.get().getMetaDataFileType());
         assertEquals(0, new BigInteger("100").compareTo(assetUpdated.get().getAmount()));
         assertTrue(testDate.isEqual(assetUpdated.get().getIssuanceDate()));
     }
