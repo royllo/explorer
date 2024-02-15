@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
-import org.royllo.explorer.core.repository.asset.AssetStateRepository;
 import org.royllo.explorer.core.repository.universe.UniverseServerRepository;
+import org.royllo.explorer.core.repository.user.UserRepository;
 import org.royllo.explorer.web.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -45,7 +45,7 @@ public class HomeControllerTest extends BaseTest {
     AssetRepository assetRepository;
 
     @Autowired
-    AssetStateRepository assetStateRepository;
+    UserRepository userRepository;
 
     @Test
     @DisplayName("Display home page (unauthenticated)")
@@ -73,8 +73,8 @@ public class HomeControllerTest extends BaseTest {
                 .andExpect(content().string(containsString(">" + universeServerRepository.count() + "<")))
                 .andExpect(content().string(containsString(getMessage(messages, "statistics.global.assetCount"))))
                 .andExpect(content().string(containsString(">" + assetRepository.count() + "<")))
-                .andExpect(content().string(containsString(getMessage(messages, "statistics.global.assetStateCount"))))
-                .andExpect(content().string(containsString(">" + assetStateRepository.count() + "<")))
+                .andExpect(content().string(containsString(getMessage(messages, "statistics.global.userCount"))))
+                .andExpect(content().string(containsString(">" + userRepository.count() + "<")))
                 // Checking the footer is here.
                 .andExpect(content().string(containsString("https://www.royllo.org")))
                 .andExpect(content().string(containsString("http://localhost:9090/api")))
@@ -112,8 +112,8 @@ public class HomeControllerTest extends BaseTest {
                 .andExpect(content().string(containsString(">" + universeServerRepository.count() + "<")))
                 .andExpect(content().string(containsString(getMessage(messages, "statistics.global.assetCount"))))
                 .andExpect(content().string(containsString(">" + assetRepository.count() + "<")))
-                .andExpect(content().string(containsString(getMessage(messages, "statistics.global.assetStateCount"))))
-                .andExpect(content().string(containsString(">" + assetStateRepository.count() + "<")))
+                .andExpect(content().string(containsString(getMessage(messages, "statistics.global.userCount"))))
+                .andExpect(content().string(containsString(">" + userRepository.count() + "<")))
                 // Checking the footer is here.
                 .andExpect(content().string(containsString("https://www.royllo.org")))
                 .andExpect(content().string(containsString("http://localhost:9090/api")))
@@ -145,8 +145,8 @@ public class HomeControllerTest extends BaseTest {
                 .andExpect(content().string(containsString(">" + universeServerRepository.count() + "<")))
                 .andExpect(content().string(containsString(getMessage(messages, "statistics.global.assetCount"))))
                 .andExpect(content().string(containsString(">" + assetRepository.count() + "<")))
-                .andExpect(content().string(containsString(getMessage(messages, "statistics.global.assetStateCount"))))
-                .andExpect(content().string(containsString(">" + assetStateRepository.count() + "<")))
+                .andExpect(content().string(containsString(getMessage(messages, "statistics.global.userCount"))))
+                .andExpect(content().string(containsString(">" + userRepository.count() + "<")))
                 // Checking the footer is NOT RETURNED.
                 .andExpect(content().string(not(containsString("https://www.royllo.org"))))
                 .andExpect(content().string(not(containsString("http://localhost:9090/api"))))
