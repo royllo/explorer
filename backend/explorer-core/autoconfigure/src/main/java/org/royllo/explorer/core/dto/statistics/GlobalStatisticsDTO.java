@@ -17,7 +17,7 @@ public class GlobalStatisticsDTO {
     /** Total number of assets. */
     long assetCount;
 
-    /** Total number of asset states. */
-    long assetStateCount;
+    /** Total number of users. */
+    long userCount;
 
 }

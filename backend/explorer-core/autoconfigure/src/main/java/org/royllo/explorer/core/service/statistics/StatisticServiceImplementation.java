@@ -3,8 +3,8 @@ package org.royllo.explorer.core.service.statistics;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.dto.statistics.GlobalStatisticsDTO;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
-import org.royllo.explorer.core.repository.asset.AssetStateRepository;
 import org.royllo.explorer.core.repository.universe.UniverseServerRepository;
+import org.royllo.explorer.core.repository.user.UserRepository;
 import org.royllo.explorer.core.util.base.BaseService;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -25,8 +25,8 @@ public class StatisticServiceImplementation extends BaseService implements Stati
     /** Asset repository. */
     private final AssetRepository assetRepository;
 
-    /** Asset state repository. */
-    private final AssetStateRepository assetStateRepository;
+    /** User repository. */
+    private final UserRepository userRepository;
 
     @Override
     @Cacheable("globalStatistics")
@@ -34,7 +34,7 @@ public class StatisticServiceImplementation extends BaseService implements Stati
         return GlobalStatisticsDTO.builder()
                 .universeCount(universeServerRepository.count())
                 .assetCount(assetRepository.count())
-                .assetStateCount(assetStateRepository.count())
+                .userCount(userRepository.count())
                 .build();
     }
 
