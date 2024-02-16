@@ -44,7 +44,7 @@
         </insert>
         <insert tableName="asset">
             <column name="id" valueNumeric="4"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_user_creator" valueNumeric="2"/>
             <column name="fk_asset_group" valueNumeric="2"/>
             <column name="asset_id" value="84be6e5954af62b40d1ea25f289e05414d579116e00b9fcaa76453efe8ee39ff"/>
             <column name="asset_id_alias" value="alias003"/>
@@ -60,7 +60,7 @@
         </insert>
         <insert tableName="asset">
             <column name="id" valueNumeric="5"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_user_creator" valueNumeric="3"/>
             <column name="fk_asset_group" valueNumeric="2"/>
             <column name="asset_id" value="23577de9f41b99b03ad8ed10e09120bf949f956b0702133102a566f5d33f2bd7"/>
             <column name="asset_id_alias" value="alias004"/>
@@ -79,7 +79,7 @@
         <!-- trickyRoylloCoin -->
         <insert tableName="asset">
             <column name="id" valueNumeric="6"/>
-            <column name="fk_user_creator" valueNumeric="1"/>
+            <column name="fk_user_creator" valueNumeric="2"/>
             <column name="fk_asset_group"/>
             <column name="asset_id" value="e16029acc4d2cf0505857265442344efb5547f2047a3fc1c4822683f7c57820e"/>
             <column name="asset_id_alias" value="alias005"/>

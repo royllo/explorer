@@ -100,7 +100,7 @@ public class AccountSettingsTests extends BaseTest {
         Optional<UserDTO> existingUser = userService.getUserByUsername("straumat");
         assertTrue(existingUser.isPresent());
         assertEquals("Stéphane Traumat", existingUser.get().getFullName());
-        assertEquals("I'm a developer", existingUser.get().getBiography());
+        assertEquals("I am a developer", existingUser.get().getBiography());
         assertEquals("https://github.com/straumat", existingUser.get().getWebsite());
 
         // We update the values.
@@ -126,6 +126,13 @@ public class AccountSettingsTests extends BaseTest {
         assertEquals("I'm an architect", userUpdated.get().getBiography());
         assertEquals("https://www.architect.com", userUpdated.get().getWebsite());
 
+        // We go back to normal values
+        mockMvc.perform(post("/account/settings")
+                        .param("fullName", STRAUMAT_USER_FULL_NAME)
+                        .param("biography", STRAUMAT_USER_BIOGRAPHY)
+                        .param("website", STRAUMAT_USER_WEBSITE)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                .andExpect(status().isOk());
     }
 
 }

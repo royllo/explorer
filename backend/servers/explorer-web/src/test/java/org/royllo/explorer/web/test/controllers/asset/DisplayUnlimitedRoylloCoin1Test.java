@@ -152,6 +152,9 @@ public class DisplayUnlimitedRoylloCoin1Test extends BaseTest {
                 // Checking owner tab data.
                 .andExpect(content().string(containsString(">" + ANONYMOUS_USER_ID + "<")))
                 .andExpect(content().string(containsString(">" + ANONYMOUS_USER_USERNAME + "<")))
+                .andExpect(content().string(not(containsString(getMessage(messages, "user.data.fullName")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "user.data.biography")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "user.data.website")))))
                 // Error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.noAssetId")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));

@@ -15,8 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.containsString;
-import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_ID;
-import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_USERNAME;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GENESIS_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GROUP_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_OWNER_PAGE;
@@ -154,8 +152,14 @@ public class DisplaySetRoylloNFT2Test extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_OWNER_PAGE)))
                 // Checking owner tab data.
-                .andExpect(content().string(containsString(">" + ANONYMOUS_USER_ID + "<")))
-                .andExpect(content().string(containsString(">" + ANONYMOUS_USER_USERNAME + "<")))
+                .andExpect(content().string(containsString(">" + STRAUMAT_USER_ID + "<")))
+                .andExpect(content().string(containsString(">" + STRAUMAT_USER_USERNAME + "<")))
+                .andExpect(content().string(containsString(getMessage(messages, "user.data.fullName"))))
+                .andExpect(content().string(containsString(">" + STRAUMAT_USER_FULL_NAME + "<")))
+                .andExpect(content().string(containsString(getMessage(messages, "user.data.biography"))))
+                .andExpect(content().string(containsString(">" + STRAUMAT_USER_BIOGRAPHY + "<")))
+                .andExpect(content().string(containsString(getMessage(messages, "user.data.website"))))
+                .andExpect(content().string(containsString(">" + STRAUMAT_USER_WEBSITE + "<")))
                 // Error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.noAssetId")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));

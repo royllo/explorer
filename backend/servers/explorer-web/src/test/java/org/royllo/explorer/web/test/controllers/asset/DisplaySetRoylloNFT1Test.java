@@ -65,6 +65,9 @@ public class DisplaySetRoylloNFT1Test extends BaseTest {
                 // Checking tab header.
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getName() + "<")))
                 .andExpect(content().string(containsString(">" + assetFromTest.getAsset().getAssetGenesis().getAssetId() + "<")))
+                .andExpect(content().string(not(containsString(getMessage(messages, "user.data.fullName")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "user.data.biography")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "user.data.website")))))
                 // Error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.noAssetId")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));

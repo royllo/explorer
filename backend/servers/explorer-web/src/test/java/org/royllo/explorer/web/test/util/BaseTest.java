@@ -15,6 +15,17 @@ import static org.royllo.explorer.web.util.base.BaseController.HTMX_REQUEST;
  */
 public class BaseTest extends Base {
 
+    /** Straumat user used for tests. */
+    protected final String STRAUMAT_USER_ID = "22222222-2222-2222-2222-222222222222";
+    protected final String STRAUMAT_USER_USERNAME = "straumat";
+    protected final String STRAUMAT_USER_FULL_NAME = "Stéphane Traumat";
+    protected final String STRAUMAT_USER_BIOGRAPHY = "I am a developer";
+    protected final String STRAUMAT_USER_WEBSITE = "https://github.com/straumat";
+
+    /** NewUser user used for tests. */
+    protected final String NEW_USER_ID = "33333333-3333-3333-3333-333333333333";
+    protected final String NEW_USER_USERNAME = "newuser";
+
     /**
      * Method used by tests to test htmx and non htmx methods.
      *

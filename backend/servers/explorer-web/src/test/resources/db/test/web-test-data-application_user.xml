@@ -11,7 +11,7 @@
             <column name="USERNAME" value="straumat"/>
             <column name="ROLE" value="ADMINISTRATOR"/>
             <column name="FULL_NAME" value="Stéphane Traumat"/>
-            <column name="BIOGRAPHY" value="I'm a developer"/>
+            <column name="BIOGRAPHY" value="I am a developer"/>
             <column name="WEBSITE" value="https://github.com/straumat"/>
             <column name="CREATED_ON"/>
             <column name="UPDATED_ON"/>

@@ -30,9 +30,24 @@
                     <div class="text-ellipsis overflow-hidden" th:text="${asset.creator.username}"></div>
                 </td>
             </tr>
-            <tr>
+            <tr th:if="${!#strings.isEmpty(asset.creator.fullName)}">
                 <td>
-                    <div class="font-light italic" th:text="#{asset.view.tabs.owner.explanation}"></div>
+                    <div class="font-bold" th:text="#{user.data.fullName}"></div>
+                    <div class="text-ellipsis overflow-hidden" th:text="${asset.creator.fullName}"></div>
+                </td>
+            </tr>
+            <tr th:if="${!#strings.isEmpty(asset.creator.biography)}">
+                <td>
+                    <div class="font-bold" th:text="#{user.data.biography}"></div>
+                    <div class="text-ellipsis overflow-hidden" th:text="${asset.creator.biography}"></div>
+                </td>
+            </tr>
+            <tr th:if="${!#strings.isEmpty(asset.creator.website)}">
+                <td>
+                    <div class="font-bold" th:text="#{user.data.website}"></div>
+                    <div class="text-ellipsis overflow-hidden">
+                        <a th:href="${asset.creator.website}" target="_blank" th:text="${asset.creator.website}"></a>
+                    </div>
                 </td>
             </tr>
             </tbody>
