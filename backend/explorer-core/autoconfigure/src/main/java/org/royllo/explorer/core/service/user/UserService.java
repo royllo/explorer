@@ -1,7 +1,9 @@
 package org.royllo.explorer.core.service.user;
 
 import jakarta.validation.Valid;
+import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.user.UserDTO;
+import org.springframework.data.domain.Page;
 
 import java.util.Optional;
 
@@ -39,6 +41,16 @@ public interface UserService {
      * @param userData user data
      */
     void updateUser(String username, @Valid UserDTO userData);
+
+    /**
+     * Gets assets by user id.
+     *
+     * @param userId   creator id
+     * @param page     page number
+     * @param pageSize page size
+     * @return assets owned by user
+     */
+    Page<AssetDTO> getAssetsByUserId(String userId, int page, int pageSize);
 
     /**
      * Get user by its user id.

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{util/fragments/layouts/default/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!--/* =========================================================================================================== */-->
+<div layout:fragment="content">
+
+    <!--/* This div is used to add a margin between the header and the content. */-->
+    <div class="px-6 py-12 sm:py-16 lg:px-8">
+
+        <!--/* This div is used to center the content. */-->
+        <div class="mx-auto max-w-2xl text-center space-y-3">
+
+            <!--/* Page header. */-->
+            <h2 class="pageHeader" th:text="#{account.settings.title}"></h2>
+            <p class="pageHeader" th:text="#{account.settings.explanation}"></p>
+
+        </div>
+
+    </div>
+
+</div>
+<!--/* =========================================================================================================== */-->
+
+</html>

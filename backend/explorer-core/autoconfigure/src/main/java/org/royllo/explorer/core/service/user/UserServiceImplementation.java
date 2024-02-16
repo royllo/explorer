@@ -5,10 +5,14 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.domain.user.UserLnurlAuthKey;
+import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.user.UserDTO;
+import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.repository.user.UserLnurlAuthKeyRepository;
 import org.royllo.explorer.core.repository.user.UserRepository;
 import org.royllo.explorer.core.util.base.BaseService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -42,6 +46,9 @@ public class UserServiceImplementation extends BaseService implements UserServic
 
     /** User lnurl-auth key repository. */
     private final UserLnurlAuthKeyRepository userLnurlAuthKeyRepository;
+
+    /** Asset repository. */
+    private final AssetRepository assetRepository;
 
     @Override
     public UserDTO getAdministratorUser() {
@@ -103,6 +110,19 @@ public class UserServiceImplementation extends BaseService implements UserServic
         user.get().setBiography(userData.getBiography());
         user.get().setWebsite(userData.getWebsite());
         userRepository.save(user.get());
+    }
+
+    @Override
+    public Page<AssetDTO> getAssetsByUserId(@NonNull final String userId, final int page, final int pageSize) {
+        logger.info("Getting assets of userId: {}", userId);
+
+        // Checking constraints.
+        assert page >= 1 : "Page number starts at page 1";
+        assert userRepository.findByUserId(userId).isPresent() : "User not found with userId: " + userId;
+
+        // Returning the results.
+        return assetRepository.findByCreator_UserId(userId, PageRequest.of(page - 1, pageSize))
+                .map(ASSET_MAPPER::mapToAssetDTO);
     }
 
     @Override

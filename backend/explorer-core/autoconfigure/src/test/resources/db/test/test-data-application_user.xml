@@ -11,8 +11,37 @@
             <column name="USERNAME" value="straumat"/>
             <column name="ROLE" value="ADMINISTRATOR"/>
             <column name="FULL_NAME" value="Stéphane Traumat"/>
-            <column name="BIOGRAPHY" value="I'm a developer"/>
+            <column name="BIOGRAPHY" value="I am a developer"/>
             <column name="WEBSITE" value="https://github.com/straumat"/>
+            <column name="CREATED_ON"/>
+            <column name="UPDATED_ON"/>
+        </insert>
+        <insert tableName="APPLICATION_USER_LNURL_AUTH_LINKING_KEY">
+            <column name="ID" value="100000"/>
+            <column name="LINKING_KEY" value="03a21d1c43a85f815a7b366f463bbcca311c05a9f366beed464afe68eada9515a1"/>
+            <column name="K1" value="RANDOM_K1"/>
+            <column name="FK_USER_OWNER" value="2"/>
+            <column name="CREATED_ON"/>
+            <column name="UPDATED_ON"/>
+        </insert>
+
+        <!-- New user -->
+        <insert tableName="APPLICATION_USER">
+            <column name="ID" value="3"/>
+            <column name="USER_ID" value="33333333-3333-3333-3333-333333333333"/>
+            <column name="USERNAME" value="newuser"/>
+            <column name="ROLE" value="USER"/>
+            <column name="FULL_NAME" value=""/>
+            <column name="BIOGRAPHY" value=""/>
+            <column name="WEBSITE" value=""/>
+            <column name="CREATED_ON"/>
+            <column name="UPDATED_ON"/>
+        </insert>
+        <insert tableName="APPLICATION_USER_LNURL_AUTH_LINKING_KEY">
+            <column name="ID" value="100001"/>
+            <column name="LINKING_KEY" value="032860f2c6790c142480605dd0c5f9b5aa1d6906c8b5ef66b3b1cd5ad167b24681"/>
+            <column name="K1" value="RANDOM_K1_NUMBER_2"/>
+            <column name="FK_USER_OWNER" value="3"/>
             <column name="CREATED_ON"/>
             <column name="UPDATED_ON"/>
         </insert>
