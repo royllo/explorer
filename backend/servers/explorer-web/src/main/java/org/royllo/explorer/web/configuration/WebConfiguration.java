@@ -36,6 +36,9 @@ public class WebConfiguration implements WebMvcConfigurer {
     /** Asset's proofs default page size. */
     public static final int ASSET_PROOFS_DEFAULT_PAGE_SIZE = 10;
 
+    /** User assets default page size. */
+    public static final int USER_ASSETS_DEFAULT_PAGE_SIZE = 10;
+
     /** Default cache duration. */
     public static final CacheControl DEFAULT_CACHE_DURATION = CacheControl.maxAge(1, DAYS);
 

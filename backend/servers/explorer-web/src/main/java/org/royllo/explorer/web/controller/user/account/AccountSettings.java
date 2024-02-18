@@ -42,7 +42,7 @@ public class AccountSettings extends BaseController {
     @GetMapping("/account/settings")
     @PreAuthorize("isAuthenticated()")
     public String displayAccountSettings(final Model model,
-                                         final @AuthenticationPrincipal(errorOnInvalidType = true) UserDetails currentUser) {
+                                         final @AuthenticationPrincipal UserDetails currentUser) {
         Optional<UserDTO> connectedUser = userService.getUserByUsername(currentUser.getUsername());
         if (connectedUser.isPresent()) {
             logger.info("Displaying account settings for user {}: {}", connectedUser.get().getUsername(), connectedUser.get());
@@ -70,7 +70,7 @@ public class AccountSettings extends BaseController {
     @PostMapping("/account/settings")
     @PreAuthorize("isAuthenticated()")
     public String updateAccountSettings(final Model model,
-                                        final @AuthenticationPrincipal(errorOnInvalidType = true) UserDetails currentUser,
+                                        final @AuthenticationPrincipal UserDetails currentUser,
                                         @Valid @ModelAttribute(FORM_ATTRIBUTE) final AccountSettingsForm form,
                                         final BindingResult bindingResult) {
         Optional<UserDTO> connectedUser = userService.getUserByUsername(currentUser.getUsername());

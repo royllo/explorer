@@ -14,6 +14,7 @@ import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.io.IOException;
@@ -50,6 +51,8 @@ import static org.royllo.test.TapdData.ROYLLO_NFT_ASSET_ID_ALIAS;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_FROM_TEST;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_2_ASSET_ID;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_2_ASSET_ID_ALIAS;
+import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_3_ASSET_ID;
+import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 
 @SpringBootTest
 @DirtiesContext
@@ -451,6 +454,24 @@ public class AssetServiceTest extends TestWithMockServers {
         // with a page size containing everything.
         assertEquals(3, assetService.getAssetsByAssetGroupId(tweakedGroupKey, 1, 5).getTotalElements());
         assertEquals(1, assetService.getAssetsByAssetGroupId(tweakedGroupKey, 1, 5).getTotalPages());
+    }
+
+
+    @Test
+    @DisplayName("getAssetsByUsername()")
+    public void getAssetsByUsername() {
+        // Straumat has 2 assets.
+        Page<AssetDTO> straumatAssets = assetService.getAssetsByUsername("straumat", 1, 10);
+        assertNotNull(straumatAssets);
+        assertEquals(2, straumatAssets.getTotalElements());
+        assertTrue(straumatAssets.stream().anyMatch(assetDTO -> SET_OF_ROYLLO_NFT_2_ASSET_ID.equals(assetDTO.getAssetId())));
+        assertTrue(straumatAssets.stream().anyMatch(assetDTO -> TRICKY_ROYLLO_COIN_ASSET_ID.equals(assetDTO.getAssetId())));
+
+        // newUser has 1 asset.
+        Page<AssetDTO> newUserAssets = assetService.getAssetsByUsername("newUser", 1, 10);
+        assertNotNull(newUserAssets);
+        assertEquals(1, newUserAssets.getTotalElements());
+        assertTrue(newUserAssets.stream().anyMatch(assetDTO -> SET_OF_ROYLLO_NFT_3_ASSET_ID.equals(assetDTO.getAssetId())));
     }
 
 }

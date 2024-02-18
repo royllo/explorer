@@ -15,6 +15,7 @@ import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.provider.storage.ContentService;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
+import org.royllo.explorer.core.repository.user.UserRepository;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 import org.royllo.explorer.core.util.base.BaseService;
 import org.springframework.data.domain.Page;
@@ -39,6 +40,9 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
 
     /** Assert repository. */
     private final AssetRepository assetRepository;
+
+    /** User repository. */
+    private final UserRepository userRepository;
 
     /** Asset group service. */
     private final AssetGroupService assetGroupService;
@@ -112,7 +116,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
                 String extension = MimeTypes.getDefaultMimeTypes().forName(mimeType).getExtension();
 
                 // If we have a file extension ".txt", we check if it's a JSON.
-                if (".txt".equalsIgnoreCase(extension)) {
+                if (".txt" .equalsIgnoreCase(extension)) {
                     if (isJSONValid(new String(decodedBytes))) {
                         extension = ".json";
                     }
@@ -224,6 +228,19 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         } catch (IOException e) {
             return false;
         }
+    }
+
+    @Override
+    public Page<AssetDTO> getAssetsByUsername(@NonNull final String username, final int page, final int pageSize) {
+        logger.info("Getting assets of username: {}", username);
+
+        // Checking constraints.
+        assert page >= 1 : "Page number starts at page 1";
+        assert userRepository.findByUsernameIgnoreCase(username).isPresent() : "User not found with username: " + username;
+
+        // Returning the results.
+        return assetRepository.findByCreator_Username(username, PageRequest.of(page - 1, pageSize))
+                .map(ASSET_MAPPER::mapToAssetDTO);
     }
 
 }

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
-import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
@@ -23,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.web.util.constants.AccountSettingsPageConstants.ACCOUNT_SETTINGS_PAGE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.FORM_ATTRIBUTE;
+import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext
 @DisplayName("Account settings controller tests")
 @AutoConfigureMockMvc
-public class AccountSettingsTests extends BaseTest {
+public class AccountSettingsTest extends BaseTest {
 
     @Autowired
     MessageSource messages;
@@ -55,7 +55,7 @@ public class AccountSettingsTests extends BaseTest {
                 .andExpect(view().name(ACCOUNT_SETTINGS_PAGE))
                 .andExpect(model().attributeExists(FORM_ATTRIBUTE))
                 // Checking page content
-                .andExpect(content().string(containsString(getMessage(messages, "account.settings.title"))))
+                .andExpect(content().string(containsString(getMessage(messages, "user.settings.title"))))
                 .andExpect(content().string(containsString("Traumat")))
                 .andExpect(content().string(containsString("developer")))
                 .andExpect(content().string(containsString("github.com/straumat")))
@@ -63,7 +63,7 @@ public class AccountSettingsTests extends BaseTest {
                 .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.biography.size.too_long")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.website.invalid")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.website.size.too_long")))))
-                .andExpect(content().string(not(containsString(getMessage(messages, "account.settings.information.success")))));
+                .andExpect(content().string(not(containsString(getMessage(messages, "user.settings.information.success")))));
 
     }
 
@@ -79,7 +79,7 @@ public class AccountSettingsTests extends BaseTest {
                         .param("fullName", RandomStringUtils.randomAlphanumeric(41))
                         .param("biography", RandomStringUtils.randomAlphanumeric(256))
                         .param("website", RandomStringUtils.randomAlphanumeric(51))
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                        .contentType(APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ACCOUNT_SETTINGS_PAGE))
                 .andExpect(model().attributeExists(FORM_ATTRIBUTE))
@@ -91,7 +91,7 @@ public class AccountSettingsTests extends BaseTest {
                 .andExpect(model().attributeHasFieldErrors(FORM_ATTRIBUTE, "website"))
                 .andExpect(content().string(containsString(getMessage(messages, "validation.user.website.invalid"))))
                 .andExpect(content().string(containsString(getMessage(messages, "validation.user.website.size.too_long"))))
-                .andExpect(content().string(not(containsString(getMessage(messages, "account.settings.information.success")))));
+                .andExpect(content().string(not(containsString(getMessage(messages, "user.settings.information.success")))));
 
         // =============================================================================================================
         // When it works.
@@ -108,7 +108,7 @@ public class AccountSettingsTests extends BaseTest {
                         .param("fullName", "Paul Dupont")
                         .param("biography", "I'm an architect")
                         .param("website", "https://www.architect.com")
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                        .contentType(APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ACCOUNT_SETTINGS_PAGE))
                 .andExpect(model().attributeExists(FORM_ATTRIBUTE))
@@ -117,7 +117,7 @@ public class AccountSettingsTests extends BaseTest {
                 .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.biography.size.too_long")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.website.invalid")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.website.size.too_long")))))
-                .andExpect(content().string(containsString(getMessage(messages, "account.settings.information.success"))));
+                .andExpect(content().string(containsString(getMessage(messages, "user.settings.information.success"))));
 
         // We check the updated values.
         Optional<UserDTO> userUpdated = userService.getUserByUsername("straumat");
@@ -131,7 +131,7 @@ public class AccountSettingsTests extends BaseTest {
                         .param("fullName", STRAUMAT_USER_FULL_NAME)
                         .param("biography", STRAUMAT_USER_BIOGRAPHY)
                         .param("website", STRAUMAT_USER_WEBSITE)
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                        .contentType(APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk());
     }
 

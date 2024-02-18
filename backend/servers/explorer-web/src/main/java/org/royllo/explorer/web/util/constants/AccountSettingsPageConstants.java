@@ -10,6 +10,6 @@ import lombok.experimental.UtilityClass;
 public class AccountSettingsPageConstants {
 
     /** Account settings page. */
-    public static final String ACCOUNT_SETTINGS_PAGE = "user/account/settings/settings_page";
+    public static final String ACCOUNT_SETTINGS_PAGE = "/user/account/settings/settings_page";
 
 }

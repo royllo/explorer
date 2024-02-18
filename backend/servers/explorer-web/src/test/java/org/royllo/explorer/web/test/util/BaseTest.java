@@ -24,7 +24,7 @@ public class BaseTest extends Base {
 
     /** NewUser user used for tests. */
     protected final String NEW_USER_ID = "33333333-3333-3333-3333-333333333333";
-    protected final String NEW_USER_USERNAME = "newuser";
+    protected final String NEW_USER_USERNAME = "newUserWithAVeryVeryLongUserName";
 
     /**
      * Method used by tests to test htmx and non htmx methods.

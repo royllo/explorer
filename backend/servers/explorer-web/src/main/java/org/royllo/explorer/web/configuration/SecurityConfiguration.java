@@ -81,8 +81,7 @@ public class SecurityConfiguration {
                                         .baseUri(LNURL_AUTH_SESSION_LOGIN_PATH)
                                         .sessionK1Key(LNURL_AUTH_SESSION_K1_KEY)
                                         .successHandlerCustomizer(successHandler -> {
-                                            successHandler.setDefaultTargetUrl("/");
-                                            successHandler.setTargetUrlParameter("redirect");
+                                            successHandler.setDefaultTargetUrl("/login/success");
                                             successHandler.setAlwaysUseDefaultTargetUrl(false);
                                             successHandler.setUseReferer(false);
                                         })

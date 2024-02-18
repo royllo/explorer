@@ -13,8 +13,8 @@
         <div class="mx-auto max-w-2xl text-center space-y-3">
 
             <!--/* Page header. */-->
-            <h2 class="pageHeader" th:text="#{account.settings.title}"></h2>
-            <p class="pageHeaderSubtitle" th:text="#{account.settings.explanation}"></p>
+            <h2 class="pageHeader" th:text="#{user.settings.title}"></h2>
+            <p class="pageHeaderSubtitle" th:text="#{user.settings.explanation}"></p>
             <hr>
 
             <!--/* =============================================================================================== */-->
@@ -27,9 +27,9 @@
                           d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                 </svg>
                 <!--/* Title */-->
-                <h3 class="text-lg font-semibold" th:text="#{account.settings.information.title}"></h3>
+                <h3 class="text-lg font-semibold" th:text="#{user.settings.information.title}"></h3>
             </div>
-            <p class="text-left" th:text="#{account.settings.information.explanation}"></p>
+            <p class="text-left" th:text="#{user.settings.information.explanation}"></p>
 
             <!--/* Account settings form */-->
             <form action="#" th:action="@{/account/settings}" th:object="${command}" method="post">
@@ -54,7 +54,7 @@
                     <!--/* Full name */-->
                     <label class="form-control w-full">
                         <div class="label">
-                            <span class="label-text" th:text="#{account.settings.information.name.label}"></span>
+                            <span class="label-text" th:text="#{user.settings.information.name.label}"></span>
                         </div>
                         <input type="text" class="input input-bordered w-full" autofocus
                                th:field="*{fullName}"
@@ -67,7 +67,7 @@
                     <!--/* Biography */-->
                     <label class="form-control w-full">
                         <div class="label">
-                            <span class="label-text" th:text="#{account.settings.information.biography.label}"></span>
+                            <span class="label-text" th:text="#{user.settings.information.biography.label}"></span>
                         </div>
                         <textarea class="textarea textarea-bordered textarea-md" th:field="*{biography}"
                                   x-model="biography" x-ref="biography" onClick="this.select();"
@@ -79,7 +79,7 @@
                     <!--/* Website */-->
                     <label class="form-control w-full">
                         <div class="label">
-                            <span class="label-text" th:text="#{account.settings.information.website.label}"></span>
+                            <span class="label-text" th:text="#{user.settings.information.website.label}"></span>
                         </div>
                         <input type="text" class="input input-bordered w-full" th:field="*{website}" x-model="website"
                                x-ref="website" onClick="this.select();"
@@ -96,12 +96,12 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
-                        <span th:text="#{account.settings.information.success}"></span>
+                        <span th:text="#{user.settings.information.success}"></span>
                     </div>
 
                     <!--/* Submit button */-->
                     <p>
-                        <button class="btn btn-primary" th:text="#{account.settings.information.updateButton}"
+                        <button class="btn btn-primary" th:text="#{user.settings.information.updateButton}"
                                 :disabled="!formChanged"
                                 type="submit"></button>
                     </p>

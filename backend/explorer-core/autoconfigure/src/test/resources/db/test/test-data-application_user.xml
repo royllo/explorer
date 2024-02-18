@@ -29,7 +29,7 @@
         <insert tableName="APPLICATION_USER">
             <column name="ID" value="3"/>
             <column name="USER_ID" value="33333333-3333-3333-3333-333333333333"/>
-            <column name="USERNAME" value="newuser"/>
+            <column name="USERNAME" value="newUser"/>
             <column name="ROLE" value="USER"/>
             <column name="FULL_NAME" value=""/>
             <column name="BIOGRAPHY" value=""/>

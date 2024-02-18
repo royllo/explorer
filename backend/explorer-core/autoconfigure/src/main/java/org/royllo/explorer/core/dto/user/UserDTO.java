@@ -84,4 +84,13 @@ public class UserDTO {
         return username;
     }
 
+    /**
+     * Returns true if the user has settings set.
+     *
+     * @return true if the user has settings set
+     */
+    public boolean hasSettingsSet() {
+        return fullName != null || biography != null || website != null;
+    }
+
 }

@@ -4,12 +4,10 @@ import jakarta.validation.ConstraintViolationException;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.user.UserDTO;
 import org.royllo.explorer.core.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Optional;
@@ -29,9 +27,6 @@ import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANO
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_USERNAME;
 import static org.royllo.explorer.core.util.enums.UserRole.ADMINISTRATOR;
 import static org.royllo.explorer.core.util.enums.UserRole.USER;
-import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_2_ASSET_ID;
-import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_3_ASSET_ID;
-import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 
 @SpringBootTest
 @DirtiesContext
@@ -142,23 +137,6 @@ public class UserServiceTest {
         existingUser.get().setBiography("I am a developer");
         existingUser.get().setWebsite("https://github.com/straumat");
         userService.updateUser("straumat", existingUser.get());
-    }
-
-    @Test
-    @DisplayName("getAssetsByUserId()")
-    public void getAssetsByUserIdTest() {
-        // Straumat has 2 assets.
-        Page<AssetDTO> straumatAssets = userService.getAssetsByUserId("22222222-2222-2222-2222-222222222222", 1, 10);
-        assertNotNull(straumatAssets);
-        assertEquals(2, straumatAssets.getTotalElements());
-        assertTrue(straumatAssets.stream().anyMatch(assetDTO -> SET_OF_ROYLLO_NFT_2_ASSET_ID.equals(assetDTO.getAssetId())));
-        assertTrue(straumatAssets.stream().anyMatch(assetDTO -> TRICKY_ROYLLO_COIN_ASSET_ID.equals(assetDTO.getAssetId())));
-
-        // newUser has 1 asset.
-        Page<AssetDTO> newUserAssets = userService.getAssetsByUserId("33333333-3333-3333-3333-333333333333", 1, 10);
-        assertNotNull(newUserAssets);
-        assertEquals(1, newUserAssets.getTotalElements());
-        assertTrue(newUserAssets.stream().anyMatch(assetDTO -> SET_OF_ROYLLO_NFT_3_ASSET_ID.equals(assetDTO.getAssetId())));
     }
 
     @Test
