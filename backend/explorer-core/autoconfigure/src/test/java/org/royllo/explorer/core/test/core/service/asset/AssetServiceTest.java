@@ -385,14 +385,14 @@ public class AssetServiceTest extends TestWithMockServers {
         Optional<AssetDTO> asset = assetService.getAssetByAssetId(ROYLLO_COIN_ASSET_ID);
         assertTrue(asset.isPresent());
         assertEquals("roylloCoin", asset.get().getAssetIdAlias());
-        assertEquals("#Asset created by Royllo", asset.get().getReadme());
+        assertEquals("**Asset created by Royllo**", asset.get().getReadme());
 
         // We call the method with no values - Nothing should have changed.
         assetService.updateAssetWithUserData(ROYLLO_COIN_ASSET_ID, null, null);
         asset = assetService.getAssetByAssetId(ROYLLO_COIN_ASSET_ID);
         assertTrue(asset.isPresent());
         assertEquals("roylloCoin", asset.get().getAssetIdAlias());
-        assertEquals("#Asset created by Royllo", asset.get().getReadme());
+        assertEquals("**Asset created by Royllo**", asset.get().getReadme());
 
         // We call the method with new values.
         assetService.updateAssetWithUserData(ROYLLO_COIN_ASSET_ID, "newAlias", "newReadme");
@@ -400,6 +400,10 @@ public class AssetServiceTest extends TestWithMockServers {
         assertTrue(asset.isPresent());
         assertEquals("newAlias", asset.get().getAssetIdAlias());
         assertEquals("newReadme", asset.get().getReadme());
+
+        // Going back to normal;
+        assetService.updateAssetWithUserData(ROYLLO_COIN_ASSET_ID, "roylloCoin",
+                "**Asset created by Royllo**");
     }
 
     @Test
@@ -420,7 +424,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertNotNull(asset.get().getCreator());
         assertEquals(ANONYMOUS_ID, asset.get().getCreator().getId());
         verifyAsset(asset.get(), ROYLLO_COIN_ASSET_ID);
-        assertEquals("#Asset created by Royllo", asset.get().getReadme());
+        assertEquals("**Asset created by Royllo**", asset.get().getReadme());
 
         // getAsset() on an asset that has no asset group
         asset = assetService.getAsset(1);

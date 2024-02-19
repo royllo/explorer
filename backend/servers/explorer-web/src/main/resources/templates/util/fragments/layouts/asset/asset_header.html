@@ -20,6 +20,12 @@
 
                     <li><a hx-push-url="true"
                            hx-target="#asset-tab"
+                           th:href="@{'/asset/' + ${assetId} + '/readme'}"
+                           th:hx-get="@{'/asset/' + ${assetId} + '/readme'}"
+                           th:text="#{asset.view.tabs.readme}"></a></li>
+
+                    <li><a hx-push-url="true"
+                           hx-target="#asset-tab"
                            th:href="@{'/asset/' + ${assetId} + '/group'}"
                            th:hx-get="@{'/asset/' + ${assetId} + '/group'}"
                            th:text="#{asset.view.tabs.group}"></a></li>
@@ -57,6 +63,12 @@
                        th:href="@{'/asset/' + ${assetId} + '/genesis'}"
                        th:hx-get="@{'/asset/' + ${assetId} + '/genesis'}"
                        th:text="#{asset.view.tabs.genesis}"></a></li>
+
+                <li><a hx-push-url="true"
+                       hx-target="#asset-tab"
+                       th:href="@{'/asset/' + ${assetId} + '/readme'}"
+                       th:hx-get="@{'/asset/' + ${assetId} + '/readme'}"
+                       th:text="#{asset.view.tabs.readme}"></a></li>
 
                 <li><a hx-push-url="true"
                        hx-target="#asset-tab"

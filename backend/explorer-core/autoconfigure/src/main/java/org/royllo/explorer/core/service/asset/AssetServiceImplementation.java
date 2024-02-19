@@ -162,6 +162,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         // =============================================================================================================
         // If we have the asset id alias.
         if (assetIdAlias != null) {
+            // TODO Check if the asset id alias is unique.
             assetToUpdate.get().setAssetIdAlias(assetIdAlias);
             logger.info("Asset id update for {}: Asset id alias updated to {}", assetId, assetIdAlias);
         }
@@ -169,6 +170,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         // =============================================================================================================
         // If we have the readme.
         if (readme != null) {
+            // TODO Set a maximum size.
             assetToUpdate.get().setReadme(readme);
             logger.info("Asset id update for {}: Readme updated to {}", assetId, readme);
         }

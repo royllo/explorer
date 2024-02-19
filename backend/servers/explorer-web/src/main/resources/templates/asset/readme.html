@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{util/fragments/layouts/asset/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!--/* =========================================================================================================== */-->
+<div layout:fragment="content" th:fragment="asset-readme-fragment" th:if="${asset} != null">
+
+
+    <!--/* Where we are */-->
+    <div class="text breadcrumbs">
+        <ul>
+            <li>&nbsp;</li>
+            <li th:text="#{asset.data.readme}"></li>
+        </ul>
+    </div>
+
+    <!--/* No readme */-->
+    <div th:if="${#strings.isEmpty(readme)}" role="alert" class="alert">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+             class="stroke-current shrink-0 w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span th:text="#{asset.data.readme.noReadme}"></span>
+    </div>
+
+    <!--/* Readme */-->
+    <div class="space-y-3" th:if="${!#strings.isEmpty(readme)}">
+
+        <!--/* Warning message */-->
+        <div role="alert" class="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                 class="stroke-current shrink-0 w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span th:text="#{asset.data.readme.explanation}"></span>
+        </div>
+
+        <!--/* Warning message */-->
+        <div th:utext="${readme}"></div>
+
+    </div>
+
+</div>
+<!--/* =========================================================================================================== */-->
+
+</html>

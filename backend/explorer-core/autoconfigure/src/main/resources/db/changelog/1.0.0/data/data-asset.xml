@@ -26,7 +26,7 @@
             <column name="VERSION" value="0"/>
             <column name="AMOUNT" value="100000"/>
             <column name="ISSUANCE_DATE" value="2023-11-13 15:44:00"/>
-            <column name="README" value="#Asset created by Royllo"/>
+            <column name="README" value="**Asset created by Royllo**"/>
         </insert>
 
     </changeSet>

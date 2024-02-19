@@ -12,6 +12,9 @@ public class AssetPageConstants {
     /** Asset page. */
     public static final String ASSET_PAGE = "asset/genesis";
 
+    /** Asset readme. */
+    public static final String ASSET_README_PAGE = "asset/readme";
+
     /** Asset genesis page. */
     public static final String ASSET_GENESIS_PAGE = "asset/genesis";
 
@@ -27,5 +30,7 @@ public class AssetPageConstants {
     /** Asset proofs page. */
     public static final String ASSET_PROOFS_PAGE = "asset/proofs";
 
+    /** Asset readme value. */
+    public static final String ASSET_README_VALUE = "readme";
 
 }

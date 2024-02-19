@@ -21,6 +21,7 @@ import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GE
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GROUP_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_OWNER_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PROOFS_PAGE;
+import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_README_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_STATES_PAGE;
 import static org.royllo.test.TapdData.ROYLLO_NFT_ASSET_ID;
 import static org.royllo.test.TapdData.ROYLLO_NFT_ASSET_ID_ALIAS;
@@ -63,6 +64,24 @@ public class DisplayRoylloNFTTest extends BaseTest {
                 .andExpect(content().string(not(containsString("currentPage"))))
                 .andExpect(content().string(not(containsString("nextPage"))))
                 // Error messages.
+                .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.noAssetId")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));
+
+    }
+
+    @ParameterizedTest
+    @MethodSource("headers")
+    @DisplayName("Check asset readme")
+    void assetReadme(final HttpHeaders headers) throws Exception {
+
+        mockMvc.perform(get("/asset/" + assetId + "/readme").headers(headers))
+                .andExpect(status().isOk())
+                .andExpect(view().name(containsString(ASSET_README_PAGE)))
+                // Checking readme page.
+                .andExpect(content().string(containsString(getMessage(messages, "asset.data.readme"))))
+                .andExpect(content().string(containsString(getMessage(messages, "asset.data.readme.noReadme"))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "asset.data.readme.explanation")))))
+                // No error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.noAssetId")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));
 

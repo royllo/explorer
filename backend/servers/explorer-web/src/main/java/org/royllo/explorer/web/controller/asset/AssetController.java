@@ -2,6 +2,9 @@ package org.royllo.explorer.web.controller.asset;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.asset.AssetStateService;
@@ -22,6 +25,8 @@ import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GE
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_GROUP_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_OWNER_PAGE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_PROOFS_PAGE;
+import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_README_PAGE;
+import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_README_VALUE;
 import static org.royllo.explorer.web.util.constants.AssetPageConstants.ASSET_STATES_PAGE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSETS_IN_GROUP_LIST_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_ATTRIBUTE;
@@ -65,6 +70,32 @@ public class AssetController extends BaseController {
         addAssetToModel(model, assetId);
 
         return getPageOrFragment(request, ASSET_GENESIS_PAGE);
+    }
+
+    /**
+     * Page displaying the readme.
+     *
+     * @param model   model
+     * @param request request
+     * @param assetId asset id
+     * @return asset group page
+     */
+    @SuppressWarnings("SameReturnValue")
+    @GetMapping(value = {"/asset/{assetId}/readme"})
+    public String assetReadme(final Model model,
+                              final HttpServletRequest request,
+                              @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
+        final Optional<AssetDTO> assetDTO = addAssetToModel(model, assetId);
+
+        // Parsing readme to html.
+        if (assetDTO.isPresent() && assetDTO.get().getReadme() != null) {
+            Parser parser = Parser.builder().build();
+            Node document = parser.parse(assetDTO.get().getReadme());
+            HtmlRenderer renderer = HtmlRenderer.builder().sanitizeUrls(true).build();
+            model.addAttribute(ASSET_README_VALUE, renderer.render(document));
+        }
+
+        return getPageOrFragment(request, ASSET_README_PAGE);
     }
 
     /**
