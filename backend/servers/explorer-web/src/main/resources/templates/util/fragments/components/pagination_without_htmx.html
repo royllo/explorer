@@ -1,0 +1,34 @@
+<div class="join" th:fragment="pagination(url, pageNumber, pageCount)" th:if="${pageCount > 1}">
+
+    <!--/* Previous page */-->
+    <a class="join-item btn"
+       id="previousPage&"
+       th:if="${pageNumber > 1 && #strings.contains(url, '?')}"
+       th:href="@{${url} + '&page=' + ${pageNumber - 1}}"
+    >«</a>
+
+    <a class="join-item btn"
+       id="previousPage?"
+       hx-push-url="true"
+       th:if="${pageNumber > 1 && !#strings.contains(url, '?')}"
+       th:href="@{${url} + '?page=' + ${pageNumber - 1}}"
+    >«</a>
+
+    <!--/* Current page */-->
+    <a class="join-item btn" id="currentPage" th:text="@{${pageNumber} + '/' + ${pageCount}}"></a>
+
+    <!--/* Next page */-->
+    <a class="join-item btn"
+       id="nextPage&"
+       hx-push-url="true"
+       th:if="${pageNumber < pageCount && #strings.contains(url, '?')}"
+       th:href="@{${url} + '&page=' + ${pageNumber + 1}}"
+    >»</a>
+    <a class="join-item btn"
+       id="nextPage?"
+       hx-push-url="true"
+       th:if="${pageNumber < pageCount && !#strings.contains(url, '?')}"
+       th:href="@{${url} + '?page=' + ${pageNumber + 1}}"
+    >»</a>
+
+</div>

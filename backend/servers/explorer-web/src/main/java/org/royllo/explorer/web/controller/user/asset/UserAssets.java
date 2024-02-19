@@ -1,4 +1,4 @@
-package org.royllo.explorer.web.controller.user.assets;
+package org.royllo.explorer.web.controller.user.asset;
 
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.service.asset.AssetService;

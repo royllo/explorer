@@ -43,5 +43,23 @@
             <column name="UPDATED_ON"/>
         </insert>
 
+        <!-- User with no asset -->
+        <insert tableName="APPLICATION_USER">
+            <column name="ID" value="4"/>
+            <column name="USER_ID" value="44444444-4444-4444-4444-444444444444"/>
+            <column name="USERNAME" value="userwithoutasset"/>
+            <column name="ROLE" value="USER"/>
+            <column name="CREATED_ON"/>
+            <column name="UPDATED_ON"/>
+        </insert>
+        <insert tableName="APPLICATION_USER_LNURL_AUTH_LINKING_KEY">
+            <column name="ID" value="100004"/>
+            <column name="LINKING_KEY" value="userwithoutasset"/>
+            <column name="K1" value="RANDOM_K1_NUMBER_3"/>
+            <column name="FK_USER_OWNER" value="4"/>
+            <column name="CREATED_ON"/>
+            <column name="UPDATED_ON"/>
+        </insert>
+
     </changeSet>
 </databaseChangeLog>

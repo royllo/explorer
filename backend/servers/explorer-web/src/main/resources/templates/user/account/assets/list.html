@@ -18,6 +18,87 @@
             <p class="pageHeaderSubtitle" th:text="#{user.assets.explanation}"></p>
             <hr>
 
+            <!--/* Information message if the user has no asset. */-->
+            <div role="alert" class="alert alert-info" th:if="${result != null && result.getTotalElements() == 0}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                     class="stroke-current shrink-0 w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span th:text="#{user.assets.noAssets}"></span>
+            </div>
+
+            <!--/* There is results but not for the page they asked for */-->
+            <div role="alert" class="alert alert-warning"
+                 th:if="${result != null && result.getTotalElements() > 0 && result.getContent().isEmpty()}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                     class="stroke-current shrink-0 w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span th:text="#{user.assets.wrongPageNumber}"></span>
+            </div>
+
+            <!--/* Results, if present */-->
+            <div th:if="${result != null && !result.getContent().isEmpty()}">
+
+                <!--/* =============================================================================================== */-->
+                <div class="alert shadow-lg mb-5 mt-5" role="alert" th:each="asset: ${result.content}">
+
+                    <!--/* =========================================================================================== */-->
+                    <!--/* Icon */-->
+
+                    <!--/* If we have an image type, we display it */-->
+                    <img class="h-12 w-12 flex-none bg-gray-50"
+                         th:alt="${asset.name}"
+                         th:if="${#strings.equalsIgnoreCase(asset.MetaDataFileType, 'IMAGE')}"
+                         th:src="${contentBaseUrl} + '/' + ${asset.MetaDataFileName}"/>
+
+                    <!--/* If we don't have an image for the asset, we use "unknown icon" */-->
+                    <img class="h-12 w-12 flex-none bg-gray-50"
+                         th:alt="${asset.name}"
+                         th:if="${!#strings.equalsIgnoreCase(asset.MetaDataFileType, 'IMAGE') && #strings.equalsIgnoreCase(asset.type, 'NORMAL')}"
+                         th:src="@{/svg/type_normal_asset.svg}"/>
+
+                    <img class="h-12 w-12 flex-none bg-gray-50"
+                         th:alt="${asset.name}"
+                         th:if="${!#strings.equalsIgnoreCase(asset.MetaDataFileType, 'IMAGE') && #strings.equalsIgnoreCase(asset.type, 'COLLECTIBLE')}"
+                         th:src="@{/svg/type_collectible_asset.svg}"/>
+
+                    <!--/* =========================================================================================== */-->
+
+                    <!--/* =========================================================================================== */-->
+                    <!--/* Text */-->
+                    <div>
+                        <h3 class="font-bold">
+                            <a th:href="@{'/asset/' + ${asset.assetId}}">
+                                <span th:text="${asset.name}"></span>
+                            </a>
+                        </h3>
+                        <div class="text-xs">
+                            <span class="hidden lg:block"
+                                  th:text="#{asset.data.assetId} + ': ' + ${asset.assetId}">
+                            </span>
+                            <span class="hidden lg:block"
+                                      th:if="${asset.assetGroup != null}"
+                                      th:text="#{asset.data.tweakedGroupKey} + ': ' + ${asset.assetGroup.tweakedGroupKey}">
+                            </span>
+                            <span class="block"
+                                      th:if="${#strings.equalsIgnoreCase(asset.type, 'NORMAL')}"
+                                      th:text="#{asset.data.amount} + ': ' + ${asset.amount}">
+                            </span>
+                        </div>
+                    </div>
+                    <!--/* =========================================================================================== */-->
+
+                </div>
+
+                <!--/* Pagination */-->
+                <div th:insert="~{util/fragments/components/pagination_without_htmx :: pagination(@{'/account/assets'},
+                                                                                    ${page},
+                                                                                    ${result.getTotalPages()})}">
+                </div>
+
         </div>
 
     </div>
