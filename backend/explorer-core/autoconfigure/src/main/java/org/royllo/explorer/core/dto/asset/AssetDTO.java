@@ -85,4 +85,7 @@ public class AssetDTO {
         return FileType.getTypeByExtension(metaDataFileName.substring(metaDataFileName.lastIndexOf(".") + 1));
     }
 
+    /** Readme content of the asset - Set by the owner. */
+    String readme;
+
 }

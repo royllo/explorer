@@ -53,6 +53,9 @@
             <column name="ISSUANCE_DATE" type="TIMESTAMP WITH TIME ZONE"
                     remarks="The date and time when the asset was created"/>
 
+            <column name="README" type="TEXT"
+                    remarks="Readme content of the asset - Set by the owner (markdown)"/>
+
             <!-- Technical fields -->
             <column name="CREATED_ON" type="TIMESTAMP"
                     remarks="Data created on"/>

@@ -53,6 +53,7 @@ public interface AssetMapper {
     @Mapping(source = "asset.amount", target = "amount")
     @Mapping(target = "metaDataFileName", ignore = true)
     @Mapping(target = "issuanceDate", ignore = true)
+    @Mapping(target = "readme", ignore = true)
     AssetDTO mapToAssetDTO(DecodedProofResponse.DecodedProof source);
 
     default BitcoinTransactionOutputDTO mapToBitcoinTransactionOutputDTO(final String source) {

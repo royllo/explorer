@@ -97,4 +97,8 @@ public class Asset extends BaseDomain {
     @Column(name = "ISSUANCE_DATE")
     private ZonedDateTime issuanceDate;
 
+    /** Readme content of the asset - Set by the owner. */
+    @Column(name = "README")
+    private String readme;
+
 }

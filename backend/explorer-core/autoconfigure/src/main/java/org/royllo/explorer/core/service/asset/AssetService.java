@@ -25,7 +25,7 @@ public interface AssetService {
      * Some data can only be retrieved from issuance proof.
      * This method is used to update the asset when we encounter the asset issuance proof.
      *
-     * @param assetId      asset id
+     * @param assetId      asset id that need to be updated
      * @param metadata     meta data
      * @param amount       amount minted
      * @param issuanceDate asset issuance date
@@ -34,6 +34,15 @@ public interface AssetService {
                      String metadata,
                      BigInteger amount,
                      ZonedDateTime issuanceDate);
+
+    /**
+     * Update an asset with user data.
+     *
+     * @param assetId      asset id that need to be updated
+     * @param assetIdAlias new asset id alias
+     * @param readme       readme
+     */
+    void updateAssetWithUserData(String assetId, String assetIdAlias, String readme);
 
     /**
      * Get an asset.

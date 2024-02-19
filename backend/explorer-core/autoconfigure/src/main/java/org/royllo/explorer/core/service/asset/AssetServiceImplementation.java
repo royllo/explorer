@@ -116,7 +116,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
                 String extension = MimeTypes.getDefaultMimeTypes().forName(mimeType).getExtension();
 
                 // If we have a file extension ".txt", we check if it's a JSON.
-                if (".txt" .equalsIgnoreCase(extension)) {
+                if (".txt".equalsIgnoreCase(extension)) {
                     if (isJSONValid(new String(decodedBytes))) {
                         extension = ".json";
                     }
@@ -146,6 +146,31 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         if (issuanceDate != null) {
             assetToUpdate.get().setIssuanceDate(issuanceDate);
             logger.info("Asset id update for {}: Issuance date updated to {}", assetId, issuanceDate);
+        }
+
+        // We save the asset with the new information.
+        assetRepository.save(assetToUpdate.get());
+    }
+
+    @Override
+    public void updateAssetWithUserData(final String assetId, final String assetIdAlias, final String readme) {
+        final Optional<Asset> assetToUpdate = assetRepository.findByAssetId(assetId);
+
+        // We check that the asset exists.
+        assert assetToUpdate.isPresent() : assetId + " not found";
+
+        // =============================================================================================================
+        // If we have the asset id alias.
+        if (assetIdAlias != null) {
+            assetToUpdate.get().setAssetIdAlias(assetIdAlias);
+            logger.info("Asset id update for {}: Asset id alias updated to {}", assetId, assetIdAlias);
+        }
+
+        // =============================================================================================================
+        // If we have the readme.
+        if (readme != null) {
+            assetToUpdate.get().setReadme(readme);
+            logger.info("Asset id update for {}: Readme updated to {}", assetId, readme);
         }
 
         // We save the asset with the new information.
@@ -214,6 +239,18 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
                 .map(ASSET_MAPPER::mapToAssetDTO);
     }
 
+    @Override
+    public Page<AssetDTO> getAssetsByUsername(@NonNull final String username, final int page, final int pageSize) {
+        logger.info("Getting assets of username: {}", username);
+
+        // Checking constraints.
+        assert page >= 1 : "Page number starts at page 1";
+        assert userRepository.findByUsernameIgnoreCase(username).isPresent() : "User not found with username: " + username;
+
+        // Returning the results.
+        return assetRepository.findByCreator_Username(username, PageRequest.of(page - 1, pageSize))
+                .map(ASSET_MAPPER::mapToAssetDTO);
+    }
 
     /**
      * Returns true if the string is a valid JSON.
@@ -228,19 +265,6 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         } catch (IOException e) {
             return false;
         }
-    }
-
-    @Override
-    public Page<AssetDTO> getAssetsByUsername(@NonNull final String username, final int page, final int pageSize) {
-        logger.info("Getting assets of username: {}", username);
-
-        // Checking constraints.
-        assert page >= 1 : "Page number starts at page 1";
-        assert userRepository.findByUsernameIgnoreCase(username).isPresent() : "User not found with username: " + username;
-
-        // Returning the results.
-        return assetRepository.findByCreator_Username(username, PageRequest.of(page - 1, pageSize))
-                .map(ASSET_MAPPER::mapToAssetDTO);
     }
 
 }
