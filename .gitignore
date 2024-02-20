@@ -121,3 +121,4 @@ util/test/common-test/tade
 util/test/common-test/src/main/resources/tapd/admin-testnet.macaroon
 util/test/common-test/src/main/resources/tapd/admin-mainnet.macaroon
 util/test/common-test/adamCoin-request.json
+/util/test/common-test/src/main/resources/tapd/admin-local.macaroon
