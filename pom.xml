@@ -98,6 +98,9 @@
         <webjars-locator.version>0.50</webjars-locator.version>
         <htmx.version>1.9.10</htmx.version>
         <alpinejs.version>3.13.5</alpinejs.version>
+        <easymde.version>2.18.0</easymde.version>
+
+        <commonmark.version>0.21.0</commonmark.version>
 
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
