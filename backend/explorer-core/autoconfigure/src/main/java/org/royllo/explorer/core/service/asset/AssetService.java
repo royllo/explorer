@@ -38,11 +38,13 @@ public interface AssetService {
     /**
      * Update an asset with user data.
      *
-     * @param assetId      asset id that need to be updated
-     * @param assetIdAlias new asset id alias
-     * @param readme       readme
+     * @param assetId         asset id that need to be updated
+     * @param newAssetIdAlias new asset id alias
+     * @param newReadme       readme
      */
-    void updateAssetWithUserData(String assetId, String assetIdAlias, String readme);
+    void updateAssetWithUserData(String assetId,
+                                 String newAssetIdAlias,
+                                 String newReadme);
 
     /**
      * Get an asset.

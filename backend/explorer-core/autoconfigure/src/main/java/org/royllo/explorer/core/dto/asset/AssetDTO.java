@@ -2,6 +2,7 @@ package org.royllo.explorer.core.dto.asset;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
@@ -15,6 +16,7 @@ import java.math.BigInteger;
 import java.time.ZonedDateTime;
 
 import static lombok.AccessLevel.PRIVATE;
+import static org.royllo.explorer.core.util.enums.FileType.UNKNOWN;
 
 /**
  * Taproot asset.
@@ -24,6 +26,15 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor(access = PRIVATE)
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public class AssetDTO {
+
+    /** Minimum size of the asset ID alias. */
+    public static final int ASSET_ID_ALIAS_MIN_SIZE = 3;
+
+    /** Maximum size of the asset ID alias. */
+    public static final int ASSET_ID_ALIAS_MAX_SIZE = 30;
+
+    /** Maximum size of the readme. */
+    public static final int README_MAX_SIZE = 3000;
 
     /** Unique identifier. */
     Long id;
@@ -40,6 +51,7 @@ public class AssetDTO {
     String assetId;
 
     /** The asset ID alias in Royllo (generated or configured). */
+    @Size(min = ASSET_ID_ALIAS_MIN_SIZE, max = ASSET_ID_ALIAS_MAX_SIZE, message = "{validation.asset.assetIdAlias.size}")
     String assetIdAlias;
 
     /** The first outpoint of the transaction that created the asset (txid:vout). */
@@ -80,12 +92,13 @@ public class AssetDTO {
      */
     public FileType getMetaDataFileType() {
         if (StringUtils.isBlank(metaDataFileName) || metaDataFileName.lastIndexOf(".") == -1) {
-            return FileType.UNKNOWN;
+            return UNKNOWN;
         }
         return FileType.getTypeByExtension(metaDataFileName.substring(metaDataFileName.lastIndexOf(".") + 1));
     }
 
     /** Readme content of the asset - Set by the owner. */
+    @Size(max = README_MAX_SIZE, message = "{validation.asset.readme.size}")
     String readme;
 
 }

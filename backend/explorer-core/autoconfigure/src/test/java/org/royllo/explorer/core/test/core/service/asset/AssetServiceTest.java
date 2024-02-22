@@ -3,6 +3,7 @@ package org.royllo.explorer.core.test.core.service.asset;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
@@ -34,6 +35,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.royllo.explorer.core.dto.asset.AssetDTO.ASSET_ID_ALIAS_MAX_SIZE;
+import static org.royllo.explorer.core.dto.asset.AssetDTO.ASSET_ID_ALIAS_MIN_SIZE;
+import static org.royllo.explorer.core.dto.asset.AssetDTO.README_MAX_SIZE;
 import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
 import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_ID;
@@ -401,7 +405,32 @@ public class AssetServiceTest extends TestWithMockServers {
         assertEquals("newAlias", asset.get().getAssetIdAlias());
         assertEquals("newReadme", asset.get().getReadme());
 
-        // Going back to normal;
+        // Now we are trying errors.
+        // - Duplicated asset id alias.
+        // - asset id alias to small or too long.
+        // - readme too long.
+        AssertionError error = assertThrows(AssertionError.class, () -> assetService.updateAssetWithUserData(
+                ROYLLO_COIN_ASSET_ID,
+                ROYLLO_NFT_ASSET_ID_ALIAS,
+                "newReadme"));
+        assertEquals(ROYLLO_NFT_ASSET_ID_ALIAS + " already registered", error.getMessage());
+        error = assertThrows(AssertionError.class, () -> assetService.updateAssetWithUserData(
+                ROYLLO_COIN_ASSET_ID,
+                RandomStringUtils.randomAlphabetic(ASSET_ID_ALIAS_MIN_SIZE - 1),
+                "newReadme"));
+        assertEquals("Asset id alias must be between 3 and 30 characters", error.getMessage());
+        error = assertThrows(AssertionError.class, () -> assetService.updateAssetWithUserData(
+                ROYLLO_COIN_ASSET_ID,
+                RandomStringUtils.randomAlphabetic(ASSET_ID_ALIAS_MAX_SIZE + 1),
+                "newReadme"));
+        assertEquals("Asset id alias must be between 3 and 30 characters", error.getMessage());
+        error = assertThrows(AssertionError.class, () -> assetService.updateAssetWithUserData(
+                ROYLLO_COIN_ASSET_ID,
+                "validNewAlias",
+                RandomStringUtils.randomAlphabetic(README_MAX_SIZE + 1)));
+        assertEquals("Readme must be less than 3000 characters", error.getMessage());
+
+        // Going back to normal.
         assetService.updateAssetWithUserData(ROYLLO_COIN_ASSET_ID, "roylloCoin",
                 "**Asset created by Royllo**");
     }

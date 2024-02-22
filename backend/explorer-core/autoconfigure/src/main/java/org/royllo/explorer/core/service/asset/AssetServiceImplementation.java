@@ -27,6 +27,9 @@ import java.math.BigInteger;
 import java.time.ZonedDateTime;
 import java.util.Optional;
 
+import static org.royllo.explorer.core.dto.asset.AssetDTO.ASSET_ID_ALIAS_MAX_SIZE;
+import static org.royllo.explorer.core.dto.asset.AssetDTO.ASSET_ID_ALIAS_MIN_SIZE;
+import static org.royllo.explorer.core.dto.asset.AssetDTO.README_MAX_SIZE;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
 import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_LENGTH;
 
@@ -153,26 +156,31 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
     }
 
     @Override
-    public void updateAssetWithUserData(final String assetId, final String assetIdAlias, final String readme) {
+    public void updateAssetWithUserData(final String assetId, final String newAssetIdAlias, final String newReadme) {
         final Optional<Asset> assetToUpdate = assetRepository.findByAssetId(assetId);
 
         // We check that the asset exists.
         assert assetToUpdate.isPresent() : assetId + " not found";
+        assert assetRepository.findByAssetIdAlias(newAssetIdAlias).isEmpty() : newAssetIdAlias + " already registered";
 
         // =============================================================================================================
         // If we have the asset id alias.
-        if (assetIdAlias != null) {
-            // TODO Check if the asset id alias is unique.
-            assetToUpdate.get().setAssetIdAlias(assetIdAlias);
-            logger.info("Asset id update for {}: Asset id alias updated to {}", assetId, assetIdAlias);
+        if (newAssetIdAlias != null) {
+            if (newAssetIdAlias.length() < ASSET_ID_ALIAS_MIN_SIZE || newAssetIdAlias.length() > ASSET_ID_ALIAS_MAX_SIZE) {
+                throw new AssertionError("Asset id alias must be between 3 and 30 characters");
+            }
+            assetToUpdate.get().setAssetIdAlias(newAssetIdAlias);
+            logger.info("Asset id update for {}: Asset id alias updated to {}", assetId, newAssetIdAlias);
         }
 
         // =============================================================================================================
         // If we have the readme.
-        if (readme != null) {
-            // TODO Set a maximum size.
-            assetToUpdate.get().setReadme(readme);
-            logger.info("Asset id update for {}: Readme updated to {}", assetId, readme);
+        if (newReadme != null) {
+            if (newReadme.length() > README_MAX_SIZE) {
+                throw new AssertionError("Readme must be less than 3000 characters");
+            }
+            assetToUpdate.get().setReadme(newReadme);
+            logger.info("Asset id update for {}: Readme updated to {}", assetId, newReadme);
         }
 
         // We save the asset with the new information.
