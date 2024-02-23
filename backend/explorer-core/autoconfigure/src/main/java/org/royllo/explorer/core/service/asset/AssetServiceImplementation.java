@@ -166,10 +166,10 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         // =============================================================================================================
         // If we have the asset id alias.
         if (newAssetIdAlias != null) {
-            if (newAssetIdAlias.length() < ASSET_ID_ALIAS_MIN_SIZE || newAssetIdAlias.length() > ASSET_ID_ALIAS_MAX_SIZE) {
+            if (newAssetIdAlias.trim().length() < ASSET_ID_ALIAS_MIN_SIZE || newAssetIdAlias.trim().length() > ASSET_ID_ALIAS_MAX_SIZE) {
                 throw new AssertionError("Asset id alias must be between 3 and 30 characters");
             }
-            assetToUpdate.get().setAssetIdAlias(newAssetIdAlias);
+            assetToUpdate.get().setAssetIdAlias(newAssetIdAlias.trim());
             logger.info("Asset id update for {}: Asset id alias updated to {}", assetId, newAssetIdAlias);
         }
 
@@ -245,7 +245,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
             return Page.empty();
         }
 
-        return assetRepository.findByAssetGroup_AssetGroupId(assetGroupId.trim(), PageRequest.of(page - 1, pageSize))
+        return assetRepository.findByAssetGroup_AssetGroupIdOrderById(assetGroupId.trim(), PageRequest.of(page - 1, pageSize))
                 .map(ASSET_MAPPER::mapToAssetDTO);
     }
 
@@ -258,7 +258,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         assert userRepository.findByUsernameIgnoreCase(username).isPresent() : "User not found with username: " + username;
 
         // Returning the results.
-        return assetRepository.findByCreator_Username(username, PageRequest.of(page - 1, pageSize))
+        return assetRepository.findByCreator_UsernameOrderById(username, PageRequest.of(page - 1, pageSize))
                 .map(ASSET_MAPPER::mapToAssetDTO);
     }
 

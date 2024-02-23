@@ -62,6 +62,7 @@ public interface AssetService {
      */
     Optional<AssetDTO> getAssetByAssetId(String assetId);
 
+
     /**
      * Get assets by asset group id.
      *

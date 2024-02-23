@@ -77,7 +77,7 @@ public class SQLSearchServiceImplementation extends BaseService implements Searc
             final Optional<AssetGroupDTO> assetGroup = assetGroupService.getAssetGroupByAssetGroupId(cleanedQuery);
             if (assetGroup.isPresent()) {
                 logger.info("The query '{}' corresponds to a tweaked group key", cleanedQuery);
-                return assetRepository.findByAssetGroup_AssetGroupId(assetGroup.get().getAssetGroupId(), PageRequest.of(page - 1, pageSize))
+                return assetRepository.findByAssetGroup_AssetGroupIdOrderById(assetGroup.get().getAssetGroupId(), PageRequest.of(page - 1, pageSize))
                         .map(ASSET_MAPPER::mapToAssetDTO);
             }
         }

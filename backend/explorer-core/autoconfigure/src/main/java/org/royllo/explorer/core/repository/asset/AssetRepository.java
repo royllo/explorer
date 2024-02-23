@@ -61,7 +61,7 @@ public interface AssetRepository extends JpaRepository<Asset, Long> {
      * @return assets
      */
     @SuppressWarnings("checkstyle:MethodName")
-    Page<Asset> findByAssetGroup_AssetGroupId(String assetGroupId, Pageable pageable);
+    Page<Asset> findByAssetGroup_AssetGroupIdOrderById(String assetGroupId, Pageable pageable);
 
     /**
      * Find assets by creator id.
@@ -71,6 +71,6 @@ public interface AssetRepository extends JpaRepository<Asset, Long> {
      * @return user assets
      */
     @SuppressWarnings("checkstyle:MethodName")
-    Page<Asset> findByCreator_Username(String username, Pageable pageable);
+    Page<Asset> findByCreator_UsernameOrderById(String username, Pageable pageable);
 
 }

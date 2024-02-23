@@ -56,7 +56,7 @@
                 <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-blue-100 rounded-box w-52">
 
                     <!--/* User. */-->
-                    <h2 class="menu-title" th:utext="#{user.signed.as(${username})}"></h2>
+                    <h2 class="menu-title truncate" th:utext="#{user.signed.as(${session.shortUsername})}"></h2>
 
                     <!--/* Add proof. */-->
                     <li>

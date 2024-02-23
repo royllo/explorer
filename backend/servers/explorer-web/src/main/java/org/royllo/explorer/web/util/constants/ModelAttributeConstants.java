@@ -33,6 +33,9 @@ public class ModelAttributeConstants {
     /** Asset id attribute. */
     public static final String ASSET_ID_ATTRIBUTE = "assetId";
 
+    /** Asset id attribute. */
+    public static final String ASSET_NAME_ATTRIBUTE = "assetName";
+
     /** Asset url attribute. */
     public static final String ASSET_URL_ATTRIBUTE = "assetUrl";
 

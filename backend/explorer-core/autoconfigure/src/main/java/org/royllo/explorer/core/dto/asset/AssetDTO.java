@@ -2,9 +2,11 @@ package org.royllo.explorer.core.dto.asset;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.ToString;
 import lombok.Value;
 import org.apache.commons.lang3.StringUtils;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
@@ -51,6 +53,7 @@ public class AssetDTO {
     String assetId;
 
     /** The asset ID alias in Royllo (generated or configured). */
+    @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "{validation.asset.assetIdAlias.invalid}")
     @Size(min = ASSET_ID_ALIAS_MIN_SIZE, max = ASSET_ID_ALIAS_MAX_SIZE, message = "{validation.asset.assetIdAlias.size}")
     String assetIdAlias;
 
@@ -98,6 +101,7 @@ public class AssetDTO {
     }
 
     /** Readme content of the asset - Set by the owner. */
+    @ToString.Exclude
     @Size(max = README_MAX_SIZE, message = "{validation.asset.readme.size}")
     String readme;
 

@@ -6,7 +6,6 @@
 <!--/* =========================================================================================================== */-->
 <div layout:fragment="content">
 
-
     <!--/* This div is used to add a margin between the header and the content. */-->
     <div class="px-6 py-12 sm:py-16 lg:px-8">
 
@@ -17,6 +16,17 @@
             <h2 class="pageHeader" th:text="#{user.assets.title}"></h2>
             <p class="pageHeaderSubtitle" th:text="#{user.assets.explanation}"></p>
             <hr>
+
+            <!--/* if we have in the query parameters somethind called 'assetUpdated', display a message */-->
+            <div role="alert" class="alert alert-success" th:if="${param.assetUpdated}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                     class="stroke-current shrink-0 w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span th:text="#{user.asset.success}"></span>
+            </div>
+
 
             <!--/* Information message if the user has no asset. */-->
             <div role="alert" class="alert alert-info" th:if="${result != null && result.getTotalElements() == 0}">
@@ -71,7 +81,7 @@
                     <!--/* Text */-->
                     <div>
                         <h3 class="font-bold">
-                            <a th:href="@{'/asset/' + ${asset.assetId}}">
+                            <a th:href="@{'/account/asset/' + ${asset.assetId} + '/edit'}">
                                 <span th:text="${asset.name}"></span>
                             </a>
                         </h3>
@@ -79,13 +89,15 @@
                             <span class="hidden lg:block"
                                   th:text="#{asset.data.assetId} + ': ' + ${asset.assetId}">
                             </span>
+                            <span th:text="#{asset.data.assetIdAlias} + ': ' + ${asset.assetIdAlias}">
+                            </span>
                             <span class="hidden lg:block"
-                                      th:if="${asset.assetGroup != null}"
-                                      th:text="#{asset.data.tweakedGroupKey} + ': ' + ${asset.assetGroup.tweakedGroupKey}">
+                                  th:if="${asset.assetGroup != null}"
+                                  th:text="#{asset.data.tweakedGroupKey} + ': ' + ${asset.assetGroup.tweakedGroupKey}">
                             </span>
                             <span class="block"
-                                      th:if="${#strings.equalsIgnoreCase(asset.type, 'NORMAL')}"
-                                      th:text="#{asset.data.amount} + ': ' + ${asset.amount}">
+                                  th:if="${#strings.equalsIgnoreCase(asset.type, 'NORMAL')}"
+                                  th:text="#{asset.data.amount} + ': ' + ${asset.amount}">
                             </span>
                         </div>
                     </div>
@@ -98,6 +110,8 @@
                                                                                     ${page},
                                                                                     ${result.getTotalPages()})}">
                 </div>
+
+            </div>
 
         </div>
 

@@ -98,6 +98,7 @@ public class Asset extends BaseDomain {
     private ZonedDateTime issuanceDate;
 
     /** Readme content of the asset - Set by the owner. */
+    @ToString.Exclude
     @Column(name = "README")
     private String readme;
 
