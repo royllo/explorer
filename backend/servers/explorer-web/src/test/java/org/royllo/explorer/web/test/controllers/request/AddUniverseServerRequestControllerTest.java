@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
-import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -29,6 +28,7 @@ import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.FOR
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.RequestPageConstants.ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE;
 import static org.royllo.explorer.web.util.constants.RequestPageConstants.ADD_UNIVERSE_SERVER_REQUEST_SUCCESS_PAGE;
+import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -62,7 +62,7 @@ public class AddUniverseServerRequestControllerTest extends BaseTest {
 
         mockMvc.perform(get("/request/universe_server/add")
                         .param("serverAddress", "1.1.1.1")
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                        .contentType(APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE))
                 .andExpect(model().attributeExists(FORM_ATTRIBUTE))
@@ -77,7 +77,7 @@ public class AddUniverseServerRequestControllerTest extends BaseTest {
 
         // No server address parameter.
         mockMvc.perform(post("/request/universe_server/add")
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                        .contentType(APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE))
                 .andExpect(model().hasErrors())
@@ -86,7 +86,7 @@ public class AddUniverseServerRequestControllerTest extends BaseTest {
         // Empty server address.
         mockMvc.perform(post("/request/universe_server/add")
                         .param("serverAddress", "")
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                        .contentType(APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE))
                 .andExpect(model().hasErrors())
@@ -95,7 +95,7 @@ public class AddUniverseServerRequestControllerTest extends BaseTest {
         // Invalid server address.
         mockMvc.perform(post("/request/universe_server/add")
                         .param("serverAddress", "INVALID_SERVER_ADDRESS")
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                        .contentType(APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_FORM_PAGE))
                 .andExpect(model().hasErrors())
@@ -110,7 +110,7 @@ public class AddUniverseServerRequestControllerTest extends BaseTest {
         AtomicReference<AddUniverseServerRequestDTO> request = new AtomicReference<>();
         mockMvc.perform(post("/request/universe_server/add")
                         .param("serverAddress", "1.1.1.1:8080")
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                        .contentType(APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_SUCCESS_PAGE))
                 .andExpect(flash().attribute(FORM_ATTRIBUTE, hasProperty("serverAddress", equalTo("1.1.1.1:8080").toString())))
@@ -138,7 +138,7 @@ public class AddUniverseServerRequestControllerTest extends BaseTest {
         // Issue with 52.23.192.176:8089 or https://universe.tiramisuwallet.com:8089/ not working.
         mockMvc.perform(post("/request/universe_server/add")
                         .param("serverAddress", "52.23.192.176:8089")
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                        .contentType(APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_SUCCESS_PAGE))
                 .andExpect(model().attributeExists(RESULT_ATTRIBUTE))
@@ -146,7 +146,7 @@ public class AddUniverseServerRequestControllerTest extends BaseTest {
 
         mockMvc.perform(post("/request/universe_server/add")
                         .param("serverAddress", "https://universe.tiramisuwallet.com:8089")
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                        .contentType(APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
                 .andExpect(view().name(ADD_UNIVERSE_SERVER_REQUEST_SUCCESS_PAGE))
                 .andExpect(model().attributeExists(RESULT_ATTRIBUTE))

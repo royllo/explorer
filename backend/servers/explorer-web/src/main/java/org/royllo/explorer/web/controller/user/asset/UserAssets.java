@@ -83,7 +83,7 @@ public class UserAssets extends BaseController {
             // If the user tries to access an asset he doesn't own, we throw an exception.
             if (!asset.get().getCreator().getUsername().equals(currentUser.getUsername())) {
                 logger.error("User {} tried to access asset {} he doesn't own", currentUser.getUsername(), assetId);
-                throw new ResponseStatusException(UNAUTHORIZED, "You don't own to this asset");
+                throw new ResponseStatusException(UNAUTHORIZED, "You don't own this asset: " + assetId);
             }
 
             // Ok, it exists and the user owns it, we can show the form.
@@ -118,13 +118,15 @@ public class UserAssets extends BaseController {
                                 final BindingResult bindingResult) {
 
         // Getting the asset
+        System.out.println("FORM " + form.getAssetId());
+
         Optional<AssetDTO> asset = assetService.getAssetByAssetId(form.getAssetId());
         if (asset.isPresent()) {
 
             // If the user tries to access an asset he doesn't own, we throw an exception.
             if (!asset.get().getCreator().getUsername().equals(currentUser.getUsername())) {
                 logger.error("User {} tried to access asset {} he doesn't own", currentUser.getUsername(), form.getAssetId());
-                throw new ResponseStatusException(UNAUTHORIZED, "You don't own to this asset");
+                throw new ResponseStatusException(UNAUTHORIZED, "You don't own this asset: " + form.getAssetId());
             }
 
             // We set the value we are displaying.

@@ -103,8 +103,8 @@ public class DisplayTrickyRoylloCoinTest extends BaseTest {
                 .andExpect(view().name(containsString(ASSET_README_PAGE)))
                 // Checking readme page.
                 .andExpect(content().string(containsString(getMessage(messages, "asset.data.readme"))))
-                .andExpect(content().string(containsString(getMessage(messages, "asset.data.readme.noReadme"))))
-                .andExpect(content().string(not(containsString(getMessage(messages, "asset.data.readme.explanation")))))
+                .andExpect(content().string(containsString(getMessage(messages, "asset.data.readme.explanation"))))
+                .andExpect(content().string(containsString("This is a tricky coin!")))
                 // No error messages.
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.noAssetId")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "asset.view.error.assetNotFound")))));

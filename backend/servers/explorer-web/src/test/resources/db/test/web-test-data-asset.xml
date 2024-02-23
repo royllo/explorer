@@ -93,6 +93,7 @@
             <column name="version" valueNumeric="0"/>
             <column name="asset_type" value="NORMAL"/>
             <column name="amount" valueNumeric="11000"/>
+            <column name="readme" value="This is a tricky coin!"/>
             <column name="created_on" valueDate="2023-10-27T19:26:26.98689"/>
             <column name="updated_on"/>
         </insert>
