@@ -64,10 +64,10 @@
 
         <!-- ======================================================================================================= -->
         <!-- Project libraries -->
-        <spring.version>3.2.2</spring.version>
+        <spring.version>3.2.3</spring.version>
 
         <graphql-dgs-platform-dependencies.version>8.3.1</graphql-dgs-platform-dependencies.version>
-        <graphql-dgs-codegen-core.version>6.1.4</graphql-dgs-codegen-core.version>
+        <graphql-dgs-codegen-core.version>6.1.5</graphql-dgs-codegen-core.version>
         <graphql-dgs-codegen-client-core.version>5.1.17</graphql-dgs-codegen-client-core.version>
 
         <liquibase.version>4.26.0</liquibase.version>
@@ -88,7 +88,7 @@
 
         <!-- ======================================================================================================= -->
         <!-- Web libraries -->
-        <bucket4j-core.version>8.8.0</bucket4j-core.version>
+        <bucket4j-core.version>8.9.0</bucket4j-core.version>
         <caffeine.version>3.1.8</caffeine.version>
 
         <thymeleaf-layout-dialect.version>3.3.0</thymeleaf-layout-dialect.version>
@@ -182,7 +182,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.2</version>
+        <version>3.2.3</version>
         <relativePath/>
     </parent>
     <!-- =========================================================================================================== -->
