@@ -53,4 +53,12 @@ public interface TapdService {
                                                    String assetId,
                                                    ProofType proofType);
 
+    /**
+     * Returns the ownership verify response.
+     *
+     * @param proofWithWitness proof
+     * @return response
+     */
+    Mono<OwnershipVerifyResponse> ownershipVerify(String proofWithWitness);
+
 }

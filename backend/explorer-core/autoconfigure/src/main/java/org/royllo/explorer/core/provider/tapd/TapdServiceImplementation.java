@@ -164,4 +164,34 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
                 .next();
     }
 
+    @Override
+    public final Mono<OwnershipVerifyResponse> ownershipVerify(final String proofWithWitness) {
+        logger.info("Verify asset ownership with the proof {}", proofWithWitness);
+        HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
+
+        // Consume a token from the token bucket.
+        // If a token is not available this method will block until the refill adds one to the bucket.
+        try {
+            bucket.asBlocking().consume(1);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        return WebClient.builder()
+                .codecs(clientCodecConfigurer -> clientCodecConfigurer.defaultCodecs().maxInMemorySize(CODEC_MAXIMUM_SIZE))
+                .clientConnector(new ReactorClientHttpConnector(httpClient))
+                .baseUrl(tapdParameters.getApi().getBaseUrl())
+                .build()
+                .post()
+                .uri("/v1/taproot-assets/wallet/ownership/verify")
+                .header("Grpc-Metadata-macaroon", tapdParameters.getApi().getMacaroon())
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromValue(OwnershipVerifyRequest.builder()
+                        .proofWithWitness(proofWithWitness)
+                        .build()
+                ))
+                .exchangeToFlux(response -> response.bodyToFlux(OwnershipVerifyResponse.class))
+                .next();
+    }
+
 }
