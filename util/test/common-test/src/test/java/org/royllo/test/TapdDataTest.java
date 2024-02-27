@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.royllo.test.tapd.asset.AssetValue;
 import org.royllo.test.tapd.asset.DecodedProofValue;
 import org.royllo.test.tapd.asset.DecodedProofValueResponse;
+import org.royllo.test.tapd.wallet.OwnershipVerifyResponse;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -13,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.SET_OF_ROYLLO_NFT_1_ASSET_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
@@ -135,6 +137,34 @@ public class TapdDataTest {
         final DecodedProofValueResponse.DecodedProof setOfRoylloNFT1 = TapdData.findAssetValueByAssetId(SET_OF_ROYLLO_NFT_1_ASSET_ID).getDecodedProofResponse(0);
         assertNotNull(setOfRoylloNFT1.getAsset().getAssetGroup());
         assertEquals("039511fd8c1f51acfbd85d9d742268d1ca03ce3b69d0436e71130192c085394c99", setOfRoylloNFT1.getAsset().getAssetGroup().getTweakedGroupKey());
+    }
+
+    @Test
+    @DisplayName("OwnershipTest1 - Request and response values")
+    public void OwnershipTest1Values() {
+        assertEquals(2, TapdData.OWNERSHIP_VERIFY_REQUESTS.size());
+
+        // Valid value.
+        final var first = TapdData.OWNERSHIP_VERIFY_REQUESTS.entrySet()
+                .stream()
+                .filter(value -> value.getKey().getProofWithWitness().startsWith("544150500004"))
+                .findFirst();
+        assertTrue(first.isPresent());
+        final OwnershipVerifyResponse response1 = first.get().getValue();
+        assertNull(response1.getErrorCode());
+        assertNull(response1.getErrorMessage());
+        assertTrue(response1.getValidProof());
+
+        // Error value.
+        final var second = TapdData.OWNERSHIP_VERIFY_REQUESTS.entrySet()
+                .stream()
+                .filter(value -> value.getKey().getProofWithWitness().startsWith("INVALID_PROOF"))
+                .findFirst();
+        assertTrue(second.isPresent());
+        final OwnershipVerifyResponse response2 = second.get().getValue();
+        assertNotNull(response2.getErrorCode());
+        assertNotNull(response2.getErrorMessage());
+        assertNull(response2.getValidProof());
     }
 
 }

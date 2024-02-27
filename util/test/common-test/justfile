@@ -21,22 +21,22 @@ retrieve_local_macaroon:
 retrieve_tesnet_macaroon:
     rm -f ./src/main/resources/tapd/admin-testnet.macaroon
     scp root@testnet.universe.royllo.org:/root/admin.macaroon ./src/main/resources/tapd/admin-testnet.macaroon
-    curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./src/main/resources/tapd/admin-testnet.macaroon)" \
-            -X POST --insecure https://testnet.universe.royllo.org:8089/v1/taproot-assets/getinfo | jq
     echo $(xxd -ps -u -c 1000 ./src/main/resources/tapd/admin-testnet.macaroon)
+    curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./src/main/resources/tapd/admin-testnet.macaroon)" \
+            -X GET --insecure https://testnet.universe.royllo.org:8089/v1/taproot-assets/getinfo | jq
 
 retrieve_mainnet_macaroon:
     rm -f ./src/main/resources/tapd/admin-testnet.macaroon
     scp root@universe.royllo.org:/root/admin.macaroon ./src/main/resources/tapd/admin-mainnet.macaroon
+    echo $(xxd -ps -u -c 1000 ./src/main/resources/tapd/admin-mainnet.macaroon)
     curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./src/main/resources/tapd/admin-mainnet.macaroon)" \
             -X POST --insecure https://universe.royllo.org:8089/v1/taproot-assets/getinfo | jq
-    echo $(xxd -ps -u -c 1000 ./src/main/resources/tapd/admin-mainnet.macaroon)
 
 retrieve_royllo_testnet_universe_roots:
-    curl --insecure https://testnet.universe.royllo.org:8089/v1/taproot-assets/universe/roots | jq
+    curl --insecure https://testnet.universe.royllo.org:8089/v1/taproot-assets/universe/roots?limit=100 | jq
 
 retrieve_royllo_mainnet_universe_roots:
-    curl --insecure https://universe.royllo.org:8089/v1/taproot-assets/universe/roots | jq
+    curl --insecure https://universe.royllo.org:8089/v1/taproot-assets/universe/roots?limit=100 | jq
 
 retrieve_lighting_labs_mainnet_universe_roots:
     curl --insecure https://universe.lightning.finance/v1/taproot-assets/universe/roots?limit=100 | jq
@@ -256,7 +256,16 @@ generate_ownership_proof:
             jq > src/main/resources/tapd/assets/ownershipTest1/ownership-prove-response.json
 
     curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./src/main/resources/tapd/admin-local.macaroon)" \
-            --data @src/main/resources/tapd/assets/ownershipTest1/ownership-prove-response.json \
+            --data @src/main/resources/tapd/assets/ownershipTest1/ownership-verify-request.json \
             --insecure https://localhost:8089/v1/taproot-assets/wallet/ownership/verify | \
             jq > src/main/resources/tapd/assets/ownershipTest1/ownership-verify-response.json
 
+    curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./src/main/resources/tapd/admin-local.macaroon)" \
+            --data @src/main/resources/tapd/assets/ownershipTest1/ownership-verify-request-with-error.json \
+            --insecure https://localhost:8089/v1/taproot-assets/wallet/ownership/verify | \
+            jq > src/main/resources/tapd/assets/ownershipTest1/ownership-verify-response-with-error.json
+
+    curl    --header "Grpc-Metadata-macaroon: $(xxd -ps -u -c 1000 ./src/main/resources/tapd/admin-testnet.macaroon)" \
+            --data @src/main/resources/tapd/assets/ownershipTest1/ownership-verify-request.json \
+            --insecure https://testnet.universe.royllo.org:8089/v1/taproot-assets/wallet/ownership/verify | \
+            jq

@@ -2,12 +2,13 @@ package org.royllo.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mockserver.integration.ClientAndServer;
-import org.mockserver.matchers.MatchType;
 import org.mockserver.model.JsonBody;
 import org.royllo.test.tapd.asset.AssetValue;
 import org.royllo.test.tapd.asset.DecodedProofValue;
 import org.royllo.test.tapd.asset.DecodedProofValueRequest;
 import org.royllo.test.tapd.asset.DecodedProofValueResponse;
+import org.royllo.test.tapd.wallet.OwnershipVerifyRequest;
+import org.royllo.test.tapd.wallet.OwnershipVerifyResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +19,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static org.mockserver.matchers.MatchType.ONLY_MATCHING_FIELDS;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 import static org.mockserver.model.MediaType.APPLICATION_JSON;
@@ -82,6 +84,9 @@ public class TapdData {
 
     /** Contains all assets and contains decoded proofs (request and response). */
     private static final Map<String, AssetValue> ASSETS = new LinkedHashMap<>();
+
+    /** Contains all ownership verify requests. */
+    public static final Map<OwnershipVerifyRequest, OwnershipVerifyResponse> OWNERSHIP_VERIFY_REQUESTS = new LinkedHashMap<>();
 
     // Initialisation - We load assets from files.
     static {
@@ -168,6 +173,24 @@ public class TapdData {
         invalidProof.addDecodedProofValue(getDecodedProofValue("invalidProof", 1, 0, false));
         ASSETS.put("invalidProof", invalidProof);
 
+        // =============================================================================================================
+        // OwnershipTest1.
+        LOGGER.info("Loading ownershipTest1...");
+        try {
+            // Ownership verify - Working.
+            OwnershipVerifyRequest request1 = getOwnershipVerifyRequestFromFile("/tapd/assets/ownershipTest1/ownership-verify-request.json");
+            OwnershipVerifyResponse response1 = getOwnershipVerifyResponseFromFile("/tapd/assets/ownershipTest1/ownership-verify-response.json");
+            OWNERSHIP_VERIFY_REQUESTS.put(request1, response1);
+
+            // Ownership verify - Error.
+            OwnershipVerifyRequest request2 = getOwnershipVerifyRequestFromFile("/tapd/assets/ownershipTest1/ownership-verify-request-with-error.json");
+            OwnershipVerifyResponse response2 = getOwnershipVerifyResponseFromFile("/tapd/assets/ownershipTest1/ownership-verify-response-with-error.json");
+            OWNERSHIP_VERIFY_REQUESTS.put(request2, response2);
+
+        } catch (IOException e) {
+            LOGGER.error("Error loading ownershipTest1: {}", e.getMessage());
+        }
+
         LOGGER.info("TapdData loaded.");
     }
 
@@ -228,7 +251,7 @@ public class TapdData {
                                                 + "\"proof_at_depth\" : " + entry.getValue().getDecodedProofValuesWithoutMetaReveal().get(index).getRequest().getProofAtDepth() + ","
                                                 + "\"with_meta_reveal\" : " + entry.getValue().getDecodedProofValuesWithoutMetaReveal().get(index).getRequest().isWithMetaReveal()
                                                 + "}",
-                                        MatchType.ONLY_MATCHING_FIELDS
+                                        ONLY_MATCHING_FIELDS
                                 )
                         ))
                         .respond(response().withStatusCode(200)
@@ -247,7 +270,7 @@ public class TapdData {
                                                 + "\"proof_at_depth\" : " + entry.getValue().getDecodedProofValuesWithMetaReveal().get(index).getRequest().getProofAtDepth() + ","
                                                 + "\"with_meta_reveal\" : " + entry.getValue().getDecodedProofValuesWithMetaReveal().get(index).getRequest().isWithMetaReveal()
                                                 + "}",
-                                        MatchType.ONLY_MATCHING_FIELDS
+                                        ONLY_MATCHING_FIELDS
                                 )
                         ))
                         .respond(response().withStatusCode(200)
@@ -255,6 +278,22 @@ public class TapdData {
                                 .withBody(entry.getValue().getDecodedProofValuesWithMetaReveal().get(index).getJSONResponse()));
             });
         }
+
+        // Adding all ownership verify requests to the mock server.
+        OWNERSHIP_VERIFY_REQUESTS.forEach((request, response) -> {
+            mockServer.when(request().withBody(
+                            JsonBody.json(
+                                    "{"
+                                            + "\"proof_with_witness\" : \"" + request.getProofWithWitness() + "\""
+                                            + "}",
+                                    ONLY_MATCHING_FIELDS
+                            )
+                    ))
+                    .respond(response().withStatusCode(200)
+                            .withContentType(APPLICATION_JSON)
+                            .withBody(response.getJSONResponse()));
+        });
+
     }
 
     /**
@@ -308,6 +347,30 @@ public class TapdData {
     private static DecodedProofValueResponse getDecodedProofResponseFromFile(final String filePath) throws IOException {
         InputStream inputStream = TapdData.class.getResourceAsStream(filePath);
         return new ObjectMapper().readValue(inputStream, DecodedProofValueResponse.class);
+    }
+
+    /**
+     * Returns an ownership verify request loaded from a file.
+     *
+     * @param filePath file path
+     * @return ownership verify request
+     * @throws IOException file not found
+     */
+    public static OwnershipVerifyRequest getOwnershipVerifyRequestFromFile(final String filePath) throws IOException {
+        InputStream inputStream = TapdData.class.getResourceAsStream(filePath);
+        return new ObjectMapper().readValue(inputStream, OwnershipVerifyRequest.class);
+    }
+
+    /**
+     * Returns an ownership verify response loaded from a file.
+     *
+     * @param filePath file path
+     * @return ownership verify response
+     * @throws IOException file not found
+     */
+    private static OwnershipVerifyResponse getOwnershipVerifyResponseFromFile(final String filePath) throws IOException {
+        InputStream inputStream = TapdData.class.getResourceAsStream(filePath);
+        return new ObjectMapper().readValue(inputStream, OwnershipVerifyResponse.class);
     }
 
 }

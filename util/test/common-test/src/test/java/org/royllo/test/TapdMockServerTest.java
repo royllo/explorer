@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockserver.integration.ClientAndServer;
 import org.royllo.test.tapd.asset.AssetValue;
+import org.royllo.test.tapd.wallet.OwnershipVerifyRequest;
 
 import java.io.IOException;
 
@@ -19,6 +20,7 @@ import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_TXID;
 import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_VOUT;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
+import static org.royllo.test.TapdData.getOwnershipVerifyRequestFromFile;
 
 /**
  * Tapd mock server test.
@@ -76,6 +78,39 @@ public class TapdMockServerTest {
         }
 
         tapdMockServer.stop();
+    }
+
+    @Test
+    @DisplayName("Mock server ownership/verify response")
+    public void ownershipVerify() throws IOException {
+        final ClientAndServer tapdMockServer = ClientAndServer.startClientAndServer(MOCK_SERVER_PORT);
+        TapdData.setMockServerRules(tapdMockServer);
+        var client = new OkHttpClient();
+
+        // Testing valid response.
+        OwnershipVerifyRequest request1 = getOwnershipVerifyRequestFromFile("/tapd/assets/ownershipTest1/ownership-verify-request.json");
+        Request request = new Request.Builder()
+                .url("http://localhost:" + MOCK_SERVER_PORT + "/v1/taproot-assets/wallet/ownership/verify")
+                .post(RequestBody.create(request1.getJSONRequest(), MediaType.parse("application/json; charset=utf-8")))
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertTrue(response.body().string().contains("\"valid_proof\" : true"));
+        } catch (IOException e) {
+            fail("Error while calling the mock server");
+        }
+
+        // Testing invalid response.
+        OwnershipVerifyRequest request2 = getOwnershipVerifyRequestFromFile("/tapd/assets/ownershipTest1/ownership-verify-request-with-error.json");
+        request = new Request.Builder()
+                .url("http://localhost:" + MOCK_SERVER_PORT + "/v1/taproot-assets/wallet/ownership/verify")
+                .post(RequestBody.create(request2.getJSONRequest(), MediaType.parse("application/json; charset=utf-8")))
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            assertTrue(response.body().string().contains("proto: (line 1:26): invalid value for bytes type:"));
+        } catch (IOException e) {
+            fail("Error while calling the mock server");
+        }
+
     }
 
 }
