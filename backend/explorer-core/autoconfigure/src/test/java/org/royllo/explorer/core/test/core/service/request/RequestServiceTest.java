@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
+import org.royllo.explorer.core.dto.request.ClaimOwnershipRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.service.request.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -203,6 +204,29 @@ public class RequestServiceTest {
         AddProofRequestDTO request6DTO = requestService.createAddProofRequest("proof", PROOF_TYPE_TRANSFER);
         assertNotNull(request6DTO.getId());
         assertEquals(PROOF_TYPE_TRANSFER, request6DTO.getProofType());
+
+        // =============================================================================================================
+        // Request 7 (ClaimOwnershipRequest).
+        RequestDTO request7DTO = requestService.createClaimOwnershipRequest("22222222-2222-2222-2222-222222222222",
+                "MyProofWithWitness");
+        assertNotNull(request7DTO);
+        long request7Id = request7DTO.getId();
+
+        // Use getRequest().
+        Optional<RequestDTO> request7 = requestService.getRequest(request7Id);
+        assertTrue(request7.isPresent());
+        assertInstanceOf(ClaimOwnershipRequestDTO.class, request7.get());
+
+        // We cast and check of all the data is here.
+        ClaimOwnershipRequestDTO request7Casted = (ClaimOwnershipRequestDTO) request7.get();
+        assertEquals(request7Id, request7Casted.getId());
+        assertNotNull(request7Casted.getRequestId());
+        assertEquals(2, request7Casted.getCreator().getId());
+        assertEquals("22222222-2222-2222-2222-222222222222", request7Casted.getCreator().getUserId());
+        assertEquals("straumat", request7Casted.getCreator().getUsername());
+        assertEquals(OPENED, request7Casted.getStatus());
+        assertNull(request7Casted.getErrorMessage());
+        assertEquals("MyProofWithWitness", request7Casted.getProofWithWitness());
     }
 
 }

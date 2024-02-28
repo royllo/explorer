@@ -4,9 +4,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.royllo.explorer.core.domain.request.AddProofRequest;
 import org.royllo.explorer.core.domain.request.AddUniverseServerRequest;
+import org.royllo.explorer.core.domain.request.ClaimOwnershipRequest;
 import org.royllo.explorer.core.domain.request.Request;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
+import org.royllo.explorer.core.dto.request.ClaimOwnershipRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 
 import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
@@ -28,6 +30,9 @@ public interface RequestMapper {
         if (source instanceof AddUniverseServerRequest) {
             return mapToAddUniverseServerRequestDTO((AddUniverseServerRequest) source);
         }
+        if (source instanceof ClaimOwnershipRequest) {
+            return mapToClaimOwnershipRequestDTO((ClaimOwnershipRequest) source);
+        }
         return null;
     }
 
@@ -46,5 +51,14 @@ public interface RequestMapper {
     AddUniverseServerRequest mapToAddUniverseServerRequest(AddUniverseServerRequestDTO source);
 
     AddUniverseServerRequestDTO mapToAddUniverseServerRequestDTO(AddUniverseServerRequest source);
+
+    // =================================================================================================================
+    // Claim ownership mapper.
+
+    @Mapping(target = "createdOn", ignore = true)
+    @Mapping(target = "updatedOn", ignore = true)
+    ClaimOwnershipRequest mapToClaimOwnershipRequest(ClaimOwnershipRequestDTO source);
+
+    ClaimOwnershipRequestDTO mapToClaimOwnershipRequestDTO(ClaimOwnershipRequest source);
 
 }

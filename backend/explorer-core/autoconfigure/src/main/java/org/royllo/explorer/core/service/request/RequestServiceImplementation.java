@@ -2,13 +2,18 @@ package org.royllo.explorer.core.service.request;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.AssertionFailure;
 import org.royllo.explorer.core.domain.request.AddProofRequest;
 import org.royllo.explorer.core.domain.request.AddUniverseServerRequest;
+import org.royllo.explorer.core.domain.request.ClaimOwnershipRequest;
 import org.royllo.explorer.core.domain.request.Request;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
+import org.royllo.explorer.core.dto.request.ClaimOwnershipRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
+import org.royllo.explorer.core.dto.user.UserDTO;
 import org.royllo.explorer.core.repository.request.RequestRepository;
+import org.royllo.explorer.core.service.user.UserService;
 import org.royllo.explorer.core.util.base.BaseService;
 import org.royllo.explorer.core.util.enums.ProofType;
 import org.springframework.data.domain.Pageable;
@@ -37,6 +42,9 @@ public class RequestServiceImplementation extends BaseService implements Request
 
     /** Request repository. */
     private final RequestRepository requestRepository;
+
+    /** User service. */
+    private final UserService userService;
 
     @Override
     public List<RequestDTO> getOpenedRequests() {
@@ -117,7 +125,7 @@ public class RequestServiceImplementation extends BaseService implements Request
 
     @Override
     public AddUniverseServerRequestDTO createAddUniverseServerRequest(@NonNull final String serverAddress) {
-        logger.info("Adding universe server {}", serverAddress);
+        logger.info("Adding universe server request {}", serverAddress);
 
         // Creating and saving the request.
         AddUniverseServerRequest request = AddUniverseServerRequest.builder()
@@ -131,4 +139,26 @@ public class RequestServiceImplementation extends BaseService implements Request
         logger.info("Request {} saved", savedRequest);
         return savedRequest;
     }
+
+    @Override
+    public ClaimOwnershipRequestDTO createClaimOwnershipRequest(final String userId,
+                                                                final String proofWithWitness) {
+        logger.info("Adding claim ownership request {}", proofWithWitness);
+
+        // Getting the user
+        UserDTO user = userService.getUserByUserId(userId).orElseThrow(() -> new AssertionFailure("User not found: " + userId));
+
+        // Creating and saving the request.
+        ClaimOwnershipRequest request = ClaimOwnershipRequest.builder()
+                .requestId(UUID.randomUUID().toString())
+                .creator(USER_MAPPER.mapToUser(user))
+                .status(OPENED)
+                .proofWithWitness(proofWithWitness)
+                .build();
+
+        ClaimOwnershipRequestDTO savedRequest = REQUEST_MAPPER.mapToClaimOwnershipRequestDTO(requestRepository.save(request));
+        logger.info("Request {} saved", savedRequest);
+        return savedRequest;
+    }
+
 }

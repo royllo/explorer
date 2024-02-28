@@ -2,6 +2,7 @@ package org.royllo.explorer.core.service.request;
 
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
+import org.royllo.explorer.core.dto.request.ClaimOwnershipRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.util.enums.ProofType;
 
@@ -50,7 +51,7 @@ public interface RequestService {
      *
      * @param proof     proof that validates the asset information
      * @param proofType proof type
-     * @return id of the request created
+     * @return Request created
      */
     AddProofRequestDTO createAddProofRequest(String proof, ProofType proofType);
 
@@ -58,8 +59,18 @@ public interface RequestService {
      * Creates a request to add a royllo universe server to royllo database.
      *
      * @param serverAddress server address
-     * @return id of the request created
+     * @return Request created
      */
     AddUniverseServerRequestDTO createAddUniverseServerRequest(String serverAddress);
+
+    /**
+     * Creates a request to claim ownership of an existing asset in royllo database.
+     *
+     * @param userId           user id
+     * @param proofWithWitness proof with witness
+     * @return Request created
+     */
+    ClaimOwnershipRequestDTO createClaimOwnershipRequest(String userId,
+                                                         String proofWithWitness);
 
 }
