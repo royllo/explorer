@@ -56,7 +56,7 @@ public interface AssetStateMapper {
     @Mapping(source = "splitRootProof", target = "splitRootProof")
     @Mapping(source = "challengeWitness", target = "challengeWitness")
 
-    @Mapping(source = "issuance", target = "issuance")
+    @Mapping(source = "asset.issuance", target = "issuance")
     AssetStateDTO mapToAssetStateDTO(DecodedProofResponse.DecodedProof source);
 
 }

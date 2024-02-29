@@ -7,6 +7,8 @@ import lombok.Value;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collections;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -50,6 +52,21 @@ public class BitcoinTransactionOutputDTO {
 
     /** Value is the number of Satoshi (1 BTC = 100,000,000 Satoshi). */
     BigInteger value;
+
+    /**
+     * Byte reversed tx id.
+     *
+     * @return byte-reverse tx id
+     */
+    public String getByteReverseTxId() {
+        if (txId == null) {
+            return null;
+        } else {
+            String[] matches = txId.split("(?<=\\G..)");
+            Collections.reverse(Arrays.asList(matches));
+            return String.join("", matches);
+        }
+    }
 
     /**
      * To string (only display txid-vout).

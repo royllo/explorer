@@ -142,7 +142,7 @@ public class TapdDataTest {
     @Test
     @DisplayName("OwnershipTest1 - Request and response values")
     public void OwnershipTest1Values() {
-        assertEquals(2, TapdData.OWNERSHIP_VERIFY_REQUESTS.size());
+        assertEquals(4, TapdData.OWNERSHIP_VERIFY_REQUESTS.size());
 
         // Valid value.
         final var first = TapdData.OWNERSHIP_VERIFY_REQUESTS.entrySet()
@@ -165,6 +165,21 @@ public class TapdDataTest {
         assertNotNull(response2.getErrorCode());
         assertNotNull(response2.getErrorMessage());
         assertNull(response2.getValidProof());
+    }
+
+    @Test
+    @DisplayName("isIssuance() on decoded proof")
+    public void isIssuance() {
+        final AssetValue roylloCoin = TapdData.findAssetValueByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID);
+        assertNotNull(roylloCoin);
+
+        // The first decoded proof is an issuance.
+        final var roylloCoinProof1 = roylloCoin.getDecodedProofResponse(0);
+        assertTrue(roylloCoinProof1.getAsset().isIssuance());
+
+        // The other one is not.
+        final var roylloCoinProof2 = roylloCoin.getDecodedProofResponse(1);
+        assertFalse(roylloCoinProof2.getAsset().isIssuance());
     }
 
 }

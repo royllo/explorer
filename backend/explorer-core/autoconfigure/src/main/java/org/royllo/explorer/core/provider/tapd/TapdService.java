@@ -59,6 +59,6 @@ public interface TapdService {
      * @param proofWithWitness proof
      * @return response
      */
-    Mono<OwnershipVerifyResponse> ownershipVerify(String proofWithWitness);
+    Mono<OwnershipVerifyResponse> verifyOwnership(String proofWithWitness);
 
 }

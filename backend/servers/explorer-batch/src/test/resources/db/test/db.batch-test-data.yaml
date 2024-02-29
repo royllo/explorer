@@ -6,3 +6,5 @@ databaseChangeLog:
   # Tests data.
   - include:
       file: /db/test/batch-test-data-universe_server.xml
+  - include:
+      file: /db/test/api-test-data-application_user.xml

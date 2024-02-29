@@ -143,6 +143,24 @@ public class TapdData {
         TRICKY_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("trickyRoylloCoin", 3, 2, true));
         TRICKY_ROYLLO_COIN_FROM_TEST.addDecodedProofValue(getDecodedProofValue("trickyRoylloCoin", 3, 2, false));
         ASSETS.put(TRICKY_ROYLLO_COIN_ASSET_ID, TRICKY_ROYLLO_COIN_FROM_TEST);
+        final String trickyRoylloCoinBase = "/tapd/assets/trickyRoylloCoin/";
+        try {
+            OWNERSHIP_VERIFY_REQUESTS.put(
+                    getOwnershipVerifyRequestFromFile(trickyRoylloCoinBase + "ownership-verify-error-request.json"),
+                    getOwnershipVerifyResponseFromFile(trickyRoylloCoinBase + "ownership-verify-error-response.json")
+            );
+            OWNERSHIP_VERIFY_REQUESTS.put(
+                    getOwnershipVerifyRequestFromFile(trickyRoylloCoinBase + "ownership-verify-negative-request.json"),
+                    getOwnershipVerifyResponseFromFile(trickyRoylloCoinBase + "ownership-verify-negative-response.json")
+            );
+            OWNERSHIP_VERIFY_REQUESTS.put(
+                    getOwnershipVerifyRequestFromFile(trickyRoylloCoinBase + "ownership-verify-positive-request.json"),
+                    getOwnershipVerifyResponseFromFile(trickyRoylloCoinBase + "ownership-verify-positive-response.json")
+            );
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
 
         // =============================================================================================================
         // UnknownRoylloCoin.

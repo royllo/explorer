@@ -60,15 +60,6 @@ public class DecodedProofResponse {
         @JsonProperty("meta_reveal")
         Asset.MetaReveal metaReveal;
 
-        /**
-         * Indicates whether this proof is an issuance.
-         *
-         * @return true if issuance
-         */
-        public boolean isIssuance() {
-            return metaReveal != null;
-        }
-
         /** The merkle proof for AnchorTx used to prove its inclusion within BlockHeader. */
         @JsonProperty("tx_merkle_proof")
         String txMerkleProof;
@@ -97,7 +88,6 @@ public class DecodedProofResponse {
         @JsonProperty("is_burn")
         Boolean isBurn;
 
-        @SuppressWarnings("unused")
         @Getter
         @Setter
         @NoArgsConstructor
@@ -162,6 +152,27 @@ public class DecodedProofResponse {
             Boolean isBurn;
 
             /**
+             * Indicate if the decoded proof is an issuance.
+             *
+             * @return true if issuance
+             */
+            public boolean isIssuance() {
+                // Check for null.
+                if (prevWitnesses == null || prevWitnesses.isEmpty()) {
+                    return false;
+                }
+                // Prev witness
+                var prevWitness = prevWitnesses.getFirst();
+                if (prevWitness.getPrevId() == null) {
+                    return false;
+                }
+                // Check if it's an issuance as described here:
+                // https://github.com/lightninglabs/taproot-assets/issues/750
+                return "0000000000000000000000000000000000000000000000000000000000000000:0".equals(prevWitness.getPrevId().getAnchorPoint())
+                        && prevWitness.getSplitCommitment() == null;
+            }
+
+            /**
              * If the asset has been leased, this is the expiry of the lease as a Unix timestamp in seconds.
              *
              * @return lease expiry timestamp
@@ -183,7 +194,6 @@ public class DecodedProofResponse {
              *
              * @return asset state id (calculated)
              */
-            @SuppressWarnings("DuplicatedCode")
             public String getAssetStateId() {
                 // If we are in an asset state creation, asset state id is null, so we calculate it.
                 // We calculate the asset state id here.
@@ -200,7 +210,6 @@ public class DecodedProofResponse {
                 }
             }
 
-            @SuppressWarnings("unused")
             @Getter
             @Setter
             @NoArgsConstructor
@@ -229,9 +238,26 @@ public class DecodedProofResponse {
             @JsonIgnoreProperties(ignoreUnknown = true)
             public static class PrevWitness {
 
+                /** The previous witness. */
+                @JsonProperty("prev_id")
+                private PrevId prevId;
+
                 /** Split commitment. */
                 @JsonProperty("split_commitment")
                 private SplitCommitment splitCommitment;
+
+            }
+
+            @Getter
+            @Setter
+            @NoArgsConstructor
+            @ToString
+            @JsonIgnoreProperties(ignoreUnknown = true)
+            public static class PrevId {
+
+                /** Anchor point. */
+                @JsonProperty("anchor_point")
+                private String anchorPoint;
 
             }
 

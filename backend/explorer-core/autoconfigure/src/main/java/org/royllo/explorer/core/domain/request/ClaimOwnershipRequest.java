@@ -24,7 +24,7 @@ import lombok.experimental.SuperBuilder;
 public class ClaimOwnershipRequest extends Request {
 
     /** Proof with witness. */
-    @Column(name = "PROOF_WITH_WITNESS", updatable = false)
+    @Column(name = "PROOF_WITH_WITNESS")
     private String proofWithWitness;
 
 }

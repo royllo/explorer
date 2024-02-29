@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -127,14 +126,13 @@ public class TapdDecodeServiceTest {
         assertEquals("747269636b79526f796c6c6f436f696e20627920526f796c6c6f", response.getDecodedProof().getMetaReveal().getData());
         assertEquals("META_TYPE_OPAQUE", response.getDecodedProof().getMetaReveal().getType());
         assertEquals("13a16f12767ad6fbafcfd69fd12fc19747ac35749b1b6806c74dd4a07d2e4b41", response.getDecodedProof().getMetaReveal().getMetaHash());
-        assertTrue(response.getDecodedProof().isIssuance());
+        assertTrue(response.getDecodedProof().getAsset().isIssuance());
 
         // If we do the same without asking for meta reveal, we should not get it.
         response = tapdService.decode(issuanceProof1, 0, false).block();
         assertNotNull(response);
         assertNull(response.getErrorCode());
         assertNull(response.getDecodedProof().getMetaReveal());
-        assertFalse(response.getDecodedProof().isIssuance());
 
         // Proof file 2.
         // We get the proof file 2 (with two proofs) and we decode the last one, which is the issuance proof.

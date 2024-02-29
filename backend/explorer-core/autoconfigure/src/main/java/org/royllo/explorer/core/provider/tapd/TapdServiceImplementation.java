@@ -165,7 +165,7 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
     }
 
     @Override
-    public final Mono<OwnershipVerifyResponse> ownershipVerify(final String proofWithWitness) {
+    public final Mono<OwnershipVerifyResponse> verifyOwnership(final String proofWithWitness) {
         logger.info("Verify asset ownership with the proof {}", proofWithWitness);
         HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(getSslContext()));
 

@@ -26,7 +26,7 @@ public class AddUniverseServerBatch extends BaseBatch {
     /** Delay between two calls to process requests (1 000 ms = 1 second). */
     private static final int DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS = 1_000;
 
-    /** Taproot proof service. */
+    /** TapdService service. */
     private final TapdService tapdService;
 
     /** Request repository. */
@@ -43,6 +43,7 @@ public class AddUniverseServerBatch extends BaseBatch {
      */
     @Scheduled(initialDelay = START_DELAY_IN_MILLISECONDS, fixedDelay = DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS)
     public void processRequests() {
+        logger.info("Processing add universe requests");
         if (enabled.get()) {
             requestService.getOpenedRequests()
                     .stream()

@@ -22,7 +22,7 @@ public class TapdOwnershipServiceTest {
     private TapdService tapdService;
 
     @Test
-    @DisplayName("ownershipVerify()")
+    @DisplayName("verifyOwnership()")
     public void ownershipVerify() {
 
         // We retrieve the proof that works for the test - ownershipTest1.
@@ -33,7 +33,7 @@ public class TapdOwnershipServiceTest {
         assertTrue(validRequest.isPresent());
 
         // We verify the proof.
-        var result = tapdService.ownershipVerify(validRequest.get().getKey().getProofWithWitness()).block();
+        var result = tapdService.verifyOwnership(validRequest.get().getKey().getProofWithWitness()).block();
         assertNotNull(result);
         assertNull(result.getErrorCode());
         assertNull(result.getErrorMessage());
@@ -41,7 +41,7 @@ public class TapdOwnershipServiceTest {
 
         // We will try with the proof (not ownership proof) of roylloCoin (in mainnnet).
         final String ROYLLO_COIN_RAW_PROOF = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofRequest(0).getRawProof();
-        result = tapdService.ownershipVerify(ROYLLO_COIN_RAW_PROOF).block();
+        result = tapdService.verifyOwnership(ROYLLO_COIN_RAW_PROOF).block();
         assertNotNull(result);
         assertNotNull(result.getErrorCode());
         assertNotNull(result.getErrorMessage());

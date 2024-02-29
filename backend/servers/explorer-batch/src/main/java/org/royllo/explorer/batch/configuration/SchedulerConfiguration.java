@@ -34,7 +34,7 @@ public class SchedulerConfiguration extends BaseConfiguration {
         ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
         scheduler.setWaitForTasksToCompleteOnShutdown(true);
         scheduler.setAwaitTerminationMillis(TERMINATION_DELAY_IN_MILLISECONDS);
-        scheduler.setThreadNamePrefix("royllo-process-");
+        scheduler.setThreadNamePrefix("royllo-batch-");
         scheduler.setPoolSize(SCHEDULER_POOL_SIZE);
         scheduler.setErrorHandler(throwable -> {
             try {
