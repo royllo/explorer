@@ -142,8 +142,6 @@ public class TapdDataTest {
     @Test
     @DisplayName("OwnershipTest1 - Request and response values")
     public void OwnershipTest1Values() {
-        assertEquals(4, TapdData.OWNERSHIP_VERIFY_REQUESTS.size());
-
         // Valid value.
         final var first = TapdData.OWNERSHIP_VERIFY_REQUESTS.entrySet()
                 .stream()

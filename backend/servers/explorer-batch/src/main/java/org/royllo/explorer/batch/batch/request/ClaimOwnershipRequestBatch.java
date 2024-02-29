@@ -5,6 +5,7 @@ import org.royllo.explorer.batch.util.base.BaseBatch;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.request.ClaimOwnershipRequestDTO;
 import org.royllo.explorer.core.provider.tapd.TapdService;
+import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.asset.AssetStateService;
@@ -30,6 +31,9 @@ public class ClaimOwnershipRequestBatch extends BaseBatch {
 
     /** TapdService service. */
     private final TapdService tapdService;
+
+    /** Asset repository. */
+    private final AssetRepository assetRepository;
 
     /** Request repository. */
     private final RequestRepository requestRepository;
@@ -58,7 +62,6 @@ public class ClaimOwnershipRequestBatch extends BaseBatch {
                         logger.info("Processing request {}", request.getId());
                         // TODO Use a pattern to simplify this code.
 
-
                         // Calling the decode method on the provided proof to retrieve the values.
                         final var decodedProof = tapdService.decode(request.getProofWithWitness()).block();
                         if (decodedProof == null) {
@@ -76,8 +79,8 @@ public class ClaimOwnershipRequestBatch extends BaseBatch {
 
                                 // The proof is valid, we check if the proof is about an asset we have in database.
                                 final String assetId = decodedProof.getDecodedProof().getAsset().getAssetGenesis().getAssetId();
-                                Optional<AssetDTO> existingAssert = assetService.getAssetByAssetId(assetId);
-                                if (existingAssert.isEmpty()) {
+                                Optional<AssetDTO> existingAsset = assetService.getAssetByAssetId(assetId);
+                                if (existingAsset.isEmpty()) {
                                     logger.info("Request {} proof is not about an asset we have in database : {}", request.getId(), assetId);
                                     request.failure("This asset is not in our database, use 'Add proof' menu first");
                                 } else {
@@ -98,28 +101,40 @@ public class ClaimOwnershipRequestBatch extends BaseBatch {
                                         } else {
 
                                             // We check if there is an error code returned by the server when calling verifyOwnership().
-                                            if (ownership.getErrorCode() != null) {
+                                            if (ownership.getErrorCode() != null || ownership.getValidProof() == null) {
                                                 logger.info("Request {} ownership proof cannot be verified because of this error: {}",
                                                         request.getId(),
                                                         ownership.getErrorMessage());
                                                 request.failure(ownership.getErrorMessage());
                                             } else {
 
+                                                // Validating the ownership proof.
+                                                if (!ownership.getValidProof()) {
+                                                    logger.info("Request {} ownership proof is not valid", request.getId());
+                                                    request.failure("Ownership proof is not valid");
+                                                } else {
+                                                    // The proof is valid, we update the asset user and destroy the proof in the request.
+                                                    assetRepository.findByAssetId(existingAsset.get().getAssetId())
+                                                            .ifPresent(asset -> {
+                                                                asset.setCreator(USER_MAPPER.mapToUser(request.getCreator()));
+                                                                assetRepository.save(asset);
+                                                            });
+                                                    request.success();
+                                                }
+
                                                 // The proof is valid, we update the asset user and destroy the proof in the request.
                                                 // assetStateService.updateAssetUser(assetId, ownership.getDecodedOwnership().getNewUser());
+
                                                 //request.success();
 
                                             }
                                         }
 
-
                                     }
 
                                 }
 
-
                             }
-
 
                         }
 

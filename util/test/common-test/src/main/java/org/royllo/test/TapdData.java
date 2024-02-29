@@ -146,10 +146,6 @@ public class TapdData {
         final String trickyRoylloCoinBase = "/tapd/assets/trickyRoylloCoin/";
         try {
             OWNERSHIP_VERIFY_REQUESTS.put(
-                    getOwnershipVerifyRequestFromFile(trickyRoylloCoinBase + "ownership-verify-error-request.json"),
-                    getOwnershipVerifyResponseFromFile(trickyRoylloCoinBase + "ownership-verify-error-response.json")
-            );
-            OWNERSHIP_VERIFY_REQUESTS.put(
                     getOwnershipVerifyRequestFromFile(trickyRoylloCoinBase + "ownership-verify-negative-request.json"),
                     getOwnershipVerifyResponseFromFile(trickyRoylloCoinBase + "ownership-verify-negative-response.json")
             );
@@ -177,11 +173,29 @@ public class TapdData {
         UNLIMITED_ROYLLO_COIN_1_FROM_TEST.addDecodedProofValue(getDecodedProofValue("unlimitedRoylloCoin/firstEmission", 1, 0, true));
         UNLIMITED_ROYLLO_COIN_1_FROM_TEST.addDecodedProofValue(getDecodedProofValue("unlimitedRoylloCoin/firstEmission", 1, 0, false));
         ASSETS.put(UNLIMITED_ROYLLO_COIN_1_ASSET_ID, UNLIMITED_ROYLLO_COIN_1_FROM_TEST);
+        final String unlimitedRoylloCoinBaseFirstEmission = "/tapd/assets/unlimitedRoylloCoin/firstEmission/";
+        try {
+            OWNERSHIP_VERIFY_REQUESTS.put(
+                    getOwnershipVerifyRequestFromFile(unlimitedRoylloCoinBaseFirstEmission + "ownership-verify-error-request.json"),
+                    getOwnershipVerifyResponseFromFile(unlimitedRoylloCoinBaseFirstEmission + "ownership-verify-error-response.json")
+            );
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         UNLIMITED_ROYLLO_COIN_2_FROM_TEST = new AssetValue();
         UNLIMITED_ROYLLO_COIN_2_FROM_TEST.addDecodedProofValue(getDecodedProofValue("unlimitedRoylloCoin/secondEmission", 1, 0, true));
         UNLIMITED_ROYLLO_COIN_2_FROM_TEST.addDecodedProofValue(getDecodedProofValue("unlimitedRoylloCoin/secondEmission", 1, 0, false));
         ASSETS.put(UNLIMITED_ROYLLO_COIN_2_ASSET_ID, UNLIMITED_ROYLLO_COIN_2_FROM_TEST);
+        final String unlimitedRoylloCoinBaseSecondEmission = "/tapd/assets/unlimitedRoylloCoin/secondEmission/";
+        try {
+            OWNERSHIP_VERIFY_REQUESTS.put(
+                    getOwnershipVerifyRequestFromFile(unlimitedRoylloCoinBaseSecondEmission + "ownership-verify-positive-request.json"),
+                    getOwnershipVerifyResponseFromFile(unlimitedRoylloCoinBaseSecondEmission + "ownership-verify-positive-response.json")
+            );
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         // =============================================================================================================
         // Invalid proof.

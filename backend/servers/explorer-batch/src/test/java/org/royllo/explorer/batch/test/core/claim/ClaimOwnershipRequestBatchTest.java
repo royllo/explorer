@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.request.AddProofBatch;
 import org.royllo.explorer.batch.batch.request.ClaimOwnershipRequestBatch;
+import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.request.ClaimOwnershipRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.service.asset.AssetService;
@@ -19,11 +20,19 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_ID;
 import static org.royllo.explorer.core.util.enums.RequestStatus.FAILURE;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
+import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
+import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_FROM_TEST;
 import static org.royllo.test.TapdData.UNKNOWN_ROYLLO_COIN_FROM_TEST;
+import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_ASSET_ID;
+import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_FROM_TEST;
+import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_2_ASSET_ID;
+import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_2_FROM_TEST;
 
 @SpringBootTest
 @DirtiesContext
@@ -50,7 +59,11 @@ public class ClaimOwnershipRequestBatchTest extends TestWithMockServers {
 
         // For our test, we add some assets in our database.
         final String TRICKY_ROYLLO_COIN_1_RAW_PROOF = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getRawProof();
+        final String UNLIMITED_ROYLLO_COIN_1_RAW_PROOF = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofRequest(0).getRawProof();
+        final String UNLIMITED_ROYLLO_COIN_2_RAW_PROOF = UNLIMITED_ROYLLO_COIN_2_FROM_TEST.getDecodedProofRequest(0).getRawProof();
         requestService.createAddProofRequest(TRICKY_ROYLLO_COIN_1_RAW_PROOF);
+        requestService.createAddProofRequest(UNLIMITED_ROYLLO_COIN_1_RAW_PROOF);
+        requestService.createAddProofRequest(UNLIMITED_ROYLLO_COIN_2_RAW_PROOF);
         addProofBatch.processRequests();
 
         // =============================================================================================================
@@ -99,9 +112,62 @@ public class ClaimOwnershipRequestBatchTest extends TestWithMockServers {
         assertEquals("This proof does not concern the asset issuance", request3Treated.get().getErrorMessage());
 
         // =============================================================================================================
-        // Adding an invalid proof.
+        // Adding a valid proof concerning an issuance state but ownership verification fails.
+        final ClaimOwnershipRequestDTO request4 = requestService.createClaimOwnershipRequest(STRAUMAT_USED_ID, TRICKY_ROYLLO_COIN_1_RAW_PROOF);
+        assertNotNull(request4);
+        assertEquals(OPENED, request4.getStatus());
 
+        // Running the batch, we should have an error.
+        claimOwnershipRequestBatch.processRequests();
+        final Optional<RequestDTO> request4Treated = requestService.getRequest(request4.getId());
+        assertTrue(request4Treated.isPresent());
+        assertFalse(request4Treated.get().isSuccessful());
+        assertEquals(FAILURE, request4Treated.get().getStatus());
+        assertEquals("Ownership proof is not valid", request4Treated.get().getErrorMessage());
 
+        // =============================================================================================================
+        // Adding a valid proof concerning an issuance state but impossible to decode.
+        final ClaimOwnershipRequestDTO request5 = requestService.createClaimOwnershipRequest(STRAUMAT_USED_ID, UNLIMITED_ROYLLO_COIN_1_RAW_PROOF);
+        assertNotNull(request5);
+        assertEquals(OPENED, request5.getStatus());
+
+        // Running the batch, we should have an error.
+        claimOwnershipRequestBatch.processRequests();
+        final Optional<RequestDTO> request5Treated = requestService.getRequest(request5.getId());
+        assertTrue(request5Treated.isPresent());
+        assertFalse(request5Treated.get().isSuccessful());
+        assertEquals(FAILURE, request5Treated.get().getStatus());
+        assertEquals("Invalid!", request5Treated.get().getErrorMessage());
+
+        // =============================================================================================================
+        // Adding a valid proof concerning an issuance state and ownership verification is successful!s
+        final ClaimOwnershipRequestDTO request6 = requestService.createClaimOwnershipRequest(STRAUMAT_USED_ID, UNLIMITED_ROYLLO_COIN_2_RAW_PROOF);
+        assertNotNull(request6);
+        assertEquals(OPENED, request6.getStatus());
+
+        // Running the batch, we should have an error.
+        claimOwnershipRequestBatch.processRequests();
+        final Optional<RequestDTO> request6Treated = requestService.getRequest(request6.getId());
+        assertTrue(request6Treated.isPresent());
+        assertTrue(request6Treated.get().isSuccessful());
+        assertEquals(SUCCESS, request6Treated.get().getStatus());
+        ClaimOwnershipRequestDTO request6TreatedDTO = (ClaimOwnershipRequestDTO) request6Treated.get();
+        // For security reasons, we remove the proof value in the request at the end of the process.
+        assertNull(request6TreatedDTO.getProofWithWitness());
+
+        // =============================================================================================================
+        // Now we check if user has been set on the good one.
+        final Optional<AssetDTO> trickyRoylloCoin = assetService.getAssetByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID);
+        assertTrue(trickyRoylloCoin.isPresent());
+        assertEquals(ANONYMOUS_USER_ID, trickyRoylloCoin.get().getCreator().getUserId());
+
+        final Optional<AssetDTO> unlimitedRoylloCoin1 = assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_1_ASSET_ID);
+        assertTrue(unlimitedRoylloCoin1.isPresent());
+        assertEquals(ANONYMOUS_USER_ID, unlimitedRoylloCoin1.get().getCreator().getUserId());
+
+        final Optional<AssetDTO> unlimitedRoylloCoin2 = assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_2_ASSET_ID);
+        assertTrue(unlimitedRoylloCoin2.isPresent());
+        assertEquals(STRAUMAT_USED_ID, unlimitedRoylloCoin2.get().getCreator().getUserId());
     }
 
 }

@@ -16,4 +16,11 @@ public class ClaimOwnershipRequestDTO extends RequestDTO {
     /** Proof with witness. */
     private String proofWithWitness;
 
+    @Override
+    public final void success() {
+        super.success();
+        // For security reasons, we remove the proof with witness from the request once treated.
+        proofWithWitness = null;
+    }
+
 }
