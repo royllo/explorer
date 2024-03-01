@@ -3,9 +3,9 @@ package org.royllo.explorer.batch.test.core.claim;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.request.AddProofBatch;
-import org.royllo.explorer.batch.batch.request.ClaimOwnershipRequestBatch;
+import org.royllo.explorer.batch.batch.request.ClaimAssetOwnershipRequestBatch;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
-import org.royllo.explorer.core.dto.request.ClaimOwnershipRequestDTO;
+import org.royllo.explorer.core.dto.request.ClaimAssetOwnershipRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.request.RequestService;
@@ -38,7 +38,7 @@ import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_2_FROM_TEST;
 @DirtiesContext
 @DisplayName("Claim ownership request batch test")
 @ActiveProfiles({"scheduler-disabled"})
-public class ClaimOwnershipRequestBatchTest extends TestWithMockServers {
+public class ClaimAssetOwnershipRequestBatchTest extends TestWithMockServers {
 
     @Autowired
     RequestService requestService;
@@ -47,7 +47,7 @@ public class ClaimOwnershipRequestBatchTest extends TestWithMockServers {
     AddProofBatch addProofBatch;
 
     @Autowired
-    ClaimOwnershipRequestBatch claimOwnershipRequestBatch;
+    ClaimAssetOwnershipRequestBatch claimAssetOwnershipRequestBatch;
 
     @Autowired
     AssetService assetService;
@@ -68,12 +68,12 @@ public class ClaimOwnershipRequestBatchTest extends TestWithMockServers {
 
         // =============================================================================================================
         // Invalid proof used for ownership claim.
-        final ClaimOwnershipRequestDTO request1 = requestService.createClaimOwnershipRequest(STRAUMAT_USED_ID, "INVALID_PROOF");
+        final ClaimAssetOwnershipRequestDTO request1 = requestService.createClaimAssetOwnershipRequest(STRAUMAT_USED_ID, "INVALID_PROOF");
         assertNotNull(request1);
         assertEquals(OPENED, request1.getStatus());
 
         // Running the batch, we should have an error.
-        claimOwnershipRequestBatch.processRequests();
+        claimAssetOwnershipRequestBatch.processRequests();
         final Optional<RequestDTO> request1Treated = requestService.getRequest(request1.getId());
         assertTrue(request1Treated.isPresent());
         assertFalse(request1Treated.get().isSuccessful());
@@ -83,12 +83,12 @@ public class ClaimOwnershipRequestBatchTest extends TestWithMockServers {
         // =============================================================================================================
         // Adding a proof of an asset not yet in our database.
         final String UNKNOWN_ROYLLO_COIN_RAW_PROOF = UNKNOWN_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getRawProof();
-        final ClaimOwnershipRequestDTO request2 = requestService.createClaimOwnershipRequest(STRAUMAT_USED_ID, UNKNOWN_ROYLLO_COIN_RAW_PROOF);
+        final ClaimAssetOwnershipRequestDTO request2 = requestService.createClaimAssetOwnershipRequest(STRAUMAT_USED_ID, UNKNOWN_ROYLLO_COIN_RAW_PROOF);
         assertNotNull(request2);
         assertEquals(OPENED, request2.getStatus());
 
         // Running the batch, we should have an error.
-        claimOwnershipRequestBatch.processRequests();
+        claimAssetOwnershipRequestBatch.processRequests();
         final Optional<RequestDTO> request2Treated = requestService.getRequest(request2.getId());
         assertTrue(request2Treated.isPresent());
         assertFalse(request2Treated.get().isSuccessful());
@@ -99,12 +99,12 @@ public class ClaimOwnershipRequestBatchTest extends TestWithMockServers {
         // Adding a proof that does not concern an issuance state.
         final String TRICKY_ROYLLO_COIN_2_RAW_PROOF = TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(1).getRawProof();
 
-        final ClaimOwnershipRequestDTO request3 = requestService.createClaimOwnershipRequest(STRAUMAT_USED_ID, TRICKY_ROYLLO_COIN_2_RAW_PROOF);
+        final ClaimAssetOwnershipRequestDTO request3 = requestService.createClaimAssetOwnershipRequest(STRAUMAT_USED_ID, TRICKY_ROYLLO_COIN_2_RAW_PROOF);
         assertNotNull(request3);
         assertEquals(OPENED, request3.getStatus());
 
         // Running the batch, we should have an error.
-        claimOwnershipRequestBatch.processRequests();
+        claimAssetOwnershipRequestBatch.processRequests();
         final Optional<RequestDTO> request3Treated = requestService.getRequest(request3.getId());
         assertTrue(request3Treated.isPresent());
         assertFalse(request3Treated.get().isSuccessful());
@@ -113,12 +113,12 @@ public class ClaimOwnershipRequestBatchTest extends TestWithMockServers {
 
         // =============================================================================================================
         // Adding a valid proof concerning an issuance state but ownership verification fails.
-        final ClaimOwnershipRequestDTO request4 = requestService.createClaimOwnershipRequest(STRAUMAT_USED_ID, TRICKY_ROYLLO_COIN_1_RAW_PROOF);
+        final ClaimAssetOwnershipRequestDTO request4 = requestService.createClaimAssetOwnershipRequest(STRAUMAT_USED_ID, TRICKY_ROYLLO_COIN_1_RAW_PROOF);
         assertNotNull(request4);
         assertEquals(OPENED, request4.getStatus());
 
         // Running the batch, we should have an error.
-        claimOwnershipRequestBatch.processRequests();
+        claimAssetOwnershipRequestBatch.processRequests();
         final Optional<RequestDTO> request4Treated = requestService.getRequest(request4.getId());
         assertTrue(request4Treated.isPresent());
         assertFalse(request4Treated.get().isSuccessful());
@@ -127,12 +127,12 @@ public class ClaimOwnershipRequestBatchTest extends TestWithMockServers {
 
         // =============================================================================================================
         // Adding a valid proof concerning an issuance state but impossible to decode.
-        final ClaimOwnershipRequestDTO request5 = requestService.createClaimOwnershipRequest(STRAUMAT_USED_ID, UNLIMITED_ROYLLO_COIN_1_RAW_PROOF);
+        final ClaimAssetOwnershipRequestDTO request5 = requestService.createClaimAssetOwnershipRequest(STRAUMAT_USED_ID, UNLIMITED_ROYLLO_COIN_1_RAW_PROOF);
         assertNotNull(request5);
         assertEquals(OPENED, request5.getStatus());
 
         // Running the batch, we should have an error.
-        claimOwnershipRequestBatch.processRequests();
+        claimAssetOwnershipRequestBatch.processRequests();
         final Optional<RequestDTO> request5Treated = requestService.getRequest(request5.getId());
         assertTrue(request5Treated.isPresent());
         assertFalse(request5Treated.get().isSuccessful());
@@ -141,17 +141,17 @@ public class ClaimOwnershipRequestBatchTest extends TestWithMockServers {
 
         // =============================================================================================================
         // Adding a valid proof concerning an issuance state and ownership verification is successful!s
-        final ClaimOwnershipRequestDTO request6 = requestService.createClaimOwnershipRequest(STRAUMAT_USED_ID, UNLIMITED_ROYLLO_COIN_2_RAW_PROOF);
+        final ClaimAssetOwnershipRequestDTO request6 = requestService.createClaimAssetOwnershipRequest(STRAUMAT_USED_ID, UNLIMITED_ROYLLO_COIN_2_RAW_PROOF);
         assertNotNull(request6);
         assertEquals(OPENED, request6.getStatus());
 
         // Running the batch, we should have an error.
-        claimOwnershipRequestBatch.processRequests();
+        claimAssetOwnershipRequestBatch.processRequests();
         final Optional<RequestDTO> request6Treated = requestService.getRequest(request6.getId());
         assertTrue(request6Treated.isPresent());
         assertTrue(request6Treated.get().isSuccessful());
         assertEquals(SUCCESS, request6Treated.get().getStatus());
-        ClaimOwnershipRequestDTO request6TreatedDTO = (ClaimOwnershipRequestDTO) request6Treated.get();
+        ClaimAssetOwnershipRequestDTO request6TreatedDTO = (ClaimAssetOwnershipRequestDTO) request6Treated.get();
         // For security reasons, we remove the proof value in the request at the end of the process.
         assertNull(request6TreatedDTO.getProofWithWitness());
 

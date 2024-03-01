@@ -5,11 +5,11 @@ import lombok.RequiredArgsConstructor;
 import org.hibernate.AssertionFailure;
 import org.royllo.explorer.core.domain.request.AddProofRequest;
 import org.royllo.explorer.core.domain.request.AddUniverseServerRequest;
-import org.royllo.explorer.core.domain.request.ClaimOwnershipRequest;
+import org.royllo.explorer.core.domain.request.ClaimAssetOwnershipRequest;
 import org.royllo.explorer.core.domain.request.Request;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
-import org.royllo.explorer.core.dto.request.ClaimOwnershipRequestDTO;
+import org.royllo.explorer.core.dto.request.ClaimAssetOwnershipRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.dto.user.UserDTO;
 import org.royllo.explorer.core.repository.request.RequestRepository;
@@ -141,22 +141,22 @@ public class RequestServiceImplementation extends BaseService implements Request
     }
 
     @Override
-    public ClaimOwnershipRequestDTO createClaimOwnershipRequest(final String userId,
-                                                                final String proofWithWitness) {
+    public ClaimAssetOwnershipRequestDTO createClaimAssetOwnershipRequest(final String userId,
+                                                                          final String proofWithWitness) {
         logger.info("Adding claim ownership request {}", proofWithWitness);
 
         // Getting the user
         UserDTO user = userService.getUserByUserId(userId).orElseThrow(() -> new AssertionFailure("User not found: " + userId));
 
         // Creating and saving the request.
-        ClaimOwnershipRequest request = ClaimOwnershipRequest.builder()
+        ClaimAssetOwnershipRequest request = ClaimAssetOwnershipRequest.builder()
                 .requestId(UUID.randomUUID().toString())
                 .creator(USER_MAPPER.mapToUser(user))
                 .status(OPENED)
                 .proofWithWitness(proofWithWitness)
                 .build();
 
-        ClaimOwnershipRequestDTO savedRequest = REQUEST_MAPPER.mapToClaimOwnershipRequestDTO(requestRepository.save(request));
+        ClaimAssetOwnershipRequestDTO savedRequest = REQUEST_MAPPER.mapToClaimAssetOwnershipRequestDTO(requestRepository.save(request));
         logger.info("Request {} saved", savedRequest);
         return savedRequest;
     }

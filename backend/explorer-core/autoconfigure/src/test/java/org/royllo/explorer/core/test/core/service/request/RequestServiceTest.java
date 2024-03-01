@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
-import org.royllo.explorer.core.dto.request.ClaimOwnershipRequestDTO;
+import org.royllo.explorer.core.dto.request.ClaimAssetOwnershipRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.service.request.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -206,8 +206,8 @@ public class RequestServiceTest {
         assertEquals(PROOF_TYPE_TRANSFER, request6DTO.getProofType());
 
         // =============================================================================================================
-        // Request 7 (ClaimOwnershipRequest).
-        RequestDTO request7DTO = requestService.createClaimOwnershipRequest("22222222-2222-2222-2222-222222222222",
+        // Request 7 (ClaimAssetOwnershipRequest).
+        RequestDTO request7DTO = requestService.createClaimAssetOwnershipRequest("22222222-2222-2222-2222-222222222222",
                 "MyProofWithWitness");
         assertNotNull(request7DTO);
         long request7Id = request7DTO.getId();
@@ -215,10 +215,10 @@ public class RequestServiceTest {
         // Use getRequest().
         Optional<RequestDTO> request7 = requestService.getRequest(request7Id);
         assertTrue(request7.isPresent());
-        assertInstanceOf(ClaimOwnershipRequestDTO.class, request7.get());
+        assertInstanceOf(ClaimAssetOwnershipRequestDTO.class, request7.get());
 
         // We cast and check of all the data is here.
-        ClaimOwnershipRequestDTO request7Casted = (ClaimOwnershipRequestDTO) request7.get();
+        ClaimAssetOwnershipRequestDTO request7Casted = (ClaimAssetOwnershipRequestDTO) request7.get();
         assertEquals(request7Id, request7Casted.getId());
         assertNotNull(request7Casted.getRequestId());
         assertEquals(2, request7Casted.getCreator().getId());

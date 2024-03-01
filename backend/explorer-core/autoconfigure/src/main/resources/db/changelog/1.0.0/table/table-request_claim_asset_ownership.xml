@@ -2,16 +2,16 @@
 <databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
-    <changeSet author="straumat" id="1.0.0-table-request_claim_ownership">
+    <changeSet author="straumat" id="1.0.0-table-request_claim_asset_ownership">
 
-        <createTable tableName="REQUEST_CLAIM_OWNERSHIP"
+        <createTable tableName="REQUEST_CLAIM_ASSET_OWNERSHIP"
                      remarks="A request to claim ownership over an asset">
 
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"
                     remarks="Unique identifier">
                 <constraints nullable="false" primaryKey="true"
-                             primaryKeyName="PRIMARY_KEY_REQUEST_CLAIM_OWNERSHIP"/>
+                             primaryKeyName="PRIMARY_KEY_REQUEST_CLAIM_ASSET_OWNERSHIP"/>
             </column>
 
             <!-- Table fields -->

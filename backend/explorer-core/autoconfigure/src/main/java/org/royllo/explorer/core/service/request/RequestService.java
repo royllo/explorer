@@ -2,7 +2,7 @@ package org.royllo.explorer.core.service.request;
 
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
-import org.royllo.explorer.core.dto.request.ClaimOwnershipRequestDTO;
+import org.royllo.explorer.core.dto.request.ClaimAssetOwnershipRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.util.enums.ProofType;
 
@@ -70,7 +70,7 @@ public interface RequestService {
      * @param proofWithWitness proof with witness
      * @return Request created
      */
-    ClaimOwnershipRequestDTO createClaimOwnershipRequest(String userId,
-                                                         String proofWithWitness);
+    ClaimAssetOwnershipRequestDTO createClaimAssetOwnershipRequest(String userId,
+                                                                   String proofWithWitness);
 
 }

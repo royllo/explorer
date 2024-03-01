@@ -19,9 +19,9 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @RequiredArgsConstructor
 @Entity
-@Table(name = "REQUEST_CLAIM_OWNERSHIP")
-@DiscriminatorValue("CLAIM_OWNERSHIP")
-public class ClaimOwnershipRequest extends Request {
+@Table(name = "REQUEST_CLAIM_ASSET_OWNERSHIP")
+@DiscriminatorValue("CLAIM_ASSET_OWNERSHIP")
+public class ClaimAssetOwnershipRequest extends Request {
 
     /** Proof with witness. */
     @Column(name = "PROOF_WITH_WITNESS")

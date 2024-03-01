@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @ToString(callSuper = true)
 @SuppressWarnings("checkstyle:VisibilityModifier")
-public class ClaimOwnershipRequestDTO extends RequestDTO {
+public class ClaimAssetOwnershipRequestDTO extends RequestDTO {
 
     /** Proof with witness. */
     private String proofWithWitness;

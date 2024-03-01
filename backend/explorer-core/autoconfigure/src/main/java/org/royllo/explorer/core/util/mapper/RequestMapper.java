@@ -4,11 +4,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.royllo.explorer.core.domain.request.AddProofRequest;
 import org.royllo.explorer.core.domain.request.AddUniverseServerRequest;
-import org.royllo.explorer.core.domain.request.ClaimOwnershipRequest;
+import org.royllo.explorer.core.domain.request.ClaimAssetOwnershipRequest;
 import org.royllo.explorer.core.domain.request.Request;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
-import org.royllo.explorer.core.dto.request.ClaimOwnershipRequestDTO;
+import org.royllo.explorer.core.dto.request.ClaimAssetOwnershipRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 
 import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
@@ -30,8 +30,8 @@ public interface RequestMapper {
         if (source instanceof AddUniverseServerRequest) {
             return mapToAddUniverseServerRequestDTO((AddUniverseServerRequest) source);
         }
-        if (source instanceof ClaimOwnershipRequest) {
-            return mapToClaimOwnershipRequestDTO((ClaimOwnershipRequest) source);
+        if (source instanceof ClaimAssetOwnershipRequest) {
+            return mapToClaimAssetOwnershipRequestDTO((ClaimAssetOwnershipRequest) source);
         }
         return null;
     }
@@ -57,8 +57,8 @@ public interface RequestMapper {
 
     @Mapping(target = "createdOn", ignore = true)
     @Mapping(target = "updatedOn", ignore = true)
-    ClaimOwnershipRequest mapToClaimOwnershipRequest(ClaimOwnershipRequestDTO source);
+    ClaimAssetOwnershipRequest mapToClaimAssetOwnershipRequest(ClaimAssetOwnershipRequestDTO source);
 
-    ClaimOwnershipRequestDTO mapToClaimOwnershipRequestDTO(ClaimOwnershipRequest source);
+    ClaimAssetOwnershipRequestDTO mapToClaimAssetOwnershipRequestDTO(ClaimAssetOwnershipRequest source);
 
 }

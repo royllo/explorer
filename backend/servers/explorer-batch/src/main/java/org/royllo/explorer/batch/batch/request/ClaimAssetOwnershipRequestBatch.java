@@ -3,7 +3,7 @@ package org.royllo.explorer.batch.batch.request;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.batch.util.base.BaseBatch;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
-import org.royllo.explorer.core.dto.request.ClaimOwnershipRequestDTO;
+import org.royllo.explorer.core.dto.request.ClaimAssetOwnershipRequestDTO;
 import org.royllo.explorer.core.provider.tapd.TapdService;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.repository.request.RequestRepository;
@@ -16,12 +16,12 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 /**
- * Batch treating {@link ClaimOwnershipRequestDTO}.
+ * Batch treating {@link ClaimAssetOwnershipRequestDTO}.
  */
 @Component
 @RequiredArgsConstructor
 @SuppressWarnings("checkstyle:DesignForExtension")
-public class ClaimOwnershipRequestBatch extends BaseBatch {
+public class ClaimAssetOwnershipRequestBatch extends BaseBatch {
 
     /** Start delay in milliseconds (1 000 ms = 1 second). */
     private static final int START_DELAY_IN_MILLISECONDS = 1_000;
@@ -56,8 +56,8 @@ public class ClaimOwnershipRequestBatch extends BaseBatch {
         if (enabled.get()) {
             requestService.getOpenedRequests()
                     .stream()
-                    .filter(request -> request instanceof ClaimOwnershipRequestDTO)
-                    .map(requestDTO -> (ClaimOwnershipRequestDTO) requestDTO)
+                    .filter(request -> request instanceof ClaimAssetOwnershipRequestDTO)
+                    .map(requestDTO -> (ClaimAssetOwnershipRequestDTO) requestDTO)
                     .forEach(request -> {
                         logger.info("Processing request {}", request.getId());
                         // TODO Use a pattern to simplify this code.
@@ -141,7 +141,7 @@ public class ClaimOwnershipRequestBatch extends BaseBatch {
                         // Saving the request status.
                         logger.info("Request status {} updated to {}  ", request.getId(), request.getStatus());
                         // TODO EMPTY WITNESS PROOF
-                        requestRepository.save(REQUEST_MAPPER.mapToClaimOwnershipRequest(request));
+                        requestRepository.save(REQUEST_MAPPER.mapToClaimAssetOwnershipRequest(request));
                     });
         }
     }

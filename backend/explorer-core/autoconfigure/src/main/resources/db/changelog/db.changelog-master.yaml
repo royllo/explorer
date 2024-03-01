@@ -33,7 +33,7 @@ databaseChangeLog:
   - include:
       file: /db/changelog/1.0.0/table/table-request_add_universe_server.xml
   - include:
-      file: /db/changelog/1.0.0/table/table-request_claim_ownership.xml
+      file: /db/changelog/1.0.0/table/table-request_claim_asset_ownership.xml
   - include:
       file: /db/changelog/1.0.0/table/table-proof.xml
 
@@ -67,7 +67,7 @@ databaseChangeLog:
   - include:
       file: /db/changelog/1.0.0/table-constraints/table-constraints-request_add_universe_server.xml
   - include:
-      file: /db/changelog/1.0.0/table-constraints/table-constraints-request_claim_ownership.xml
+      file: /db/changelog/1.0.0/table-constraints/table-constraints-request_claim_asset_ownership.xml
   - include:
       file: /db/changelog/1.0.0/table-constraints/table-constraints-proof.xml
 
