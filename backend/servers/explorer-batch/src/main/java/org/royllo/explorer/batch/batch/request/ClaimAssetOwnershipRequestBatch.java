@@ -122,11 +122,6 @@ public class ClaimAssetOwnershipRequestBatch extends BaseBatch {
                                                     request.success();
                                                 }
 
-                                                // The proof is valid, we update the asset user and destroy the proof in the request.
-                                                // assetStateService.updateAssetUser(assetId, ownership.getDecodedOwnership().getNewUser());
-
-                                                //request.success();
-
                                             }
                                         }
 
@@ -140,7 +135,6 @@ public class ClaimAssetOwnershipRequestBatch extends BaseBatch {
 
                         // Saving the request status.
                         logger.info("Request status {} updated to {}  ", request.getId(), request.getStatus());
-                        // TODO EMPTY WITNESS PROOF
                         requestRepository.save(REQUEST_MAPPER.mapToClaimAssetOwnershipRequest(request));
                     });
         }

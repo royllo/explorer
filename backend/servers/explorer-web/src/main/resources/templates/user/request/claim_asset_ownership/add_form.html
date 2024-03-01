@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{util/fragments/layouts/default/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!--/* =========================================================================================================== */-->
+<div layout:fragment="content">
+
+    <!--/* This div is used to add a margin between the header and the content. */-->
+    <div class="px-6 py-12 sm:py-16 lg:px-8">
+
+        <!--/* This div is used to center the content. */-->
+        <div class="mx-auto max-w-2xl text-center space-y-3">
+
+            <!--/* Page header. */-->
+            <h2 class="pageHeader" th:text="#{request.view.claimAssetOwnership.title}"></h2>
+            <hr>
+
+            <form method="post" th:action="@{/account/request/claim_asset_ownership/add}" th:object="${command}">
+
+                <!--/* Proof with witness field */-->
+                <label>
+                <textarea class="w-full textarea textarea-bordered"
+                          name="proof"
+                          onClick="this.select();"
+                          onFocus="this.select();"
+                          required
+                          rows="15"
+                          th:field="*{proofWithWitness}"
+                          th:placeholder="#{request.view.claimAssetOwnership.add.helper}">
+                </textarea>
+                </label>
+
+                <!--/* Error messages */-->
+                <div th:each="error: ${#fields.errors('*')}"
+                     th:if="${#fields.hasErrors('proofWithWitness')}">
+                    <div th:insert="~{util/fragments/components/error_message :: error_message(${error})}"></div>
+                </div>
+
+                <!--/* Submit button */-->
+                <button class="btn btn-primary mt-6"
+                        th:text="#{request.view.claimAssetOwnership.submit}"
+                        type="submit"></button>
+
+                <!--/* Explanation */-->
+                <div class="mockup-code mt-6 text-left">
+                    <pre data-prefix="#" th:utext="#{request.view.claimAssetOwnership.explanation.title}"></pre>
+                    <pre data-prefix="$" th:utext="#{request.view.claimAssetOwnership.explanation.code.line.1}"></pre>
+                    <pre data-prefix=">" th:utext="#{request.view.claimAssetOwnership.explanation.code.line.2}"></pre>
+                    <pre data-prefix=">" th:utext="#{request.view.claimAssetOwnership.explanation.code.line.3}"></pre>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+<!--/* =========================================================================================================== */-->
+
+</html>

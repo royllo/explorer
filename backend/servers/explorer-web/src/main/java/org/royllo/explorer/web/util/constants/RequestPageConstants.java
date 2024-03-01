@@ -24,4 +24,10 @@ public class RequestPageConstants {
     /** Request - Saved universe server request with success. */
     public static final String ADD_UNIVERSE_SERVER_REQUEST_SUCCESS_PAGE = "request/universe_server/add_success";
 
+    /** Request - Claim asset ownership form. */
+    public static final String CLAIM_ASSET_OWNERSHIP_REQUEST_FORM_PAGE = "/user/request/claim_asset_ownership/add_form";
+
+    /** Request - Saved claim asset ownership request with success. */
+    public static final String CLAIM_ASSET_OWNERSHIP_REQUEST_SUCCESS_PAGE = "/user/request/claim_asset_ownership/add_success";
+
 }
