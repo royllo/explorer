@@ -34,6 +34,7 @@ public interface UserService {
 
     /**
      * Update user.
+     * TODO UserId should be used instead of username
      *
      * @param username user name
      * @param userData user data

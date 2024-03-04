@@ -100,9 +100,13 @@ public class UserServiceImplementation extends BaseService implements UserServic
         Optional<User> user = userRepository.findByUsernameIgnoreCase(username);
 
         // Verification.
+        assert username != null : "Username is required";
+        assert userData.getUsername() != null : "New user name is required";
         assert user.isPresent() : "User not found with username: " + username;
+        assert username.equalsIgnoreCase(userData.getUsername()) || userRepository.findByUsernameIgnoreCase(userData.getUsername()).isEmpty() : "Username '" + userData.getUsername() + "' already registered";
 
         // We update the data.
+        user.get().setUsername(userData.getUsername());
         user.get().setFullName(userData.getFullName());
         user.get().setBiography(userData.getBiography());
         user.get().setWebsite(userData.getWebsite());
@@ -187,6 +191,7 @@ public class UserServiceImplementation extends BaseService implements UserServic
 
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+        // TODO Maybe username should be the userID as it doesn't change.
         // Search for the user with it's linking key.
         final UserLnurlAuthKey userLinkingKey = userLnurlAuthKeyRepository
                 .findByLinkingKey(username)

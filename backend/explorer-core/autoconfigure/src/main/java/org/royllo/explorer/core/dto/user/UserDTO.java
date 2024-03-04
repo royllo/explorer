@@ -1,7 +1,7 @@
 package org.royllo.explorer.core.dto.user;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,7 +44,9 @@ public class UserDTO {
     String userId;
 
     /** Username. */
-    @NotBlank(message = "{validation.user.username.required}")
+    @Setter
+    @NonFinal
+    @Pattern(regexp = "^[a-zA-Z0-9_]{3,20}$", message = "{validation.user.username.invalid}")
     String username;
 
     /** User role. */

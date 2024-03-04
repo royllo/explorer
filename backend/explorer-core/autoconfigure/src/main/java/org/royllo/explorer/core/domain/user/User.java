@@ -63,4 +63,17 @@ public class User extends BaseDomain {
     @Column(name = "WEBSITE")
     private String website;
 
+    /**
+     * Setter username.
+     *
+     * @param newUsername the username to set
+     */
+    public void setUsername(final String newUsername) {
+        if (username == null) {
+            throw new IllegalArgumentException("Username is required");
+        } else {
+            username = newUsername.toLowerCase();
+        }
+    }
+
 }
