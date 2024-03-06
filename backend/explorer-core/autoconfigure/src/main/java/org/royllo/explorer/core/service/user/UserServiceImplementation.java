@@ -106,6 +106,7 @@ public class UserServiceImplementation extends BaseService implements UserServic
         assert username.equalsIgnoreCase(userData.getUsername()) || userRepository.findByUsernameIgnoreCase(userData.getUsername()).isEmpty() : "Username '" + userData.getUsername() + "' already registered";
 
         // We update the data.
+        user.get().setProfilePictureFilename(userData.getProfilePictureFilename());
         user.get().setUsername(userData.getUsername());
         user.get().setFullName(userData.getFullName());
         user.get().setBiography(userData.getBiography());

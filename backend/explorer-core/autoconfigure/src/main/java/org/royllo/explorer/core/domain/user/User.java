@@ -51,6 +51,10 @@ public class User extends BaseDomain {
     @Column(name = "ROLE", nullable = false)
     private UserRole role;
 
+    /** Profile picture file name. */
+    @Column(name = "PROFILE_PICTURE_FILE_NAME")
+    private String profilePictureFilename;
+
     /** Full name. */
     @Column(name = "FULL_NAME", nullable = false)
     private String fullName;

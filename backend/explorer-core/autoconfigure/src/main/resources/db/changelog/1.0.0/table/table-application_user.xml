@@ -26,7 +26,9 @@
                     remarks="User role">
                 <constraints nullable="false"/>
             </column>
-
+            <column name="PROFILE_PICTURE_FILE_NAME" type="TEXT"
+                    remarks="Profile picture filename">
+            </column>
             <column name="FULL_NAME" type="TEXT"
                     remarks="Full name">
             </column>

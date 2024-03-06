@@ -116,4 +116,14 @@ public class LocalFileServiceTest extends TestWithMockServers {
         assertFalse(localFileServiceImplementation.fileExists("fileDeleteTest.txt"));
     }
 
+    @Test
+    @DisplayName("Existing profile picture")
+    public void existingProfilePicture() {
+        // This file exists on local filesystem but not on the webserver.
+        assertFalse(localFileServiceImplementation.fileExists("straumat_profil.jpeg"));
+
+        // This file should be loaded with a new filename by the local file service.
+        assertTrue(localFileServiceImplementation.fileExists("22222222-2222-2222-2222-222222222222.jpeg"));
+    }
+
 }

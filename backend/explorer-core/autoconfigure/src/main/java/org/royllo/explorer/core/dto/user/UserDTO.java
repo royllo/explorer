@@ -24,6 +24,9 @@ public class UserDTO {
     /** Full name maximum size. */
     private static final int FULL_NAME_MAXIMUM_SIZE = 40;
 
+    /** Profile picture file name maximum size. */
+    private static final int PROFILE_PICTURE_FILE_NAME_MAXIMUM_SIZE = 255;
+
     /** Biography maximum size. */
     private static final int BIOGRAPHY_MAXIMUM_SIZE = 255;
 
@@ -52,6 +55,12 @@ public class UserDTO {
     /** User role. */
     @NotNull(message = "{validation.user.role.required}")
     UserRole role;
+
+    /** Profile picture file name. */
+    @Setter
+    @NonFinal
+    @Size(max = PROFILE_PICTURE_FILE_NAME_MAXIMUM_SIZE, message = "{validation.user.profilePictureFilename.size.too_long}")
+    String profilePictureFilename;
 
     /** Full name. */
     @Setter
