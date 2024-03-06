@@ -10,6 +10,7 @@ import org.apache.tika.Tika;
 import org.apache.tika.mime.MimeTypeException;
 import org.apache.tika.mime.MimeTypes;
 import org.royllo.explorer.core.domain.asset.Asset;
+import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
@@ -260,6 +261,17 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
         // Returning the results.
         return assetRepository.findByCreator_UsernameOrderById(username, PageRequest.of(page - 1, pageSize))
                 .map(ASSET_MAPPER::mapToAssetDTO);
+    }
+
+    @Override
+    public Page<AssetDTO> getAssetsByUserId(final String userId, final int page, final int pageSize) {
+        // TODO Test this method and make it call directly the repository.
+        final Optional<User> user = userRepository.findByUserId(userId);
+        if (user.isPresent()) {
+            return getAssetsByUsername(user.get().getUsername(), page, pageSize);
+        } else {
+            return Page.empty();
+        }
     }
 
     /**

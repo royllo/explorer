@@ -85,7 +85,7 @@ public class UserAssetsTest extends BaseTest {
 
     @Test
     @DisplayName("User assets list with two assets")
-    @WithMockUser(username = "straumat")
+    @WithMockUser(username = "22222222-2222-2222-2222-222222222222")
     void userWithAssets() throws Exception {
 
         // Straumat has two assets.
@@ -120,7 +120,7 @@ public class UserAssetsTest extends BaseTest {
 
     @Test
     @DisplayName("User asset form")
-    @WithMockUser(username = "straumat")
+    @WithMockUser(username = "22222222-2222-2222-2222-222222222222")
     void userAssetForm() throws Exception {
 
         // =============================================================================================================
@@ -150,7 +150,7 @@ public class UserAssetsTest extends BaseTest {
 
     @Test
     @DisplayName("User assets edition saved")
-    @WithMockUser(username = "straumat")
+    @WithMockUser(username = "22222222-2222-2222-2222-222222222222")
     void userAssetSave() throws Exception {
 
         // =============================================================================================================

@@ -101,8 +101,8 @@ public class UserServiceImplementation extends BaseService implements UserServic
 
         // Verification.
         assert username != null : "Username is required";
-        assert userData.getUsername() != null : "New user name is required";
         assert user.isPresent() : "User not found with username: " + username;
+        assert userData.getUsername() != null : "New user name is required";
         assert username.equalsIgnoreCase(userData.getUsername()) || userRepository.findByUsernameIgnoreCase(userData.getUsername()).isEmpty() : "Username '" + userData.getUsername() + "' already registered";
 
         // We update the data.
@@ -159,7 +159,7 @@ public class UserServiceImplementation extends BaseService implements UserServic
                     .k1(auth.getK1().toHex())
                     .build());
 
-            return new org.springframework.security.core.userdetails.User(user.getUsername(),
+            return new org.springframework.security.core.userdetails.User(user.getUserId(),
                     UUID.randomUUID().toString(),
                     Collections.singletonList((new SimpleGrantedAuthority(user.getRole().toString()))));
         } else {
@@ -167,7 +167,7 @@ public class UserServiceImplementation extends BaseService implements UserServic
             linkingKeyInDatabase.get().setK1(auth.getK1().toHex());
             userLnurlAuthKeyRepository.save(linkingKeyInDatabase.get());
 
-            return new org.springframework.security.core.userdetails.User(linkingKeyInDatabase.get().getOwner().getUsername(),
+            return new org.springframework.security.core.userdetails.User(linkingKeyInDatabase.get().getOwner().getUserId(),
                     UUID.randomUUID().toString(),
                     linkingKeyInDatabase.get().getOwner().getRole().asGrantedAuthorityList());
         }
@@ -180,7 +180,7 @@ public class UserServiceImplementation extends BaseService implements UserServic
         final Optional<UserLnurlAuthKey> linkingKey = userLnurlAuthKeyRepository.findByK1(k1.toHex());
         if (linkingKey.isPresent()) {
             logger.info("Linking key found: {}", linkingKey.get().getLinkingKey());
-            return Optional.of(new org.springframework.security.core.userdetails.User(linkingKey.get().getOwner().getUsername(),
+            return Optional.of(new org.springframework.security.core.userdetails.User(linkingKey.get().getOwner().getUserId(),
                     UUID.randomUUID().toString(),
                     linkingKey.get().getOwner().getRole().asGrantedAuthorityList()));
         } else {
@@ -197,7 +197,7 @@ public class UserServiceImplementation extends BaseService implements UserServic
                 .findByLinkingKey(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-        return new org.springframework.security.core.userdetails.User(userLinkingKey.getOwner().getUsername(),
+        return new org.springframework.security.core.userdetails.User(userLinkingKey.getOwner().getUserId(),
                 UUID.randomUUID().toString(),
                 userLinkingKey.getOwner().getRole().asGrantedAuthorityList());
     }

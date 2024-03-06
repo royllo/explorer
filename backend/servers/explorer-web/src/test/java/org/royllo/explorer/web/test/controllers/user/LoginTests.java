@@ -37,7 +37,7 @@ public class LoginTests extends BaseTest {
 
     @Test
     @DisplayName("Login with straumat")
-    @WithMockUser(username = "straumat")
+    @WithMockUser(username = "22222222-2222-2222-2222-222222222222")
     void loginWithStraumat() throws Exception {
 
         mockMvc.perform(get("/login/success"))

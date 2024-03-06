@@ -71,7 +71,7 @@ public class ClaimAssetOwnershipRequestController {
         // Getting user id from session or from the current user (for test).
         String userId = (String) session.getAttribute(USER_ID);
         if (userId == null) {
-            final Optional<UserDTO> user = userService.getUserByUsername(currentUser.getUsername());
+            final Optional<UserDTO> user = userService.getUserByUserId(currentUser.getUsername());
             if (user.isPresent()) {
                 userId = user.get().getUserId();
             } else {

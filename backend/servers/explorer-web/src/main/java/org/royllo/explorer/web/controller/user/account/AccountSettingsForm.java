@@ -20,6 +20,10 @@ public class AccountSettingsForm {
     /** Website maximum size. */
     private static final int WEBSITE_MAXIMUM_SIZE = 50;
 
+    /** Username. */
+    @Pattern(regexp = "^[a-zA-Z0-9_]{3,20}$", message = "{validation.user.username.invalid}")
+    String username;
+
     /** Full name. */
     @Size(max = FULL_NAME_MAXIMUM_SIZE, message = "{validation.user.fullName.size.too_long}")
     String fullName;

@@ -35,28 +35,45 @@
             <form action="#" th:action="@{/account/settings}" th:object="${command}" method="post">
                 <div class="space-y-3"
                      x-data="{
+                        username: '',
                         fullName: '',
                         biography: '',
                         website: '',
                         formChanged: false,
                         init() {
                             // Initialize Alpine.js data with Thymeleaf value.
+                            this.username = this.$refs.username.value;
                             this.fullName = this.$refs.fullName.value;
                             this.biography = this.$refs.biography.value;
                             this.website = this.$refs.website.value;
                             // Add even management. If the form is changed, set the formChanged variable to true.
+                            this.$watch('username', () => this.formChanged = true);
                             this.$watch('fullName', () => this.formChanged = true);
                             this.$watch('biography', () => this.formChanged = true);
                             this.$watch('website', () => this.formChanged = true);
                         }
                     }">
 
+                    <!--/* Username */-->
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text" th:text="#{user.settings.information.username.label}"></span>
+                        </div>
+                        <input type="text" class="input input-bordered w-full" th:field="*{username}" x-model="username"
+                               x-ref="username" onClick="this.select();" autofocus
+                               onFocus="this.select();"/>
+                    </label>
+                    <p th:if="${#fields.hasErrors('username')}" class="fieldError">
+                    <span th:each="error : ${#fields.errors('username')}"
+                          th:text="${error}"></span>
+                    </p>
+
                     <!--/* Full name */-->
                     <label class="form-control w-full">
                         <div class="label">
                             <span class="label-text" th:text="#{user.settings.information.name.label}"></span>
                         </div>
-                        <input type="text" class="input input-bordered w-full" autofocus
+                        <input type="text" class="input input-bordered w-full"
                                th:field="*{fullName}"
                                x-model="fullName" x-ref="fullName" onClick="this.select();"
                                onFocus="this.select();"/>

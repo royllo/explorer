@@ -57,7 +57,7 @@ public class UserAssets extends BaseController {
         model.addAttribute(PAGE_ATTRIBUTE, page);
 
         // If the query is present, we make the search and add result to the page.
-        model.addAttribute(RESULT_ATTRIBUTE, assetService.getAssetsByUsername(currentUser.getUsername(),
+        model.addAttribute(RESULT_ATTRIBUTE, assetService.getAssetsByUserId(currentUser.getUsername(),
                 page,
                 USER_ASSETS_DEFAULT_PAGE_SIZE));
 
@@ -81,7 +81,7 @@ public class UserAssets extends BaseController {
         Optional<AssetDTO> asset = assetService.getAssetByAssetId(assetId);
         if (asset.isPresent()) {
             // If the user tries to access an asset he doesn't own, we throw an exception.
-            if (!asset.get().getCreator().getUsername().equals(currentUser.getUsername())) {
+            if (!asset.get().getCreator().getUserId().equals(currentUser.getUsername())) {
                 logger.error("User {} tried to access asset {} he doesn't own", currentUser.getUsername(), assetId);
                 throw new ResponseStatusException(UNAUTHORIZED, "You don't own this asset: " + assetId);
             }
@@ -118,13 +118,11 @@ public class UserAssets extends BaseController {
                                 final BindingResult bindingResult) {
 
         // Getting the asset
-        System.out.println("FORM " + form.getAssetId());
-
         Optional<AssetDTO> asset = assetService.getAssetByAssetId(form.getAssetId());
         if (asset.isPresent()) {
 
             // If the user tries to access an asset he doesn't own, we throw an exception.
-            if (!asset.get().getCreator().getUsername().equals(currentUser.getUsername())) {
+            if (!asset.get().getCreator().getUserId().equals(currentUser.getUsername())) {
                 logger.error("User {} tried to access asset {} he doesn't own", currentUser.getUsername(), form.getAssetId());
                 throw new ResponseStatusException(UNAUTHORIZED, "You don't own this asset: " + form.getAssetId());
             }

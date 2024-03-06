@@ -47,7 +47,7 @@ public class AccountSettingsTest extends BaseTest {
 
     @Test
     @DisplayName("Account settings form")
-    @WithMockUser(username = "straumat")
+    @WithMockUser(username = "22222222-2222-2222-2222-222222222222")
     void accountSettingsForm() throws Exception {
 
         mockMvc.perform(get("/account/settings"))
@@ -69,13 +69,14 @@ public class AccountSettingsTest extends BaseTest {
 
     @Test
     @DisplayName("Account settings saved")
-    @WithMockUser(username = "straumat")
+    @WithMockUser(username = "22222222-2222-2222-2222-222222222222")
     void accountSettingsSaved() throws Exception {
 
         // =============================================================================================================
         // When there are error on fields.
 
         mockMvc.perform(post("/account/settings")
+                        .param("username", RandomStringUtils.randomAlphanumeric(31))
                         .param("fullName", RandomStringUtils.randomAlphanumeric(41))
                         .param("biography", RandomStringUtils.randomAlphanumeric(256))
                         .param("website", RandomStringUtils.randomAlphanumeric(51))
@@ -84,6 +85,8 @@ public class AccountSettingsTest extends BaseTest {
                 .andExpect(view().name(ACCOUNT_SETTINGS_PAGE))
                 .andExpect(model().attributeExists(FORM_ATTRIBUTE))
                 .andExpect(model().hasErrors())
+                .andExpect(model().attributeHasFieldErrors(FORM_ATTRIBUTE, "username"))
+                .andExpect(content().string(containsString(getMessage(messages, "validation.user.username.invalid"))))
                 .andExpect(model().attributeHasFieldErrors(FORM_ATTRIBUTE, "fullName"))
                 .andExpect(content().string(containsString(getMessage(messages, "validation.user.fullName.size.too_long"))))
                 .andExpect(model().attributeHasFieldErrors(FORM_ATTRIBUTE, "biography"))
@@ -105,6 +108,7 @@ public class AccountSettingsTest extends BaseTest {
 
         // We update the values.
         mockMvc.perform(post("/account/settings")
+                        .param("username", "pDupont")
                         .param("fullName", "Paul Dupont")
                         .param("biography", "I'm an architect")
                         .param("website", "https://www.architect.com")
@@ -113,6 +117,7 @@ public class AccountSettingsTest extends BaseTest {
                 .andExpect(view().name(ACCOUNT_SETTINGS_PAGE))
                 .andExpect(model().attributeExists(FORM_ATTRIBUTE))
                 .andExpect(model().hasNoErrors())
+                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.username.invalid")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.fullName.size.too_long")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.biography.size.too_long")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.website.invalid")))))
@@ -120,14 +125,16 @@ public class AccountSettingsTest extends BaseTest {
                 .andExpect(content().string(containsString(getMessage(messages, "user.settings.information.success"))));
 
         // We check the updated values.
-        Optional<UserDTO> userUpdated = userService.getUserByUsername("straumat");
+        Optional<UserDTO> userUpdated = userService.getUserByUserId("22222222-2222-2222-2222-222222222222");
         assertTrue(userUpdated.isPresent());
+        assertEquals("pdupont", userUpdated.get().getUsername());
         assertEquals("Paul Dupont", userUpdated.get().getFullName());
         assertEquals("I'm an architect", userUpdated.get().getBiography());
         assertEquals("https://www.architect.com", userUpdated.get().getWebsite());
 
         // We go back to normal values
         mockMvc.perform(post("/account/settings")
+                        .param("username", STRAUMAT_USER_USERNAME)
                         .param("fullName", STRAUMAT_USER_FULL_NAME)
                         .param("biography", STRAUMAT_USER_BIOGRAPHY)
                         .param("website", STRAUMAT_USER_WEBSITE)

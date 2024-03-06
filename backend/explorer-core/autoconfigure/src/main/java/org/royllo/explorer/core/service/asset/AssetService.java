@@ -83,4 +83,14 @@ public interface AssetService {
      */
     Page<AssetDTO> getAssetsByUsername(String username, int page, int pageSize);
 
+    /**
+     * Gets assets by username.
+     *
+     * @param userId   userId
+     * @param page     page number
+     * @param pageSize page size
+     * @return assets owned by user
+     */
+    Page<AssetDTO> getAssetsByUserId(String userId, int page, int pageSize);
+
 }

@@ -51,7 +51,7 @@ public class ClaimAssetOwnershipRequestControllerTest extends BaseTest {
     RequestService requestService;
 
     @Test
-    @WithMockUser(username = "straumat")
+    @WithMockUser(username = "22222222-2222-2222-2222-222222222222")
     @DisplayName("Claim asset ownership request form test")
     void claimAssetOwnershipRequestFormTest() throws Exception {
 
@@ -65,7 +65,7 @@ public class ClaimAssetOwnershipRequestControllerTest extends BaseTest {
 
     @Test
     @DisplayName("Account settings saved")
-    @WithMockUser(username = "straumat")
+    @WithMockUser(username = "22222222-2222-2222-2222-222222222222")
     void claimAssetOwnershipRequestSaved() throws Exception {
 
         final long requestCount = requestRepository.count();

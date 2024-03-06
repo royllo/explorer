@@ -50,12 +50,12 @@ public class UserDetailsServiceTest {
         SimpleLnurlAuth simpleLnurlAuth = SimpleLnurlAuth.create(new URI("http://locahost"), user1K1Test1);
         Signature signature = SimpleSignature.fromHex("3046022100cd9f98eb6cda6d0b5f479a1709baed16d8e09e49a697d1f2a5315b933b29ff65022100983e4c03206656c67d849c142d55d7c6c80ec70b87a01bbffa6fb71464381b4e");
         SignedLnurlAuth user1SignedLnurlAuth = SimpleSignedLnurlAuth.create(simpleLnurlAuth, user1LinkingKeyTest1, signature);
-        lnurlAuthPairingService.pairUserWithK1(user1SignedLnurlAuth);
+        final UserDetails userCreated = lnurlAuthPairingService.pairUserWithK1(user1SignedLnurlAuth);
 
         // We try the load the user created.
         final UserDetails userDetails = userDetailsService.loadUserByUsername(user1linkingKey1Value);
         assertNotNull(userDetails);
-        assertEquals(user1linkingKey1Value, userDetails.getUsername());
+        assertEquals(userCreated.getUsername(), userDetails.getUsername());
 
         // We try to load a non-existing user.
         UsernameNotFoundException e = assertThrows(UsernameNotFoundException.class, () -> userDetailsService.loadUserByUsername("NON_EXISTING_USERNAME"));

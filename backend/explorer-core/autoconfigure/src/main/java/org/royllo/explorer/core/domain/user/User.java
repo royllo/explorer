@@ -72,7 +72,7 @@ public class User extends BaseDomain {
         if (username == null) {
             throw new IllegalArgumentException("Username is required");
         } else {
-            username = newUsername.toLowerCase();
+            username = newUsername.trim().toLowerCase();
         }
     }
 
