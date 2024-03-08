@@ -32,10 +32,12 @@
             <p class="text-left" th:text="#{user.settings.information.explanation}"></p>
 
             <!--/* Account settings form */-->
-            <form action="#" th:action="@{/account/settings}" th:object="${command}" method="post">
+            <form action="#" th:action="@{/account/settings}" th:object="${command}" method="post"
+                  enctype="multipart/form-data">
                 <div class="space-y-3"
                      x-data="{
                         username: '',
+                        profilePicture: '',
                         fullName: '',
                         biography: '',
                         website: '',
@@ -43,11 +45,13 @@
                         init() {
                             // Initialize Alpine.js data with Thymeleaf value.
                             this.username = this.$refs.username.value;
+                            this.profilePicture = this.$refs.profilePicture.value;
                             this.fullName = this.$refs.fullName.value;
                             this.biography = this.$refs.biography.value;
                             this.website = this.$refs.website.value;
                             // Add even management. If the form is changed, set the formChanged variable to true.
                             this.$watch('username', () => this.formChanged = true);
+                            this.$watch('profilePicture', () => this.formChanged = true);
                             this.$watch('fullName', () => this.formChanged = true);
                             this.$watch('biography', () => this.formChanged = true);
                             this.$watch('website', () => this.formChanged = true);
@@ -65,6 +69,28 @@
                     </label>
                     <p th:if="${#fields.hasErrors('username')}" class="fieldError">
                     <span th:each="error : ${#fields.errors('username')}"
+                          th:text="${error}"></span>
+                    </p>
+
+                    <!--/* Profil picture */-->
+                    <div style="display: flex; align-items: center; justify-content: start; gap: 20px;">
+                        <div class="avatar" th:if="${command.profilePictureFilename} != null">
+                            <div class="w-24 rounded-xl">
+                                <img th:src="${contentBaseUrl} + '/' + ${command.profilePictureFilename}"/>
+                            </div>
+                        </div>
+                        <label class="form-control">
+                            <div class="label">
+                                <span class="label-text"
+                                      th:text="#{user.settings.information.profilePicture.label}"></span>
+                            </div>
+                            <input type="file" class="file-input file-input-bordered w-full max-w-xs"
+                                   th:field="*{profilePicture}" x-model="profilePicture"
+                                   x-ref="profilePicture"/>
+                        </label>
+                    </div>
+                    <p th:if="${#fields.hasErrors('profilePicture')}" class="fieldError">
+                    <span th:each="error : ${#fields.errors('profilePicture')}"
                           th:text="${error}"></span>
                     </p>
 

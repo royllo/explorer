@@ -45,9 +45,13 @@ public enum FileType {
      * @return type
      */
     public static FileType getTypeByExtension(final String extension) {
+        if (extension == null) {
+            return UNKNOWN;
+        }
+        final String cleanedExtension = extension.trim().replace(".", "");
         for (FileType fileType : FileType.values()) {
             for (String ext : fileType.extensions) {
-                if (ext.equalsIgnoreCase(extension)) {
+                if (ext.equalsIgnoreCase(cleanedExtension)) {
                     return fileType;
                 }
             }

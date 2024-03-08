@@ -3,6 +3,8 @@ package org.royllo.explorer.web.controller.user.account;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
+
 
 /**
  * Account settings form.
@@ -10,6 +12,9 @@ import lombok.Data;
 @Data
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public class AccountSettingsForm {
+
+    /** Profile picture file name maximum size. */
+    private static final int PROFILE_PICTURE_FILE_NAME_MAXIMUM_SIZE = 255;
 
     /** Full name maximum size. */
     private static final int FULL_NAME_MAXIMUM_SIZE = 40;
@@ -23,6 +28,13 @@ public class AccountSettingsForm {
     /** Username. */
     @Pattern(regexp = "^[a-zA-Z0-9_]{3,20}$", message = "{validation.user.username.invalid}")
     String username;
+
+    /** Profile picture. */
+    MultipartFile profilePicture;
+
+    /** Profile picture filename. */
+    @Size(max = PROFILE_PICTURE_FILE_NAME_MAXIMUM_SIZE, message = "{validation.user.profilePictureFilename.size.too_long}")
+    String profilePictureFilename;
 
     /** Full name. */
     @Size(max = FULL_NAME_MAXIMUM_SIZE, message = "{validation.user.fullName.size.too_long}")
