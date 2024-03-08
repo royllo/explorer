@@ -104,7 +104,7 @@
 
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
-        <testcontainers.version>1.19.6</testcontainers.version>
+        <testcontainers.version>1.19.7</testcontainers.version>
         <mockito-core.version>5.11.0</mockito-core.version>
         <okhttp.version>5.0.0-alpha.12</okhttp.version>
 
