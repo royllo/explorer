@@ -129,7 +129,7 @@ public class UserServiceImplementation extends BaseService implements UserServic
     }
 
     @Override
-    public Optional<UserDTO> getUserByUsername(@NonNull final String username) {
+    public Optional<UserDTO> getUserByUsername(final String username) {
         logger.info("Getting user with username: {}", username);
 
         final Optional<User> user = userRepository.findByUsernameIgnoreCase(username);

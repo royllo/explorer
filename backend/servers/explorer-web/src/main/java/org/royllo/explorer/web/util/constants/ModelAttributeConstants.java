@@ -9,6 +9,9 @@ import lombok.experimental.UtilityClass;
 @SuppressWarnings("checkstyle:HideUtilityClassConstructor")
 public class ModelAttributeConstants {
 
+    /** Error message. */
+    public static final String ERROR_MESSAGE_ATTRIBUTE = "errorMessage";
+
     /** API base url. */
     public static final String API_BASE_URL_ATTRIBUTE = "apiBaseUrl";
 
@@ -32,6 +35,12 @@ public class ModelAttributeConstants {
 
     /** Asset id attribute. */
     public static final String ASSET_ID_ATTRIBUTE = "assetId";
+
+    /** User attribute. */
+    public static final String USER_ATTRIBUTE = "user";
+
+    /** Username attribute. */
+    public static final String USERNAME_ATTRIBUTE = "username";
 
     /** Asset id attribute. */
     public static final String ASSET_NAME_ATTRIBUTE = "assetName";

@@ -13,42 +13,27 @@
         <div class="mx-auto max-w-2xl text-center space-y-3">
 
             <!--/* Page header. */-->
-            <h2 class="pageHeader" th:text="#{user.assets.title}"></h2>
-            <p class="pageHeaderSubtitle" th:text="#{user.assets.explanation}"></p>
+            <div class="flex flex-row space-x-3">
+
+                <div class="avatar" th:if="${user.profilePictureFilename} != null">
+                    <div class="w-24 rounded-xl">
+                        <img th:src="${contentBaseUrl} + '/' + ${user.profilePictureFilename}"/>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="pageHeader" th:text="${user.username}" th:if="${#strings.isEmpty(user.fullName)}"></h2>
+                    <h2 class="pageHeader" th:text="${user.fullName}" th:if="${!#strings.isEmpty(user.fullName)}"></h2>
+                    <p><a th:href="${user.website}" th:text="${user.website}" th:target="${user.username}"
+                          class="link"></a>
+                    </p>
+                </div>
+
+            </div>
+            <p class="pageHeaderSubtitle" th:text="${user.biography}" th:if="${user.biography != null}"></p>
             <hr>
 
-            <!--/* if we have in the query parameters something called 'assetUpdated', display a message */-->
-            <div role="alert" class="alert alert-success" th:if="${param.assetUpdated}">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                     class="stroke-current shrink-0 w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M5 13l4 4L19 7"></path>
-                </svg>
-                <span th:text="#{user.asset.assetUpdated}"></span>
-            </div>
-
-
-            <!--/* Information message if the user has no asset. */-->
-            <div role="alert" class="alert alert-info" th:if="${result != null && result.getTotalElements() == 0}">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                     class="stroke-current shrink-0 w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <span th:text="#{user.assets.noAssets}"></span>
-            </div>
-
-            <!--/* There is results but not for the page they asked for */-->
-            <div role="alert" class="alert alert-warning"
-                 th:if="${result != null && result.getTotalElements() > 0 && result.getContent().isEmpty()}">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                     class="stroke-current shrink-0 w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <span th:text="#{user.assets.wrongPageNumber}"></span>
-            </div>
-
+            <!--/* Assets list. */-->
             <!--/* Results, if present */-->
             <div th:if="${result != null && !result.getContent().isEmpty()}">
 
@@ -106,12 +91,10 @@
                 </div>
 
                 <!--/* Pagination */-->
-                <div th:insert="~{util/fragments/components/pagination_without_htmx :: pagination(@{'/user/'},
+                <div th:insert="~{util/fragments/components/pagination_without_htmx :: pagination(@{'/user/' + ${user.username}},
                                                                                     ${page},
                                                                                     ${result.getTotalPages()})}">
                 </div>
-
-            </div>
 
         </div>
 

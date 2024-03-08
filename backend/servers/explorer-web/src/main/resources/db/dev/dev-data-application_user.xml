@@ -9,6 +9,7 @@
             <column name="ID" value="2"/>
             <column name="USER_ID" value="22222222-2222-2222-2222-222222222222"/>
             <column name="USERNAME" value="straumat"/>
+            <column name="PROFILE_PICTURE_FILE_NAME" value="22222222-2222-2222-2222-222222222222.jpeg"/>
             <column name="ROLE" value="ADMINISTRATOR"/>
             <column name="FULL_NAME" value="Stéphane Traumat"/>
             <column name="BIOGRAPHY" value="I am a developer"/>

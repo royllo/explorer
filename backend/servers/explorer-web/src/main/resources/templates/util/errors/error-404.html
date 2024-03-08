@@ -18,7 +18,8 @@
             <div class="ml-3">
                 <h3 class="text-sm font-medium text-yellow-800" th:text="#{generic.error}"></h3>
                 <div class="mt-2 text-sm text-red-700">
-                    <p th:text="#{generic.error.404}"></p>
+                    <p th:text="#{generic.error.404}" th:if="${errorMessage == null}"></p>
+                    <p th:text="${errorMessage}" th:if="${errorMessage != null}"></p>
                 </div>
             </div>
         </div>

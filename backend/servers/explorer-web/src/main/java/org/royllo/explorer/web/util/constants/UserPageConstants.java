@@ -15,4 +15,7 @@ public class UserPageConstants {
     /** User asset form page. */
     public static final String USER_ASSET_FORM_PAGE = "user/account/assets/form";
 
+    /** User public page. */
+    public static final String USER_PUBLIC_PAGE = "user/page/home";
+
 }
