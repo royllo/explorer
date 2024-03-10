@@ -62,3 +62,12 @@ download_dependencies:
 update_ubuntu:
     sudo apt-get update
     sudo apt-get -y upgrade
+
+create_review_list:
+    rm -f review_list.txt
+    find . -name "*.java" > review_list.txt
+    find . -name "*.properties" >> review_list.txt
+    find . -name "*.html" >> review_list.txt
+    sed -i '/package-info.java/d' review_list.txt
+    sed -i '/target/d' review_list.txt
+    sed -i '/node/d' review_list.txt

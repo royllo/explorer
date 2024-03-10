@@ -122,3 +122,6 @@ util/test/common-test/src/main/resources/tapd/admin-testnet.macaroon
 util/test/common-test/src/main/resources/tapd/admin-mainnet.macaroon
 util/test/common-test/adamCoin-request.json
 /util/test/common-test/src/main/resources/tapd/admin-local.macaroon
+
+# Review list.
+review_list.txt
