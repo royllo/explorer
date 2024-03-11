@@ -39,7 +39,7 @@ public class UniverseServer extends BaseDomain {
     private Long id;
 
     /** Universe server UUID. */
-    @Column(name = "UNIVERSE_SERVER_ID", updatable = false)
+    @Column(name = "UNIVERSE_SERVER_ID", nullable = false, updatable = false)
     private String universeServerId;
 
     /** Universe server owner. */

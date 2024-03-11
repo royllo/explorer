@@ -42,11 +42,11 @@ public class BitcoinTransactionOutput extends BaseDomain {
     private LocalDateTime blockTime;
 
     /** Transaction id. */
-    @Column(name = "TXID", updatable = false)
+    @Column(name = "TXID", nullable = false, updatable = false)
     private String txId;
 
     /** Output index (starts at 0). */
-    @Column(name = "VOUT", updatable = false)
+    @Column(name = "VOUT", nullable = false, updatable = false)
     private int vout;
 
     /** ScriptPubKey is the script which controls how bitcoin can be spent. */

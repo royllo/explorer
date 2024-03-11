@@ -47,7 +47,7 @@ public class Asset extends BaseDomain {
     private User creator;
 
     /** Asset genesis: The asset ID that uniquely identifies the asset. */
-    @Column(name = "ASSET_ID", updatable = false)
+    @Column(name = "ASSET_ID", nullable = false, updatable = false)
     private String assetId;
 
     /** The asset ID alias in Royllo (generated or configured). */

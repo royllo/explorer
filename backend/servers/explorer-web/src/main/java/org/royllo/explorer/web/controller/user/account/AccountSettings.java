@@ -61,7 +61,7 @@ public class AccountSettings extends BaseController {
             logger.info("Displaying account settings for user {}: {}", connectedUser.get().getUsername(), connectedUser.get());
             AccountSettingsForm accountSettingsForm = new AccountSettingsForm();
             accountSettingsForm.setUsername(connectedUser.get().getUsername());
-            accountSettingsForm.setProfilePictureFilename(connectedUser.get().getProfilePictureFilename());
+            accountSettingsForm.setProfilePictureFilename(connectedUser.get().getProfilePictureFileName());
             accountSettingsForm.setFullName(connectedUser.get().getFullName());
             accountSettingsForm.setBiography(connectedUser.get().getBiography());
             accountSettingsForm.setWebsite(connectedUser.get().getWebsite());
@@ -120,7 +120,7 @@ public class AccountSettings extends BaseController {
                     if (FileType.getTypeByExtension(extension) == IMAGE) {
                         String filename = connectedUser.get().getUserId() + extension;
                         contentService.storeFile(form.getProfilePicture().getBytes(), filename);
-                        connectedUser.get().setProfilePictureFilename(filename);
+                        connectedUser.get().setProfilePictureFileName(filename);
                         form.setProfilePictureFilename(filename);
                     }
                     // TODO Create an error if the type is not an image.

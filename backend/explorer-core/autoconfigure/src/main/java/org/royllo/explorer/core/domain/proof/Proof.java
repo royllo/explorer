@@ -8,7 +8,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,6 +22,7 @@ import org.royllo.explorer.core.util.enums.ProofType;
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.FetchType.EAGER;
 import static jakarta.persistence.GenerationType.IDENTITY;
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * Taproot asset proof.
@@ -31,7 +31,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = PACKAGE)
 @Builder
 @Entity
 @Table(name = "PROOF")
@@ -53,8 +53,8 @@ public class Proof extends BaseDomain {
     @JoinColumn(name = "FK_ASSET", nullable = false)
     private Asset asset;
 
-    /** The proof sID that uniquely identifies the proof - sha256(proof). */
-    @Column(name = "PROOF_ID", updatable = false)
+    /** The proof ID that uniquely identifies the proof - sha256(proof). */
+    @Column(name = "PROOF_ID", nullable = false, updatable = false)
     private String proofId;
 
     /** Proof type. */

@@ -92,14 +92,14 @@ public class UserServiceTest {
         assertTrue(existingUser.isPresent());
         assertEquals(2, existingUser.get().getId().longValue());
         assertEquals(STRAUMAT_USERNAME, existingUser.get().getUsername());
-        assertEquals("22222222-2222-2222-2222-222222222222.jpeg", existingUser.get().getProfilePictureFilename());
+        assertEquals("22222222-2222-2222-2222-222222222222.jpeg", existingUser.get().getProfilePictureFileName());
         assertEquals("Stéphane Traumat", existingUser.get().getFullName());
         assertEquals("I am a developer", existingUser.get().getBiography());
         assertEquals("https://github.com/straumat", existingUser.get().getWebsite());
         assertEquals(ADMINISTRATOR, existingUser.get().getRole());
 
         // We update the user data.
-        existingUser.get().setProfilePictureFilename("33333333-3333-3333-3333-333333333333.jpeg");
+        existingUser.get().setProfilePictureFileName("33333333-3333-3333-3333-333333333333.jpeg");
         existingUser.get().setFullName("Stéphane Traumat (Updated)");
         existingUser.get().setBiography("I am a developer (Updated)");
         existingUser.get().setWebsite("https://github.com/straumat2");
@@ -113,7 +113,7 @@ public class UserServiceTest {
         assertEquals(STRAUMAT_USERNAME, existingUser.get().getUsername());
         assertEquals(ADMINISTRATOR, existingUser.get().getRole());
         // Should be updated.
-        assertEquals("33333333-3333-3333-3333-333333333333.jpeg", existingUser.get().getProfilePictureFilename());
+        assertEquals("33333333-3333-3333-3333-333333333333.jpeg", existingUser.get().getProfilePictureFileName());
         assertEquals("Stéphane Traumat (Updated)", existingUser.get().getFullName());
         assertEquals("I am a developer (Updated)", existingUser.get().getBiography());
         assertEquals("https://github.com/straumat2", existingUser.get().getWebsite());
@@ -196,7 +196,7 @@ public class UserServiceTest {
 
         // We go back to normal.
         existingUser.get().setUsername(STRAUMAT_USERNAME);
-        existingUser.get().setProfilePictureFilename("22222222-2222-2222-2222-222222222222.jpeg");
+        existingUser.get().setProfilePictureFileName("22222222-2222-2222-2222-222222222222.jpeg");
         existingUser.get().setFullName("Stéphane Traumat");
         existingUser.get().setBiography("I am a developer");
         existingUser.get().setWebsite("https://github.com/straumat");

@@ -39,7 +39,7 @@ public class User extends BaseDomain {
     private Long id;
 
     /** User UUID. */
-    @Column(name = "USER_ID", updatable = false)
+    @Column(name = "USER_ID", nullable = false, updatable = false)
     private String userId;
 
     /** Username. */
@@ -53,10 +53,10 @@ public class User extends BaseDomain {
 
     /** Profile picture file name. */
     @Column(name = "PROFILE_PICTURE_FILE_NAME")
-    private String profilePictureFilename;
+    private String profilePictureFileName;
 
     /** Full name. */
-    @Column(name = "FULL_NAME", nullable = false)
+    @Column(name = "FULL_NAME")
     private String fullName;
 
     /** Biography. */
@@ -68,11 +68,12 @@ public class User extends BaseDomain {
     private String website;
 
     /**
-     * Setter username.
+     * Setter for username.
      *
      * @param newUsername the username to set
      */
     public void setUsername(final String newUsername) {
+        // TODO Add a @NonNull annotation to the username parameter.
         if (username == null) {
             throw new IllegalArgumentException("Username is required");
         } else {

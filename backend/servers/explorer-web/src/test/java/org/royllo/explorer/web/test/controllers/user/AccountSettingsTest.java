@@ -119,7 +119,7 @@ public class AccountSettingsTest extends BaseTest {
         Optional<UserDTO> existingUser = userService.getUserByUsername("straumat");
         assertTrue(existingUser.isPresent());
         assertEquals("straumat", existingUser.get().getUsername());
-        assertEquals("22222222-2222-2222-2222-222222222222.jpeg", existingUser.get().getProfilePictureFilename());
+        assertEquals("22222222-2222-2222-2222-222222222222.jpeg", existingUser.get().getProfilePictureFileName());
         assertEquals("Stéphane Traumat", existingUser.get().getFullName());
         assertEquals("I am a developer", existingUser.get().getBiography());
         assertEquals("https://github.com/straumat", existingUser.get().getWebsite());
@@ -150,7 +150,7 @@ public class AccountSettingsTest extends BaseTest {
         // We check the updated values.
         Optional<UserDTO> userUpdated = userService.getUserByUserId("22222222-2222-2222-2222-222222222222");
         assertTrue(userUpdated.isPresent());
-        assertEquals("22222222-2222-2222-2222-222222222222.jpg", userUpdated.get().getProfilePictureFilename());
+        assertEquals("22222222-2222-2222-2222-222222222222.jpg", userUpdated.get().getProfilePictureFileName());
         assertEquals("pdupont", userUpdated.get().getUsername());
         assertEquals("Paul Dupont", userUpdated.get().getFullName());
         assertEquals("I'm an architect", userUpdated.get().getBiography());

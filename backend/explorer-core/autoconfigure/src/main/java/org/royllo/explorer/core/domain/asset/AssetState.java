@@ -49,7 +49,7 @@ public class AssetState extends BaseDomain {
 
     /** The asset state ID that uniquely identifies the asset state (calculated by Royllo). */
     @NonFinal
-    @Column(name = "ASSET_STATE_ID", updatable = false)
+    @Column(name = "ASSET_STATE_ID", nullable = false, updatable = false)
     private String assetStateId;
 
     /** Asset. */

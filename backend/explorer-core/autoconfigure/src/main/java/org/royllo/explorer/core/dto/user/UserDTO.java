@@ -60,7 +60,7 @@ public class UserDTO {
     @Setter
     @NonFinal
     @Size(max = PROFILE_PICTURE_FILE_NAME_MAXIMUM_SIZE, message = "{validation.user.profilePictureFilename.size.too_long}")
-    String profilePictureFilename;
+    String profilePictureFileName;
 
     /** Full name. */
     @Setter

@@ -15,9 +15,9 @@
             <!--/* Page header. */-->
             <div class="flex flex-row space-x-3">
 
-                <div class="avatar" th:if="${user.profilePictureFilename} != null">
+                <div class="avatar" th:if="${user.getProfilePictureFileName} != null">
                     <div class="w-24 rounded-xl">
-                        <img th:src="${contentBaseUrl} + '/' + ${user.profilePictureFilename}"/>
+                        <img th:src="${contentBaseUrl} + '/' + ${user.getProfilePictureFileName}"/>
                     </div>
                 </div>
 

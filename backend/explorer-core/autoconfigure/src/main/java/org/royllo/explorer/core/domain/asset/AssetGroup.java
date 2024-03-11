@@ -34,13 +34,13 @@ public class AssetGroup extends BaseDomain {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    /** Asset creator. */
+    /** Asset group creator. */
     @ManyToOne(fetch = EAGER)
     @JoinColumn(name = "FK_USER_CREATOR", nullable = false)
     private User creator;
 
     /** Asset group id (=TWEAKED_GROUP_KEY). */
-    @Column(name = "ASSET_GROUP_ID", updatable = false)
+    @Column(name = "ASSET_GROUP_ID", nullable = false, updatable = false)
     private String assetGroupId;
 
     /** The raw group key which is a normal public key. */
