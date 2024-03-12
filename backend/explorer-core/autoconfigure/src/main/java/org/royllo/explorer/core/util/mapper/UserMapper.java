@@ -11,6 +11,7 @@ import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
  */
 @Mapper(nullValuePropertyMappingStrategy = IGNORE)
 public interface UserMapper {
+    // TODO: specify fields.
 
     User mapToUser(UserDTO source);
 

@@ -18,13 +18,13 @@
                     remarks="User UUID">
                 <constraints nullable="false" unique="true" uniqueConstraintName="UNIQUE_APPLICATION_USER_USER_ID"/>
             </column>
-            <column name="USERNAME" type="VARCHAR(255)"
-                    remarks="Username">
-                <constraints nullable="false" unique="true" uniqueConstraintName="UNIQUE_APPLICATION_USER_USERNAME"/>
-            </column>
             <column name="ROLE" type="TEXT"
                     remarks="User role">
                 <constraints nullable="false"/>
+            </column>
+            <column name="USERNAME" type="VARCHAR(255)"
+                    remarks="Username">
+                <constraints nullable="false" unique="true" uniqueConstraintName="UNIQUE_APPLICATION_USER_USERNAME"/>
             </column>
             <column name="PROFILE_PICTURE_FILE_NAME" type="TEXT"
                     remarks="Profile picture filename">

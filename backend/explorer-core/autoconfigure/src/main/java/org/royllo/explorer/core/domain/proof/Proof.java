@@ -60,6 +60,6 @@ public class Proof extends BaseDomain {
     /** Proof type. */
     @Enumerated(STRING)
     @Column(name = "PROOF_TYPE", updatable = false)
-    private ProofType proofType;
+    private ProofType type;
 
 }

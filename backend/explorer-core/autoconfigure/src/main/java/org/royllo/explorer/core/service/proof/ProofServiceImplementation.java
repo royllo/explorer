@@ -73,7 +73,7 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
                     .proofId(sha256(proof))
                     .creator(ANONYMOUS_USER)
                     .asset(asset.get())
-                    .proofType(proofType)
+                    .type(proofType)
                     .build());
             final ProofDTO proofDTO = PROOF_MAPPER.mapToProofDTO(proofToCreate);
             logger.info("Proof '{}' with id {}", getProofAbstract(proof), proofDTO.getId());

@@ -36,7 +36,7 @@ public class AssetDTO {
     public static final int ASSET_ID_ALIAS_MAX_SIZE = 30;
 
     /** Maximum size of the readme. */
-    public static final int README_MAX_SIZE = 3000;
+    public static final int README_MAX_SIZE = 3_000;
 
     /** Unique identifier. */
     Long id;

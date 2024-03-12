@@ -127,7 +127,7 @@ public class RequestServiceTest {
         assertEquals(OPENED, request1Casted.getStatus());
         assertNull(request1Casted.getErrorMessage());
         assertEquals("proof1", request1Casted.getProof());
-        assertEquals(PROOF_TYPE_UNSPECIFIED, request1Casted.getProofType());
+        assertEquals(PROOF_TYPE_UNSPECIFIED, request1Casted.getType());
 
         // =============================================================================================================
         // Request 2 (addAssetMetaData).
@@ -172,7 +172,7 @@ public class RequestServiceTest {
         assertEquals(OPENED, request3Casted.getStatus());
         assertNull(request3Casted.getErrorMessage());
         assertEquals("proof2", request3Casted.getProof());
-        assertEquals(PROOF_TYPE_UNSPECIFIED, request3Casted.getProofType());
+        assertEquals(PROOF_TYPE_UNSPECIFIED, request3Casted.getType());
 
         // =============================================================================================================
         // Request 4 (AddUniverseServerRequest).
@@ -199,11 +199,11 @@ public class RequestServiceTest {
         // Testing createAddProofRequest(String proof, ProofType proofType).
         AddProofRequestDTO request5DTO = requestService.createAddProofRequest("proof", PROOF_TYPE_ISSUANCE);
         assertNotNull(request5DTO.getId());
-        assertEquals(PROOF_TYPE_ISSUANCE, request5DTO.getProofType());
+        assertEquals(PROOF_TYPE_ISSUANCE, request5DTO.getType());
 
         AddProofRequestDTO request6DTO = requestService.createAddProofRequest("proof", PROOF_TYPE_TRANSFER);
         assertNotNull(request6DTO.getId());
-        assertEquals(PROOF_TYPE_TRANSFER, request6DTO.getProofType());
+        assertEquals(PROOF_TYPE_TRANSFER, request6DTO.getType());
 
         // =============================================================================================================
         // Request 7 (ClaimAssetOwnershipRequest).

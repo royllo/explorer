@@ -39,7 +39,7 @@ public class ProviderTransactionServiceImplementation extends BaseProviderServic
     @Override
     @SuppressWarnings("checkstyle:DesignForExtension")
     public Mono<GetTransactionResponse> getTransaction(final String txid) {
-        logger.debug("Calling mempool for transaction {}", txid);
+        logger.info("Calling mempool for transaction {}", txid);
 
         // Consume a token from the token bucket.
         // If a token is not available this method will block until the refill adds one to the bucket.

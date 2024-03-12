@@ -19,7 +19,7 @@ public class ClaimAssetOwnershipRequestDTO extends RequestDTO {
     @Override
     public final void success() {
         super.success();
-        // For security reasons, we remove the proof with witness from the request once treated.
+        // For security reasons, we remove the proof from the request once it has been treated.
         proofWithWitness = null;
     }
 

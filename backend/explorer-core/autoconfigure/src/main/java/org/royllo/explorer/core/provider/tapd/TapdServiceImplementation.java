@@ -11,7 +11,6 @@ import org.royllo.explorer.core.util.base.BaseProviderService;
 import org.royllo.explorer.core.util.enums.ProofType;
 import org.royllo.explorer.core.util.parameters.OutgoingRateLimitsParameters;
 import org.royllo.explorer.core.util.parameters.TAPDParameters;
-import org.springframework.http.MediaType;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -20,6 +19,8 @@ import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
 
 import javax.net.ssl.SSLException;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 /**
  * TAPD service implementation.
@@ -100,7 +101,7 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
                 .post()
                 .uri("/v1/taproot-assets/proofs/decode")
                 .header("Grpc-Metadata-macaroon", tapdParameters.getApi().getMacaroon())
-                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(APPLICATION_JSON)
                 .body(BodyInserters.fromValue(DecodedProofRequest.builder()
                         .rawProof(proof)
                         .proofAtDepth(proofAtDepth)
@@ -109,6 +110,9 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
                         .build()
                 ))
                 .exchangeToFlux(response -> response.bodyToFlux(DecodedProofResponse.class))
+                .doOnError(throwable -> logger.error("Error calling decode for proof from tapd at {} depth: {}",
+                        proofAtDepth,
+                        throwable.getMessage()))
                 .next();
     }
 
@@ -135,6 +139,9 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
                 .get()
                 .uri("/v1/taproot-assets/universe/roots?offset=" + offset + "&limit=" + limit)
                 .exchangeToFlux(response -> response.bodyToFlux(UniverseRootsResponse.class))
+                .doOnError(throwable -> logger.error("Error getting universe roots from tapd server {}: {}",
+                        serverAddress,
+                        throwable.getMessage()))
                 .next();
     }
 
@@ -161,6 +168,9 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
                 .get()
                 .uri("/v1/taproot-assets/universe/leaves/asset-id/" + assetId + "?proof_type=" + proofType)
                 .exchangeToFlux(response -> response.bodyToFlux(UniverseLeavesResponse.class))
+                .doOnError(throwable -> logger.error("Error getting universe leaves from tapd for asset {}: {}",
+                        assetId,
+                        throwable.getMessage()))
                 .next();
     }
 
@@ -185,12 +195,15 @@ public class TapdServiceImplementation extends BaseProviderService implements Ta
                 .post()
                 .uri("/v1/taproot-assets/wallet/ownership/verify")
                 .header("Grpc-Metadata-macaroon", tapdParameters.getApi().getMacaroon())
-                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(APPLICATION_JSON)
                 .body(BodyInserters.fromValue(OwnershipVerifyRequest.builder()
                         .proofWithWitness(proofWithWitness)
                         .build()
                 ))
                 .exchangeToFlux(response -> response.bodyToFlux(OwnershipVerifyResponse.class))
+                .doOnError(throwable -> logger.error("Error verifying asset ownership with the proof {}: {}",
+                        proofWithWitness,
+                        throwable.getMessage()))
                 .next();
     }
 

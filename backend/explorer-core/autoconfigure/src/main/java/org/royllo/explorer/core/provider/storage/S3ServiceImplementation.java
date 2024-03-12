@@ -64,8 +64,10 @@ public class S3ServiceImplementation extends BaseService implements ContentServi
                     .object(fileName).stream(new ByteArrayInputStream(fileContent), fileContent.length, -1)
                     .contentType(new Tika().detect(fileContent))
                     .build());
+            logger.info("File {} stored in S3", fileName);
         } catch (Exception e) {
             logger.error("Error while storing file {} in S3: {}", fileName, e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -76,8 +78,10 @@ public class S3ServiceImplementation extends BaseService implements ContentServi
                     .bucket(s3Parameters.getBucketName())
                     .object(fileName)
                     .build());
+            logger.info("File {} exists in S3", fileName);
             return true;
         } catch (ErrorResponseException e) {
+            logger.info("File {} does not exist in S3", fileName);
             return false;
         } catch (Exception e) {
             logger.error("Error checking if file exists {} in S3: {}", fileName, e.getMessage());
@@ -93,6 +97,7 @@ public class S3ServiceImplementation extends BaseService implements ContentServi
                             .bucket(s3Parameters.getBucketName())
                             .object(fileName)
                             .build());
+            logger.info("File {} deleted from S3", fileName);
         } catch (Exception e) {
             logger.error("Error deleting file {} in S3: {}", fileName, e.getMessage());
             throw new RuntimeException(e.getMessage());

@@ -39,9 +39,8 @@ public class ProofDTO {
     String proofId;
 
     /** Proof type. */
-    // TODO Rename to TYPE
     @NotNull(message = "{validation.proof.proofType.required}")
-    ProofType proofType;
+    ProofType type;
 
     /**
      * Returns the proof file name.

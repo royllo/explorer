@@ -19,7 +19,7 @@ import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.FetchType.EAGER;
 
 /**
- * Request to add proof to royllo database.
+ * Request to add a proof to royllo database.
  */
 @Getter
 @Setter
@@ -38,7 +38,7 @@ public class AddProofRequest extends Request {
     /** Proof type. */
     @Enumerated(STRING)
     @Column(name = "PROOF_TYPE", updatable = false)
-    private ProofType proofType;
+    private ProofType type;
 
     /** The asset created/updated by this request. */
     @ManyToOne(fetch = EAGER)

@@ -8,7 +8,7 @@
         <insert tableName="REQUEST">
             <column name="ID" value="1"/>
             <column name="REQUEST_ID" value="f5623bdf-9fa6-46cf-85df-request_p_01"/>
-            <column name="TYPE" value="ADD_PROOF"/>
+            <column name="REQUEST_TYPE" value="ADD_PROOF"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="STATUS" value="OPENED"/>
         </insert>
@@ -22,7 +22,7 @@
         <insert tableName="REQUEST">
             <column name="ID" value="2"/>
             <column name="REQUEST_ID" value="91425ba6-8b16-46a8-baa6-request_p_02"/>
-            <column name="TYPE" value="ADD_PROOF"/>
+            <column name="REQUEST_TYPE" value="ADD_PROOF"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="STATUS" value="FAILURE"/>
         </insert>
@@ -36,7 +36,7 @@
         <insert tableName="REQUEST">
             <column name="ID" value="3"/>
             <column name="REQUEST_ID" value="91425ba6-8b16-46a8-baa6-request_m_01"/>
-            <column name="TYPE" value="ADD_UNIVERSE_SERVER"/>
+            <column name="REQUEST_TYPE" value="ADD_UNIVERSE_SERVER"/>
             <column name="FK_USER_CREATOR" value="1"/>
             <column name="STATUS" value="OPENED"/>
         </insert>
@@ -49,7 +49,7 @@
         <insert tableName="REQUEST">
             <column name="ID" value="4"/>
             <column name="REQUEST_ID" value="91425ba6-8b16-46a8-baa6-request_p_03"/>
-            <column name="TYPE" value="ADD_PROOF"/>
+            <column name="REQUEST_TYPE" value="ADD_PROOF"/>
             <column name="FK_USER_CREATOR" value="0"/>
             <column name="STATUS" value="OPENED"/>
         </insert>

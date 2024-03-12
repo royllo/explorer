@@ -28,7 +28,9 @@ public class AddUniverseServerRequestDTO extends RequestDTO {
      * @param newUniverseServer new universe server
      */
     public void setUniverseServer(final UniverseServerDTO newUniverseServer) {
-        assert universeServer == null : "You can't update the target universe server, it's already set";
+        if (universeServer != null) {
+            throw new IllegalStateException("You can't update the target universe server, it's already set");
+        }
         universeServer = newUniverseServer;
     }
 

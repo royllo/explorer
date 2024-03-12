@@ -42,14 +42,14 @@ public class User extends BaseDomain {
     @Column(name = "USER_ID", nullable = false, updatable = false)
     private String userId;
 
-    /** Username. */
-    @Column(name = "USERNAME", nullable = false)
-    private String username;
-
     /** User role. */
     @Enumerated(STRING)
     @Column(name = "ROLE", nullable = false)
     private UserRole role;
+
+    /** Username. */
+    @Column(name = "USERNAME", nullable = false)
+    private String username;
 
     /** Profile picture file name. */
     @Column(name = "PROFILE_PICTURE_FILE_NAME")

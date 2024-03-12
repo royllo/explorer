@@ -24,7 +24,7 @@
                     remarks="Request UUID">
                 <constraints nullable="false" unique="true" uniqueConstraintName="UNIQUE_REQUEST_REQUEST_ID"/>
             </column>
-            <column name="TYPE" type="TEXT"
+            <column name="REQUEST_TYPE" type="TEXT"
                     remarks="Request type">
                 <constraints nullable="false"/>
             </column>

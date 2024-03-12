@@ -81,7 +81,7 @@ public class ProofServiceTest extends TestWithMockServers {
         assertEquals(UNKNOWN_ROYLLO_COIN_RAW_PROOF, getProofFromContentService(proofAdded.getProofFileName()));
         assertEquals(UNKNOWN_ROYLLO_COIN_ASSET_ID, proofAdded.getAsset().getAssetId());
         assertEquals(ANONYMOUS_ID, proofAdded.getCreator().getId());
-        assertEquals(PROOF_TYPE_UNSPECIFIED, proofAdded.getProofType());
+        assertEquals(PROOF_TYPE_UNSPECIFIED, proofAdded.getType());
 
         // We add again our proof as it's already in our database --> an error must occur.
         e = assertThrows(ProofCreationException.class, () -> proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, PROOF_TYPE_UNSPECIFIED, unknownRoylloCoinDecodedProof));

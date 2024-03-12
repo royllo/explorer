@@ -9,7 +9,7 @@ import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.util.enums.ProofType;
 
 /**
- * Request to add proof to royllo database.
+ * Request to add a proof to royllo database.
  */
 @Getter
 @SuperBuilder
@@ -22,9 +22,8 @@ public class AddProofRequestDTO extends RequestDTO {
     String proof;
 
     /** Proof type. */
-    // TODO Change to TYPE
     @NotNull(message = "{validation.request.type.required}")
-    ProofType proofType;
+    ProofType type;
 
     /** The asset created/updated by this request. */
     AssetDTO asset;
@@ -35,7 +34,9 @@ public class AddProofRequestDTO extends RequestDTO {
      * @param newAsset new asset
      */
     public void setAsset(final AssetDTO newAsset) {
-        assert asset == null : "You can't update the target asset, it's already set";
+        if (asset != null) {
+            throw new IllegalStateException("You can't update the target asset, it's already set");
+        }
         asset = newAsset;
     }
 

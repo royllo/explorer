@@ -115,7 +115,7 @@ public class RequestServiceImplementation extends BaseService implements Request
                 .creator(ANONYMOUS_USER)
                 .status(OPENED)
                 .proof(proof)
-                .proofType(proofType)
+                .type(proofType)
                 .build();
 
         AddProofRequestDTO savedRequest = REQUEST_MAPPER.mapToAddAssetRequestDTO(requestRepository.save(request));

@@ -134,7 +134,7 @@ public class AddProofBatch extends BaseBatch {
 
                                         // If not already added, we add the proof.
                                         if (!proofAdded) {
-                                            proofService.addProof(request.getProof(), request.getProofType(), response);
+                                            proofService.addProof(request.getProof(), request.getType(), response);
                                             request.setAsset(assetStateCreated.get().getAsset());
                                             proofAdded = true;
                                         }

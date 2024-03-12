@@ -35,7 +35,7 @@ import static jakarta.persistence.InheritanceType.JOINED;
 @Entity
 @Table(name = "REQUEST")
 @Inheritance(strategy = JOINED)
-@DiscriminatorColumn(name = "TYPE")
+@DiscriminatorColumn(name = "REQUEST_TYPE")
 public abstract class Request extends BaseDomain {
 
     /** Unique identifier. */

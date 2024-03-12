@@ -33,7 +33,7 @@ public class UserDTO {
     /** Website maximum size. */
     private static final int WEBSITE_MAXIMUM_SIZE = 50;
 
-    /** Username maximum size - If longer thant this, the username must be shortened. */
+    /** Username maximum size. */
     public static final int USERNAME_MAXIMUM_SIZE = 20;
 
     /** Username preview size - The size of the preview on both ends. */
@@ -46,15 +46,15 @@ public class UserDTO {
     @NotNull(message = "{validation.user.userId.required}")
     String userId;
 
+    /** User role. */
+    @NotNull(message = "{validation.user.role.required}")
+    UserRole role;
+
     /** Username. */
     @Setter
     @NonFinal
     @Pattern(regexp = "^[a-zA-Z0-9_]{3,20}$", message = "{validation.user.username.invalid}")
     String username;
-
-    /** User role. */
-    @NotNull(message = "{validation.user.role.required}")
-    UserRole role;
 
     /** Profile picture file name. */
     @Setter
@@ -86,7 +86,7 @@ public class UserDTO {
      * @return the shortened username
      */
     public String getShortenedUsername() {
-        // If username is too long, cut it.
+        // If username is too long, make a short version.
         if (username != null && username.length() >= USERNAME_MAXIMUM_SIZE) {
             return username.substring(0, USERNAME_PREVIEW_SIZE)
                     + "..."
