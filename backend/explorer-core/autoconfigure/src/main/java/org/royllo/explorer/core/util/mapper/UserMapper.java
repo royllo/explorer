@@ -7,11 +7,10 @@ import org.royllo.explorer.core.dto.user.UserDTO;
 import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 
 /**
- * User related mapper.
+ * User mapper.
  */
 @Mapper(nullValuePropertyMappingStrategy = IGNORE)
 public interface UserMapper {
-    // TODO: specify fields.
 
     User mapToUser(UserDTO source);
 

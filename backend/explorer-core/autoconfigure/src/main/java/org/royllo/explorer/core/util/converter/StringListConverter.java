@@ -8,6 +8,9 @@ import java.util.List;
 
 import static java.util.Collections.emptyList;
 
+/**
+ * String list converter.
+ */
 @Converter
 public final class StringListConverter implements AttributeConverter<List<String>, String> {
 

@@ -7,10 +7,11 @@ import org.royllo.explorer.core.dto.proof.ProofDTO;
 import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 
 /**
- * Proof related mapper.
+ * Proof mapper.
  */
 @SuppressWarnings("unused")
-@Mapper(nullValuePropertyMappingStrategy = IGNORE, uses = {UserMapper.class, AssetMapper.class, BitcoinMapper.class})
+@Mapper(nullValuePropertyMappingStrategy = IGNORE,
+        uses = {UserMapper.class, AssetMapper.class, BitcoinMapper.class})
 public interface ProofMapper {
 
     Proof mapToProof(ProofDTO source);

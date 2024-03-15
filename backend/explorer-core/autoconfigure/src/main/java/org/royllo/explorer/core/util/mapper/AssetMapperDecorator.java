@@ -8,7 +8,7 @@ import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
 
 import java.util.Random;
 
-import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ALIAS_LENGTH;
+import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_ALIAS_LENGTH;
 
 /**
  * Asset mapper decorator.
@@ -64,9 +64,9 @@ public abstract class AssetMapperDecorator implements AssetMapper {
      * @return random alias
      */
     private String getAssetIdAlias() {
-        StringBuilder assetIdAlias = new StringBuilder(ASSET_ALIAS_LENGTH);
+        StringBuilder assetIdAlias = new StringBuilder(ASSET_ID_ALIAS_LENGTH);
 
-        for (int i = 0; i < ASSET_ALIAS_LENGTH; i++) {
+        for (int i = 0; i < ASSET_ID_ALIAS_LENGTH; i++) {
             int index = random.nextInt(CHARACTERS.length());
             assetIdAlias.append(CHARACTERS.charAt(index));
         }

@@ -10,6 +10,6 @@ import lombok.experimental.UtilityClass;
 public class BitcoinConstants {
 
     /** A TXID is always 32 bytes (64 characters) and hexadecimal. */
-    public static final int TX_ID_SIZE = 64;
+    public static final int TX_ID_LENGTH = 64;
 
 }

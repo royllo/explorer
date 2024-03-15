@@ -4,7 +4,7 @@ import io.github.bucket4j.BandwidthBuilder;
 import io.github.bucket4j.Bucket;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.royllo.explorer.core.util.base.BaseProviderService;
+import org.royllo.explorer.core.util.base.BaseProvider;
 import org.royllo.explorer.core.util.parameters.MempoolParameters;
 import org.royllo.explorer.core.util.parameters.OutgoingRateLimitsParameters;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono;
  */
 @Service
 @RequiredArgsConstructor
-public class ProviderTransactionServiceImplementation extends BaseProviderService implements MempoolTransactionService {
+public class ProviderTransactionServiceImplementation extends BaseProvider implements MempoolTransactionService {
 
     /** Outgoing rate limits parameters. */
     private final OutgoingRateLimitsParameters outgoingRateLimitsParameters;

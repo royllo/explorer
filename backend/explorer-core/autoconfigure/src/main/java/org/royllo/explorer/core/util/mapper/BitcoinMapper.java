@@ -8,7 +8,7 @@ import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 
 /**
- * Bitcoin related mapper.
+ * Bitcoin mapper.
  */
 @Mapper(nullValuePropertyMappingStrategy = IGNORE)
 public interface BitcoinMapper {

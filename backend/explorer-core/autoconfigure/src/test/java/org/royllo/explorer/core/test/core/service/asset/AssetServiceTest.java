@@ -42,7 +42,7 @@ import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplemen
 import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_DTO;
-import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ALIAS_LENGTH;
+import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_ALIAS_LENGTH;
 import static org.royllo.explorer.core.util.enums.AssetType.NORMAL;
 import static org.royllo.explorer.core.util.enums.FileType.IMAGE;
 import static org.royllo.explorer.core.util.enums.FileType.JSON;
@@ -129,7 +129,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertEquals(ANONYMOUS_USER_DTO.getId(), asset1.getCreator().getId());
         assertEquals("my asset id", asset1.getAssetId());
         assertNotNull(asset1.getAssetIdAlias());
-        assertEquals(ASSET_ALIAS_LENGTH, asset1.getAssetIdAlias().length());
+        assertEquals(ASSET_ID_ALIAS_LENGTH, asset1.getAssetIdAlias().length());
         // Genesis.
         assertNotNull(asset1.getGenesisPoint());
         assertNotNull(asset1.getGenesisPoint().getId());
@@ -172,7 +172,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertEquals(ANONYMOUS_USER_DTO.getId(), asset2.getCreator().getId());
         assertEquals("assetId2", asset2.getAssetId());
         assertNotNull(asset2.getAssetIdAlias());
-        assertEquals(ASSET_ALIAS_LENGTH, asset2.getAssetIdAlias().length());
+        assertEquals(ASSET_ID_ALIAS_LENGTH, asset2.getAssetIdAlias().length());
         // Genesis.
         assertNotNull(asset2.getGenesisPoint());
         assertNotNull(asset2.getGenesisPoint().getId());
@@ -218,7 +218,7 @@ public class AssetServiceTest extends TestWithMockServers {
         assertEquals(assetGroupCount + 1, assetGroupRepository.findAll().size());
         assertEquals("assetId3", asset3.getAssetId());
         assertNotNull(asset3.getAssetIdAlias());
-        assertEquals(ASSET_ALIAS_LENGTH, asset3.getAssetIdAlias().length());
+        assertEquals(ASSET_ID_ALIAS_LENGTH, asset3.getAssetIdAlias().length());
         assertEquals("tweakedGroupKey-1", asset3.getAssetGroup().getTweakedGroupKey());
         assertEquals("assetIdSig-1", asset3.getAssetGroup().getAssetWitness());
         assertEquals("rawGroupKey-1", asset3.getAssetGroup().getRawGroupKey());

@@ -14,7 +14,7 @@ import org.royllo.explorer.core.dto.request.RequestDTO;
 import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 
 /**
- * Request related mapper.
+ * Request mapper.
  */
 @SuppressWarnings("unused")
 @Mapper(nullValuePropertyMappingStrategy = IGNORE,

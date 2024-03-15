@@ -35,7 +35,7 @@ public class TAPDParameters {
         private String baseUrl;
 
         /** TAPD macaroon. */
-        @NotEmpty(message = "Macaroon is required")
+        @NotEmpty(message = "TAPD Macaroon is required")
         private String macaroon;
 
     }

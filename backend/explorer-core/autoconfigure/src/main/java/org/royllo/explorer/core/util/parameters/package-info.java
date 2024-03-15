@@ -1,4 +1,4 @@
 /**
- * Applications.properties management.
+ * Application properties management.
  */
 package org.royllo.explorer.core.util.parameters;

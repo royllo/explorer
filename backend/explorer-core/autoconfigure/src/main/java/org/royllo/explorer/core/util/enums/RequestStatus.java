@@ -17,9 +17,9 @@ public enum RequestStatus {
     FAILURE;
 
     /**
-     * Returns the list of status that are finals - Updates with these status cannot be changed.
+     * Returns the list of opened status (Work to do).
      *
-     * @return list of final status
+     * @return list of opened status
      */
     public static List<RequestStatus> openedStatus() {
         return List.of(OPENED);

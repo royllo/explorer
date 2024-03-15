@@ -7,7 +7,7 @@ import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.royllo.explorer.core.util.base.BaseProviderService;
+import org.royllo.explorer.core.util.base.BaseProvider;
 import org.royllo.explorer.core.util.enums.ProofType;
 import org.royllo.explorer.core.util.parameters.OutgoingRateLimitsParameters;
 import org.royllo.explorer.core.util.parameters.TAPDParameters;
@@ -28,7 +28,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 @SuppressWarnings("unused")
 @Service
 @RequiredArgsConstructor
-public class TapdServiceImplementation extends BaseProviderService implements TapdService {
+public class TapdServiceImplementation extends BaseProvider implements TapdService {
 
     /** Webflux codec maximum size. */
     public static final int CODEC_MAXIMUM_SIZE = 32 * 1024 * 1024;

@@ -22,7 +22,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import static java.util.stream.Collectors.joining;
-import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ALIAS_LENGTH;
+import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_ALIAS_LENGTH;
 import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_LENGTH;
 import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.TWEAKED_GROUP_KEY_LENGTH;
 
@@ -97,7 +97,7 @@ public class SQLSearchServiceImplementation extends BaseService implements Searc
 
         // =============================================================================================================
         // ASSET_ID_ALIAS search.
-        if (cleanedQuery.length() == ASSET_ALIAS_LENGTH) {
+        if (cleanedQuery.length() == ASSET_ID_ALIAS_LENGTH) {
             // If nothing found, we will search on asset id alias.
             final Optional<Asset> assetIdAliasSearch = assetRepository.findByAssetIdAlias(cleanedQuery);
             if (assetIdAliasSearch.isPresent()) {

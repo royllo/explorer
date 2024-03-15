@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.royllo.explorer.core.dto.proof.ProofDTO.PROOF_FILE_NAME_EXTENSION;
 import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
 import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
-import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ALIAS_LENGTH;
+import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_ALIAS_LENGTH;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 import static org.royllo.test.MempoolData.ROYLLO_NFT_ANCHOR_1_TXID;
@@ -143,7 +143,7 @@ public class RoylloNFTIntegrationTest extends TestWithMockServers {
         final Optional<AssetDTO> asset = assetService.getAssetByAssetId(ROYLLO_NFT_ASSET_ID);
         assertTrue(asset.isPresent());
         assertNotNull(asset.get().getAssetIdAlias());
-        assertEquals(ASSET_ALIAS_LENGTH, asset.get().getAssetIdAlias().length());
+        assertEquals(ASSET_ID_ALIAS_LENGTH, asset.get().getAssetIdAlias().length());
         assertNotNull(asset.get().getAmount());
         assertNotNull(asset.get().getIssuanceDate());
         verifyTransaction(bitcoinService.getBitcoinTransactionOutput(ROYLLO_NFT_GENESIS_TXID, ROYLLO_NFT_GENESIS_VOUT).get(),

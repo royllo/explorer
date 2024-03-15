@@ -9,7 +9,7 @@ import jakarta.annotation.PreDestroy;
 import lombok.NonNull;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
-import org.royllo.explorer.core.util.base.BaseProviderService;
+import org.royllo.explorer.core.util.base.BaseProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,7 @@ import static org.royllo.explorer.core.dto.proof.ProofDTO.PROOF_FILE_NAME_EXTENS
 @SuppressWarnings("SpellCheckingInspection")
 @Service
 @Profile("!s3-storage")
-public class LocalFileServiceImplementation extends BaseProviderService implements ContentService {
+public class LocalFileServiceImplementation extends BaseProvider implements ContentService {
 
     /** Web server port. */
     public static final int WEB_SERVER_PORT = 9093;

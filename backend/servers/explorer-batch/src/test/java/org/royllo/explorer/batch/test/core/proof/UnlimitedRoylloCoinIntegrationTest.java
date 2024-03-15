@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.royllo.explorer.core.dto.proof.ProofDTO.PROOF_FILE_NAME_EXTENSION;
 import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
 import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
-import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ALIAS_LENGTH;
+import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_ALIAS_LENGTH;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 import static org.royllo.test.MempoolData.UNLIMITED_ROYLLO_COIN_1_ANCHOR_1_GENESIS_VOUT;
@@ -190,7 +190,7 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
         final Optional<AssetDTO> asset1 = assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_1_ASSET_ID);
         assertTrue(asset1.isPresent());
         assertNotNull(asset1.get().getAssetIdAlias());
-        assertEquals(ASSET_ALIAS_LENGTH, asset1.get().getAssetIdAlias().length());
+        assertEquals(ASSET_ID_ALIAS_LENGTH, asset1.get().getAssetIdAlias().length());
         assertNotNull(asset1.get().getAssetGroup());
         assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, asset1.get().getAssetGroup().getTweakedGroupKey());
         assertNotNull(asset1.get().getAmount());
@@ -199,7 +199,7 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
         final Optional<AssetDTO> asset2 = assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_2_ASSET_ID);
         assertTrue(asset2.isPresent());
         assertNotNull(asset2.get().getAssetIdAlias());
-        assertEquals(ASSET_ALIAS_LENGTH, asset2.get().getAssetIdAlias().length());
+        assertEquals(ASSET_ID_ALIAS_LENGTH, asset2.get().getAssetIdAlias().length());
         assertNotNull(asset2.get().getAssetGroup());
         assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, asset2.get().getAssetGroup().getTweakedGroupKey());
         assertNotNull(asset2.get().getAmount());

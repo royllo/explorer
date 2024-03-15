@@ -11,7 +11,8 @@ import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
  * Universe server mapper.
  */
 @SuppressWarnings("unused")
-@Mapper(nullValuePropertyMappingStrategy = IGNORE, uses = {UserMapper.class})
+@Mapper(nullValuePropertyMappingStrategy = IGNORE,
+        uses = {UserMapper.class})
 public interface UniverseServerMapper {
 
     @Mapping(target = "createdOn", ignore = true)
