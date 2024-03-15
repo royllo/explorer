@@ -9,6 +9,7 @@ import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.repository.universe.UniverseServerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -144,7 +145,7 @@ public class UniverseExplorerBatchTest {
      * @return an add proof request.
      */
     private List<AddProofRequest> findAddProofRequestByProof(final String proof) {
-        return requestRepository.findByStatusOrderById(OPENED)
+        return requestRepository.findByStatusOrderById(OPENED, Pageable.ofSize(50_000))
                 .stream()
                 .filter(request -> request instanceof AddProofRequest)
                 .map(request -> (AddProofRequest) request)

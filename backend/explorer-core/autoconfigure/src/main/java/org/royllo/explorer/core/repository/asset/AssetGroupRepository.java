@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface AssetGroupRepository extends JpaRepository<AssetGroup, Long> {
 
     /**
-     * Find an asset group but its asset group id.
+     * Find an asset group by its asset group id.
      *
      * @param assetGroupId asset group id
      * @return asset group

@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface UserLnurlAuthKeyRepository extends JpaRepository<UserLnurlAuthKey, Long> {
 
     /**
-     * Find a user lnurl-auth by the linking key.
+     * Find a user lnurl-auth by a linking key.
      *
      * @param linkingKey linking key
      * @return user lnurl-auth key
@@ -21,7 +21,7 @@ public interface UserLnurlAuthKeyRepository extends JpaRepository<UserLnurlAuthK
     Optional<UserLnurlAuthKey> findByLinkingKey(String linkingKey);
 
     /**
-     * Find a user lnurl-auth by the k1.
+     * Find a user lnurl-auth by a k1.
      *
      * @param k1 k1
      * @return user lnurl-auth key

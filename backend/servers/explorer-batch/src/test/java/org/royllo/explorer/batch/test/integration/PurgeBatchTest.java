@@ -140,7 +140,7 @@ public class PurgeBatchTest extends BaseTest {
         // The rule is that all failed requests besides MAXIMUM_FAILED_REQUESTS_STORE (10 000) must be deleted.
         int totalRequests = requestRepository.findAll().size();
         assertEquals(60_000, totalRequests);
-        int failedRequests = requestRepository.findByStatusOrderById(FAILURE).size();
+        long failedRequests = requestRepository.countByStatusOrderById(FAILURE);
         assertEquals(20_000, failedRequests);
         assertTrue(requestRepository.findByRequestId("ID_40001").isPresent());
         assertTrue(requestRepository.findByRequestId("ID_60000").isPresent());
@@ -155,7 +155,7 @@ public class PurgeBatchTest extends BaseTest {
 
         totalRequests = requestRepository.findAll().size();
         assertEquals(50_000, totalRequests);
-        failedRequests = requestRepository.findByStatusOrderById(FAILURE).size();
+        failedRequests = requestRepository.countByStatusOrderById(FAILURE);
         assertEquals(10_000, failedRequests);
         assertTrue(requestRepository.findByRequestId("ID_20001").isPresent());
         assertTrue(requestRepository.findByRequestId("ID_30000").isPresent());

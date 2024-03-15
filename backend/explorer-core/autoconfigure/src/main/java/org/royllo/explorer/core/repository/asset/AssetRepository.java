@@ -16,15 +16,15 @@ import java.util.Optional;
 public interface AssetRepository extends JpaRepository<Asset, Long> {
 
     /**
-     * Find an asset by its assetId.
+     * Find an asset by its asset id.
      *
-     * @param assetId asset od
+     * @param assetId asset id
      * @return asset
      */
     Optional<Asset> findByAssetId(String assetId);
 
     /**
-     * find by asset id.
+     * Find an asset by its asset id alias.
      *
      * @param assetIdAlias asset id alias
      * @return asset
@@ -36,7 +36,7 @@ public interface AssetRepository extends JpaRepository<Asset, Long> {
      * Takes advantage of PostgreSQL "pg_trgm" and "ILIKE".
      *
      * @param searchTerm search term
-     * @param pageable   pagination
+     * @param pageable   pagination parameters
      * @return results
      */
     @Query(value = "SELECT * FROM ASSET WHERE NAME ILIKE %?1%",
@@ -46,6 +46,7 @@ public interface AssetRepository extends JpaRepository<Asset, Long> {
 
     /**
      * Find assets by its complete or partial name.
+     * Used if the database in use is not PostgreSQL.
      *
      * @param name     complete or partial name
      * @param pageable page parameters
@@ -54,20 +55,20 @@ public interface AssetRepository extends JpaRepository<Asset, Long> {
     Page<Asset> findByNameContainsIgnoreCaseOrderByName(String name, Pageable pageable);
 
     /**
-     * Find assets by asset group id.
+     * Find assets by its asset group id.
      *
      * @param assetGroupId asset group id
-     * @param pageable     page parameters
+     * @param pageable     pagination parameters
      * @return assets
      */
     @SuppressWarnings("checkstyle:MethodName")
     Page<Asset> findByAssetGroup_AssetGroupIdOrderById(String assetGroupId, Pageable pageable);
 
     /**
-     * Find assets by creator id.
+     * Find assets by its creator username.
      *
-     * @param username username
-     * @param pageable page parameters
+     * @param username creator username
+     * @param pageable pagination parameters
      * @return user assets
      */
     @SuppressWarnings("checkstyle:MethodName")

@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface ProofRepository extends JpaRepository<Proof, Long> {
 
     /**
-     * Find a proof by its proofId.
+     * Find a proof by its proof id.
      *
      * @param proofId proof id
      * @return proof
@@ -23,10 +23,10 @@ public interface ProofRepository extends JpaRepository<Proof, Long> {
     Optional<Proof> findByProofId(String proofId);
 
     /**
-     * Returns all the proof of an asset.
+     * Returns all proofs of an asset.
      *
      * @param assetId  asset id
-     * @param pageable page parameters
+     * @param pageable pagination parameters
      * @return proofs
      */
     Page<Proof> findByAssetAssetIdOrderByCreatedOn(String assetId, Pageable pageable);

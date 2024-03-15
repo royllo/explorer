@@ -14,9 +14,9 @@ import java.util.List;
 public interface BitcoinTransactionOutputRepository extends JpaRepository<BitcoinTransactionOutput, Long> {
 
     /**
-     * Find transaction outputs for the corresponding txid.
+     * Find all transaction outputs for a bitcoin transaction id.
      *
-     * @param txId transaction id
+     * @param txId bitcoin transaction id
      * @return Bitcoin transaction outputs
      */
     List<BitcoinTransactionOutput> findByTxId(String txId);

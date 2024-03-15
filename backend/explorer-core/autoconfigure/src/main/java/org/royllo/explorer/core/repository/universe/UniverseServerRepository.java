@@ -16,7 +16,7 @@ public interface UniverseServerRepository extends JpaRepository<UniverseServer, 
      * Find a server by its server address.
      *
      * @param serverAddress server address
-     * @return server address
+     * @return server
      */
     Optional<UniverseServer> findByServerAddress(String serverAddress);
 

@@ -43,7 +43,7 @@ public class PurgeBatch extends BaseBatch {
         // =============================================================================================================
         // Purge failed requests.
         logger.info("Checking if failed request should be purged");
-        final long allFailedRequestsCount = requestRepository.findByStatusOrderById(FAILURE).size();
+        final long allFailedRequestsCount = requestRepository.countByStatusOrderById(FAILURE);
 
         if (allFailedRequestsCount > MAXIMUM_FAILED_REQUESTS_STORE) {
             logger.info("{} failed requests need to be purged", allFailedRequestsCount - MAXIMUM_FAILED_REQUESTS_STORE);

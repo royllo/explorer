@@ -25,18 +25,18 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
     Optional<Request> findByRequestId(String requestId);
 
     /**
-     * Find all requests with the corresponding status.
+     * Count all requests with the corresponding status.
      *
      * @param status status
-     * @return Requests with the corresponding status
+     * @return number of requests with the corresponding status
      */
-    List<Request> findByStatusOrderById(RequestStatus status);
+    long countByStatusOrderById(RequestStatus status);
 
     /**
      * Find all requests with the corresponding status.
      *
      * @param status   status
-     * @param pageable page parameters
+     * @param pageable pagination parameters
      * @return Requests with the corresponding status
      */
     List<Request> findByStatusOrderById(RequestStatus status, Pageable pageable);
@@ -45,7 +45,7 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
      * Find all requests with the corresponding status (ordered by id and with pagination).
      *
      * @param status   status filter
-     * @param pageable page parameters
+     * @param pageable pagination parameters
      * @return Requests with the corresponding status
      */
     Page<Request> findByStatusInOrderById(List<RequestStatus> status, Pageable pageable);

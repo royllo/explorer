@@ -26,7 +26,7 @@ public interface AssetStateRepository extends JpaRepository<AssetState, Long> {
      * Find all the asset states for a given asset.
      *
      * @param assetId  asset id
-     * @param pageable page parameters
+     * @param pageable pagination parameters
      * @return asset states
      */
     @SuppressWarnings("checkstyle:MethodName")
