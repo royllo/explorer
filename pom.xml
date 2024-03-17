@@ -96,7 +96,7 @@
         <bitcoin-spring-boot-starter.version>0.13.0</bitcoin-spring-boot-starter.version>
 
         <webjars-locator.version>0.51</webjars-locator.version>
-        <htmx.version>1.9.10</htmx.version>
+        <htmx.version>1.9.11</htmx.version>
         <alpinejs.version>3.13.5</alpinejs.version>
         <easymde.version>2.18.0</easymde.version>
 
