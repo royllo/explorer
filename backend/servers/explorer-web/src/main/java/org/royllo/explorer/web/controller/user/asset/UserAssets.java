@@ -3,6 +3,7 @@ package org.royllo.explorer.web.controller.user.asset;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
+import org.royllo.explorer.core.dto.asset.AssetDTOCreatorUpdate;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.web.util.base.BaseController;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -78,7 +79,7 @@ public class UserAssets extends BaseController {
                                 final @AuthenticationPrincipal UserDetails currentUser,
                                 @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
         // Retrieving the asset.
-        Optional<AssetDTO> asset = assetService.getAssetByAssetId(assetId);
+        Optional<AssetDTO> asset = assetService.getAssetByAssetIdOrAlias(assetId);
         if (asset.isPresent()) {
             // If the user tries to access an asset he doesn't own, we throw an exception.
             if (!asset.get().getCreator().getUserId().equals(currentUser.getUsername())) {
@@ -118,7 +119,7 @@ public class UserAssets extends BaseController {
                                 final BindingResult bindingResult) {
 
         // Getting the asset
-        Optional<AssetDTO> asset = assetService.getAssetByAssetId(form.getAssetId());
+        Optional<AssetDTO> asset = assetService.getAssetByAssetIdOrAlias(form.getAssetId());
         if (asset.isPresent()) {
 
             // If the user tries to access an asset he doesn't own, we throw an exception.
@@ -139,7 +140,7 @@ public class UserAssets extends BaseController {
                 // If the user attempts to change the assetId, we first check if the assetIdAlias is unique.
                 if (asset.get().getAssetIdAlias() != null
                         && !asset.get().getAssetIdAlias().equals(form.getAssetIdAlias())) {
-                    Optional<AssetDTO> existingAsset = assetService.getAssetByAssetId(form.getAssetIdAlias());
+                    Optional<AssetDTO> existingAsset = assetService.getAssetByAssetIdOrAlias(form.getAssetIdAlias());
                     if (existingAsset.isPresent()) {
                         bindingResult.rejectValue("assetIdAlias", "validation.asset.assetIdAlias.unique");
                         return USER_ASSET_FORM_PAGE;
@@ -147,7 +148,11 @@ public class UserAssets extends BaseController {
                 }
 
                 // Ok, we can update and save.
-                assetService.updateAssetWithUserData(form.getAssetId(), form.getAssetIdAlias(), form.getReadme());
+                assetService.updateAssetCreatorData(form.getAssetId(),
+                        AssetDTOCreatorUpdate.builder()
+                                .assetIdAlias(form.getAssetIdAlias())
+                                .readme(form.getReadme())
+                                .build());
                 return "redirect:/account/assets?assetUpdated=" + form.getAssetId();
             }
         } else {

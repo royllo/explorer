@@ -105,7 +105,7 @@
                                onFocus="this.select();"/>
                     </label>
                     <p th:if="${#fields.hasErrors('fullName')}" class="fieldError"
-                       th:text="#{validation.user.fullName.size.too_long}"></p>
+                       th:text="#{validation.user.fullName.length.too_long}"></p>
 
                     <!--/* Biography */-->
                     <label class="form-control w-full">
@@ -117,7 +117,7 @@
                                   onFocus="this.select();"></textarea>
                     </label>
                     <p th:if="${#fields.hasErrors('biography')}" class="fieldError"
-                       th:text="#{validation.user.biography.size.too_long}"></p>
+                       th:text="#{validation.user.biography.length.too_long}"></p>
 
                     <!--/* Website */-->
                     <label class="form-control w-full">

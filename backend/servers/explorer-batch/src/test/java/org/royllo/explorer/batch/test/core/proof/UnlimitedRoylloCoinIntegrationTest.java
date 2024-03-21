@@ -109,8 +109,8 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
         // We check that the asset doesn't already exist.
         assertFalse(assetGroupService.getAssetGroupByAssetGroupId(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY).isPresent());
 
-        assertFalse(assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_1_ASSET_ID).isPresent());
-        assertFalse(assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_2_ASSET_ID).isPresent());
+        assertFalse(assetService.getAssetByAssetIdOrAlias(UNLIMITED_ROYLLO_COIN_1_ASSET_ID).isPresent());
+        assertFalse(assetService.getAssetByAssetIdOrAlias(UNLIMITED_ROYLLO_COIN_2_ASSET_ID).isPresent());
 
         assertFalse(assetStateService.getAssetStateByAssetStateId(UNLIMITED_ROYLLO_COIN_1_ASSET_STATE_ID).isPresent());
         assertFalse(assetStateService.getAssetStateByAssetStateId(UNLIMITED_ROYLLO_COIN_2_ASSET_STATE_ID).isPresent());
@@ -160,8 +160,8 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
 
         assertTrue(assetGroupService.getAssetGroupByAssetGroupId(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY).isPresent());
 
-        assertTrue(assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_1_ASSET_ID).isPresent());
-        assertTrue(assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_2_ASSET_ID).isPresent());
+        assertTrue(assetService.getAssetByAssetIdOrAlias(UNLIMITED_ROYLLO_COIN_1_ASSET_ID).isPresent());
+        assertTrue(assetService.getAssetByAssetIdOrAlias(UNLIMITED_ROYLLO_COIN_2_ASSET_ID).isPresent());
 
         assertTrue(assetStateService.getAssetStateByAssetStateId(UNLIMITED_ROYLLO_COIN_1_ASSET_STATE_ID).isPresent());
         assertTrue(assetStateService.getAssetStateByAssetStateId(UNLIMITED_ROYLLO_COIN_2_ASSET_STATE_ID).isPresent());
@@ -187,7 +187,7 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
         assertNotNull(assetState2.get().getAsset().getAssetGroup());
         assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, assetState2.get().getAsset().getAssetGroup().getTweakedGroupKey());
 
-        final Optional<AssetDTO> asset1 = assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_1_ASSET_ID);
+        final Optional<AssetDTO> asset1 = assetService.getAssetByAssetIdOrAlias(UNLIMITED_ROYLLO_COIN_1_ASSET_ID);
         assertTrue(asset1.isPresent());
         assertNotNull(asset1.get().getAssetIdAlias());
         assertEquals(ASSET_ID_ALIAS_LENGTH, asset1.get().getAssetIdAlias().length());
@@ -196,7 +196,7 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
         assertNotNull(asset1.get().getAmount());
         assertNotNull(asset1.get().getIssuanceDate());
 
-        final Optional<AssetDTO> asset2 = assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_2_ASSET_ID);
+        final Optional<AssetDTO> asset2 = assetService.getAssetByAssetIdOrAlias(UNLIMITED_ROYLLO_COIN_2_ASSET_ID);
         assertTrue(asset2.isPresent());
         assertNotNull(asset2.get().getAssetIdAlias());
         assertEquals(ASSET_ID_ALIAS_LENGTH, asset2.get().getAssetIdAlias().length());

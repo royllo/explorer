@@ -1,6 +1,5 @@
 package org.royllo.explorer.core.dto.asset;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -109,7 +108,6 @@ public class AssetStateDTO {
     /** The asset state ID that uniquely identifies the asset state (calculated by Royllo). */
     @Setter
     @NonFinal
-    @NotBlank(message = "{validation.assetState.assetStateId.required}")
     String assetStateId;
 
     /** Indicates if this asset state is an issuance or a transfer. */

@@ -13,7 +13,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * Validator for a server address.
  */
-@Target({FIELD})
+@Target(FIELD)
 @Retention(RUNTIME)
 @Constraint(validatedBy = ServerAddressValidator.class)
 @Documented

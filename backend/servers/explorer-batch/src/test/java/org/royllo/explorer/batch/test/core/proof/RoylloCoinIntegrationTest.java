@@ -70,7 +70,7 @@ public class RoylloCoinIntegrationTest extends TestWithMockServers {
 
         // We should have the asset metadata in our database and files.
         var client = new OkHttpClient();
-        Optional<AssetDTO> asset = assetService.getAssetByAssetId(ROYLLO_COIN_ASSET_ID);
+        Optional<AssetDTO> asset = assetService.getAssetByAssetIdOrAlias(ROYLLO_COIN_ASSET_ID);
         assertTrue(asset.isPresent());
         assertNotNull(asset.get().getMetaDataFileName());
         Request request = new Request.Builder()

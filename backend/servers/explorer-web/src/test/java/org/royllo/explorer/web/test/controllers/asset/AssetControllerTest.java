@@ -250,7 +250,7 @@ public class AssetControllerTest extends BaseTest {
 
         // Create fake assets.
         for (int i = 1; i <= 99; i++) {
-            final Optional<AssetDTO> assetFound = assetService.getAssetByAssetId("FAKE_ASSET_ID_000000000000000000000000000000000000000000000000" + String.format("%02d", i));
+            final Optional<AssetDTO> assetFound = assetService.getAssetByAssetIdOrAlias("FAKE_ASSET_ID_000000000000000000000000000000000000000000000000" + String.format("%02d", i));
             if (assetFound.isEmpty()) {
                 assetService.addAsset(
                         AssetDTO.builder()
@@ -270,7 +270,7 @@ public class AssetControllerTest extends BaseTest {
         }
 
         // Create fake asset states.
-        final Optional<AssetDTO> assetForAssetTest = assetService.getAssetByAssetId("FAKE_ASSET_ID_00000000000000000000000000000000000000000000000001");
+        final Optional<AssetDTO> assetForAssetTest = assetService.getAssetByAssetIdOrAlias("FAKE_ASSET_ID_00000000000000000000000000000000000000000000000001");
         if (assetForAssetTest.isPresent()) {
             for (int i = 1; i <= 50; i++) {
                 final AssetStateDTO assetToCreate = AssetStateDTO.builder()

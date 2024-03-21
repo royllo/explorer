@@ -1,43 +1,41 @@
 package org.royllo.explorer.core.service.asset;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.micrometer.common.util.StringUtils;
+import jakarta.validation.Valid;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.tika.Tika;
 import org.apache.tika.mime.MimeTypeException;
 import org.apache.tika.mime.MimeTypes;
 import org.royllo.explorer.core.domain.asset.Asset;
-import org.royllo.explorer.core.domain.user.User;
+import org.royllo.explorer.core.domain.bitcoin.BitcoinTransactionOutput;
 import org.royllo.explorer.core.dto.asset.AssetDTO;
+import org.royllo.explorer.core.dto.asset.AssetDTOCreatorUpdate;
+import org.royllo.explorer.core.dto.asset.AssetDTOIssuanceUpdate;
 import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
-import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
 import org.royllo.explorer.core.provider.storage.ContentService;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.repository.user.UserRepository;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 import org.royllo.explorer.core.util.base.BaseService;
+import org.royllo.explorer.core.util.exceptions.bitcoin.TransactionNotFoundException;
+import org.royllo.explorer.core.util.validator.PageNumber;
+import org.royllo.explorer.core.util.validator.PageSize;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
-import java.io.IOException;
-import java.math.BigInteger;
-import java.time.ZonedDateTime;
 import java.util.Optional;
 
-import static org.royllo.explorer.core.dto.asset.AssetDTO.ASSET_ID_ALIAS_MAX_SIZE;
-import static org.royllo.explorer.core.dto.asset.AssetDTO.ASSET_ID_ALIAS_MIN_SIZE;
-import static org.royllo.explorer.core.dto.asset.AssetDTO.README_MAX_SIZE;
-import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
 import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_LENGTH;
 
 /**
  * {@link AssetService} implementation.
  */
 @Service
+@Validated
 @RequiredArgsConstructor
 @SuppressWarnings({"checkstyle:DesignForExtension", "unused"})
 public class AssetServiceImplementation extends BaseService implements AssetService {
@@ -58,62 +56,65 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
     private final ContentService contentService;
 
     @Override
-    public AssetDTO addAsset(@NonNull final AssetDTO newAsset) {
-        logger.info("Adding asset {}", newAsset);
-
-        // Checking constraints.
-        assert newAsset.getId() == null : "Asset already exists";
-        assert newAsset.getGenesisPoint() != null : "Bitcoin transaction is required";
-        assert assetRepository.findByAssetId(newAsset.getAssetId()).isEmpty() : newAsset.getAssetId() + " already registered";
+    public AssetDTO addAsset(final @Valid @NonNull AssetDTO newAsset) {
+        logger.info("Adding a new asset {}", newAsset);
 
         // =============================================================================================================
-        // We update and save the asset.
+        // Checking constraints.
+
+        // Asset id already exists.
+        assetRepository.findByAssetId(newAsset.getAssetId()).ifPresent(asset -> {
+            throw new IllegalArgumentException("Asset already registered");
+        });
+
+        // =============================================================================================================
+        // We create the asset.
         final Asset assetToCreate = ASSET_MAPPER.mapToAsset(newAsset);
-        assetToCreate.setCreator(ANONYMOUS_USER);
 
-        // Setting the bitcoin transaction output ID if not already set.
-        if (newAsset.getGenesisPoint().getId() == null) {
-            final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(newAsset.getGenesisPoint().getTxId(), newAsset.getGenesisPoint().getVout());
-            assert bto.isPresent() : "UTXO " + newAsset.getGenesisPoint().getTxId() + "/" + newAsset.getGenesisPoint().getVout() + " Not found";
-            assetToCreate.setGenesisPoint(BITCOIN_MAPPER.mapToBitcoinTransactionOutput(bto.get()));
-        }
+        // As we are creating a new asset, we set the id to null.
+        assetToCreate.setId(null);
 
-        // We check if an asset group is set.
-        if (newAsset.getAssetGroup() != null && !StringUtils.isEmpty(newAsset.getAssetGroup().getTweakedGroupKey())) {
-            // If the asset exists in database, we retrieve and set it.
-            final Optional<AssetGroupDTO> assetGroup = assetGroupService.getAssetGroupByAssetGroupId(newAsset.getAssetGroup().getAssetGroupId());
-            if (assetGroup.isPresent()) {
-                assetToCreate.setAssetGroup(ASSET_GROUP_MAPPER.mapToAssetGroup(assetGroup.get()));
-            } else {
-                // If the asset group does not exist in database, we create it and set it.
-                final AssetGroupDTO assetGroupCreated = assetGroupService.addAssetGroup(newAsset.getAssetGroup());
-                assetToCreate.setAssetGroup(ASSET_GROUP_MAPPER.mapToAssetGroup(assetGroupCreated));
-            }
+        // We set the bitcoin transaction.
+        final BitcoinTransactionOutput bto = bitcoinService
+                .getBitcoinTransactionOutput(newAsset.getGenesisPoint().getTxId(), newAsset.getGenesisPoint().getVout())
+                .map(BITCOIN_MAPPER::mapToBitcoinTransactionOutput)
+                .orElseThrow(() -> new TransactionNotFoundException("UTXO Not found"));
+        assetToCreate.setGenesisPoint(bto);
+
+        // Set asset group (If it's present).
+        if (newAsset.getAssetGroup() != null) {
+            final AssetGroupDTO assetGroupDTO = assetGroupService
+                    .getAssetGroupByAssetGroupId(newAsset.getAssetGroup().getAssetGroupId())
+                    .orElseGet(() -> assetGroupService.addAssetGroup(newAsset.getAssetGroup()));
+            assetToCreate.setAssetGroup(ASSET_GROUP_MAPPER.mapToAssetGroup(assetGroupDTO));
         }
 
         // We save and return the value.
         final AssetDTO assetCreated = ASSET_MAPPER.mapToAssetDTO(assetRepository.save(assetToCreate));
-        logger.info("Asset created with id {} : {}", assetCreated.getId(), assetCreated);
+        logger.info("Asset created: {}", assetCreated);
         return assetCreated;
     }
 
     @Override
-    public void updateAsset(final String assetId,
-                            final String metadata,
-                            final BigInteger amount,
-                            final ZonedDateTime issuanceDate) {
-        final Optional<Asset> assetToUpdate = assetRepository.findByAssetId(assetId);
-
-        // We check that the asset exists.
-        assert assetToUpdate.isPresent() : assetId + " not found";
+    public void updateAssetIssuanceData(final String assetId,
+                                        final @Valid @NonNull AssetDTOIssuanceUpdate assetUpdate) {
+        logger.info("Update asset with asset id {} with {}", assetId, assetUpdate);
 
         // =============================================================================================================
-        // If we have the metadata.
-        if (metadata != null) {
+        // Checking constraints.
 
+        // We check that the asset exists and get it.
+        final Asset assetToUpdate = assetRepository.findByAssetId(assetId)
+                .orElseThrow(() -> new IllegalArgumentException(assetId + "not found"));
+
+        // =============================================================================================================
+        // Updating the asset.
+
+        // If we have the metadata.
+        if (assetUpdate.metadata() != null) {
             try {
                 // Decoding (same as using xxd -r -p).
-                byte[] decodedBytes = Hex.decodeHex(metadata);
+                byte[] decodedBytes = Hex.decodeHex(assetUpdate.metadata());
 
                 // Detecting the file type.
                 final String mimeType = new Tika().detect(decodedBytes);
@@ -121,7 +122,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
 
                 // If we have a file extension ".txt", we check if it's a JSON.
                 if (".txt".equalsIgnoreCase(extension)) {
-                    if (isJSONValid(new String(decodedBytes))) {
+                    if (isValidJSON(new String(decodedBytes))) {
                         extension = ".json";
                     }
                 }
@@ -129,164 +130,146 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
                 // Saving the file.
                 final String fileName = assetId + extension;
                 contentService.storeFile(decodedBytes, fileName);
-                logger.info("Asset id update for {}: Metadata saved as {}", assetId, fileName);
+                logger.info("Asset metadata updated for asset id {}: Metadata file saved as {}", assetId, fileName);
 
                 // Setting the name of the file.
-                assetToUpdate.get().setMetaDataFileName(fileName);
+                assetToUpdate.setMetaDataFileName(fileName);
             } catch (DecoderException | MimeTypeException e) {
-                logger.error("Asset id update for {}: Error decoding and saving metadata {}", assetId, e.getMessage());
+                logger.error("Asset metadata update for {}: Error decoding and saving metadata {}", assetId, e.getMessage());
             }
         }
 
-        // =============================================================================================================
         // If we have the new amount.
-        if (amount != null) {
-            assetToUpdate.get().setAmount(amount);
-            logger.info("Asset id update for {}: Amount updated to {}", assetId, amount);
+        if (assetUpdate.amount() != null) {
+            assetToUpdate.setAmount(assetUpdate.amount());
+            logger.info("Asset amount update for {}: Amount updated to {}", assetId, assetUpdate.amount());
         }
 
-        // =============================================================================================================
         // If we have the issuance date.
-        if (issuanceDate != null) {
-            assetToUpdate.get().setIssuanceDate(issuanceDate);
-            logger.info("Asset id update for {}: Issuance date updated to {}", assetId, issuanceDate);
+        if (assetUpdate.issuanceDate() != null) {
+            assetToUpdate.setIssuanceDate(assetUpdate.issuanceDate());
+            logger.info("Asset issuance update for {}: Issuance date updated to {}", assetId, assetUpdate.issuanceDate());
         }
 
         // We save the asset with the new information.
-        assetRepository.save(assetToUpdate.get());
+        assetRepository.save(assetToUpdate);
     }
 
     @Override
-    public void updateAssetWithUserData(final String assetId, final String newAssetIdAlias, final String newReadme) {
-        final Optional<Asset> assetToUpdate = assetRepository.findByAssetId(assetId);
-
-        // We check that the asset exists.
-        assert assetToUpdate.isPresent() : assetId + " not found";
-        assert assetRepository.findByAssetIdAlias(newAssetIdAlias).isEmpty() : newAssetIdAlias + " already registered";
+    public void updateAssetCreatorData(final String assetId,
+                                       final @Valid @NonNull AssetDTOCreatorUpdate assetUpdate) {
+        logger.info("Update asset with asset id {} with {}", assetId, assetUpdate);
 
         // =============================================================================================================
+        // Checking constraints.
+
+        // We check that the asset exists and get it.
+        final Asset assetToUpdate = assetRepository.findByAssetId(assetId)
+                .orElseThrow(() -> new IllegalArgumentException(assetId + "not found"));
+
+        // We check that the asset id alias is not already registered.
+        assetRepository.findByAssetIdAlias(assetUpdate.assetIdAlias()).ifPresent(asset -> {
+            throw new IllegalArgumentException("Asset id alias already registered");
+        });
+
+        // =============================================================================================================
+        // Updating the asset.
+
         // If we have the asset id alias.
-        if (newAssetIdAlias != null) {
-            if (newAssetIdAlias.trim().length() < ASSET_ID_ALIAS_MIN_SIZE || newAssetIdAlias.trim().length() > ASSET_ID_ALIAS_MAX_SIZE) {
-                throw new AssertionError("Asset id alias must be between 3 and 30 characters");
-            }
-            assetToUpdate.get().setAssetIdAlias(newAssetIdAlias.trim());
-            logger.info("Asset id update for {}: Asset id alias updated to {}", assetId, newAssetIdAlias);
+        if (assetUpdate.assetIdAlias() != null) {
+            assetToUpdate.setAssetIdAlias(assetUpdate.assetIdAlias().trim());
+            logger.info("Asset update for {}: Asset id alias updated to {}", assetId, assetUpdate.assetIdAlias());
         }
 
-        // =============================================================================================================
         // If we have the readme.
-        if (newReadme != null) {
-            if (newReadme.length() > README_MAX_SIZE) {
-                throw new AssertionError("Readme must be less than 3000 characters");
-            }
-            assetToUpdate.get().setReadme(newReadme);
-            logger.info("Asset id update for {}: Readme updated to {}", assetId, newReadme);
+        if (assetUpdate.readme() != null) {
+            assetToUpdate.setReadme(assetUpdate.readme());
+            logger.info("Asset update for {}: Readme updated to {}", assetId, assetUpdate.readme());
         }
 
         // We save the asset with the new information.
-        assetRepository.save(assetToUpdate.get());
+        assetRepository.save(assetToUpdate);
     }
 
     @Override
     public Optional<AssetDTO> getAsset(final long id) {
         logger.info("Getting asset with id {}", id);
 
-        final Optional<Asset> asset = assetRepository.findById(id);
-        if (asset.isEmpty()) {
-            logger.info("Asset with id {} not found", id);
-            return Optional.empty();
-        } else {
-            logger.info("Asset with id {} found: {}", id, asset.get());
-            return asset.map(ASSET_MAPPER::mapToAssetDTO);
-        }
+        return assetRepository.findById(id)
+                .map(ASSET_MAPPER::mapToAssetDTO)
+                .map(asset -> {
+                    logger.info("Asset with id {} found: {}", id, asset);
+                    return asset;
+                })
+                .or(() -> {
+                    logger.info("Asset with id {} not found", id);
+                    return Optional.empty();
+                });
     }
 
     @Override
-    public Optional<AssetDTO> getAssetByAssetId(final String assetId) {
-        logger.info("Getting asset with assetId {}", assetId);
+    public Optional<AssetDTO> getAssetByAssetIdOrAlias(final String assetIdOrAlias) {
+        logger.info("Getting asset with asset id {}", assetIdOrAlias);
 
-        if (assetId == null) {
-            return Optional.empty();
-        }
-
-        if (assetId.length() == ASSET_ID_LENGTH) {
+        if (StringUtils.length(assetIdOrAlias) == ASSET_ID_LENGTH) {
             // We received an asset id (we know it because of the size).
-            Optional<Asset> asset = assetRepository.findByAssetId(assetId.trim());
-            if (asset.isPresent()) {
-                logger.info("Asset with assetId {} found: {}", assetId, asset.get());
-                return asset.map(ASSET_MAPPER::mapToAssetDTO);
-            } else {
-                logger.info("Asset with assetId {} not found", assetId);
-                return Optional.empty();
-            }
+            return assetRepository.findByAssetId(assetIdOrAlias)
+                    .map(ASSET_MAPPER::mapToAssetDTO)
+                    .map(asset -> {
+                        logger.info("Asset with asset id {} found: {}", assetIdOrAlias, asset);
+                        return asset;
+                    })
+                    .or(() -> {
+                        logger.info("Asset with asset id {} not found", assetIdOrAlias);
+                        return Optional.empty();
+                    });
         } else {
-            // it's not an asset id (the size is not the good one), so we search on asset id alias.
-            Optional<Asset> asset = assetRepository.findByAssetIdAlias(assetId.trim());
-            if (asset.isPresent()) {
-                logger.info("Asset with assetIdAlias {} found: {}", assetId, asset.get());
-                return asset.map(ASSET_MAPPER::mapToAssetDTO);
-            } else {
-                logger.info("Asset with assetIdAlias {} not found", assetId);
-                return Optional.empty();
-            }
+            // It's not an asset id (the size is not the good one), so we search on asset id alias.
+            return assetRepository.findByAssetIdAlias(assetIdOrAlias)
+                    .map(ASSET_MAPPER::mapToAssetDTO)
+                    .map(asset -> {
+                        logger.info("Asset with asset id alias {} found: {}", assetIdOrAlias, asset);
+                        return asset;
+                    })
+                    .or(() -> {
+                        logger.info("Asset with asset id alias {} not found", assetIdOrAlias);
+                        return Optional.empty();
+                    });
         }
 
     }
 
     @Override
-    public Page<AssetDTO> getAssetsByAssetGroupId(final String assetGroupId, final int page, final int pageSize) {
-        logger.info("Getting assets with asset group id {}", assetGroupId);
+    public Page<AssetDTO> getAssetsByAssetGroupId(final String assetGroupId,
+                                                  final @PageNumber int pageNumber,
+                                                  final @PageSize int pageSize) {
+        logger.info("Getting assets with asset group id: {}", assetGroupId);
 
-        // Checking constraints.
-        assert page >= 1 : "Page number starts at page 1";
-
-        // If asset group id is null, we return an empty page.
-        if (assetGroupId == null) {
-            return Page.empty();
-        }
-
-        return assetRepository.findByAssetGroup_AssetGroupIdOrderById(assetGroupId.trim(), PageRequest.of(page - 1, pageSize))
+        return assetRepository
+                .findByAssetGroup_AssetGroupIdOrderById(assetGroupId, getPageRequest(pageNumber, pageSize))
                 .map(ASSET_MAPPER::mapToAssetDTO);
     }
 
     @Override
-    public Page<AssetDTO> getAssetsByUsername(@NonNull final String username, final int page, final int pageSize) {
+    public Page<AssetDTO> getAssetsByUsername(final String username,
+                                              final @PageNumber int pageNumber,
+                                              final @PageSize int pageSize) {
         logger.info("Getting assets of username: {}", username);
 
-        // Checking constraints.
-        assert page >= 1 : "Page number starts at page 1";
-        assert userRepository.findByUsernameIgnoreCase(username).isPresent() : "User not found with username: " + username;
-
-        // Returning the results.
-        return assetRepository.findByCreator_UsernameOrderById(username, PageRequest.of(page - 1, pageSize))
+        return assetRepository
+                .findByCreator_UsernameOrderById(username, getPageRequest(pageNumber, pageSize))
                 .map(ASSET_MAPPER::mapToAssetDTO);
     }
 
     @Override
-    public Page<AssetDTO> getAssetsByUserId(final String userId, final int page, final int pageSize) {
-        // TODO Test this method and make it call directly the repository.
-        final Optional<User> user = userRepository.findByUserId(userId);
-        if (user.isPresent()) {
-            return getAssetsByUsername(user.get().getUsername(), page, pageSize);
-        } else {
-            return Page.empty();
-        }
-    }
+    public Page<AssetDTO> getAssetsByUserId(final String userId,
+                                            final @PageNumber int pageNumber,
+                                            final @PageSize int pageSize) {
+        logger.info("Getting assets of user id: {}", userId);
 
-    /**
-     * Returns true if the string is a valid JSON.
-     *
-     * @param content string to check
-     * @return true if content is a valid JSON
-     */
-    private boolean isJSONValid(final String content) {
-        try {
-            new ObjectMapper().readTree(content);
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
+        return assetRepository
+                .findByCreator_UserIdOrderById(userId, getPageRequest(pageNumber, pageSize))
+                .map(ASSET_MAPPER::mapToAssetDTO);
     }
 
 }

@@ -33,20 +33,20 @@ public class AccountSettingsForm {
     MultipartFile profilePicture;
 
     /** Profile picture filename. */
-    @Size(max = PROFILE_PICTURE_FILE_NAME_MAXIMUM_SIZE, message = "{validation.user.profilePictureFilename.size.too_long}")
+    @Size(max = PROFILE_PICTURE_FILE_NAME_MAXIMUM_SIZE, message = "{validation.user.profilePictureFilename.length.too_long}")
     String profilePictureFilename;
 
     /** Full name. */
-    @Size(max = FULL_NAME_MAXIMUM_SIZE, message = "{validation.user.fullName.size.too_long}")
+    @Size(max = FULL_NAME_MAXIMUM_SIZE, message = "{validation.user.fullName.length.too_long}")
     String fullName;
 
     /** Biography. */
-    @Size(max = BIOGRAPHY_MAXIMUM_SIZE, message = "{validation.user.biography.size.too_long}")
+    @Size(max = BIOGRAPHY_MAXIMUM_SIZE, message = "{validation.user.biography.length.too_long}")
     String biography;
 
     /** Website. */
     @Pattern(regexp = "^(?:(https?://)?(www\\.)?[-a-zA-Z0-9%_]+(\\.[a-zA-Z]{2,})/?.*)?$", message = "{validation.user.website.invalid}")
-    @Size(max = WEBSITE_MAXIMUM_SIZE, message = "{validation.user.website.size.too_long}")
+    @Size(max = WEBSITE_MAXIMUM_SIZE, message = "{validation.user.website.length.too_long}")
     String website;
 
 }

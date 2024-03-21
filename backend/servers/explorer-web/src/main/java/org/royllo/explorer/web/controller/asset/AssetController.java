@@ -205,7 +205,7 @@ public class AssetController extends BaseController {
      */
     private Optional<AssetDTO> addAssetToModel(final Model model, final String assetId) {
         model.addAttribute(ASSET_ID_ATTRIBUTE, assetId);
-        final Optional<AssetDTO> asset = assetService.getAssetByAssetId(assetId);
+        final Optional<AssetDTO> asset = assetService.getAssetByAssetIdOrAlias(assetId);
         if (asset.isPresent()) {
             model.addAttribute(ASSET_ATTRIBUTE, asset.get());
             // We also set the url to share the asset.

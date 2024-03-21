@@ -58,6 +58,7 @@ public class AssetDTO {
     String assetIdAlias;
 
     /** The first outpoint of the transaction that created the asset (txid:vout). */
+    @NotNull(message = "{validation.asset.genesisPoint.required}")
     BitcoinTransactionOutputDTO genesisPoint;
 
     /** The name of the asset. */

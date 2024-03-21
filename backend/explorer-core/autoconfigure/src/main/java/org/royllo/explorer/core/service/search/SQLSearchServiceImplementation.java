@@ -52,7 +52,7 @@ public class SQLSearchServiceImplementation extends BaseService implements Searc
         try {
             DatabaseMetaData metaData = dataSource.getConnection().getMetaData();
             String databaseProductName = metaData.getDatabaseProductName();
-            isUsingPostgreSQL = "PostgreSQL".equals(databaseProductName);
+            isUsingPostgreSQL = "PostgreSQL".equalsIgnoreCase(databaseProductName);
         } catch (SQLException e) {
             logger.error("Impossible to retrieve database metadata {}", e.getMessage());
         }

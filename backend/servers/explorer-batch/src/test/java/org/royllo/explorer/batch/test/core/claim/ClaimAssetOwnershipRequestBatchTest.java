@@ -157,15 +157,15 @@ public class ClaimAssetOwnershipRequestBatchTest extends TestWithMockServers {
 
         // =============================================================================================================
         // Now we check if user has been set on the good one.
-        final Optional<AssetDTO> trickyRoylloCoin = assetService.getAssetByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID);
+        final Optional<AssetDTO> trickyRoylloCoin = assetService.getAssetByAssetIdOrAlias(TRICKY_ROYLLO_COIN_ASSET_ID);
         assertTrue(trickyRoylloCoin.isPresent());
         assertEquals(ANONYMOUS_USER_ID, trickyRoylloCoin.get().getCreator().getUserId());
 
-        final Optional<AssetDTO> unlimitedRoylloCoin1 = assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_1_ASSET_ID);
+        final Optional<AssetDTO> unlimitedRoylloCoin1 = assetService.getAssetByAssetIdOrAlias(UNLIMITED_ROYLLO_COIN_1_ASSET_ID);
         assertTrue(unlimitedRoylloCoin1.isPresent());
         assertEquals(ANONYMOUS_USER_ID, unlimitedRoylloCoin1.get().getCreator().getUserId());
 
-        final Optional<AssetDTO> unlimitedRoylloCoin2 = assetService.getAssetByAssetId(UNLIMITED_ROYLLO_COIN_2_ASSET_ID);
+        final Optional<AssetDTO> unlimitedRoylloCoin2 = assetService.getAssetByAssetIdOrAlias(UNLIMITED_ROYLLO_COIN_2_ASSET_ID);
         assertTrue(unlimitedRoylloCoin2.isPresent());
         assertEquals(STRAUMAT_USED_ID, unlimitedRoylloCoin2.get().getCreator().getUserId());
     }

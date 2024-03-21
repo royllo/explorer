@@ -2,6 +2,7 @@ package org.royllo.explorer.batch.batch.request;
 
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.batch.util.base.BaseBatch;
+import org.royllo.explorer.core.dto.asset.AssetDTOIssuanceUpdate;
 import org.royllo.explorer.core.dto.asset.AssetStateDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.provider.tapd.DecodedProofResponse;
@@ -124,10 +125,12 @@ public class AddProofBatch extends BaseBatch {
                                         // We update the data and the file if we have the issuance proof
                                         if (assetStateCreated.get().getAsset().getMetaDataFileName() == null && response.getDecodedProof().getMetaReveal() != null) {
                                             logger.info("Creating meta data file");
-                                            assetService.updateAsset(response.getDecodedProof().getAsset().getAssetGenesis().getAssetId(),
-                                                    response.getDecodedProof().getMetaReveal().getData(),
-                                                    response.getDecodedProof().getAsset().getAmount(),
-                                                    assetStateCreated.get().getAnchorOutpoint().getBlockTime().atZone(ZoneId.of("Europe/Paris")));
+                                            assetService.updateAssetIssuanceData(response.getDecodedProof().getAsset().getAssetGenesis().getAssetId(),
+                                                    AssetDTOIssuanceUpdate.builder()
+                                                            .metadata(response.getDecodedProof().getMetaReveal().getData())
+                                                            .amount(response.getDecodedProof().getAsset().getAmount())
+                                                            .issuanceDate(assetStateCreated.get().getAnchorOutpoint().getBlockTime().atZone(ZoneId.of("Europe/Paris")))
+                                                            .build());
                                         } else {
                                             logger.info("No meta data file to create");
                                         }

@@ -192,7 +192,6 @@ public class UserServiceImplementation extends BaseService implements UserServic
 
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        // TODO Maybe username should be the userID as it doesn't change.
         // Search for the user with it's linking key.
         final UserLnurlAuthKey userLinkingKey = userLnurlAuthKeyRepository
                 .findByLinkingKey(username)

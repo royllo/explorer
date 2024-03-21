@@ -79,7 +79,7 @@ public class ClaimAssetOwnershipRequestBatch extends BaseBatch {
 
                                 // The proof is valid, we check if the proof is about an asset we have in database.
                                 final String assetId = decodedProof.getDecodedProof().getAsset().getAssetGenesis().getAssetId();
-                                Optional<AssetDTO> existingAsset = assetService.getAssetByAssetId(assetId);
+                                Optional<AssetDTO> existingAsset = assetService.getAssetByAssetIdOrAlias(assetId);
                                 if (existingAsset.isEmpty()) {
                                     logger.info("Request {} proof is not about an asset we have in database : {}", request.getId(), assetId);
                                     request.failure("This asset is not in our database, use 'Add proof' menu first");

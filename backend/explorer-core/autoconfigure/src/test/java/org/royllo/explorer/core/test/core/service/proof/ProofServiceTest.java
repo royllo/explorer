@@ -65,7 +65,7 @@ public class ProofServiceTest extends TestWithMockServers {
         assertNotNull(unknownRoylloCoinDecodedProof);
 
         // We add our proof but our an asset doesn't exist yet --> an error must occur.
-        assertFalse(assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
+        assertFalse(assetService.getAssetByAssetIdOrAlias(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
         ProofCreationException e = assertThrows(ProofCreationException.class, () -> proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, PROOF_TYPE_UNSPECIFIED, unknownRoylloCoinDecodedProof));
         assertEquals(e.getMessage(), "Asset " + UNKNOWN_ROYLLO_COIN_ASSET_ID + " is not registered in our database");
 

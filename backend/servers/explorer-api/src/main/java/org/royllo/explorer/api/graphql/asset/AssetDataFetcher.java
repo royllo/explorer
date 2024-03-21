@@ -72,7 +72,7 @@ public class AssetDataFetcher extends BaseDataFetcher {
      */
     @DgsQuery
     public final AssetDTO assetByAssetId(final @InputArgument String assetId) {
-        return assetService.getAssetByAssetId(assetId).orElseThrow(DgsEntityNotFoundException::new);
+        return assetService.getAssetByAssetIdOrAlias(assetId).orElseThrow(DgsEntityNotFoundException::new);
     }
 
 }

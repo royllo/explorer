@@ -95,7 +95,7 @@ public class UnknownRoylloCoinIntegrationTest extends TestWithMockServers {
 
         // =============================================================================================================
         // We check that the asset doesn't already exist.
-        assertFalse(assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
+        assertFalse(assetService.getAssetByAssetIdOrAlias(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
         assertFalse(assetStateService.getAssetStateByAssetStateId(UNKNOWN_ROYLLO_COIN_STATE_ID).isPresent());
         assertFalse(proofService.getProofByProofId(UNKNOWN_ROYLLO_COIN_PROOF_ID).isPresent());
 
@@ -125,7 +125,7 @@ public class UnknownRoylloCoinIntegrationTest extends TestWithMockServers {
         // We check that the asset now exists.
         assertTrue(bitcoinService.getBitcoinTransactionOutput(UNKNOWN_ROYLLO_COIN_GENESIS_TXID, UNKNOWN_ROYLLO_COIN_GENESIS_VOUT).isPresent());
         assertTrue(bitcoinService.getBitcoinTransactionOutput(UNKNOWN_ROYLLO_COIN_ANCHOR_1_TXID, UNKNOWN_ROYLLO_COIN_ANCHOR_1_VOUT).isPresent());
-        assertTrue(assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
+        assertTrue(assetService.getAssetByAssetIdOrAlias(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
         assertTrue(assetStateService.getAssetStateByAssetStateId(UNKNOWN_ROYLLO_COIN_STATE_ID).isPresent());
         assertTrue(proofService.getProofByProofId(UNKNOWN_ROYLLO_COIN_PROOF_ID).isPresent());
 
@@ -137,14 +137,14 @@ public class UnknownRoylloCoinIntegrationTest extends TestWithMockServers {
 
         // =============================================================================================================
         // We check the value of what has been created.
-        final Optional<AssetDTO> asset = assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID);
+        final Optional<AssetDTO> asset = assetService.getAssetByAssetIdOrAlias(UNKNOWN_ROYLLO_COIN_ASSET_ID);
         assertTrue(asset.isPresent());
         assertNotNull(asset.get().getAssetIdAlias());
         verifyTransaction(bitcoinService.getBitcoinTransactionOutput(UNKNOWN_ROYLLO_COIN_GENESIS_TXID, UNKNOWN_ROYLLO_COIN_GENESIS_VOUT).get(),
                 UNKNOWN_ROYLLO_COIN_GENESIS_TXID);
         verifyTransaction(bitcoinService.getBitcoinTransactionOutput(UNKNOWN_ROYLLO_COIN_ANCHOR_1_TXID, UNKNOWN_ROYLLO_COIN_ANCHOR_1_VOUT).get(),
                 UNKNOWN_ROYLLO_COIN_ANCHOR_1_TXID);
-        verifyAsset(assetService.getAssetByAssetId(UNKNOWN_ROYLLO_COIN_ASSET_ID).get(), UNKNOWN_ROYLLO_COIN_ASSET_ID);
+        verifyAsset(assetService.getAssetByAssetIdOrAlias(UNKNOWN_ROYLLO_COIN_ASSET_ID).get(), UNKNOWN_ROYLLO_COIN_ASSET_ID);
         assertNotNull(asset.get().getAmount());
         assertNotNull(asset.get().getIssuanceDate());
         verifyAssetState(assetStateService.getAssetStateByAssetStateId(UNKNOWN_ROYLLO_COIN_STATE_ID).get(),

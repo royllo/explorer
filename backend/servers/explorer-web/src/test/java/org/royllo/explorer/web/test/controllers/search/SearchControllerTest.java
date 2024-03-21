@@ -264,7 +264,7 @@ public class SearchControllerTest extends BaseTest {
 
         // Create fake assets.
         for (int i = 1; i <= 99; i++) {
-            final Optional<AssetDTO> assetFound = assetService.getAssetByAssetId("FAKE_ASSET_ID_000000000000000000000000000000000000000000000000" + String.format("%02d", i));
+            final Optional<AssetDTO> assetFound = assetService.getAssetByAssetIdOrAlias("FAKE_ASSET_ID_000000000000000000000000000000000000000000000000" + String.format("%02d", i));
             if (assetFound.isEmpty()) {
                 assetService.addAsset(
                         AssetDTO.builder()

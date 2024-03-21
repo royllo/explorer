@@ -118,9 +118,9 @@ public class SetOfRoylloNFTIntegrationTest extends TestWithMockServers {
         // We check that the asset doesn't already exist.
         assertFalse(assetGroupService.getAssetGroupByAssetGroupId(SET_OF_ROYLLO_NFT_TWEAKED_GROUP_KEY).isPresent());
 
-        assertFalse(assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_1_ASSET_ID).isPresent());
-        assertFalse(assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_2_ASSET_ID).isPresent());
-        assertFalse(assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_3_ASSET_ID).isPresent());
+        assertFalse(assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_1_ASSET_ID).isPresent());
+        assertFalse(assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_2_ASSET_ID).isPresent());
+        assertFalse(assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_3_ASSET_ID).isPresent());
 
         assertFalse(assetStateService.getAssetStateByAssetStateId(SET_OF_ROYLLO_NFT_1_ASSET_STATE_ID).isPresent());
         assertFalse(assetStateService.getAssetStateByAssetStateId(SET_OF_ROYLLO_NFT_2_ASSET_STATE_ID).isPresent());
@@ -184,9 +184,9 @@ public class SetOfRoylloNFTIntegrationTest extends TestWithMockServers {
 
         assertTrue(assetGroupService.getAssetGroupByAssetGroupId(SET_OF_ROYLLO_NFT_TWEAKED_GROUP_KEY).isPresent());
 
-        assertTrue(assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_1_ASSET_ID).isPresent());
-        assertTrue(assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_2_ASSET_ID).isPresent());
-        assertTrue(assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_3_ASSET_ID).isPresent());
+        assertTrue(assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_1_ASSET_ID).isPresent());
+        assertTrue(assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_2_ASSET_ID).isPresent());
+        assertTrue(assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_3_ASSET_ID).isPresent());
 
         assertTrue(assetStateService.getAssetStateByAssetStateId(SET_OF_ROYLLO_NFT_1_ASSET_STATE_ID).isPresent());
         assertTrue(assetStateService.getAssetStateByAssetStateId(SET_OF_ROYLLO_NFT_2_ASSET_STATE_ID).isPresent());
@@ -204,15 +204,15 @@ public class SetOfRoylloNFTIntegrationTest extends TestWithMockServers {
 
         // =============================================================================================================
         // We check the value of what has been created.
-        final Optional<AssetDTO> asset1 = assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_1_ASSET_ID);
+        final Optional<AssetDTO> asset1 = assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_1_ASSET_ID);
         assertTrue(asset1.isPresent());
         assertNotNull(asset1.get().getAssetIdAlias());
         assertEquals(ASSET_ID_ALIAS_LENGTH, asset1.get().getAssetIdAlias().length());
-        final Optional<AssetDTO> asset2 = assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_2_ASSET_ID);
+        final Optional<AssetDTO> asset2 = assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_2_ASSET_ID);
         assertTrue(asset2.isPresent());
         assertNotNull(asset2.get().getAssetIdAlias());
         assertEquals(ASSET_ID_ALIAS_LENGTH, asset2.get().getAssetIdAlias().length());
-        final Optional<AssetDTO> asset3 = assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_3_ASSET_ID);
+        final Optional<AssetDTO> asset3 = assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_3_ASSET_ID);
         assertTrue(asset3.isPresent());
         assertNotNull(asset3.get().getAssetIdAlias());
         assertEquals(ASSET_ID_ALIAS_LENGTH, asset3.get().getAssetIdAlias().length());
@@ -225,7 +225,7 @@ public class SetOfRoylloNFTIntegrationTest extends TestWithMockServers {
         // NTF1.
         verifyTransaction(bitcoinService.getBitcoinTransactionOutput(SET_OF_ROYLLO_NFT_ANCHOR_1_TXID, SET_OF_ROYLLO_NFT_ANCHOR_1_VOUT).get(),
                 SET_OF_ROYLLO_NFT_ANCHOR_1_TXID);
-        verifyAsset(assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_1_ASSET_ID).get(), SET_OF_ROYLLO_NFT_1_ASSET_ID);
+        verifyAsset(assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_1_ASSET_ID).get(), SET_OF_ROYLLO_NFT_1_ASSET_ID);
         verifyAssetState(assetStateService.getAssetStateByAssetStateId(SET_OF_ROYLLO_NFT_1_ASSET_STATE_ID).get(),
                 SET_OF_ROYLLO_NFT_1_ASSET_ID,
                 SET_OF_ROYLLO_NFT_ANCHOR_1_TXID,
@@ -235,7 +235,7 @@ public class SetOfRoylloNFTIntegrationTest extends TestWithMockServers {
         // NTF2.
         verifyTransaction(bitcoinService.getBitcoinTransactionOutput(SET_OF_ROYLLO_NFT_ANCHOR_2_TXID, SET_OF_ROYLLO_NFT_ANCHOR_2_VOUT).get(),
                 SET_OF_ROYLLO_NFT_ANCHOR_2_TXID);
-        verifyAsset(assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_2_ASSET_ID).get(), SET_OF_ROYLLO_NFT_2_ASSET_ID);
+        verifyAsset(assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_2_ASSET_ID).get(), SET_OF_ROYLLO_NFT_2_ASSET_ID);
         verifyAssetState(assetStateService.getAssetStateByAssetStateId(SET_OF_ROYLLO_NFT_2_ASSET_STATE_ID).get(),
                 SET_OF_ROYLLO_NFT_2_ASSET_ID,
                 SET_OF_ROYLLO_NFT_ANCHOR_2_TXID,
@@ -245,7 +245,7 @@ public class SetOfRoylloNFTIntegrationTest extends TestWithMockServers {
         // NTF1.
         verifyTransaction(bitcoinService.getBitcoinTransactionOutput(SET_OF_ROYLLO_NFT_ANCHOR_3_TXID, SET_OF_ROYLLO_NFT_ANCHOR_3_VOUT).get(),
                 SET_OF_ROYLLO_NFT_ANCHOR_3_TXID);
-        verifyAsset(assetService.getAssetByAssetId(SET_OF_ROYLLO_NFT_3_ASSET_ID).get(), SET_OF_ROYLLO_NFT_3_ASSET_ID);
+        verifyAsset(assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_3_ASSET_ID).get(), SET_OF_ROYLLO_NFT_3_ASSET_ID);
         verifyAssetState(assetStateService.getAssetStateByAssetStateId(SET_OF_ROYLLO_NFT_3_ASSET_STATE_ID).get(),
                 SET_OF_ROYLLO_NFT_3_ASSET_ID,
                 SET_OF_ROYLLO_NFT_ANCHOR_3_TXID,

@@ -64,10 +64,10 @@ public class AccountSettingsTest extends BaseTest {
                 .andExpect(content().string(containsString("Traumat")))
                 .andExpect(content().string(containsString("developer")))
                 .andExpect(content().string(containsString("github.com/straumat")))
-                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.fullName.size.too_long")))))
-                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.biography.size.too_long")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.fullName.length.too_long")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.biography.length.too_long")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.website.invalid")))))
-                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.website.size.too_long")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.website.length.too_long")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "user.settings.information.success")))));
 
     }
@@ -93,12 +93,12 @@ public class AccountSettingsTest extends BaseTest {
                 .andExpect(model().attributeHasFieldErrors(FORM_ATTRIBUTE, "username"))
                 .andExpect(content().string(containsString(getMessage(messages, "validation.user.username.invalid"))))
                 .andExpect(model().attributeHasFieldErrors(FORM_ATTRIBUTE, "fullName"))
-                .andExpect(content().string(containsString(getMessage(messages, "validation.user.fullName.size.too_long"))))
+                .andExpect(content().string(containsString(getMessage(messages, "validation.user.fullName.length.too_long"))))
                 .andExpect(model().attributeHasFieldErrors(FORM_ATTRIBUTE, "biography"))
-                .andExpect(content().string(containsString(getMessage(messages, "validation.user.biography.size.too_long"))))
+                .andExpect(content().string(containsString(getMessage(messages, "validation.user.biography.length.too_long"))))
                 .andExpect(model().attributeHasFieldErrors(FORM_ATTRIBUTE, "website"))
                 .andExpect(content().string(containsString(getMessage(messages, "validation.user.website.invalid"))))
-                .andExpect(content().string(containsString(getMessage(messages, "validation.user.website.size.too_long"))))
+                .andExpect(content().string(containsString(getMessage(messages, "validation.user.website.length.too_long"))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "user.settings.information.success")))));
 
         // We try to use an existing username.
@@ -141,10 +141,10 @@ public class AccountSettingsTest extends BaseTest {
                 .andExpect(model().hasNoErrors())
                 .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.username.exists")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.username.invalid")))))
-                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.fullName.size.too_long")))))
-                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.biography.size.too_long")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.fullName.length.too_long")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.biography.length.too_long")))))
                 .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.website.invalid")))))
-                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.website.size.too_long")))))
+                .andExpect(content().string(not(containsString(getMessage(messages, "validation.user.website.length.too_long")))))
                 .andExpect(content().string(containsString(getMessage(messages, "user.settings.information.success"))));
 
         // We check the updated values.

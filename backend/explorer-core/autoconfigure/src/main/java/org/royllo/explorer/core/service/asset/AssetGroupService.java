@@ -1,5 +1,6 @@
 package org.royllo.explorer.core.service.asset;
 
+import jakarta.validation.Valid;
 import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
 
 import java.util.Optional;
@@ -15,7 +16,7 @@ public interface AssetGroupService {
      * @param newAssetGroup asset group to create
      * @return asset group created
      */
-    AssetGroupDTO addAssetGroup(AssetGroupDTO newAssetGroup);
+    AssetGroupDTO addAssetGroup(@Valid AssetGroupDTO newAssetGroup);
 
     /**
      * Get an asset group by its asset group id.

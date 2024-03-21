@@ -74,4 +74,13 @@ public interface AssetRepository extends JpaRepository<Asset, Long> {
     @SuppressWarnings("checkstyle:MethodName")
     Page<Asset> findByCreator_UsernameOrderById(String username, Pageable pageable);
 
+    /**
+     * Find assets by its creator user id.
+     *
+     * @param userId   user id
+     * @param pageable pagination parameters
+     * @return user assets
+     */
+    Page<Asset> findByCreator_UserIdOrderById(String userId, Pageable pageable);
+
 }

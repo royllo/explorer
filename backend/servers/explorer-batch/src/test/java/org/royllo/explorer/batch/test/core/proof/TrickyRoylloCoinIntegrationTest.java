@@ -159,7 +159,7 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
 
         // =============================================================================================================
         // We check that the asset doesn't already exist.
-        assertFalse(assetService.getAssetByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID).isPresent());
+        assertFalse(assetService.getAssetByAssetIdOrAlias(TRICKY_ROYLLO_COIN_ASSET_ID).isPresent());
 
         assertFalse(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID).isPresent());
         assertFalse(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_2_ASSET_STATE_ID).isPresent());
@@ -222,7 +222,7 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
         assertTrue(bitcoinService.getBitcoinTransactionOutput(TRICKY_ROYLLO_COIN_ANCHOR_2_TXID, SET_OF_ROYLLO_NFT_ANCHOR_2_VOUT).isPresent());
         assertTrue(bitcoinService.getBitcoinTransactionOutput(TRICKY_ROYLLO_COIN_ANCHOR_3_TXID, SET_OF_ROYLLO_NFT_ANCHOR_3_VOUT).isPresent());
 
-        assertTrue(assetService.getAssetByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID).isPresent());
+        assertTrue(assetService.getAssetByAssetIdOrAlias(TRICKY_ROYLLO_COIN_ASSET_ID).isPresent());
 
         assertTrue(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID).isPresent());
         assertTrue(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_2_ASSET_STATE_ID).isPresent());
@@ -235,7 +235,7 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
 
         // =============================================================================================================
         // We check what has been created.
-        final Optional<AssetDTO> asset = assetService.getAssetByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID);
+        final Optional<AssetDTO> asset = assetService.getAssetByAssetIdOrAlias(TRICKY_ROYLLO_COIN_ASSET_ID);
         assertTrue(asset.isPresent());
         assertNotNull(asset.get().getAssetIdAlias());
 
@@ -244,7 +244,7 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
         assertEquals(assetStateCountBefore + 4, assetStateRepository.count());
 
         // Verify asset.
-        verifyAsset(assetService.getAssetByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID).get(), TRICKY_ROYLLO_COIN_ASSET_ID);
+        verifyAsset(assetService.getAssetByAssetIdOrAlias(TRICKY_ROYLLO_COIN_ASSET_ID).get(), TRICKY_ROYLLO_COIN_ASSET_ID);
         assertNotNull(asset.get().getAmount());
         assertNotNull(asset.get().getIssuanceDate());
 
@@ -329,7 +329,7 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
 
         // =============================================================================================================
         // We check that the asset doesn't already exist.
-        assertFalse(assetService.getAssetByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID).isPresent());
+        assertFalse(assetService.getAssetByAssetIdOrAlias(TRICKY_ROYLLO_COIN_ASSET_ID).isPresent());
 
         assertFalse(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID).isPresent());
         assertFalse(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_2_ASSET_STATE_ID).isPresent());
@@ -368,7 +368,7 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
         assertTrue(bitcoinService.getBitcoinTransactionOutput(TRICKY_ROYLLO_COIN_ANCHOR_2_TXID, SET_OF_ROYLLO_NFT_ANCHOR_2_VOUT).isPresent());
         assertTrue(bitcoinService.getBitcoinTransactionOutput(TRICKY_ROYLLO_COIN_ANCHOR_3_TXID, SET_OF_ROYLLO_NFT_ANCHOR_3_VOUT).isPresent());
 
-        assertTrue(assetService.getAssetByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID).isPresent());
+        assertTrue(assetService.getAssetByAssetIdOrAlias(TRICKY_ROYLLO_COIN_ASSET_ID).isPresent());
 
         assertTrue(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID).isPresent());
         assertFalse(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_2_ASSET_STATE_ID).isPresent());
@@ -384,7 +384,7 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
         assertEquals(assetStateCountBefore + 3, assetStateRepository.count());
 
         // Verify asset.
-        Optional<AssetDTO> asset = assetService.getAssetByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID);
+        Optional<AssetDTO> asset = assetService.getAssetByAssetIdOrAlias(TRICKY_ROYLLO_COIN_ASSET_ID);
         assertTrue(asset.isPresent());
         verifyAsset(asset.get(), TRICKY_ROYLLO_COIN_ASSET_ID);
 

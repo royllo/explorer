@@ -96,7 +96,7 @@ public class RoylloNFTIntegrationTest extends TestWithMockServers {
 
         // =============================================================================================================
         // We check that the asset doesn't already exist.
-        assertFalse(assetService.getAssetByAssetId(ROYLLO_NFT_ASSET_ID).isPresent());
+        assertFalse(assetService.getAssetByAssetIdOrAlias(ROYLLO_NFT_ASSET_ID).isPresent());
         assertFalse(assetStateService.getAssetStateByAssetStateId(ROYLLO_NFT_ASSET_STATE_ID).isPresent());
         assertFalse(proofService.getProofByProofId(ROYLLO_NFT_PROOF_ID).isPresent());
 
@@ -127,7 +127,7 @@ public class RoylloNFTIntegrationTest extends TestWithMockServers {
         // We check that the asset now exists.
         assertTrue(bitcoinService.getBitcoinTransactionOutput(ROYLLO_NFT_GENESIS_TXID, ROYLLO_NFT_GENESIS_VOUT).isPresent());
         assertTrue(bitcoinService.getBitcoinTransactionOutput(ROYLLO_NFT_ANCHOR_1_TXID, ROYLLO_NFT_ANCHOR_1_VOUT).isPresent());
-        assertTrue(assetService.getAssetByAssetId(ROYLLO_NFT_ASSET_ID).isPresent());
+        assertTrue(assetService.getAssetByAssetIdOrAlias(ROYLLO_NFT_ASSET_ID).isPresent());
         assertTrue(assetStateService.getAssetStateByAssetStateId(ROYLLO_NFT_ASSET_STATE_ID).isPresent());
         assertTrue(proofService.getProofByProofId(ROYLLO_NFT_PROOF_ID).isPresent());
 
@@ -140,7 +140,7 @@ public class RoylloNFTIntegrationTest extends TestWithMockServers {
 
         // =============================================================================================================
         // We check the value of what has been created.
-        final Optional<AssetDTO> asset = assetService.getAssetByAssetId(ROYLLO_NFT_ASSET_ID);
+        final Optional<AssetDTO> asset = assetService.getAssetByAssetIdOrAlias(ROYLLO_NFT_ASSET_ID);
         assertTrue(asset.isPresent());
         assertNotNull(asset.get().getAssetIdAlias());
         assertEquals(ASSET_ID_ALIAS_LENGTH, asset.get().getAssetIdAlias().length());
@@ -150,7 +150,7 @@ public class RoylloNFTIntegrationTest extends TestWithMockServers {
                 ROYLLO_NFT_GENESIS_TXID);
         verifyTransaction(bitcoinService.getBitcoinTransactionOutput(ROYLLO_NFT_ANCHOR_1_TXID, ROYLLO_NFT_ANCHOR_1_VOUT).get(),
                 ROYLLO_NFT_ANCHOR_1_TXID);
-        verifyAsset(assetService.getAssetByAssetId(ROYLLO_NFT_ASSET_ID).get(), ROYLLO_NFT_ASSET_ID);
+        verifyAsset(assetService.getAssetByAssetIdOrAlias(ROYLLO_NFT_ASSET_ID).get(), ROYLLO_NFT_ASSET_ID);
         verifyAssetState(assetStateService.getAssetStateByAssetStateId(ROYLLO_NFT_ASSET_STATE_ID).get(),
                 ROYLLO_NFT_ASSET_ID,
                 ROYLLO_NFT_ANCHOR_1_TXID,

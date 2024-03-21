@@ -1,5 +1,6 @@
 package org.royllo.explorer.core.util.base;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mapstruct.factory.Mappers;
 import org.royllo.explorer.core.util.mapper.AssetGroupMapper;
 import org.royllo.explorer.core.util.mapper.AssetMapper;
@@ -13,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.DatatypeConverter;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -63,6 +65,22 @@ public abstract class Base {
             return DatatypeConverter.printHexBinary(digest).toLowerCase();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("SHA-256 is not available: " + e.getMessage());
+        }
+    }
+
+
+    /**
+     * Returns true if the string is a valid JSON.
+     *
+     * @param content string to check
+     * @return true if content is a valid JSON
+     */
+    protected boolean isValidJSON(final String content) {
+        try {
+            new ObjectMapper().readTree(content);
+            return true;
+        } catch (IOException e) {
+            return false;
         }
     }
 
