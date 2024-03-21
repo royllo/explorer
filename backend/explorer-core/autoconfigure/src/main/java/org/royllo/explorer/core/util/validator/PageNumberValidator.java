@@ -12,7 +12,7 @@ public class PageNumberValidator implements ConstraintValidator<PageNumber, Inte
     private static final int FIRST_PAGE_NUMBER = 1;
 
     @Override
-    public boolean isValid(Integer value, ConstraintValidatorContext context) {
+    public final boolean isValid(final Integer value, final ConstraintValidatorContext context) {
         return value != null && value >= FIRST_PAGE_NUMBER;
     }
 

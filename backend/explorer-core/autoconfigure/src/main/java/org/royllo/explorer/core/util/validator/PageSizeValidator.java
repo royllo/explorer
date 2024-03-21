@@ -15,7 +15,7 @@ public class PageSizeValidator implements ConstraintValidator<PageSize, Integer>
     private static final int MAXIMUM_PAGE_SIZE = 100;
 
     @Override
-    public boolean isValid(Integer value, ConstraintValidatorContext constraintValidatorContext) {
+    public final boolean isValid(final Integer value, final ConstraintValidatorContext constraintValidatorContext) {
         return value != null && value >= MINIMUM_PAGE_SIZE && value <= MAXIMUM_PAGE_SIZE;
     }
 

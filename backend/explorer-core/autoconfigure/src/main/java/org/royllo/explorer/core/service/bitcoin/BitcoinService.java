@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface BitcoinService {
 
     /**
-     * Returns details about a specific transaction output.
+     * Returns data about a specific transaction output.
      *
      * @param txId transaction id
      * @param vOut output index (starts at 0)

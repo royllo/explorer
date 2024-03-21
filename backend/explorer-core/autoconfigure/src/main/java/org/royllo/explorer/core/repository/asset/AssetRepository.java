@@ -81,6 +81,7 @@ public interface AssetRepository extends JpaRepository<Asset, Long> {
      * @param pageable pagination parameters
      * @return user assets
      */
+    @SuppressWarnings("checkstyle:MethodName")
     Page<Asset> findByCreator_UserIdOrderById(String userId, Pageable pageable);
 
 }

@@ -10,7 +10,7 @@ public class TransactionNotFoundException extends RuntimeException {
      *
      * @param message exception message
      */
-    public TransactionNotFoundException(String message) {
+    public TransactionNotFoundException(final String message) {
         super(message);
     }
 }

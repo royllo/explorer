@@ -3,6 +3,7 @@ package org.royllo.explorer.core.test.core.service.bitcoin;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
+import org.royllo.explorer.core.repository.bitcoin.BitcoinTransactionOutputRepository;
 import org.royllo.explorer.core.service.bitcoin.BitcoinService;
 import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_TXID;
 import static org.royllo.test.MempoolData.UNKNOWN_ROYLLO_COIN_GENESIS_TXID;
@@ -21,6 +21,9 @@ import static org.royllo.test.MempoolData.UNKNOWN_ROYLLO_COIN_GENESIS_TXID;
 @DirtiesContext
 @DisplayName("BitcoinService tests")
 public class BitcoinServiceTest extends TestWithMockServers {
+
+    @Autowired
+    private BitcoinTransactionOutputRepository bitcoinTransactionOutputRepository;
 
     @Autowired
     private BitcoinService bitcoinService;
@@ -51,7 +54,7 @@ public class BitcoinServiceTest extends TestWithMockServers {
 
         // =============================================================================================================
         // Getting a transaction that doesn't exist in our database or in the blockchain.
-        assertFalse(bitcoinService.getBitcoinTransactionOutput("NON_EXISTING_TRANSACTION_OUTPUT", 0).isPresent());
+        assertTrue(bitcoinService.getBitcoinTransactionOutput("NON_EXISTING_TRANSACTION_OUTPUT", 0).isEmpty());
 
         // =============================================================================================================
         // Getting a transaction that doesn't exist in our database but exists in the blockchain (index 0).
@@ -68,13 +71,16 @@ public class BitcoinServiceTest extends TestWithMockServers {
 
         // =============================================================================================================
         // Getting again a transaction we saved in database. Check we did not create a duplicate.
+        long transactionCount = bitcoinTransactionOutputRepository.count();
         bto = bitcoinService.getBitcoinTransactionOutput(UNKNOWN_ROYLLO_COIN_GENESIS_TXID, 0);
         assertTrue(bto.isPresent());
         assertEquals(outputId, bto.get().getId());
+        assertEquals(transactionCount, bitcoinTransactionOutputRepository.count());
 
         // =============================================================================================================
         // Getting a transaction that doesn't exist in our database but exists in the blockchain.
         // But the output specified does not exist !
+        assertTrue(bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, -1).isEmpty());
         assertTrue(bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 25).isEmpty());
     }
 

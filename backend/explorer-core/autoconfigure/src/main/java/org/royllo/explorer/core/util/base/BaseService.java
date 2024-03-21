@@ -14,7 +14,7 @@ public class BaseService extends Base {
      * @param pageSize   page size
      * @return page request
      */
-    protected PageRequest getPageRequest(int pageNumber, int pageSize) {
+    protected PageRequest getPageRequest(final int pageNumber, final int pageSize) {
         return PageRequest.of(pageNumber - 1, pageSize);
     }
 
