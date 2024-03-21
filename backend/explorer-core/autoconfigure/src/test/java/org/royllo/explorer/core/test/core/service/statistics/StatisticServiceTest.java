@@ -58,7 +58,7 @@ public class StatisticServiceTest {
         assertEquals(initialUserCount, globalStatistics.getUserCount());
 
         // We clear the cache.
-        statisticService.evictStatisticsCache();
+        statisticService.evictGlobalStatisticsCache();
 
         // We should now see the universe server we added.
         globalStatistics = statisticService.getGlobalStatistics();

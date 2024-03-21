@@ -40,8 +40,8 @@ public class StatisticServiceImplementation extends BaseService implements Stati
 
     @Scheduled(fixedDelayString = "PT1H")
     @CacheEvict(value = "globalStatistics", allEntries = true)
-    public void evictStatisticsCache() {
-        logger.info("Clearing global statistics cache.");
+    public void evictGlobalStatisticsCache() {
+        logger.info("Clearing global statistics cache");
     }
 
 }

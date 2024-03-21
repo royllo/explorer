@@ -10,7 +10,7 @@ public interface StatisticService {
     /**
      * Returns the global statistics.
      *
-     * @return the global statistics
+     * @return global statistics
      */
     GlobalStatisticsDTO getGlobalStatistics();
 
