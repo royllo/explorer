@@ -7,6 +7,7 @@ import lombok.Value;
 import org.royllo.explorer.core.dto.user.UserDTO;
 
 import static lombok.AccessLevel.PRIVATE;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_DTO;
 
 /**
  * Taproot asset group.
@@ -21,7 +22,6 @@ public class AssetGroupDTO {
     Long id;
 
     /** Asset creator. */
-    @NotNull(message = "{validation.assetGroup.creator.required}")
     UserDTO creator;
 
     /** Asset group id (=TWEAKED_GROUP_KEY). */
@@ -37,5 +37,18 @@ public class AssetGroupDTO {
 
     /** A witness that authorizes a specific asset to be part of the asset group specified by the above key. */
     String assetWitness;
+
+    /**
+     * Getter creator.
+     *
+     * @return creator
+     */
+    public UserDTO getCreator() {
+        if (creator == null) {
+            return ANONYMOUS_USER_DTO;
+        } else {
+            return creator;
+        }
+    }
 
 }

@@ -13,6 +13,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_DTO;
 
 /**
  * Taproot asset state.
@@ -27,7 +28,6 @@ public class AssetStateDTO {
     Long id;
 
     /** The asset creator. */
-    @NotNull(message = "{validation.assetState.creator.required}")
     UserDTO creator;
 
     /** The asset. */
@@ -112,5 +112,18 @@ public class AssetStateDTO {
 
     /** Indicates if this asset state is an issuance or a transfer. */
     boolean issuance;
+
+    /**
+     * Getter creator.
+     *
+     * @return creator
+     */
+    public UserDTO getCreator() {
+        if (creator == null) {
+            return ANONYMOUS_USER_DTO;
+        } else {
+            return creator;
+        }
+    }
 
 }

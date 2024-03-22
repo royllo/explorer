@@ -101,7 +101,7 @@ public class AssetServiceTest extends TestWithMockServers {
     @DisplayName("addAsset()")
     public void addAsset() {
         // =============================================================================================================
-        // Constraint tests.
+        // Error tests.
 
         // Asset parameter is null.
         assertThrows(IllegalArgumentException.class, () -> assetService.addAsset(null));
@@ -110,8 +110,7 @@ public class AssetServiceTest extends TestWithMockServers {
         ConstraintViolationException violations = assertThrows(ConstraintViolationException.class, () -> {
             assetService.addAsset(AssetDTO.builder().build());
         });
-        assertEquals(7, violations.getConstraintViolations().size());
-        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("creator")));
+        assertEquals(6, violations.getConstraintViolations().size());
         assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("assetId")));
         assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("name")));
         assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("genesisPoint")));

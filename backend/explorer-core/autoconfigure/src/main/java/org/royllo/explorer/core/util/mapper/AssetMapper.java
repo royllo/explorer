@@ -68,7 +68,7 @@ public interface AssetMapper {
     }
 
     default AssetType mapToAssetType(final String source) {
-        if (source.equals("COLLECTIBLE")) {
+        if (source.equalsIgnoreCase("COLLECTIBLE")) {
             return COLLECTIBLE;
         }
         return NORMAL;

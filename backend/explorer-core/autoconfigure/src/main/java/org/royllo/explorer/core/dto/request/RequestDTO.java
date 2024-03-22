@@ -7,6 +7,7 @@ import lombok.experimental.SuperBuilder;
 import org.royllo.explorer.core.dto.user.UserDTO;
 import org.royllo.explorer.core.util.enums.RequestStatus;
 
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.enums.RequestStatus.FAILURE;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 
@@ -36,6 +37,19 @@ public abstract class RequestDTO {
 
     /** Error message - Not empty if status is equals to ERROR. */
     String errorMessage;
+
+    /**
+     * Getter creator.
+     *
+     * @return creator
+     */
+    public UserDTO getCreator() {
+        if (creator == null) {
+            return ANONYMOUS_USER_DTO;
+        } else {
+            return creator;
+        }
+    }
 
     /**
      * Set the request as success.

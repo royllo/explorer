@@ -43,8 +43,7 @@ public class AssetGroupServiceTest extends TestWithMockServers {
         ConstraintViolationException violations = assertThrows(ConstraintViolationException.class, () -> {
             assetGroupService.addAssetGroup(AssetGroupDTO.builder().build());
         });
-        assertEquals(3, violations.getConstraintViolations().size());
-        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("creator")));
+        assertEquals(2, violations.getConstraintViolations().size());
         assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("assetGroupId")));
         assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("tweakedGroupKey")));
 

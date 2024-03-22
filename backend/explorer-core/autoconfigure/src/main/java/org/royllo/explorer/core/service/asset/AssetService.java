@@ -73,7 +73,7 @@ public interface AssetService {
                                            @PageSize int pageSize);
 
     /**
-     * Gets assets by username.
+     * Get assets by username.
      *
      * @param username   username
      * @param pageNumber page number
@@ -85,7 +85,7 @@ public interface AssetService {
                                        @PageSize int pageSize);
 
     /**
-     * Gets assets by userId.
+     * Get assets by userId.
      *
      * @param userId     userId
      * @param pageNumber page number

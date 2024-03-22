@@ -9,10 +9,10 @@ import jakarta.validation.ConstraintValidatorContext;
 public class PageSizeValidator implements ConstraintValidator<PageSize, Integer> {
 
     /** Minimum page size. */
-    private static final int MINIMUM_PAGE_SIZE = 1;
+    public static final int MINIMUM_PAGE_SIZE = 1;
 
     /** Maximum page size. */
-    private static final int MAXIMUM_PAGE_SIZE = 100;
+    public static final int MAXIMUM_PAGE_SIZE = 100;
 
     @Override
     public final boolean isValid(final Integer value, final ConstraintValidatorContext constraintValidatorContext) {

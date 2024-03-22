@@ -9,7 +9,7 @@ import jakarta.validation.ConstraintValidatorContext;
 public class PageNumberValidator implements ConstraintValidator<PageNumber, Integer> {
 
     /** First page number. */
-    private static final int FIRST_PAGE_NUMBER = 1;
+    public static final int FIRST_PAGE_NUMBER = 1;
 
     @Override
     public final boolean isValid(final Integer value, final ConstraintValidatorContext context) {

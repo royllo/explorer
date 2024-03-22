@@ -1,5 +1,6 @@
 package org.royllo.explorer.core.test.core.service.proof;
 
+import jakarta.validation.ConstraintViolationException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -31,6 +32,8 @@ import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplemen
 import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_UNSPECIFIED;
+import static org.royllo.explorer.core.util.validator.PageNumberValidator.FIRST_PAGE_NUMBER;
+import static org.royllo.explorer.core.util.validator.PageSizeValidator.MAXIMUM_PAGE_SIZE;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_FROM_TEST;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
@@ -58,16 +61,19 @@ public class ProofServiceTest extends TestWithMockServers {
         // Retrieved data from TAPD.
         final String UNKNOWN_ROYLLO_COIN_RAW_PROOF = UNKNOWN_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getRawProof();
         final String UNKNOWN_ROYLLO_COIN_PROOF_ID = sha256(UNKNOWN_ROYLLO_COIN_RAW_PROOF);
-
-        // =============================================================================================================
-        // Unknown Royllo coin.
         DecodedProofResponse unknownRoylloCoinDecodedProof = TAPDService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF).block();
         assertNotNull(unknownRoylloCoinDecodedProof);
+
+        // =============================================================================================================
+        // Error tests.
 
         // We add our proof but our an asset doesn't exist yet --> an error must occur.
         assertFalse(assetService.getAssetByAssetIdOrAlias(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
         ProofCreationException e = assertThrows(ProofCreationException.class, () -> proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, PROOF_TYPE_UNSPECIFIED, unknownRoylloCoinDecodedProof));
         assertEquals(e.getMessage(), "Asset " + UNKNOWN_ROYLLO_COIN_ASSET_ID + " is not registered in our database");
+
+        // =============================================================================================================
+        // Normal behavior.
 
         // We add the asset of our proof, and then, our proof --> No error and proof should be added.
         final AssetDTO unknownRoylloCoin = assetService.addAsset(ASSET_MAPPER.mapToAssetDTO(unknownRoylloCoinDecodedProof.getDecodedProof()));
@@ -92,16 +98,22 @@ public class ProofServiceTest extends TestWithMockServers {
     @DisplayName("getProofByAssetId()")
     public void getProofByAssetId() {
         // =============================================================================================================
-        // First case: asset id not found in database.
-        AssertionError e = assertThrows(AssertionError.class, () -> proofService.getProofByAssetId(ROYLLO_COIN_ASSET_ID, 0, 1));
-        assertEquals(e.getMessage(), "Page number starts at page 1");
+        // Error tests.
 
-        // =============================================================================================================
+        // First case: wrong page number and page size.
+        ConstraintViolationException violations = assertThrows(ConstraintViolationException.class,
+                () -> proofService.getProofByAssetId(ROYLLO_COIN_ASSET_ID,
+                        FIRST_PAGE_NUMBER - 1, MAXIMUM_PAGE_SIZE + 1));
+        assertEquals(2, violations.getConstraintViolations().size());
+        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("pageNumber")));
+        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("pageSize")));
+
         // Second case: asset id not found in database.
-        e = assertThrows(AssertionError.class, () -> proofService.getProofByAssetId("NON_EXISTING_ASSET_ID", 1, 1));
-        assertEquals(e.getMessage(), "Asset ID not found");
+        assertTrue(proofService.getProofByAssetId("NON_EXISTING_ASSET_ID", 1, 1).isEmpty());
 
         // =============================================================================================================
+        // Normal behavior tests.
+
         // Getting proofs of "trickyRoylloCoin".
         final Page<ProofDTO> trickyRoylloCoinProofs = proofService.getProofByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID, 1, 10);
         assertEquals(3, trickyRoylloCoinProofs.getTotalElements());

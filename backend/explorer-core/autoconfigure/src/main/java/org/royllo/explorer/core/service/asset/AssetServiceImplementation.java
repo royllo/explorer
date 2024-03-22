@@ -69,6 +69,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
 
         // =============================================================================================================
         // We create the asset.
+
         final Asset assetToCreate = ASSET_MAPPER.mapToAsset(newAsset);
 
         // As we are creating a new asset, we set the id to null.

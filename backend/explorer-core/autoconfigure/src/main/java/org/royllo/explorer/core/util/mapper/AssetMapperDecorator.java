@@ -55,6 +55,7 @@ public abstract class AssetMapperDecorator implements AssetMapper {
 
     @Override
     public final AssetDTO mapToAssetDTO(final DecodedProofResponse.DecodedProof source) {
+        AssetDTO target = delegate.mapToAssetDTO(source);
         return delegate.mapToAssetDTO(source);
     }
 

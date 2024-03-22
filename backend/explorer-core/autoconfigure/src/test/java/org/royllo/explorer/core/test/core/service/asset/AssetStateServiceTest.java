@@ -93,12 +93,11 @@ public class AssetStateServiceTest extends TestWithMockServers {
         ConstraintViolationException violations = assertThrows(ConstraintViolationException.class, () -> {
             assetStateService.addAssetState(AssetStateDTO.builder().build());
         });
-        assertEquals(10, violations.getConstraintViolations().size());
+        assertEquals(9, violations.getConstraintViolations().size());
         assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("amount")));
         assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("asset")));
         assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("anchorBlockHash")));
         assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("version")));
-        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("creator")));
         assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("scriptVersion")));
         assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("anchorTx")));
         assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("anchorOutpoint")));

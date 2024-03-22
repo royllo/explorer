@@ -10,6 +10,7 @@ import org.royllo.explorer.core.dto.user.UserDTO;
 import org.royllo.explorer.core.util.enums.ProofType;
 
 import static lombok.AccessLevel.PRIVATE;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_DTO;
 
 /**
  * Taproot asset proof.
@@ -41,6 +42,19 @@ public class ProofDTO {
     /** Proof type. */
     @NotNull(message = "{validation.proof.proofType.required}")
     ProofType type;
+
+    /**
+     * Getter creator.
+     *
+     * @return creator
+     */
+    public UserDTO getCreator() {
+        if (creator == null) {
+            return ANONYMOUS_USER_DTO;
+        } else {
+            return creator;
+        }
+    }
 
     /**
      * Returns the proof file name.

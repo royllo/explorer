@@ -18,6 +18,7 @@ import java.math.BigInteger;
 import java.time.ZonedDateTime;
 
 import static lombok.AccessLevel.PRIVATE;
+import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.explorer.core.util.enums.FileType.UNKNOWN;
 
 /**
@@ -42,7 +43,6 @@ public class AssetDTO {
     Long id;
 
     /** The asset creator. */
-    @NotNull(message = "{validation.asset.creator.required}")
     UserDTO creator;
 
     /** Asset group. */
@@ -105,5 +105,18 @@ public class AssetDTO {
     @ToString.Exclude
     @Size(max = README_MAX_SIZE, message = "{validation.asset.readme.size}")
     String readme;
+
+    /**
+     * Getter creator.
+     *
+     * @return creator
+     */
+    public UserDTO getCreator() {
+        if (creator == null) {
+            return ANONYMOUS_USER_DTO;
+        } else {
+            return creator;
+        }
+    }
 
 }
