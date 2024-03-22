@@ -1,4 +1,4 @@
-package org.royllo.explorer.core.service.util;
+package org.royllo.explorer.core.provider.lightning;
 
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.util.K1Value;

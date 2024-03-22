@@ -1,10 +1,10 @@
-package org.royllo.explorer.core.test.core.service.util;
+package org.royllo.explorer.core.test.integration.lightning;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.domain.util.K1Value;
+import org.royllo.explorer.core.provider.lightning.DatabaseK1Manager;
 import org.royllo.explorer.core.repository.util.K1ValueRepository;
-import org.royllo.explorer.core.service.util.DatabaseK1Manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
