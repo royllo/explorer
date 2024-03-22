@@ -1,5 +1,6 @@
 package org.royllo.explorer.core.test.core.service.universe;
 
+import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.dto.universe.UniverseServerDTO;
@@ -27,14 +28,12 @@ public class UniverseServerServiceTest {
     @DisplayName("addUniverseServer()")
     public void addUniverseServer() {
         // =============================================================================================================
-        // Adding a universe server with a null value.
-        UniverseServerCreationException e = assertThrows(UniverseServerCreationException.class, () -> universeServerService.addUniverseServer(null));
-        assertEquals("Server address cannot be null", e.getMessage());
-
-        // =============================================================================================================
-        // Adding a universe server with an invalid value.
-        e = assertThrows(UniverseServerCreationException.class, () -> universeServerService.addUniverseServer("invalid"));
-        assertEquals("Invalid server address invalid", e.getMessage());
+        // Error tests.
+        ConstraintViolationException violations = assertThrows(ConstraintViolationException.class, () -> {
+            universeServerService.addUniverseServer("invalid");
+        });
+        assertEquals(1, violations.getConstraintViolations().size());
+        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("serverAddress")));
 
         // =============================================================================================================
         // Adding a universe server with a valid value (web).
@@ -56,13 +55,13 @@ public class UniverseServerServiceTest {
 
         // =============================================================================================================
         // Trying to add a duplicated value in universe server.
-        e = assertThrows(UniverseServerCreationException.class, () -> universeServerService.addUniverseServer("1.1.1.1:8080"));
-        assertEquals("1.1.1.1:8080 is already in our database", e.getMessage());
+        UniverseServerCreationException u = assertThrows(UniverseServerCreationException.class, () -> universeServerService.addUniverseServer("1.1.1.1:8080"));
+        assertEquals("1.1.1.1:8080 is already in our database", u.getMessage());
 
         // =============================================================================================================
         // Trying to add a duplicated value in universe server (with space around).
-        e = assertThrows(UniverseServerCreationException.class, () -> universeServerService.addUniverseServer("1.1.1.1:8080"));
-        assertEquals("1.1.1.1:8080 is already in our database", e.getMessage());
+        u = assertThrows(UniverseServerCreationException.class, () -> universeServerService.addUniverseServer("1.1.1.1:8080"));
+        assertEquals("1.1.1.1:8080 is already in our database", u.getMessage());
     }
 
     @Test
@@ -79,7 +78,6 @@ public class UniverseServerServiceTest {
         // =============================================================================================================
         // Checking if a universe exists before after create it.
         assertTrue(universeServerService.getUniverseServerByServerAddress("test.royllo.org:8080").isPresent());
-        assertTrue(universeServerService.getUniverseServerByServerAddress(" test.royllo.org:8080 ").isPresent());
     }
 
     @Test

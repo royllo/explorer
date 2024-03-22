@@ -11,10 +11,8 @@ import java.util.regex.Pattern;
  */
 public class ServerAddressValidator implements ConstraintValidator<ServerAddress, String> {
 
-    /**
-     * Regular expression pattern for hostname with port.
-     */
-    public static final Pattern HOSTNAME_OR_IP_PATTERN = Pattern.compile(
+    /** Regular expression pattern for hostname with port. */
+    private static final Pattern HOSTNAME_OR_IP_PATTERN = Pattern.compile(
             "^(http(s)?://)?((([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,})|((\\d{1,3}\\.){3}\\d{1,3}))(\\:\\d{1,5})?$"
     );
 

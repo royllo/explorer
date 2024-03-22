@@ -64,8 +64,7 @@ public class SQLSearchServiceImplementation extends BaseService implements Searc
         logger.info("Searching for {}", query);
 
         // Cleaning the query and choosing the right way to search.
-        final String cleanedQuery = query.trim();
-        switch (StringUtils.length(cleanedQuery)) {
+        switch (StringUtils.length(query)) {
 
             // =========================================================================================================
             case 0:
@@ -76,8 +75,8 @@ public class SQLSearchServiceImplementation extends BaseService implements Searc
             // =========================================================================================================
             case TWEAKED_GROUP_KEY_LENGTH:
                 // Search if the "query" parameter is a tweaked group key (asset group) > returns all assets of this asset group.
-                logger.info("The query '{}' corresponds to a tweaked group key", cleanedQuery);
-                return assetGroupService.getAssetGroupByAssetGroupId(cleanedQuery)
+                logger.info("The query '{}' corresponds to a tweaked group key", query);
+                return assetGroupService.getAssetGroupByAssetGroupId(query.trim())
                         .map(AssetGroupDTO::getAssetGroupId)
                         .map(assetGroupId -> assetRepository
                                 .findByAssetGroup_AssetGroupIdOrderById(assetGroupId, getPageRequest(pageNumber, pageSize)))
@@ -87,8 +86,8 @@ public class SQLSearchServiceImplementation extends BaseService implements Searc
             // =========================================================================================================
             case ASSET_ID_LENGTH:
                 // Search if the "query" parameter is an asset id.
-                logger.info("The query '{}' corresponds to an asset id", cleanedQuery);
-                return assetRepository.findByAssetId(cleanedQuery)
+                logger.info("The query '{}' corresponds to an asset id", query);
+                return assetRepository.findByAssetId(query.trim())
                         .map(ASSET_MAPPER::mapToAssetDTO)
                         .map(asset -> new PageImpl<>(List.of(asset)))
                         .orElse(new PageImpl<>(Collections.emptyList()));
@@ -96,8 +95,8 @@ public class SQLSearchServiceImplementation extends BaseService implements Searc
             // =========================================================================================================
             case ASSET_ID_ALIAS_LENGTH:
                 // If nothing found, we will search on asset id alias.
-                logger.info("The query '{}' corresponds to an asset id alias", cleanedQuery);
-                return assetRepository.findByAssetIdAlias(cleanedQuery)
+                logger.info("The query '{}' corresponds to an asset id alias", query);
+                return assetRepository.findByAssetIdAlias(query.trim())
                         .map(ASSET_MAPPER::mapToAssetDTO)
                         .map(asset -> new PageImpl<>(List.of(asset)))
                         .orElse(new PageImpl<>(Collections.emptyList()));
@@ -105,14 +104,14 @@ public class SQLSearchServiceImplementation extends BaseService implements Searc
             // =========================================================================================================
             default:
                 // If nothing found, we search if there is an asset with "query" parameter as complete or partial asset name.
-                logger.info("The query '{}' corresponds to search on partial name", cleanedQuery);
+                logger.info("The query '{}' corresponds to search on partial name", query);
                 if (isUsingPostgreSQL) {
                     // PostgreSQL "ILIKE" search.
-                    return assetRepository.findByName(cleanedQuery, getPageRequest(pageNumber, pageSize))
+                    return assetRepository.findByName(query.trim(), getPageRequest(pageNumber, pageSize))
                             .map(ASSET_MAPPER::mapToAssetDTO);
                 } else {
                     // Classical SQL search.
-                    return assetRepository.findByNameContainsIgnoreCaseOrderByName(cleanedQuery, getPageRequest(pageNumber, pageSize))
+                    return assetRepository.findByNameContainsIgnoreCaseOrderByName(query.trim(), getPageRequest(pageNumber, pageSize))
                             .map(ASSET_MAPPER::mapToAssetDTO);
                 }
 
