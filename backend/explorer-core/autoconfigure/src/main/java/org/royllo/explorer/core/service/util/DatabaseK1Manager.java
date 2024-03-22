@@ -18,7 +18,7 @@ import java.time.ZonedDateTime;
 @SuppressWarnings({"checkstyle:DesignForExtension"})
 public class DatabaseK1Manager implements K1Manager {
 
-    /** Simple K1 factory (Generated with random). */
+    /** Simple K1 factory (Randomly generated). */
     private final K1Factory factory = new SimpleK1Factory();
 
     /** K1 value repository. */
@@ -26,7 +26,7 @@ public class DatabaseK1Manager implements K1Manager {
 
     @Override
     public boolean isValid(final K1 k1) {
-        // Purge old k1 before searching for it.
+        // Purge old k1 before searching for the one we have as parameter.
         repository.findByCreatedOnBefore(ZonedDateTime.now().minusHours(1))
                 .stream()
                 .map(k1Value -> SimpleK1.fromHex(k1Value.getK1()))
