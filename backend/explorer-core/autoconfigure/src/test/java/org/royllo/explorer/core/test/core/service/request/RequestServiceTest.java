@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_ID;
@@ -30,11 +31,12 @@ import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_ISSUANCE;
 import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_TRANSFER;
 import static org.royllo.explorer.core.util.enums.ProofType.PROOF_TYPE_UNSPECIFIED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
+import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.ANY;
 
 @SpringBootTest
 @DirtiesContext
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+@AutoConfigureTestDatabase(replace = ANY)
 @DisplayName("RequestService tests")
 public class RequestServiceTest {
 
@@ -106,6 +108,11 @@ public class RequestServiceTest {
     @Order(3)
     @DisplayName("Add requests")
     public void addRequests() {
+        // =============================================================================================================
+        // Error tests.
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> requestService.createAddProofRequest("proof", null));
+
         // =============================================================================================================
         // Request 1 (addAssetDTO).
         RequestDTO request1DTO = requestService.createAddProofRequest("proof1");

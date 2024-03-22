@@ -2,11 +2,9 @@ package org.royllo.explorer.core.service.request;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.AssertionFailure;
 import org.royllo.explorer.core.domain.request.AddProofRequest;
 import org.royllo.explorer.core.domain.request.AddUniverseServerRequest;
 import org.royllo.explorer.core.domain.request.ClaimAssetOwnershipRequest;
-import org.royllo.explorer.core.domain.request.Request;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
 import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
 import org.royllo.explorer.core.dto.request.ClaimAssetOwnershipRequestDTO;
@@ -75,28 +73,32 @@ public class RequestServiceImplementation extends BaseService implements Request
     public Optional<RequestDTO> getRequest(final long id) {
         logger.info("Getting request with id {}", id);
 
-        final Optional<Request> request = requestRepository.findById(id);
-        if (request.isEmpty()) {
-            logger.info("Request with id {} not found", id);
-            return Optional.empty();
-        } else {
-            logger.info("Request with id {} found: {}", id, request.get());
-            return request.map(REQUEST_MAPPER::mapToRequestDTO);
-        }
+        return requestRepository.findById(id)
+                .map(REQUEST_MAPPER::mapToRequestDTO)
+                .map(requestDTO -> {
+                    logger.info("Request with id {} found: {}", id, requestDTO);
+                    return requestDTO;
+                })
+                .or(() -> {
+                    logger.info("Request with id {} not found", id);
+                    return Optional.empty();
+                });
     }
 
     @Override
-    public Optional<RequestDTO> getRequestByRequestId(@NonNull final String requestId) {
-        logger.info("Getting request with requestId {}", requestId);
+    public Optional<RequestDTO> getRequestByRequestId(final String requestId) {
+        logger.info("Getting request with request id {}", requestId);
 
-        final Optional<Request> request = requestRepository.findByRequestId(requestId);
-        if (request.isEmpty()) {
-            logger.info("Request with request requestId {} not found", requestId);
-            return Optional.empty();
-        } else {
-            logger.info("Request with request requestId {} found: {}", requestId, request.get());
-            return request.map(REQUEST_MAPPER::mapToRequestDTO);
-        }
+        return requestRepository.findByRequestId(requestId)
+                .map(REQUEST_MAPPER::mapToRequestDTO)
+                .map(requestDTO -> {
+                    logger.info("Request with request id {} found: {}", requestId, requestDTO);
+                    return requestDTO;
+                })
+                .or(() -> {
+                    logger.info("Request with request id {} not found", requestId);
+                    return Optional.empty();
+                });
     }
 
     @Override
@@ -106,7 +108,7 @@ public class RequestServiceImplementation extends BaseService implements Request
 
     @Override
     public AddProofRequestDTO createAddProofRequest(final String proof,
-                                                    final ProofType proofType) {
+                                                    final @NonNull ProofType proofType) {
         logger.info("Adding proof request with proof {}", proof);
 
         // Creating and saving the request.
@@ -146,7 +148,8 @@ public class RequestServiceImplementation extends BaseService implements Request
         logger.info("Adding claim ownership request {}", proofWithWitness);
 
         // Getting the user
-        UserDTO user = userService.getUserByUserId(userId).orElseThrow(() -> new AssertionFailure("User not found: " + userId));
+        UserDTO user = userService.getUserByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found: " + userId));
 
         // Creating and saving the request.
         ClaimAssetOwnershipRequest request = ClaimAssetOwnershipRequest.builder()

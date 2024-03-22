@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface RequestService {
 
     /**
-     * Returns the list of opened requests.
+     * Get the list of opened requests.
      * (will return a max of 100 requests)
      *
      * @return opened requests
@@ -56,7 +56,7 @@ public interface RequestService {
     AddProofRequestDTO createAddProofRequest(String proof, ProofType proofType);
 
     /**
-     * Creates a request to add a royllo universe server to royllo database.
+     * Creates a request to add a royllo universe server
      *
      * @param serverAddress server address
      * @return Request created
@@ -64,7 +64,7 @@ public interface RequestService {
     AddUniverseServerRequestDTO createAddUniverseServerRequest(String serverAddress);
 
     /**
-     * Creates a request to claim ownership of an existing asset in royllo database.
+     * Creates a request to claim ownership of an existing asset.
      *
      * @param userId           user id
      * @param proofWithWitness proof with witness
