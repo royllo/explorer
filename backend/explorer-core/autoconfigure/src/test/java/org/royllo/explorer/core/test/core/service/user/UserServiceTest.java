@@ -5,7 +5,9 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.dto.user.UserDTO;
+import org.royllo.explorer.core.repository.user.UserRepository;
 import org.royllo.explorer.core.service.user.UserService;
+import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
@@ -31,16 +33,23 @@ import static org.royllo.explorer.core.util.enums.UserRole.USER;
 @SpringBootTest
 @DirtiesContext
 @DisplayName("UserService tests")
-public class UserServiceTest {
+public class UserServiceTest extends TestWithMockServers {
 
     public static final String STRAUMAT_USERNAME = "straumat";
+
+    @Autowired
+    private UserRepository userRepository;
+
     @Autowired
     private UserService userService;
 
     @Test
     @DisplayName("getAdministratorUser()")
     public void getAdministratorUser() {
-        final UserDTO administratorUser = userService.getAdministratorUser();
+        final UserDTO administratorUser = userRepository
+                .findByUserId(ADMINISTRATOR_USER_ID)
+                .map(USER_MAPPER::mapToUserDTO)
+                .orElse(null);
         assertNotNull(administratorUser);
         assertEquals(ADMINISTRATOR_ID, administratorUser.getId().longValue());
         assertEquals(ADMINISTRATOR_USER_ID, administratorUser.getUserId());
@@ -51,7 +60,10 @@ public class UserServiceTest {
     @Test
     @DisplayName("getAnonymousUser()")
     public void getAnonymousUserTest() {
-        final UserDTO anonymousUser = userService.getAnonymousUser();
+        final UserDTO anonymousUser = userRepository
+                .findByUserId(ANONYMOUS_USER_ID)
+                .map(USER_MAPPER::mapToUserDTO)
+                .orElse(null);
         assertNotNull(anonymousUser);
         assertEquals(ANONYMOUS_ID, anonymousUser.getId().longValue());
         assertEquals(ANONYMOUS_USER_ID, anonymousUser.getUserId());
@@ -60,24 +72,24 @@ public class UserServiceTest {
     }
 
     @Test
-    @DisplayName("createUser()")
+    @DisplayName("addUser()")
     public void createUserTest() {
         // Creating a user with empty name or null.
-        AssertionError e = assertThrows(AssertionError.class, () -> userService.createUser(null));
+        AssertionError e = assertThrows(AssertionError.class, () -> userService.addUser(null));
         assertEquals("Username is required", e.getMessage());
-        e = assertThrows(AssertionError.class, () -> userService.createUser(""));
+        e = assertThrows(AssertionError.class, () -> userService.addUser(""));
         assertEquals("Username is required", e.getMessage());
 
         // Creating an existing user.
-        e = assertThrows(AssertionError.class, () -> userService.createUser(ANONYMOUS_USER_USERNAME));
+        e = assertThrows(AssertionError.class, () -> userService.addUser(ANONYMOUS_USER_USERNAME));
         assertEquals("Username 'anonymous' already registered", e.getMessage());
-        e = assertThrows(AssertionError.class, () -> userService.createUser(ADMINISTRATOR_USER_USERNAME));
+        e = assertThrows(AssertionError.class, () -> userService.addUser(ADMINISTRATOR_USER_USERNAME));
         assertEquals("Username 'administrator' already registered", e.getMessage());
-        e = assertThrows(AssertionError.class, () -> userService.createUser(STRAUMAT_USERNAME));
+        e = assertThrows(AssertionError.class, () -> userService.addUser(STRAUMAT_USERNAME));
         assertEquals("Username 'straumat' already registered", e.getMessage());
 
         // Creating a new user.
-        final UserDTO newUser = userService.createUser("newUser2");
+        final UserDTO newUser = userService.addUser("newUser2");
         assertNotNull(newUser);
         assertNotNull(newUser.getId());
         assertEquals("newuser2", newUser.getUsername());

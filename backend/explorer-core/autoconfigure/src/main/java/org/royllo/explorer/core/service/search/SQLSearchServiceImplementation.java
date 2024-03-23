@@ -20,7 +20,9 @@ import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
+import static java.util.stream.Collectors.joining;
 import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_ALIAS_LENGTH;
 import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_LENGTH;
 import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.TWEAKED_GROUP_KEY_LENGTH;
@@ -54,6 +56,7 @@ public class SQLSearchServiceImplementation extends BaseService implements Searc
             isUsingPostgreSQL = "PostgreSQL".equalsIgnoreCase(databaseProductName);
         } catch (SQLException e) {
             logger.error("Impossible to retrieve database metadata {}", e.getMessage());
+            isUsingPostgreSQL = false;
         }
     }
 
@@ -64,58 +67,84 @@ public class SQLSearchServiceImplementation extends BaseService implements Searc
         logger.info("Searching for {}", query);
 
         // Cleaning the query and choosing the right way to search.
+        Page<AssetDTO> results = Page.empty();
         switch (StringUtils.length(query)) {
 
             // =========================================================================================================
+            // If the query is empty or null, we return an empty page.
             case 0:
-                // If the query is empty or null, we return an empty page.
-                logger.info("The query is empty");
-                return Page.empty();
+                logger.debug("The query is empty");
+                return results;
 
             // =========================================================================================================
+            // Search if the "query" parameter is a tweaked group key > returns all assets of this asset group.
             case TWEAKED_GROUP_KEY_LENGTH:
-                // Search if the "query" parameter is a tweaked group key (asset group) > returns all assets of this asset group.
-                logger.info("The query '{}' corresponds to a tweaked group key", query);
-                return assetGroupService.getAssetGroupByAssetGroupId(query.trim())
+                logger.debug("The query '{}' may correspond to a tweaked group key", query);
+                results = assetGroupService.getAssetGroupByAssetGroupId(query.trim())
                         .map(AssetGroupDTO::getAssetGroupId)
                         .map(assetGroupId -> assetRepository
                                 .findByAssetGroup_AssetGroupIdOrderById(assetGroupId, getPageRequest(pageNumber, pageSize)))
                         .map(page -> page.map(ASSET_MAPPER::mapToAssetDTO))
                         .orElse(Page.empty());
+                break;
 
             // =========================================================================================================
+            // Search if the "query" parameter is an asset id.
             case ASSET_ID_LENGTH:
-                // Search if the "query" parameter is an asset id.
-                logger.info("The query '{}' corresponds to an asset id", query);
-                return assetRepository.findByAssetId(query.trim())
+                logger.debug("The query '{}' may correspond to an asset id", query);
+                results = assetRepository
+                        .findByAssetId(query.trim())
                         .map(ASSET_MAPPER::mapToAssetDTO)
-                        .map(asset -> new PageImpl<>(List.of(asset)))
+                        .map(asset -> new PageImpl<>(Collections.singletonList(asset)))
                         .orElse(new PageImpl<>(Collections.emptyList()));
+                break;
 
             // =========================================================================================================
+            // If nothing found, we will search on asset id alias.
             case ASSET_ID_ALIAS_LENGTH:
-                // If nothing found, we will search on asset id alias.
-                logger.info("The query '{}' corresponds to an asset id alias", query);
-                return assetRepository.findByAssetIdAlias(query.trim())
+                logger.debug("The query '{}' may correspond to an asset id alias", query);
+                results = assetRepository
+                        .findByAssetIdAlias(query.trim())
                         .map(ASSET_MAPPER::mapToAssetDTO)
                         .map(asset -> new PageImpl<>(List.of(asset)))
                         .orElse(new PageImpl<>(Collections.emptyList()));
+                break;
 
-            // =========================================================================================================
             default:
-                // If nothing found, we search if there is an asset with "query" parameter as complete or partial asset name.
-                logger.info("The query '{}' corresponds to search on partial name", query);
-                if (isUsingPostgreSQL) {
-                    // PostgreSQL "ILIKE" search.
-                    return assetRepository.findByName(query.trim(), getPageRequest(pageNumber, pageSize))
-                            .map(ASSET_MAPPER::mapToAssetDTO);
-                } else {
-                    // Classical SQL search.
-                    return assetRepository.findByNameContainsIgnoreCaseOrderByName(query.trim(), getPageRequest(pageNumber, pageSize))
-                            .map(ASSET_MAPPER::mapToAssetDTO);
-                }
-
+                break;
         }
+
+        // =============================================================================================================
+        // If nothing found, we search if there is an asset with "query" parameter as complete or partial asset name.
+        logger.debug("No result for query '{}' so we search on partial name", query);
+        if (results.getTotalElements() == 0) {
+            if (isUsingPostgreSQL) {
+                // PostgreSQL "ILIKE" search.
+                results = assetRepository
+                        .findByName(query, getPageRequest(pageNumber, pageSize))
+                        .map(ASSET_MAPPER::mapToAssetDTO);
+            } else {
+                // Classical SQL search.
+                results = assetRepository
+                        .findByNameContainsIgnoreCaseOrderByName(query, getPageRequest(pageNumber, pageSize))
+                        .map(ASSET_MAPPER::mapToAssetDTO);
+            }
+        }
+
+        // =============================================================================================================
+        // Displaying logs and return results.
+        if (results.isEmpty()) {
+            logger.info("Searching for '{}', there is no results", query);
+        } else {
+            logger.info("Searching for '{}', {} result(s) with assets id(s): {}",
+                    query,
+                    results.getTotalElements(),
+                    results.stream()
+                            .map(AssetDTO::getId)
+                            .map(Objects::toString)
+                            .collect(joining(", ")));
+        }
+        return results;
     }
 
 }

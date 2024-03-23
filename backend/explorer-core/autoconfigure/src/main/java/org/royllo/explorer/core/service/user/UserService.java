@@ -11,26 +11,12 @@ import java.util.Optional;
 public interface UserService {
 
     /**
-     * Get administrator user.
-     *
-     * @return administrator user
-     */
-    UserDTO getAdministratorUser();
-
-    /**
-     * Get anonymous user.
-     *
-     * @return anonymous user
-     */
-    UserDTO getAnonymousUser();
-
-    /**
-     * Create user.
+     * Add a user.
      *
      * @param username user name
      * @return user created
      */
-    UserDTO createUser(String username);
+    UserDTO addUser(String username);
 
     /**
      * Update user.
@@ -52,6 +38,7 @@ public interface UserService {
 
     /**
      * Get user by username.
+     * TODO Is this method useful? I don't think so!
      *
      * @param username exact username to find
      * @return corresponding user

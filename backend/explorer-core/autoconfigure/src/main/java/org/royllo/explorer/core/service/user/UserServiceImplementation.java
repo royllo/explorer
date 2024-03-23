@@ -24,8 +24,6 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.royllo.explorer.core.util.constants.AdministratorUserConstants.ADMINISTRATOR_USER_ID;
-import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_ID;
 import static org.royllo.explorer.core.util.enums.UserRole.USER;
 
 /**
@@ -48,35 +46,7 @@ public class UserServiceImplementation extends BaseService implements UserServic
     private final AssetRepository assetRepository;
 
     @Override
-    public UserDTO getAdministratorUser() {
-        logger.info("Getting administrator user");
-
-        final Optional<UserDTO> administratorUser = getUserByUserId(ADMINISTRATOR_USER_ID);
-        if (administratorUser.isPresent()) {
-            logger.info("Returning administrator user");
-            return administratorUser.get();
-        } else {
-            logger.error("Administrator user not found - This should never happened");
-            throw new RuntimeException("Administrator user not found");
-        }
-    }
-
-    @Override
-    public UserDTO getAnonymousUser() {
-        logger.info("Getting anonymous user");
-
-        final Optional<UserDTO> anonymousUser = getUserByUserId(ANONYMOUS_USER_ID);
-        if (anonymousUser.isPresent()) {
-            logger.info("Returning anonymous user");
-            return anonymousUser.get();
-        } else {
-            logger.error("Anonymous user not found - This should never happened");
-            throw new RuntimeException("Anonymous user not found");
-        }
-    }
-
-    @Override
-    public UserDTO createUser(final String username) {
+    public UserDTO addUser(final String username) {
         logger.info("Creating a user with username: {}", username);
 
         // Verification.
@@ -118,28 +88,32 @@ public class UserServiceImplementation extends BaseService implements UserServic
     public Optional<UserDTO> getUserByUserId(@NonNull final String userId) {
         logger.info("Getting user with userId: {}", userId);
 
-        final Optional<User> user = userRepository.findByUserId(userId);
-        if (user.isEmpty()) {
-            logger.info("User with user id {} not found", userId);
-            return Optional.empty();
-        } else {
-            logger.info("User with user id '{}' found: {}", userId, user.get());
-            return user.map(USER_MAPPER::mapToUserDTO);
-        }
+        return userRepository.findByUserId(userId)
+                .map(USER_MAPPER::mapToUserDTO)
+                .map(user -> {
+                    logger.info("User with userId '{}' found: {}", userId, user);
+                    return user;
+                })
+                .or(() -> {
+                    logger.info("User with userId {} not found", userId);
+                    return Optional.empty();
+                });
     }
 
     @Override
     public Optional<UserDTO> getUserByUsername(final String username) {
         logger.info("Getting user with username: {}", username);
 
-        final Optional<User> user = userRepository.findByUsernameIgnoreCase(username);
-        if (user.isEmpty()) {
-            logger.info("User with username {} not found", username);
-            return Optional.empty();
-        } else {
-            logger.info("User with username '{}' found: {}", username, user.get());
-            return user.map(USER_MAPPER::mapToUserDTO);
-        }
+        return userRepository.findByUsernameIgnoreCase(username)
+                .map(USER_MAPPER::mapToUserDTO)
+                .map(user -> {
+                    logger.info("User with username '{}' found: {}", username, user);
+                    return user;
+                })
+                .or(() -> {
+                    logger.info("User with username {} not found", username);
+                    return Optional.empty();
+                });
     }
 
     @Override
@@ -148,58 +122,62 @@ public class UserServiceImplementation extends BaseService implements UserServic
         // Usually, this is where you search if the linking key already exists in the database.
         // If not, you create a new user and store the linking key.
         // If yes, you just return the user, and you update the k1 used.
-        final Optional<UserLnurlAuthKey> linkingKeyInDatabase = userLnurlAuthKeyRepository.findByLinkingKey(auth.getLinkingKey().toHex());
-        if (linkingKeyInDatabase.isEmpty()) {
-            logger.info("Creating the user for the linking key: {}", auth.getLinkingKey().toHex());
-            // We create the user.
-            final UserDTO user = createUser(auth.getLinkingKey().toHex());
-            // We create the user lnurl-auth key.
-            userLnurlAuthKeyRepository.save(UserLnurlAuthKey.builder()
-                    .owner(USER_MAPPER.mapToUser(user))
-                    .linkingKey(auth.getLinkingKey().toHex())
-                    .k1(auth.getK1().toHex())
-                    .build());
+        return userLnurlAuthKeyRepository
+                .findByLinkingKey(auth.getLinkingKey().toHex())
+                .map(userLnurlAuthKey -> {
+                    logger.info("User with the linking key {} exists", auth.getLinkingKey().toHex());
+                    userLnurlAuthKey.setK1(auth.getK1().toHex());
+                    userLnurlAuthKeyRepository.save(userLnurlAuthKey);
 
-            return new org.springframework.security.core.userdetails.User(user.getUserId(),
-                    UUID.randomUUID().toString(),
-                    Collections.singletonList((new SimpleGrantedAuthority(user.getRole().toString()))));
-        } else {
-            logger.info("User with the linking key {} exists", auth.getLinkingKey().toHex());
-            linkingKeyInDatabase.get().setK1(auth.getK1().toHex());
-            userLnurlAuthKeyRepository.save(linkingKeyInDatabase.get());
+                    return new org.springframework.security.core.userdetails.User(userLnurlAuthKey.getOwner().getUserId(),
+                            UUID.randomUUID().toString(),
+                            userLnurlAuthKey.getOwner().getRole().asGrantedAuthorityList());
+                })
+                .orElseGet(() -> {
+                    logger.info("Creating the user for the linking key: {}", auth.getLinkingKey().toHex());
+                    final UserDTO user = addUser(auth.getLinkingKey().toHex());
+                    userLnurlAuthKeyRepository.save(UserLnurlAuthKey.builder()
+                            .owner(USER_MAPPER.mapToUser(user))
+                            .linkingKey(auth.getLinkingKey().toHex())
+                            .k1(auth.getK1().toHex())
+                            .build());
 
-            return new org.springframework.security.core.userdetails.User(linkingKeyInDatabase.get().getOwner().getUserId(),
-                    UUID.randomUUID().toString(),
-                    linkingKeyInDatabase.get().getOwner().getRole().asGrantedAuthorityList());
-        }
+                    return new org.springframework.security.core.userdetails.User(user.getUserId(),
+                            UUID.randomUUID().toString(),
+                            Collections.singletonList((new SimpleGrantedAuthority(user.getRole().toString()))));
+                });
     }
 
     @Override
     public Optional<UserDetails> findPairedUserByK1(final K1 k1) {
         // This method returns the linking key associated with the k1 passed as parameter.
         logger.info("Finding the paired linking key for k1 {}", k1.toHex());
-        final Optional<UserLnurlAuthKey> linkingKey = userLnurlAuthKeyRepository.findByK1(k1.toHex());
-        if (linkingKey.isPresent()) {
-            logger.info("Linking key found: {}", linkingKey.get().getLinkingKey());
-            return Optional.of(new org.springframework.security.core.userdetails.User(linkingKey.get().getOwner().getUserId(),
-                    UUID.randomUUID().toString(),
-                    linkingKey.get().getOwner().getRole().asGrantedAuthorityList()));
-        } else {
-            logger.info("Linking key NOT found: {}", k1.toHex());
-            return Optional.empty();
-        }
+
+        return Optional.ofNullable(userLnurlAuthKeyRepository.findByK1(k1.toHex())
+                .map(userLnurlAuthKey -> {
+                    logger.info("Linking key found: {}", userLnurlAuthKey.getLinkingKey());
+                    return new org.springframework.security.core.userdetails.User(userLnurlAuthKey.getOwner().getUserId(),
+                            UUID.randomUUID().toString(),
+                            userLnurlAuthKey.getOwner().getRole().asGrantedAuthorityList());
+                })
+                .orElseGet(() -> {
+                    logger.info("Linking key NOT found: {}", k1.toHex());
+                    return null;
+                }));
     }
 
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         // Search for the user with it's linking key.
-        final UserLnurlAuthKey userLinkingKey = userLnurlAuthKeyRepository
-                .findByLinkingKey(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+        logger.info("Loading the username {}", username);
 
-        return new org.springframework.security.core.userdetails.User(userLinkingKey.getOwner().getUserId(),
-                UUID.randomUUID().toString(),
-                userLinkingKey.getOwner().getRole().asGrantedAuthorityList());
+        return userLnurlAuthKeyRepository
+                .findByLinkingKey(username)
+                .map(userLinkingKey -> new org.springframework.security.core.userdetails.User(
+                        userLinkingKey.getOwner().getUserId(),
+                        UUID.randomUUID().toString(),
+                        userLinkingKey.getOwner().getRole().asGrantedAuthorityList()))
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
 
 }

@@ -56,7 +56,7 @@ public interface RequestService {
     AddProofRequestDTO createAddProofRequest(String proof, ProofType proofType);
 
     /**
-     * Creates a request to add a royllo universe server
+     * Creates a request to add a universe server.
      *
      * @param serverAddress server address
      * @return Request created

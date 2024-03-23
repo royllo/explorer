@@ -88,6 +88,12 @@ public class SearchServiceTest {
         assertTrue(ids.contains(3L));
         assertTrue(ids.contains(4L));
         assertTrue(ids.contains(5L));
+
+        // We are searching for a name but the size of our search is the same size as asset id alias.
+        results = searchService.queryAssets("trickyRo", 1, 5);
+        assertEquals(1, results.getTotalElements());
+        assertEquals(1L, results.getTotalPages());
+
     }
 
 }
