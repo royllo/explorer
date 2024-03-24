@@ -2,6 +2,8 @@ package org.royllo.explorer.core.service.user;
 
 import jakarta.validation.Valid;
 import org.royllo.explorer.core.dto.user.UserDTO;
+import org.royllo.explorer.core.dto.user.UserDTOSettings;
+import org.royllo.explorer.core.util.validator.Username;
 
 import java.util.Optional;
 
@@ -16,31 +18,28 @@ public interface UserService {
      * @param username user name
      * @return user created
      */
-    UserDTO addUser(String username);
+    UserDTO addUser(@Username String username);
 
     /**
      * Update user.
-     * TODO UserId should be used instead of username
      *
-     * @param username user name
-     * @param userData user data
+     * @param userId       user id
+     * @param userSettings user settings
      */
-    void updateUser(String username, @Valid UserDTO userData);
-
+    void updateUser(String userId, @Valid UserDTOSettings userSettings);
 
     /**
      * Get user by its user id.
      *
-     * @param userId exact user id to find
+     * @param userId user id to find
      * @return corresponding user
      */
     Optional<UserDTO> getUserByUserId(String userId);
 
     /**
-     * Get user by username.
-     * TODO Is this method useful? I don't think so!
+     * Get user by its username.
      *
-     * @param username exact username to find
+     * @param username username to find
      * @return corresponding user
      */
     Optional<UserDTO> getUserByUsername(String username);

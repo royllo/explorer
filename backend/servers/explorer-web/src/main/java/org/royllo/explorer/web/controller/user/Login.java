@@ -40,7 +40,7 @@ public class Login extends BaseController {
                                final @AuthenticationPrincipal UserDetails currentUser) {
 
         // We will set useful information in the session.
-        Optional<UserDTO> connectedUser = userService.getUserByUsername(currentUser.getUsername());
+        Optional<UserDTO> connectedUser = userService.getUserByUserId(currentUser.getUsername());
         if (connectedUser.isPresent()) {
             logger.info("User {} has logged in successfully.", connectedUser.get().getUsername());
             session.setAttribute(USER_ID, connectedUser.get().getUserId());

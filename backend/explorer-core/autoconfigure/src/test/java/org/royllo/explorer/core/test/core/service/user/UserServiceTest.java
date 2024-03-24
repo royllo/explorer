@@ -5,7 +5,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.dto.user.UserDTO;
-import org.royllo.explorer.core.repository.user.UserRepository;
+import org.royllo.explorer.core.dto.user.UserDTOSettings;
 import org.royllo.explorer.core.service.user.UserService;
 import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.royllo.explorer.core.util.constants.AdministratorUserConstants.ADMINISTRATOR_ID;
-import static org.royllo.explorer.core.util.constants.AdministratorUserConstants.ADMINISTRATOR_USER;
-import static org.royllo.explorer.core.util.constants.AdministratorUserConstants.ADMINISTRATOR_USER_ID;
 import static org.royllo.explorer.core.util.constants.AdministratorUserConstants.ADMINISTRATOR_USER_USERNAME;
-import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_ID;
-import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
-import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_ID;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_USERNAME;
 import static org.royllo.explorer.core.util.enums.UserRole.ADMINISTRATOR;
 import static org.royllo.explorer.core.util.enums.UserRole.USER;
@@ -35,58 +29,38 @@ import static org.royllo.explorer.core.util.enums.UserRole.USER;
 @DisplayName("UserService tests")
 public class UserServiceTest extends TestWithMockServers {
 
+    /** Test user. */
+    public static final String STRAUMAT_USER_ID = "22222222-2222-2222-2222-222222222222";
     public static final String STRAUMAT_USERNAME = "straumat";
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
 
     @Test
-    @DisplayName("getAdministratorUser()")
-    public void getAdministratorUser() {
-        final UserDTO administratorUser = userRepository
-                .findByUserId(ADMINISTRATOR_USER_ID)
-                .map(USER_MAPPER::mapToUserDTO)
-                .orElse(null);
-        assertNotNull(administratorUser);
-        assertEquals(ADMINISTRATOR_ID, administratorUser.getId().longValue());
-        assertEquals(ADMINISTRATOR_USER_ID, administratorUser.getUserId());
-        assertEquals(ADMINISTRATOR_USER_USERNAME, administratorUser.getUsername());
-        assertEquals(ADMINISTRATOR_USER.getRole(), administratorUser.getRole());
-    }
-
-    @Test
-    @DisplayName("getAnonymousUser()")
-    public void getAnonymousUserTest() {
-        final UserDTO anonymousUser = userRepository
-                .findByUserId(ANONYMOUS_USER_ID)
-                .map(USER_MAPPER::mapToUserDTO)
-                .orElse(null);
-        assertNotNull(anonymousUser);
-        assertEquals(ANONYMOUS_ID, anonymousUser.getId().longValue());
-        assertEquals(ANONYMOUS_USER_ID, anonymousUser.getUserId());
-        assertEquals(ANONYMOUS_USER_USERNAME, anonymousUser.getUsername());
-        assertEquals(ANONYMOUS_USER.getRole(), anonymousUser.getRole());
-    }
-
-    @Test
     @DisplayName("addUser()")
-    public void createUserTest() {
+    public void addUser() {
+        // =============================================================================================================
+        // Error tests.
+
         // Creating a user with empty name or null.
-        AssertionError e = assertThrows(AssertionError.class, () -> userService.addUser(null));
-        assertEquals("Username is required", e.getMessage());
-        e = assertThrows(AssertionError.class, () -> userService.addUser(""));
-        assertEquals("Username is required", e.getMessage());
+        ConstraintViolationException violations = assertThrows(ConstraintViolationException.class, () -> userService.addUser(null));
+        assertEquals(1, violations.getConstraintViolations().size());
+        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("username")));
+
+        violations = assertThrows(ConstraintViolationException.class, () -> userService.addUser(""));
+        assertEquals(1, violations.getConstraintViolations().size());
+        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("username")));
 
         // Creating an existing user.
-        e = assertThrows(AssertionError.class, () -> userService.addUser(ANONYMOUS_USER_USERNAME));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> userService.addUser(ANONYMOUS_USER_USERNAME));
         assertEquals("Username 'anonymous' already registered", e.getMessage());
-        e = assertThrows(AssertionError.class, () -> userService.addUser(ADMINISTRATOR_USER_USERNAME));
+        e = assertThrows(IllegalArgumentException.class, () -> userService.addUser(ADMINISTRATOR_USER_USERNAME));
         assertEquals("Username 'administrator' already registered", e.getMessage());
-        e = assertThrows(AssertionError.class, () -> userService.addUser(STRAUMAT_USERNAME));
+        e = assertThrows(IllegalArgumentException.class, () -> userService.addUser(STRAUMAT_USERNAME));
         assertEquals("Username 'straumat' already registered", e.getMessage());
+
+        // =============================================================================================================
+        // Normal behavior.
 
         // Creating a new user.
         final UserDTO newUser = userService.addUser("newUser2");
@@ -98,126 +72,102 @@ public class UserServiceTest extends TestWithMockServers {
 
     @Test
     @DisplayName("updateUser()")
-    public void updateUserTest() {
-        // We retrieve an existing user.
-        Optional<UserDTO> existingUser = userService.getUserByUsername(STRAUMAT_USERNAME);
-        assertTrue(existingUser.isPresent());
-        assertEquals(2, existingUser.get().getId().longValue());
-        assertEquals(STRAUMAT_USERNAME, existingUser.get().getUsername());
-        assertEquals("22222222-2222-2222-2222-222222222222.jpeg", existingUser.get().getProfilePictureFileName());
-        assertEquals("Stéphane Traumat", existingUser.get().getFullName());
-        assertEquals("I am a developer", existingUser.get().getBiography());
-        assertEquals("https://github.com/straumat", existingUser.get().getWebsite());
-        assertEquals(ADMINISTRATOR, existingUser.get().getRole());
+    public void updateUser() {
+        // We retrieve the existing user.
+        UserDTO straumatUser = userService.getUserByUserId(STRAUMAT_USER_ID).orElse(null);
+        assertNotNull(straumatUser);
+        UserDTOSettings currentSettings = straumatUser.getCurrentSettings();
 
-        // We update the user data.
-        existingUser.get().setProfilePictureFileName("33333333-3333-3333-3333-333333333333.jpeg");
-        existingUser.get().setFullName("Stéphane Traumat (Updated)");
-        existingUser.get().setBiography("I am a developer (Updated)");
-        existingUser.get().setWebsite("https://github.com/straumat2");
-        userService.updateUser(STRAUMAT_USERNAME, existingUser.get());
-
-        // We check what has been updated.
-        existingUser = userService.getUserByUsername(STRAUMAT_USERNAME);
-        assertTrue(existingUser.isPresent());
-        // Not supposed to be updated.
-        assertEquals(2, existingUser.get().getId().longValue());
-        assertEquals(STRAUMAT_USERNAME, existingUser.get().getUsername());
-        assertEquals(ADMINISTRATOR, existingUser.get().getRole());
-        // Should be updated.
-        assertEquals("33333333-3333-3333-3333-333333333333.jpeg", existingUser.get().getProfilePictureFileName());
-        assertEquals("Stéphane Traumat (Updated)", existingUser.get().getFullName());
-        assertEquals("I am a developer (Updated)", existingUser.get().getBiography());
-        assertEquals("https://github.com/straumat2", existingUser.get().getWebsite());
+        // =============================================================================================================
+        // Errors.
 
         // We now try to update a non-existing user.
-        Optional<UserDTO> finalExistingUser = existingUser;
-        AssertionError e = assertThrows(AssertionError.class, () -> userService.updateUser("NON_EXISTING_USERNAME", finalExistingUser.get()));
-        assertEquals("User not found with username: NON_EXISTING_USERNAME", e.getMessage());
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () ->
+                userService.updateUser("NON_EXISTING_USERNAME", currentSettings));
+        assertEquals("User not found with userId: NON_EXISTING_USERNAME", e.getMessage());
 
-        // Now checking the field constraints by updating to invalid values.
-        existingUser.get().setFullName(RandomStringUtils.randomAlphanumeric(41));
-        existingUser.get().setBiography(RandomStringUtils.randomAlphanumeric(256));
-        existingUser.get().setWebsite(RandomStringUtils.randomAlphanumeric(51));
-        Optional<UserDTO> finalExistingUserWithErrors = existingUser;
+        // We try to update the user with an existing username.
+        e = assertThrows(IllegalArgumentException.class, () ->
+                userService.updateUser(STRAUMAT_USER_ID,
+                        UserDTOSettings.builder()
+                                .username(ADMINISTRATOR_USER_USERNAME)  // <- Existing username.
+                                .profilePictureFileName(currentSettings.profilePictureFileName())
+                                .fullName(currentSettings.fullName())
+                                .biography(currentSettings.biography())
+                                .website(currentSettings.website())
+                                .build()));
+        assertEquals("New username 'administrator' already registered", e.getMessage());
+
+        // Checking fields constraints.
         ConstraintViolationException violations = assertThrows(ConstraintViolationException.class, () -> {
-            userService.updateUser(STRAUMAT_USERNAME, finalExistingUserWithErrors.get());
+            userService.updateUser(STRAUMAT_USER_ID,
+                    UserDTOSettings.builder()
+                            .username(RandomStringUtils.randomAlphanumeric(41))
+                            .profilePictureFileName(RandomStringUtils.randomAlphanumeric(301))
+                            .fullName(RandomStringUtils.randomAlphanumeric(41))
+                            .biography(RandomStringUtils.randomAlphanumeric(256))
+                            .website(RandomStringUtils.randomAlphanumeric(51))
+                            .build());
         });
-        assertEquals(3, violations.getConstraintViolations().size());
+        assertEquals(5, violations.getConstraintViolations().size());
+        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("username")));
+        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("profilePictureFileName")));
         assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("fullName")));
         assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("biography")));
         assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getMessage().contains("website")));
 
         // =============================================================================================================
-        // Now changing the username we set back all the valid values.
+        // We make change to settings - Normal behavior.
 
-        // Null username.
-        e = assertThrows(AssertionError.class, () -> {
-            Optional<UserDTO> localUser = userService.getUserByUsername(STRAUMAT_USERNAME);
-            assertTrue(localUser.isPresent());
-            localUser.get().setUsername(null);
-            userService.updateUser(STRAUMAT_USERNAME, localUser.get());
-            ;
-        });
-        assertEquals("New user name is required", e.getMessage());
-        assertEquals("straumat", userService.getUserByUsername(STRAUMAT_USERNAME).get().getUsername());
+        // We check the existing user.
+        assertEquals(2, straumatUser.getId().longValue());
+        assertEquals(STRAUMAT_USERNAME, straumatUser.getUsername());
+        assertEquals("22222222-2222-2222-2222-222222222222.jpeg", straumatUser.getProfilePictureFileName());
+        assertEquals("Stéphane Traumat", straumatUser.getFullName());
+        assertEquals("I am a developer", straumatUser.getBiography());
+        assertEquals("https://github.com/straumat", straumatUser.getWebsite());
+        assertEquals(ADMINISTRATOR, straumatUser.getRole());
 
-        // Long username.
-        violations = assertThrows(ConstraintViolationException.class, () -> {
-            Optional<UserDTO> localUser = userService.getUserByUsername(STRAUMAT_USERNAME);
-            assertTrue(localUser.isPresent());
-            localUser.get().setUsername(RandomStringUtils.randomAlphanumeric(30));
-            userService.updateUser(STRAUMAT_USERNAME, localUser.get());
-        });
-        assertTrue(violations.getConstraintViolations()
-                .stream()
-                .anyMatch(violation -> violation.getMessage().contains("validation.user.username.invalid")));
-        assertEquals("straumat", userService.getUserByUsername(STRAUMAT_USERNAME).get().getUsername());
+        // We update the user settings.
+        UserDTOSettings newSettings = UserDTOSettings.builder()
+                .username("straumat2")
+                .profilePictureFileName("33333333-3333-3333-3333-333333333333.jpeg")
+                .fullName("Stéphane Traumat (Updated)")
+                .biography("I am a developer (Updated)")
+                .website("https://github.com/straumat2")
+                .build();
+        userService.updateUser(STRAUMAT_USER_ID, newSettings);
 
-        // Username with space.
-        violations = assertThrows(ConstraintViolationException.class, () -> {
-            Optional<UserDTO> localUser = userService.getUserByUsername(STRAUMAT_USERNAME);
-            assertTrue(localUser.isPresent());
-            localUser.get().setUsername("straumat with space");
-            userService.updateUser(STRAUMAT_USERNAME, localUser.get());
-        });
-        assertTrue(violations.getConstraintViolations()
-                .stream()
-                .anyMatch(violation -> violation.getMessage().contains("validation.user.username.invalid")));
-        assertEquals("straumat", userService.getUserByUsername(STRAUMAT_USERNAME).get().getUsername());
-
-        // Changing for an existing username.
-        e = assertThrows(AssertionError.class, () -> {
-            Optional<UserDTO> localUser = userService.getUserByUsername(STRAUMAT_USERNAME);
-            assertTrue(localUser.isPresent());
-            localUser.get().setUsername(ADMINISTRATOR_USER_USERNAME);
-            userService.updateUser(STRAUMAT_USERNAME, localUser.get());
-        });
-        assertEquals("Username '" + ADMINISTRATOR_USER_USERNAME + "' already registered", e.getMessage());
-        assertEquals("straumat", userService.getUserByUsername(STRAUMAT_USERNAME).get().getUsername());
-
-        // Changing for a valid username.
-        assertTrue(userService.getUserByUsername(STRAUMAT_USERNAME).isPresent());
-        assertFalse(userService.getUserByUsername("MrRobot123").isPresent());
-        Optional<UserDTO> localUser = userService.getUserByUsername(STRAUMAT_USERNAME);
-        assertTrue(localUser.isPresent());
-        localUser.get().setUsername("MrRobot123");
-        userService.updateUser(STRAUMAT_USERNAME, localUser.get());
-        assertFalse(userService.getUserByUsername("STRAUMAT_USERNAME").isPresent());
-        assertTrue(userService.getUserByUsername("MrRobot123").isPresent());
+        // We check what has been updated.
+        straumatUser = userService.getUserByUserId(STRAUMAT_USER_ID).orElse(null);
+        assertNotNull(straumatUser);
+        // Not supposed to be updated.
+        assertEquals(2, straumatUser.getId().longValue());
+        assertEquals(STRAUMAT_USER_ID, straumatUser.getUserId());
+        assertEquals(ADMINISTRATOR, straumatUser.getRole());
+        // Should be updated.
+        assertEquals("straumat2", straumatUser.getUsername());
+        assertEquals("33333333-3333-3333-3333-333333333333.jpeg", straumatUser.getProfilePictureFileName());
+        assertEquals("Stéphane Traumat (Updated)", straumatUser.getFullName());
+        assertEquals("I am a developer (Updated)", straumatUser.getBiography());
+        assertEquals("https://github.com/straumat2", straumatUser.getWebsite());
 
         // We go back to normal.
-        existingUser.get().setUsername(STRAUMAT_USERNAME);
-        existingUser.get().setProfilePictureFileName("22222222-2222-2222-2222-222222222222.jpeg");
-        existingUser.get().setFullName("Stéphane Traumat");
-        existingUser.get().setBiography("I am a developer");
-        existingUser.get().setWebsite("https://github.com/straumat");
-        userService.updateUser("MrRobot123", existingUser.get());
+        userService.updateUser(STRAUMAT_USER_ID, currentSettings);
+        straumatUser = userService.getUserByUserId(STRAUMAT_USER_ID).orElse(null);
+        assertNotNull(straumatUser);
+        assertEquals(2, straumatUser.getId().longValue());
+        assertEquals(STRAUMAT_USERNAME, straumatUser.getUsername());
+        assertEquals("22222222-2222-2222-2222-222222222222.jpeg", straumatUser.getProfilePictureFileName());
+        assertEquals("Stéphane Traumat", straumatUser.getFullName());
+        assertEquals("I am a developer", straumatUser.getBiography());
+        assertEquals("https://github.com/straumat", straumatUser.getWebsite());
+        assertEquals(ADMINISTRATOR, straumatUser.getRole());
     }
 
     @Test
     @DisplayName("getUserByUsername()")
-    public void getUserByUsernameTest() {
+    public void getUserByUsername() {
         // Non-existing user.
         final Optional<UserDTO> nonExistingUser = userService.getUserByUsername("NON_EXISTING_USERNAME");
         assertFalse(nonExistingUser.isPresent());
@@ -241,6 +191,24 @@ public class UserServiceTest extends TestWithMockServers {
         assertEquals("I am a developer", existingUser.get().getBiography());
         assertEquals("https://github.com/straumat", existingUser.get().getWebsite());
         assertEquals(ADMINISTRATOR, existingUserUppercase.get().getRole());
+    }
+
+    @Test
+    @DisplayName("getUserByUserId()")
+    public void getUserByUserId() {
+        // Non-existing user.
+        final Optional<UserDTO> nonExistingUser = userService.getUserByUserId("NON_EXISTING_USERNAME");
+        assertFalse(nonExistingUser.isPresent());
+
+        // Existing user.
+        final Optional<UserDTO> existingUser = userService.getUserByUserId(STRAUMAT_USER_ID);
+        assertTrue(existingUser.isPresent());
+        assertEquals(2, existingUser.get().getId().longValue());
+        assertEquals(STRAUMAT_USERNAME, existingUser.get().getUsername());
+        assertEquals("Stéphane Traumat", existingUser.get().getFullName());
+        assertEquals("I am a developer", existingUser.get().getBiography());
+        assertEquals("https://github.com/straumat", existingUser.get().getWebsite());
+        assertEquals(ADMINISTRATOR, existingUser.get().getRole());
     }
 
 }

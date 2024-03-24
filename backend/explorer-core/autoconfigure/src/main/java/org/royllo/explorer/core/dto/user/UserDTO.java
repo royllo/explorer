@@ -1,7 +1,6 @@
 package org.royllo.explorer.core.dto.user;
 
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +9,7 @@ import lombok.Value;
 import lombok.experimental.NonFinal;
 import org.apache.commons.lang3.StringUtils;
 import org.royllo.explorer.core.util.enums.UserRole;
+import org.royllo.explorer.core.util.validator.Username;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -23,16 +23,16 @@ import static lombok.AccessLevel.PRIVATE;
 public class UserDTO {
 
     /** Full name maximum size. */
-    private static final int FULL_NAME_MAXIMUM_SIZE = 40;
+    static final int FULL_NAME_MAXIMUM_SIZE = 40;
 
     /** Profile picture file name maximum size. */
-    private static final int PROFILE_PICTURE_FILE_NAME_MAXIMUM_SIZE = 255;
+    static final int PROFILE_PICTURE_FILE_NAME_MAXIMUM_SIZE = 255;
 
     /** Biography maximum size. */
-    private static final int BIOGRAPHY_MAXIMUM_SIZE = 255;
+    static final int BIOGRAPHY_MAXIMUM_SIZE = 255;
 
     /** Website maximum size. */
-    private static final int WEBSITE_MAXIMUM_SIZE = 50;
+    static final int WEBSITE_MAXIMUM_SIZE = 50;
 
     /** Username maximum size. */
     public static final int USERNAME_MAXIMUM_SIZE = 20;
@@ -54,7 +54,7 @@ public class UserDTO {
     /** Username. */
     @Setter
     @NonFinal
-    @Pattern(regexp = "^[a-zA-Z0-9_]{3,20}$", message = "{validation.user.username.invalid}")
+    @Username
     String username;
 
     /** Profile picture file name. */
@@ -84,7 +84,7 @@ public class UserDTO {
     /**
      * Returns the shortened username.
      *
-     * @return the shortened usernames
+     * @return the shortened username
      */
     public String getShortenedUsername() {
         // If username is too long, make a short version.
@@ -94,6 +94,21 @@ public class UserDTO {
                     + username.substring(username.length() - USERNAME_PREVIEW_SIZE);
         }
         return username;
+    }
+
+    /**
+     * Returns the current settings.
+     *
+     * @return the current settings
+     */
+    public UserDTOSettings getCurrentSettings() {
+        return UserDTOSettings.builder()
+                .username(username)
+                .profilePictureFileName(profilePictureFileName)
+                .fullName(fullName)
+                .biography(biography)
+                .website(website)
+                .build();
     }
 
     /**

@@ -7,6 +7,7 @@ import org.apache.tika.Tika;
 import org.apache.tika.mime.MimeTypeException;
 import org.apache.tika.mime.MimeTypes;
 import org.royllo.explorer.core.dto.user.UserDTO;
+import org.royllo.explorer.core.dto.user.UserDTOSettings;
 import org.royllo.explorer.core.provider.storage.ContentService;
 import org.royllo.explorer.core.service.user.UserService;
 import org.royllo.explorer.core.util.enums.FileType;
@@ -125,7 +126,15 @@ public class AccountSettings extends BaseController {
                     }
                     // TODO Create an error if the type is not an image.
                 }
-                userService.updateUser(previousUsername, connectedUser.get());
+                userService.updateUser(currentUser.getUsername(),
+                        UserDTOSettings.builder()
+                                .username(form.getUsername())
+                                .profilePictureFileName(form.getProfilePictureFilename())
+                                .fullName(form.getFullName())
+                                .biography(form.getBiography())
+                                .website(form.getWebsite())
+                                .build()
+                );
 
                 // Change session username.
                 session.setAttribute(USERNAME, connectedUser.get().getUsername());

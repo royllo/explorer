@@ -9,6 +9,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
@@ -72,13 +73,8 @@ public class User extends BaseDomain {
      *
      * @param newUsername the username to set
      */
-    public void setUsername(final String newUsername) {
-        // TODO Add a @NonNull annotation to the username parameter.
-        if (username == null) {
-            throw new IllegalArgumentException("Username is required");
-        } else {
-            username = newUsername.trim().toLowerCase();
-        }
+    public void setUsername(final @NonNull String newUsername) {
+        username = newUsername.trim().toLowerCase();
     }
 
 }

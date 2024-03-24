@@ -1,15 +1,17 @@
 package org.royllo.explorer.core.service.user;
 
-import io.micrometer.common.util.StringUtils;
+import jakarta.validation.Valid;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.domain.user.UserLnurlAuthKey;
 import org.royllo.explorer.core.dto.user.UserDTO;
+import org.royllo.explorer.core.dto.user.UserDTOSettings;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.repository.user.UserLnurlAuthKeyRepository;
 import org.royllo.explorer.core.repository.user.UserRepository;
 import org.royllo.explorer.core.util.base.BaseService;
+import org.royllo.explorer.core.util.validator.Username;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -46,14 +48,20 @@ public class UserServiceImplementation extends BaseService implements UserServic
     private final AssetRepository assetRepository;
 
     @Override
-    public UserDTO addUser(final String username) {
+    public UserDTO addUser(final @Username String username) {
         logger.info("Creating a user with username: {}", username);
 
-        // Verification.
-        assert StringUtils.isNotEmpty(username) : "Username is required";
-        assert userRepository.findByUsernameIgnoreCase(username.trim()).isEmpty() : "Username '" + username + "' already registered";
+        // =============================================================================================================
+        // Checking constraints.
 
-        // Creation.
+        // The username should not be used already.
+        if (userRepository.findByUsernameIgnoreCase(username.trim()).isPresent()) {
+            throw new IllegalArgumentException("Username '" + username + "' already registered");
+        }
+
+        // =============================================================================================================
+        // Creating the user.
+
         final User userCreated = userRepository.save(User.builder()
                 .userId(UUID.randomUUID().toString())
                 .username(username.trim().toLowerCase())
@@ -65,23 +73,32 @@ public class UserServiceImplementation extends BaseService implements UserServic
     }
 
     @Override
-    public void updateUser(final String username, final UserDTO userData) {
-        logger.info("Update a user with username: {}, new value is {}", username, userData);
-        Optional<User> user = userRepository.findByUsernameIgnoreCase(username);
+    public void updateUser(final String userId, final @Valid UserDTOSettings userSettings) {
+        logger.info("Update a user with username: {}, with those settings {}", userId, userSettings);
 
-        // Verification.
-        assert username != null : "Username is required";
-        assert user.isPresent() : "User not found with username: " + username;
-        assert userData.getUsername() != null : "New user name is required";
-        assert username.equalsIgnoreCase(userData.getUsername()) || userRepository.findByUsernameIgnoreCase(userData.getUsername()).isEmpty() : "Username '" + userData.getUsername() + "' already registered";
+        // =============================================================================================================
+        // Checking constraints.
 
+        // We search the user to update.
+        User user = userRepository.findByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with userId: " + userId));
+
+        // If the username in the updated settings are different from the current username.
+        if (!user.getUsername().equalsIgnoreCase(userSettings.getCleanedUsername())) {
+            // We check that the new username is not already used.
+            userRepository.findByUsernameIgnoreCase(userSettings.getCleanedUsername()).ifPresent(userFound -> {
+                throw new IllegalArgumentException("New username '" + userSettings.username() + "' already registered");
+            });
+        }
+
+        // =============================================================================================================
         // We update the data.
-        user.get().setProfilePictureFileName(userData.getProfilePictureFileName());
-        user.get().setUsername(userData.getUsername());
-        user.get().setFullName(userData.getFullName());
-        user.get().setBiography(userData.getBiography());
-        user.get().setWebsite(userData.getWebsite());
-        userRepository.save(user.get());
+        user.setProfilePictureFileName(userSettings.profilePictureFileName());
+        user.setUsername(userSettings.username());
+        user.setFullName(userSettings.fullName());
+        user.setBiography(userSettings.biography());
+        user.setWebsite(userSettings.website());
+        userRepository.save(user);
     }
 
     @Override

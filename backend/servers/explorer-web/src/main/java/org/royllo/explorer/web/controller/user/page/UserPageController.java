@@ -43,9 +43,9 @@ public class UserPageController extends BaseController {
      */
     @SuppressWarnings("SameReturnValue")
     @GetMapping(value = {"/user", "/user/", "/user/{username}", "/asset/{username}/"})
-    public String assetGenesis(final Model model,
-                               @PathVariable(value = USERNAME_ATTRIBUTE, required = false) final String username,
-                               @RequestParam(defaultValue = "1") final int page) {
+    public String userPage(final Model model,
+                           @PathVariable(value = USERNAME_ATTRIBUTE, required = false) final String username,
+                           @RequestParam(defaultValue = "1") final int page) {
         // We set back the page number to the model.
         model.addAttribute(PAGE_ATTRIBUTE, page);
 

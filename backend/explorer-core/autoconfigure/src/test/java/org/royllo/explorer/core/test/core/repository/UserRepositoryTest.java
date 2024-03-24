@@ -13,6 +13,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.royllo.explorer.core.util.constants.AdministratorUserConstants.ADMINISTRATOR_ID;
+import static org.royllo.explorer.core.util.constants.AdministratorUserConstants.ADMINISTRATOR_USER_ID;
+import static org.royllo.explorer.core.util.constants.AdministratorUserConstants.ADMINISTRATOR_USER_USERNAME;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_ID;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_USERNAME;
@@ -48,6 +51,31 @@ public class UserRepositoryTest {
         assertEquals(ANONYMOUS_ID, anonymousUserByUsername.get().getId().longValue());
         assertEquals(ANONYMOUS_USER_ID, anonymousUserByUsername.get().getUserId());
         assertEquals(ANONYMOUS_USER_USERNAME, anonymousUserByUsername.get().getUsername());
+    }
+
+    @Test
+    @DisplayName("Find administrator user")
+    public void findAdministratorUser() {
+        // Finding the user by its id.
+        final Optional<User> administratorUserById = userRepository.findById(ADMINISTRATOR_ID);
+        assertTrue(administratorUserById.isPresent());
+        assertEquals(ADMINISTRATOR_ID, administratorUserById.get().getId().longValue());
+        assertEquals(ADMINISTRATOR_USER_ID, administratorUserById.get().getUserId());
+        assertEquals(ADMINISTRATOR_USER_USERNAME, administratorUserById.get().getUsername());
+
+        // Finding the user by its uid.
+        final Optional<User> administratorUserByUserId = userRepository.findByUserId(ADMINISTRATOR_USER_ID);
+        assertTrue(administratorUserByUserId.isPresent());
+        assertEquals(ADMINISTRATOR_ID, administratorUserByUserId.get().getId().longValue());
+        assertEquals(ADMINISTRATOR_USER_ID, administratorUserByUserId.get().getUserId());
+        assertEquals(ADMINISTRATOR_USER_USERNAME, administratorUserByUserId.get().getUsername());
+
+        // Finding the user by its username.
+        final Optional<User> administratorUserByUsername = userRepository.findByUsernameIgnoreCase(ADMINISTRATOR_USER_USERNAME);
+        assertTrue(administratorUserByUsername.isPresent());
+        assertEquals(ADMINISTRATOR_ID, administratorUserByUsername.get().getId().longValue());
+        assertEquals(ADMINISTRATOR_USER_ID, administratorUserByUsername.get().getUserId());
+        assertEquals(ADMINISTRATOR_USER_USERNAME, administratorUserByUsername.get().getUsername());
     }
 
     @Test
