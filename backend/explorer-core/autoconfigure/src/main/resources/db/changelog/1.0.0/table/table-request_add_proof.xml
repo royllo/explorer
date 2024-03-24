@@ -5,7 +5,7 @@
     <changeSet author="straumat" id="1.0.0-table-request_add_proof">
 
         <createTable tableName="REQUEST_ADD_PROOF"
-                     remarks="A request to add a proof to royllo explorer">
+                     remarks="A request to add a proof to royllo database">
 
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"

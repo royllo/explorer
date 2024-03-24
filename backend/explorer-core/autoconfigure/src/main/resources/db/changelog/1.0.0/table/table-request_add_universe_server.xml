@@ -5,7 +5,7 @@
     <changeSet author="straumat" id="1.0.0-table-request_add_universe_server">
 
         <createTable tableName="REQUEST_ADD_UNIVERSE_SERVER"
-                     remarks="A request to add a universe server to royllo explorer">
+                     remarks="A request to add a universe server to royllo database">
 
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"

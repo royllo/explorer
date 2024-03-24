@@ -5,7 +5,7 @@
     <changeSet author="straumat" id="1.0.0-table-request">
 
         <createTable tableName="REQUEST"
-                     remarks="A request to update royllo data made by a user">
+                     remarks="A request to update royllo database">
 
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"

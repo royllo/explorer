@@ -5,7 +5,7 @@
     <changeSet author="straumat" id="1.0.0-table-request_claim_asset_ownership">
 
         <createTable tableName="REQUEST_CLAIM_ASSET_OWNERSHIP"
-                     remarks="A request to claim ownership over an asset">
+                     remarks="A request to claim ownership over an asset in royllo database">
 
             <!-- Unique identifier -->
             <column name="ID" type="BIGINT"

@@ -1,7 +1,7 @@
 databaseChangeLog:
 
   # ====================================================================================================================
-  # 1.0.0 Table definition
+  # 1.0.0 Table definition.
 
   # Users.
   - include:
@@ -37,13 +37,13 @@ databaseChangeLog:
   - include:
       file: /db/changelog/1.0.0/table/table-proof.xml
 
-  # Users.
+  # Util.
   - include:
       file:
         /db/changelog/1.0.0/table/table-util_k1_cache.xml
 
   # ====================================================================================================================
-  # 1.0.0 Table constraints definition
+  # 1.0.0 Table constraints definition.
 
   # Assets.
   - include:
@@ -72,7 +72,7 @@ databaseChangeLog:
       file: /db/changelog/1.0.0/table-constraints/table-constraints-proof.xml
 
   # ====================================================================================================================
-  # 1.0.0 database data
+  # 1.0.0 database data.
   - include:
       file: /db/changelog/1.0.0/data/data-application_user.xml
   - include:
@@ -87,6 +87,6 @@ databaseChangeLog:
       file: /db/changelog/1.0.0/data/data-proof.xml
 
   # ====================================================================================================================
-  # 1.0.0 database specific
+  # 1.0.0 database specific.
   - include:
       file: /db/changelog/1.0.0/specific/postgresql.xml

@@ -5,7 +5,7 @@
     <changeSet author="straumat" id="1.0.0-table-util_k1_cache">
 
         <createTable tableName="UTIL_K1_CACHE"
-                     remarks="K1 cache used by the k1 manager">
+                     remarks="K1 cache used by our k1 manager">
 
             <!-- Unique identifier -->
             <column name="K1" type="VARCHAR(255)"
