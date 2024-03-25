@@ -51,7 +51,6 @@ public class AssetStateServiceImplementation extends BaseService implements Asse
     @Override
     public AssetStateDTO addAssetState(final @Valid @NonNull AssetStateDTO newAssetState) {
         logger.info("Adding a new asset state {}", newAssetState);
-
         final AssetState assetStateToCreate = ASSET_STATE_MAPPER.mapToAssetState(newAssetState);
 
         // =============================================================================================================

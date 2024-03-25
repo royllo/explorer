@@ -31,13 +31,13 @@ import static org.royllo.explorer.core.util.enums.FileType.UNKNOWN;
 public class AssetDTO {
 
     /** Minimum size of the asset ID alias. */
-    public static final int ASSET_ID_ALIAS_MIN_SIZE = 3;
+    public static final int ASSET_ID_ALIAS_MINIMUM_SIZE = 3;
 
     /** Maximum size of the asset ID alias. */
-    public static final int ASSET_ID_ALIAS_MAX_SIZE = 30;
+    public static final int ASSET_ID_ALIAS_MAXIMUM_SIZE = 30;
 
     /** Maximum size of the readme. */
-    public static final int README_MAX_SIZE = 3_000;
+    public static final int README_MAXIMUM_SIZE = 3_000;
 
     /** Unique identifier. */
     Long id;
@@ -54,7 +54,7 @@ public class AssetDTO {
 
     /** The asset ID alias in Royllo (generated or configured). */
     @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "{validation.asset.assetIdAlias.invalid}")
-    @Size(min = ASSET_ID_ALIAS_MIN_SIZE, max = ASSET_ID_ALIAS_MAX_SIZE, message = "{validation.asset.assetIdAlias.size}")
+    @Size(min = ASSET_ID_ALIAS_MINIMUM_SIZE, max = ASSET_ID_ALIAS_MAXIMUM_SIZE, message = "{validation.asset.assetIdAlias.size}")
     String assetIdAlias;
 
     /** The first outpoint of the transaction that created the asset (txid:vout). */
@@ -103,7 +103,7 @@ public class AssetDTO {
 
     /** Readme content of the asset - Set by the owner. */
     @ToString.Exclude
-    @Size(max = README_MAX_SIZE, message = "{validation.asset.readme.size}")
+    @Size(max = README_MAXIMUM_SIZE, message = "{validation.asset.readme.size}")
     String readme;
 
     /**

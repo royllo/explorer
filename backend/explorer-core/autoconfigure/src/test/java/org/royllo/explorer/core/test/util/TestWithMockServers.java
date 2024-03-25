@@ -7,7 +7,6 @@ import org.royllo.explorer.core.dto.asset.AssetDTO;
 import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
 import org.royllo.explorer.core.dto.asset.AssetStateDTO;
 import org.royllo.explorer.core.dto.bitcoin.BitcoinTransactionOutputDTO;
-import org.royllo.explorer.core.util.base.Base;
 import org.royllo.test.MempoolData;
 import org.royllo.test.TapdData;
 import org.royllo.test.mempool.GetTransactionValueResponse;
@@ -36,7 +35,7 @@ import static org.mockserver.integration.ClientAndServer.startClientAndServer;
  */
 @SuppressWarnings("SpellCheckingInspection")
 @DirtiesContext
-public class TestWithMockServers extends Base {
+public class TestWithMockServers extends BaseTest {
 
     /** Mempool server port. */
     public static final int MEMPOOL_MOCK_SERVER_PORT = 9091;

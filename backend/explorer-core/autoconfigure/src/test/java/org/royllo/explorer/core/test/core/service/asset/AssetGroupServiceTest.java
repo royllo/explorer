@@ -6,20 +6,17 @@ import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.dto.asset.AssetGroupDTO;
 import org.royllo.explorer.core.service.asset.AssetGroupService;
 import org.royllo.explorer.core.test.util.TestWithMockServers;
-import org.royllo.test.tapd.asset.DecodedProofValueResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
-import java.util.Optional;
-
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_DTO;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_FROM_TEST;
 
 @SpringBootTest
@@ -37,24 +34,26 @@ public class AssetGroupServiceTest extends TestWithMockServers {
         // Constraint tests.
 
         // Asset group parameter is null.
-        assertThrows(IllegalArgumentException.class, () -> assetGroupService.addAssetGroup(null));
+        assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> assetGroupService.addAssetGroup(null))
+                .withMessage("newAssetGroup is marked non-null but is null");
 
         // Asset group parameters are invalid.
-        ConstraintViolationException violations = assertThrows(ConstraintViolationException.class, () -> {
-            assetGroupService.addAssetGroup(AssetGroupDTO.builder().build());
-        });
-        assertEquals(2, violations.getConstraintViolations().size());
-        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("assetGroupId")));
-        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("tweakedGroupKey")));
+        assertThatExceptionOfType(ConstraintViolationException.class)
+                .isThrownBy(() -> assetGroupService.addAssetGroup(AssetGroupDTO.builder().build()))
+                .satisfies(violations -> {
+                    assertEquals(2, violations.getConstraintViolations().size());
+                    assertTrue(isPropertyInConstraintViolations(violations, "assetGroupId"));
+                    assertTrue(isPropertyInConstraintViolations(violations, "tweakedGroupKey"));
+                });
 
         // Asset group key already registered.
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> assetGroupService.addAssetGroup(
-                AssetGroupDTO.builder()
-                        .creator(ANONYMOUS_USER_DTO)
+        assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> assetGroupService.addAssetGroup(AssetGroupDTO.builder()
                         .assetGroupId(UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup().getTweakedGroupKey())
                         .tweakedGroupKey("TWEAKED_GROUP_KEY_10000")
-                        .build()));
-        assertEquals("Asset group id already registered", e.getMessage());
+                        .build()))
+                .withMessage("Asset group id already registered");
 
         // =============================================================================================================
         // Normal behavior tests.
@@ -62,7 +61,6 @@ public class AssetGroupServiceTest extends TestWithMockServers {
         // Now creating a real asset group.
         AssetGroupDTO assetGroupDTO = assetGroupService.addAssetGroup(AssetGroupDTO.builder()
                 .id(1L)
-                .creator(ANONYMOUS_USER_DTO)
                 .assetGroupId("NEW_ASSET_GROUP_KEY_TWEAKED")
                 .rawGroupKey("NEW_ASSET_GROUP_KEY")
                 .tweakedGroupKey("NEW_ASSET_GROUP_KEY_TWEAKED")
@@ -82,19 +80,20 @@ public class AssetGroupServiceTest extends TestWithMockServers {
     public void getAssetGroupByAssetGroupId() {
         // =============================================================================================================
         // Non-existing asset group.
-        Optional<AssetGroupDTO> assetGroup = assetGroupService.getAssetGroupByAssetGroupId("NON_EXISTING_ASSET_GROUP_ID");
-        assertFalse(assetGroup.isPresent());
+        assertFalse(assetGroupService.getAssetGroupByAssetGroupId("NON_EXISTING_ASSET_GROUP_ID").isPresent());
 
         // =============================================================================================================
         // Existing asset group on testnet and in our database initialization script.
-        DecodedProofValueResponse.DecodedProof.Asset.AssetGroup unlimitedAssetgroup = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup();
-        assetGroup = assetGroupService.getAssetGroupByAssetGroupId(unlimitedAssetgroup.getTweakedGroupKey());
-        assertTrue(assetGroup.isPresent());
-        assertNotNull(assetGroup.get().getId());
-        assertEquals(unlimitedAssetgroup.getTweakedGroupKey(), assetGroup.get().getAssetGroupId());
-        assertEquals(unlimitedAssetgroup.getRawGroupKey(), assetGroup.get().getRawGroupKey());
-        assertEquals(unlimitedAssetgroup.getTweakedGroupKey(), assetGroup.get().getTweakedGroupKey());
-        assertEquals(unlimitedAssetgroup.getAssetWitness(), assetGroup.get().getAssetWitness());
+        var unlimitedAssetGroupFromTapd = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup();
+        assertThat(assetGroupService.getAssetGroupByAssetGroupId(unlimitedAssetGroupFromTapd.getTweakedGroupKey()))
+                .isPresent()
+                .hasValueSatisfying(assetGroupDTO -> {
+                    assertNotNull(assetGroupDTO.getId());
+                    assertEquals(unlimitedAssetGroupFromTapd.getTweakedGroupKey(), assetGroupDTO.getAssetGroupId());
+                    assertEquals(unlimitedAssetGroupFromTapd.getRawGroupKey(), assetGroupDTO.getRawGroupKey());
+                    assertEquals(unlimitedAssetGroupFromTapd.getTweakedGroupKey(), assetGroupDTO.getTweakedGroupKey());
+                    assertEquals(unlimitedAssetGroupFromTapd.getAssetWitness(), assetGroupDTO.getAssetWitness());
+                });
     }
 
 }

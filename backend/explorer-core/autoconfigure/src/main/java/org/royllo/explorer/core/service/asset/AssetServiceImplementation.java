@@ -106,7 +106,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
 
         // We check that the asset exists and get it.
         final Asset assetToUpdate = assetRepository.findByAssetId(assetId)
-                .orElseThrow(() -> new IllegalArgumentException(assetId + "not found"));
+                .orElseThrow(() -> new IllegalArgumentException(assetId + " not found"));
 
         // =============================================================================================================
         // Updating the asset.
@@ -166,7 +166,7 @@ public class AssetServiceImplementation extends BaseService implements AssetServ
 
         // We check that the asset exists and get it.
         final Asset assetToUpdate = assetRepository.findByAssetId(assetId)
-                .orElseThrow(() -> new IllegalArgumentException(assetId + "not found"));
+                .orElseThrow(() -> new IllegalArgumentException(assetId + " not found"));
 
         // We check that the asset id alias is not already registered.
         assetRepository.findByAssetIdAlias(assetUpdate.assetIdAlias()).ifPresent(asset -> {

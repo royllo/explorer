@@ -22,11 +22,12 @@ import org.springframework.test.annotation.DirtiesContext;
 import java.math.BigInteger;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_DTO;
@@ -36,6 +37,7 @@ import static org.royllo.test.MempoolData.ROYLLO_COIN_GENESIS_TXID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.ROYLLO_COIN_FROM_TEST;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
+import static org.wildfly.common.Assert.assertFalse;
 
 @SpringBootTest
 @DirtiesContext
@@ -69,9 +71,9 @@ public class AssetStateServiceTest extends TestWithMockServers {
     @BeforeEach
     void setUp() {
         // We retrieve a bitcoin transaction output from database for our test.
-        final Optional<BitcoinTransactionOutputDTO> bto = bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 0);
+        var bto = bitcoinService.getBitcoinTransactionOutput(ROYLLO_COIN_GENESIS_TXID, 0);
         assertTrue(bto.isPresent());
-        this.roylloCoinTransactionOutput = bto.get();
+        roylloCoinTransactionOutput = bto.get();
 
         // Non-existing transaction.
         nonExistingTransaction = BitcoinTransactionOutputDTO.builder()
@@ -87,21 +89,26 @@ public class AssetStateServiceTest extends TestWithMockServers {
         // Constraint tests.
 
         // Asset group parameter is null.
-        assertThrows(IllegalArgumentException.class, () -> assetStateService.addAssetState(null));
+        assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> assetStateService.addAssetState(null))
+                .withMessage("newAssetState is marked non-null but is null");
 
         // Asset state are invalid.
-        ConstraintViolationException violations = assertThrows(ConstraintViolationException.class, () -> {
-            assetStateService.addAssetState(AssetStateDTO.builder().build());
-        });
-        assertEquals(9, violations.getConstraintViolations().size());
-        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("amount")));
-        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("asset")));
-        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("anchorBlockHash")));
-        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("version")));
-        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("scriptVersion")));
-        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("anchorTx")));
-        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("anchorOutpoint")));
-        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("scriptKey")));
+        assertThatExceptionOfType(ConstraintViolationException.class)
+                .isThrownBy(() -> assetStateService.addAssetState(AssetStateDTO.builder().build()))
+                .satisfies(violations -> {
+                    assertEquals(9, violations.getConstraintViolations().size());
+                    assertTrue(isPropertyInConstraintViolations(violations, "amount"));
+                    assertTrue(isPropertyInConstraintViolations(violations, "asset"));
+                    assertTrue(isPropertyInConstraintViolations(violations, "anchorBlockHash"));
+                    assertTrue(isPropertyInConstraintViolations(violations, "version"));
+                    assertTrue(isPropertyInConstraintViolations(violations, "scriptVersion"));
+                    assertTrue(isPropertyInConstraintViolations(violations, "anchorTx"));
+                    assertTrue(isPropertyInConstraintViolations(violations, "anchorOutpoint"));
+                    assertTrue(isPropertyInConstraintViolations(violations, "scriptKey"));
+                    assertTrue(isPropertyInConstraintViolations(violations, "amount"));
+                    assertTrue(isPropertyInConstraintViolations(violations, "internalKey"));
+                });
 
         // =============================================================================================================
         // Normal behavior tests.
@@ -171,38 +178,37 @@ public class AssetStateServiceTest extends TestWithMockServers {
         assertTrue(assetCreated.isPresent());
         assertNotNull(assetCreated.get().getId());
 
-        // =============================================================================================================
         // We try to create the same asset state again.
-        IllegalArgumentException i = assertThrows(IllegalArgumentException.class, () -> assetStateService.addAssetState(AssetStateDTO.builder()
-                .creator(ANONYMOUS_USER_DTO)
-                .asset(AssetDTO.builder()
-                        .assetId("TEST_COIN_ASSET_ID_000000000000000000000000000000000000000000000")
-                        .name("TEST_COIN_ASSET_NAME_000000000000000000000000000000000000000000000")
+        assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> assetStateService.addAssetState(AssetStateDTO.builder()
                         .creator(ANONYMOUS_USER_DTO)
-                        .genesisPoint(roylloCoinTransactionOutput)
-                        .type(NORMAL)
-                        .outputIndex(1)
-                        .version(1)
-                        .build())
-                .anchorBlockHash("TEST_ANCHOR_BLOCK_HASH")
-                .anchorOutpoint(roylloCoinTransactionOutput)
-                .anchorTx("TEST_ANCHOR_TX")
-                .internalKey("TEST_INTERNAL_KEY")
-                .merkleRoot("TEST_MERKLE_ROOT")
-                .tapscriptSibling("TEST_TAPSCRIPT_SIBLING")
-                .scriptVersion(0)
-                .scriptKey("TEST_SCRIPT_KEY")
-                .version("1")
-                .amount(new BigInteger("1000"))
-                .build()));
-        assertEquals("Asset state already exists", i.getMessage());
+                        .asset(AssetDTO.builder()
+                                .assetId("TEST_COIN_ASSET_ID_000000000000000000000000000000000000000000000")
+                                .name("TEST_COIN_ASSET_NAME_000000000000000000000000000000000000000000000")
+                                .creator(ANONYMOUS_USER_DTO)
+                                .genesisPoint(roylloCoinTransactionOutput)
+                                .type(NORMAL)
+                                .outputIndex(1)
+                                .version(1)
+                                .build())
+                        .anchorBlockHash("TEST_ANCHOR_BLOCK_HASH")
+                        .anchorOutpoint(roylloCoinTransactionOutput)
+                        .anchorTx("TEST_ANCHOR_TX")
+                        .internalKey("TEST_INTERNAL_KEY")
+                        .merkleRoot("TEST_MERKLE_ROOT")
+                        .tapscriptSibling("TEST_TAPSCRIPT_SIBLING")
+                        .scriptVersion(0)
+                        .scriptKey("TEST_SCRIPT_KEY")
+                        .version("1")
+                        .amount(new BigInteger("1000"))
+                        .build()))
+                .withMessage("Asset state already exists");
 
         // We check that nothing has been created.
         assertEquals(assetGroupCount, assetGroupRepository.findAll().size());
         assertEquals(assetCount + 1, assetRepository.findAll().size());
         assertEquals(assetStateCount + 1, assetStateRepository.findAll().size());
 
-        // =============================================================================================================
         // We create a second asset state from scratch (on the asset we created previously).
         assetStateService.addAssetState(AssetStateDTO.builder()
                 .creator(ANONYMOUS_USER_DTO)
@@ -262,28 +268,27 @@ public class AssetStateServiceTest extends TestWithMockServers {
     public void getAssetStateByAssetStateId() {
         // =============================================================================================================
         // Non-existing asset group.
-        AssetStateDTO assetState = assetStateService.getAssetStateByAssetStateId("NON_EXISTING_ASSET_STATE_ID").orElse(null);
-        assertNull(assetState);
+        assertFalse(assetStateService.getAssetStateByAssetStateId("NON_EXISTING_ASSET_STATE_ID").isPresent());
 
         // =============================================================================================================
-        // Existing asset state on testnet and in our database initialization script ("roylloCoin").
-        assetState = assetStateService
-                .getAssetStateByAssetStateId(ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetStateId())
-                .orElse(null);
-        assertNotNull(assetState);
-        assertEquals(1, assetState.getId());
-        assertEquals(ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetStateId(), assetState.getAssetStateId());
-        // User.
-        assertNotNull(assetState.getCreator());
-        assertEquals(ANONYMOUS_ID, assetState.getCreator().getId());
-        // Asset & asset group.
-        verifyAsset(assetState.getAsset(), ROYLLO_COIN_ASSET_ID);
-        // Asset state data.
-        verifyAssetState(assetState,
-                ROYLLO_COIN_ASSET_ID,
-                assetState.getAnchorOutpoint().getTxId(),
-                assetState.getAnchorOutpoint().getVout(),
-                assetState.getScriptKey());
+        // Existing asset state on mainnet and in our database initialization script ("roylloCoin").
+        var RoylloCoinAssetStateId = ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetStateId();
+        assertThat(assetStateService.getAssetStateByAssetStateId(RoylloCoinAssetStateId))
+                .isPresent()
+                .hasValueSatisfying(assetStateDTO -> {
+                    assertNotNull(assetStateDTO.getId());
+                    assertNotNull(assetStateDTO.getCreator());
+                    assertEquals(ANONYMOUS_ID, assetStateDTO.getCreator().getId());
+                    assertEquals(RoylloCoinAssetStateId, assetStateDTO.getAssetStateId());
+                    // Asset & asset group.
+                    verifyAsset(assetStateDTO.getAsset(), ROYLLO_COIN_ASSET_ID);
+                    // Asset state data.
+                    verifyAssetState(assetStateDTO,
+                            ROYLLO_COIN_ASSET_ID,
+                            assetStateDTO.getAnchorOutpoint().getTxId(),
+                            assetStateDTO.getAnchorOutpoint().getVout(),
+                            assetStateDTO.getScriptKey());
+                });
     }
 
     @Test

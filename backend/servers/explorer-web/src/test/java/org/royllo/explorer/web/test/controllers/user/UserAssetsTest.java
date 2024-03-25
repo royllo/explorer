@@ -22,9 +22,9 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.royllo.explorer.core.dto.asset.AssetDTO.ASSET_ID_ALIAS_MAX_SIZE;
-import static org.royllo.explorer.core.dto.asset.AssetDTO.ASSET_ID_ALIAS_MIN_SIZE;
-import static org.royllo.explorer.core.dto.asset.AssetDTO.README_MAX_SIZE;
+import static org.royllo.explorer.core.dto.asset.AssetDTO.ASSET_ID_ALIAS_MAXIMUM_SIZE;
+import static org.royllo.explorer.core.dto.asset.AssetDTO.ASSET_ID_ALIAS_MINIMUM_SIZE;
+import static org.royllo.explorer.core.dto.asset.AssetDTO.README_MAXIMUM_SIZE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_ID_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.ASSET_NAME_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.PAGE_ATTRIBUTE;
@@ -175,7 +175,7 @@ public class UserAssetsTest extends BaseTest {
         // Asset id alias too small.
         mockMvc.perform(post("/account/asset/save")
                         .param(ASSET_ID_ATTRIBUTE, TRICKY_ROYLLO_COIN_ASSET_ID)
-                        .param("assetIdAlias", RandomStringUtils.randomAlphabetic(ASSET_ID_ALIAS_MIN_SIZE - 1))
+                        .param("assetIdAlias", RandomStringUtils.randomAlphabetic(ASSET_ID_ALIAS_MINIMUM_SIZE - 1))
                         .contentType(APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
                 .andExpect(view().name(USER_ASSET_FORM_PAGE))
@@ -187,7 +187,7 @@ public class UserAssetsTest extends BaseTest {
         // Asset id alias too long.
         mockMvc.perform(post("/account/asset/save")
                         .param(ASSET_ID_ATTRIBUTE, TRICKY_ROYLLO_COIN_ASSET_ID)
-                        .param("assetIdAlias", RandomStringUtils.randomAlphabetic(ASSET_ID_ALIAS_MAX_SIZE + 1))
+                        .param("assetIdAlias", RandomStringUtils.randomAlphabetic(ASSET_ID_ALIAS_MAXIMUM_SIZE + 1))
                         .contentType(APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
                 .andExpect(view().name(USER_ASSET_FORM_PAGE))
@@ -211,7 +211,7 @@ public class UserAssetsTest extends BaseTest {
         // Readme too long.
         mockMvc.perform(post("/account/asset/save")
                         .param(ASSET_ID_ATTRIBUTE, TRICKY_ROYLLO_COIN_ASSET_ID)
-                        .param("readme", RandomStringUtils.randomAlphabetic(README_MAX_SIZE + 1))
+                        .param("readme", RandomStringUtils.randomAlphabetic(README_MAXIMUM_SIZE + 1))
                         .contentType(APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
                 .andExpect(view().name(USER_ASSET_FORM_PAGE))
