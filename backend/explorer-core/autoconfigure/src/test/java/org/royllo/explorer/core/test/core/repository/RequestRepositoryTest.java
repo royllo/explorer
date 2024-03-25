@@ -6,7 +6,6 @@ import org.royllo.explorer.core.domain.request.AddProofRequest;
 import org.royllo.explorer.core.domain.request.AddUniverseServerRequest;
 import org.royllo.explorer.core.domain.request.Request;
 import org.royllo.explorer.core.repository.request.RequestRepository;
-import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -28,7 +27,7 @@ import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 @SpringBootTest
 @DirtiesContext
 @DisplayName("RequestRepository tests")
-public class RequestRepositoryTest extends TestWithMockServers {
+public class RequestRepositoryTest {
 
     @Autowired
     private DataSource dataSource;
@@ -37,9 +36,9 @@ public class RequestRepositoryTest extends TestWithMockServers {
     private RequestRepository requestRepository;
 
     @Test
-    @DisplayName("Requests inheritance")
-    public void requestsInheritance() {
-        // This test id used to validate how inheritance with JPA works.
+    @DisplayName("Request inheritance")
+    public void requestInheritance() {
+        // This test is used to validate how inheritance with JPA works.
 
         // =============================================================================================================
         // Creating request 1 (ADD_ASSET type).

@@ -7,7 +7,6 @@ import org.royllo.explorer.core.repository.universe.UniverseServerRepository;
 import org.royllo.explorer.core.test.util.TestWithMockServers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 
 import java.time.ZonedDateTime;
 import java.util.Optional;
@@ -17,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER;
 
 @SpringBootTest
-@DirtiesContext
 @DisplayName("UniverseServerRepository tests")
 public class UniverseServerRepositoryTest extends TestWithMockServers {
 
@@ -25,48 +23,48 @@ public class UniverseServerRepositoryTest extends TestWithMockServers {
     private UniverseServerRepository universeServerRepository;
 
     @Test
-    @DisplayName("findFirstByOrderByLastSynchronizedOnAsc()")
-    public void findFirstByOrderByLastSynchronizedOnAsc() {
+    @DisplayName("findFirstByOrderByLastSynchronizationAttemptAsc()")
+    public void findFirstByOrderByLastSynchronizationAttemptAsc() {
         // We remove all universe servers.
         universeServerRepository.deleteAll();
 
-        // We create 6 servers :
-        // Server 1 : lastSynchronizedOn = now - 1 day.
+        // We create 6 servers:
+        // Server  : lastSynchronizedOn = now - 1 day.
         UniverseServer server1 = universeServerRepository.save(UniverseServer.builder()
                 .universeServerId("server1ID")
                 .owner(ANONYMOUS_USER)
                 .serverAddress("server1")
                 .lastSynchronizationAttempt(ZonedDateTime.now().minusDays(1))
                 .build());
-        // Server 2 : lastSynchronizedOn = now - 3 days.
+        // Server 2: lastSynchronizedOn = now - 3 days.
         UniverseServer server2 = universeServerRepository.save(UniverseServer.builder()
                 .universeServerId("server2ID")
                 .owner(ANONYMOUS_USER)
                 .serverAddress("server2")
                 .lastSynchronizationAttempt(ZonedDateTime.now().minusDays(3))
                 .build());
-        // Server 3 : lastSynchronizedOn = now - 1 month.
+        // Server 3: lastSynchronizedOn = now - 1 month.
         UniverseServer server3 = universeServerRepository.save(UniverseServer.builder()
                 .universeServerId("server3ID")
                 .owner(ANONYMOUS_USER)
                 .serverAddress("server3")
                 .lastSynchronizationAttempt(ZonedDateTime.now().minusMonths(1))
                 .build());
-        // Server 4 : lastSynchronizedOn = null.
+        // Server 4: lastSynchronizedOn = null.
         UniverseServer server4 = universeServerRepository.save(UniverseServer.builder()
                 .universeServerId("server4ID")
                 .owner(ANONYMOUS_USER)
                 .serverAddress("server4")
                 .lastSynchronizationAttempt(null)
                 .build());
-        // Server 5 : lastSynchronizedOn = now - 2 days.
+        // Server 5: lastSynchronizedOn = now - 2 days.
         UniverseServer server5 = universeServerRepository.save(UniverseServer.builder()
                 .universeServerId("server5ID")
                 .owner(ANONYMOUS_USER)
                 .serverAddress("server5")
                 .lastSynchronizationAttempt(ZonedDateTime.now().minusDays(2))
                 .build());
-        // Server 6 : lastSynchronizedOn = null.
+        // Server 6: lastSynchronizedOn = null.
         UniverseServer server6 = universeServerRepository.save(UniverseServer.builder()
                 .universeServerId("server6ID")
                 .owner(ANONYMOUS_USER)
