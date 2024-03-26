@@ -85,7 +85,6 @@ public class DatabaseK1ManagerTest {
         // Checking isValid() method (will trigger purge so k1 won't exist anymore.
         assertFalse(databaseK1Manager.isValid(SimpleK1.fromHex(firstK1Value)));
         assertTrue(databaseK1Manager.isValid(SimpleK1.fromHex(secondK1Value)));
-
     }
 
 }
