@@ -31,8 +31,8 @@ public class LocalFileServiceTest extends TestWithMockServers {
     private LocalFileServiceImplementation localFileServiceImplementation;
 
     @Test
-    @DisplayName("Store and get file")
-    public void storeAndGetFile() {
+    @DisplayName("storeFile()")
+    public void storeFile() {
         // We store a file.
         localFileServiceImplementation.storeFile("Hello World!".getBytes(), "hello.txt");
 
@@ -81,11 +81,10 @@ public class LocalFileServiceTest extends TestWithMockServers {
         } catch (IOException e) {
             fail("Error while retrieving the file" + e.getMessage());
         }
-
     }
 
     @Test
-    @DisplayName("File exists")
+    @DisplayName("fileExists()")
     public void fileExists() {
         // The file should not exist.
         assertFalse(localFileServiceImplementation.fileExists("fileExistsTest.txt"));
@@ -98,7 +97,7 @@ public class LocalFileServiceTest extends TestWithMockServers {
     }
 
     @Test
-    @DisplayName("Delete file")
+    @DisplayName("deleteFile()")
     public void deleteFile() {
         // The file should not exist.
         assertFalse(localFileServiceImplementation.fileExists("fileDeleteTest.txt"));
@@ -117,8 +116,8 @@ public class LocalFileServiceTest extends TestWithMockServers {
     }
 
     @Test
-    @DisplayName("Existing profile picture")
-    public void existingProfilePicture() {
+    @DisplayName("fileExists() for profile picture")
+    public void fileExistsForProfilePicture() {
         // This file exists on local filesystem but not on the webserver.
         assertFalse(localFileServiceImplementation.fileExists("straumat_profil.jpeg"));
 
