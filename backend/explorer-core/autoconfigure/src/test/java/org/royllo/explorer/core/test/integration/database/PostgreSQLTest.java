@@ -16,9 +16,8 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Set;
-import java.util.stream.Collectors;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -62,13 +61,9 @@ public class PostgreSQLTest {
         Page<AssetDTO> results = searchService.queryAssets("royllo", 1, 4);
         assertEquals(8, results.getTotalElements());
         assertEquals(2, results.getTotalPages());
-        Set<Long> ids = results.stream()
-                .map(AssetDTO::getId)
-                .collect(Collectors.toSet());
-        assertTrue(ids.contains(1L));
-        assertTrue(ids.contains(2L));
-        assertTrue(ids.contains(3L));
-        assertTrue(ids.contains(4L));
+        assertThat(results.getContent())
+                .extracting(AssetDTO::getId)
+                .containsExactlyInAnyOrder(1L, 2L, 3L, 4L);
     }
 
 }
