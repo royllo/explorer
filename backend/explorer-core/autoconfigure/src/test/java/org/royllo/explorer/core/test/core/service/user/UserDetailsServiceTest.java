@@ -22,9 +22,8 @@ import org.tbk.spring.lnurl.security.userdetails.LnurlAuthUserPairingService;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @SpringBootTest
 @DirtiesContext
@@ -40,6 +39,22 @@ public class UserDetailsServiceTest {
     @Test
     @DisplayName("loadUserByUsername()")
     void loadUserByUsername() throws URISyntaxException {
+        // =============================================================================================================
+        // Constraint tests.
+
+        // We try to load a null user.
+        assertThatExceptionOfType(UsernameNotFoundException.class)
+                .isThrownBy(() -> userDetailsService.loadUserByUsername(null))
+                .withMessage("User not found with username: null");
+
+        // We try to load a non-existing user.
+        assertThatExceptionOfType(UsernameNotFoundException.class)
+                .isThrownBy(() -> userDetailsService.loadUserByUsername("NON_EXISTING_USERNAME"))
+                .withMessage("User not found with username: NON_EXISTING_USERNAME");
+
+        // =============================================================================================================
+        // Normal behavior tests.
+
         // New user.
         String user1K1Value = "e2af6254a8df433264fa23f67eb8188635d15ce883e8fc020989d5f82ae6f11e";
         String user1linkingKey1Value = "02c3b844b8104f0c1b15c507774c9ba7fc609f58f343b9b149122e944dd20c9362";
@@ -53,13 +68,10 @@ public class UserDetailsServiceTest {
         final UserDetails userCreated = lnurlAuthPairingService.pairUserWithK1(user1SignedLnurlAuth);
 
         // We try the load the user created.
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(user1linkingKey1Value);
-        assertNotNull(userDetails);
-        assertEquals(userCreated.getUsername(), userDetails.getUsername());
-
-        // We try to load a non-existing user.
-        UsernameNotFoundException e = assertThrows(UsernameNotFoundException.class, () -> userDetailsService.loadUserByUsername("NON_EXISTING_USERNAME"));
-        assertEquals("User not found with username: NON_EXISTING_USERNAME", e.getMessage());
+        assertThat(userDetailsService.loadUserByUsername(user1linkingKey1Value))
+                .isNotNull()
+                .extracting(UserDetails::getUsername)
+                .isEqualTo(userCreated.getUsername());
     }
 
 }

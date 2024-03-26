@@ -17,8 +17,6 @@ import org.tbk.lnurl.simple.auth.SimpleK1;
 import org.tbk.lnurl.simple.auth.SimpleLinkingKey;
 import org.tbk.spring.lnurl.security.userdetails.LnurlAuthUserPairingService;
 
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -76,34 +74,33 @@ public class LnurlAuthPairingServiceTest {
         assertEquals(userLnurlAuthKeyCount + 1, userLnurlAuthKeyRepository.count());
 
         // We check the user created.
-        Optional<UserDTO> newUserCreated = userService.getUserByUsername(linkingKey1Value);
-        assertTrue(newUserCreated.isPresent());
-        assertNotNull(newUserCreated.get().getId());
-        assertEquals(linkingKey1Value, newUserCreated.get().getUsername());
-        assertEquals(USER, newUserCreated.get().getRole());
+        UserDTO newUserCreated = userService.getUserByUsername(linkingKey1Value)
+                .orElseThrow(() -> new AssertionError("New user not found"));
+        assertNotNull(newUserCreated.getId());
+        assertEquals(linkingKey1Value, newUserCreated.getUsername());
+        assertEquals(USER, newUserCreated.getRole());
 
         // We check the user lnurl-auth key created.
-        Optional<UserLnurlAuthKey> newUserLinkingKeyCreated = userLnurlAuthKeyRepository.findByLinkingKey(linkingKey1Value);
-        assertTrue(newUserLinkingKeyCreated.isPresent());
-        assertNotNull(newUserLinkingKeyCreated.get().getId());
-        assertEquals(newUserCreated.get().getId(), newUserLinkingKeyCreated.get().getOwner().getId());
-        assertEquals(simpleK1Value, newUserLinkingKeyCreated.get().getK1());
-        assertEquals(linkingKey1Value, newUserLinkingKeyCreated.get().getLinkingKey());
+        UserLnurlAuthKey newUserLinkingKeyCreated = userLnurlAuthKeyRepository.findByLinkingKey(linkingKey1Value)
+                .orElseThrow(() -> new AssertionError("New user linking key not found"));
+        assertNotNull(newUserLinkingKeyCreated.getId());
+        assertEquals(newUserCreated.getId(), newUserLinkingKeyCreated.getOwner().getId());
+        assertEquals(simpleK1Value, newUserLinkingKeyCreated.getK1());
+        assertEquals(linkingKey1Value, newUserLinkingKeyCreated.getLinkingKey());
         assertTrue(userLnurlAuthKeyRepository.findByK1(simpleK1Value).isPresent());
 
         // =============================================================================================================
         // Test 2 : the same user logs again with another k1 - No new data but k1 updated.
-        //lnurlAuthUserPairingService.pairK1WithLinkingKey(k1Test2, linkingKeyTest1);
         assertEquals(userCount + 1, userRepository.count());
         assertEquals(userLnurlAuthKeyCount + 1, userLnurlAuthKeyRepository.count());
 
         // We check the user lnurl-auth key updated.
-        newUserLinkingKeyCreated = userLnurlAuthKeyRepository.findByLinkingKey(linkingKey1Value);
-        assertTrue(newUserLinkingKeyCreated.isPresent());
-        assertNotNull(newUserLinkingKeyCreated.get().getId());
-        assertEquals(newUserCreated.get().getId(), newUserLinkingKeyCreated.get().getOwner().getId());
-        assertEquals(anotherK1Value, newUserLinkingKeyCreated.get().getK1());
-        assertEquals(linkingKey1Value, newUserLinkingKeyCreated.get().getLinkingKey());
+        newUserLinkingKeyCreated = userLnurlAuthKeyRepository.findByLinkingKey(linkingKey1Value)
+                .orElseThrow(() -> new AssertionError("New user linking key not found"));
+        assertNotNull(newUserLinkingKeyCreated.getId());
+        assertEquals(newUserCreated.getId(), newUserLinkingKeyCreated.getOwner().getId());
+        assertEquals(anotherK1Value, newUserLinkingKeyCreated.getK1());
+        assertEquals(linkingKey1Value, newUserLinkingKeyCreated.getLinkingKey());
     }
 
 }

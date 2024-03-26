@@ -23,16 +23,16 @@ import static lombok.AccessLevel.PRIVATE;
 public class UserDTO {
 
     /** Full name maximum size. */
-    static final int FULL_NAME_MAXIMUM_SIZE = 40;
+    public static final int FULL_NAME_MAXIMUM_SIZE = 40;
 
     /** Profile picture file name maximum size. */
-    static final int PROFILE_PICTURE_FILE_NAME_MAXIMUM_SIZE = 255;
+    public static final int PROFILE_PICTURE_FILE_NAME_MAXIMUM_SIZE = 255;
 
     /** Biography maximum size. */
-    static final int BIOGRAPHY_MAXIMUM_SIZE = 255;
+    public static final int BIOGRAPHY_MAXIMUM_SIZE = 255;
 
     /** Website maximum size. */
-    static final int WEBSITE_MAXIMUM_SIZE = 50;
+    public static final int WEBSITE_MAXIMUM_SIZE = 50;
 
     /** Username maximum size. */
     public static final int USERNAME_MAXIMUM_SIZE = 20;
