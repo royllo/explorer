@@ -5,21 +5,22 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.dto.universe.UniverseServerDTO;
 import org.royllo.explorer.core.service.universe.UniverseServerService;
+import org.royllo.explorer.core.test.util.BaseTest;
 import org.royllo.explorer.core.util.exceptions.universe.UniverseServerCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @DirtiesContext
 @DisplayName("UniverseServerService tests")
-public class UniverseServerServiceTest {
+public class UniverseServerServiceTest extends BaseTest {
 
     @Autowired
     private UniverseServerService universeServerService;
@@ -28,74 +29,87 @@ public class UniverseServerServiceTest {
     @DisplayName("addUniverseServer()")
     public void addUniverseServer() {
         // =============================================================================================================
-        // Error tests.
-        ConstraintViolationException violations = assertThrows(ConstraintViolationException.class, () -> {
-            universeServerService.addUniverseServer("invalid");
-        });
-        assertEquals(1, violations.getConstraintViolations().size());
-        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("serverAddress")));
+        // Constraint tests.
+
+        // Invalid null address.
+        assertThatExceptionOfType(ConstraintViolationException.class)
+                .isThrownBy(() -> universeServerService.addUniverseServer(null))
+                .satisfies(violations -> {
+                    assertEquals(1, violations.getConstraintViolations().size());
+                    assertTrue(isPropertyInConstraintViolations(violations, "serverAddress"));
+                });
+
+        // Invalid server address.
+        assertThatExceptionOfType(ConstraintViolationException.class)
+                .isThrownBy(() -> universeServerService.addUniverseServer("invalid"))
+                .satisfies(violations -> {
+                    assertEquals(1, violations.getConstraintViolations().size());
+                    assertTrue(isPropertyInConstraintViolations(violations, "serverAddress"));
+                });
 
         // =============================================================================================================
-        // Adding a universe server with a valid value (web).
-        final UniverseServerDTO universeServer1 = universeServerService.addUniverseServer("universe.royllo.org:8080");
-        assertNotNull(universeServer1);
-        assertNotNull(universeServer1.getId());
-        final UniverseServerDTO universeServer1Bis = universeServerService.addUniverseServer("https://universe.royllo.org:8080");
-        assertNotNull(universeServer1Bis);
-        assertNotNull(universeServer1Bis.getId());
+        // Normal behavior tests.
 
-        // =============================================================================================================
+        // -------------------------------------------------------------------------------------------------------------
         // Adding a universe server with a valid value (hostname).
-        final UniverseServerDTO universeServer2 = universeServerService.addUniverseServer("1.1.1.1:8080");
-        assertNotNull(universeServer2);
-        assertNotNull(universeServer2.getId());
-        final UniverseServerDTO universeServer2Bis = universeServerService.addUniverseServer("https://1.1.1.1:8080");
-        assertNotNull(universeServer2Bis);
-        assertNotNull(universeServer2Bis.getId());
+        assertThat(universeServerService.addUniverseServer("universe.royllo.org:8080"))
+                .isNotNull()
+                .extracting(UniverseServerDTO::getId)
+                .isNotNull();
+        assertThat(universeServerService.addUniverseServer("https://universe.royllo.org:8080"))
+                .isNotNull()
+                .extracting(UniverseServerDTO::getId)
+                .isNotNull();
 
-        // =============================================================================================================
+        // -------------------------------------------------------------------------------------------------------------
+        // Adding a universe server with a valid value (IP).
+        assertThat(universeServerService.addUniverseServer("1.1.1.1:8080"))
+                .isNotNull()
+                .extracting(UniverseServerDTO::getId)
+                .isNotNull();
+        assertThat(universeServerService.addUniverseServer("https://1.1.1.1:8080"))
+                .isNotNull()
+                .extracting(UniverseServerDTO::getId)
+                .isNotNull();
+
+        // -------------------------------------------------------------------------------------------------------------
         // Trying to add a duplicated value in universe server.
-        UniverseServerCreationException u = assertThrows(UniverseServerCreationException.class, () -> universeServerService.addUniverseServer("1.1.1.1:8080"));
-        assertEquals("1.1.1.1:8080 is already in our database", u.getMessage());
-
-        // =============================================================================================================
-        // Trying to add a duplicated value in universe server (with space around).
-        u = assertThrows(UniverseServerCreationException.class, () -> universeServerService.addUniverseServer("1.1.1.1:8080"));
-        assertEquals("1.1.1.1:8080 is already in our database", u.getMessage());
+        assertThatExceptionOfType(UniverseServerCreationException.class)
+                .isThrownBy(() -> universeServerService.addUniverseServer("1.1.1.1:8080"))
+                .withMessage("1.1.1.1:8080 is already in our database");
     }
 
     @Test
     @DisplayName("getUniverseServerByServerAddress()")
     public void getUniverseServerByServerAddress() {
-        // =============================================================================================================
+        final String universeServerForTest = "test.royllo.org:8080";
+
         // Checking if a universe exists before we create it.
-        assertTrue(universeServerService.getUniverseServerByServerAddress("test.royllo.org:8080").isEmpty());
+        assertTrue(universeServerService.getUniverseServerByServerAddress(universeServerForTest).isEmpty());
 
-        // =============================================================================================================
         // Adding a universe server with a valid value (hostname).
-        assertDoesNotThrow(() -> universeServerService.addUniverseServer("test.royllo.org:8080"));
+        assertDoesNotThrow(() -> universeServerService.addUniverseServer(universeServerForTest));
 
-        // =============================================================================================================
-        // Checking if a universe exists before after create it.
-        assertTrue(universeServerService.getUniverseServerByServerAddress("test.royllo.org:8080").isPresent());
+        // Checking if the universe exists after we create it.
+        assertTrue(universeServerService.getUniverseServerByServerAddress(universeServerForTest).isPresent());
     }
 
     @Test
     @DisplayName("getAllUniverseServers()")
     public void getAllUniverseServers() {
-        // =============================================================================================================
-        // Checking that there is not universe server.
+        // Getting the number of universe existing.
         int universeServersCount = universeServerService.getAllUniverseServers().size();
 
-        // =============================================================================================================
-        // Creating three universe servers.
+        // Creating three new universe servers.
         universeServerService.addUniverseServer("1.royllo.org:8080");
         universeServerService.addUniverseServer("2.royllo.org:8080");
         universeServerService.addUniverseServer("3.royllo.org:8080");
 
-        // =============================================================================================================
         // Checking that all servers are here.
-        assertEquals(universeServersCount + 3, universeServerService.getAllUniverseServers().size());
+        assertThat(universeServerService.getAllUniverseServers())
+                .hasSize(universeServersCount + 3)
+                .extracting(UniverseServerDTO::getServerAddress)
+                .contains("1.royllo.org:8080", "2.royllo.org:8080", "3.royllo.org:8080");
     }
 
 }
