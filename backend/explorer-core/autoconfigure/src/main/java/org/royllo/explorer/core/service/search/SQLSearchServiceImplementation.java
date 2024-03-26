@@ -135,6 +135,7 @@ public class SQLSearchServiceImplementation extends BaseService implements Searc
         // Displaying logs and return results.
         if (results.isEmpty()) {
             logger.info("Searching for '{}', there is no results", query);
+            return Page.empty();
         } else {
             logger.info("Searching for '{}', {} result(s) with assets id(s): {}",
                     query,
@@ -143,8 +144,9 @@ public class SQLSearchServiceImplementation extends BaseService implements Searc
                             .map(AssetDTO::getId)
                             .map(Objects::toString)
                             .collect(joining(", ")));
+            return results;
         }
-        return results;
+
     }
 
 }
