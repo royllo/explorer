@@ -22,10 +22,11 @@ import org.springframework.test.annotation.DirtiesContext;
 import java.io.IOException;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
@@ -58,89 +59,103 @@ public class ProofServiceTest extends TestWithMockServers {
     @Test
     @DisplayName("addProof()")
     public void addProof() {
-        // Retrieved data from TAPD.
+        // Retrieved data from TAPD and check if the data is not already in our database.
         final String UNKNOWN_ROYLLO_COIN_RAW_PROOF = UNKNOWN_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getRawProof();
         final String UNKNOWN_ROYLLO_COIN_PROOF_ID = sha256(UNKNOWN_ROYLLO_COIN_RAW_PROOF);
         DecodedProofResponse unknownRoylloCoinDecodedProof = TAPDService.decode(UNKNOWN_ROYLLO_COIN_RAW_PROOF).block();
         assertNotNull(unknownRoylloCoinDecodedProof);
+        assertFalse(assetService.getAssetByAssetIdOrAlias(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
 
         // =============================================================================================================
-        // Error tests.
+        // Constraint tests.
 
         // We add our proof but our an asset doesn't exist yet --> an error must occur.
-        assertFalse(assetService.getAssetByAssetIdOrAlias(UNKNOWN_ROYLLO_COIN_ASSET_ID).isPresent());
-        ProofCreationException e = assertThrows(ProofCreationException.class, () -> proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, PROOF_TYPE_UNSPECIFIED, unknownRoylloCoinDecodedProof));
-        assertEquals(e.getMessage(), "Asset " + UNKNOWN_ROYLLO_COIN_ASSET_ID + " is not registered in our database");
+
+        assertThatExceptionOfType(ProofCreationException.class)
+                .isThrownBy(() -> proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, PROOF_TYPE_UNSPECIFIED, unknownRoylloCoinDecodedProof))
+                .withMessage("Asset " + UNKNOWN_ROYLLO_COIN_ASSET_ID + " is not registered in our database");
 
         // =============================================================================================================
-        // Normal behavior.
+        // Normal behavior tests.
 
-        // We add the asset of our proof, and then, our proof --> No error and proof should be added.
+        // We add the asset linked to our proof, and then, we will add our proof --> No error and proof should be added.
         final AssetDTO unknownRoylloCoin = assetService.addAsset(ASSET_MAPPER.mapToAssetDTO(unknownRoylloCoinDecodedProof.getDecodedProof()));
         assertNotNull(unknownRoylloCoin);
         verifyAsset(unknownRoylloCoin, UNKNOWN_ROYLLO_COIN_ASSET_ID);
 
-        // Then, our proof that should be added without any problem.
-        final ProofDTO proofAdded = proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, PROOF_TYPE_UNSPECIFIED, unknownRoylloCoinDecodedProof);
-        assertNotNull(proofAdded.getId());
-        assertEquals(UNKNOWN_ROYLLO_COIN_PROOF_ID, proofAdded.getProofId());
-        assertEquals(UNKNOWN_ROYLLO_COIN_RAW_PROOF, getProofFromContentService(proofAdded.getProofFileName()));
-        assertEquals(UNKNOWN_ROYLLO_COIN_ASSET_ID, proofAdded.getAsset().getAssetId());
-        assertEquals(ANONYMOUS_ID, proofAdded.getCreator().getId());
-        assertEquals(PROOF_TYPE_UNSPECIFIED, proofAdded.getType());
+        // Then, we add our proof.
+        assertThat(proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, PROOF_TYPE_UNSPECIFIED, unknownRoylloCoinDecodedProof))
+                .isNotNull()
+                .satisfies(proofDTO -> {
+                    assertNotNull(proofDTO.getId());
+                    assertEquals(UNKNOWN_ROYLLO_COIN_PROOF_ID, proofDTO.getProofId());
+                    assertEquals(UNKNOWN_ROYLLO_COIN_RAW_PROOF, getProofFromContentService(proofDTO.getProofFileName()));
+                    assertEquals(UNKNOWN_ROYLLO_COIN_ASSET_ID, proofDTO.getAsset().getAssetId());
+                    assertEquals(ANONYMOUS_ID, proofDTO.getCreator().getId());
+                    assertEquals(PROOF_TYPE_UNSPECIFIED, proofDTO.getType());
+                });
 
         // We add again our proof as it's already in our database --> an error must occur.
-        e = assertThrows(ProofCreationException.class, () -> proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, PROOF_TYPE_UNSPECIFIED, unknownRoylloCoinDecodedProof));
-        assertEquals(e.getMessage(), "This proof is already registered with proof id: " + UNKNOWN_ROYLLO_COIN_PROOF_ID);
+        assertThatExceptionOfType(ProofCreationException.class)
+                .isThrownBy(() -> proofService.addProof(UNKNOWN_ROYLLO_COIN_RAW_PROOF, PROOF_TYPE_UNSPECIFIED, unknownRoylloCoinDecodedProof))
+                .withMessage("This proof is already registered with proof id: " + UNKNOWN_ROYLLO_COIN_PROOF_ID);
     }
 
     @Test
-    @DisplayName("getProofByAssetId()")
-    public void getProofByAssetId() {
+    @DisplayName("getProofsByAssetId()")
+    public void getProofsByAssetId() {
         // =============================================================================================================
-        // Error tests.
+        // Constraint tests.
 
-        // First case: wrong page number and page size.
-        ConstraintViolationException violations = assertThrows(ConstraintViolationException.class,
-                () -> proofService.getProofByAssetId(ROYLLO_COIN_ASSET_ID,
-                        FIRST_PAGE_NUMBER - 1, MAXIMUM_PAGE_SIZE + 1));
-        assertEquals(2, violations.getConstraintViolations().size());
-        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("pageNumber")));
-        assertTrue(violations.getConstraintViolations().stream().anyMatch(violation -> violation.getPropertyPath().toString().contains("pageSize")));
+        // Wrong page number and page size.
+        assertThatExceptionOfType(ConstraintViolationException.class)
+                .isThrownBy(() -> proofService.getProofsByAssetId(ROYLLO_COIN_ASSET_ID, FIRST_PAGE_NUMBER - 1, MAXIMUM_PAGE_SIZE + 1))
+                .satisfies(violations -> {
+                    assertEquals(2, violations.getConstraintViolations().size());
+                    assertTrue(isPropertyInConstraintViolations(violations, "pageNumber"));
+                    assertTrue(isPropertyInConstraintViolations(violations, "pageSize"));
+                });
 
-        // Second case: asset id not found in database.
-        assertTrue(proofService.getProofByAssetId("NON_EXISTING_ASSET_ID", 1, 1).isEmpty());
+        // Asset null or asset id not found in database.
+        assertTrue(proofService.getProofsByAssetId(null, 1, 1).isEmpty());
+        assertTrue(proofService.getProofsByAssetId("NON_EXISTING_ASSET_ID", 1, 1).isEmpty());
 
         // =============================================================================================================
         // Normal behavior tests.
 
         // Getting proofs of "trickyRoylloCoin".
-        final Page<ProofDTO> trickyRoylloCoinProofs = proofService.getProofByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID, 1, 10);
+        final Page<ProofDTO> trickyRoylloCoinProofs = proofService.getProofsByAssetId(TRICKY_ROYLLO_COIN_ASSET_ID, 1, 10);
         assertEquals(3, trickyRoylloCoinProofs.getTotalElements());
 
         // Proof 1.
-        Optional<ProofDTO> proof1 = trickyRoylloCoinProofs.getContent().stream().filter(proofDTO -> proofDTO.getId() == 6).findFirst();
-        assertTrue(proof1.isPresent());
-        assertEquals(ANONYMOUS_ID, proof1.get().getCreator().getId());
-        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof1.get().getAsset().getAssetId());
-        assertEquals(sha256(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getRawProof()), proof1.get().getProofId());
-        assertEquals(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getRawProof(), getProofFromContentService(proof1.get().getProofFileName()));
+        ProofDTO proof1 = trickyRoylloCoinProofs.getContent().stream()
+                .filter(proofDTO -> proofDTO.getId() == 6)
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Proof 1 not found"));
+        assertEquals(ANONYMOUS_ID, proof1.getCreator().getId());
+        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof1.getAsset().getAssetId());
+        assertEquals(sha256(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getRawProof()), proof1.getProofId());
+        assertEquals(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(0).getRawProof(), getProofFromContentService(proof1.getProofFileName()));
 
         // Proof 2.
-        Optional<ProofDTO> proof2 = trickyRoylloCoinProofs.getContent().stream().filter(proofDTO -> proofDTO.getId() == 7).findFirst();
-        assertTrue(proof2.isPresent());
-        assertEquals(ANONYMOUS_ID, proof2.get().getCreator().getId());
-        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof2.get().getAsset().getAssetId());
-        assertEquals(sha256(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(2).getRawProof()), proof2.get().getProofId());
-        assertEquals(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(2).getRawProof(), getProofFromContentService(proof2.get().getProofFileName()));
+        ProofDTO proof2 = trickyRoylloCoinProofs.getContent().stream()
+                .filter(proofDTO -> proofDTO.getId() == 7)
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Proof 2 not found"));
+        assertEquals(ANONYMOUS_ID, proof2.getCreator().getId());
+        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof2.getAsset().getAssetId());
+        assertEquals(sha256(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(2).getRawProof()), proof2.getProofId());
+        assertEquals(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(2).getRawProof(), getProofFromContentService(proof2.getProofFileName()));
 
         // Proof 3.
-        Optional<ProofDTO> proof3 = trickyRoylloCoinProofs.getContent().stream().filter(proofDTO -> proofDTO.getId() == 8).findFirst();
-        assertTrue(proof3.isPresent());
-        assertEquals(ANONYMOUS_ID, proof3.get().getCreator().getId());
-        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof3.get().getAsset().getAssetId());
-        assertEquals(sha256(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(4).getRawProof()), proof3.get().getProofId());
-        assertEquals(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(4).getRawProof(), getProofFromContentService(proof3.get().getProofFileName()));
+        ProofDTO proof3 = trickyRoylloCoinProofs.getContent().stream()
+                .filter(proofDTO -> proofDTO.getId() == 8)
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Proof 3 not found"));
+        assertEquals(ANONYMOUS_ID, proof3.getCreator().getId());
+        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof3.getAsset().getAssetId());
+        assertEquals(sha256(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(4).getRawProof()), proof3.getProofId());
+        assertEquals(TRICKY_ROYLLO_COIN_FROM_TEST.getDecodedProofRequest(4).getRawProof(), getProofFromContentService(proof3.getProofFileName()));
     }
 
     @Test

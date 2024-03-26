@@ -189,7 +189,7 @@ public class AssetController extends BaseController {
         model.addAttribute(PAGE_ATTRIBUTE, page);
 
         // We retrieve the proof files.
-        model.addAttribute(PROOF_LIST_ATTRIBUTE, proofService.getProofByAssetId(assetId.trim(),
+        model.addAttribute(PROOF_LIST_ATTRIBUTE, proofService.getProofsByAssetId(assetId.trim(),
                 page,
                 ASSET_PROOFS_DEFAULT_PAGE_SIZE));
 

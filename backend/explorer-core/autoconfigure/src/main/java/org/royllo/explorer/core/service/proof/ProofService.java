@@ -43,8 +43,8 @@ public interface ProofService {
      * @param pageSize   the page size
      * @return proofs
      */
-    Page<ProofDTO> getProofByAssetId(String assetId,
-                                     @PageNumber int pageNumber,
-                                     @PageSize int pageSize);
+    Page<ProofDTO> getProofsByAssetId(String assetId,
+                                      @PageNumber int pageNumber,
+                                      @PageSize int pageSize);
 
 }

@@ -44,7 +44,7 @@ public class ProofDataFetcher extends BaseDataFetcher {
         }
 
         // Return the results.
-        return proofService.getProofByAssetId(assetId,
+        return proofService.getProofsByAssetId(assetId,
                 Objects.requireNonNullElse(page, FIRST_PAGE),
                 Objects.requireNonNullElse(pageSize, DEFAULT_PAGE_SIZE));
     }

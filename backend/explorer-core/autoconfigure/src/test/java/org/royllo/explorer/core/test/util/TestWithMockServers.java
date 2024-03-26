@@ -77,6 +77,10 @@ public class TestWithMockServers extends BaseTest {
      */
     public void verifyTransaction(final BitcoinTransactionOutputDTO bitcoinTransactionOutputDTO,
                                   final String transactionId) {
+        if (transactionId == null || bitcoinTransactionOutputDTO == null) {
+            fail("Null values are not allowed as parameters");
+        }
+
         // We retrieve the transaction from our test data, and we extract the bitcoin transaction output from the transaction value.
         final TransactionValue transactionValue = MempoolData.findTransactionByTransactionId(transactionId);
         final GetTransactionValueResponse.VOut transactionValueVOut = transactionValue.getResponse().getVout().get(bitcoinTransactionOutputDTO.getVout());

@@ -100,9 +100,9 @@ public class ProofServiceImplementation extends BaseService implements ProofServ
     }
 
     @Override
-    public Page<ProofDTO> getProofByAssetId(final String assetId,
-                                            final @PageNumber int pageNumber,
-                                            final @PageSize int pageSize) {
+    public Page<ProofDTO> getProofsByAssetId(final String assetId,
+                                             final @PageNumber int pageNumber,
+                                             final @PageSize int pageSize) {
         logger.info("Getting proofs for assetId {}", assetId);
 
         return proofRepository.findByAssetAssetIdOrderByCreatedOn(assetId, getPageRequest(pageNumber, pageSize))
