@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,29 +24,32 @@ public class TapdOwnershipServiceTest {
 
     @Test
     @DisplayName("verifyOwnership()")
-    public void ownershipVerify() {
-
+    public void verifyOwnership() {
         // We retrieve the proof that works for the test - ownershipTest1.
         final var validRequest = TapdData.OWNERSHIP_VERIFY_REQUESTS.entrySet()
                 .stream()
                 .filter(value -> value.getKey().getProofWithWitness().startsWith("544150500004"))
-                .findFirst();
-        assertTrue(validRequest.isPresent());
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Proof not found not found"));
 
-        // We verify the proof.
-        var result = tapdService.verifyOwnership(validRequest.get().getKey().getProofWithWitness()).block();
-        assertNotNull(result);
-        assertNull(result.getErrorCode());
-        assertNull(result.getErrorMessage());
-        assertTrue(result.getValidProof());
+        // We verify the proof - valid proof result must be set to true.
+        assertThat(tapdService.verifyOwnership(validRequest.getKey().getProofWithWitness()).block())
+                .isNotNull()
+                .satisfies(result -> {
+                    assertNull(result.getErrorCode());
+                    assertNull(result.getErrorMessage());
+                    assertTrue(result.getValidProof());
+                });
 
-        // We will try with the proof (not ownership proof) of roylloCoin (in mainnnet).
+        // We will try with the simple royllo coin proof (not ownership proof).
         final String ROYLLO_COIN_RAW_PROOF = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofRequest(0).getRawProof();
-        result = tapdService.verifyOwnership(ROYLLO_COIN_RAW_PROOF).block();
-        assertNotNull(result);
-        assertNotNull(result.getErrorCode());
-        assertNotNull(result.getErrorMessage());
-        assertNull(result.getValidProof());
+        assertThat(tapdService.verifyOwnership(ROYLLO_COIN_RAW_PROOF).block())
+                .isNotNull()
+                .satisfies(result -> {
+                    assertNotNull(result.getErrorCode());
+                    assertNotNull(result.getErrorMessage());
+                    assertNull(result.getValidProof());
+                });
     }
 
 }
