@@ -59,20 +59,22 @@ public class AssetGroupServiceTest extends TestWithMockServers {
         // Normal behavior tests.
 
         // Now creating a real asset group.
-        AssetGroupDTO assetGroupDTO = assetGroupService.addAssetGroup(AssetGroupDTO.builder()
+        assertThat(assetGroupService.addAssetGroup(AssetGroupDTO.builder()
                 .id(1L)
                 .assetGroupId("NEW_ASSET_GROUP_KEY_TWEAKED")
                 .rawGroupKey("NEW_ASSET_GROUP_KEY")
                 .tweakedGroupKey("NEW_ASSET_GROUP_KEY_TWEAKED")
                 .assetWitness("NEW_ASSET_WITNESS")
-                .build());
-        assertNotNull(assetGroupDTO);
-        assertNotNull(assetGroupDTO.getId());
-        assertNotEquals(1L, assetGroupDTO.getId());
-        assertEquals("NEW_ASSET_GROUP_KEY_TWEAKED", assetGroupDTO.getAssetGroupId());
-        assertEquals("NEW_ASSET_GROUP_KEY", assetGroupDTO.getRawGroupKey());
-        assertEquals("NEW_ASSET_GROUP_KEY_TWEAKED", assetGroupDTO.getTweakedGroupKey());
-        assertEquals("NEW_ASSET_WITNESS", assetGroupDTO.getAssetWitness());
+                .build()))
+                .isNotNull()
+                .satisfies(assetGroupDTO -> {
+                    assertNotNull(assetGroupDTO.getId());
+                    assertNotEquals(1L, assetGroupDTO.getId());
+                    assertEquals("NEW_ASSET_GROUP_KEY_TWEAKED", assetGroupDTO.getAssetGroupId());
+                    assertEquals("NEW_ASSET_GROUP_KEY", assetGroupDTO.getRawGroupKey());
+                    assertEquals("NEW_ASSET_GROUP_KEY_TWEAKED", assetGroupDTO.getTweakedGroupKey());
+                    assertEquals("NEW_ASSET_WITNESS", assetGroupDTO.getAssetWitness());
+                });
     }
 
     @Test

@@ -18,11 +18,12 @@ import org.springframework.test.annotation.DirtiesContext;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_ID;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_ID;
@@ -52,7 +53,7 @@ public class RequestServiceTest {
         assertEquals(3, openedRequests.size());
 
         // Request 1.
-        AddProofRequestDTO request1 = (AddProofRequestDTO) openedRequests.get(0);
+        AddProofRequestDTO request1 = (AddProofRequestDTO) openedRequests.getFirst();
         assertEquals(1, request1.getId());
         assertEquals(ANONYMOUS_ID, request1.getCreator().getId());
         assertEquals(ANONYMOUS_USER_ID, request1.getCreator().getUserId());
@@ -92,28 +93,36 @@ public class RequestServiceTest {
         assertTrue(requestService.getRequestByRequestId("91425ba6-8b16-46a8-baa6-request_p_02").isPresent());
 
         // We create a new "add proof" request, and we should find it.
-        RequestDTO request1DTO = requestService.createAddProofRequest("proof1");
-        assertNotNull(request1DTO);
-        assertNotNull(request1DTO.getRequestId());
-        assertTrue(requestService.getRequestByRequestId(request1DTO.getRequestId()).isPresent());
+        assertThat(requestService.createAddProofRequest("proof1"))
+                .isNotNull()
+                .satisfies(requestDTO -> {
+                    assertNotNull(requestDTO.getRequestId());
+                    assertTrue(requestService.getRequestByRequestId(requestDTO.getRequestId()).isPresent());
+                });
 
-        // We create a new "add medata data" request, and we should find it.
-        RequestDTO request2DTO = requestService.createAddUniverseServerRequest("server4");
-        assertNotNull(request2DTO);
-        assertNotNull(request2DTO.getRequestId());
-        assertTrue(requestService.getRequestByRequestId(request2DTO.getRequestId()).isPresent());
+        // We create a new "add universe server" request, and we should find it.
+        assertThat(requestService.createAddUniverseServerRequest("server4"))
+                .isNotNull()
+                .satisfies(requestDTO -> {
+                    assertNotNull(requestDTO.getRequestId());
+                    assertTrue(requestService.getRequestByRequestId(requestDTO.getRequestId()).isPresent());
+                });
     }
 
     @Test
     @Order(3)
-    @DisplayName("Add requests")
-    public void addRequests() {
+    @DisplayName("Create add requests")
+    public void createAddRequests() {
         // =============================================================================================================
-        // Error tests.
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
-                () -> requestService.createAddProofRequest("proof", null));
+        // Constraint tests.
+        assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> requestService.createAddProofRequest("proof", null))
+                .withMessage("proofType is marked non-null but is null");
 
         // =============================================================================================================
+        // Normal behavior tests.
+
+        // -------------------------------------------------------------------------------------------------------------
         // Request 1 (addAssetDTO).
         RequestDTO request1DTO = requestService.createAddProofRequest("proof1");
         assertNotNull(request1DTO);
@@ -136,7 +145,7 @@ public class RequestServiceTest {
         assertEquals("proof1", request1Casted.getProof());
         assertEquals(PROOF_TYPE_UNSPECIFIED, request1Casted.getType());
 
-        // =============================================================================================================
+        // -------------------------------------------------------------------------------------------------------------
         // Request 2 (addAssetMetaData).
         RequestDTO request2DTO = requestService.createAddUniverseServerRequest("universe1");
         assertNotNull(request2DTO);
@@ -158,7 +167,7 @@ public class RequestServiceTest {
         assertNull(request2Casted.getErrorMessage());
         assertEquals("universe1", request2Casted.getServerAddress());
 
-        // =============================================================================================================
+        // -------------------------------------------------------------------------------------------------------------
         // Request 3 (addAssetDTO).
         RequestDTO request3DTO = requestService.createAddProofRequest("proof2");
         assertNotNull(request3DTO);
@@ -181,7 +190,7 @@ public class RequestServiceTest {
         assertEquals("proof2", request3Casted.getProof());
         assertEquals(PROOF_TYPE_UNSPECIFIED, request3Casted.getType());
 
-        // =============================================================================================================
+        // -------------------------------------------------------------------------------------------------------------
         // Request 4 (AddUniverseServerRequest).
         RequestDTO request4DTO = requestService.createAddUniverseServerRequest("1.1.1.1:8080");
         assertNotNull(request4DTO);
@@ -212,7 +221,7 @@ public class RequestServiceTest {
         assertNotNull(request6DTO.getId());
         assertEquals(PROOF_TYPE_TRANSFER, request6DTO.getType());
 
-        // =============================================================================================================
+        // -------------------------------------------------------------------------------------------------------------
         // Request 7 (ClaimAssetOwnershipRequest).
         RequestDTO request7DTO = requestService.createClaimAssetOwnershipRequest("22222222-2222-2222-2222-222222222222",
                 "MyProofWithWitness");
