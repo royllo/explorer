@@ -51,7 +51,6 @@ public class TestWithMockServers extends BaseTest {
 
     @BeforeEach
     public void startServers() {
-
         // =============================================================================================================
         // Mempool mock server.
         mempoolMockServer = startClientAndServer(MEMPOOL_MOCK_SERVER_PORT);
