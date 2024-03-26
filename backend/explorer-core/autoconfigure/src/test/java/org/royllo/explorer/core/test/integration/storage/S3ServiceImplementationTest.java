@@ -12,7 +12,6 @@ import io.minio.errors.InvalidResponseException;
 import io.minio.errors.MinioException;
 import io.minio.errors.ServerException;
 import io.minio.errors.XmlParserException;
-import org.apache.commons.codec.DecoderException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -43,7 +42,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 @SpringBootTest
 @DirtiesContext
-@DisplayName("S3 tests")
+@DisplayName("S3 service tests")
 @ActiveProfiles({"s3-storage"})
 public class S3ServiceImplementationTest extends TestWithMockServers {
 
@@ -67,7 +66,7 @@ public class S3ServiceImplementationTest extends TestWithMockServers {
 
     @Test
     @DisplayName("S3 implementation test")
-    public void s3ImplementationTest() throws DecoderException {
+    public void s3ImplementationTest() {
         // Getting a connexion to do some verification.
         MinioClient minioClient = MinioClient.builder()
                 .endpoint(s3MockServer.getS3URL())
@@ -90,7 +89,6 @@ public class S3ServiceImplementationTest extends TestWithMockServers {
         final S3ServiceImplementation s3ServiceImplementation = (S3ServiceImplementation) contentService;
         s3ServiceImplementation.updateS3Parameters(parameters);
 
-        // =============================================================================================================
         // Checking that a file doesn't exist in minio.
         try {
             minioClient.statObject(StatObjectArgs.builder().bucket(S3_BUCKET_NAME).object("test.txt").build());
@@ -132,7 +130,7 @@ public class S3ServiceImplementationTest extends TestWithMockServers {
 
     @BeforeAll
     public static void startS3MockServer() throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
-        // Starting S3 mock server;
+        // Starting S3 mock server.
         s3MockServer = new MinIOContainer(MINIO_RELEASE).withUserName(S3_USER_NAME).withPassword(S3_PASSWORD);
         s3MockServer.start();
 
