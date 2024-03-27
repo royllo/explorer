@@ -9,15 +9,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.jetbrains.annotations.NotNull;
 import org.royllo.explorer.core.util.parameters.IncomingRateLimitsParameters;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.HandlerInterceptor;
+
+import static org.springframework.http.HttpStatus.TOO_MANY_REQUESTS;
 
 /**
  * Rate limit interceptor.
  */
 public final class RateLimitInterceptor implements HandlerInterceptor {
 
-    /** Cache is a kind of map storing and IP address with its corresponding bucket. */
+    /** LoadingCache is a kind of map storing and IP address with its corresponding bucket. */
     private static LoadingCache<String, Bucket> cache;
 
     /**
@@ -50,7 +51,7 @@ public final class RateLimitInterceptor implements HandlerInterceptor {
         } else {
             // If we cannot consume from the bucket, we return an error.
             response.addHeader("X-Rate-Limit-Retry-After-Milliseconds", Long.toString(probe.getNanosToWaitForRefill() / 1_000_000));
-            response.sendError(HttpStatus.TOO_MANY_REQUESTS.value(), "You have exhausted your API Request Quota");
+            response.sendError(TOO_MANY_REQUESTS.value(), "You have exhausted your API Request Quota");
             return false;
         }
     }
