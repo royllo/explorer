@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -40,7 +41,7 @@ public class RequestDataFetcherTest {
     @DisplayName("requestByRequestId()")
     public void requestByRequestId() {
         // Getting a specific request.
-        Request request = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+        assertThat(dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
                         RequestByRequestIdGraphQLQuery.newRequest().requestId("91425ba6-8b16-46a8-baa6-request_p_03").build(),
                         new RequestByRequestIdProjectionRoot<>()
@@ -52,24 +53,25 @@ public class RequestDataFetcherTest {
                                 .onAddUniverseServerRequest().serverAddress()
                 ).serialize(),
                 "data." + DgsConstants.QUERY.RequestByRequestId,
-                new TypeRef<>() {
+                new TypeRef<Request>() {
+                }))
+                .isNotNull()
+                .satisfies(request -> {
+                    AddProofRequest addAssetRequest = (AddProofRequest) request;
+                    assertEquals("91425ba6-8b16-46a8-baa6-request_p_03", addAssetRequest.getRequestId());
+                    assertEquals(ANONYMOUS_USER_ID, addAssetRequest.getCreator().getUserId());
+                    assertEquals(ANONYMOUS_USER_USERNAME, addAssetRequest.getCreator().getUsername());
+                    assertEquals(OPENED.toString(), addAssetRequest.getStatus().toString());
+                    assertNull(addAssetRequest.getErrorMessage());
+                    assertEquals("P4", addAssetRequest.getProof());
                 });
-
-        // Testing the results.
-        AddProofRequest addAssetRequest = (AddProofRequest) request;
-        assertEquals("91425ba6-8b16-46a8-baa6-request_p_03", addAssetRequest.getRequestId());
-        assertEquals(ANONYMOUS_USER_ID, addAssetRequest.getCreator().getUserId());
-        assertEquals(ANONYMOUS_USER_USERNAME, addAssetRequest.getCreator().getUsername());
-        assertEquals(OPENED.toString(), addAssetRequest.getStatus().toString());
-        assertNull(addAssetRequest.getErrorMessage());
-        assertEquals("P4", addAssetRequest.getProof());
     }
 
     @Test
     @DisplayName("createAddProofRequest()")
     public void createAddProofRequest() {
         // Creating a new request to add proof.
-        AddProofRequest requestCreated = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+        assertThat(dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
                         CreateAddProofRequestGraphQLQuery.newRequest()
                                 .input(AddProofRequestInputs.newBuilder()
@@ -83,23 +85,23 @@ public class RequestDataFetcherTest {
                                 .errorMessage().proof()
                 ).serialize(),
                 "data." + DgsConstants.MUTATION.CreateAddProofRequest,
-                new TypeRef<>() {
+                new TypeRef<AddProofRequest>() {
+                }))
+                .isNotNull()
+                .satisfies(addProofRequest -> {
+                    assertEquals(ANONYMOUS_USER_ID, addProofRequest.getCreator().getUserId());
+                    assertEquals(ANONYMOUS_USER_USERNAME, addProofRequest.getCreator().getUsername());
+                    assertEquals(OPENED.toString(), addProofRequest.getStatus().toString());
+                    assertNull(addProofRequest.getErrorMessage());
+                    assertEquals("6", addProofRequest.getProof());
                 });
-
-        // Testing results.
-        assertNotNull(requestCreated.getRequestId());
-        assertEquals(ANONYMOUS_USER_ID, requestCreated.getCreator().getUserId());
-        assertEquals(ANONYMOUS_USER_USERNAME, requestCreated.getCreator().getUsername());
-        assertEquals(OPENED.toString(), requestCreated.getStatus().toString());
-        assertNull(requestCreated.getErrorMessage());
-        assertEquals("6", requestCreated.getProof());
     }
 
     @Test
     @DisplayName("createAddUniverseServerRequest()")
     public void createAddUniverseServerRequest() {
         // Creating a new request to add a universe server.
-        AddUniverseServerRequest requestCreated = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+        assertThat(dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
                         CreateAddUniverseServerRequestGraphQLQuery.newRequest()
                                 .input(AddUniverseServerRequestInputs.newBuilder()
@@ -114,16 +116,17 @@ public class RequestDataFetcherTest {
                                 .serverAddress()
                 ).serialize(),
                 "data." + DgsConstants.MUTATION.CreateAddUniverseServerRequest,
-                new TypeRef<>() {
+                new TypeRef<AddUniverseServerRequest>() {
+                }))
+                .isNotNull()
+                .satisfies(addUniverseServerRequest -> {
+                    assertNotNull(addUniverseServerRequest.getRequestId());
+                    assertEquals(ANONYMOUS_USER_ID, addUniverseServerRequest.getCreator().getUserId());
+                    assertEquals(ANONYMOUS_USER_USERNAME, addUniverseServerRequest.getCreator().getUsername());
+                    assertEquals(OPENED.toString(), addUniverseServerRequest.getStatus().toString());
+                    assertNull(addUniverseServerRequest.getErrorMessage());
+                    assertEquals("1.1.1.1:8080", addUniverseServerRequest.getServerAddress());
                 });
-
-        // Testing results.
-        assertNotNull(requestCreated.getRequestId());
-        assertEquals(ANONYMOUS_USER_ID, requestCreated.getCreator().getUserId());
-        assertEquals(ANONYMOUS_USER_USERNAME, requestCreated.getCreator().getUsername());
-        assertEquals(OPENED.toString(), requestCreated.getStatus().toString());
-        assertNull(requestCreated.getErrorMessage());
-        assertEquals("1.1.1.1:8080", requestCreated.getServerAddress());
     }
 
 }

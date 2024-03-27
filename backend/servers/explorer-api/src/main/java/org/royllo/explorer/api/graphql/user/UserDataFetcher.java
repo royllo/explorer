@@ -20,14 +20,15 @@ public class UserDataFetcher extends BaseDataFetcher {
     private final UserService userService;
 
     /**
-     * Get user by its user id.
+     * Get user by its userId.
      *
      * @param userId user id
      * @return user if found or null
      */
     @DgsQuery
     public final UserDTO userByUserId(final @InputArgument String userId) {
-        return userService.getUserByUserId(userId).orElseThrow(DgsEntityNotFoundException::new);
+        return userService.getUserByUserId(userId)
+                .orElseThrow(DgsEntityNotFoundException::new);
     }
 
     /**
@@ -38,7 +39,8 @@ public class UserDataFetcher extends BaseDataFetcher {
      */
     @DgsQuery
     public final UserDTO userByUsername(final @InputArgument String username) {
-        return userService.getUserByUsername(username).orElseThrow(DgsEntityNotFoundException::new);
+        return userService.getUserByUsername(username)
+                .orElseThrow(DgsEntityNotFoundException::new);
     }
 
 }

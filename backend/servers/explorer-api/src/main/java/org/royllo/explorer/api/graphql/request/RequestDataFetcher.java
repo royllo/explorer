@@ -47,7 +47,8 @@ public class RequestDataFetcher extends BaseDataFetcher {
      */
     @DgsQuery
     public final RequestDTO requestByRequestId(final @InputArgument String requestId) {
-        return requestService.getRequestByRequestId(requestId).orElseThrow(DgsEntityNotFoundException::new);
+        return requestService.getRequestByRequestId(requestId)
+                .orElseThrow(DgsEntityNotFoundException::new);
     }
 
     /**

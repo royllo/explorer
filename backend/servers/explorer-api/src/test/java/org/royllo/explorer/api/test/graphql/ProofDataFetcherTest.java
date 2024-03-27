@@ -15,10 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
-import java.util.Optional;
-
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.core.dto.proof.ProofDTO.PROOF_FILE_NAME_EXTENSION;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
@@ -49,9 +47,9 @@ public class ProofDataFetcherTest extends Base {
         final String TRICKY_ROYLLO_COIN_3_PROOF_ID = sha256(TRICKY_ROYLLO_COIN_3_RAW_PROOF);
 
         // Retrieving tricky royllo coin proof (page 1 of 10 elements).
-        ProofPage proofPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+        assertThat(dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        ProofsByAssetIdGraphQLQuery.newRequest().assetId(TRICKY_ROYLLO_COIN_ASSET_ID).page(1).pageSize(10).build(),
+                        ProofsByAssetIdGraphQLQuery.newRequest().assetId(TRICKY_ROYLLO_COIN_ASSET_ID).pageNumber(1).pageSize(10).build(),
                         new ProofsByAssetIdProjectionRoot<>().content()
                                 .creator().userId().username().parent()
                                 .asset().assetId().parent()
@@ -62,49 +60,51 @@ public class ProofDataFetcherTest extends Base {
                                 .totalPages()
                 ).serialize(),
                 "data." + DgsConstants.QUERY.ProofsByAssetId,
-                new TypeRef<>() {
+                new TypeRef<ProofPage>() {
+                }))
+                .isNotNull()
+                .satisfies(proofPage -> {
+                    assertEquals(3, proofPage.getTotalElements());
+                    assertEquals(1, proofPage.getTotalPages());
+
+                    // Testing proof 1.
+                    Proof proof1 = proofPage.getContent()
+                            .stream()
+                            .filter(proof -> proof.getProofId().equals(TRICKY_ROYLLO_COIN_1_PROOF_ID))
+                            .findFirst()
+                            .orElseThrow(() -> new AssertionError("Proof 1 not found"));
+                    assertEquals(ANONYMOUS_USER_ID, proof1.getCreator().getUserId());
+                    assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof1.getAsset().getAssetId());
+                    assertEquals(TRICKY_ROYLLO_COIN_1_PROOF_ID, proof1.getProofId());
+                    assertEquals(sha256(TRICKY_ROYLLO_COIN_1_RAW_PROOF) + PROOF_FILE_NAME_EXTENSION, proof1.getProofFileName());
+
+                    // Testing proof 2.
+                    Proof proof2 = proofPage.getContent()
+                            .stream()
+                            .filter(proof -> proof.getProofId().equals(TRICKY_ROYLLO_COIN_2_PROOF_ID))
+                            .findFirst()
+                            .orElseThrow(() -> new AssertionError("Proof 2 not found"));
+                    assertEquals(ANONYMOUS_USER_ID, proof2.getCreator().getUserId());
+                    assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof2.getAsset().getAssetId());
+                    assertEquals(TRICKY_ROYLLO_COIN_2_PROOF_ID, proof2.getProofId());
+                    assertEquals(sha256(TRICKY_ROYLLO_COIN_2_RAW_PROOF) + PROOF_FILE_NAME_EXTENSION, proof2.getProofFileName());
+
+                    // Testing proof 3.
+                    Proof proof3 = proofPage.getContent()
+                            .stream()
+                            .filter(proof -> proof.getProofId().equals(TRICKY_ROYLLO_COIN_3_PROOF_ID))
+                            .findFirst()
+                            .orElseThrow(() -> new AssertionError("Proof 3 not found"));
+                    assertEquals(ANONYMOUS_USER_ID, proof3.getCreator().getUserId());
+                    assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof3.getAsset().getAssetId());
+                    assertEquals(TRICKY_ROYLLO_COIN_3_PROOF_ID, proof3.getProofId());
+                    assertEquals(sha256(TRICKY_ROYLLO_COIN_3_RAW_PROOF) + PROOF_FILE_NAME_EXTENSION, proof3.getProofFileName());
                 });
-
-        // Testing the results.
-        assertEquals(3, proofPage.getTotalElements());
-        assertEquals(1, proofPage.getTotalPages());
-
-        // Testing proof 1.
-        final Optional<Proof> proof1 = proofPage.getContent()
-                .stream()
-                .filter(proof -> proof.getProofId().equals(TRICKY_ROYLLO_COIN_1_PROOF_ID))
-                .findFirst();
-        assertTrue(proof1.isPresent());
-        assertEquals(ANONYMOUS_USER_ID, proof1.get().getCreator().getUserId());
-        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof1.get().getAsset().getAssetId());
-        assertEquals(TRICKY_ROYLLO_COIN_1_PROOF_ID, proof1.get().getProofId());
-        assertEquals(sha256(TRICKY_ROYLLO_COIN_1_RAW_PROOF) + PROOF_FILE_NAME_EXTENSION, proof1.get().getProofFileName());
-
-        // Testing proof 2.
-        final Optional<Proof> proof2 = proofPage.getContent().stream()
-                .filter(proof -> proof.getProofId().equals(TRICKY_ROYLLO_COIN_2_PROOF_ID))
-                .findFirst();
-        assertTrue(proof2.isPresent());
-        assertEquals(ANONYMOUS_USER_ID, proof2.get().getCreator().getUserId());
-        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof2.get().getAsset().getAssetId());
-        assertEquals(TRICKY_ROYLLO_COIN_2_PROOF_ID, proof2.get().getProofId());
-        assertEquals(sha256(TRICKY_ROYLLO_COIN_2_RAW_PROOF) + PROOF_FILE_NAME_EXTENSION, proof2.get().getProofFileName());
-
-
-        // Testing proof 3.
-        final Optional<Proof> proof3 = proofPage.getContent().stream()
-                .filter(proof -> proof.getProofId().equals(TRICKY_ROYLLO_COIN_3_PROOF_ID))
-                .findFirst();
-        assertTrue(proof3.isPresent());
-        assertEquals(ANONYMOUS_USER_ID, proof3.get().getCreator().getUserId());
-        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, proof3.get().getAsset().getAssetId());
-        assertEquals(TRICKY_ROYLLO_COIN_3_PROOF_ID, proof3.get().getProofId());
-        assertEquals(sha256(TRICKY_ROYLLO_COIN_3_RAW_PROOF) + PROOF_FILE_NAME_EXTENSION, proof3.get().getProofFileName());
 
         // Checking page management results.
-        proofPage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+        assertThat(dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        ProofsByAssetIdGraphQLQuery.newRequest().assetId(TRICKY_ROYLLO_COIN_ASSET_ID).page(1).pageSize(1).build(),
+                        ProofsByAssetIdGraphQLQuery.newRequest().assetId(TRICKY_ROYLLO_COIN_ASSET_ID).pageNumber(1).pageSize(1).build(),
                         new ProofsByAssetIdProjectionRoot<>().content()
                                 .creator().userId().username().parent()
                                 .asset().assetId().parent()
@@ -115,12 +115,13 @@ public class ProofDataFetcherTest extends Base {
                                 .totalPages()
                 ).serialize(),
                 "data." + DgsConstants.QUERY.ProofsByAssetId,
-                new TypeRef<>() {
+                new TypeRef<ProofPage>() {
+                }))
+                .isNotNull()
+                .satisfies(proofPage -> {
+                    assertEquals(3, proofPage.getTotalElements());
+                    assertEquals(3, proofPage.getTotalPages());
                 });
-
-        // Testing results.
-        assertEquals(3, proofPage.getTotalElements());
-        assertEquals(3, proofPage.getTotalPages());
     }
 
 }

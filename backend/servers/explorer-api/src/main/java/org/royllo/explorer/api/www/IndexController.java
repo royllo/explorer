@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 /**
- * Index controller - redirect to graphiql.
+ * Index controller - redirect to graphiql interface.
  */
 @Controller
 public class IndexController {
 
     /**
-     * Redirect homepage.
+     * Redirect to graphiql interface.
      *
      * @return graphiql page
      */

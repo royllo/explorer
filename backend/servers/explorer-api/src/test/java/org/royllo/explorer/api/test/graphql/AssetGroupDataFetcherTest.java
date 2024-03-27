@@ -14,8 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_ID;
 import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANONYMOUS_USER_USERNAME;
 import static org.royllo.test.TapdData.UNLIMITED_ROYLLO_COIN_1_FROM_TEST;
@@ -29,11 +29,11 @@ public class AssetGroupDataFetcherTest {
     DgsQueryExecutor dgsQueryExecutor;
 
     @Test
-    @DisplayName("getAssetGroupByAssetGroupId()")
-    public void getAssetGroupByAssetGroupId() {
+    @DisplayName("assetGroupByAssetGroupId()")
+    public void assetGroupByAssetGroupId() {
         final String assetGroupId = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup().getTweakedGroupKey();
 
-        AssetGroup asset = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+        assertThat(dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
                         AssetGroupByAssetGroupIdGraphQLQuery.newRequest().assetGroupId(assetGroupId).build(),
                         new AssetGroupByAssetGroupIdProjectionRoot<>()
@@ -44,17 +44,18 @@ public class AssetGroupDataFetcherTest {
                                 .tweakedGroupKey()
                 ).serialize(),
                 "data." + DgsConstants.QUERY.AssetGroupByAssetGroupId,
-                new TypeRef<>() {
+                new TypeRef<AssetGroup>() {
+                }))
+                .isNotNull()
+                .satisfies(assetGroup -> {
+                    final DecodedProofValueResponse.DecodedProof.Asset.AssetGroup assetGroupFromTest = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup();
+                    assertEquals(ANONYMOUS_USER_ID, assetGroup.getCreator().getUserId());
+                    assertEquals(ANONYMOUS_USER_USERNAME, assetGroup.getCreator().getUsername());
+                    assertEquals(assetGroupFromTest.getTweakedGroupKey(), assetGroup.getAssetGroupId());
+                    assertEquals(assetGroupFromTest.getRawGroupKey(), assetGroup.getRawGroupKey());
+                    assertEquals(assetGroupFromTest.getTweakedGroupKey(), assetGroup.getAssetGroupId());
+                    assertEquals(assetGroupFromTest.getAssetWitness(), assetGroup.getAssetWitness());
                 });
-
-        assertNotNull(asset);
-        final DecodedProofValueResponse.DecodedProof.Asset.AssetGroup assetGroupFromTest = UNLIMITED_ROYLLO_COIN_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup();
-        assertEquals(ANONYMOUS_USER_ID, asset.getCreator().getUserId());
-        assertEquals(ANONYMOUS_USER_USERNAME, asset.getCreator().getUsername());
-        assertEquals(assetGroupFromTest.getTweakedGroupKey(), asset.getAssetGroupId());
-        assertEquals(assetGroupFromTest.getRawGroupKey(), asset.getRawGroupKey());
-        assertEquals(assetGroupFromTest.getTweakedGroupKey(), asset.getAssetGroupId());
-        assertEquals(assetGroupFromTest.getAssetWitness(), asset.getAssetWitness());
     }
 
 }

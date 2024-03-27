@@ -27,7 +27,8 @@ public class AssetGroupDataFetcher extends BaseDataFetcher {
      */
     @DgsQuery
     public final AssetGroupDTO assetGroupByAssetGroupId(final @InputArgument String assetGroupId) {
-        return assetGroupService.getAssetGroupByAssetGroupId(assetGroupId).orElseThrow(DgsEntityNotFoundException::new);
+        return assetGroupService.getAssetGroupByAssetGroupId(assetGroupId)
+                .orElseThrow(DgsEntityNotFoundException::new);
     }
 
 }

@@ -9,15 +9,15 @@ import org.junit.jupiter.api.Test;
 import org.royllo.explorer.api.graphql.generated.DgsConstants;
 import org.royllo.explorer.api.graphql.generated.client.AssetStatesByAssetIdGraphQLQuery;
 import org.royllo.explorer.api.graphql.generated.client.AssetStatesByAssetIdProjectionRoot;
+import org.royllo.explorer.api.graphql.generated.types.AssetState;
 import org.royllo.explorer.api.graphql.generated.types.AssetStatePage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.royllo.explorer.api.configuration.APIConfiguration.MAXIMUM_PAGE_SIZE;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_ASSET_ID;
 import static org.royllo.test.TapdData.TRICKY_ROYLLO_COIN_FROM_TEST;
@@ -39,9 +39,9 @@ public class AssetStateDataFetcherTest {
     @DisplayName("assetStatesByAssetId()")
     public void assetStatesByAssetId() {
         // Getting one page.
-        AssetStatePage assetStatePage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+        assertThat(dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        AssetStatesByAssetIdGraphQLQuery.newRequest().assetId(TRICKY_ROYLLO_COIN_ASSET_ID).page(1).build(),
+                        AssetStatesByAssetIdGraphQLQuery.newRequest().assetId(TRICKY_ROYLLO_COIN_ASSET_ID).pageNumber(1).build(),
                         new AssetStatesByAssetIdProjectionRoot<>().content()
                                 .assetStateId()
                                 .creator().userId().username().getParent()
@@ -58,25 +58,24 @@ public class AssetStateDataFetcherTest {
                                 .totalPages()
                 ).serialize(),
                 "data." + DgsConstants.QUERY.AssetStatesByAssetId,
-                new TypeRef<>() {
+                new TypeRef<AssetStatePage>() {
+                }))
+                .isNotNull()
+                .satisfies(assetStatePage -> {
+                    assertEquals(4, assetStatePage.getTotalElements());
+                    assertEquals(1, assetStatePage.getTotalPages());
+                    assertThat(assetStatePage.getContent())
+                            .extracting(AssetState::getAssetStateId)
+                            .containsExactlyInAnyOrder(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_1,
+                                    TRICKY_ROYLLO_COIN_ASSET_STATE_ID_2,
+                                    TRICKY_ROYLLO_COIN_ASSET_STATE_ID_3,
+                                    TRICKY_ROYLLO_COIN_ASSET_STATE_ID_4);
                 });
 
-        // Testing the results.
-        assertEquals(4, assetStatePage.getTotalElements());
-        assertEquals(1, assetStatePage.getTotalPages());
-        assertTrue(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_1)));
-        assertTrue(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_2)));
-        assertTrue(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_3)));
-        assertTrue(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_4)));
-    }
-
-    @Test
-    @DisplayName("assetStatesByAssetId() with page size")
-    public void assetStatesByAssetIdWithPageSize() {
         // Getting page 2.
-        AssetStatePage assetStatePage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
+        assertThat(dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        AssetStatesByAssetIdGraphQLQuery.newRequest().assetId(TRICKY_ROYLLO_COIN_ASSET_ID).page(2).pageSize(1).build(),
+                        AssetStatesByAssetIdGraphQLQuery.newRequest().assetId(TRICKY_ROYLLO_COIN_ASSET_ID).pageNumber(2).pageSize(1).build(),
                         new AssetStatesByAssetIdProjectionRoot<>().content()
                                 .assetStateId()
                                 .creator().userId().username().getParent()
@@ -93,53 +92,17 @@ public class AssetStateDataFetcherTest {
                                 .totalPages()
                 ).serialize(),
                 "data." + DgsConstants.QUERY.AssetStatesByAssetId,
-                new TypeRef<>() {
+                new TypeRef<AssetStatePage>() {
+                }))
+                .isNotNull()
+                .satisfies(assetStatePage -> {
+                    assertEquals(4, assetStatePage.getTotalElements());
+                    assertEquals(4, assetStatePage.getTotalPages());
+                    // TRICKY_ROYLLO_COIN_ASSET_STATE_ID_1 is not here as we asked for page 2.
+                    assertThat(assetStatePage.getContent())
+                            .extracting(AssetState::getAssetStateId)
+                            .containsExactlyInAnyOrder(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_2);
                 });
-
-        // Testing the results.
-        assertEquals(4, assetStatePage.getTotalElements());
-        assertEquals(4, assetStatePage.getTotalPages());
-        assertFalse(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_1)));
-        // This one is assertTrue because we asked for page 2.
-        assertTrue(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_2)));
-        assertFalse(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_3)));
-        assertFalse(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_4)));
-    }
-
-    @Test
-    @DisplayName("assetStatesByAssetId() without page number")
-    public void assetStatesByAssetIdWithoutPageNumber() {
-        // Getting a page without setting page number.
-        AssetStatePage assetStatePage = dgsQueryExecutor.executeAndExtractJsonPathAsObject(
-                new GraphQLQueryRequest(
-                        AssetStatesByAssetIdGraphQLQuery.newRequest().assetId(TRICKY_ROYLLO_COIN_ASSET_ID).build(),
-                        new AssetStatesByAssetIdProjectionRoot<>().content()
-                                .assetStateId()
-                                .creator().userId().username().getParent()
-                                .asset().assetId().name().getParent()
-                                .anchorBlockHash()
-                                .anchorOutpoint().txId().vout().getParent()
-                                .internalKey()
-                                .merkleRoot()
-                                .tapscriptSibling()
-                                .scriptVersion()
-                                .scriptKey()
-                                .getParent()
-                                .totalElements()
-                                .totalPages()
-                ).serialize(),
-                "data." + DgsConstants.QUERY.AssetStatesByAssetId,
-                new TypeRef<>() {
-                });
-
-        // Testing the results.
-        assertEquals(4, assetStatePage.getTotalElements());
-        assertEquals(1, assetStatePage.getTotalPages());
-
-        assertTrue(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_1)));
-        assertTrue(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_2)));
-        assertTrue(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_3)));
-        assertTrue(assetStatePage.getContent().stream().anyMatch(assetState -> assetState.getAssetStateId().equals(TRICKY_ROYLLO_COIN_ASSET_STATE_ID_4)));
     }
 
     @Test
@@ -162,7 +125,7 @@ public class AssetStateDataFetcherTest {
     public void assetStatesByAssetIdWithNegativePageNumber() {
         QueryException e = assertThrows(QueryException.class, () -> dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        AssetStatesByAssetIdGraphQLQuery.newRequest().assetId("ANY_ASSET").page(-1).build(),
+                        AssetStatesByAssetIdGraphQLQuery.newRequest().assetId("ANY_ASSET").pageNumber(-1).build(),
                         new AssetStatesByAssetIdProjectionRoot<>().content()
                                 .assetStateId()
                 ).serialize(),

@@ -3,7 +3,7 @@ type Query {
     # ==================================================================================================================
     # Query API
     "Query for assets - Search for exact assetId or part of asset name"
-    queryAssets(query: String!, page: Int, pageSize: Int): AssetPage
+    queryAssets(query: String!, pageNumber: Int, pageSize: Int): AssetPage
 
     # ==================================================================================================================
     # Assets API
@@ -14,12 +14,12 @@ type Query {
     assetByAssetId(assetId: ID!): Asset
 
     "Returns the asset states of the asset id"
-    assetStatesByAssetId(assetId: String!, page: Int, pageSize: Int): AssetStatePage
+    assetStatesByAssetId(assetId: String!, pageNumber: Int, pageSize: Int): AssetStatePage
 
     # ==================================================================================================================
     # Proofs API
     "Returns the proofs of the asset id"
-    proofsByAssetId(assetId: ID!, page: Int, pageSize: Int): ProofPage
+    proofsByAssetId(assetId: ID!, pageNumber: Int, pageSize: Int): ProofPage
 
     # ==================================================================================================================
     # Requests API
