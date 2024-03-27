@@ -17,19 +17,19 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 @RequiredArgsConstructor
+@SuppressWarnings("checkstyle:DesignForExtension")
 public class WebConfiguration implements WebMvcConfigurer {
 
     /** Incoming rate limits parameters. */
     private final IncomingRateLimitsParameters incomingRateLimitsParameters;
 
     @Override
-    @SuppressWarnings("checkstyle:DesignForExtension")
+
     public void addInterceptors(final InterceptorRegistry registry) {
         registry.addInterceptor(new RateLimitInterceptor(incomingRateLimitsParameters));
     }
 
     @Bean
-    @SuppressWarnings("checkstyle:DesignForExtension")
     public InternalResourceViewResolver defaultViewResolver() {
         return new InternalResourceViewResolver();
     }

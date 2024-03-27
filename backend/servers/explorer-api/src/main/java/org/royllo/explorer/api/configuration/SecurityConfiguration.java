@@ -1,6 +1,5 @@
 package org.royllo.explorer.api.configuration;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,7 +14,6 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
  */
 @Controller
 @EnableWebSecurity
-@RequiredArgsConstructor
 @SuppressWarnings({"checkstyle:DesignForExtension"})
 public class SecurityConfiguration {
 
