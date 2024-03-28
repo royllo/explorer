@@ -2,12 +2,13 @@ package org.royllo.explorer.batch.batch.maintenance;
 
 import lombok.RequiredArgsConstructor;
 import org.royllo.explorer.batch.util.base.BaseBatch;
+import org.royllo.explorer.core.domain.request.Request;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.List;
 
 import static org.royllo.explorer.core.util.enums.RequestStatus.FAILURE;
 
@@ -38,24 +39,15 @@ public class PurgeBatch extends BaseBatch {
      */
     @Scheduled(initialDelay = START_DELAY_IN_MILLISECONDS, fixedDelay = DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS)
     public void purge() {
-        AtomicLong numberOfPurgeRequests = new AtomicLong(0);
-
-        // =============================================================================================================
-        // Purge failed requests.
         logger.info("Checking if failed request should be purged");
-        final long allFailedRequestsCount = requestRepository.countByStatusOrderById(FAILURE);
-
-        if (allFailedRequestsCount > MAXIMUM_FAILED_REQUESTS_STORE) {
-            logger.info("{} failed requests need to be purged", allFailedRequestsCount - MAXIMUM_FAILED_REQUESTS_STORE);
-            requestRepository.findByStatusOrderById(FAILURE, PageRequest.of(1, MAXIMUM_FAILED_REQUESTS_STORE))
-                    .forEach(request -> {
-                        logger.info("Purging request {}", request);
-                        requestRepository.delete(request);
-                        numberOfPurgeRequests.getAndIncrement();
-                    });
-            logger.info("{} failed requests purged", numberOfPurgeRequests.get());
+        if (requestRepository.countByStatusOrderById(FAILURE) > MAXIMUM_FAILED_REQUESTS_STORE) {
+            // We purge.
+            final List<Request> toDelete = requestRepository.findByStatusOrderById(FAILURE, PageRequest.of(1, MAXIMUM_FAILED_REQUESTS_STORE));
+            requestRepository.deleteAll(toDelete);
+            logger.info("{} failed requests purged", toDelete.size());
         } else {
-            logger.info("{} existing failed requests - No purge needed", allFailedRequestsCount);
+            // We don't purge.
+            logger.info("No purge needed");
         }
     }
 
