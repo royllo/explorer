@@ -3,7 +3,6 @@ package org.royllo.explorer.batch.test.integration;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.maintenance.PurgeBatch;
-import org.royllo.explorer.batch.test.util.BaseTest;
 import org.royllo.explorer.core.domain.request.AddProofRequest;
 import org.royllo.explorer.core.domain.request.AddUniverseServerRequest;
 import org.royllo.explorer.core.repository.request.RequestRepository;
@@ -26,7 +25,7 @@ import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 @Testcontainers
 @SpringBootTest(properties = {"spring.datasource.url=jdbc:tc:postgresql:16:///explorer",
         "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver"})
-public class PurgeBatchTest extends BaseTest {
+public class PurgeBatchTest {
 
     @Autowired
     private RequestRepository requestRepository;
