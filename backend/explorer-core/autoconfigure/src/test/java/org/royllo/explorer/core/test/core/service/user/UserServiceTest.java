@@ -58,14 +58,11 @@ public class UserServiceTest extends TestWithMockServers {
 
         // Creating an existing user.
         assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> userService.addUser(STRAUMAT_USER_USER_ID))
+                .isThrownBy(() -> userService.addUser(STRAUMAT_USER_USERNAME))
                 .withMessage("Username 'straumat' already registered");
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> userService.addUser(ADMINISTRATOR_USER_USERNAME))
                 .withMessage("Username 'administrator' already registered");
-        assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> userService.addUser(STRAUMAT_USER_USER_ID))
-                .withMessage("Username 'straumat' already registered");
 
         // =============================================================================================================
         // Normal behavior.
