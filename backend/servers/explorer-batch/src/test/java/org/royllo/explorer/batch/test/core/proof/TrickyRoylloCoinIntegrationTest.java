@@ -1,15 +1,10 @@
 package org.royllo.explorer.batch.test.core.proof;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.request.AddProofBatch;
-import org.royllo.explorer.core.dto.asset.AssetDTO;
-import org.royllo.explorer.core.dto.proof.ProofDTO;
+import org.royllo.explorer.core.dto.asset.AssetStateDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
-import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.repository.asset.AssetGroupRepository;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.repository.asset.AssetStateRepository;
@@ -25,17 +20,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.io.IOException;
-import java.util.Optional;
-
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.royllo.explorer.core.dto.proof.ProofDTO.PROOF_FILE_NAME_EXTENSION;
-import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
-import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 import static org.royllo.test.MempoolData.SET_OF_ROYLLO_NFT_ANCHOR_1_VOUT;
@@ -194,26 +184,44 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
         // We process the request and test its results
         addProofBatch.processRequests();
 
-        final Optional<RequestDTO> addTrickyCoinProof1RequestTreated = requestService.getRequest(addTrickyCoinProof1Request.getId());
-        assertTrue(addTrickyCoinProof1RequestTreated.isPresent());
-        assertTrue(addTrickyCoinProof1RequestTreated.get().isSuccessful());
-        assertEquals(SUCCESS, addTrickyCoinProof1RequestTreated.get().getStatus());
-        assertNotNull(((AddProofRequestDTO) addTrickyCoinProof1RequestTreated.get()).getAsset());
-        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, ((AddProofRequestDTO) addTrickyCoinProof1RequestTreated.get()).getAsset().getAssetId());
+        assertThat(requestService.getRequest(addTrickyCoinProof1Request.getId()))
+                .isPresent()
+                .get()
+                .satisfies(request -> {
+                    assertTrue(request.isSuccessful());
+                    assertEquals(SUCCESS, request.getStatus());
+                    assertThat(((AddProofRequestDTO) request).getAsset())
+                            .isNotNull()
+                            .satisfies(asset -> {
+                                assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, asset.getAssetId());
+                            });
+                });
 
-        final Optional<RequestDTO> addTrickyCoinProof2RequestTreated = requestService.getRequest(addTrickyCoinProof2Request.getId());
-        assertTrue(addTrickyCoinProof2RequestTreated.isPresent());
-        assertTrue(addTrickyCoinProof2RequestTreated.get().isSuccessful());
-        assertEquals(SUCCESS, addTrickyCoinProof2RequestTreated.get().getStatus());
-        assertNotNull(((AddProofRequestDTO) addTrickyCoinProof2RequestTreated.get()).getAsset());
-        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, ((AddProofRequestDTO) addTrickyCoinProof2RequestTreated.get()).getAsset().getAssetId());
+        assertThat(requestService.getRequest(addTrickyCoinProof2Request.getId()))
+                .isPresent()
+                .get()
+                .satisfies(request -> {
+                    assertTrue(request.isSuccessful());
+                    assertEquals(SUCCESS, request.getStatus());
+                    assertThat(((AddProofRequestDTO) request).getAsset())
+                            .isNotNull()
+                            .satisfies(asset -> {
+                                assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, asset.getAssetId());
+                            });
+                });
 
-        final Optional<RequestDTO> addTrickyCoinProof3RequestTreated = requestService.getRequest(addTrickyCoinProof3Request.getId());
-        assertTrue(addTrickyCoinProof3RequestTreated.isPresent());
-        assertTrue(addTrickyCoinProof3RequestTreated.get().isSuccessful());
-        assertEquals(SUCCESS, addTrickyCoinProof3RequestTreated.get().getStatus());
-        assertNotNull(((AddProofRequestDTO) addTrickyCoinProof3RequestTreated.get()).getAsset());
-        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, ((AddProofRequestDTO) addTrickyCoinProof3RequestTreated.get()).getAsset().getAssetId());
+        assertThat(requestService.getRequest(addTrickyCoinProof3Request.getId()))
+                .isPresent()
+                .get()
+                .satisfies(request -> {
+                    assertTrue(request.isSuccessful());
+                    assertEquals(SUCCESS, request.getStatus());
+                    assertThat(((AddProofRequestDTO) request).getAsset())
+                            .isNotNull()
+                            .satisfies(asset -> {
+                                assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, asset.getAssetId());
+                            });
+                });
 
         // =============================================================================================================
         // We check that nothing more has been created.
@@ -235,83 +243,55 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
 
         // =============================================================================================================
         // We check what has been created.
-        final Optional<AssetDTO> asset = assetService.getAssetByAssetIdOrAlias(TRICKY_ROYLLO_COIN_ASSET_ID);
-        assertTrue(asset.isPresent());
-        assertNotNull(asset.get().getAssetIdAlias());
+        assertThat(assetService.getAssetByAssetIdOrAlias(TRICKY_ROYLLO_COIN_ASSET_ID))
+                .isPresent()
+                .hasValueSatisfying(asset -> {
+                    verifyAsset(asset, TRICKY_ROYLLO_COIN_ASSET_ID);
+                    assertNotNull(asset.getAssetIdAlias());
+                    assertNotNull(asset.getAmount());
+                    assertNotNull(asset.getIssuanceDate());
+                    // We check the states.
+                    AssetStateDTO assetState1 = assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID)
+                            .orElseThrow(() -> new AssertionError("Asset state 1 not found"));
+                    verifyAssetState(assetState1, TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID);
+                    AssetStateDTO assetState2 = assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_2_ASSET_STATE_ID)
+                            .orElseThrow(() -> new AssertionError("Asset state 2 not found"));
+                    verifyAssetState(assetState2, TRICKY_ROYLLO_COIN_2_ASSET_STATE_ID);
+                    AssetStateDTO assetState3 = assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_3_ASSET_STATE_ID)
+                            .orElseThrow(() -> new AssertionError("Asset state 3 not found"));
+                    verifyAssetState(assetState3, TRICKY_ROYLLO_COIN_3_ASSET_STATE_ID);
+                    // We now check the metadata file.
+                    assertThat(getFileFromContentServer(asset.getMetaDataFileName()))
+                            .isNotNull()
+                            .satisfies(response -> {
+                                assertEquals(200, response.code());
+                                assertEquals("trickyRoylloCoin by Royllo", response.body().string());
+                            });
+                    // And now every proof.
+                    assertThat(getFileFromContentServer(TRICKY_ROYLLO_COIN_1_PROOF_ID + PROOF_FILE_NAME_EXTENSION))
+                            .isNotNull()
+                            .satisfies(response -> {
+                                assertEquals(200, response.code());
+                                assertEquals(TRICKY_ROYLLO_COIN_1_RAW_PROOF, response.body().string());
+                            });
+                    assertThat(getFileFromContentServer(TRICKY_ROYLLO_COIN_2_PROOF_ID + PROOF_FILE_NAME_EXTENSION))
+                            .isNotNull()
+                            .satisfies(response -> {
+                                assertEquals(200, response.code());
+                                assertEquals(TRICKY_ROYLLO_COIN_2_RAW_PROOF, response.body().string());
+                            });
+                    assertThat(getFileFromContentServer(TRICKY_ROYLLO_COIN_3_PROOF_ID + PROOF_FILE_NAME_EXTENSION))
+                            .isNotNull()
+                            .satisfies(response -> {
+                                assertEquals(200, response.code());
+                                assertEquals(TRICKY_ROYLLO_COIN_3_RAW_PROOF, response.body().string());
+                            });
+                });
 
+        // We check what has been created with counts.
         assertEquals(assetGroupCountBefore, assetGroupRepository.count());
         assertEquals(assetCountBefore + 1, assetRepository.count());
         assertEquals(assetStateCountBefore + 4, assetStateRepository.count());
-
-        // Verify asset.
-        verifyAsset(assetService.getAssetByAssetIdOrAlias(TRICKY_ROYLLO_COIN_ASSET_ID).get(), TRICKY_ROYLLO_COIN_ASSET_ID);
-        assertNotNull(asset.get().getAmount());
-        assertNotNull(asset.get().getIssuanceDate());
-
-        // Verify asset states.
-        verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID).get(),
-                TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID);
-        verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_2_ASSET_STATE_ID).get(),
-                TRICKY_ROYLLO_COIN_2_ASSET_STATE_ID);
-        verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_3_ASSET_STATE_ID).get(),
-                TRICKY_ROYLLO_COIN_3_ASSET_STATE_ID);
-        verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_4_ASSET_STATE_ID).get(),
-                TRICKY_ROYLLO_COIN_4_ASSET_STATE_ID);
-
-        // =============================================================================================================
-        // We check meta-data file for TRICKY_ROYLLO_COIN_ASSET_ID.
-        var client = new OkHttpClient();
-        assertNotNull(asset.get().getMetaDataFileName());
-        Request request = new Request.Builder()
-                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + asset.get().getMetaDataFileName())
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            assertEquals(200, response.code());
-            assertEquals("trickyRoylloCoin by Royllo", response.body().string());
-        } catch (IOException e) {
-            fail("Error while retrieving the file" + e.getMessage());
-        }
-
-        // =============================================================================================================
-        // We should have the proof file on our content service.
-        final Optional<ProofDTO> proof1Created = proofService.getProofByProofId(TRICKY_ROYLLO_COIN_1_PROOF_ID);
-        assertTrue(proof1Created.isPresent());
-        assertEquals(TRICKY_ROYLLO_COIN_1_PROOF_ID + PROOF_FILE_NAME_EXTENSION, proof1Created.get().getProofFileName());
-        request = new Request.Builder()
-                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + proof1Created.get().getProofFileName())
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            assertEquals(200, response.code());
-            assertEquals(TRICKY_ROYLLO_COIN_1_RAW_PROOF, response.body().string());
-        } catch (IOException e) {
-            fail("Error while retrieving the file" + e.getMessage());
-        }
-
-        final Optional<ProofDTO> proof2Created = proofService.getProofByProofId(TRICKY_ROYLLO_COIN_2_PROOF_ID);
-        assertTrue(proof2Created.isPresent());
-        assertEquals(TRICKY_ROYLLO_COIN_2_PROOF_ID + PROOF_FILE_NAME_EXTENSION, proof2Created.get().getProofFileName());
-        request = new Request.Builder()
-                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + proof2Created.get().getProofFileName())
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            assertEquals(200, response.code());
-            assertEquals(TRICKY_ROYLLO_COIN_2_RAW_PROOF, response.body().string());
-        } catch (IOException e) {
-            fail("Error while retrieving the file" + e.getMessage());
-        }
-
-        final Optional<ProofDTO> proof3Created = proofService.getProofByProofId(TRICKY_ROYLLO_COIN_3_PROOF_ID);
-        assertTrue(proof3Created.isPresent());
-        assertEquals(TRICKY_ROYLLO_COIN_3_PROOF_ID + PROOF_FILE_NAME_EXTENSION, proof3Created.get().getProofFileName());
-        request = new Request.Builder()
-                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + proof3Created.get().getProofFileName())
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            assertEquals(200, response.code());
-            assertEquals(TRICKY_ROYLLO_COIN_3_RAW_PROOF, response.body().string());
-        } catch (IOException e) {
-            fail("Error while retrieving the file" + e.getMessage());
-        }
     }
 
     @Test
@@ -354,12 +334,18 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
         // We process the request and test its results
         addProofBatch.processRequests();
 
-        final Optional<RequestDTO> addTrickyCoinProof3RequestTreated = requestService.getRequest(addTrickyCoinProof3Request.getId());
-        assertTrue(addTrickyCoinProof3RequestTreated.isPresent());
-        assertTrue(addTrickyCoinProof3RequestTreated.get().isSuccessful());
-        assertEquals(SUCCESS, addTrickyCoinProof3RequestTreated.get().getStatus());
-        assertNotNull(((AddProofRequestDTO) addTrickyCoinProof3RequestTreated.get()).getAsset());
-        assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, ((AddProofRequestDTO) addTrickyCoinProof3RequestTreated.get()).getAsset().getAssetId());
+        assertThat(requestService.getRequest(addTrickyCoinProof3Request.getId()))
+                .isPresent()
+                .get()
+                .satisfies(request -> {
+                    assertTrue(request.isSuccessful());
+                    assertEquals(SUCCESS, request.getStatus());
+                    assertThat(((AddProofRequestDTO) request).getAsset())
+                            .isNotNull()
+                            .satisfies(asset -> {
+                                assertEquals(TRICKY_ROYLLO_COIN_ASSET_ID, asset.getAssetId());
+                            });
+                });
 
         // =============================================================================================================
         // We check that nothing more has been created.
@@ -384,47 +370,37 @@ public class TrickyRoylloCoinIntegrationTest extends TestWithMockServers {
         assertEquals(assetStateCountBefore + 3, assetStateRepository.count());
 
         // Verify asset.
-        Optional<AssetDTO> asset = assetService.getAssetByAssetIdOrAlias(TRICKY_ROYLLO_COIN_ASSET_ID);
-        assertTrue(asset.isPresent());
-        verifyAsset(asset.get(), TRICKY_ROYLLO_COIN_ASSET_ID);
+        assertThat(assetService.getAssetByAssetIdOrAlias(TRICKY_ROYLLO_COIN_ASSET_ID))
+                .isPresent()
+                .hasValueSatisfying(asset -> {
+                    verifyAsset(asset, TRICKY_ROYLLO_COIN_ASSET_ID);
+                    assertNotNull(asset.getAssetIdAlias());
+                    assertNotNull(asset.getAmount());
+                    assertNotNull(asset.getIssuanceDate());
+                    // We check the states.
+                    AssetStateDTO assetState1 = assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID)
+                            .orElseThrow(() -> new AssertionError("Asset state 1 not found"));
+                    verifyAssetState(assetState1, TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID);
+                    AssetStateDTO assetState3 = assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_3_ASSET_STATE_ID)
+                            .orElseThrow(() -> new AssertionError("Asset state 3 not found"));
+                    verifyAssetState(assetState3, TRICKY_ROYLLO_COIN_3_ASSET_STATE_ID);
+                    // We now check the metadata file.
+                    assertThat(getFileFromContentServer(asset.getMetaDataFileName()))
+                            .isNotNull()
+                            .satisfies(response -> {
+                                assertEquals(200, response.code());
+                                assertEquals("trickyRoylloCoin by Royllo", response.body().string());
+                            });
+                    // And now every proof.
+                    assertThat(getFileFromContentServer(TRICKY_ROYLLO_COIN_3_PROOF_ID + PROOF_FILE_NAME_EXTENSION))
+                            .isNotNull()
+                            .satisfies(response -> {
+                                assertEquals(200, response.code());
+                                assertEquals(TRICKY_ROYLLO_COIN_3_RAW_PROOF, response.body().string());
+                            });
 
-        // Verify asset states.
-        verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID).get(),
-                TRICKY_ROYLLO_COIN_1_ASSET_STATE_ID);
-        verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_3_ASSET_STATE_ID).get(),
-                TRICKY_ROYLLO_COIN_3_ASSET_STATE_ID);
-        verifyAssetState(assetStateService.getAssetStateByAssetStateId(TRICKY_ROYLLO_COIN_4_ASSET_STATE_ID).get(),
-                TRICKY_ROYLLO_COIN_4_ASSET_STATE_ID);
 
-        // =============================================================================================================
-        // We check meta-data file for TRICKY_ROYLLO_COIN_ASSET_ID.
-        var client = new OkHttpClient();
-        assertNotNull(asset.get().getMetaDataFileName());
-        Request request = new Request.Builder()
-                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + asset.get().getMetaDataFileName())
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            assertEquals(200, response.code());
-            assertEquals("trickyRoylloCoin by Royllo", response.body().string());
-        } catch (IOException e) {
-            fail("Error while retrieving the file" + e.getMessage());
-        }
-
-        // =============================================================================================================
-        // We should have the proof file on our content service.
-
-        final Optional<ProofDTO> proof3Created = proofService.getProofByProofId(TRICKY_ROYLLO_COIN_3_PROOF_ID);
-        assertTrue(proof3Created.isPresent());
-        assertEquals(TRICKY_ROYLLO_COIN_3_PROOF_ID + PROOF_FILE_NAME_EXTENSION, proof3Created.get().getProofFileName());
-        request = new Request.Builder()
-                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + proof3Created.get().getProofFileName())
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            assertEquals(200, response.code());
-            assertEquals(TRICKY_ROYLLO_COIN_3_RAW_PROOF, response.body().string());
-        } catch (IOException e) {
-            fail("Error while retrieving the file" + e.getMessage());
-        }
+                });
     }
 
 }

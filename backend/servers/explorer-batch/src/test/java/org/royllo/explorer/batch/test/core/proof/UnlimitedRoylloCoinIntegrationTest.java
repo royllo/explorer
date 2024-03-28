@@ -1,16 +1,9 @@
 package org.royllo.explorer.batch.test.core.proof;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.request.AddProofBatch;
-import org.royllo.explorer.core.dto.asset.AssetDTO;
-import org.royllo.explorer.core.dto.asset.AssetStateDTO;
-import org.royllo.explorer.core.dto.proof.ProofDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
-import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.repository.asset.AssetGroupRepository;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.repository.asset.AssetStateRepository;
@@ -26,17 +19,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.io.IOException;
-import java.util.Optional;
-
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.royllo.explorer.core.dto.proof.ProofDTO.PROOF_FILE_NAME_EXTENSION;
-import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
-import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
 import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_ALIAS_LENGTH;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
@@ -138,18 +126,25 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
         // We process the request and test its results
         addProofBatch.processRequests();
 
-        final Optional<RequestDTO> unlimitedRoylloCoin1RequestTreated = requestService.getRequest(unlimitedRoylloCoin1Request.getId());
-        assertTrue(unlimitedRoylloCoin1RequestTreated.isPresent());
-        assertTrue(unlimitedRoylloCoin1RequestTreated.get().isSuccessful());
-        assertEquals(SUCCESS, unlimitedRoylloCoin1RequestTreated.get().getStatus());
-        assertNotNull(((AddProofRequestDTO) unlimitedRoylloCoin1RequestTreated.get()).getAsset());
-        assertEquals(UNLIMITED_ROYLLO_COIN_1_ASSET_ID, ((AddProofRequestDTO) unlimitedRoylloCoin1RequestTreated.get()).getAsset().getAssetId());
+        assertThat(requestService.getRequest(unlimitedRoylloCoin1Request.getId()))
+                .isPresent()
+                .get()
+                .satisfies(request -> {
+                    assertTrue(request.isSuccessful());
+                    assertEquals(SUCCESS, request.getStatus());
+                    assertThat(((AddProofRequestDTO) request).getAsset()).isNotNull();
+                    assertEquals(UNLIMITED_ROYLLO_COIN_1_ASSET_ID, ((AddProofRequestDTO) request).getAsset().getAssetId());
+                });
 
-        final Optional<RequestDTO> unlimitedRoylloCoin2RequestTreated = requestService.getRequest(unlimitedRoylloCoin2Request.getId());
-        assertTrue(unlimitedRoylloCoin2RequestTreated.isPresent());
-        assertTrue(unlimitedRoylloCoin2RequestTreated.get().isSuccessful());
-        assertEquals(SUCCESS, unlimitedRoylloCoin2RequestTreated.get().getStatus());
-        assertNotNull(((AddProofRequestDTO) unlimitedRoylloCoin2RequestTreated.get()).getAsset());
+        assertThat(requestService.getRequest(unlimitedRoylloCoin2Request.getId()))
+                .isPresent()
+                .get()
+                .satisfies(request -> {
+                    assertTrue(request.isSuccessful());
+                    assertEquals(SUCCESS, request.getStatus());
+                    assertThat(((AddProofRequestDTO) request).getAsset()).isNotNull();
+                    assertEquals(UNLIMITED_ROYLLO_COIN_2_ASSET_ID, ((AddProofRequestDTO) request).getAsset().getAssetId());
+                });
 
         // =============================================================================================================
         // We check that nothing more has been created.
@@ -177,87 +172,72 @@ public class UnlimitedRoylloCoinIntegrationTest extends TestWithMockServers {
 
         // =============================================================================================================
         // Focus on group.
-        final Optional<AssetStateDTO> assetState1 = assetStateService.getAssetStateByAssetStateId(UNLIMITED_ROYLLO_COIN_1_ASSET_STATE_ID);
-        assertTrue(assetState1.isPresent());
-        assertNotNull(assetState1.get().getAsset().getAssetGroup());
-        assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, assetState1.get().getAsset().getAssetGroup().getTweakedGroupKey());
+        assertThat(assetGroupService.getAssetGroupByAssetGroupId(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY))
+                .isPresent()
+                .get()
+                .satisfies(assetGroup -> {
+                    assertNotNull(assetGroup.getTweakedGroupKey());
+                    assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, assetGroup.getTweakedGroupKey());
+                });
 
-        final Optional<AssetStateDTO> assetState2 = assetStateService.getAssetStateByAssetStateId(UNLIMITED_ROYLLO_COIN_2_ASSET_STATE_ID);
-        assertTrue(assetState2.isPresent());
-        assertNotNull(assetState2.get().getAsset().getAssetGroup());
-        assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, assetState2.get().getAsset().getAssetGroup().getTweakedGroupKey());
+        assertThat(assetStateService.getAssetStateByAssetStateId(UNLIMITED_ROYLLO_COIN_1_ASSET_STATE_ID))
+                .isPresent()
+                .get()
+                .satisfies(assetState -> {
+                    assertNotNull(assetState.getAsset());
+                    assertNotNull(assetState.getAsset().getAssetGroup());
+                    assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, assetState.getAsset().getAssetGroup().getTweakedGroupKey());
+                });
 
-        final Optional<AssetDTO> asset1 = assetService.getAssetByAssetIdOrAlias(UNLIMITED_ROYLLO_COIN_1_ASSET_ID);
-        assertTrue(asset1.isPresent());
-        assertNotNull(asset1.get().getAssetIdAlias());
-        assertEquals(ASSET_ID_ALIAS_LENGTH, asset1.get().getAssetIdAlias().length());
-        assertNotNull(asset1.get().getAssetGroup());
-        assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, asset1.get().getAssetGroup().getTweakedGroupKey());
-        assertNotNull(asset1.get().getAmount());
-        assertNotNull(asset1.get().getIssuanceDate());
+        assertThat(assetService.getAssetByAssetIdOrAlias(UNLIMITED_ROYLLO_COIN_1_ASSET_ID))
+                .isPresent()
+                .get()
+                .satisfies(asset -> {
+                    assertNotNull(asset.getAssetIdAlias());
+                    assertEquals(ASSET_ID_ALIAS_LENGTH, asset.getAssetIdAlias().length());
+                    assertNotNull(asset.getAssetGroup());
+                    assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, asset.getAssetGroup().getTweakedGroupKey());
+                    assertNotNull(asset.getAmount());
+                    assertNotNull(asset.getIssuanceDate());
+                    // Content verification.
+                    assertThat(getFileFromContentServer(asset.getMetaDataFileName()))
+                            .isNotNull()
+                            .satisfies(response -> {
+                                assertEquals(200, response.code());
+                                assertEquals("unlimitedRoylloCoin emission 1 by Royllo", response.body().string());
+                            });
+                    assertThat(getFileFromContentServer(sha256(UNLIMITED_ROYLLO_COIN_1_RAW_PROOF) + PROOF_FILE_NAME_EXTENSION))
+                            .isNotNull()
+                            .satisfies(response -> {
+                                assertEquals(200, response.code());
+                                assertEquals(UNLIMITED_ROYLLO_COIN_1_RAW_PROOF, response.body().string());
+                            });
+                });
 
-        final Optional<AssetDTO> asset2 = assetService.getAssetByAssetIdOrAlias(UNLIMITED_ROYLLO_COIN_2_ASSET_ID);
-        assertTrue(asset2.isPresent());
-        assertNotNull(asset2.get().getAssetIdAlias());
-        assertEquals(ASSET_ID_ALIAS_LENGTH, asset2.get().getAssetIdAlias().length());
-        assertNotNull(asset2.get().getAssetGroup());
-        assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, asset2.get().getAssetGroup().getTweakedGroupKey());
-        assertNotNull(asset2.get().getAmount());
-        assertNotNull(asset2.get().getIssuanceDate());
-
-        // We check if we have the meta-data file for UNLIMITED_ROYLLO_COIN_1_ASSET_ID.
-        var client = new OkHttpClient();
-        assertNotNull(asset1.get().getMetaDataFileName());
-        Request request = new Request.Builder()
-                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + asset1.get().getMetaDataFileName())
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            assertEquals(200, response.code());
-            assertEquals("unlimitedRoylloCoin emission 1 by Royllo", response.body().string());
-        } catch (IOException e) {
-            fail("Error while retrieving the file" + e.getMessage());
-        }
-
-        // And then for UNLIMITED_ROYLLO_COIN_2_ASSET_ID.
-        assertNotNull(asset2.get().getMetaDataFileName());
-        request = new Request.Builder()
-                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + asset2.get().getMetaDataFileName())
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            assertEquals(200, response.code());
-            assertEquals("unlimitedRoylloCoin emission 2 by Royllo", response.body().string());
-        } catch (IOException e) {
-            fail("Error while retrieving the file" + e.getMessage());
-        }
-
-        // =============================================================================================================
-        // We should have the proof file on our content service.
-        final Optional<ProofDTO> proof1Created = proofService.getProofByProofId(UNLIMITED_ROYLLO_COIN_1_PROOF_ID);
-        assertTrue(proof1Created.isPresent());
-        assertEquals(UNLIMITED_ROYLLO_COIN_1_PROOF_ID + PROOF_FILE_NAME_EXTENSION, proof1Created.get().getProofFileName());
-        request = new Request.Builder()
-                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + proof1Created.get().getProofFileName())
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            assertEquals(200, response.code());
-            assertEquals(UNLIMITED_ROYLLO_COIN_1_RAW_PROOF, response.body().string());
-        } catch (IOException e) {
-            fail("Error while retrieving the file" + e.getMessage());
-        }
-
-        final Optional<ProofDTO> proof2Created = proofService.getProofByProofId(UNLIMITED_ROYLLO_COIN_2_PROOF_ID);
-        assertTrue(proof2Created.isPresent());
-        assertEquals(UNLIMITED_ROYLLO_COIN_2_PROOF_ID + PROOF_FILE_NAME_EXTENSION, proof2Created.get().getProofFileName());
-        request = new Request.Builder()
-                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + proof2Created.get().getProofFileName())
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            assertEquals(200, response.code());
-            assertEquals(UNLIMITED_ROYLLO_COIN_2_RAW_PROOF, response.body().string());
-        } catch (IOException e) {
-            fail("Error while retrieving the file" + e.getMessage());
-        }
-
+        assertThat(assetService.getAssetByAssetIdOrAlias(UNLIMITED_ROYLLO_COIN_2_ASSET_ID))
+                .isPresent()
+                .get()
+                .satisfies(asset -> {
+                    assertNotNull(asset.getAssetIdAlias());
+                    assertEquals(ASSET_ID_ALIAS_LENGTH, asset.getAssetIdAlias().length());
+                    assertNotNull(asset.getAssetGroup());
+                    assertEquals(UNLIMITED_ROYLLO_COIN_TWEAKED_GROUP_KEY, asset.getAssetGroup().getTweakedGroupKey());
+                    assertNotNull(asset.getAmount());
+                    assertNotNull(asset.getIssuanceDate());
+                    // Content verification.
+                    assertThat(getFileFromContentServer(asset.getMetaDataFileName()))
+                            .isNotNull()
+                            .satisfies(response -> {
+                                assertEquals(200, response.code());
+                                assertEquals("unlimitedRoylloCoin emission 2 by Royllo", response.body().string());
+                            });
+                    assertThat(getFileFromContentServer(sha256(UNLIMITED_ROYLLO_COIN_2_RAW_PROOF) + PROOF_FILE_NAME_EXTENSION))
+                            .isNotNull()
+                            .satisfies(response -> {
+                                assertEquals(200, response.code());
+                                assertEquals(UNLIMITED_ROYLLO_COIN_2_RAW_PROOF, response.body().string());
+                            });
+                });
     }
 
 }

@@ -1,15 +1,9 @@
 package org.royllo.explorer.batch.test.core.proof;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.request.AddProofBatch;
-import org.royllo.explorer.core.dto.asset.AssetDTO;
-import org.royllo.explorer.core.dto.proof.ProofDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
-import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.repository.asset.AssetGroupRepository;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.repository.asset.AssetStateRepository;
@@ -25,17 +19,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.io.IOException;
-import java.util.Optional;
-
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.royllo.explorer.core.dto.proof.ProofDTO.PROOF_FILE_NAME_EXTENSION;
-import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
-import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
 import static org.royllo.explorer.core.util.constants.TaprootAssetsConstants.ASSET_ID_ALIAS_LENGTH;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
@@ -154,26 +143,35 @@ public class SetOfRoylloNFTIntegrationTest extends TestWithMockServers {
         // We process the request and test its results
         addProofBatch.processRequests();
 
-        final Optional<RequestDTO> addRoylloNFT1RequestTreated = requestService.getRequest(addRoylloNFT1Request.getId());
-        assertTrue(addRoylloNFT1RequestTreated.isPresent());
-        assertTrue(addRoylloNFT1RequestTreated.get().isSuccessful());
-        assertEquals(SUCCESS, addRoylloNFT1RequestTreated.get().getStatus());
-        assertNotNull(((AddProofRequestDTO) addRoylloNFT1RequestTreated.get()).getAsset());
-        assertEquals(SET_OF_ROYLLO_NFT_1_ASSET_ID, ((AddProofRequestDTO) addRoylloNFT1RequestTreated.get()).getAsset().getAssetId());
+        assertThat(requestService.getRequest(addRoylloNFT1Request.getId()))
+                .isPresent()
+                .get()
+                .satisfies(request -> {
+                    assertTrue(request.isSuccessful());
+                    assertEquals(SUCCESS, request.getStatus());
+                    assertNotNull(((AddProofRequestDTO) request).getAsset());
+                    assertEquals(SET_OF_ROYLLO_NFT_1_ASSET_ID, ((AddProofRequestDTO) request).getAsset().getAssetId());
+                });
 
-        final Optional<RequestDTO> addRoylloNFT2RequestTreated = requestService.getRequest(addRoylloNFT2Request.getId());
-        assertTrue(addRoylloNFT2RequestTreated.isPresent());
-        assertTrue(addRoylloNFT2RequestTreated.get().isSuccessful());
-        assertEquals(SUCCESS, addRoylloNFT2RequestTreated.get().getStatus());
-        assertNotNull(((AddProofRequestDTO) addRoylloNFT2RequestTreated.get()).getAsset());
-        assertEquals(SET_OF_ROYLLO_NFT_2_ASSET_ID, ((AddProofRequestDTO) addRoylloNFT2RequestTreated.get()).getAsset().getAssetId());
+        assertThat(requestService.getRequest(addRoylloNFT2Request.getId()))
+                .isPresent()
+                .get()
+                .satisfies(request -> {
+                    assertTrue(request.isSuccessful());
+                    assertEquals(SUCCESS, request.getStatus());
+                    assertNotNull(((AddProofRequestDTO) request).getAsset());
+                    assertEquals(SET_OF_ROYLLO_NFT_2_ASSET_ID, ((AddProofRequestDTO) request).getAsset().getAssetId());
+                });
 
-        final Optional<RequestDTO> addRoylloNFT3RequestTreated = requestService.getRequest(addRoylloNFT3Request.getId());
-        assertTrue(addRoylloNFT3RequestTreated.isPresent());
-        assertTrue(addRoylloNFT3RequestTreated.get().isSuccessful());
-        assertEquals(SUCCESS, addRoylloNFT3RequestTreated.get().getStatus());
-        assertNotNull(((AddProofRequestDTO) addRoylloNFT3RequestTreated.get()).getAsset());
-        assertEquals(SET_OF_ROYLLO_NFT_3_ASSET_ID, ((AddProofRequestDTO) addRoylloNFT3RequestTreated.get()).getAsset().getAssetId());
+        assertThat(requestService.getRequest(addRoylloNFT3Request.getId()))
+                .isPresent()
+                .get()
+                .satisfies(request -> {
+                    assertTrue(request.isSuccessful());
+                    assertEquals(SUCCESS, request.getStatus());
+                    assertNotNull(((AddProofRequestDTO) request).getAsset());
+                    assertEquals(SET_OF_ROYLLO_NFT_3_ASSET_ID, ((AddProofRequestDTO) request).getAsset().getAssetId());
+                });
 
         // =============================================================================================================
         // We check that nothing more has been created.
@@ -204,141 +202,117 @@ public class SetOfRoylloNFTIntegrationTest extends TestWithMockServers {
 
         // =============================================================================================================
         // We check the value of what has been created.
-        final Optional<AssetDTO> asset1 = assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_1_ASSET_ID);
-        assertTrue(asset1.isPresent());
-        assertNotNull(asset1.get().getAssetIdAlias());
-        assertEquals(ASSET_ID_ALIAS_LENGTH, asset1.get().getAssetIdAlias().length());
-        final Optional<AssetDTO> asset2 = assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_2_ASSET_ID);
-        assertTrue(asset2.isPresent());
-        assertNotNull(asset2.get().getAssetIdAlias());
-        assertEquals(ASSET_ID_ALIAS_LENGTH, asset2.get().getAssetIdAlias().length());
-        final Optional<AssetDTO> asset3 = assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_3_ASSET_ID);
-        assertTrue(asset3.isPresent());
-        assertNotNull(asset3.get().getAssetIdAlias());
-        assertEquals(ASSET_ID_ALIAS_LENGTH, asset3.get().getAssetIdAlias().length());
 
-        verifyTransaction(bitcoinService.getBitcoinTransactionOutput(SET_OF_ROYLLO_NFT_GENESIS_TXID, SET_OF_ROYLLO_NFT_GENESIS_VOUT).get(),
-                SET_OF_ROYLLO_NFT_GENESIS_TXID);
+        // Royllo NFT 1.
+        assertThat(assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_1_ASSET_ID))
+                .isPresent()
+                .get()
+                .satisfies(asset -> {
+                    assertNotNull(asset.getAssetIdAlias());
+                    assertEquals(ASSET_ID_ALIAS_LENGTH, asset.getAssetIdAlias().length());
+                    assertNotNull(asset.getAmount());
+                    assertNotNull(asset.getIssuanceDate());
+                    var bto1 = bitcoinService.getBitcoinTransactionOutput(SET_OF_ROYLLO_NFT_GENESIS_TXID, SET_OF_ROYLLO_NFT_GENESIS_VOUT)
+                            .orElseThrow(() -> new AssertionError("Bitcoin transaction output not found"));
+                    verifyTransaction(bto1, SET_OF_ROYLLO_NFT_GENESIS_TXID);
+                    var bto2 = bitcoinService.getBitcoinTransactionOutput(SET_OF_ROYLLO_NFT_ANCHOR_1_TXID, SET_OF_ROYLLO_NFT_ANCHOR_1_VOUT)
+                            .orElseThrow(() -> new AssertionError("Bitcoin transaction output not found"));
+                    verifyTransaction(bto2, SET_OF_ROYLLO_NFT_ANCHOR_1_TXID);
+                    var assetCreated = assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_1_ASSET_ID)
+                            .orElseThrow(() -> new AssertionError("Asset not found"));
+                    verifyAsset(assetCreated, SET_OF_ROYLLO_NFT_1_ASSET_ID);
+                    var assetStateCreated = assetStateService.getAssetStateByAssetStateId(SET_OF_ROYLLO_NFT_1_ASSET_STATE_ID)
+                            .orElseThrow(() -> new AssertionError("Asset state not found"));
+                    verifyAssetState(assetStateCreated,
+                            SET_OF_ROYLLO_NFT_1_ASSET_ID,
+                            SET_OF_ROYLLO_NFT_ANCHOR_1_TXID,
+                            SET_OF_ROYLLO_NFT_ANCHOR_1_VOUT,
+                            SET_OF_ROYLLO_NFT_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getScriptKey());
+                    assertThat(getFileFromContentServer(asset.getMetaDataFileName()))
+                            .isNotNull()
+                            .satisfies(response -> {
+                                assertEquals(200, response.code());
+                                assertEquals("setOfRoylloNFT by Royllo", response.body().string());
+                            });
+                    assertThat(getFileFromContentServer(sha256(SET_OF_ROYLLO_NFT_1_RAW_PROOF) + PROOF_FILE_NAME_EXTENSION))
+                            .isNotNull()
+                            .satisfies(response -> {
+                                assertEquals(200, response.code());
+                                assertEquals(SET_OF_ROYLLO_NFT_1_RAW_PROOF, response.body().string());
+                            });
+                });
 
-        verifyAssetGroup(assetGroupService.getAssetGroupByAssetGroupId(SET_OF_ROYLLO_NFT_TWEAKED_GROUP_KEY).get(), SET_OF_ROYLLO_NFT_1_ASSET_ID);
+        // Royllo NFT 2.
+        assertThat(assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_2_ASSET_ID))
+                .isPresent()
+                .get()
+                .satisfies(asset -> {
+                    assertNotNull(asset.getAssetIdAlias());
+                    assertEquals(ASSET_ID_ALIAS_LENGTH, asset.getAssetIdAlias().length());
+                    assertNotNull(asset.getAmount());
+                    assertNotNull(asset.getIssuanceDate());
+                    var bto1 = bitcoinService.getBitcoinTransactionOutput(SET_OF_ROYLLO_NFT_ANCHOR_2_TXID, SET_OF_ROYLLO_NFT_ANCHOR_2_VOUT)
+                            .orElseThrow(() -> new AssertionError("Bitcoin transaction output not found"));
+                    verifyTransaction(bto1, SET_OF_ROYLLO_NFT_ANCHOR_2_TXID);
+                    var assetCreated = assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_2_ASSET_ID)
+                            .orElseThrow(() -> new AssertionError("Asset not found"));
+                    verifyAsset(assetCreated, SET_OF_ROYLLO_NFT_2_ASSET_ID);
+                    var assetStateCreated = assetStateService.getAssetStateByAssetStateId(SET_OF_ROYLLO_NFT_2_ASSET_STATE_ID)
+                            .orElseThrow(() -> new AssertionError("Asset state not found"));
+                    verifyAssetState(assetStateCreated,
+                            SET_OF_ROYLLO_NFT_2_ASSET_ID,
+                            SET_OF_ROYLLO_NFT_ANCHOR_2_TXID,
+                            SET_OF_ROYLLO_NFT_ANCHOR_2_VOUT,
+                            SET_OF_ROYLLO_NFT_2_FROM_TEST.getDecodedProofResponse(0).getAsset().getScriptKey());
+                    assertThat(getFileFromContentServer(asset.getMetaDataFileName()))
+                            .isNotNull()
+                            .satisfies(response -> {
+                                assertEquals(200, response.code());
+                                assertEquals("setOfRoylloNFT2 by Royllo", response.body().string());
+                            });
+                    assertThat(getFileFromContentServer(sha256(SET_OF_ROYLLO_NFT_2_RAW_PROOF) + PROOF_FILE_NAME_EXTENSION))
+                            .isNotNull()
+                            .satisfies(response -> {
+                                assertEquals(200, response.code());
+                                assertEquals(SET_OF_ROYLLO_NFT_2_RAW_PROOF, response.body().string());
+                            });
+                });
 
-        // NTF1.
-        verifyTransaction(bitcoinService.getBitcoinTransactionOutput(SET_OF_ROYLLO_NFT_ANCHOR_1_TXID, SET_OF_ROYLLO_NFT_ANCHOR_1_VOUT).get(),
-                SET_OF_ROYLLO_NFT_ANCHOR_1_TXID);
-        verifyAsset(assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_1_ASSET_ID).get(), SET_OF_ROYLLO_NFT_1_ASSET_ID);
-        verifyAssetState(assetStateService.getAssetStateByAssetStateId(SET_OF_ROYLLO_NFT_1_ASSET_STATE_ID).get(),
-                SET_OF_ROYLLO_NFT_1_ASSET_ID,
-                SET_OF_ROYLLO_NFT_ANCHOR_1_TXID,
-                SET_OF_ROYLLO_NFT_ANCHOR_1_VOUT,
-                SET_OF_ROYLLO_NFT_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getScriptKey());
-
-        // NTF2.
-        verifyTransaction(bitcoinService.getBitcoinTransactionOutput(SET_OF_ROYLLO_NFT_ANCHOR_2_TXID, SET_OF_ROYLLO_NFT_ANCHOR_2_VOUT).get(),
-                SET_OF_ROYLLO_NFT_ANCHOR_2_TXID);
-        verifyAsset(assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_2_ASSET_ID).get(), SET_OF_ROYLLO_NFT_2_ASSET_ID);
-        verifyAssetState(assetStateService.getAssetStateByAssetStateId(SET_OF_ROYLLO_NFT_2_ASSET_STATE_ID).get(),
-                SET_OF_ROYLLO_NFT_2_ASSET_ID,
-                SET_OF_ROYLLO_NFT_ANCHOR_2_TXID,
-                SET_OF_ROYLLO_NFT_ANCHOR_2_VOUT,
-                SET_OF_ROYLLO_NFT_2_FROM_TEST.getDecodedProofResponse(0).getAsset().getScriptKey());
-
-        // NTF1.
-        verifyTransaction(bitcoinService.getBitcoinTransactionOutput(SET_OF_ROYLLO_NFT_ANCHOR_3_TXID, SET_OF_ROYLLO_NFT_ANCHOR_3_VOUT).get(),
-                SET_OF_ROYLLO_NFT_ANCHOR_3_TXID);
-        verifyAsset(assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_3_ASSET_ID).get(), SET_OF_ROYLLO_NFT_3_ASSET_ID);
-        verifyAssetState(assetStateService.getAssetStateByAssetStateId(SET_OF_ROYLLO_NFT_3_ASSET_STATE_ID).get(),
-                SET_OF_ROYLLO_NFT_3_ASSET_ID,
-                SET_OF_ROYLLO_NFT_ANCHOR_3_TXID,
-                SET_OF_ROYLLO_NFT_ANCHOR_3_VOUT,
-                SET_OF_ROYLLO_NFT_3_FROM_TEST.getDecodedProofResponse(0).getAsset().getScriptKey());
-
-        assertNotNull(asset1.get().getIssuanceDate());
-        assertNotNull(asset1.get().getAmount());
-        assertNotNull(asset2.get().getIssuanceDate());
-        assertNotNull(asset2.get().getAmount());
-        assertNotNull(asset3.get().getIssuanceDate());
-        assertNotNull(asset3.get().getAmount());
-
-        // =============================================================================================================
-        // We check meta-data file for our three assets
-        var client = new OkHttpClient();
-
-        // Asset 1.
-        assertNotNull(asset1.get().getMetaDataFileName());
-        Request request = new Request.Builder()
-                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + asset1.get().getMetaDataFileName())
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            assertEquals(200, response.code());
-            assertEquals("setOfRoylloNFT by Royllo", response.body().string());
-        } catch (IOException e) {
-            fail("Error while retrieving the file" + e.getMessage());
-        }
-
-        // Asset 2.
-        assertNotNull(asset2.get().getMetaDataFileName());
-        request = new Request.Builder()
-                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + asset2.get().getMetaDataFileName())
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            assertEquals(200, response.code());
-            assertEquals("setOfRoylloNFT2 by Royllo", response.body().string());
-        } catch (IOException e) {
-            fail("Error while retrieving the file" + e.getMessage());
-        }
-
-        // Asset 3.
-        assertNotNull(asset3.get().getMetaDataFileName());
-        request = new Request.Builder()
-                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + asset3.get().getMetaDataFileName())
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            assertEquals(200, response.code());
-            assertEquals("setOfRoylloNFT3 by Royllo", response.body().string());
-        } catch (IOException e) {
-            fail("Error while retrieving the file" + e.getMessage());
-        }
-
-        // =============================================================================================================
-        // We should have the proof file on our content service.
-        final Optional<ProofDTO> proof1Created = proofService.getProofByProofId(SET_OF_ROYLLO_NFT_1_PROOF_ID);
-        assertTrue(proof1Created.isPresent());
-        assertEquals(SET_OF_ROYLLO_NFT_1_PROOF_ID + PROOF_FILE_NAME_EXTENSION, proof1Created.get().getProofFileName());
-        request = new Request.Builder()
-                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + proof1Created.get().getProofFileName())
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            assertEquals(200, response.code());
-            assertEquals(SET_OF_ROYLLO_NFT_1_RAW_PROOF, response.body().string());
-        } catch (IOException e) {
-            fail("Error while retrieving the file" + e.getMessage());
-        }
-
-        final Optional<ProofDTO> proof2Created = proofService.getProofByProofId(SET_OF_ROYLLO_NFT_2_PROOF_ID);
-        assertTrue(proof2Created.isPresent());
-        assertEquals(SET_OF_ROYLLO_NFT_2_PROOF_ID + PROOF_FILE_NAME_EXTENSION, proof2Created.get().getProofFileName());
-        request = new Request.Builder()
-                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + proof2Created.get().getProofFileName())
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            assertEquals(200, response.code());
-            assertEquals(SET_OF_ROYLLO_NFT_2_RAW_PROOF, response.body().string());
-        } catch (IOException e) {
-            fail("Error while retrieving the file" + e.getMessage());
-        }
-
-        final Optional<ProofDTO> proof3Created = proofService.getProofByProofId(SET_OF_ROYLLO_NFT_3_PROOF_ID);
-        assertTrue(proof3Created.isPresent());
-        assertEquals(SET_OF_ROYLLO_NFT_3_PROOF_ID + PROOF_FILE_NAME_EXTENSION, proof3Created.get().getProofFileName());
-        request = new Request.Builder()
-                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + proof3Created.get().getProofFileName())
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            assertEquals(200, response.code());
-            assertEquals(SET_OF_ROYLLO_NFT_3_RAW_PROOF, response.body().string());
-        } catch (IOException e) {
-            fail("Error while retrieving the file" + e.getMessage());
-        }
+        // Royllo NFT 3.
+        assertThat(assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_3_ASSET_ID))
+                .isPresent()
+                .get()
+                .satisfies(asset -> {
+                    assertNotNull(asset.getAssetIdAlias());
+                    assertEquals(ASSET_ID_ALIAS_LENGTH, asset.getAssetIdAlias().length());
+                    assertNotNull(asset.getAmount());
+                    assertNotNull(asset.getIssuanceDate());
+                    var bto1 = bitcoinService.getBitcoinTransactionOutput(SET_OF_ROYLLO_NFT_ANCHOR_3_TXID, SET_OF_ROYLLO_NFT_ANCHOR_3_VOUT)
+                            .orElseThrow(() -> new AssertionError("Bitcoin transaction output not found"));
+                    verifyTransaction(bto1, SET_OF_ROYLLO_NFT_ANCHOR_3_TXID);
+                    var assetCreated = assetService.getAssetByAssetIdOrAlias(SET_OF_ROYLLO_NFT_3_ASSET_ID)
+                            .orElseThrow(() -> new AssertionError("Asset not found"));
+                    verifyAsset(assetCreated, SET_OF_ROYLLO_NFT_3_ASSET_ID);
+                    var assetStateCreated = assetStateService.getAssetStateByAssetStateId(SET_OF_ROYLLO_NFT_3_ASSET_STATE_ID)
+                            .orElseThrow(() -> new AssertionError("Asset state not found"));
+                    verifyAssetState(assetStateCreated,
+                            SET_OF_ROYLLO_NFT_3_ASSET_ID,
+                            SET_OF_ROYLLO_NFT_ANCHOR_3_TXID,
+                            SET_OF_ROYLLO_NFT_ANCHOR_3_VOUT,
+                            SET_OF_ROYLLO_NFT_3_FROM_TEST.getDecodedProofResponse(0).getAsset().getScriptKey());
+                    assertThat(getFileFromContentServer(asset.getMetaDataFileName()))
+                            .isNotNull()
+                            .satisfies(response -> {
+                                assertEquals(200, response.code());
+                                assertEquals("setOfRoylloNFT3 by Royllo", response.body().string());
+                            });
+                    assertThat(getFileFromContentServer(sha256(SET_OF_ROYLLO_NFT_3_RAW_PROOF) + PROOF_FILE_NAME_EXTENSION))
+                            .isNotNull()
+                            .satisfies(response -> {
+                                assertEquals(200, response.code());
+                                assertEquals(SET_OF_ROYLLO_NFT_3_RAW_PROOF, response.body().string());
+                            });
+                });
     }
 
 }

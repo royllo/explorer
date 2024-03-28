@@ -64,85 +64,73 @@ public class AddProofBatch extends BaseBatch {
                     .map(requestDTO -> (AddProofRequestDTO) requestDTO)
                     .forEach(request -> {
                         logger.info("Processing request {}: {}", request.getId(), request);
-
                         try {
-                            // =========================================================================================
-                            // First step, we call decode to see how many proofs are inside the file.
-                            long numberOfProofs = 0;
-                            DecodedProofResponse response = tapdService.decode(request.getProof()).block();
-                            if (response == null) {
-                                logger.info("Decoded proof for request {} is null", request.getId());
-                                request.failure("Decoded proof is null");
-                            } else {
-                                if (response.getErrorCode() != null) {
-                                    logger.info("Request {} proof cannot be decoded because of this error: {}",
-                                            request.getId(),
-                                            response.getErrorMessage());
-                                    request.failure(response.getErrorMessage());
-                                } else {
-                                    numberOfProofs = response.getDecodedProof().getNumberOfProofs();
-                                    logger.info("Request {} has {} proofs", request.getId(), numberOfProofs);
-                                }
-                            }
+                            // If we already have this proof in database, we don't process it.
+                            proofService.getProofByProofId(sha256(request.getProof())).ifPresent(proof -> {
+                                throw new ProofCreationException("Proof already exists in royllo");
+                            });
 
                             // =========================================================================================
-                            // Now, we decode all proofs, one by one, starting by the oldest (issuance proof).
+                            // We decode all proofs, one by one, starting by the oldest (issuance proof).
                             boolean proofAdded = false;
-                            for (long i = numberOfProofs; i > 0; i--) {
+                            for (long i = getNumberOfProofs(request.getProof()); i > 0; i--) {
 
-                                // We check if it's an issuance proof, if so, we will ask for meta reveal.
-                                response = tapdService.decode(request.getProof(), i - 1, true).block();
+                                // -------------------------------------------------------------------------------------
+                                // We start by calling the Tapd service to decode the proof and get the meta reveal.
+                                // We start with the one at the end of the proof file, and we go back to top.
+                                DecodedProofResponse response = tapdService.decode(request.getProof(), i - 1, true).block();
                                 if (response == null || response.getErrorCode() != null) {
+                                    // If we get an error, we do it without meta reveal.
                                     response = tapdService.decode(request.getProof(), i - 1, false).block();
                                 }
 
-                                // We check if we have a decoded proof response.
+                                // -------------------------------------------------------------------------------------
+                                // We now check if the response is correct.
                                 if (response == null) {
-                                    logger.info("Decoded proof for request {} is null", request.getId());
-                                    request.failure("Decoded proof is null");
+                                    // Response is null.
+                                    throw new ProofCreationException("Decoded proof is null");
                                 } else {
-                                    // We check if we had an error deciding the response.
+                                    // Error code is present in response.
                                     if (response.getErrorCode() != null) {
-                                        logger.info("Request {} proof cannot be decoded because of this error: {}",
-                                                request.getId(),
-                                                response.getErrorMessage());
-                                        request.failure(response.getErrorMessage());
-                                    } else {
-                                        // Now we have the decoded proof.
-                                        AssetStateDTO assetStateToCreate = ASSET_STATE_MAPPER.mapToAssetStateDTO(response.getDecodedProof());
-
-                                        // We check if the asset state already exists - If not, we create it.
-                                        // Note that addAssetState() should create the asset and the asset group if they don't exist.
-                                        Optional<AssetStateDTO> assetStateCreated = assetStateService.getAssetStateByAssetStateId(assetStateToCreate.getAssetStateId());
-                                        if (assetStateCreated.isEmpty()) {
-                                            // If it doesn't exist, we create it
-                                            logger.info("Request {}, adding asset state {}", request.getId(), assetStateToCreate.getAssetStateId());
-                                            assetStateCreated = Optional.of(assetStateService.addAssetState(assetStateToCreate));
-                                        } else {
-                                            logger.info("For request {}, asset state {} already exists", request.getId(), assetStateToCreate.getAssetStateId());
-                                        }
-
-                                        // We update the data and the file if we have the issuance proof
-                                        if (assetStateCreated.get().getAsset().getMetaDataFileName() == null && response.getDecodedProof().getMetaReveal() != null) {
-                                            logger.info("Creating meta data file");
-                                            assetService.updateAssetIssuanceData(response.getDecodedProof().getAsset().getAssetGenesis().getAssetId(),
-                                                    AssetDTOIssuanceUpdate.builder()
-                                                            .metadata(response.getDecodedProof().getMetaReveal().getData())
-                                                            .amount(response.getDecodedProof().getAsset().getAmount())
-                                                            .issuanceDate(assetStateCreated.get().getAnchorOutpoint().getBlockTime().atZone(ZoneId.of("Europe/Paris")))
-                                                            .build());
-                                        } else {
-                                            logger.info("No meta data file to create");
-                                        }
-
-                                        // If not already added, we add the proof.
-                                        if (!proofAdded) {
-                                            proofService.addProof(request.getProof(), request.getType(), response);
-                                            request.setAsset(assetStateCreated.get().getAsset());
-                                            proofAdded = true;
-                                        }
-                                        request.success();
+                                        throw new ProofCreationException("Proof cannot be decoded because of this error: " + response.getErrorMessage());
                                     }
+                                }
+
+                                // -------------------------------------------------------------------------------------
+                                // Now we have the decoded proof.
+                                AssetStateDTO assetStateToCreate = ASSET_STATE_MAPPER.mapToAssetStateDTO(response.getDecodedProof());
+
+                                // We check if the asset state already exists - If not, we create it.
+                                // Note that addAssetState() should create the asset and the asset group if they don't exist.
+                                Optional<AssetStateDTO> assetStateCreated = assetStateService.getAssetStateByAssetStateId(assetStateToCreate.getAssetStateId());
+                                if (assetStateCreated.isEmpty()) {
+                                    // If it doesn't exist, we create it
+                                    logger.info("Request {}, adding asset state {}", request.getId(), assetStateToCreate.getAssetStateId());
+                                    assetStateCreated = Optional.of(assetStateService.addAssetState(assetStateToCreate));
+                                } else {
+                                    logger.info("For request {}, asset state {} already exists", request.getId(), assetStateToCreate.getAssetStateId());
+                                }
+
+                                // -------------------------------------------------------------------------------------
+                                // We added the asset, asset group and asset states, if not already added, we add the proof.
+                                if (!proofAdded) {
+                                    proofService.addProof(request.getProof(), request.getType(), response);
+                                    request.setAsset(assetStateCreated.get().getAsset());
+                                    proofAdded = true;
+                                }
+                                request.success();
+
+                                // -------------------------------------------------------------------------------------
+                                // Bonus process.
+                                // We are on the issuance proof, so, it not yet done, we update the issuance data.
+                                if (assetStateCreated.get().getAsset().getMetaDataFileName() == null && response.getDecodedProof().getMetaReveal() != null) {
+                                    logger.info("Updating issuance data for asset {}", assetStateCreated.get().getAsset().getAssetId());
+                                    assetService.updateAssetIssuanceData(response.getDecodedProof().getAsset().getAssetGenesis().getAssetId(),
+                                            AssetDTOIssuanceUpdate.builder()
+                                                    .metadata(response.getDecodedProof().getMetaReveal().getData())
+                                                    .amount(response.getDecodedProof().getAsset().getAmount())
+                                                    .issuanceDate(assetStateCreated.get().getAnchorOutpoint().getBlockTime().atZone(ZoneId.of("Europe/Paris")))
+                                                    .build());
                                 }
                             }
 
@@ -155,10 +143,31 @@ public class AddProofBatch extends BaseBatch {
                             request.failure("Error: " + tapdError.getMessage());
                         }
 
-                        // We save the request.
+                        // We save the request status.
                         logger.info("Proof {} added: {} ", request.getProof(), request);
                         requestRepository.save(REQUEST_MAPPER.mapToAddAssetRequest(request));
                     });
+        }
+    }
+
+    /**
+     * Returns the number of proofs in a proof file.
+     *
+     * @param proof the proof file
+     * @return the number of proofs
+     */
+    private long getNumberOfProofs(final String proof) {
+        DecodedProofResponse response = tapdService.decode(proof).block();
+        if (response == null) {
+            logger.info("Decoded proof is null for proof {}", proof);
+            throw new ProofCreationException("Decoded proof is null");
+        } else {
+            if (response.getErrorCode() != null) {
+                logger.info("roof cannot be decoded because of this error: {}", response.getErrorMessage());
+                throw new ProofCreationException(response.getErrorMessage());
+            } else {
+                return response.getDecodedProof().getNumberOfProofs();
+            }
         }
     }
 

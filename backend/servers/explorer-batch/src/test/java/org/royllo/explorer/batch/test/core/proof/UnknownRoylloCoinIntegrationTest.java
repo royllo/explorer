@@ -1,15 +1,9 @@
 package org.royllo.explorer.batch.test.core.proof;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.batch.batch.request.AddProofBatch;
-import org.royllo.explorer.core.dto.asset.AssetDTO;
-import org.royllo.explorer.core.dto.proof.ProofDTO;
 import org.royllo.explorer.core.dto.request.AddProofRequestDTO;
-import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.repository.asset.AssetGroupRepository;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.repository.asset.AssetStateRepository;
@@ -26,17 +20,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.io.IOException;
-import java.util.Optional;
-
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.royllo.explorer.core.dto.proof.ProofDTO.PROOF_FILE_NAME_EXTENSION;
-import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_HOST;
-import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplementation.WEB_SERVER_PORT;
 import static org.royllo.explorer.core.util.enums.RequestStatus.OPENED;
 import static org.royllo.explorer.core.util.enums.RequestStatus.SUCCESS;
 import static org.royllo.test.MempoolData.UNKNOWN_ROYLLO_COIN_ANCHOR_1_TXID;
@@ -114,12 +103,19 @@ public class UnknownRoylloCoinIntegrationTest extends TestWithMockServers {
         // =============================================================================================================
         // We process the request and test its results
         addProofBatch.processRequests();
-        final Optional<RequestDTO> unknownRoylloCoinRequestTreated = requestService.getRequest(addUnknownRoylloCoinRequest.getId());
-        assertTrue(unknownRoylloCoinRequestTreated.isPresent());
-        assertTrue(unknownRoylloCoinRequestTreated.get().isSuccessful());
-        assertEquals(SUCCESS, unknownRoylloCoinRequestTreated.get().getStatus());
-        assertNotNull(((AddProofRequestDTO) unknownRoylloCoinRequestTreated.get()).getAsset());
-        assertEquals(UNKNOWN_ROYLLO_COIN_ASSET_ID, ((AddProofRequestDTO) unknownRoylloCoinRequestTreated.get()).getAsset().getAssetId());
+
+        assertThat(requestService.getRequest(addUnknownRoylloCoinRequest.getId()))
+                .isPresent()
+                .get()
+                .satisfies(request -> {
+                    assertTrue(request.isSuccessful());
+                    assertEquals(SUCCESS, request.getStatus());
+                    assertThat(((AddProofRequestDTO) request).getAsset())
+                            .isNotNull()
+                            .satisfies(asset -> {
+                                assertEquals(UNKNOWN_ROYLLO_COIN_ASSET_ID, asset.getAssetId());
+                            });
+                });
 
         // =============================================================================================================
         // We check that the asset now exists.
@@ -137,50 +133,44 @@ public class UnknownRoylloCoinIntegrationTest extends TestWithMockServers {
 
         // =============================================================================================================
         // We check the value of what has been created.
-        final Optional<AssetDTO> asset = assetService.getAssetByAssetIdOrAlias(UNKNOWN_ROYLLO_COIN_ASSET_ID);
-        assertTrue(asset.isPresent());
-        assertNotNull(asset.get().getAssetIdAlias());
-        verifyTransaction(bitcoinService.getBitcoinTransactionOutput(UNKNOWN_ROYLLO_COIN_GENESIS_TXID, UNKNOWN_ROYLLO_COIN_GENESIS_VOUT).get(),
-                UNKNOWN_ROYLLO_COIN_GENESIS_TXID);
-        verifyTransaction(bitcoinService.getBitcoinTransactionOutput(UNKNOWN_ROYLLO_COIN_ANCHOR_1_TXID, UNKNOWN_ROYLLO_COIN_ANCHOR_1_VOUT).get(),
-                UNKNOWN_ROYLLO_COIN_ANCHOR_1_TXID);
-        verifyAsset(assetService.getAssetByAssetIdOrAlias(UNKNOWN_ROYLLO_COIN_ASSET_ID).get(), UNKNOWN_ROYLLO_COIN_ASSET_ID);
-        assertNotNull(asset.get().getAmount());
-        assertNotNull(asset.get().getIssuanceDate());
-        verifyAssetState(assetStateService.getAssetStateByAssetStateId(UNKNOWN_ROYLLO_COIN_STATE_ID).get(),
-                UNKNOWN_ROYLLO_COIN_ASSET_ID,
-                UNKNOWN_ROYLLO_COIN_ANCHOR_1_TXID,
-                UNKNOWN_ROYLLO_COIN_ANCHOR_1_VOUT,
-                UNKNOWN_ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(0).getAsset().getScriptKey());
+        assertThat(assetService.getAssetByAssetIdOrAlias(UNKNOWN_ROYLLO_COIN_ASSET_ID))
+                .isPresent()
+                .get()
+                .satisfies(asset -> {
+                    assertNotNull(asset.getAssetIdAlias());
+                    assertNotNull(asset.getAmount());
+                    assertNotNull(asset.getIssuanceDate());
+                    var bto1 = bitcoinService.getBitcoinTransactionOutput(UNKNOWN_ROYLLO_COIN_GENESIS_TXID, UNKNOWN_ROYLLO_COIN_GENESIS_VOUT)
+                            .orElseThrow(() -> new AssertionError("Bitcoin transaction not found"));
+                    verifyTransaction(bto1, UNKNOWN_ROYLLO_COIN_GENESIS_TXID);
+                    var bto2 = bitcoinService.getBitcoinTransactionOutput(UNKNOWN_ROYLLO_COIN_ANCHOR_1_TXID, UNKNOWN_ROYLLO_COIN_ANCHOR_1_VOUT)
+                            .orElseThrow(() -> new AssertionError("Bitcoin transaction not found"));
+                    verifyTransaction(bto2, UNKNOWN_ROYLLO_COIN_ANCHOR_1_TXID);
+                    var assetCreated = assetService.getAssetByAssetIdOrAlias(UNKNOWN_ROYLLO_COIN_ASSET_ID)
+                            .orElseThrow(() -> new AssertionError("Asset not found"));
+                    verifyAsset(assetCreated, UNKNOWN_ROYLLO_COIN_ASSET_ID);
+                    var assetStateCreated = assetStateService.getAssetStateByAssetStateId(UNKNOWN_ROYLLO_COIN_STATE_ID)
+                            .orElseThrow(() -> new AssertionError("Asset state not found"));
+                    verifyAssetState(assetStateCreated,
+                            UNKNOWN_ROYLLO_COIN_ASSET_ID,
+                            UNKNOWN_ROYLLO_COIN_ANCHOR_1_TXID,
+                            UNKNOWN_ROYLLO_COIN_ANCHOR_1_VOUT,
+                            UNKNOWN_ROYLLO_COIN_FROM_TEST.getDecodedProofResponse(0).getAsset().getScriptKey());
+                    // Check content server.
+                    assertThat(getFileFromContentServer(asset.getMetaDataFileName()))
+                            .isNotNull()
+                            .satisfies(response -> {
+                                assertEquals(200, response.code());
+                                assertEquals("unknownRoylloCoin by Royllo", response.body().string());
+                            });
+                    assertThat(getFileFromContentServer(sha256(UNKNOWN_ROYLLO_COIN_RAW_PROOF) + PROOF_FILE_NAME_EXTENSION))
+                            .isNotNull()
+                            .satisfies(response -> {
+                                assertEquals(200, response.code());
+                                assertEquals(UNKNOWN_ROYLLO_COIN_RAW_PROOF, response.body().string());
+                            });
+                });
 
-        // =============================================================================================================
-        // We check meta-data file for UNKNOWN_ROYLLO_COIN_ASSET_ID.
-        var client = new OkHttpClient();
-        assertNotNull(asset.get().getMetaDataFileName());
-        Request request = new Request.Builder()
-                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + asset.get().getMetaDataFileName())
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            assertEquals(200, response.code());
-            assertEquals("unknownRoylloCoin by Royllo", response.body().string());
-        } catch (IOException e) {
-            fail("Error while retrieving the file" + e.getMessage());
-        }
-
-        // =============================================================================================================
-        // We should have the proof file on our content service.
-        final Optional<ProofDTO> proof1Created = proofService.getProofByProofId(UNKNOWN_ROYLLO_COIN_PROOF_ID);
-        assertTrue(proof1Created.isPresent());
-        assertEquals(UNKNOWN_ROYLLO_COIN_PROOF_ID + PROOF_FILE_NAME_EXTENSION, proof1Created.get().getProofFileName());
-        request = new Request.Builder()
-                .url("http://" + WEB_SERVER_HOST + ":" + WEB_SERVER_PORT + "/" + proof1Created.get().getProofFileName())
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            assertEquals(200, response.code());
-            assertEquals(UNKNOWN_ROYLLO_COIN_RAW_PROOF, response.body().string());
-        } catch (IOException e) {
-            fail("Error while retrieving the file" + e.getMessage());
-        }
     }
 
 }
