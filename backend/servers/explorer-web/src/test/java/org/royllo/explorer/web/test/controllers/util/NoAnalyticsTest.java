@@ -29,7 +29,6 @@ public class NoAnalyticsTest {
     @Test
     @DisplayName("No analytics configured")
     void noAnalyticsConfigured() throws Exception {
-
         // We test on each layout (home, asset).
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
@@ -38,7 +37,6 @@ public class NoAnalyticsTest {
         mockMvc.perform(get("/asset/" + ROYLLO_COIN_ASSET_ID))
                 .andExpect(status().isOk())
                 .andExpect(content().string(not(containsString("(window, document, 'dataLayer'"))));
-
     }
 
 }

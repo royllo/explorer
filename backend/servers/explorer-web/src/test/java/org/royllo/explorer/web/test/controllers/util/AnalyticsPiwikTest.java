@@ -28,7 +28,6 @@ public class AnalyticsPiwikTest {
     @Test
     @DisplayName("Piwik configured")
     void piwikConfigured() throws Exception {
-
         // We test on each layout (home, asset).
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
@@ -37,7 +36,6 @@ public class AnalyticsPiwikTest {
         mockMvc.perform(get("/asset/" + ROYLLO_COIN_ASSET_ID))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("(window, document, 'dataLayer', '00000000-0000-0000-0000-000000000001');")));
-
     }
 
 }

@@ -160,7 +160,7 @@ public class AccountSettingsTest extends BaseWebTest {
         MockMultipartFile oldProfilePicture = new MockMultipartFile("user-file",
                 new ClassPathResource("test-profile-picture.jpg").getContentAsByteArray());
         mockMvc.perform(multipart("/account/settings")
-                        .file("oldProfilePicture", newProfilePicture.getBytes())
+                        .file("profilePicture", oldProfilePicture.getBytes())
                         .param("username", STRAUMAT_USER_USERNAME)
                         .param("fullName", STRAUMAT_USER_FULL_NAME)
                         .param("biography", STRAUMAT_USER_BIOGRAPHY)

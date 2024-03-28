@@ -6,7 +6,6 @@ import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.util.parameters.RoylloExplorerParameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class SitemapController {
      * @return asset genesis page
      */
     @SuppressWarnings("SameReturnValue")
-    @GetMapping(value = {"/sitemap.xml"})
+    // @GetMapping(value = {"/sitemap.xml"})
     public String sitemap(final Model model) {
 
         // Get all asset ids and generate the corresponding urls.

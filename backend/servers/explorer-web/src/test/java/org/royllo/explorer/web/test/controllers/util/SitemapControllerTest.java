@@ -1,5 +1,6 @@
 package org.royllo.explorer.web.test.controllers.util;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class SitemapControllerTest {
     MockMvc mockMvc;
 
     @Test
+    @Disabled
     @DisplayName("Sitemap")
     void sitemap() throws Exception {
 
