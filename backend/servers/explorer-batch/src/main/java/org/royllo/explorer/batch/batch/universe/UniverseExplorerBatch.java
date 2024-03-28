@@ -38,7 +38,7 @@ public class UniverseExplorerBatch extends BaseBatch {
     public static final int UNIVERSE_ROOTS_LIMIT = 100;
 
     /** When a server fails for too long, this is the probability to retry connecting to it. */
-    public static final int PROBABILITY_TO_RETRY = 10_000;
+    public static final int PROBABILITY_TO_RETRY = 1_000;
 
     /** Proof repository. */
     private final ProofRepository proofRepository;
@@ -67,6 +67,8 @@ public class UniverseExplorerBatch extends BaseBatch {
                 universeServer.setLastSynchronizationAttempt(now());
                 universeServerRepository.save(universeServer);
 
+                // =====================================================================================================
+                // Bonus!
                 // We have two fields:
                 // - lastSynchronizationAttempt: the last time we tried to synchronize with the universe server.
                 // - lastSynchronizationSuccess: the last time we successfully synchronized with the universe server.
