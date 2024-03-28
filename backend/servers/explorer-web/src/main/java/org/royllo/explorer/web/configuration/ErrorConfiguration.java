@@ -36,8 +36,8 @@ public class ErrorConfiguration extends Base implements ErrorController {
     @RequestMapping("/error")
     public String handleError(final HttpServletRequest request, final Model model) {
 
-        // TODO This doesn't work - exceptionObject is always null.
         // We try to get the exception and the error message to display it.
+        // TODO This doesn't work - exceptionObject is always null.
         Object exceptionObject = request.getAttribute(ERROR_EXCEPTION);
         if (exceptionObject instanceof Throwable throwable) {
             model.addAttribute(ERROR_MESSAGE_ATTRIBUTE, throwable.getMessage());

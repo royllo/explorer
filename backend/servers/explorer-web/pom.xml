@@ -9,7 +9,7 @@
     <artifactId>explorer-web</artifactId>
     <packaging>jar</packaging>
     <name>Royllo Explorer web server</name>
-    <description>Includes core - Contains the web application</description>
+    <description>Includes core - Contains the web application calling core services</description>
     <!-- ==========Backend] ================================================================================================= -->
 
     <!-- =========================================================================================================== -->
