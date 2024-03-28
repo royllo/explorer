@@ -668,7 +668,7 @@ public class AssetServiceTest extends TestWithMockServers {
     @DisplayName("getAssetsByUsername()")
     public void getAssetsByUsername() {
         // Straumat has 2 assets.
-        Page<AssetDTO> straumatAssets = assetService.getAssetsByUsername("straumat", 1, 10);
+        Page<AssetDTO> straumatAssets = assetService.getAssetsByUsername(STRAUMAT_USER_USERNAME, 1, 10);
         assertThat(straumatAssets.getContent())
                 .extracting(AssetDTO::getAssetId)
                 .containsExactly(SET_OF_ROYLLO_NFT_2_ASSET_ID, TRICKY_ROYLLO_COIN_ASSET_ID);

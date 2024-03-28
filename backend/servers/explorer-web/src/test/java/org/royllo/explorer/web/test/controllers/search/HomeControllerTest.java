@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.repository.universe.UniverseServerRepository;
 import org.royllo.explorer.core.repository.user.UserRepository;
-import org.royllo.explorer.web.test.util.BaseTest;
+import org.royllo.explorer.web.test.util.BaseWebTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext
 @DisplayName("Home controller tests")
 @AutoConfigureMockMvc
-public class HomeControllerTest extends BaseTest {
+public class HomeControllerTest extends BaseWebTest {
 
     @Autowired
     MockMvc mockMvc;

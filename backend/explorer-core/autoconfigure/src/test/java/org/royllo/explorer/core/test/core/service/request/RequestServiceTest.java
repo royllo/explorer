@@ -10,6 +10,7 @@ import org.royllo.explorer.core.dto.request.AddUniverseServerRequestDTO;
 import org.royllo.explorer.core.dto.request.ClaimAssetOwnershipRequestDTO;
 import org.royllo.explorer.core.dto.request.RequestDTO;
 import org.royllo.explorer.core.service.request.RequestService;
+import org.royllo.explorer.core.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,7 +40,7 @@ import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @AutoConfigureTestDatabase(replace = ANY)
 @DisplayName("RequestService tests")
-public class RequestServiceTest {
+public class RequestServiceTest extends BaseTest {
 
     @Autowired
     private RequestService requestService;
@@ -223,8 +224,7 @@ public class RequestServiceTest {
 
         // -------------------------------------------------------------------------------------------------------------
         // Request 7 (ClaimAssetOwnershipRequest).
-        RequestDTO request7DTO = requestService.createClaimAssetOwnershipRequest("22222222-2222-2222-2222-222222222222",
-                "MyProofWithWitness");
+        RequestDTO request7DTO = requestService.createClaimAssetOwnershipRequest(STRAUMAT_USER_USER_ID, "MyProofWithWitness");
         assertNotNull(request7DTO);
         long request7Id = request7DTO.getId();
 
@@ -238,8 +238,8 @@ public class RequestServiceTest {
         assertEquals(request7Id, request7Casted.getId());
         assertNotNull(request7Casted.getRequestId());
         assertEquals(2, request7Casted.getCreator().getId());
-        assertEquals("22222222-2222-2222-2222-222222222222", request7Casted.getCreator().getUserId());
-        assertEquals("straumat", request7Casted.getCreator().getUsername());
+        assertEquals(STRAUMAT_USER_USER_ID, request7Casted.getCreator().getUserId());
+        assertEquals(STRAUMAT_USER_USERNAME, request7Casted.getCreator().getUsername());
         assertEquals(OPENED, request7Casted.getStatus());
         assertNull(request7Casted.getErrorMessage());
         assertEquals("MyProofWithWitness", request7Casted.getProofWithWitness());

@@ -2,7 +2,7 @@ package org.royllo.explorer.web.test.controllers.request;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.royllo.explorer.web.test.util.BaseTest;
+import org.royllo.explorer.web.test.util.BaseWebTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext
 @DisplayName("Request controller tests")
 @AutoConfigureMockMvc
-public class RequestControllerTest extends BaseTest {
+public class RequestControllerTest extends BaseWebTest {
 
     @Autowired
     MockMvc mockMvc;

@@ -31,10 +31,6 @@ import static org.royllo.explorer.core.util.enums.UserRole.USER;
 @DisplayName("UserService tests")
 public class UserServiceTest extends TestWithMockServers {
 
-    /** Test user. */
-    public static final String STRAUMAT_USER_ID = "22222222-2222-2222-2222-222222222222";
-    public static final String STRAUMAT_USERNAME = "straumat";
-
     @Autowired
     private UserService userService;
 
@@ -62,13 +58,13 @@ public class UserServiceTest extends TestWithMockServers {
 
         // Creating an existing user.
         assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> userService.addUser(STRAUMAT_USERNAME))
+                .isThrownBy(() -> userService.addUser(STRAUMAT_USER_USER_ID))
                 .withMessage("Username 'straumat' already registered");
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> userService.addUser(ADMINISTRATOR_USER_USERNAME))
                 .withMessage("Username 'administrator' already registered");
         assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> userService.addUser(STRAUMAT_USERNAME))
+                .isThrownBy(() -> userService.addUser(STRAUMAT_USER_USER_ID))
                 .withMessage("Username 'straumat' already registered");
 
         // =============================================================================================================
@@ -88,7 +84,7 @@ public class UserServiceTest extends TestWithMockServers {
     @DisplayName("updateUser()")
     public void updateUser() {
         // We retrieve the existing user.
-        UserDTO straumatUser = userService.getUserByUserId(STRAUMAT_USER_ID)
+        UserDTO straumatUser = userService.getUserByUserId(STRAUMAT_USER_USER_ID)
                 .orElseThrow(() -> new AssertionError("straumat not found"));
         UserDTOSettings currentSettings = straumatUser.getCurrentSettings();
 
@@ -105,7 +101,7 @@ public class UserServiceTest extends TestWithMockServers {
 
         // We try to update 'straumat' username with an existing username.
         assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> userService.updateUser(STRAUMAT_USER_ID,
+                .isThrownBy(() -> userService.updateUser(STRAUMAT_USER_USER_ID,
                         UserDTOSettings.builder()
                                 .username(ADMINISTRATOR_USER_USERNAME)  // <- Existing username.
                                 .profilePictureFileName(currentSettings.profilePictureFileName())
@@ -117,7 +113,7 @@ public class UserServiceTest extends TestWithMockServers {
 
         // Checking fields constraints.
         assertThatExceptionOfType(ConstraintViolationException.class)
-                .isThrownBy(() -> userService.updateUser(STRAUMAT_USER_ID,
+                .isThrownBy(() -> userService.updateUser(STRAUMAT_USER_USER_ID,
                         UserDTOSettings.builder()
                                 .username(RandomStringUtils.randomAlphanumeric(41))
                                 .profilePictureFileName(RandomStringUtils.randomAlphanumeric(PROFILE_PICTURE_FILE_NAME_MAXIMUM_SIZE + 1))
@@ -140,7 +136,7 @@ public class UserServiceTest extends TestWithMockServers {
 
         // We check the existing user.
         assertEquals(2, straumatUser.getId().longValue());
-        assertEquals(STRAUMAT_USERNAME, straumatUser.getUsername());
+        assertEquals(STRAUMAT_USER_USERNAME, straumatUser.getUsername());
         assertEquals("22222222-2222-2222-2222-222222222222.jpeg", straumatUser.getProfilePictureFileName());
         assertEquals("Stéphane Traumat", straumatUser.getFullName());
         assertEquals("I am a developer", straumatUser.getBiography());
@@ -148,7 +144,7 @@ public class UserServiceTest extends TestWithMockServers {
         assertEquals(ADMINISTRATOR, straumatUser.getRole());
 
         // We update the user settings.
-        userService.updateUser(STRAUMAT_USER_ID, UserDTOSettings.builder()
+        userService.updateUser(STRAUMAT_USER_USER_ID, UserDTOSettings.builder()
                 .username("straumat2")
                 .profilePictureFileName("33333333-3333-3333-3333-333333333333.jpeg")
                 .fullName("Stéphane Traumat (Updated)")
@@ -157,11 +153,11 @@ public class UserServiceTest extends TestWithMockServers {
                 .build());
 
         // We check what has been updated.
-        straumatUser = userService.getUserByUserId(STRAUMAT_USER_ID)
+        straumatUser = userService.getUserByUserId(STRAUMAT_USER_USER_ID)
                 .orElseThrow(() -> new AssertionError("straumat not found"));
         // Not supposed to be updated.
         assertEquals(2, straumatUser.getId().longValue());
-        assertEquals(STRAUMAT_USER_ID, straumatUser.getUserId());
+        assertEquals(STRAUMAT_USER_USER_ID, straumatUser.getUserId());
         assertEquals(ADMINISTRATOR, straumatUser.getRole());
         // Should be updated.
         assertEquals("straumat2", straumatUser.getUsername());
@@ -171,11 +167,11 @@ public class UserServiceTest extends TestWithMockServers {
         assertEquals("https://github.com/straumat2", straumatUser.getWebsite());
 
         // We go back to normal settings.
-        userService.updateUser(STRAUMAT_USER_ID, currentSettings);
-        straumatUser = userService.getUserByUserId(STRAUMAT_USER_ID)
+        userService.updateUser(STRAUMAT_USER_USER_ID, currentSettings);
+        straumatUser = userService.getUserByUserId(STRAUMAT_USER_USER_ID)
                 .orElseThrow(() -> new AssertionError("straumat not found"));
         assertEquals(2, straumatUser.getId().longValue());
-        assertEquals(STRAUMAT_USERNAME, straumatUser.getUsername());
+        assertEquals(STRAUMAT_USER_USERNAME, straumatUser.getUsername());
         assertEquals("22222222-2222-2222-2222-222222222222.jpeg", straumatUser.getProfilePictureFileName());
         assertEquals("Stéphane Traumat", straumatUser.getFullName());
         assertEquals("I am a developer", straumatUser.getBiography());
@@ -190,11 +186,11 @@ public class UserServiceTest extends TestWithMockServers {
         assertFalse(userService.getUserByUsername("NON_EXISTING_USERNAME").isPresent());
 
         // Existing user.
-        assertThat(userService.getUserByUsername(STRAUMAT_USERNAME))
+        assertThat(userService.getUserByUsername(STRAUMAT_USER_USERNAME))
                 .isNotNull()
                 .hasValueSatisfying(user -> {
                     assertEquals(2, user.getId().longValue());
-                    assertEquals(STRAUMAT_USERNAME, user.getUsername());
+                    assertEquals(STRAUMAT_USER_USERNAME, user.getUsername());
                     assertEquals("Stéphane Traumat", user.getFullName());
                     assertEquals("I am a developer", user.getBiography());
                     assertEquals("https://github.com/straumat", user.getWebsite());
@@ -202,11 +198,11 @@ public class UserServiceTest extends TestWithMockServers {
                 });
 
         // Existing user (Uppercase).
-        assertThat(userService.getUserByUsername("STRAUMAT"))
+        assertThat(userService.getUserByUsername(STRAUMAT_USER_USERNAME))
                 .isNotNull()
                 .hasValueSatisfying(user -> {
                     assertEquals(2, user.getId().longValue());
-                    assertEquals(STRAUMAT_USERNAME, user.getUsername());
+                    assertEquals(STRAUMAT_USER_USERNAME, user.getUsername());
                     assertEquals("Stéphane Traumat", user.getFullName());
                     assertEquals("I am a developer", user.getBiography());
                     assertEquals("https://github.com/straumat", user.getWebsite());
@@ -221,11 +217,11 @@ public class UserServiceTest extends TestWithMockServers {
         assertFalse(userService.getUserByUserId("NON_EXISTING_USERNAME").isPresent());
 
         // Existing user.
-        assertThat(userService.getUserByUserId(STRAUMAT_USER_ID))
+        assertThat(userService.getUserByUserId(STRAUMAT_USER_USER_ID))
                 .isNotNull()
                 .hasValueSatisfying(user -> {
                     assertEquals(2, user.getId().longValue());
-                    assertEquals(STRAUMAT_USERNAME, user.getUsername());
+                    assertEquals(STRAUMAT_USER_USERNAME, user.getUsername());
                     assertEquals("Stéphane Traumat", user.getFullName());
                     assertEquals("I am a developer", user.getBiography());
                     assertEquals("https://github.com/straumat", user.getWebsite());

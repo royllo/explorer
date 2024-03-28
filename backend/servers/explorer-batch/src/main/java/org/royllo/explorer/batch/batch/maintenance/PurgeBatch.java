@@ -39,9 +39,7 @@ public class PurgeBatch extends BaseBatch {
      */
     @Scheduled(initialDelay = START_DELAY_IN_MILLISECONDS, fixedDelay = DELAY_BETWEEN_TWO_PROCESS_IN_MILLISECONDS)
     public void purge() {
-        logger.info("Checking if failed request should be purged");
         if (requestRepository.countByStatusOrderById(FAILURE) > MAXIMUM_FAILED_REQUESTS_STORE) {
-            // We purge.
             final List<Request> toDelete = requestRepository.findByStatusOrderById(FAILURE, PageRequest.of(1, MAXIMUM_FAILED_REQUESTS_STORE));
             requestRepository.deleteAll(toDelete);
             logger.info("{} failed requests purged", toDelete.size());

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.domain.user.User;
 import org.royllo.explorer.core.repository.user.UserRepository;
+import org.royllo.explorer.core.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -21,7 +22,7 @@ import static org.royllo.explorer.core.util.constants.AnonymousUserConstants.ANO
 
 @SpringBootTest
 @DisplayName("UserRepository tests")
-public class UserRepositoryTest {
+public class UserRepositoryTest extends BaseTest {
 
     @Autowired
     private UserRepository userRepository;
@@ -80,10 +81,10 @@ public class UserRepositoryTest {
     @DisplayName("findByUsernameIgnoreCase()")
     public void findByUsernameIgnoreCase() {
         // Existing user.
-        final Optional<User> existingUser = userRepository.findByUsernameIgnoreCase("straumat");
+        final Optional<User> existingUser = userRepository.findByUsernameIgnoreCase(STRAUMAT_USER_USERNAME);
         assertTrue(existingUser.isPresent());
         assertEquals(2, existingUser.get().getId().longValue());
-        assertEquals("straumat", existingUser.get().getUsername());
+        assertEquals(STRAUMAT_USER_USERNAME, existingUser.get().getUsername());
 
         // Non-existing user.
         assertFalse(userRepository.findById(99999999999L).isPresent());

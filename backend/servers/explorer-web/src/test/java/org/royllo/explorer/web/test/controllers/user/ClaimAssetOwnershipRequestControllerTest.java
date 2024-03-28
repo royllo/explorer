@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.dto.request.ClaimAssetOwnershipRequestDTO;
 import org.royllo.explorer.core.repository.request.RequestRepository;
 import org.royllo.explorer.core.service.request.RequestService;
-import org.royllo.explorer.web.test.util.BaseTest;
+import org.royllo.explorer.web.test.util.BaseWebTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext
 @DisplayName("Claim asset ownership request controller tests")
 @AutoConfigureMockMvc
-public class ClaimAssetOwnershipRequestControllerTest extends BaseTest {
+public class ClaimAssetOwnershipRequestControllerTest extends BaseWebTest {
 
     @Autowired
     MockMvc mockMvc;

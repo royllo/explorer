@@ -16,6 +16,13 @@ import static org.royllo.explorer.core.provider.storage.LocalFileServiceImplemen
  */
 public class BaseTest extends Base {
 
+    /** Straumat user used for tests. */
+    public final String STRAUMAT_USER_USER_ID = "22222222-2222-2222-2222-222222222222";
+    public final String STRAUMAT_USER_USERNAME = "straumat";
+    public final String STRAUMAT_USER_FULL_NAME = "Stéphane Traumat";
+    public final String STRAUMAT_USER_BIOGRAPHY = "I am a developer";
+    public final String STRAUMAT_USER_WEBSITE = "https://github.com/straumat";
+
     /**
      * Check if the property path is in the constraint violations.
      *

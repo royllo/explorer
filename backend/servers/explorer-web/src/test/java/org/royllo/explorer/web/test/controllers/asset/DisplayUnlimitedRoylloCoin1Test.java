@@ -3,7 +3,7 @@ package org.royllo.explorer.web.test.controllers.asset;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.royllo.explorer.web.test.util.BaseTest;
+import org.royllo.explorer.web.test.util.BaseWebTest;
 import org.royllo.test.tapd.asset.DecodedProofValueResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext
 @DisplayName("Display unlimitedRoylloCoin1 page tests")
 @AutoConfigureMockMvc
-public class DisplayUnlimitedRoylloCoin1Test extends BaseTest {
+public class DisplayUnlimitedRoylloCoin1Test extends BaseWebTest {
 
     // Asset tested.
     String assetId = UNLIMITED_ROYLLO_COIN_1_ASSET_ID;

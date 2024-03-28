@@ -7,7 +7,7 @@ import org.royllo.explorer.core.domain.asset.Asset;
 import org.royllo.explorer.core.repository.asset.AssetRepository;
 import org.royllo.explorer.core.service.asset.AssetService;
 import org.royllo.explorer.core.service.user.UserService;
-import org.royllo.explorer.web.test.util.BaseTest;
+import org.royllo.explorer.web.test.util.BaseWebTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -46,7 +46,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext
 @DisplayName("User assets controller tests")
 @AutoConfigureMockMvc
-public class UserAssetsTest extends BaseTest {
+public class UserAssetsTest extends BaseWebTest {
 
     @Autowired
     AssetRepository assetRepository;

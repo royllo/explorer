@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.dto.user.UserDTO;
 import org.royllo.explorer.core.service.user.UserService;
-import org.royllo.explorer.web.test.util.BaseTest;
+import org.royllo.explorer.web.test.util.BaseWebTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext
 @DisplayName("Account settings controller tests")
 @AutoConfigureMockMvc
-public class AccountSettingsTest extends BaseTest {
+public class AccountSettingsTest extends BaseWebTest {
 
     @Autowired
     MessageSource messages;
@@ -116,9 +116,9 @@ public class AccountSettingsTest extends BaseTest {
         // When it works.
 
         // We check the existing values.
-        Optional<UserDTO> existingUser = userService.getUserByUsername("straumat");
+        Optional<UserDTO> existingUser = userService.getUserByUsername(STRAUMAT_USER_USERNAME);
         assertTrue(existingUser.isPresent());
-        assertEquals("straumat", existingUser.get().getUsername());
+        assertEquals(STRAUMAT_USER_USERNAME, existingUser.get().getUsername());
         assertEquals("22222222-2222-2222-2222-222222222222.jpeg", existingUser.get().getProfilePictureFileName());
         assertEquals("Stéphane Traumat", existingUser.get().getFullName());
         assertEquals("I am a developer", existingUser.get().getBiography());
@@ -148,7 +148,7 @@ public class AccountSettingsTest extends BaseTest {
                 .andExpect(content().string(containsString(getMessage(messages, "user.settings.information.success"))));
 
         // We check the updated values.
-        Optional<UserDTO> userUpdated = userService.getUserByUserId("22222222-2222-2222-2222-222222222222");
+        Optional<UserDTO> userUpdated = userService.getUserByUserId(STRAUMAT_USER_USER_ID);
         assertTrue(userUpdated.isPresent());
         assertEquals("22222222-2222-2222-2222-222222222222.jpg", userUpdated.get().getProfilePictureFileName());
         assertEquals("pdupont", userUpdated.get().getUsername());

@@ -10,6 +10,7 @@ import org.royllo.explorer.api.graphql.generated.client.UserByUserIdGraphQLQuery
 import org.royllo.explorer.api.graphql.generated.client.UserByUserIdProjectionRoot;
 import org.royllo.explorer.api.graphql.generated.client.UserByUsernameGraphQLQuery;
 import org.royllo.explorer.api.graphql.generated.types.User;
+import org.royllo.explorer.core.test.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
@@ -20,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 @DirtiesContext
 @DisplayName("UserDataFetcher tests")
-public class UserDataFetcherTest {
+public class UserDataFetcherTest extends BaseTest {
 
     @Autowired
     DgsQueryExecutor dgsQueryExecutor;
@@ -30,7 +31,7 @@ public class UserDataFetcherTest {
     public void userByUserId() {
         assertThat(dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        UserByUserIdGraphQLQuery.newRequest().userId("22222222-2222-2222-2222-222222222222").build(),
+                        UserByUserIdGraphQLQuery.newRequest().userId(STRAUMAT_USER_USER_ID).build(),
                         new UserByUserIdProjectionRoot<>().userId().username())
                         .serialize(),
                 "data." + DgsConstants.QUERY.UserByUserId,
@@ -38,8 +39,8 @@ public class UserDataFetcherTest {
                 }))
                 .isNotNull()
                 .satisfies(user -> {
-                    assertEquals("22222222-2222-2222-2222-222222222222", user.getUserId());
-                    assertEquals("straumat", user.getUsername());
+                    assertEquals(STRAUMAT_USER_USER_ID, user.getUserId());
+                    assertEquals(STRAUMAT_USER_USERNAME, user.getUsername());
                 });
     }
 
@@ -48,7 +49,7 @@ public class UserDataFetcherTest {
     public void userByUsername() {
         assertThat(dgsQueryExecutor.executeAndExtractJsonPathAsObject(
                 new GraphQLQueryRequest(
-                        UserByUsernameGraphQLQuery.newRequest().username("straumat").build(),
+                        UserByUsernameGraphQLQuery.newRequest().username(STRAUMAT_USER_USERNAME).build(),
                         new UserByUserIdProjectionRoot<>().userId().username())
                         .serialize(),
                 "data." + DgsConstants.QUERY.UserByUsername,
@@ -56,8 +57,8 @@ public class UserDataFetcherTest {
                 }))
                 .isNotNull()
                 .satisfies(user -> {
-                    assertEquals("22222222-2222-2222-2222-222222222222", user.getUserId());
-                    assertEquals("straumat", user.getUsername());
+                    assertEquals(STRAUMAT_USER_USER_ID, user.getUserId());
+                    assertEquals(STRAUMAT_USER_USERNAME, user.getUsername());
                 });
     }
 

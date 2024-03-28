@@ -3,7 +3,7 @@ package org.royllo.explorer.web.test.controllers.asset;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.royllo.explorer.web.test.util.BaseTest;
+import org.royllo.explorer.web.test.util.BaseWebTest;
 import org.royllo.test.tapd.asset.DecodedProofValueResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -39,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext
 @DisplayName("Display setRoylloNFT2 page tests")
 @AutoConfigureMockMvc
-public class DisplaySetRoylloNFT2Test extends BaseTest {
+public class DisplaySetRoylloNFT2Test extends BaseWebTest {
 
     // Asset tested.
     String assetId = SET_OF_ROYLLO_NFT_2_ASSET_ID;
@@ -171,7 +171,7 @@ public class DisplaySetRoylloNFT2Test extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(containsString(ASSET_OWNER_PAGE)))
                 // Checking owner tab data.
-                .andExpect(content().string(containsString(">" + STRAUMAT_USER_ID + "<")))
+                .andExpect(content().string(containsString(">" + STRAUMAT_USER_USER_ID + "<")))
                 .andExpect(content().string(containsString(">" + STRAUMAT_USER_USERNAME + "<")))
                 .andExpect(content().string(containsString(getMessage(messages, "user.data.fullName"))))
                 .andExpect(content().string(containsString(">" + STRAUMAT_USER_FULL_NAME + "<")))

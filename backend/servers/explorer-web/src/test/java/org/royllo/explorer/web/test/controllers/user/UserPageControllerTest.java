@@ -3,7 +3,7 @@ package org.royllo.explorer.web.test.controllers.user;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.royllo.explorer.core.service.user.UserService;
-import org.royllo.explorer.web.test.util.BaseTest;
+import org.royllo.explorer.web.test.util.BaseWebTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext
 @DisplayName("User public page controller tests")
 @AutoConfigureMockMvc
-public class UserPageControllerTest extends BaseTest {
+public class UserPageControllerTest extends BaseWebTest {
 
     @Autowired
     MessageSource messages;
@@ -46,7 +46,7 @@ public class UserPageControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(USER_PUBLIC_PAGE))
                 // Checking user profile.
-                .andExpect(content().string(containsString("/" + STRAUMAT_USER_ID + ".")))
+                .andExpect(content().string(containsString("/" + STRAUMAT_USER_USER_ID + ".")))
                 .andExpect(content().string(containsString(STRAUMAT_USER_FULL_NAME)))
                 .andExpect(content().string(containsString(STRAUMAT_USER_BIOGRAPHY)))
                 .andExpect(content().string(containsString(STRAUMAT_USER_WEBSITE)))
