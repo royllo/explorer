@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Optional;
-
 import static org.royllo.explorer.web.util.constants.AuthenticationSessionConstants.USER_ID;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.FORM_ATTRIBUTE;
 import static org.royllo.explorer.web.util.constants.ModelAttributeConstants.RESULT_ATTRIBUTE;
@@ -46,7 +44,7 @@ public class ClaimAssetOwnershipRequestController {
      */
     @SuppressWarnings("SameReturnValue")
     @GetMapping("/account/request/claim_asset_ownership/add")
-    public String displayForm(final Model model) {
+    public String forms(final Model model) {
         model.addAttribute(FORM_ATTRIBUTE, new ClaimAssetOwnershipRequestForm());
         return CLAIM_ASSET_OWNERSHIP_REQUEST_FORM_PAGE;
     }
@@ -68,15 +66,12 @@ public class ClaimAssetOwnershipRequestController {
                            @Valid @ModelAttribute(FORM_ATTRIBUTE) final ClaimAssetOwnershipRequestForm form,
                            final BindingResult bindingResult) {
 
-        // Getting user id from session or from the current user (for test).
+        // Getting user id from session or from the current user (Forced to do that for tests).
         String userId = (String) session.getAttribute(USER_ID);
         if (userId == null) {
-            final Optional<UserDTO> user = userService.getUserByUserId(currentUser.getUsername());
-            if (user.isPresent()) {
-                userId = user.get().getUserId();
-            } else {
-                throw new ResponseStatusException(UNAUTHORIZED, "User not found");
-            }
+            userId = userService.getUserByUserId(currentUser.getUsername())
+                    .map(UserDTO::getUserId)
+                    .orElseThrow(() -> new ResponseStatusException(UNAUTHORIZED, "User not found"));
         }
 
         if (bindingResult.hasErrors() || userId == null) {
@@ -84,8 +79,7 @@ public class ClaimAssetOwnershipRequestController {
             return CLAIM_ASSET_OWNERSHIP_REQUEST_FORM_PAGE;
         } else {
             // Calling the service to create the request.
-            model.addAttribute(RESULT_ATTRIBUTE,
-                    requestService.createClaimAssetOwnershipRequest(userId, form.getProofWithWitness()));
+            model.addAttribute(RESULT_ATTRIBUTE, requestService.createClaimAssetOwnershipRequest(userId, form.getProofWithWitness()));
             return CLAIM_ASSET_OWNERSHIP_REQUEST_SUCCESS_PAGE;
         }
     }

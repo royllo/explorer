@@ -75,9 +75,9 @@ public class UserAssets extends BaseController {
      */
     @SuppressWarnings("SameReturnValue")
     @GetMapping(value = {"/account/asset/{assetId}/edit", "/account/asset/{assetId}/edit"})
-    public String assetFormShow(final Model model,
-                                final @AuthenticationPrincipal UserDetails currentUser,
-                                @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
+    public String form(final Model model,
+                       final @AuthenticationPrincipal UserDetails currentUser,
+                       @PathVariable(value = ASSET_ID_ATTRIBUTE, required = false) final String assetId) {
         // Retrieving the asset.
         Optional<AssetDTO> asset = assetService.getAssetByAssetIdOrAlias(assetId);
         if (asset.isPresent()) {
@@ -113,52 +113,46 @@ public class UserAssets extends BaseController {
      */
     @SuppressWarnings("SameReturnValue")
     @PostMapping(value = {"/account/asset/save", "/account/asset/save/"})
-    public String assetFormSave(final Model model,
-                                final @AuthenticationPrincipal UserDetails currentUser,
-                                @Valid @ModelAttribute(FORM_ATTRIBUTE) final UserAssetForm form,
-                                final BindingResult bindingResult) {
-
+    public String saveForm(final Model model,
+                           final @AuthenticationPrincipal UserDetails currentUser,
+                           @Valid @ModelAttribute(FORM_ATTRIBUTE) final UserAssetForm form,
+                           final BindingResult bindingResult) {
         // Getting the asset
-        Optional<AssetDTO> asset = assetService.getAssetByAssetIdOrAlias(form.getAssetId());
-        if (asset.isPresent()) {
+        AssetDTO asset = assetService.getAssetByAssetIdOrAlias(form.getAssetId())
+                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "This assert doesn't exists"));
 
-            // If the user tries to access an asset he doesn't own, we throw an exception.
-            if (!asset.get().getCreator().getUserId().equals(currentUser.getUsername())) {
-                logger.error("User {} tried to access asset {} he doesn't own", currentUser.getUsername(), form.getAssetId());
-                throw new ResponseStatusException(UNAUTHORIZED, "You don't own this asset: " + form.getAssetId());
-            }
+        // If the user tries to access an asset he doesn't own, we throw an exception.
+        if (!asset.getCreator().getUserId().equals(currentUser.getUsername())) {
+            logger.error("User {} tried to access asset {} he doesn't own", currentUser.getUsername(), form.getAssetId());
+            throw new ResponseStatusException(UNAUTHORIZED, "You don't own this asset: " + form.getAssetId());
+        }
 
-            // We set the value we are displaying.
-            model.addAttribute(ASSET_ID_ATTRIBUTE, form.getAssetId());
-            model.addAttribute(ASSET_NAME_ATTRIBUTE, asset.get().getName());
+        // We set the value we are displaying.
+        model.addAttribute(ASSET_ID_ATTRIBUTE, asset.getAssetId());
+        model.addAttribute(ASSET_NAME_ATTRIBUTE, asset.getName());
 
-            if (bindingResult.hasErrors()) {
-                // If we have errors in the form data validation.
-                return USER_ASSET_FORM_PAGE;
-            } else {
-
-                // If the user attempts to change the assetId, we first check if the assetIdAlias is unique.
-                if (asset.get().getAssetIdAlias() != null
-                        && !asset.get().getAssetIdAlias().equals(form.getAssetIdAlias())) {
-                    Optional<AssetDTO> existingAsset = assetService.getAssetByAssetIdOrAlias(form.getAssetIdAlias());
-                    if (existingAsset.isPresent()) {
-                        bindingResult.rejectValue("assetIdAlias", "validation.asset.assetIdAlias.unique");
-                        return USER_ASSET_FORM_PAGE;
-                    }
-                }
-
-                // Ok, we can update and save.
-                assetService.updateAssetCreatorData(form.getAssetId(),
-                        AssetDTOCreatorUpdate.builder()
-                                .assetIdAlias(form.getAssetIdAlias())
-                                .readme(form.getReadme())
-                                .build());
-                return "redirect:/account/assets?assetUpdated=" + form.getAssetId();
-            }
+        if (bindingResult.hasErrors()) {
+            // If we have errors in the form data validation.
+            return USER_ASSET_FORM_PAGE;
         } else {
-            // If the asset doesn't exist, we throw an exception.
-            logger.error("User {} tried to access asset {} but it doesn't exists", currentUser.getUsername(), form.getAssetId());
-            throw new ResponseStatusException(NOT_FOUND, "This assert doesn't exists");
+
+            // If the user attempts to change the assetId, we first check if the assetIdAlias is unique.
+            if (asset.getAssetIdAlias() != null
+                    && !asset.getAssetIdAlias().equals(form.getAssetIdAlias())) {
+                Optional<AssetDTO> existingAsset = assetService.getAssetByAssetIdOrAlias(form.getAssetIdAlias());
+                if (existingAsset.isPresent()) {
+                    bindingResult.rejectValue("assetIdAlias", "validation.asset.assetIdAlias.unique");
+                    return USER_ASSET_FORM_PAGE;
+                }
+            }
+
+            // Ok, we can update and save.
+            assetService.updateAssetCreatorData(form.getAssetId(),
+                    AssetDTOCreatorUpdate.builder()
+                            .assetIdAlias(form.getAssetIdAlias())
+                            .readme(form.getReadme())
+                            .build());
+            return "redirect:/account/assets?assetUpdated=" + asset.getAssetId();
         }
     }
 

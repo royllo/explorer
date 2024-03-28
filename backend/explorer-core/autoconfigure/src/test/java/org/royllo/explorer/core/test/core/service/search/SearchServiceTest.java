@@ -44,7 +44,7 @@ public class SearchServiceTest {
         // Searching for an asset that doesn't exist.
         results = searchService.queryAssets("NON_EXISTING_ASSET_ID", 1, 5);
         assertEquals(0, results.getTotalElements());
-        assertEquals(1, results.getTotalPages());
+        assertEquals(0, results.getTotalPages());
 
         // Searching for an asset with its group asset id
         results = searchService.queryAssets(SET_OF_ROYLLO_NFT_1_FROM_TEST.getDecodedProofResponse(0).getAsset().getAssetGroup().getTweakedGroupKey(), 1, 5);
@@ -102,6 +102,11 @@ public class SearchServiceTest {
 
         // We are searching for a name but the size of our search is the same size as asset id alias.
         results = searchService.queryAssets("trickyRo", 1, 5);
+        assertEquals(1, results.getTotalElements());
+        assertEquals(1L, results.getTotalPages());
+
+        // We are searching for a name, but we ask for a page that doesn't exist.
+        results = searchService.queryAssets("trickyRo", 10, 5);
         assertEquals(1, results.getTotalElements());
         assertEquals(1L, results.getTotalPages());
     }

@@ -284,6 +284,8 @@ public class AssetControllerTest extends BaseWebTest {
                         .tapscriptSibling("TEST_TAPSCRIPT_SIBLING")
                         .scriptVersion(0)
                         .scriptKey("FAKE_ASSET_STATE_ID_" + String.format("%02d", i))
+                        .amount(ONE)
+                        .version("1")
                         .build();
                 if (assetStateService.getAssetStateByAssetStateId(calculateAssetStateId(assetToCreate)).isEmpty()) {
                     assetStateService.addAssetState(assetToCreate);

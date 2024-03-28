@@ -61,7 +61,6 @@ public class SearchController extends BaseController {
             // Set the page title.
             model.addAttribute(PAGE_TITLE_ATTRIBUTE,
                     messageSource.getMessage("search.title", null, locale) + " " + query.trim());
-
         }
 
         return getPageOrFragment(request, SEARCH_PAGE);

@@ -3,6 +3,7 @@ package org.royllo.explorer.web.controller.user.account;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.royllo.explorer.core.dto.user.UserDTOSettings;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -24,6 +25,25 @@ public class AccountSettingsForm {
 
     /** Website maximum size. */
     private static final int WEBSITE_MAXIMUM_SIZE = 50;
+
+    /**
+     * Default constructor.
+     */
+    public AccountSettingsForm() {
+    }
+
+    /**
+     * Constructor with the user settings from UserDTO.
+     *
+     * @param accountSettings user settings
+     */
+    public AccountSettingsForm(final UserDTOSettings accountSettings) {
+        this.username = accountSettings.username();
+        this.profilePictureFilename = accountSettings.profilePictureFileName();
+        this.fullName = accountSettings.fullName();
+        this.biography = accountSettings.biography();
+        this.website = accountSettings.website();
+    }
 
     /** Username. */
     @Pattern(regexp = "^[a-zA-Z0-9_]{3,20}$", message = "{validation.user.username.invalid}")

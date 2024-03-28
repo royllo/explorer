@@ -52,7 +52,7 @@ public class LoginTests extends BaseWebTest {
 
     @Test
     @DisplayName("Login with newUserWithAVeryVeryLongUserName")
-    @WithMockUser(username = "newUserWithAVeryVeryLongUserName")
+    @WithMockUser(username = "33333333-3333-3333-3333-333333333333")
     void loginWithNewUser() throws Exception {
 
         // This user has not set its settings yet, so it should be redirected to the settings page.

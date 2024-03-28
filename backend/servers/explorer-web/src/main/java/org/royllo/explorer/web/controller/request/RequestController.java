@@ -40,7 +40,8 @@ public class RequestController extends BaseController {
             model.addAttribute(REQUEST_ID_ATTRIBUTE, requestId.trim());
 
             // We retrieve the request to display it.
-            requestService.getRequestByRequestId(requestId.trim()).ifPresent(request -> model.addAttribute(RESULT_ATTRIBUTE, request));
+            requestService.getRequestByRequestId(requestId.trim())
+                    .ifPresent(request -> model.addAttribute(RESULT_ATTRIBUTE, request));
         }
         return REQUEST_PAGE;
     }
