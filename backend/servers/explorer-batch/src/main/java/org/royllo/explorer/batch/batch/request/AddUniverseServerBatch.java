@@ -52,42 +52,37 @@ public class AddUniverseServerBatch extends BaseBatch {
                     .forEach(request -> {
                         logger.info("Processing request {}: {}", request.getId(), request);
 
-                        // If the universe server already exists, we set the request as failed.
-                        if (universeServerService.getUniverseServerByServerAddress(request.getServerAddress()).isPresent()) {
-                            logger.info("Universe server {} already exists", request.getServerAddress());
-                            request.failure("Universe server already exists");
-                        } else {
-                            // We make the call and check the result.
-                            try {
-                                // Calling tapd service to see if the server response.
+                        try {
+                            // If the universe server already exists, we set the request as failed.
+                            if (universeServerService.getUniverseServerByServerAddress(request.getServerAddress()).isPresent()) {
+                                throw new RuntimeException("Universe " + request.getServerAddress() + " server already exists");
+                            } else {
+                                // Calling tapd service to see if the server respond.
                                 final UniverseRootsResponse response = tapdService.getUniverseRoots(request.getServerAddress(), 0, 1).block();
 
                                 // if the response is null.
                                 if (response == null) {
-                                    logger.info("Universe roots response request {} is null", request.getId());
-                                    request.failure("Universe roots response null");
+                                    throw new RuntimeException("Universe roots response null");
                                 } else {
-                                    // We check if we had an error deciding the response.
+                                    // The response is not null, but we check if there is an error.
                                     if (response.getErrorCode() != null) {
-                                        logger.info("Universe server {} cannot be added because of this error: {}",
-                                                request.getServerAddress(),
-                                                response.getErrorMessage());
-                                        request.failure(response.getErrorMessage());
+                                        throw new RuntimeException("Universe roots response error code: " + response.getErrorMessage());
                                     } else {
-                                        // No error -  We create it.
+                                        // No error -  We create the universe server.
                                         final UniverseServerDTO universeServerCreated = universeServerService.addUniverseServer(request.getServerAddress());
                                         request.setUniverseServer(universeServerCreated);
                                         request.success();
                                     }
                                 }
-                            } catch (Throwable tapdError) {
-                                // We failed on calling tapd, but it's an exception; not a "valid" error.
-                                logger.error("Request {} has error: {}", request.getId(), tapdError.getMessage());
-                                request.failure("Error: " + tapdError.getMessage());
+
                             }
+                        } catch (Throwable tapdError) {
+                            // An error occurred in the process of adding a server.
+                            logger.error("Request {} has error: {}", request.getId(), tapdError.getMessage());
+                            request.failure("Error: " + tapdError.getMessage());
                         }
 
-                        // We save the request.
+                        // We save the request result.
                         logger.info("Universe server {} added: {} ", request.getServerAddress(), request);
                         requestRepository.save(REQUEST_MAPPER.mapToAddUniverseServerRequest(request));
                     });
