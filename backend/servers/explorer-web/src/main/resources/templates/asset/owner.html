@@ -3,18 +3,8 @@
       layout:decorate="~{util/fragments/layouts/asset/layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<!--/* =========================================================================================================== */-->
 <div layout:fragment="content" th:fragment="asset-owner-fragment" th:if="${asset} != null">
 
-    <!--/* Where we are */-->
-    <div class="text breadcrumbs">
-        <ul>
-            <li>&nbsp;</li>
-            <li th:text="#{asset.view.tabs.owner}"></li>
-        </ul>
-    </div>
-
-    <!--/* If there are no asset owner, just say it */-->
     <div class="overflow-x-auto">
         <table class="table table-fixed">
             <tbody>
@@ -27,7 +17,9 @@
             <tr>
                 <td>
                     <div class="font-bold" th:text="#{asset.data.creator.username}"></div>
-                    <div class="text-ellipsis overflow-hidden" th:text="${asset.creator.username}"></div>
+                    <div class="text-ellipsis overflow-hidden">
+                        <a th:href="@{'/user/' + ${asset.creator.username}}" th:text="${asset.creator.username}"></a>
+                    </div>
                 </td>
             </tr>
             <tr th:if="${!#strings.isEmpty(asset.creator.fullName)}">
@@ -55,6 +47,5 @@
     </div>
 
 </div>
-<!--/* =========================================================================================================== */-->
 
 </html>

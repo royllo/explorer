@@ -1,7 +1,7 @@
-<!--/* Asset header (what is the asset and available links) */-->
+<!--/* Asset header menu */-->
 <section th:if="${asset} != null">
 
-    <div class="navbar bg-neutral text-neutral-content">
+    <div class="navbar bg-base-300">
         <div class="navbar-start">
             <!--/* This is the menu if we are on mobile */-->
             <div class="dropdown">
@@ -57,7 +57,7 @@
         </div>
         <!--/* This is the menu */-->
         <div class="navbar-center hidden lg:flex">
-            <ul class="menu menu-horizontal px-1">
+            <ul class="menu menu-horizontal px-1 gap-1">
                 <li><a hx-push-url="true"
                        hx-target="#asset-tab"
                        th:href="@{'/asset/' + ${assetId} + '/genesis'}"

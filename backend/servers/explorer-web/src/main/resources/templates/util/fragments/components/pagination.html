@@ -7,8 +7,7 @@
        th:hx-target="${target}"
        th:if="${pageNumber > 1 && #strings.contains(url, '?')}"
        th:href="@{${url} + '&page=' + ${pageNumber - 1}}"
-       th:hx-get="@{${url} + '&page=' + ${pageNumber - 1}}"
-    >«</a>
+       th:hx-get="@{${url} + '&page=' + ${pageNumber - 1}}">«</a>
 
     <a class="join-item btn"
        id="previousPage?"
@@ -16,8 +15,7 @@
        th:hx-target="${target}"
        th:if="${pageNumber > 1 && !#strings.contains(url, '?')}"
        th:href="@{${url} + '?page=' + ${pageNumber - 1}}"
-       th:hx-get="@{${url} + '?page=' + ${pageNumber - 1}}"
-    >«</a>
+       th:hx-get="@{${url} + '?page=' + ${pageNumber - 1}}">«</a>
 
     <!--/* Current page */-->
     <a class="join-item btn" id="currentPage" th:text="@{${pageNumber} + '/' + ${pageCount}}"></a>
@@ -29,15 +27,14 @@
        th:hx-target="${target}"
        th:if="${pageNumber < pageCount && #strings.contains(url, '?')}"
        th:href="@{${url} + '&page=' + ${pageNumber + 1}}"
-       th:hx-get="@{${url} + '&page=' + ${pageNumber + 1}}"
-    >»</a>
+       th:hx-get="@{${url} + '&page=' + ${pageNumber + 1}}">»</a>
+
     <a class="join-item btn"
        id="nextPage?"
        hx-push-url="true"
        th:hx-target="${target}"
        th:if="${pageNumber < pageCount && !#strings.contains(url, '?')}"
        th:href="@{${url} + '?page=' + ${pageNumber + 1}}"
-       th:hx-get="@{${url} + '?page=' + ${pageNumber + 1}}"
-    >»</a>
+       th:hx-get="@{${url} + '?page=' + ${pageNumber + 1}}">»</a>
 
 </div>

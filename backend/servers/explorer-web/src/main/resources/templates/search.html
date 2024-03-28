@@ -3,14 +3,13 @@
       layout:decorate="~{util/fragments/layouts/default/layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<!--/* =========================================================================================================== */-->
 <div layout:fragment="content" th:fragment="search-fragment">
 
     <div class="mx-auto w-5/6">
 
         <!--/* =================================================================================================== */-->
         <!--/* Search form */-->
-        <div th:insert="~{util/fragments/components/search_asset_form :: form}"></div>
+        <div th:replace="~{util/fragments/components/search_asset_form :: form}"></div>
 
         <!--/* =================================================================================================== */-->
         <!--/* Error management */-->
@@ -35,11 +34,11 @@
         <div th:if="${result != null && !result.getContent().isEmpty()}">
 
             <!--/* =============================================================================================== */-->
+            <!--/*s Each asset */-->
             <div class="alert shadow-lg mb-5 mt-5" role="alert" th:each="asset: ${result.content}">
 
                 <!--/* =========================================================================================== */-->
-                <!--/* Icon */-->
-
+                <!--/* Asset icon */-->
                 <!--/* If we have an image type, we display it */-->
                 <img class="h-12 w-12 flex-none bg-gray-50"
                      th:alt="${asset.name}"
@@ -56,11 +55,10 @@
                      th:alt="${asset.name}"
                      th:if="${!#strings.equalsIgnoreCase(asset.MetaDataFileType, 'IMAGE') && #strings.equalsIgnoreCase(asset.type, 'COLLECTIBLE')}"
                      th:src="@{/svg/type_collectible_asset.svg}"/>
-
                 <!--/* =========================================================================================== */-->
 
                 <!--/* =========================================================================================== */-->
-                <!--/* Text */-->
+                <!--/* Asset text */-->
                 <div>
                     <h3 class="font-bold">
                         <a th:href="@{'/asset/' + ${asset.assetId}}">
@@ -91,13 +89,15 @@
             <!--/* =========================================================================================== */-->
 
             <!--/* Pagination */-->
-            <div th:insert="~{util/fragments/components/pagination :: pagination(   @{'/search?query=' + ${query}},
+            <div th:replace="~{util/fragments/components/pagination :: pagination(   @{'/search?query=' + ${query}},
                                                                                     '#content',
                                                                                     ${page},
                                                                                     ${result.getTotalPages()})}">
             </div>
 
         </div>
+        <!--/* =================================================================================================== */-->
+
     </div>
 </div>
 

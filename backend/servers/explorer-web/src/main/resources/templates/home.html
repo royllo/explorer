@@ -3,7 +3,6 @@
       layout:decorate="~{util/fragments/layouts/default/layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<!--/* =========================================================================================================== */-->
 <div layout:fragment="content" th:fragment="home-fragment">
     <!--/*
         We create a centered container for the content (not the full site for mobile display).
@@ -25,7 +24,7 @@
              width="150"/>
 
         <!--/* Search form */-->
-        <div th:insert="~{util/fragments/components/search_asset_form :: form}"></div>
+        <div th:replace="~{util/fragments/components/search_asset_form :: form}"></div>
 
         <!--/* Homepage message */-->
         <!--/*
@@ -35,14 +34,11 @@
         <div class="flex items-center justify-center mx-auto mt-12 text-sm" th:utext="#{home.message}"></div>
 
         <!--/* Global statistics */-->
-        <div class="hidden md:block ">
-            <div class="flex items-center justify-center mx-auto mt-12">
-                <div th:insert="~{util/fragments/components/global_statistics :: div}"></div>
-            </div>
+        <div class="flex items-center justify-center mx-auto mt-12">
+            <div th:insert="~{util/fragments/components/global_statistics :: div}" class="hidden md:block"></div>
         </div>
 
     </div>
 </div>
-<!--/* =========================================================================================================== */-->
 
 </html>

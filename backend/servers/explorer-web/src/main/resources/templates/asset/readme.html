@@ -3,17 +3,7 @@
       layout:decorate="~{util/fragments/layouts/asset/layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<!--/* =========================================================================================================== */-->
 <div layout:fragment="content" th:fragment="asset-readme-fragment" th:if="${asset} != null">
-
-
-    <!--/* Where we are */-->
-    <div class="text breadcrumbs">
-        <ul>
-            <li>&nbsp;</li>
-            <li th:text="#{asset.data.readme}"></li>
-        </ul>
-    </div>
 
     <!--/* No readme */-->
     <div th:if="${#strings.isEmpty(readme)}" role="alert" class="alert">
@@ -44,6 +34,5 @@
     </div>
 
 </div>
-<!--/* =========================================================================================================== */-->
 
 </html>

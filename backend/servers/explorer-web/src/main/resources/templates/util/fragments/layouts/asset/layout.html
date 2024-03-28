@@ -3,14 +3,11 @@
       lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<!--/* =========================================================================================================== */-->
 <!--/* Head */-->
 <head th:replace="~{util/fragments/layouts/default/head :: head}">
     <title th:text="#{head.title}"></title>
 </head>
-<!--/* =========================================================================================================== */-->
 
-<!--/* =========================================================================================================== */-->
 <!--/* Body */-->
 <body>
 
@@ -53,7 +50,7 @@
         <div th:replace="~{util/fragments/layouts/asset/asset_header :: section}"></div>
 
         <!--/* A tab describing a part of the asset */-->
-        <div class="w-11/12 mx-auto"
+        <div class="w-11/12 mx-auto mt-5"
              id="asset-tab"
              layout:fragment="content">
         </div>
@@ -70,6 +67,5 @@
 <footer th:replace="~{util/fragments/layouts/default/footer :: footer}"></footer>
 
 </body>
-<!--/* =========================================================================================================== */-->
 
 </html>

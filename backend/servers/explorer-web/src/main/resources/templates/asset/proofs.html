@@ -3,16 +3,7 @@
       layout:decorate="~{util/fragments/layouts/asset/layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<!--/* =========================================================================================================== */-->
 <div layout:fragment="content" th:fragment="asset-proofs-fragment" th:if="${asset} != null">
-
-    <!--/* Where we are */-->
-    <div class="text breadcrumbs">
-        <ul>
-            <li>&nbsp;</li>
-            <li th:text="#{asset.view.tabs.proofs}"></li>
-        </ul>
-    </div>
 
     <!--/* List all the proofs */-->
     <div class="overflow-x-auto">
@@ -23,13 +14,12 @@
                 <td class="text-ellipsis overflow-hidden">
                     <a th:href="${contentBaseUrl} + '/' + ${proof.proofFileName}"
                        th:target="${proof.proofFileName}"
-                       th:text="${proof.proofId}"></a>
+                       th:text="${proof.proofFileName}"></a>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
-
 
     <!--/* Pagination */-->
     <div th:insert="~{util/fragments/components/pagination :: pagination(   @{'/asset/' + ${assetId} + '/proofs'},
@@ -39,6 +29,5 @@
     </div>
 
 </div>
-<!--/* =========================================================================================================== */-->
 
 </html>

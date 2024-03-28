@@ -4,16 +4,7 @@
       layout:decorate="~{util/fragments/layouts/asset/layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<!--/* =========================================================================================================== */-->
 <div layout:fragment="content" th:fragment="asset-states-fragment" th:if="${asset} != null">
-
-    <!--/* Where we are */-->
-    <div class="text breadcrumbs">
-        <ul>
-            <li>&nbsp;</li>
-            <li th:text="#{asset.view.tabs.states}"></li>
-        </ul>
-    </div>
 
     <!--/* Display asset states */-->
     <details class="collapse bg-base-200 mb-6" th:each="assetState, iStat: ${assetStatesList}">
@@ -101,7 +92,6 @@
         </div>
     </details>
 
-
     <!--/* Pagination */-->
     <div th:insert="~{util/fragments/components/pagination :: pagination(   @{'/asset/' + ${assetId} + '/states'},
                                                                             '#asset-tab',
@@ -110,6 +100,5 @@
     </div>
 
 </div>
-<!--/* =========================================================================================================== */-->
 
 </html>

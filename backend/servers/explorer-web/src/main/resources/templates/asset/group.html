@@ -3,16 +3,7 @@
       layout:decorate="~{util/fragments/layouts/asset/layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<!--/* =========================================================================================================== */-->
 <div layout:fragment="content" th:fragment="asset-group-fragment" th:if="${asset} != null">
-
-    <!--/* Where we are */-->
-    <div class="text breadcrumbs">
-        <ul>
-            <li>&nbsp;</li>
-            <li th:text="#{asset.view.tabs.group}"></li>
-        </ul>
-    </div>
 
     <!--/* If there are no asset group on this asset */-->
     <div class="overflow-x-auto" th:if="${asset.assetGroup} == null">
@@ -28,7 +19,7 @@
     </div>
 
     <!--/* Display asset group and linked assets */-->
-    <div class="overflow-x-auto mb-5 mt-5" th:if="${asset.assetGroup} != null">
+    <div class="overflow-x-auto mb-5" th:if="${asset.assetGroup} != null">
         <table class="table table-zebra table-fixed">
             <!--/* Header */-->
             <thead class="w-full">
@@ -61,6 +52,5 @@
     </div>
 
 </div>
-<!--/* =========================================================================================================== */-->
 
 </html>
