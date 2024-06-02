@@ -97,7 +97,7 @@
 
         <webjars-locator.version>0.52</webjars-locator.version>
         <htmx.version>1.9.12</htmx.version>
-        <alpinejs.version>3.13.10</alpinejs.version>
+        <alpinejs.version>3.14.0</alpinejs.version>
         <easymde.version>2.18.0</easymde.version>
 
         <commonmark.version>0.22.0</commonmark.version>
