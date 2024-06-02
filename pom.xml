@@ -111,7 +111,7 @@
         <!-- ======================================================================================================= -->
         <!-- Maven plugins -->
         <maven.checkstyle.plugin.version>3.3.1</maven.checkstyle.plugin.version>
-        <maven.graphqlcodegen.plugin.version>1.60.1</maven.graphqlcodegen.plugin.version>
+        <maven.graphqlcodegen.plugin.version>1.61.0</maven.graphqlcodegen.plugin.version>
         <maven.puppycrawl.checkstyle.version>10.16.0</maven.puppycrawl.checkstyle.version>
         <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
 
