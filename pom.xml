@@ -92,7 +92,7 @@
         <caffeine.version>3.1.8</caffeine.version>
 
         <thymeleaf-layout-dialect.version>3.3.0</thymeleaf-layout-dialect.version>
-        <htmx-spring-boot-thymeleaf.version>3.3.0</htmx-spring-boot-thymeleaf.version>
+        <htmx-spring-boot-thymeleaf.version>3.4.0</htmx-spring-boot-thymeleaf.version>
         <bitcoin-spring-boot-starter.version>0.13.0</bitcoin-spring-boot-starter.version>
 
         <webjars-locator.version>0.52</webjars-locator.version>
