@@ -19,7 +19,7 @@
     "@tailwindcss/typography": "^0.5.13",
     "autoprefixer": "^10.4.19",
     "browser-sync": "^3.0.2",
-    "cssnano": "^7.0.2",
+    "cssnano": "^7.0.3",
     "daisyui": "^4.12.6",
     "mkdirp": "^3.0.1",
     "ncp": "^2.0.0",
