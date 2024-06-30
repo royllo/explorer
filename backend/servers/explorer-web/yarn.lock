@@ -606,10 +606,10 @@ culori@^3:
   resolved "https://registry.npmjs.org/culori/-/culori-3.2.0.tgz"
   integrity sha512-HIEbTSP7vs1mPq/2P9In6QyFE0Tkpevh0k9a+FkjhD+cwsYm9WRSbn4uMdW9O0yXlNYC3ppxL3gWWPOcvEl57w==
 
-daisyui@^4.12.6:
-  version "4.12.6"
-  resolved "https://registry.yarnpkg.com/daisyui/-/daisyui-4.12.6.tgz#0039d18dd4a558d11b6dbaf3a3a73066b93f14d3"
-  integrity sha512-Tz/rvi2ws7+7uh51JgGpsRqnASwI13t6Sz53ePaGkhLzhr4SQI4wwNxSypE8lj/d4gl/+lbHK1phIKUo+d2YNw==
+daisyui@^4.12.10:
+  version "4.12.10"
+  resolved "https://registry.yarnpkg.com/daisyui/-/daisyui-4.12.10.tgz#fc26b6da72c5855f4677d2f100f02e06c8e8a70f"
+  integrity sha512-jp1RAuzbHhGdXmn957Z2XsTZStXGHzFfF0FgIOZj3Wv9sH7OZgLfXTRZNfKVYxltGUOBsG1kbWAdF5SrqjebvA==
   dependencies:
     css-selector-tokenizer "^0.8"
     culori "^3"
@@ -1708,12 +1708,7 @@ path-type@^5.0.0:
   resolved "https://registry.npmjs.org/path-type/-/path-type-5.0.0.tgz"
   integrity sha512-5HviZNaZcfqP95rwpv+1HDgUamezbqdSYTyzjTvwtJSnIH+3vnbmWsItli8OFEndS984VT55M3jduxZbX351gg==
 
-picocolors@^1, picocolors@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/picocolors/-/picocolors-1.0.0.tgz"
-  integrity sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==
-
-picocolors@^1.0.1:
+picocolors@^1, picocolors@^1.0.0, picocolors@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.0.1.tgz#a8ad579b571952f0e5d25892de5445bcfe25aaa1"
   integrity sha512-anP1Z8qwhkbmu7MFP5iTt+wQKXgwzf7zTyGlcdzabySa9vd0Xt392U0rVmz9poOaBj0uHJKyyo9/upk0HrEQew==
