@@ -70,7 +70,7 @@
         <graphql-dgs-codegen-core.version>6.2.2</graphql-dgs-codegen-core.version>
         <graphql-dgs-codegen-client-core.version>5.1.17</graphql-dgs-codegen-client-core.version>
 
-        <liquibase.version>4.28.0</liquibase.version>
+        <liquibase.version>4.29.1</liquibase.version>
         <jdbc.driver.hsqldb.version>2.7.3</jdbc.driver.hsqldb.version>
         <jdbc.driver.postgresql.version>42.7.3</jdbc.driver.postgresql.version>
 
