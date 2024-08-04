@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.13",
-    "autoprefixer": "^10.4.19",
+    "autoprefixer": "^10.4.20",
     "browser-sync": "^3.0.2",
     "cssnano": "^7.0.4",
     "daisyui": "^4.12.10",
