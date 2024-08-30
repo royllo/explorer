@@ -75,9 +75,9 @@ jobs:
           mvn spring-boot:build-image -P release -DskipTests -f backend/servers/explorer-web/pom.xml
 
       # ================================================================================================================
-      - name: Run the docker-compose with our images
+      - name: Run the docker compose with our images
         run: |
-          docker-compose up >> docker.logs 2>&1 &
+          docker compose up >> docker.logs 2>&1 &
           sleep 60
 
       # ================================================================================================================
