@@ -82,7 +82,7 @@
 
         <!-- ======================================================================================================= -->
         <!-- Cloud libraries -->
-        <minio.version>8.5.11</minio.version>
+        <minio.version>8.5.12</minio.version>
         <jimfs.version>1.3.0</jimfs.version>
         <undertow.version>2.3.16.Final</undertow.version>
 
