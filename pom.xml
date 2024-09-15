@@ -76,7 +76,7 @@
 
         <lombok.version>1.18.34</lombok.version>
         <lombok.mapstruct.version>0.2.0</lombok.mapstruct.version>
-        <mapstruct.version>1.6.0</mapstruct.version>
+        <mapstruct.version>1.6.1</mapstruct.version>
 
         <tika-core.version>2.9.2</tika-core.version>
 
