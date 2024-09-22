@@ -100,7 +100,7 @@
         <alpinejs.version>3.14.1</alpinejs.version>
         <easymde.version>2.18.0</easymde.version>
 
-        <commonmark.version>0.22.0</commonmark.version>
+        <commonmark.version>0.23.0</commonmark.version>
 
         <!-- ======================================================================================================= -->
         <!-- Test libraries -->
