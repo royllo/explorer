@@ -591,10 +591,10 @@ culori@^3:
   resolved "https://registry.npmjs.org/culori/-/culori-3.2.0.tgz"
   integrity sha512-HIEbTSP7vs1mPq/2P9In6QyFE0Tkpevh0k9a+FkjhD+cwsYm9WRSbn4uMdW9O0yXlNYC3ppxL3gWWPOcvEl57w==
 
-daisyui@^4.12.10:
-  version "4.12.10"
-  resolved "https://registry.npmjs.org/daisyui/-/daisyui-4.12.10.tgz"
-  integrity sha512-jp1RAuzbHhGdXmn957Z2XsTZStXGHzFfF0FgIOZj3Wv9sH7OZgLfXTRZNfKVYxltGUOBsG1kbWAdF5SrqjebvA==
+daisyui@^4.12.13:
+  version "4.12.13"
+  resolved "https://registry.yarnpkg.com/daisyui/-/daisyui-4.12.13.tgz#e386c54dd7a55e77dc865f12e1556b37229dfb4e"
+  integrity sha512-BnXyQoOByUF/7wSdIKubyhXxbtL8gxwY3u2cNMkxGP39TSVJqMmlItqtpY903fQnLI/NokC+bc+ZV+PEPsppPw==
   dependencies:
     css-selector-tokenizer "^0.8"
     culori "^3"
